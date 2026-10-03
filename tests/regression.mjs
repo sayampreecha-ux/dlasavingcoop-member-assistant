@@ -62,6 +62,22 @@ for(const q of [...html.matchAll(/data-q="([^"]+)"/g)].map(m=>m[1])){
   if(globalThis.COOP_APP.answer(q).intent==='fallback') failures.push({q,group:'homepage'});
 }
 
+
+// Critical UI/service guards requested by members.
+{
+  const signup=globalThis.COOP_APP.answer('สมัครฌาปนกิจ');
+  if(signup.actions?.[0]?.[1] !== globalThis.COOP_KB.official.funeralApplyHowToImage){
+    failures.push({group:'funeral-signup',actual:signup.actions?.[0]});
+  }
+  const contact=globalThis.COOP_APP.answer('ช่องทางติดต่อสหกรณ์');
+  if(!contact.actions?.some(x=>x[1]===globalThis.COOP_KB.official.home)){
+    failures.push({group:'contact-website'});
+  }
+  if(!html.includes('🌐 เว็บไซต์สหกรณ์ www.dlasavingcoop.com')){
+    failures.push({group:'contact-panel-website'});
+  }
+}
+
 const forbidden=['#facebook-copy','id="copyFb"','092-391-8135','0923918135','13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
 for(const token of forbidden) if(html.includes(token)) failures.push({token,group:'stale'});
 
