@@ -9,3 +9,13 @@
 - ไม่เก็บรหัสผ่านหรือ OTP
 
 Production source: `index.html`
+
+## Regression test
+
+รันชุดทดสอบหลักหลังแก้ Knowledge Base / Intent Router / ช่องทางติดต่อ:
+
+```bash
+node tests/regression.mjs
+```
+
+ชุดทดสอบครอบคลุม intent หลัก, คำพิมพ์ผิด, privacy handoff, ปุ่มหน้าแรก และ stale contact/link guards
