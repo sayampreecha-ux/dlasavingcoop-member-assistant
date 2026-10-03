@@ -106,7 +106,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.2.4-pages',
+    version:'2.3.1-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -208,41 +208,124 @@
   function res(intent,answer,opt={}){
     const details=[...(opt.details||[])];
     const actions=[...(opt.actions||[])];
-    const addAction=(label,url)=>{if(!actions.some(x=>x[1]===url)) actions.push([label,url]);};
-    const hasSteps=details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
+    const sources=[...(opt.sources||[])];
+    const addAction=(label,url)=>{
+      if(!url) return;
+      const found=actions.find(x=>x[1]===url);
+      if(!found){actions.push([label,url]);return;}
+      const authority=/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|แบบฟอร์ม|วิธีการชำระ|คำแนะนำ/;
+      if(authority.test(label)&&!authority.test(found[0])) found[0]=label;
+    };
+    const addSource=(title,url,note='')=>{if(url&&!sources.some(x=>x.url===url)) sources.push(src(title,url,note));};
+    const hasSteps=()=>details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
+    const hasFinish=()=>details.some(x=>/จบกระบวนการเมื่อ|ถือว่ารายการเสร็จ|เสร็จสิ้นเมื่อ/.test(String(x)));
 
-    if(/^welfare_/.test(intent)||intent==='scholarship'){
-      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/แบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ติดตามผล');
+    // Transaction Completion Gate:
+    // every member transaction must surface an official rule/announcement/form,
+    // explain the process through completion, and provide a responsible contact.
+    const isWelfare=/^welfare_/.test(intent)||intent==='scholarship';
+    const isLoan=/^loan_/.test(intent);
+    const isDeposit=/^deposit/.test(intent);
+    const isRegistration=/^(member_apply|transfer|resignation)$/.test(intent);
+    const isFuneral=intent==='funeral';
+    const isPayment=intent==='payment';
+
+    if(isWelfare){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ระเบียบและแบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ให้เจ้าหน้าที่ตรวจความครบถ้วน 6) ติดตามผลการพิจารณา/การจ่าย');
+      addAction('📘 หลักเกณฑ์/ระเบียบสวัสดิการ',S.welfareRule);
+      addAction('📄 แบบฟอร์มสวัสดิการ',S.welfareForms);
+      addSource('ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก',S.welfareRule);
+      addSource('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms);
       addAction('☎️ งานสวัสดิการ 081-515-7253','tel:0815157253');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+      if(!hasFinish()) details.push('จบกระบวนการเมื่อ: สหกรณ์แจ้งผลการพิจารณา และสมาชิกได้รับสิทธิ/เงินหรือได้รับแจ้งเหตุที่ไม่ผ่านตามหลักเกณฑ์แล้ว');
     }
-    if(/^loan_/.test(intent)){
-      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์ล่าสุด 2) เลือก/ดาวน์โหลดแบบ 3) เตรียมเอกสารและหลักประกันตามแบบ 4) ยื่นคำขอ 5) ติดตามผลกับเจ้าหน้าที่');
-      if(/special/.test(intent)) addAction('☎️ งานเงินกู้พิเศษ 092-391-7912','tel:0923917912');
-      else if(/emergency/.test(intent)) addAction('☎️ งานเงินกู้ฉุกเฉิน 083-929-3058','tel:0839293058');
-      else addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
+
+    if(isLoan){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ประกาศที่ใช้บังคับ 2) ตรวจประเภทและเงื่อนไขของรายการ 3) ดาวน์โหลด/เตรียมแบบและเอกสาร 4) ยื่นหรือขอยอดจากเจ้าหน้าที่ 5) ดำเนินการชำระ/ทำสัญญาตามกรณี 6) ให้เจ้าหน้าที่ตรวจและติดตามสถานะจนเสร็จ');
+      if(/emergency/.test(intent)){
+        addAction('📢 หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
+        addAction('📄 แบบฟอร์มเงินกู้ฉุกเฉิน',S.emergencyLoan);
+        addSource('หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
+        addSource('แบบฟอร์มเงินกู้ฉุกเฉิน',S.emergencyLoan);
+        addAction('☎️ งานเงินกู้ฉุกเฉิน 083-929-3058','tel:0839293058');
+      } else if(/special/.test(intent)){
+        addAction('📘 หลักเกณฑ์/แบบเงินกู้พิเศษ',S.specialLoanForms);
+        addSource('หลักเกณฑ์และแบบฟอร์มเงินกู้พิเศษ',S.specialLoanForms);
+        addAction('☎️ งานเงินกู้พิเศษ 092-391-7912','tel:0923917912');
+      } else {
+        addAction('📢 หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569);
+        addAction('📄 แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
+        addSource('หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569);
+        addSource('แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
+        addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
+      }
+      if(intent==='loan_close'){
+        addAction('💳 วิธีการชำระเงินทางการ',S.payment);
+        addSource('วิธีการชำระเงินของสหกรณ์',S.payment);
+        if(!hasFinish()) details.push('จบกระบวนการเมื่อ: เจ้าหน้าที่ตรวจรับยอดชำระตามวันที่จริงและยืนยันสถานะหนี้/สัญญาว่าดำเนินการครบแล้ว สมาชิกควรเก็บหลักฐานการชำระไว้');
+      } else if(!hasFinish()){
+        details.push('จบกระบวนการเมื่อ: สหกรณ์แจ้งผลรายการและดำเนินขั้นตอนที่เกี่ยวข้องครบแล้ว เช่น อนุมัติ/ไม่อนุมัติ ทำสัญญา หรือแจ้งผลตามประเภทเงินกู้');
+      }
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
     }
-    if(/^deposit/.test(intent)){
-      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบ/ขั้นตอนเงินฝาก 2) กรอกและเตรียมหลักฐาน 3) ส่งตามช่องทางที่หน้าทางการกำหนด 4) ติดตามกับงานเงินฝาก');
+
+    if(isDeposit){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/แบบเงินฝาก 2) เลือกรายการที่ต้องการ 3) กรอกแบบและเตรียมหลักฐาน 4) ส่งตามช่องทางทางการ 5) ให้เจ้าหน้าที่ตรวจรายการ 6) ตรวจผลรายการ/ยอดกับงานเงินฝาก');
+      addAction('📘 หลักเกณฑ์/แบบฟอร์มเงินฝาก',S.depositForms);
+      addAction('📋 คำแนะนำงานเงินฝาก',S.depositGuide);
+      addSource('หลักเกณฑ์และแบบฟอร์มเงินฝาก',S.depositForms);
+      addSource('คำแนะนำงานเงินฝาก',S.depositGuide);
       addAction('☎️ งานเงินฝาก 092-391-5896','tel:0923915896');
       addAction('☎️ งานเงินฝาก 091-727-5236','tel:0917275236');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+      if(!hasFinish()) details.push('จบกระบวนการเมื่อ: เจ้าหน้าที่บันทึกรายการแล้ว และสมาชิกตรวจสอบผลรายการ/ยอดเงินหรือการปิดบัญชีได้ตรงกับคำขอ');
     }
-    if(/^(member_apply|transfer|resignation)$/.test(intent)){
-      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบงานทะเบียนที่เกี่ยวข้อง 2) กรอกและเตรียมหลักฐาน 3) ยื่นต่อสหกรณ์ 4) ให้งานทะเบียนตรวจ 5) ติดตามผล');
+
+    if(isRegistration){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดระเบียบ/แบบงานทะเบียนที่เกี่ยวข้อง 2) ตรวจเงื่อนไข 3) กรอกและเตรียมหลักฐาน 4) ยื่นต่อสหกรณ์ 5) ให้งานทะเบียนตรวจข้อมูลและภาระผูกพัน 6) ติดตามจนระบบทะเบียนปรับข้อมูล/สถานะ');
+      addAction('📄 แบบฟอร์มสมาชิก/ทะเบียน',S.memberForms);
+      addSource('แบบฟอร์มสมาชิกและงานทะเบียน',S.memberForms);
+      if(intent==='member_apply'){
+        addAction('📘 ใบสมัคร/หลักเกณฑ์สมาชิก',S.memberApplication);
+        addSource('ใบสมัครสมาชิก',S.memberApplication);
+      }
+      if(intent==='transfer'){
+        addAction('📘 ระเบียบโอนสมาชิกระหว่างสหกรณ์',S.transfer);
+        addSource('ระเบียบโอนสมาชิกระหว่างสหกรณ์',S.transfer);
+      }
+      if(intent==='resignation'){
+        addAction('📄 ใบลาออก/แบบงานสมาชิก',S.resignation);
+        addSource('ใบลาออกและแบบงานสมาชิก',S.resignation);
+      }
       addAction('☎️ งานทะเบียน 083-929-2739','tel:0839292739');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+      if(!hasFinish()) details.push('จบกระบวนการเมื่อ: งานทะเบียนยืนยันว่าปรับสถานะ/ข้อมูลสมาชิกเรียบร้อย และสมาชิกตรวจความถูกต้องของข้อมูลหรือผลรายการแล้ว');
     }
+
+    if(isFuneral){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดข้อบังคับ/หลักเกณฑ์สมาคม 2) เลือกรายการที่ต้องการ 3) เตรียมแบบและเอกสาร 4) ยื่น/ชำระตามช่องทางทางการ 5) ให้เจ้าหน้าที่ตรวจ 6) ติดตามผลจนสมาคมยืนยันรายการ');
+      addAction('📘 ข้อบังคับสมาคมฌาปนกิจ',S.funeralRules);
+      addSource('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules);
+      addAction('☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+      if(!hasFinish()) details.push('จบกระบวนการเมื่อ: สมาคมแจ้งผลหรือยืนยันรายการตามเรื่องที่ยื่น และสมาชิก/ผู้มีสิทธิได้รับหลักฐานหรือผลการดำเนินการครบแล้ว');
+    }
+
+    if(isPayment){
+      if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดวิธีการชำระเงินทางการ 2) ตรวจว่าชำระค่าหุ้น/เงินกู้/รายการใด 3) ตรวจยอดและข้อมูลบัญชี 4) ชำระตามช่องทางที่กำหนด 5) เก็บหลักฐาน 6) ตรวจการรับชำระกับสหกรณ์');
+      addAction('💳 วิธีการชำระเงินทางการ',S.payment);
+      addSource('วิธีการชำระเงินของสหกรณ์',S.payment);
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+      if(!hasFinish()) details.push('จบกระบวนการเมื่อ: สหกรณ์ตรวจรับยอดและบันทึกรายการถูกต้องแล้ว สมาชิกควรเก็บหลักฐานการชำระไว้');
+    }
+
     if(intent==='dividend'){
       addAction('☎️ งานทะเบียน 092-391-7688','tel:0923917688');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
     }
-    if(intent==='funeral'){
-      addAction('☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533');
-      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
-    }
-    return {intent,answer,details,actions,sources:opt.sources||[],followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy};
+
+    return {intent,answer,details,actions,sources,followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy};
   }
 
   function norm(s=''){
@@ -467,8 +550,26 @@
       actions:[['📢 เปิดประกาศกู้เพื่อการพักผ่อน',S.loanVacationAnnouncement],['📄 เปิดแบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898']],sources:[src('ประกาศกู้เพื่อการพักผ่อน',S.loanVacationAnnouncement),src('แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan)]
     });
 
-    if(/ปิด(?:บัญชี)?(?:เงิน)?กู้|ปิดหนี้|ชำระปิด.*กู้|ปิดยอดกู้/i.test(q)) return res('loan_close','ถ้าต้องการปิดเงินกู้ ต้องขอยอดชำระปิดตามวันที่จากเจ้าหน้าที่ก่อน แล้วชำระผ่านช่องทางทางการครับ',{
-      details:['ยอดปิดเป็นข้อมูลเฉพาะสมาชิกและเปลี่ยนตามวันที่ชำระ','หลังชำระควรตรวจสถานะกับเจ้าหน้าที่อีกครั้ง'],actions:[['วิธีการชำระเงิน',S.payment],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898'],['☎️ โทรกลาง 02-241-8250','tel:+6622418250']],sources:[src('วิธีการชำระเงินทางการ',S.payment)]
+    if(/ปิด(?:บัญชี)?(?:เงิน)?กู้|ปิดหนี้|ชำระปิด.*กู้|ปิดยอดกู้/i.test(q)) return res('loan_close','ปิดหนี้/ปิดเงินกู้ให้เริ่มจากตรวจหลักเกณฑ์เงินกู้ แล้วขอ “ยอดชำระปิดตามวันที่จริง” จากเจ้าหน้าที่ก่อนชำระครับ',{
+      details:[
+        'ยอดปิดเป็นข้อมูลเฉพาะสมาชิกและเปลี่ยนตามวันที่ชำระ จึงห้ามใช้ยอดประมาณการจากระบบ',
+        'ขั้นตอน: 1) เปิดหลักเกณฑ์เงินกู้สามัญล่าสุด 2) ติดต่อเจ้าหน้าที่ให้ตรวจสัญญาและออกยอดชำระปิดตามวันที่ต้องการจ่าย 3) ตรวจยอด/เลขอ้างอิง/ช่องทางชำระ 4) ชำระผ่านช่องทางทางการ 5) ส่งหรือเก็บหลักฐานตามที่เจ้าหน้าที่กำหนด 6) ให้เจ้าหน้าที่ตรวจรับเงินและยืนยันสถานะหนี้/สัญญาอีกครั้ง',
+        'หากมีหลักประกัน เอกสาร หรือภาระผูกพันอื่น ให้เจ้าหน้าที่แจ้งขั้นตอนคืน/ปลด/ดำเนินการเพิ่มเติมตามสัญญาและหลักเกณฑ์ที่เกี่ยวข้อง',
+        'จบกระบวนการเมื่อ: เจ้าหน้าที่ยืนยันว่ารับชำระครบตามยอดจริงและสถานะหนี้/สัญญาได้รับการดำเนินการครบแล้ว'
+      ],
+      actions:[
+        ['📢 หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569],
+        ['📄 แบบฟอร์ม/เอกสารเงินกู้สามัญ',S.ordinaryLoanForms],
+        ['💳 วิธีการชำระเงินทางการ',S.payment],
+        ['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],
+        ['☎️ คุณศุจินธร 092-391-8898','tel:0923918898'],
+        ['☎️ โทรกลาง 02-241-8250','tel:+6622418250']
+      ],
+      sources:[
+        src('หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569),
+        src('แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms),
+        src('วิธีการชำระเงินทางการ',S.payment)
+      ]
     });
 
     if(/เปลี่ยน.*(?:ผู้ค้ำ|คนค้ำ)|เปลี่ยนแปลงผู้ค้ำ/i.test(q)) return res('loan_change_guarantor','มีหนังสือแจ้งความประสงค์การเปลี่ยนแปลงผู้ค้ำประกันสำหรับเงินกู้สามัญครับ',{
