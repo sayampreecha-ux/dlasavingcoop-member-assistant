@@ -106,7 +106,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.2.2-pages',
+    version:'2.2.3-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -127,7 +127,7 @@
       funeralApproval:'https://www.dlasavingcoop.com/show.php?No=4241',
       funeralRules:'https://www.dlasavingcoop.com/show.php?No=4401',
       funeralRulesPdf:'https://dlasavingcoop.com/coop/data/Funeralsociety.pdf',
-      funeralPayment:'https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/pay%281%29.pdf',
+      funeralPayment:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/777.jpg',
       staffProvince:'https://www.dlasavingcoop.com/show.php?Category=contact',
       staffOrdinaryLoanImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/66%282%29.png',
       staffEmergencySpecialImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/12%285%29.jpg',
@@ -352,7 +352,7 @@
         ],
         actions:[
           ['🖼️ วิธีสมัคร (ภาพทางการ)',S.funeralApplyHowToImage],
-          ['💳 วิธีชำระค่าสมัคร',S.funeralPayment],
+          ['💳 วิธีชำระเงิน (ภาพทางการ)',S.funeralPayment],
           ['✅ ตรวจผลอนุมัติ/เลขสมาชิก',S.funeralApproval],
           ['📘 ข้อบังคับสมาคม',S.funeralRules],
           ['🌐 หน้าสมัครทางการ (สำรอง)',S.funeralApply],
@@ -375,17 +375,17 @@
         sources:[src('ผลการอนุมัติสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApproval)]
       });
 
-      if(isPayment) return res('funeral','เรื่องชำระเงินฌาปนกิจ ให้เปิดเอกสารวิธีชำระเงินทางการและตรวจยอด/ชื่อบัญชีก่อนทำรายการครับ',{
+      if(isPayment) return res('funeral','เรื่องชำระเงินฌาปนกิจ ให้เปิด “ภาพวิธีชำระเงินทางการ” และตรวจยอด/ชื่อบัญชีก่อนทำรายการครับ',{
         details:[
-          'ขั้นตอน: 1) เปิดวิธีชำระเงินทางการ 2) ตรวจประเภทที่ต้องชำระ เช่น ค่าสมัคร/ค่าบำรุง/เงินสงเคราะห์ล่วงหน้า 3) ตรวจยอดและชื่อบัญชีในเอกสารล่าสุด 4) ชำระตามช่องทางที่กำหนด 5) เก็บหลักฐานการชำระ 6) หากไม่แน่ใจให้เจ้าหน้าที่สมาคมตรวจ',
+          'ขั้นตอน: 1) เปิดภาพวิธีชำระเงินทางการ 2) ตรวจประเภทที่ต้องชำระ เช่น ค่าสมัคร/ค่าบำรุง/เงินสงเคราะห์ล่วงหน้า 3) ตรวจยอด เลขบัญชี และชื่อบัญชีจากภาพ/ประกาศล่าสุด 4) ชำระตามช่องทางที่กำหนด 5) เก็บหลักฐานการชำระ 6) หากไม่แน่ใจให้เจ้าหน้าที่สมาคมตรวจ',
           'ไม่ใช้ยอดเงินที่จำจากประกาศเก่า เพราะอัตราและการเรียกเก็บอาจเปลี่ยนได้'
         ],
         actions:[
-          ['💳 วิธีชำระเงินค่าสมัคร',S.funeralPayment],
+          ['💳 วิธีชำระเงิน (ภาพทางการ)',S.funeralPayment],
           ['📋 รวมเรื่องการเรียกเก็บ/ชำระเงิน',S.funeralHub],
           ['☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533']
         ],
-        sources:[src('วิธีการชำระเงินสมัครสมาชิกฌาปนกิจ',S.funeralPayment),src('รวมเรื่องสมาคมฌาปนกิจ',S.funeralHub)]
+        sources:[src('ภาพวิธีการสมัครและชำระเงินฌาปนกิจ',S.funeralPayment),src('รวมเรื่องสมาคมฌาปนกิจ',S.funeralHub)]
       });
 
       if(isClaim) return res('funeral','กรณีสมาชิกสมาคมเสียชีวิต ให้ดำเนินการขอรับค่าจัดการศพและเงินสงเคราะห์ครอบครัวตามข้อบังคับและขั้นตอนของสมาคมครับ',{
@@ -424,7 +424,7 @@
         actions:[
           ['🖼️ วิธีสมัครฌาปนกิจ',S.funeralApplyHowToImage],
           ['✅ ผลอนุมัติ / ค้นเลขสมาชิก',S.funeralApproval],
-          ['💳 วิธีชำระค่าสมัคร',S.funeralPayment],
+          ['💳 วิธีชำระเงิน (ภาพทางการ)',S.funeralPayment],
           ['📘 ข้อบังคับสมาคม',S.funeralRules],
           ['☎️ เจ้าหน้าที่ฌาปนกิจ 083-615-5533','tel:0836155533']
         ],
