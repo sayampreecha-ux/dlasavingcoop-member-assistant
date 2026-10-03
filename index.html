@@ -162,7 +162,7 @@
     return res('personal_handoff',`เรื่องนี้ต้องใช้ข้อมูลเฉพาะสมาชิก ระบบนี้ไม่ตรวจยอด/สถานะ/ผลอนุมัติแทนเจ้าหน้าที่ครับ\n\n${target}`,{
       status:'🔒 ข้อมูลเฉพาะสมาชิก — ส่งต่อเจ้าหน้าที่',privacy:true,
       details:['อย่าส่งเลขบัตรประชาชน เลขบัญชี รหัสผ่าน หรือ OTP ในหน้าเว็บนี้','แจ้งเลขสมาชิกเฉพาะเมื่ออยู่ในช่องทางทางการของสหกรณ์'],
-      actions:[['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['LINE Official @dlasavingcoop',S.line],['Facebook @Dlasavingcooppage',S.facebook],['🌐 หน้าติดต่อทางการ',S.contact]],
+      actions:[['🌐 เปิดหน้าติดต่อทางการ',S.contact],['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['LINE Official @dlasavingcoop',S.line],['Facebook @Dlasavingcooppage',S.facebook]],
       sources:[src('หน้าติดต่อ สอ.อปท.',S.contact)]
     });
   }
@@ -174,8 +174,8 @@
 
     if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
       `ช่องทางหลัก สอ.อปท.\n• โทร 02-241-8250 หรือ 02-241-8251\n• LINE Official ${C.general.line}\n• Facebook: @Dlasavingcooppage\n• เว็บไซต์: www.dlasavingcoop.com\n• ที่อยู่: ${C.general.address}`,{
-        details:[`ถ้า LINE เปิดไม่ขึ้น: กด “ติดต่อเจ้าหน้าที่” แล้วเลือก “แสดง QR LINE” หรือค้นหา ID ${C.general.line}`,`ถ้า Facebook เปิดไม่ขึ้น: ค้นหาเพจ @Dlasavingcooppage`,`กู้สามัญ: ${line(C.ordinaryLoan.people)}`,`กู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}`,`งานทะเบียน: ${line(C.registration.people)}`,`งานเงินฝาก: ${line(C.deposit.people)}`],
-        actions:[['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['เปิด LINE Official',S.line],['🔳 แสดง QR LINE','#line-qr'],['Facebook @Dlasavingcooppage',S.facebook],['📋 คัดลอกชื่อ Facebook','#facebook-copy'],['เว็บไซต์สหกรณ์',S.home]],sources:[src('หน้าติดต่อทางการ',S.contact)]
+        details:[`กด “ติดต่อเจ้าหน้าที่” เพื่อเปิดหน้าติดต่อทางการของสหกรณ์โดยตรง`,`ถ้า LINE เปิดไม่ขึ้น: ใช้หน้าติดต่อทางการหรือค้นหา ID ${C.general.line}`,`ถ้า Facebook เปิดไม่ขึ้น: ค้นหาเพจ @Dlasavingcooppage`,`กู้สามัญ: ${line(C.ordinaryLoan.people)}`,`กู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}`,`งานทะเบียน: ${line(C.registration.people)}`,`งานเงินฝาก: ${line(C.deposit.people)}`],
+        actions:[['🌐 เปิดหน้าติดต่อทางการ',S.contact],['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['เปิด LINE Official',S.line],['🔳 แสดง QR LINE','#line-qr'],['Facebook @Dlasavingcooppage',S.facebook],['📋 คัดลอกชื่อ Facebook','#facebook-copy'],['เว็บไซต์สหกรณ์',S.home]],sources:[src('หน้าติดต่อทางการ',S.contact)]
       });
 
     if(/ประสบภัย|น้ำท่วม|ไฟไหม้|วาตภัย|พายุ/i.test(q) && /สวัสดิการ|สงเคราะห์|ช่วยเหลือ/i.test(q)) return res('welfare_disaster','มีเงินสงเคราะห์กรณีผู้ประสบภัยตามหลักเกณฑ์สวัสดิการ และมีแบบขอรับเฉพาะครับ',{
@@ -301,8 +301,8 @@ function render(r){out.replaceChildren();out.classList.remove('hidden');const h=
 function ask(text){q.value=text;render(COOP_APP.answer(text));}
 document.getElementById('form').onsubmit=e=>{e.preventDefault();ask(q.value)};
 document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q));
-document.querySelectorAll('[data-contact]').forEach(b=>b.onclick=()=>box.classList.remove('hidden'));
-document.getElementById('contactBtn').onclick=()=>box.classList.remove('hidden');document.getElementById('closeContact').onclick=()=>box.classList.add('hidden');
+document.querySelectorAll('[data-contact]').forEach(b=>b.onclick=()=>{window.location.href=COOP_KB.official.contact});
+document.getElementById('contactBtn').onclick=()=>{window.location.href=COOP_KB.official.contact};document.getElementById('closeContact').onclick=()=>box.classList.add('hidden');
 document.getElementById('homeBtn').onclick=()=>{q.value='';out.classList.add('hidden');out.replaceChildren();box.classList.add('hidden');document.getElementById('home').scrollIntoView({behavior:'smooth'});q.focus()};
 document.getElementById('showLineQr').onclick=()=>document.getElementById('lineQr').classList.toggle('hidden');
 document.getElementById('copyFb').onclick=async()=>{try{await navigator.clipboard.writeText('@Dlasavingcooppage');document.getElementById('copyFb').textContent='คัดลอก @Dlasavingcooppage แล้ว'}catch{alert('Facebook: @Dlasavingcooppage')}};
