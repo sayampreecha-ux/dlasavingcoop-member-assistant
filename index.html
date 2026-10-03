@@ -8,6 +8,7 @@
 <title>AI ผู้ช่วยสมาชิก สอ.อปท.</title>
 <style>
 *{box-sizing:border-box}body{margin:0;background:#f3f7f4;color:#17322a;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;line-height:1.55}.wrap{max-width:760px;margin:auto;padding:12px 12px 90px}.top{position:sticky;top:0;z-index:10;background:#f3f7f4eF;backdrop-filter:blur(8px);padding:8px 0;display:flex;gap:8px}.top button{flex:1;min-height:44px;border:1px solid #d7e5dc;border-radius:12px;background:#fff;font:inherit;font-weight:750;color:#245441}.top .contact{background:#e7f5ed;color:#176b45}.hero{background:#fff;border:1px solid #e2ebe5;border-radius:22px;padding:22px 17px;box-shadow:0 10px 34px #1b563315}.eyebrow{font-size:13px;font-weight:800;color:#176b45}.hero h1{font-size:clamp(25px,6vw,34px);line-height:1.2;margin:5px 0}.sub{margin:0;color:#5c6f67;font-size:17px}.ask{display:flex;gap:8px;margin:18px 0 8px}.ask input{flex:1;min-width:0;border:2px solid #cbdad1;border-radius:14px;min-height:54px;padding:13px;font:inherit;font-size:17px}.ask input:focus{outline:3px solid #d6efe1;border-color:#176b45}.ask button{min-width:72px;border:0;border-radius:14px;background:#176b45;color:white;font:inherit;font-weight:800}.hint{font-size:13px;color:#6b7d75}.title{font-weight:850;margin:18px 0 9px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick{min-height:92px;border:1px solid #dce7e0;border-radius:18px;background:#fff;text-align:left;padding:14px;font:inherit;font-size:17px;font-weight:850;color:#17322a;box-shadow:0 5px 18px #17392a0a}.quick:active{transform:scale(.99)}.quick small{display:block;font-size:13px;font-weight:500;color:#6c7c76;margin-top:5px;line-height:1.35}.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid #d8e5dc;border-radius:999px;padding:9px 12px;background:#fff;font:inherit}.privacy{margin:18px 0 0;background:#f7faf8;border:1px solid #e4ece7;border-radius:14px;padding:12px;font-size:13px;color:#61736b}.ans{margin-top:14px;background:#fff;border:1px solid #e0e9e3;border-radius:18px;padding:18px;box-shadow:0 7px 24px #17392a0d}.hidden{display:none}.badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#e9f5ef;color:#176b45;font-size:13px;font-weight:800}.body{white-space:pre-line;margin-top:9px}.detail{margin:12px 0 0;padding-left:1.2rem}.actions{display:grid;gap:8px;margin-top:14px}.actions a{display:block;text-decoration:none;padding:11px 12px;border-radius:11px;background:#edf6ff;color:#164d83;font-weight:750}.sources{margin-top:14px;border-top:1px solid #edf1ee;padding-top:10px}.sources summary{cursor:pointer;font-weight:750;color:#586c63}.sources a{display:block;margin-top:6px;color:#276044;overflow-wrap:anywhere}.follow{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.contactbox{position:fixed;left:12px;right:12px;bottom:12px;max-width:736px;margin:auto;background:#fff;border:1px solid #dce8e0;border-radius:18px;padding:16px;box-shadow:0 18px 50px #10281e30;z-index:30}.contacthead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#eef4f0;border-radius:10px;width:38px;height:38px;font-size:20px}.clinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.clinks a,.clinks button{min-height:48px;border:0;border-radius:12px;padding:10px;font:inherit;font-weight:750;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}.tel{background:#e8f5ed;color:#176b45}.line{background:#eefbea;color:#28751f}.fb{background:#edf5ff;color:#155298}.fbcopy{background:#f2f6fb;color:#315a7c}.web{background:#f4f1ff;color:#5b43a2}.qrbox{margin-top:12px;padding:14px;border:1px solid #dce8e0;border-radius:14px;text-align:center;background:#fff}.qrbox img{width:210px;max-width:72vw;height:auto;border-radius:10px}.qrbox strong{display:block;margin-bottom:6px}.qrbox small{display:block;color:#64766e;margin-top:7px}@media(min-width:620px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:420px){.wrap{padding-left:9px;padding-right:9px}.hero{padding:18px 14px}.clinks{grid-template-columns:1fr}}
+.contactbox{max-height:calc(100vh - 24px);overflow:auto}.contactnote{margin:8px 0 12px;color:#5c6f67}.staffgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.staffcard{border:1px solid #dce8e0;border-radius:14px;padding:12px;background:#f9fbfa}.staffcard strong{display:block;margin-bottom:7px;color:#17322a}.staffcard a{display:block;color:#1f5b88;text-decoration:none;padding:5px 0;overflow-wrap:anywhere}.staffwarn{display:block;margin-top:12px;color:#6b7d75}@media(max-width:620px){.staffgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -26,6 +27,7 @@
       <button class="quick" data-q="เงินฝาก">🏦 เงินฝาก<small>แบบฟอร์ม · ขั้นตอน · ติดต่อ</small></button>
       <button class="quick" data-q="สมัครสมาชิกใหม่">👤 สมาชิก<small>สมัคร · โอนย้าย · ลาออก</small></button>
       <button class="quick" data-q="แบบฟอร์มทั้งหมด">📄 แบบฟอร์ม<small>ค้นตามงานที่ต้องทำ</small></button>
+      <button class="quick" data-q="ฌาปนกิจสงเคราะห์">⚱️ ฌาปนกิจ<small>สมัคร · ตรวจผล · ขอรับเงินสงเคราะห์</small></button>
       <button class="quick" data-q="ยอดหนี้ของผมเหลือเท่าไร">🔐 ข้อมูลของฉัน<small>ยอดหนี้ · หุ้น · เงินฝาก · สถานะ</small></button>
     </div>
     <div class="title">ถามด่วน</div>
@@ -39,22 +41,62 @@
   </section>
   <section id="out" class="ans hidden" aria-live="polite"></section>
 </main>
-<section id="contactBox" class="contactbox hidden">
-  <div class="contacthead"><strong>☎️ ติดต่อ สอ.อปท.</strong><button id="closeContact" class="close">×</button></div>
+<section id="contactBox" class="contactbox hidden" aria-label="รายชื่อเจ้าหน้าที่">
+  <div class="contacthead"><strong>☎️ ติดต่อเจ้าหน้าที่ สอ.อปท.</strong><button id="closeContact" class="close" aria-label="ปิด">×</button></div>
+  <p class="contactnote">เลือกงานที่ต้องการติดต่อ หรือเปิดหน้าติดต่อทางการเพื่อดูข้อมูลล่าสุดจากสหกรณ์โดยตรง</p>
   <div class="clinks">
-    <a class="tel" href="tel:+6622418250">โทร 02-241-8250</a>
-    <a class="tel" href="tel:+6622418251">โทร 02-241-8251</a>
-    <a class="line" href="https://line.me/R/ti/p/@dlasavingcoop">เปิด LINE @dlasavingcoop</a>
-    <button class="line" id="showLineQr">🔳 แสดง QR LINE</button>
-    <a class="fb" href="https://www.facebook.com/Dlasavingcooppage/">Facebook @Dlasavingcooppage</a>
-    <button class="fbcopy" id="copyFb">คัดลอกชื่อเพจ Facebook</button>
-    <a class="web" href="https://www.dlasavingcoop.com/">เว็บไซต์สหกรณ์</a>
+    <a class="web" href="https://www.dlasavingcoop.com/show.php?Category=contact" target="_blank" rel="noopener">🌐 เปิดหน้าติดต่อทางการ</a>
+    <a class="tel" href="tel:+6622418250">☎️ โทรกลาง 02-241-8250</a>
+    <a class="tel" href="tel:+6622418251">☎️ โทรกลาง 02-241-8251</a>
+    <a class="line" href="https://line.me/R/ti/p/@dlasavingcoop" target="_blank" rel="noopener">LINE @dlasavingcoop</a>
+    <a class="fb" href="https://www.facebook.com/Dlasavingcooppage" target="_blank" rel="noopener">Facebook สอ.อปท.</a>
   </div>
-  <div id="lineQr" class="qrbox hidden">
-    <strong>LINE Official @dlasavingcoop</strong>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyAQAAAADAX2ykAAACfUlEQVR4nO2bTW6kMBBGXw1IWbqlPkAfxdxszjQ3gKNwgEiwHMnom4Vt0ukok4lEGIiqFsSBt/ikUv247DbxGRt+fAoH55133nnnnXf+Pd6KtTBYi3UsxmBm1s31W7ejHue34tv8J/YA8xUjTGi4PGNxuiDmJgFg++hx/mv4uUSoNLbYz7FFfZCsA3Jg76vH+W349u2rxTTcBEP3H/Q4vy3/6F8jpNbAUMnP++px/mv4IKkHpPFJ0gRmt4R1gKS0tx7nN+UHMzO7gHWAdTQijk8Cltw+76vH+Y34nJ9fhpSC3wYhwXBLQHg9wDyafuf/hbdubvOj2mL1AdbV1VH1O/+uSZJywEYliJLUB+muJvdBKh+Opt/5v9ur/nm+wHCZII5tKnk5PLcWxxq+h9Pv/AemYqlEcpwaqaeR+pDIq/Wrx+/Z+DU/S0CT/ZsfhARUT3t+PjGvfjbLYdqHutfNTs62ro6p3/n3LNdfiwKDJln8dU0abqnumcIEsNQ6fTT9zn9gpa7WFXF66KnLyuvvKfnqVUlSbq3ua/JLp+X195R8nV/N12SxTxCna7KSlddT3/lJfv57Sv4+fnug5OLaROd3d4OPo+l3/gMrdTXU1jlOQGmYG2XXev09LX/fVfWQQ1eaoO5/KaHr/j0jv86vipV369Y3Vu97fj4x/3J/Uj2NGG6JUo7ntp4U7qjH+a34x/uTAFiclrbON8qQcic9zm/L39XfOnpeL+QErUna++dvwqunkdmlyVdzSvzOfj/2m/DWsZg0tuT7V3EChps8P5+TfzOfXP8Fyk7Jz3/Py9dZc7Zm3QnXqXMZbXj9PSlv/vtu55133nnnnd+d/wMy9t/zXDVPUwAAAABJRU5ErkJggg==" alt="QR Code LINE Official @dlasavingcoop">
-    <small>ใช้โทรศัพท์อีกเครื่องสแกน หรือค้นหา LINE ID: @dlasavingcoop</small>
+  <div class="staffgrid">
+    <div class="staffcard"><strong>📍 เจ้าหน้าที่ประจำจังหวัด</strong>
+      <span>มีผู้ดูแลสมาชิก (ปกติ) / NPL / ออกใบเสร็จ แยกตามจังหวัด</span>
+      <a href="https://www.dlasavingcoop.com/show.php?Category=contact" target="_blank" rel="noopener">ดูตารางเจ้าหน้าที่ประจำจังหวัดทางการ</a>
+    </div>
+    <div class="staffcard"><strong>💰 งานเงินกู้สามัญ</strong>
+      <a href="tel:0839288638">น.ส.เตือนจิตต์ ศรีแสนต่อ 083-928-8638</a>
+      <a href="tel:0923918898">นางศุจินธร เทพโกษร 092-391-8898</a>
+      <a href="tel:0923716139">น.ส.ณิชากร ศรีทองดี 092-371-6139</a>
+      <a href="tel:0886557581">น.ส.สุนทรี ภาคสุทธิ 088-655-7581</a>
+      <a href="tel:0926309360">น.ส.ปรวีร์ รอดเพชร 092-630-9360</a>
+      <a href="https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/66%282%29.png" target="_blank" rel="noopener">ดูภาพรายชื่อฝ่ายสินเชื่อทางการ</a>
+    </div>
+    <div class="staffcard"><strong>🚨 งานเงินกู้ฉุกเฉิน</strong>
+      <a href="tel:0839293058">น.ส.อรวรรณ วรรณศิริ 083-929-3058</a>
+      <a href="tel:0917272541">น.ส.รัญญา ยืนหมู่ 091-727-2541</a>
+      <a href="tel:0917272535">น.ส.ศิริพร ฤทธิรงค์ 091-727-2535</a>
+    </div>
+    <div class="staffcard"><strong>🏠 งานเงินกู้พิเศษ/ควบคุมหลักประกัน</strong>
+      <a href="tel:0923917912">น.ส.เบญจทิพย์ สินวล 092-391-7912</a>
+      <a href="tel:0624342437">นายกิตติศักดิ์ ถาวร 062-434-2437</a>
+      <a href="https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/12%285%29.jpg" target="_blank" rel="noopener">ดูภาพรายชื่อเงินกู้ฉุกเฉิน/พิเศษทางการ</a>
+    </div>
+    <div class="staffcard"><strong>👤 งานทะเบียนสมาชิก</strong>
+      <a href="tel:0839292739">น.ส.ปิยาภา ภคเจริญพงศ์ 083-929-2739</a>
+      <a href="tel:0923917688">น.ส.วิราภรณ์ ทองปาน 092-391-7688</a>
+      <a href="tel:0839292830">น.ส.สุปราณี อินภูวา 083-929-2830</a>
+      <a href="tel:0923918117">น.ส.เรวดี จันทนูเดช 092-391-8117</a>
+      <a href="tel:0923911540">นายพิชณธนศักดิ์ อุดมทรัพย์ 092-391-1540</a>
+      <a href="https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/4%2823%29.jpg" target="_blank" rel="noopener">ดูภาพทะเบียน/สวัสดิการ/ฌาปนกิจทางการ</a>
+    </div>
+    <div class="staffcard"><strong>🏦 งานเงินฝาก</strong>
+      <a href="tel:0923915896">น.ส.มิรันตี ศรีนิยม 092-391-5896</a>
+      <a href="tel:0917275236">ว่าที่ ร.ต.จิราภา บุญโต 091-727-5236</a>
+      <a href="https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/17%282%29.jpg" target="_blank" rel="noopener">ดูภาพงานเงินฝากทางการ</a>
+    </div>
+    <div class="staffcard"><strong>❤️ งานสวัสดิการสมาชิก</strong>
+      <a href="tel:0815157253">นายรังสรรค์ อภิชนเสขกุล 081-515-7253</a>
+      <a href="https://www.dlasavingcoop.com/show.php?No=775" target="_blank" rel="noopener">แบบฟอร์ม/หลักเกณฑ์สวัสดิการ</a>
+    </div>
+    <div class="staffcard"><strong>⚱️ งานสมาคมฌาปนกิจสงเคราะห์</strong>
+      <a href="tel:0836155533">น.ส.ณัฐชา แสนสุขสันติ 083-615-5533</a>
+      <a href="https://dlasavingcoop.com/show.php?No=4650" target="_blank" rel="noopener">รวมเรื่องฌาปนกิจทางการ</a>
+    </div>
   </div>
+  <small class="staffwarn">ข้อมูลรายชื่อ/เบอร์อาจมีการเปลี่ยนแปลง หากโทรไม่ติดให้ใช้ “หน้าติดต่อทางการ” หรือโทรศัพท์กลาง</small>
 </section>
 <script>
 (function(root,factory){
@@ -63,7 +105,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.0.0-pages',
+    version:'2.1.4-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -78,12 +120,18 @@
       welfareForms:'https://www.dlasavingcoop.com/show.php?No=775',
       depositForms:'https://www.dlasavingcoop.com/show.php?No=807',
       specialLoanForms:'https://www.dlasavingcoop.com/show.php?No=2385',
-      loanGeneralAnnouncement2569:'https://drive.google.com/file/d/13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK/view?usp=sharing',
-      loanVacationAnnouncement:'https://drive.google.com/file/d/1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu/view?usp=sharing',
+      funeralHub:'https://dlasavingcoop.com/show.php?No=4650',
+      staffProvince:'https://www.dlasavingcoop.com/show.php?Category=contact',
+      staffOrdinaryLoanImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/66%282%29.png',
+      staffEmergencySpecialImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/12%285%29.jpg',
+      staffRegistrationWelfareFuneralImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/4%2823%29.jpg',
+      staffDepositImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/17%282%29.jpg',
+      loanGeneralAnnouncement2569:'https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing',
+      loanVacationAnnouncement:'https://www.dlasavingcoop.com/show.php?No=774',
       loanInterestAnnouncement:'https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing',
       loanEmergencyAnnouncement:'https://drive.google.com/file/d/1enzqVcofpAbstQQQziZoOjrQtmTPgH32/view?usp=sharing',
       loanEmergencyForm:'https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing',
-      loanSpecialHousingAnnouncement:'https://drive.google.com/file/d/1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2/view?usp=sharing',
+      loanSpecialHousingAnnouncement:'https://drive.google.com/file/d/1PDrTLU46Q8y9qJju6KixhU4atYjDCLkn/view?usp=sharing',
       loanSpecialHousingForm:'https://drive.google.com/file/d/1KgHOea6BKduE4zNFx6NNlW7iRjZzqOee/view?usp=sharing',
       loanSpecialRedeemAnnouncement:'https://drive.google.com/file/d/1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E/view?usp=sharing',
       loanSpecialRedeemForm:'https://drive.google.com/file/d/1E-VSAXKzmiQYO_tLF0AfBwptqu944Ojh/view?usp=sharing',
@@ -96,15 +144,15 @@
       disasterLoan:'https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view?usp=sharing',
       guarantorDebtLoan:'https://drive.google.com/file/d/1ZjfxQntcenz5DfpWSd4owcM6zOwEHfW8/view?usp=sharing',
       transfer:'https://drive.google.com/file/d/1ejFNdA3oKnhHyszg8bQjwmhVUf5Dp6Jy/view?usp=sharing',
-      resignation:'https://drive.google.com/file/d/1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN/view?usp=sharing',
+      resignation:'https://www.dlasavingcoop.com/show.php?No=772',
       welfareRule:'https://drive.google.com/file/d/1l-WYt403pVZ0Rc6aWbFnIH5-BXkUisZ8/view?usp=sharing',
       welfareAmendment2:'https://drive.google.com/file/d/1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18/view?usp=sharing',
-      welfareFamilyDeath:'https://drive.google.com/file/d/1Fs51CIR2Rm5-4oxkTwfYYHyJAnKCPRZ7/view?usp=drivesdk',
+      welfareFamilyDeath:'https://www.dlasavingcoop.com/show.php?No=775',
       facebook:'https://www.facebook.com/Dlasavingcooppage',
       line:'https://line.me/R/ti/p/@dlasavingcoop',
-      ordinaryLoanContact:'https://dlasavingcoop.com/board_content.php?No=41045',
-      emergencyLoanContact:'https://www.dlasavingcoop.com/board_content.php?No=39123',
-      registrationContact:'https://dlasavingcoop.com/show.php?No=4589',
+      ordinaryLoanContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
+      emergencyLoanContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
+      registrationContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
       depositGuide:'https://dlasavingcoop.com/show.php?No=2959'
     },
     contacts:{
@@ -113,14 +161,17 @@
         facebook:'สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด',
         address:'111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120'
       },
-      ordinaryLoan:{published:'24 เม.ย. 2569', people:[
-        ['คุณเตือนจิตต์','083-928-8638'],['คุณศุจินธร','092-391-8898'],['คุณณิชากร','092-371-6139'],['คุณสุนทรี','088-655-7581'],['คุณปรวีย์','092-630-9360']
+      ordinaryLoan:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[
+        ['น.ส.เตือนจิตต์ ศรีแสนต่อ','083-928-8638'],['นางศุจินธร เทพโกษร','092-391-8898'],['น.ส.ณิชากร ศรีทองดี','092-371-6139'],['น.ส.สุนทรี ภาคสุทธิ','088-655-7581'],['น.ส.ปรวีร์ รอดเพชร','092-630-9360']
       ]},
-      emergencyLoan:{published:'15 ก.ค. 2568', people:[['คุณอรวรรณ','083-929-3058'],['คุณวรัญญา','091-727-2541']]},
-      registration:{published:'ข้อมูลเผยแพร่ปี 2568', people:[
-        ['คุณรัชปภา','092-391-8135'],['คุณปิยาภา','083-929-2739'],['คุณวิราภรณ์','092-391-7688'],['คุณสุปราณี','083-929-2830'],['คุณเรวดี','092-391-8117'],['ว่าที่ ร.ต.นรภัทร','092-391-1540']
+      emergencyLoan:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[['น.ส.อรวรรณ วรรณศิริ','083-929-3058'],['น.ส.รัญญา ยืนหมู่','091-727-2541'],['น.ส.ศิริพร ฤทธิรงค์','091-727-2535']]},
+      specialLoan:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[['น.ส.เบญจทิพย์ สินวล','092-391-7912'],['นายกิตติศักดิ์ ถาวร','062-434-2437']]},
+      registration:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[
+        ['น.ส.ปิยาภา ภคเจริญพงศ์','083-929-2739'],['น.ส.วิราภรณ์ ทองปาน','092-391-7688'],['น.ส.สุปราณี อินภูวา','083-929-2830'],['น.ส.เรวดี จันทนูเดช','092-391-8117'],['นายพิชณธนศักดิ์ อุดมทรัพย์','092-391-1540']
       ]},
-      deposit:{published:'หน้าเว็บทางการที่ตรวจ ณ 3 ต.ค. 2569', people:[['คุณมิรันตี','092-391-5896'],['ว่าที่ ร.ต.หญิง จิราภา','091-727-5236']]}
+      deposit:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[['น.ส.มิรันตี ศรีนิยม','092-391-5896'],['ว่าที่ ร.ต.จิราภา บุญโต','091-727-5236']]},
+      welfare:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[['นายรังสรรค์ อภิชนเสขกุล','081-515-7253']]},
+      funeral:{published:'หน้าติดต่อทางการ ตรวจ 3 ต.ค. 2569', people:[['น.ส.ณัฐชา แสนสุขสันติ','083-615-5533']]}
     },
     dividend:{
       title:'กำหนดแนวทางการจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ประจำปีบัญชี 2569',
@@ -147,22 +198,106 @@
   const C=KB.contacts;
   const line=(rows=[])=>rows.map(x=>`${x[0]} ${x[1]}`).join(' · ');
   const src=(title,url,note='')=>({title,url,note});
-  const res=(intent,answer,opt={})=>({intent,answer,details:opt.details||[],actions:opt.actions||[],sources:opt.sources||[],followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy});
+  function res(intent,answer,opt={}){
+    const details=[...(opt.details||[])];
+    const actions=[...(opt.actions||[])];
+    const addAction=(label,url)=>{if(!actions.some(x=>x[1]===url)) actions.push([label,url]);};
+    const hasSteps=details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
 
-  function norm(s=''){return String(s).trim().replace(/\s+/g,' ').replace(/[?？]+$/g,'');}
-  function personal(q){
-    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
+    if(/^welfare_/.test(intent)||intent==='scholarship'){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/แบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ติดตามผล');
+      addAction('☎️ งานสวัสดิการ 081-515-7253','tel:0815157253');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^loan_/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์ล่าสุด 2) เลือก/ดาวน์โหลดแบบ 3) เตรียมเอกสารและหลักประกันตามแบบ 4) ยื่นคำขอ 5) ติดตามผลกับเจ้าหน้าที่');
+      if(/special/.test(intent)) addAction('☎️ งานเงินกู้พิเศษ 092-391-7912','tel:0923917912');
+      else if(/emergency/.test(intent)) addAction('☎️ งานเงินกู้ฉุกเฉิน 083-929-3058','tel:0839293058');
+      else addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^deposit/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบ/ขั้นตอนเงินฝาก 2) กรอกและเตรียมหลักฐาน 3) ส่งตามช่องทางที่หน้าทางการกำหนด 4) ติดตามกับงานเงินฝาก');
+      addAction('☎️ งานเงินฝาก 092-391-5896','tel:0923915896');
+      addAction('☎️ งานเงินฝาก 091-727-5236','tel:0917275236');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^(member_apply|transfer|resignation)$/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบงานทะเบียนที่เกี่ยวข้อง 2) กรอกและเตรียมหลักฐาน 3) ยื่นต่อสหกรณ์ 4) ให้งานทะเบียนตรวจ 5) ติดตามผล');
+      addAction('☎️ งานทะเบียน 083-929-2739','tel:0839292739');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(intent==='dividend'){
+      addAction('☎️ งานทะเบียน 092-391-7688','tel:0923917688');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(intent==='funeral'){
+      addAction('☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    return {intent,answer,details,actions,sources:opt.sources||[],followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy};
   }
+
+  function norm(s=''){
+    let q=String(s).toLowerCase().trim().replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ');
+    const fixes=[
+      [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],
+      [/ฌาปณกิจ|ฌาปกิจ|ชาปนกิจ|ฌาปะนกิจ|ฌาปนกิต/g,'ฌาปนกิจ'],
+      [/สวสดิการ|สวัดดิการ|สวัดดีการ|สวัสดิการ์/g,'สวัสดิการ'],
+      [/เฟสบุ๊ค|เฟสบุค|เฟสบุ๊ก|เฟซบุ๊ค|เฟซบุ๊ก/g,'facebook'],
+      [/ไลน[์]?ออฟฟิเชียล|ไลน์ออฟฟิเชียล/g,'line official'],
+      [/ย้ายสังกัด|ย้ายหน่วยงาน|ย้ายที่ทำงาน|ย้าย อปท\.?|โยกย้าย|สมาชิกย้าย/g,'โอนย้ายสมาชิก'],
+      [/สมัครฌาปนกิจ|สมัครชาปนกิจ/g,'สมัครฌาปนกิจ'],
+      [/เงนฝาก|เงินฝา่ก|เงิฝาก/g,'เงินฝาก'],[/แบบฟอม|แบบฟอร์ม์/g,'แบบฟอร์ม']
+    ];
+    fixes.forEach(([re,to])=>q=q.replace(re,to));
+    return q;
+  }
+  function personal(q){
+    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้เพิ่มได้เท่าไร|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
+  }
+  function editDistance(a='',b=''){
+    const x=[...a],y=[...b],dp=Array(y.length+1).fill(0).map((_,j)=>j);
+    for(let i=1;i<=x.length;i++){
+      let prev=dp[0]; dp[0]=i;
+      for(let j=1;j<=y.length;j++){
+        const old=dp[j];
+        dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(x[i-1]===y[j-1]?0:1));
+        prev=old;
+      }
+    }
+    return dp[y.length];
+  }
+  function fuzzyCanonical(q){
+    const map=[
+      ['เงินกู้','เงินกู้มีกี่แบบ'],['สวัสดิการ','สวัสดิการมีกี่แบบ'],['โอนย้าย','โอนย้ายสมาชิก'],
+      ['ฌาปนกิจ','ฌาปนกิจสงเคราะห์'],['เงินฝาก','เงินฝาก'],['สมัครสมาชิก','สมัครสมาชิกใหม่'],
+      ['ลาออก','ลาออกจากสหกรณ์'],['ปันผล','ปันผลปี 69'],['ติดต่อ','ติดต่อเจ้าหน้าที่'],['แบบฟอร์ม','แบบฟอร์มทั้งหมด']
+    ];
+    const tokens=q.split(/\s+/).filter(Boolean);
+    let best=null;
+    for(const [term,canonical] of map){
+      for(const token of [...tokens,q.replace(/\s+/g,'')]){
+        const d=editDistance(token,term);
+        const limit=term.length>=7?2:1;
+        if(d<=limit && (!best||d<best.d)) best={d,canonical};
+      }
+    }
+    return best?.canonical||'';
+  }
+
   function handoff(q){
     let target='โทรศัพท์กลาง 02-241-8250 หรือ 02-241-8251 หรือ LINE Official @dlasavingcoop';
-    if(/กู้|สินเชื่อ/i.test(q)) target=`งานเงินกู้สามัญ: ${line(C.ordinaryLoan.people)}`;
-    else if(/ทะเบียน|สมาชิก|ปันผล/i.test(q)) target=`งานทะเบียนสมาชิก: ${line(C.registration.people)}`;
+    if(/ฌาปนกิจ/i.test(q)) target=`งานสมาคมฌาปนกิจ: ${line(C.funeral.people)}`;
+    else if(/กู้พิเศษ|กู้ฉุกเฉิน/i.test(q)) target=`งานเงินกู้ฉุกเฉิน: ${line(C.emergencyLoan.people)} / งานเงินกู้พิเศษ: ${line(C.specialLoan.people)}`;
+    else if(/กู้|สินเชื่อ/i.test(q)) target=`งานเงินกู้สามัญ: ${line(C.ordinaryLoan.people)}`;
+    else if(/ทะเบียน|สมาชิก|ปันผล|โอนย้าย|ย้าย/i.test(q)) target=`งานทะเบียนสมาชิก: ${line(C.registration.people)}`;
     else if(/เงินฝาก/i.test(q)) target=`งานเงินฝาก: ${line(C.deposit.people)}`;
-    else if(/สวัสดิการ|ทุน/i.test(q)) target=`งานสวัสดิการ: โทรกลาง 02-241-8250 หรือ 02-241-8251`;
+    else if(/สวัสดิการ|ทุน/i.test(q)) target=`งานสวัสดิการ: ${line(C.welfare.people)}`;
     return res('personal_handoff',`เรื่องนี้ต้องใช้ข้อมูลเฉพาะสมาชิก ระบบนี้ไม่ตรวจยอด/สถานะ/ผลอนุมัติแทนเจ้าหน้าที่ครับ\n\n${target}`,{
       status:'🔒 ข้อมูลเฉพาะสมาชิก — ส่งต่อเจ้าหน้าที่',privacy:true,
       details:['อย่าส่งเลขบัตรประชาชน เลขบัญชี รหัสผ่าน หรือ OTP ในหน้าเว็บนี้','แจ้งเลขสมาชิกเฉพาะเมื่ออยู่ในช่องทางทางการของสหกรณ์'],
-      actions:[['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['LINE Official @dlasavingcoop',S.line],['Facebook @Dlasavingcooppage',S.facebook],['🌐 หน้าติดต่อทางการ',S.contact]],
+      actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 เปิดหน้าติดต่อทางการ',S.contact],['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['LINE Official @dlasavingcoop',S.line],['Facebook @Dlasavingcooppage',S.facebook]],
       sources:[src('หน้าติดต่อ สอ.อปท.',S.contact)]
     });
   }
@@ -172,11 +307,40 @@
     if(!q) return res('empty','พิมพ์คำถามได้เลย เช่น “สวัสดิการมีกี่แบบ” หรือ “ขอใบสมัครสมาชิก”',{status:'พร้อมตอบ'});
     if(personal(q)) return handoff(q);
 
-    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
-      `ช่องทางหลัก สอ.อปท.\n• โทร 02-241-8250 หรือ 02-241-8251\n• LINE Official ${C.general.line}\n• Facebook: @Dlasavingcooppage\n• เว็บไซต์: www.dlasavingcoop.com\n• ที่อยู่: ${C.general.address}`,{
-        details:[`ถ้า LINE เปิดไม่ขึ้น: กด “ติดต่อเจ้าหน้าที่” แล้วเลือก “แสดง QR LINE” หรือค้นหา ID ${C.general.line}`,`ถ้า Facebook เปิดไม่ขึ้น: ค้นหาเพจ @Dlasavingcooppage`,`กู้สามัญ: ${line(C.ordinaryLoan.people)}`,`กู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}`,`งานทะเบียน: ${line(C.registration.people)}`,`งานเงินฝาก: ${line(C.deposit.people)}`],
-        actions:[['☎️ โทร 02-241-8250','tel:+6622418250'],['☎️ โทร 02-241-8251','tel:+6622418251'],['เปิด LINE Official',S.line],['🔳 แสดง QR LINE','#line-qr'],['Facebook @Dlasavingcooppage',S.facebook],['📋 คัดลอกชื่อ Facebook','#facebook-copy'],['เว็บไซต์สหกรณ์',S.home]],sources:[src('หน้าติดต่อทางการ',S.contact)]
+    if(/(?:ติดต่อ|เบอร์|โทร|เจ้าหน้าที่).*(?:สวัสดิการ)|(?:สวัสดิการ).*(?:ติดต่อ|เบอร์|โทร|เจ้าหน้าที่)/i.test(q)) return res('welfare_contact','งานสวัสดิการสมาชิกติดต่อ นายรังสรรค์ อภิชนเสขกุล โทร./Line 081-515-7253 ครับ',{
+      actions:[['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253'],['❤️ แบบฟอร์ม/หลักเกณฑ์สวัสดิการ',S.welfareForms],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 หน้าติดต่อทางการ',S.contact]],
+      sources:[src('หน้าติดต่อทางการ สอ.อปท.',S.contact)]
+    });
+
+    if(/(?:ติดต่อ|เบอร์|โทร|เจ้าหน้าที่).*(?:ทะเบียน|สมาชิก)|(?:ทะเบียนสมาชิก).*(?:ติดต่อ|เบอร์|โทร|เจ้าหน้าที่)/i.test(q)) return res('registration_contact',`งานทะเบียนสมาชิก: ${line(C.registration.people)}`,{
+      actions:[['☎️ งานทะเบียน 083-929-2739','tel:0839292739'],['📄 แบบฟอร์มสมาชิก/ทะเบียน',S.memberForms],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 หน้าติดต่อทางการ',S.contact]],
+      sources:[src('หน้าติดต่อทางการ สอ.อปท.',S.contact)]
+    });
+
+    if(/เจ้าหน้าที่.*จังหวัด|ติดต่อ.*จังหวัด|ประจำจังหวัด|ดูแลสมาชิก.*จังหวัด|npl.*จังหวัด|ออกใบเสร็จ.*จังหวัด/i.test(q)) return res('province_contact','สหกรณ์มีตารางเจ้าหน้าที่ประจำจังหวัด แยกผู้ดูแลสมาชิก (ปกติ) / NPL / ออกใบเสร็จครับ',{
+      details:['เปิดตารางทางการแล้วเลือกแถวจังหวัดของสมาชิก','รายชื่อและเบอร์อาจเปลี่ยนได้ จึงให้ยึดหน้าติดต่อทางการล่าสุด'],
+      actions:[['📍 ดูตารางเจ้าหน้าที่ประจำจังหวัด',S.staffProvince],['☎️ เปิดรายชื่อเจ้าหน้าที่ตามงาน','#staff-directory'],['🌐 หน้าติดต่อทางการ',S.contact]],
+      sources:[src('หน้าติดต่อ สอ.อปท.',S.contact)]
+    });
+
+    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|เจ้าหน้าที่|รายชื่อเจ้าหน้าที่|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
+      `เลือกติดต่อเจ้าหน้าที่ตามเรื่องได้เลยครับ\n• เงินกู้สามัญ: ${line(C.ordinaryLoan.people)}\n• เงินกู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}\n• เงินกู้พิเศษ: ${line(C.specialLoan.people)}\n• ทะเบียนสมาชิก: ${line(C.registration.people)}\n• เงินฝาก: ${line(C.deposit.people)}\n• สวัสดิการ: ${line(C.welfare.people)}\n• ฌาปนกิจ: ${line(C.funeral.people)}\n• เจ้าหน้าที่ประจำจังหวัด: ดูจากหน้าติดต่อทางการ`,{
+        details:['หากรายชื่อหรือเบอร์มีการเปลี่ยนแปลง ให้ตรวจหน้าติดต่อทางการของสหกรณ์','Facebook ใช้ลิงก์เพจทางการโดยตรง'],
+        actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 เปิดหน้าติดต่อทางการ',S.contact],['Facebook สอ.อปท.',S.facebook],['LINE Official',S.line],['เว็บไซต์สหกรณ์',S.home]],
+        sources:[src('หน้าติดต่อทางการ',S.contact)]
       });
+
+    if(/ฌาปนกิจ|สมาคมฌาปนกิจ|สฌ\.?สอ\.?อปท/i.test(q)) {
+      const isApply=/สมัคร|เข้าเป็นสมาชิก|ใบสมัคร/i.test(q);
+      const isClaim=/เสียชีวิต|ถึงแก่กรรม|ค่าจัดการศพ|เงินสงเคราะห์ครอบครัว|ขอรับเงิน/i.test(q);
+      const isResult=/ผล.*สมัคร|อนุมัติ.*สมาชิก|เลข.*ฌาปนกิจ|เลขสมาชิก/i.test(q);
+      let answer='สมาคมฌาปนกิจสงเคราะห์สมาชิก สอ.อปท. มีหน้ารวมทางการสำหรับข้อบังคับ การสมัคร ผลอนุมัติ การเรียกเก็บ และการขอรับเงินสงเคราะห์ครับ';
+      let steps=['1) เปิดหน้ารวมเรื่องฌาปนกิจทางการ','2) เลือกหัวข้อที่ต้องการ','3) อ่านหลักเกณฑ์/ดาวน์โหลดแบบที่หน้าเว็บกำหนด','4) เตรียมและส่งเอกสารตามช่องทางที่ประกาศ','5) ติดตามผลกับงานสมาคมฌาปนกิจ'];
+      if(isApply){answer='สมัครสมาชิกสมาคมฌาปนกิจได้จากหัวข้อ “สมัครสมาชิกสมาคมอย่างไร” ในหน้ารวมทางการครับ';steps=['1) เปิดหน้ารวมเรื่องฌาปนกิจ','2) เลือก “สมัครสมาชิกสมาคมอย่างไร”','3) ตรวจคุณสมบัติและดาวน์โหลดเอกสารตามรายการล่าสุด','4) กรอก/แนบเอกสารให้ครบและยื่นตามช่องทางที่กำหนด','5) ตรวจผลการอนุมัติรับสมัครจากหัวข้อผลอนุมัติ','6) สอบถามงานสมาคมหากเอกสารไม่ครบหรือยังไม่พบรายชื่อ'];}
+      else if(isClaim){answer='กรณีสมาชิกสมาคมเสียชีวิต ให้ใช้หัวข้อ “ขั้นตอนขอรับเงินค่าจัดการศพและเงินสงเคราะห์ครอบครัว” ในหน้ารวมทางการครับ';steps=['1) เปิดหน้ารวมเรื่องฌาปนกิจ','2) เลือกหัวข้อขั้นตอนขอรับเงินค่าจัดการศพ/เงินสงเคราะห์ครอบครัว','3) ตรวจผู้มีสิทธิและเอกสารที่ต้องใช้ตามข้อบังคับปัจจุบัน','4) ยื่นเอกสารตามช่องทางที่สมาคมกำหนด','5) ให้เจ้าหน้าที่ตรวจความครบถ้วนและติดตามผล','6) จำนวนเงินให้ยึดข้อบังคับ/ประกาศที่ใช้บังคับ ณ วันที่เกิดสิทธิ'];}
+      else if(isResult){answer='ตรวจผลอนุมัติหรือเลขสมาชิกฌาปนกิจได้จากหน้ารวมทางการ และหากเป็นข้อมูลเฉพาะตัวให้เจ้าหน้าที่สมาคมตรวจให้ครับ';steps=['1) เปิดหน้ารวมเรื่องฌาปนกิจ','2) เลือก “ผลการอนุมัติรับสมัครสมาชิกสมาคม” หรือหัวข้อที่เกี่ยวข้อง','3) ค้นข้อมูลตามวิธีที่หน้าเว็บกำหนด','4) หากหาไม่พบ ให้โทรงานสมาคมเพื่อยืนยันข้อมูล'];}
+      return res('funeral',answer,{details:steps,actions:[['⚱️ เปิดหน้ารวมฌาปนกิจทางการ',S.funeralHub],['☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533'],['☎️ รายชื่อเจ้าหน้าที่ทั้งหมด','#staff-directory'],['🌐 หน้าติดต่อทางการ',S.contact]],sources:[src('รวมเรื่องสมาคมฌาปนกิจสงเคราะห์สมาชิก',S.funeralHub)]});
+    }
 
     if(/ประสบภัย|น้ำท่วม|ไฟไหม้|วาตภัย|พายุ/i.test(q) && /สวัสดิการ|สงเคราะห์|ช่วยเหลือ/i.test(q)) return res('welfare_disaster','มีเงินสงเคราะห์กรณีผู้ประสบภัยตามหลักเกณฑ์สวัสดิการ และมีแบบขอรับเฉพาะครับ',{
       details:['เป็นคนละเรื่องกับเงินกู้เพื่อช่วยเหลือกรณีภัยพิบัติ','ให้ใช้แบบและหลักเกณฑ์ล่าสุดจากหน้าสวัสดิการทางการ'],actions:[['เปิดแบบ/หลักเกณฑ์ผู้ประสบภัย',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]
@@ -192,8 +356,9 @@
     if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return res('welfare_graduation','มีสวัสดิการเพื่อการสำเร็จการศึกษาตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
     if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/i.test(q)) return res('welfare_gratuity','มีสวัสดิการบำเหน็จสมาชิกตามหลักเกณฑ์สวัสดิการครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
     if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return res('welfare_member_death','มีเงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม โดยใช้แบบและหลักเกณฑ์เฉพาะครับ',{actions:[['เปิดแบบ/หลักเกณฑ์กรณีสมาชิกถึงแก่กรรม',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
-    if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันไว้มี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
-      actions:[['เปิดแบบขอรับสวัสดิการ',S.welfareForms]],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','แม่เสียได้สวัสดิการไหม']
+    if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ|สวัสดิการทั้งหมด/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันจากหน้าทางการมี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
+      details:['ขั้นตอนใช้งาน: 1) เลือกประเภทสิทธิ 2) เปิดหลักเกณฑ์/แบบคำขอ 3) ตรวจคุณสมบัติและกำหนดยื่น 4) เตรียมหลักฐานตามแบบ 5) ยื่นต่อสหกรณ์ 6) ติดตามผลการพิจารณา','จำนวนเงิน/กำหนดเวลาอาจต่างกันแต่ละประเภท ให้ยึดหลักเกณฑ์ล่าสุดในหน้าทางการ','ฌาปนกิจสงเคราะห์เป็นงานของสมาคมฌาปนกิจ แยกจากสวัสดิการ 8 ประเภทนี้'],
+      actions:[['❤️ เปิดแบบ/หลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['⚱️ เรื่องฌาปนกิจสงเคราะห์',S.funeralHub]],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','แม่เสียได้สวัสดิการไหม','ฌาปนกิจสมัครอย่างไร']
     });
     if(/(?:พ่อ|แม่|บิดา|มารดา).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/i.test(q)) return res('welfare_family_death','กรณีบิดา/มารดาโดยชอบด้วยกฎหมายถึงแก่กรรม มีสวัสดิการสงเคราะห์ครอบครัวตามหลักเกณฑ์ที่เกี่ยวข้อง',{
       details:KB.welfare.familyDeath,actions:[['เปิดแบบสวัสดิการ',S.welfareForms]],sources:[src('หลักเกณฑ์กรณีครอบครัวถึงแก่กรรม',S.welfareFamilyDeath),src('แบบสวัสดิการ',S.welfareForms)]
@@ -226,20 +391,21 @@
       details:['เลือกประเภทเงินกู้ก่อน แล้วเปิดประกาศจริง','ถ้าต้องการเช็กสิทธิของตัวเอง ให้เจ้าหน้าที่ตรวจข้อมูลสมาชิก'],actions:[['📢 ประกาศกู้สามัญ 2569',S.loanGeneralAnnouncement2569],['📢 ประกาศกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['☎️ งานกู้สามัญ 083-928-8638','tel:0839288638']],sources:[src('ประกาศกู้สามัญ 2569',S.loanGeneralAnnouncement2569),src('ประกาศกู้ฉุกเฉิน',S.loanEmergencyAnnouncement)]
     });
 
-    if(/เงินกู้.*(?:กี่แบบ|กี่ประเภท|มีอะไร)|กู้.*(?:กี่แบบ|มีอะไร)|^เงินกู้$|^กู้$/i.test(q)) return res('loan_all','เงินกู้สมาชิกแบ่งเป็น 3 หมวดใหญ่: 1) เงินกู้สามัญ 2) เงินกู้เพื่อเหตุฉุกเฉิน 3) เงินกู้พิเศษ',{
-      details:['ปุ่มประกาศด้านล่างเปิดไฟล์ประกาศจริงโดยตรง ไม่ผ่านหน้ารวม','วงเงิน ดอกเบี้ย จำนวนผู้ค้ำ และเงื่อนไขให้ยึดประกาศฉบับปัจจุบัน'],actions:[['📢 ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569],['📢 ประกาศอัตราดอกเบี้ยเงินกู้',S.loanInterestAnnouncement],['📄 แบบกู้สามัญ',S.ordinaryLoanForms],['📄 แบบกู้ฉุกเฉิน',S.loanEmergencyForm],['📢 กู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement]],sources:[src('ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569),src('ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement)]
+    if(/เงินกู้.*(?:กี่แบบ|กี่ประเภท|มีอะไร)|กู้.*(?:กี่แบบ|มีอะไร)|^เงินกู้$|^กู้$/i.test(q)) return res('loan_all','เงินกู้แบ่งเป็น 3 หมวดหลัก และในแต่ละหมวดมีแบบ/วัตถุประสงค์ย่อยครับ',{
+      details:['1) เงินกู้เพื่อเหตุฉุกเฉิน — มีแบบคำขอฉุกเฉินและตารางประมาณการ','2) เงินกู้สามัญ — แบบที่หน้าทางการมี: บุคคลค้ำประกัน / ชำระหนี้ในฐานะผู้ค้ำ / ช่วยเหลือภัยพิบัติ / ปรับโครงสร้างหนี้ (Refinance) / เพื่อการศึกษา / ไม่เกินทุนเรือนหุ้นและหรือเงินฝาก / เพื่อการพักผ่อน / พัฒนาคุณภาพชีวิต ระยะ 2','3) เงินกู้พิเศษ — เพื่อการเคหะ / ไถ่ถอนจำนองบ้านพร้อมที่ดิน / พัฒนาคุณภาพชีวิต (รวมหนี้)','ขั้นตอน: เลือกประเภท → เปิดหลักเกณฑ์ล่าสุด → ดาวน์โหลดแบบ → เตรียมเอกสาร/หลักประกันตามแบบ → ยื่นคำขอ → ติดตามผลกับเจ้าหน้าที่','วงเงิน ดอกเบี้ย จำนวนผู้ค้ำ และคุณสมบัติให้ยึดประกาศที่ใช้บังคับในวันที่ยื่น'],
+      actions:[['📄 เงินกู้สามัญ: หลักเกณฑ์+แบบฟอร์ม',S.ordinaryLoanForms],['🚨 เงินกู้ฉุกเฉิน: หลักเกณฑ์+แบบฟอร์ม',S.emergencyLoan],['🏠 เงินกู้พิเศษ: หลักเกณฑ์+แบบฟอร์ม',S.specialLoanForms],['☎️ งานกู้สามัญ 083-928-8638','tel:0839288638'],['☎️ งานกู้ฉุกเฉิน/พิเศษ 083-929-3058','tel:0839293058'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],sources:[src('เงินกู้สามัญ-แบบฟอร์มทางการ',S.ordinaryLoanForms),src('เงินกู้ฉุกเฉิน-แบบฟอร์มทางการ',S.emergencyLoan),src('เงินกู้พิเศษ-แบบฟอร์มทางการ',S.specialLoanForms)]
     });
 
     if(/กู้สามัญ|เงินกู้สามัญ/i.test(q)) return res('loan_ordinary','เงินกู้สามัญให้เปิดประกาศหลักเกณฑ์ฉบับปัจจุบันและเลือกแบบตามวัตถุประสงค์ครับ',{
-      details:['ถ้าถามวงเงิน ดอกเบี้ย จำนวนผู้ค้ำ หรือคุณสมบัติเฉพาะตัว ให้ยึดประกาศล่าสุดหรือติดต่อเจ้าหน้าที่งานเงินกู้สามัญ'],actions:[['📢 ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement],['📄 แบบกู้สามัญ',S.ordinaryLoanForms],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898']],sources:[src('ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569),src('ประกาศอัตราดอกเบี้ยเงินกู้',S.loanInterestAnnouncement)]
+      details:['ขั้นตอน: 1) เลือกวัตถุประสงค์ 2) เปิดหลักเกณฑ์ล่าสุด 3) ดาวน์โหลดแบบที่ตรงประเภท 4) เตรียมเอกสารผู้กู้/ผู้ค้ำหรือหลักประกันตามแบบ 5) ยื่นคำขอ 6) ติดตามผลกับงานเงินกู้สามัญ','ถ้าถามวงเงิน ดอกเบี้ย จำนวนผู้ค้ำ หรือคุณสมบัติเฉพาะตัว ให้ยึดประกาศล่าสุดหรือติดต่อเจ้าหน้าที่งานเงินกู้สามัญ'],actions:[['📢 ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement],['📄 แบบกู้สามัญ',S.ordinaryLoanForms],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898']],sources:[src('ประกาศหลักเกณฑ์กู้สามัญ 2569',S.loanGeneralAnnouncement2569),src('ประกาศอัตราดอกเบี้ยเงินกู้',S.loanInterestAnnouncement)]
     });
 
     if(/กู้ฉุกเฉิน|เงินกู้ฉุกเฉิน/i.test(q)) return res('loan_emergency','มีเงินกู้เพื่อเหตุฉุกเฉินครับ',{
-      details:['เปิดประกาศและแบบคำขอจริงได้โดยตรงด้านล่าง'],actions:[['📢 ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['📄 แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm],['☎️ คุณอรวรรณ 083-929-3058','tel:0839293058'],['☎️ คุณวรัญญา 091-727-2541','tel:0917272541']],sources:[src('ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement),src('แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm)]
+      details:['ขั้นตอน: 1) เปิดหลักเกณฑ์ฉุกเฉินล่าสุด 2) ตรวจคุณสมบัติ/วงเงินตามประกาศ 3) ดาวน์โหลดแบบคำขอ 4) เตรียมเอกสารตามแบบ 5) ยื่นคำขอ 6) ติดตามผลกับงานเงินกู้ฉุกเฉิน','เปิดประกาศและแบบคำขอจริงได้โดยตรงด้านล่าง'],actions:[['📢 ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['📄 แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm],['☎️ คุณอรวรรณ 083-929-3058','tel:0839293058'],['☎️ คุณวรัญญา 091-727-2541','tel:0917272541']],sources:[src('ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement),src('แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm)]
     });
 
-    if(/กู้พิเศษ|เงินกู้พิเศษ|เคหะ|ไถ่ถอนจำนอง/i.test(q)) return res('loan_special','เงินกู้พิเศษมีหลายวัตถุประสงค์ เช่น เคหะ ไถ่ถอนจำนอง และพัฒนาคุณภาพชีวิต (รวมหนี้) ครับ',{
-      actions:[['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['📄 แบบกู้พิเศษเพื่อการเคหะ',S.loanSpecialHousingForm],['📢 ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement],['📄 แบบไถ่ถอนจำนอง',S.loanSpecialRedeemForm],['📢 ประกาศพัฒนาคุณภาพชีวิต (รวมหนี้) 2569',S.loanSpecialQualityAnnouncement],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement]],sources:[src('ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement),src('ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement),src('ประกาศพัฒนาคุณภาพชีวิต 2569',S.loanSpecialQualityAnnouncement)]
+    if(/กู้พิเศษ|เงินกู้พิเศษ|เคหะ|ไถ่ถอนจำนอง/i.test(q)) return res('loan_special','เงินกู้พิเศษมี 3 กลุ่มในหน้าทางการ: เคหะ / ไถ่ถอนจำนองบ้านพร้อมที่ดิน / พัฒนาคุณภาพชีวิต (รวมหนี้) ครับ',{
+      details:['ขั้นตอน: 1) เลือกประเภท 2) เปิดหลักเกณฑ์และแบบ 3) ตรวจหลักประกัน/การประเมิน/ประกันตามประเภท 4) เตรียมเอกสาร 5) ยื่นคำขอ 6) ติดตามกับงานเงินกู้ฉุกเฉิน/พิเศษ'],actions:[['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['📄 แบบกู้พิเศษเพื่อการเคหะ',S.loanSpecialHousingForm],['📢 ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement],['📄 แบบไถ่ถอนจำนอง',S.loanSpecialRedeemForm],['📢 ประกาศพัฒนาคุณภาพชีวิต (รวมหนี้) 2569',S.loanSpecialQualityAnnouncement],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement]],sources:[src('ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement),src('ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement),src('ประกาศพัฒนาคุณภาพชีวิต 2569',S.loanSpecialQualityAnnouncement)]
     });
 
     if(/กู้.*การศึกษา|เพื่อการศึกษา|ค่าเทอม/i.test(q)) return res('loan_education','กู้เพื่อการศึกษามีแบบคำขอเฉพาะ และเอกสารหลักเกี่ยวกับผู้กู้/ผู้ค้ำ รายได้ และสถานศึกษา',{
@@ -252,11 +418,18 @@
     if(/แบบฟอร์ม.*สมาชิก|ใบสมัครสมาชิก|สมัครสมาชิก|สมาชิกใหม่/i.test(q)) return res('member_apply','สมัครสมาชิกมีใบสมัครสมาชิกประเภทสามัญและแบบงานทะเบียนที่เกี่ยวข้องในหน้าทางการครับ',{
       details:['แบบสมัครที่ตรวจไว้มีค่าธรรมเนียมและเอกสารประกอบระบุในตัวแบบ','ให้ใช้แบบล่าสุดจากหน้าเว็บก่อนยื่น'],actions:[['เปิดใบสมัครสมาชิก',S.memberApplication],['แบบฟอร์มสมาชิก/ทะเบียนทั้งหมด',S.memberForms]],sources:[src('แบบฟอร์มสมาชิก',S.memberForms),src('ใบสมัครสมาชิก',S.memberApplication)]
     });
-    if(/โอนย้าย|โอนสมาชิก|ย้ายสหกรณ์/i.test(q)) return res('transfer','การโอนย้ายสมาชิกให้ใช้แบบคำขอโอนสมาชิก และติดต่อ “งานทะเบียนสมาชิก” โดยตรงครับ',{
-      details:['กรณีย้ายต้นสังกัดให้เตรียมสำเนาคำสั่งโอน/ย้ายตามที่แบบกำหนด',`เจ้าหน้าที่งานทะเบียน: ${line(C.registration.people)}`],actions:[['📄 เปิดแบบโอนย้ายสมาชิกโดยตรง',S.transfer],['☎️ รัชปภา 092-391-8135','tel:0923918135'],['☎️ ปิยาภา 083-929-2739','tel:0839292739'],['☎️ วิราภรณ์ 092-391-7688','tel:0923917688']],sources:[src('แบบโอนสมาชิก',S.transfer),src('หน้าฟอร์มสมาชิกทางการ',S.memberForms)]
+    if(/โอนย้าย|โอนสมาชิก|ย้ายสหกรณ์|ย้าย|เปลี่ยนต้นสังกัด|เปลี่ยนหน่วยงาน|ย้ายงาน/i.test(q)) return res('transfer','ถ้าสมาชิก “ย้าย” ต้องแยกก่อนว่าเป็นการย้ายต้นสังกัด หรือการโอนสมาชิกระหว่างสหกรณ์ครับ',{
+      details:[
+        'กรณี 1 — ย้ายต้นสังกัด/หน่วยงาน แต่ยังเป็นสมาชิก สอ.อปท.: เปิดหน้าแบบฟอร์มสมาชิก/ทะเบียน ตรวจ “แบบแจ้งความประสงค์เปลี่ยนข้อมูลสมาชิก” และเอกสารการหักเงิน/นำส่งเงินที่เกี่ยวข้อง แล้วแจ้งงานทะเบียน',
+        'กรณี 2 — ต้องการโอนสมาชิกระหว่างสหกรณ์: เปิดระเบียบว่าด้วยการโอนสมาชิกระหว่างสหกรณ์ แล้วให้งานทะเบียนตรวจเงื่อนไข สหกรณ์ปลายทาง หนี้ หุ้น และภาระค้ำประกันก่อน',
+        'ขั้นตอน: 1) เลือกกรณีให้ถูก 2) เปิดเอกสารทางการ 3) เตรียมคำสั่งย้าย/ข้อมูลต้นสังกัดใหม่หรือข้อมูลสหกรณ์ปลายทาง 4) ให้งานทะเบียนตรวจข้อมูลสมาชิกและภาระผูกพัน 5) ยื่นเอกสารที่เจ้าหน้าที่แจ้ง 6) ติดตามผล',
+        `เจ้าหน้าที่งานทะเบียน: ${line(C.registration.people)}`
+      ],
+      actions:[['📄 แบบฟอร์มสมาชิก/ทะเบียน',S.memberForms],['📘 ระเบียบโอนสมาชิกระหว่างสหกรณ์',S.transfer],['☎️ ปิยาภา 083-929-2739','tel:0839292739'],['☎️ วิราภรณ์ 092-391-7688','tel:0923917688'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 หน้าติดต่อทางการ',S.contact]],
+      sources:[src('แบบฟอร์มสมาชิก/ทะเบียน',S.memberForms),src('ระเบียบโอนสมาชิกระหว่างสหกรณ์',S.transfer)]
     });
     if(/ลาออก|ออกจากสหกรณ์|พ้นสมาชิก/i.test(q)) return res('resignation','การลาออกให้ใช้ “ใบลาออก” ของสหกรณ์ และติดต่อ “งานทะเบียนสมาชิก” เพื่อตรวจหนี้/ภาระค้ำประกันและขั้นตอนก่อนยื่นครับ',{
-      details:[`เจ้าหน้าที่งานทะเบียน: ${line(C.registration.people)}`],actions:[['📄 เปิดใบลาออกโดยตรง',S.resignation],['☎️ รัชปภา 092-391-8135','tel:0923918135'],['☎️ ปิยาภา 083-929-2739','tel:0839292739'],['☎️ วิราภรณ์ 092-391-7688','tel:0923917688']],sources:[src('ใบลาออก',S.resignation),src('หน้าฟอร์มสมาชิกทางการ',S.memberForms)]
+      details:[`เจ้าหน้าที่งานทะเบียน: ${line(C.registration.people)}`],actions:[['📄 เปิดหน้าแบบฟอร์มสมาชิก — เลือก “ใบลาออก”',S.resignation],['☎️ ปิยาภา 083-929-2739','tel:0839292739'],['☎️ วิราภรณ์ 092-391-7688','tel:0923917688']],sources:[src('ใบลาออก',S.resignation),src('หน้าฟอร์มสมาชิกทางการ',S.memberForms)]
     });
 
     if(/เปิดบัญชี.*ฝาก|เปิด.*เงินฝาก/i.test(q)) return res('deposit_open','เปิดบัญชีเงินฝากออมทรัพย์พิเศษได้ตามขั้นตอนและแบบฟอร์มทางการครับ',{
@@ -286,8 +459,11 @@
       actions:[['เปิดวิธีการชำระเงิน',S.payment]],sources:[src('วิธีการชำระเงิน',S.payment)]
     });
 
+    const fuzzy=fuzzyCanonical(q);
+    if(fuzzy && fuzzy!==q) return answer(fuzzy);
+
     return res('fallback','ยังไม่มีคำตอบที่ยืนยันไว้สำหรับคำถามนี้ครับ เพื่อไม่ให้ข้อมูลผิด ระบบจะไม่เดา',{
-      status:'ยังยืนยันข้อมูลนี้ไม่ได้',actions:[['ค้นจากเว็บไซต์สหกรณ์',S.home],['ดูประกาศทางการ',S.notices],['☎️ ติดต่อสหกรณ์','tel:022418250']],sources:[src('เว็บไซต์ทางการ สอ.อปท.',S.home)],followups:['เงินกู้มีกี่แบบ','สวัสดิการมีกี่แบบ','ขอแบบฟอร์ม','ช่องทางติดต่อสหกรณ์ทั้งหมด']
+      status:'ยังยืนยันข้อมูลนี้ไม่ได้',actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['ค้นจากเว็บไซต์สหกรณ์',S.home],['ดูประกาศทางการ',S.notices],['☎️ โทรกลาง 02-241-8250','tel:022418250']],sources:[src('เว็บไซต์ทางการ สอ.อปท.',S.home)],followups:['เงินกู้มีกี่แบบ','สวัสดิการมีกี่แบบ','ขอแบบฟอร์ม','ช่องทางติดต่อสหกรณ์ทั้งหมด']
     });
   }
 
@@ -297,14 +473,12 @@
 </script>
 <script>
 const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');
-function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='850';h.style.fontSize='18px';h.style.marginBottom='8px';h.textContent='คำตอบ';out.append(h);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.details?.length){const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});out.append(ul)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#line-qr'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');document.getElementById('lineQr').classList.remove('hidden')}}else if(u==='#facebook-copy'){a.href='#';a.onclick=async e=>{e.preventDefault();try{await navigator.clipboard.writeText('@Dlasavingcooppage');a.textContent='คัดลอก @Dlasavingcooppage แล้ว'}catch{alert('Facebook: @Dlasavingcooppage')}}}else{a.href=u;if(/^https:/.test(u)&&!/facebook\.com|line\.me/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 แหล่งข้อมูล';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x);d.append(bt)});out.append(d)}out.scrollIntoView({behavior:'smooth',block:'start'})}
+function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='850';h.style.fontSize='18px';h.style.marginBottom='8px';h.textContent='คำตอบ';out.append(h);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.details?.length){const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});out.append(ul)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 แหล่งข้อมูล';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x);d.append(bt)});out.append(d)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 function ask(text){q.value=text;render(COOP_APP.answer(text));}
 document.getElementById('form').onsubmit=e=>{e.preventDefault();ask(q.value)};
 document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q));
-document.querySelectorAll('[data-contact]').forEach(b=>b.onclick=()=>box.classList.remove('hidden'));
-document.getElementById('contactBtn').onclick=()=>box.classList.remove('hidden');document.getElementById('closeContact').onclick=()=>box.classList.add('hidden');
+document.querySelectorAll('[data-contact]').forEach(b=>b.onclick=()=>{box.classList.remove('hidden');box.scrollTop=0});
+document.getElementById('contactBtn').onclick=()=>{box.classList.remove('hidden');box.scrollTop=0};document.getElementById('closeContact').onclick=()=>box.classList.add('hidden');
 document.getElementById('homeBtn').onclick=()=>{q.value='';out.classList.add('hidden');out.replaceChildren();box.classList.add('hidden');document.getElementById('home').scrollIntoView({behavior:'smooth'});q.focus()};
-document.getElementById('showLineQr').onclick=()=>document.getElementById('lineQr').classList.toggle('hidden');
-document.getElementById('copyFb').onclick=async()=>{try{await navigator.clipboard.writeText('@Dlasavingcooppage');document.getElementById('copyFb').textContent='คัดลอก @Dlasavingcooppage แล้ว'}catch{alert('Facebook: @Dlasavingcooppage')}};
 </script>
 </body></html>
