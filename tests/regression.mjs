@@ -81,6 +81,27 @@ for(const q of [...html.matchAll(/data-q="([^"]+)"/g)].map(m=>m[1])){
   }
 }
 
+
+
+const transactionCases=[
+ ['ปิดหนี้','loan_close'],['ปิดยอดกู้','loan_close'],['กู้เพื่อพักผ่อน','loan_vacation'],['เงินกู้สามัญ','loan_ordinary'],
+ ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],
+ ['ถอนเงินฝาก','deposit_withdraw'],['ปิดบัญชีเงินฝาก','deposit_withdraw'],['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],
+ ['ลาออกจากสหกรณ์','resignation'],['เพิ่งคลอดลูก ขอแบบอะไร','welfare_childbirth'],['ทุนเรียนลูก','scholarship'],['แม่เสียได้สวัสดิการไหม','welfare_family_death'],
+ ['สมัครฌาปนกิจ','funeral'],['ชำระเงินฌาปนกิจ','funeral'],['สมาชิกฌาปนกิจเสียชีวิต ขอรับเงิน','funeral'],['ชำระเงินกู้','payment']
+];
+const authorityPattern=/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|แบบฟอร์ม|วิธีการชำระ|คำแนะนำ/;
+for(const [q,expected] of transactionCases){
+  const r=globalThis.COOP_APP.answer(q);
+  const hasAuthority=(r.actions||[]).some(([label,url])=>authorityPattern.test(label)&&/^https?:/.test(url));
+  const hasProcess=(r.details||[]).some(x=>/ขั้นตอน|1\)/.test(String(x)));
+  const hasFinish=(r.details||[]).some(x=>/จบกระบวนการเมื่อ|เสร็จสิ้นเมื่อ|ถือว่ารายการเสร็จ/.test(String(x)));
+  const hasContact=(r.actions||[]).some(x=>/^tel:|#staff-directory/.test(x[1]));
+  if(r.intent!==expected||!hasAuthority||!hasProcess||!hasFinish||!hasContact){
+    failures.push({group:'transaction-completion',q,expected,actual:r.intent,hasAuthority,hasProcess,hasFinish,hasContact});
+  }
+}
+
 const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135','13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
 for(const token of forbidden) if(html.includes(token)) failures.push({token,group:'stale'});
 
