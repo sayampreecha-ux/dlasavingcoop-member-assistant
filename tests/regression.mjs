@@ -76,6 +76,9 @@ for(const q of [...html.matchAll(/data-q="([^"]+)"/g)].map(m=>m[1])){
   if(!html.includes('🌐 เว็บไซต์สหกรณ์ www.dlasavingcoop.com')){
     failures.push({group:'contact-panel-website'});
   }
+  if(!html.includes('<a class="coopweb" href="https://www.dlasavingcoop.com/"')){
+    failures.push({group:'top-website'});
+  }
 }
 
 const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135','13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
