@@ -184,7 +184,44 @@
   const C=KB.contacts;
   const line=(rows=[])=>rows.map(x=>`${x[0]} ${x[1]}`).join(' · ');
   const src=(title,url,note='')=>({title,url,note});
-  const res=(intent,answer,opt={})=>({intent,answer,details:opt.details||[],actions:opt.actions||[],sources:opt.sources||[],followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy});
+  function res(intent,answer,opt={}){
+    const details=[...(opt.details||[])];
+    const actions=[...(opt.actions||[])];
+    const addAction=(label,url)=>{if(!actions.some(x=>x[1]===url)) actions.push([label,url]);};
+    const hasSteps=details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
+
+    if(/^welfare_/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/แบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ติดตามผล');
+      addAction('☎️ งานสวัสดิการ 092-391-1027','tel:0923911027');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^loan_/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์ล่าสุด 2) เลือก/ดาวน์โหลดแบบ 3) เตรียมเอกสารและหลักประกันตามแบบ 4) ยื่นคำขอ 5) ติดตามผลกับเจ้าหน้าที่');
+      if(/emergency|special/.test(intent)) addAction('☎️ งานเงินกู้ฉุกเฉิน/พิเศษ 083-929-3058','tel:0839293058');
+      else addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^deposit/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบ/ขั้นตอนเงินฝาก 2) กรอกและเตรียมหลักฐาน 3) ส่งตามช่องทางที่หน้าทางการกำหนด 4) ติดตามกับงานเงินฝาก');
+      addAction('☎️ งานเงินฝาก 092-391-5896','tel:0923915896');
+      addAction('☎️ งานเงินฝาก 091-727-5236','tel:0917275236');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(/^(member_apply|transfer|resignation)$/.test(intent)){
+      if(!hasSteps) details.push('ขั้นตอน: 1) เปิดแบบงานทะเบียนที่เกี่ยวข้อง 2) กรอกและเตรียมหลักฐาน 3) ยื่นต่อสหกรณ์ 4) ให้งานทะเบียนตรวจ 5) ติดตามผล');
+      addAction('☎️ งานทะเบียน 092-391-8135','tel:0923918135');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(intent==='dividend'){
+      addAction('☎️ งานทะเบียน 092-391-7688','tel:0923917688');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    if(intent==='funeral'){
+      addAction('☎️ งานฌาปนกิจ 083-615-5533','tel:0836155533');
+      addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
+    }
+    return {intent,answer,details,actions,sources:opt.sources||[],followups:opt.followups||[],status:opt.status||'ข้อมูลจากแหล่งทางการ',privacy:!!opt.privacy};
+  }
 
   function norm(s=''){
     let q=String(s).toLowerCase().trim().replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ');
