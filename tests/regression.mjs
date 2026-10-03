@@ -78,7 +78,7 @@ for(const q of [...html.matchAll(/data-q="([^"]+)"/g)].map(m=>m[1])){
   }
 }
 
-const forbidden=['#facebook-copy','id="copyFb"','092-391-8135','0923918135','13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
+const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135','13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
 for(const token of forbidden) if(html.includes(token)) failures.push({token,group:'stale'});
 
 if(failures.length){
