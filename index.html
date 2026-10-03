@@ -106,7 +106,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.1.1-pages',
+    version:'2.1.2-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -205,7 +205,7 @@
     const addAction=(label,url)=>{if(!actions.some(x=>x[1]===url)) actions.push([label,url]);};
     const hasSteps=details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
 
-    if(/^welfare_/.test(intent)){
+    if(/^welfare_/.test(intent)||intent==='scholarship'){
       if(!hasSteps) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/แบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ติดตามผล');
       addAction('☎️ งานสวัสดิการ 081-515-7253','tel:0815157253');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
@@ -242,7 +242,7 @@
   function norm(s=''){
     let q=String(s).toLowerCase().trim().replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ');
     const fixes=[
-      [/เงินกู(?!้)/g,'เงินกู้'],[/กู้้/g,'กู้'],
+      [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],
       [/ฌาปณกิจ|ฌาปกิจ|ชาปนกิจ|ฌาปะนกิจ|ฌาปนกิต/g,'ฌาปนกิจ'],
       [/สวัดดิการ|สวัดดีการ|สวัสดิการ์/g,'สวัสดิการ'],
       [/เฟสบุ๊ค|เฟสบุค|เฟสบุ๊ก|เฟซบุ๊ค|เฟซบุ๊ก/g,'facebook'],
