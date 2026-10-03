@@ -50,6 +50,7 @@
     <a class="tel" href="tel:+6622418251">☎️ โทรกลาง 02-241-8251</a>
     <a class="line" href="https://line.me/R/ti/p/@dlasavingcoop" target="_blank" rel="noopener">LINE @dlasavingcoop</a>
     <a class="fb" href="https://www.facebook.com/Dlasavingcooppage" target="_blank" rel="noopener">Facebook สอ.อปท.</a>
+    <a class="web" href="https://www.dlasavingcoop.com/" target="_blank" rel="noopener">🌐 เว็บไซต์สหกรณ์ www.dlasavingcoop.com</a>
   </div>
   <div class="staffgrid">
     <div class="staffcard"><strong>📍 เจ้าหน้าที่ประจำจังหวัด</strong>
@@ -105,7 +106,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.2.1-pages',
+    version:'2.2.2-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -122,6 +123,7 @@
       specialLoanForms:'https://www.dlasavingcoop.com/show.php?No=2385',
       funeralHub:'https://dlasavingcoop.com/show.php?No=4650',
       funeralApply:'https://www.dlasavingcoop.com/show.php?No=3977',
+      funeralApplyHowToImage:'https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/images/777.jpg',
       funeralApproval:'https://www.dlasavingcoop.com/show.php?No=4241',
       funeralRules:'https://www.dlasavingcoop.com/show.php?No=4401',
       funeralRulesPdf:'https://dlasavingcoop.com/coop/data/Funeralsociety.pdf',
@@ -331,7 +333,7 @@
     if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|เจ้าหน้าที่|รายชื่อเจ้าหน้าที่|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
       `เลือกติดต่อเจ้าหน้าที่ตามเรื่องได้เลยครับ\n• เงินกู้สามัญ: ${line(C.ordinaryLoan.people)}\n• เงินกู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}\n• เงินกู้พิเศษ: ${line(C.specialLoan.people)}\n• ทะเบียนสมาชิก: ${line(C.registration.people)}\n• เงินฝาก: ${line(C.deposit.people)}\n• สวัสดิการ: ${line(C.welfare.people)}\n• ฌาปนกิจ: ${line(C.funeral.people)}\n• เจ้าหน้าที่ประจำจังหวัด: ดูจากหน้าติดต่อทางการ`,{
         details:['หากรายชื่อหรือเบอร์มีการเปลี่ยนแปลง ให้ตรวจหน้าติดต่อทางการของสหกรณ์','Facebook ใช้ลิงก์เพจทางการโดยตรง'],
-        actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 เปิดหน้าติดต่อทางการ',S.contact],['Facebook สอ.อปท.',S.facebook],['LINE Official',S.line],['เว็บไซต์สหกรณ์',S.home]],
+        actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 เปิดหน้าติดต่อทางการ',S.contact],['Facebook สอ.อปท.',S.facebook],['LINE Official',S.line],['🌐 เว็บไซต์สหกรณ์',S.home]],
         sources:[src('หน้าติดต่อทางการ',S.contact)]
       });
 
@@ -342,19 +344,22 @@
       const isPayment=/ชำระ|จ่าย|ค่าสมัคร|ค่าบำรุง|สงเคราะห์ล่วงหน้า|เรียกเก็บ/i.test(q);
       const isRule=/ข้อบังคับ|หลักเกณฑ์|ระเบียบ/i.test(q);
 
-      if(isApply) return res('funeral','สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ได้จากหน้าสมัครทางการโดยตรงครับ',{
+      if(isApply) return res('funeral','วิธีสมัครฌาปนกิจดูได้ในระบบนี้เลยครับ และมีภาพคำแนะนำทางการให้เปิดโดยตรง ไม่ต้องพึ่งหน้าสมัครที่บางเครื่องเปิดไม่ได้',{
         details:[
-          'ขั้นตอน: 1) เปิดหน้าสมัครสมาชิกสมาคม 2) ดาวน์โหลดใบสมัครและหนังสือแสดงเจตนาผู้รับประโยชน์ 3) กรอกข้อมูลและเตรียมเอกสารตามแบบ 4) ตรวจวิธีชำระเงินค่าสมัครจากเอกสารทางการ 5) ส่งเอกสารตามช่องทางที่สมาคมกำหนด 6) ติดตามผลอนุมัติ',
+          'ขั้นตอน: 1) ตรวจคุณสมบัติผู้สมัครจากภาพ/ข้อบังคับทางการ 2) เตรียมใบสมัครสมาชิกสมาคม 3) เตรียมหนังสือแสดงเจตนาผู้รับประโยชน์และเอกสารประกอบตามที่กำหนด 4) ตรวจวิธีชำระเงินค่าสมัครทางการ 5) ส่งเอกสารตามช่องทางที่สมาคมกำหนด 6) ตรวจผลอนุมัติ/เลขสมาชิกภายหลัง',
+          'ถ้าหน้าสมัครทางการเปิดไม่ได้ ให้ใช้ปุ่ม “🖼️ วิธีสมัคร (ภาพทางการ)” เป็นหลัก และโทรเจ้าหน้าที่ฌาปนกิจได้โดยตรง',
           'ก่อนชำระเงินให้ตรวจชื่อบัญชี จำนวนเงิน และรายละเอียดล่าสุดในเอกสารทางการทุกครั้ง'
         ],
         actions:[
-          ['📝 สมัครสมาชิกฌาปนกิจ',S.funeralApply],
+          ['🖼️ วิธีสมัคร (ภาพทางการ)',S.funeralApplyHowToImage],
           ['💳 วิธีชำระค่าสมัคร',S.funeralPayment],
           ['✅ ตรวจผลอนุมัติ/เลขสมาชิก',S.funeralApproval],
           ['📘 ข้อบังคับสมาคม',S.funeralRules],
-          ['☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533']
+          ['🌐 หน้าสมัครทางการ (สำรอง)',S.funeralApply],
+          ['☎️ น.ส.ณัฐชา แสนสุขสันติ 083-615-5533','tel:0836155533'],
+          ['🌐 เว็บไซต์สหกรณ์',S.home]
         ],
-        sources:[src('สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApply),src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules)]
+        sources:[src('ภาพวิธีสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApplyHowToImage),src('หน้าสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApply),src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules)]
       });
 
       if(isResult) return res('funeral','ตรวจผลอนุมัติและค้นเลขสมาชิกสมาคมฌาปนกิจได้จากหน้าผลอนุมัติทางการครับ',{
@@ -417,7 +422,7 @@
           '6) ติดต่อเจ้าหน้าที่สมาคม'
         ],
         actions:[
-          ['📝 สมัครสมาชิก',S.funeralApply],
+          ['🖼️ วิธีสมัครฌาปนกิจ',S.funeralApplyHowToImage],
           ['✅ ผลอนุมัติ / ค้นเลขสมาชิก',S.funeralApproval],
           ['💳 วิธีชำระค่าสมัคร',S.funeralPayment],
           ['📘 ข้อบังคับสมาคม',S.funeralRules],
