@@ -241,6 +241,36 @@
   function personal(q){
     return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
   }
+  function editDistance(a='',b=''){
+    const x=[...a],y=[...b],dp=Array(y.length+1).fill(0).map((_,j)=>j);
+    for(let i=1;i<=x.length;i++){
+      let prev=dp[0]; dp[0]=i;
+      for(let j=1;j<=y.length;j++){
+        const old=dp[j];
+        dp[j]=Math.min(dp[j]+1,dp[j-1]+1,prev+(x[i-1]===y[j-1]?0:1));
+        prev=old;
+      }
+    }
+    return dp[y.length];
+  }
+  function fuzzyCanonical(q){
+    const map=[
+      ['เงินกู้','เงินกู้มีกี่แบบ'],['สวัสดิการ','สวัสดิการมีกี่แบบ'],['โอนย้าย','โอนย้ายสมาชิก'],
+      ['ฌาปนกิจ','ฌาปนกิจสงเคราะห์'],['เงินฝาก','เงินฝาก'],['สมัครสมาชิก','สมัครสมาชิกใหม่'],
+      ['ลาออก','ลาออกจากสหกรณ์'],['ปันผล','ปันผลปี 69'],['ติดต่อ','ติดต่อเจ้าหน้าที่'],['แบบฟอร์ม','แบบฟอร์มทั้งหมด']
+    ];
+    const tokens=q.split(/\s+/).filter(Boolean);
+    let best=null;
+    for(const [term,canonical] of map){
+      for(const token of [...tokens,q.replace(/\s+/g,'')]){
+        const d=editDistance(token,term);
+        const limit=term.length>=7?2:1;
+        if(d<=limit && (!best||d<best.d)) best={d,canonical};
+      }
+    }
+    return best?.canonical||'';
+  }
+
   function handoff(q){
     let target='โทรศัพท์กลาง 02-241-8250 หรือ 02-241-8251 หรือ LINE Official @dlasavingcoop';
     if(/ฌาปนกิจ/i.test(q)) target=`งานสมาคมฌาปนกิจ: ${line(C.funeral.people)}`;
@@ -390,6 +420,9 @@
     if(/ชำระเงิน|ส่งค่าหุ้น|จ่ายเงินกู้/i.test(q)) return res('payment','วิธีการชำระเงินและนำส่งค่าหุ้น/เงินกู้มีหน้าทางการแยกไว้ครับ',{
       actions:[['เปิดวิธีการชำระเงิน',S.payment]],sources:[src('วิธีการชำระเงิน',S.payment)]
     });
+
+    const fuzzy=fuzzyCanonical(q);
+    if(fuzzy && fuzzy!==q) return answer(fuzzy);
 
     return res('fallback','ยังไม่มีคำตอบที่ยืนยันไว้สำหรับคำถามนี้ครับ เพื่อไม่ให้ข้อมูลผิด ระบบจะไม่เดา',{
       status:'ยังยืนยันข้อมูลนี้ไม่ได้',actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['ค้นจากเว็บไซต์สหกรณ์',S.home],['ดูประกาศทางการ',S.notices],['☎️ โทรกลาง 02-241-8250','tel:022418250']],sources:[src('เว็บไซต์ทางการ สอ.อปท.',S.home)],followups:['เงินกู้มีกี่แบบ','สวัสดิการมีกี่แบบ','ขอแบบฟอร์ม','ช่องทางติดต่อสหกรณ์ทั้งหมด']
