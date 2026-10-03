@@ -44,7 +44,7 @@
   <div class="clinks">
     <a class="tel" href="tel:022418250">โทร 02-241-8250-1</a>
     <button class="line" id="copyLine">LINE @dlasavingcoop</button>
-    <a class="fb" href="https://www.facebook.com/Dlasavingcooppage" target="_blank" rel="noopener">Facebook</a>
+    <a class="fb" href="https://www.facebook.com/Dlasavingcooppage" target="_blank" rel="noopener">Facebook @Dlasavingcooppage</a>
     <a class="web" href="https://www.dlasavingcoop.com/" target="_blank" rel="noopener">เว็บไซต์สหกรณ์</a>
   </div>
 </section>
@@ -82,6 +82,7 @@
       welfareAmendment2:'https://drive.google.com/file/d/1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18/view?usp=sharing',
       welfareFamilyDeath:'https://drive.google.com/file/d/1Fs51CIR2Rm5-4oxkTwfYYHyJAnKCPRZ7/view?usp=drivesdk',
       facebook:'https://www.facebook.com/Dlasavingcooppage',
+      line:'https://line.me/R/ti/p/@dlasavingcoop',
       ordinaryLoanContact:'https://dlasavingcoop.com/board_content.php?No=41045',
       emergencyLoanContact:'https://www.dlasavingcoop.com/board_content.php?No=39123',
       registrationContact:'https://dlasavingcoop.com/show.php?No=4589',
@@ -100,7 +101,7 @@
       registration:{published:'ข้อมูลเผยแพร่ปี 2568', people:[
         ['คุณรัชปภา','092-391-8135'],['คุณปิยาภา','083-929-2739'],['คุณวิราภรณ์','092-391-7688'],['คุณสุปราณี','083-929-2830'],['คุณเรวดี','092-391-8117'],['ว่าที่ ร.ต.นรภัทร','092-391-1540']
       ]},
-      deposit:{published:'หน้าเว็บที่ตรวจ ณ 3 ต.ค. 2569', people:[['คุณมิรันตี','092-391-5896'],['คุณพัชรมณฑ์','091-727-5236']]}
+      deposit:{published:'หน้าเว็บทางการที่ตรวจ ณ 3 ต.ค. 2569', people:[['คุณมิรันตี','092-391-5896'],['ว่าที่ ร.ต.หญิง จิราภา','091-727-5236']]}
     },
     dividend:{
       title:'กำหนดแนวทางการจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ประจำปีบัญชี 2569',
@@ -108,7 +109,7 @@
       note:'ระบบไม่แสดงอัตราปันผล/เฉลี่ยคืนจนกว่าจะมีหลักฐานอัตราที่อนุมัติชัดเจน'
     },
     welfare:{
-      types:['สวัสดิการเพื่อการคลอดบุตร','สวัสดิการเพื่อการสมรส','สวัสดิการเพื่อการศาสนา','สวัสดิการเพื่อการสำเร็จการศึกษา','สวัสดิการบำเหน็จสมาชิก','สวัสดิการทุนส่งเสริมการศึกษาของบุตรสมาชิก','สวัสดิการเพื่อการสงเคราะห์สมาชิกและครอบครัว','สวัสดิการเพื่อการสงเคราะห์สมาชิกกรณีประสบภัย'],
+      types:['สวัสดิการเพื่อการคลอดบุตร','สวัสดิการเพื่อการสมรส','สวัสดิการเพื่อการศาสนา','สวัสดิการเพื่อการสำเร็จการศึกษา','สวัสดิการบำเหน็จสมาชิก','เงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม','เงินสงเคราะห์กรณีบุคคลในครอบครัวถึงแก่กรรม','เงินสงเคราะห์กรณีผู้ประสบภัย'],
       scholarshipLevels:['อุดมศึกษา','มัธยมศึกษา','ประถมศึกษา','ก่อนประถมศึกษา/ปฐมวัย'],
       childBirth:['เป็นสวัสดิการประเภทหนึ่งตามระเบียบสวัสดิการสมาชิก','ใช้แบบขอรับสวัสดิการจากหน้าสวัสดิการทางการ','หลักฐานสำคัญรวมถึงสำเนาสูติบัตร','ยื่นภายใน 180 วันตามหลักเกณฑ์ที่ตรวจไว้'],
       familyDeath:['กรณีบิดา/มารดาโดยชอบด้วยกฎหมายถึงแก่กรรม มีหลักเกณฑ์สงเคราะห์ครอบครัว','ข้อมูลที่ตรวจไว้ระบุ 3,000 บาทต่อคนสำหรับกรณีที่เข้าเงื่อนไข','เพื่อความปลอดภัยควรยื่นภายใน 120 วัน; หากเกินให้เจ้าหน้าที่ตรวจข้อกำหนดที่ใช้บังคับ']
@@ -131,7 +132,7 @@
 
   function norm(s=''){return String(s).trim().replace(/\s+/g,' ').replace(/[?？]+$/g,'');}
   function personal(q){
-    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|ยอดเงินฝาก|เงินฝากคงเหลือ|ผลอนุมัติ|สถานะคำขอ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้ได้เท่าไร).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|ยอดหุ้น|ยอดเงินฝาก|ผลอนุมัติ|กู้เพิ่ม|กู้ได้เท่าไร|ปันผลของ)/i.test(q);
+    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
   }
   function handoff(q){
     let target='โทรศัพท์กลาง 02-241-8250-1 หรือ LINE Official @dlasavingcoop';
@@ -142,7 +143,7 @@
     return res('personal_handoff',`เรื่องนี้ต้องใช้ข้อมูลเฉพาะสมาชิก ระบบนี้ไม่ตรวจยอด/สถานะ/ผลอนุมัติแทนเจ้าหน้าที่ครับ\n\n${target}`,{
       status:'🔒 ข้อมูลเฉพาะสมาชิก — ส่งต่อเจ้าหน้าที่',privacy:true,
       details:['อย่าส่งเลขบัตรประชาชน เลขบัญชี รหัสผ่าน หรือ OTP ในหน้าเว็บนี้','แจ้งเลขสมาชิกเฉพาะเมื่ออยู่ในช่องทางทางการของสหกรณ์'],
-      actions:[['☎️ โทรสหกรณ์','tel:022418250'],['🌐 หน้าติดต่อทางการ',S.contact]],
+      actions:[['☎️ โทรสหกรณ์','tel:022418250'],['LINE Official @dlasavingcoop',S.line],['Facebook @Dlasavingcooppage',S.facebook],['🌐 หน้าติดต่อทางการ',S.contact]],
       sources:[src('หน้าติดต่อ สอ.อปท.',S.contact)]
     });
   }
@@ -152,30 +153,55 @@
     if(!q) return res('empty','พิมพ์คำถามได้เลย เช่น “สวัสดิการมีกี่แบบ” หรือ “ขอใบสมัครสมาชิก”',{status:'พร้อมตอบ'});
     if(personal(q)) return handoff(q);
 
-    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|ไลน์.*สหกรณ์|facebook|เฟสบุ/i.test(q)) return res('contact',
-      `ช่องทางหลัก สอ.อปท.\n• โทร ${C.general.phone}\n• LINE Official ${C.general.line}\n• Facebook: ${C.general.facebook}\n• เว็บไซต์: www.dlasavingcoop.com\n• ที่อยู่: ${C.general.address}`,{
-        details:[`กู้สามัญ (${C.ordinaryLoan.published}): ${line(C.ordinaryLoan.people)}`,`กู้ฉุกเฉิน (${C.emergencyLoan.published}): ${line(C.emergencyLoan.people)}`,`งานทะเบียน (${C.registration.published}): ${line(C.registration.people)}`,`งานเงินฝาก (${C.deposit.published}): ${line(C.deposit.people)}`],
-        actions:[['☎️ โทร 02-241-8250-1','tel:022418250'],['Facebook ทางการ',S.facebook],['เว็บไซต์สหกรณ์',S.home]],sources:[src('หน้าติดต่อทางการ',S.contact)]
+    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
+      `ช่องทางหลัก สอ.อปท.\n• โทร ${C.general.phone}\n• LINE Official ${C.general.line}\n• Facebook: @Dlasavingcooppage\n• เว็บไซต์: www.dlasavingcoop.com\n• ที่อยู่: ${C.general.address}`,{
+        details:[`ถ้า LINE เปิดไม่ขึ้น: เข้า LINE > เพิ่มเพื่อน > ค้นหา ID ${C.general.line}`,`กู้สามัญ (${C.ordinaryLoan.published}): ${line(C.ordinaryLoan.people)}`,`กู้ฉุกเฉิน (${C.emergencyLoan.published}): ${line(C.emergencyLoan.people)}`,`งานทะเบียน (${C.registration.published}): ${line(C.registration.people)}`,`งานเงินฝาก (${C.deposit.published}): ${line(C.deposit.people)}`],
+        actions:[['☎️ โทร 02-241-8250-1','tel:022418250'],['เปิด LINE Official',S.line],['Facebook @Dlasavingcooppage',S.facebook],['เว็บไซต์สหกรณ์',S.home]],sources:[src('หน้าติดต่อทางการ',S.contact)]
       });
 
-    if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันไว้มี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
-      actions:[['เปิดแบบขอรับสวัสดิการ',S.welfareForms]],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','แม่เสียได้สวัสดิการไหม']
+    if(/ประสบภัย|น้ำท่วม|ไฟไหม้|วาตภัย|พายุ/i.test(q) && /สวัสดิการ|สงเคราะห์|ช่วยเหลือ/i.test(q)) return res('welfare_disaster','มีเงินสงเคราะห์กรณีผู้ประสบภัยตามหลักเกณฑ์สวัสดิการ และมีแบบขอรับเฉพาะครับ',{
+      details:['เป็นคนละเรื่องกับเงินกู้เพื่อช่วยเหลือกรณีภัยพิบัติ','ให้ใช้แบบและหลักเกณฑ์ล่าสุดจากหน้าสวัสดิการทางการ'],actions:[['เปิดแบบ/หลักเกณฑ์ผู้ประสบภัย',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]
     });
-    if(/คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return res('welfare_childbirth','มีสวัสดิการเพื่อการคลอดบุตรครับ',{
+    if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return res('welfare_childbirth','มีสวัสดิการเพื่อการคลอดบุตรครับ',{
       details:KB.welfare.childBirth,actions:[['เปิดแบบขอรับสวัสดิการ',S.welfareForms]],sources:[src('แบบฟอร์ม/หลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['สวัสดิการมีกี่แบบ','ติดต่อสวัสดิการ']
     });
-    if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน/i.test(q)) return res('scholarship',`ทุนส่งเสริมการศึกษาของบุตรสมาชิกแบ่งเป็น 4 ระดับ: ${KB.welfare.scholarshipLevels.join(' / ')}`,{
-      details:['ประกาศทุนและช่วงเวลารับสมัครให้ตรวจประกาศประจำปีล่าสุดก่อนยื่น'],actions:[['ดูประกาศทางการ',S.notices],['ดูแบบสวัสดิการ',S.welfareForms]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices),src('ระเบียบสวัสดิการ',S.welfareRule)]
+    if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|มหาลัย|มหาวิทยาลัย|หมดเขต.*ทุน|ทุน.*หมดเขต/i.test(q)) return res('scholarship',`มีโครงการทุนส่งเสริมการศึกษาของบุตรสมาชิก โดยระดับที่ระบบตรวจไว้คือ: ${KB.welfare.scholarshipLevels.join(' / ')}`,{
+      details:['ช่วงเวลารับสมัครและจำนวนทุนเป็นประกาศประจำปี ให้เปิดประกาศล่าสุดก่อนยื่น'],actions:[['ดูประกาศทุน/ประกาศล่าสุด',S.notices],['ดูแบบสวัสดิการ',S.welfareForms]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices),src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]
+    });
+    if(/สมรส|แต่งงาน/i.test(q)) return res('welfare_marriage','มีสวัสดิการเพื่อการสมรสตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return res('welfare_religion','มีสวัสดิการเพื่อการศาสนาตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return res('welfare_graduation','มีสวัสดิการเพื่อการสำเร็จการศึกษาตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/i.test(q)) return res('welfare_gratuity','มีสวัสดิการบำเหน็จสมาชิกตามหลักเกณฑ์สวัสดิการครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return res('welfare_member_death','มีเงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม โดยใช้แบบและหลักเกณฑ์เฉพาะครับ',{actions:[['เปิดแบบ/หลักเกณฑ์กรณีสมาชิกถึงแก่กรรม',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันไว้มี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
+      actions:[['เปิดแบบขอรับสวัสดิการ',S.welfareForms]],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','แม่เสียได้สวัสดิการไหม']
     });
     if(/(?:พ่อ|แม่|บิดา|มารดา).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/i.test(q)) return res('welfare_family_death','กรณีบิดา/มารดาโดยชอบด้วยกฎหมายถึงแก่กรรม มีสวัสดิการสงเคราะห์ครอบครัวตามหลักเกณฑ์ที่เกี่ยวข้อง',{
       details:KB.welfare.familyDeath,actions:[['เปิดแบบสวัสดิการ',S.welfareForms]],sources:[src('หลักเกณฑ์กรณีครอบครัวถึงแก่กรรม',S.welfareFamilyDeath),src('แบบสวัสดิการ',S.welfareForms)]
     });
-    if(/ประสบภัย|น้ำท่วม|ไฟไหม้|ภัยพิบัติ/i.test(q) && /สวัสดิการ/i.test(q)) return res('welfare_disaster','มีสวัสดิการสงเคราะห์สมาชิกกรณีประสบภัย และมีแบบขอรับแยกจากเงินกู้ภัยพิบัติครับ',{
-      details:['สวัสดิการประสบภัยไม่ใช่เงินกู้','สิทธิและเอกสารให้ยึดแบบ/หลักเกณฑ์สวัสดิการปัจจุบัน'],actions:[['เปิดแบบสวัสดิการประสบภัย',S.welfareForms]],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms)]
+    if(/(?:กู้.*หุ้น|หุ้น.*ค้ำ|ทุนเรือนหุ้น.*ค้ำ|ไม่เกินทุนเรือนหุ้น|กู้หุ้น(?:ตัวเอง)?)/i.test(q)) return res('loan_share_secured','มีเงินกู้สามัญไม่เกินทุนเรือนหุ้นและ/หรือเงินฝากที่มีในสหกรณ์ และมีแบบคำขอเฉพาะครับ',{
+      details:['ถ้าถามว่าตัวเองกู้ได้เท่าไร ต้องตรวจยอดหุ้น/เงินฝากและภาระผูกพันเฉพาะสมาชิกกับเจ้าหน้าที่'],actions:[['เปิดแบบกู้โดยใช้หุ้น/เงินฝาก',S.sharesDepositLoan],['หน้าหลักเกณฑ์กู้สามัญ',S.ordinaryLoanForms]],sources:[src('หลักเกณฑ์และแบบคำขอกู้เงินสามัญ',S.ordinaryLoanForms)]
     });
-
+    if(/พักผ่อน|ท่องเที่ยว|กู้เที่ยว/i.test(q)) return res('loan_vacation','มีเงินกู้สามัญเพื่อการพักผ่อน และมีสรุปหลักเกณฑ์/แบบคำขอบนหน้ากู้สามัญครับ',{
+      actions:[['เปิดหน้ากู้สามัญ/แบบพักผ่อน',S.ordinaryLoanForms],['เปิดแบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan]],sources:[src('หลักเกณฑ์และแบบคำขอกู้เงินสามัญ',S.ordinaryLoanForms)]
+    });
+    if(/ปิด(?:บัญชี)?(?:เงิน)?กู้|ปิดหนี้|ชำระปิด.*กู้|ปิดยอดกู้/i.test(q)) return res('loan_close','ถ้าต้องการปิดเงินกู้ ให้ตรวจยอดหนี้คงเหลือ/ยอดชำระปิดกับสหกรณ์ก่อน แล้วชำระผ่านช่องทางทางการครับ',{
+      details:['ยอดปิดเป็นข้อมูลเฉพาะสมาชิกและเปลี่ยนตามวันที่ชำระ จึงไม่ควรคำนวณจากหน้าเว็บนี้','หลังชำระให้ตรวจสถานะกับเจ้าหน้าที่หรือระบบสมาชิกอีกครั้ง'],actions:[['วิธีการชำระเงิน',S.payment],['ติดต่อเจ้าหน้าที่เงินกู้',S.ordinaryLoanContact],['☎️ โทรสหกรณ์','tel:022418250']],sources:[src('วิธีการชำระเงินทางการ',S.payment),src('หน้ากู้สามัญ',S.ordinaryLoanForms)]
+    });
+    if(/เปลี่ยน.*(?:ผู้ค้ำ|คนค้ำ)|เปลี่ยนแปลงผู้ค้ำ/i.test(q)) return res('loan_change_guarantor','มี “หนังสือแจ้งความประสงค์การเปลี่ยนแปลงผู้ค้ำประกัน” สำหรับเงินกู้สามัญในหน้าทางการครับ',{
+      actions:[['เปิดหน้ากู้สามัญ/เอกสารเปลี่ยนผู้ค้ำ',S.ordinaryLoanForms],['ติดต่อเจ้าหน้าที่เงินกู้',S.ordinaryLoanContact]],sources:[src('หลักเกณฑ์และแบบคำขอกู้เงินสามัญ',S.ordinaryLoanForms)]
+    });
+    if(/(?:ต้อง.*ค้ำ.*กี่คน|ผู้ค้ำ.*กี่คน|คนค้ำ.*กี่คน|กู้.*ค้ำ.*กี่คน)/i.test(q)) return res('loan_guarantor_count','จำนวนผู้ค้ำประกันขึ้นกับประเภทเงินกู้ วงเงิน และหลักเกณฑ์ฉบับที่ใช้ในปัจจุบันครับ',{
+      details:['ระบบไม่ฝังตัวเลขจากระเบียบเก่า เพราะหน้าทางการมีการแก้ไขหลักเกณฑ์ถึงปี 2569','ให้เปิดหลักเกณฑ์กู้สามัญล่าสุด หรือให้เจ้าหน้าที่ตรวจตามวงเงินที่ต้องการกู้'],actions:[['เปิดหลักเกณฑ์กู้สามัญล่าสุด',S.ordinaryLoanForms],['ติดต่อเจ้าหน้าที่กู้สามัญ',S.ordinaryLoanContact]],sources:[src('หลักเกณฑ์และแบบคำขอกู้เงินสามัญ',S.ordinaryLoanForms),src('หน้ารวมระเบียบ',S.procedure)]
+    });
+    if(/(?:ค้ำประกัน.*ได้.*กี่คน|ค้ำ.*ได้.*กี่คน|รับค้ำ.*กี่คน|เป็นผู้ค้ำ.*กี่คน)/i.test(q)) return res('guarantor_capacity','จำนวนสัญญาที่สมาชิกหนึ่งคนสามารถค้ำประกันพร้อมกันได้ ต้องตรวจตามหลักเกณฑ์เงินกู้ฉบับปัจจุบันครับ',{
+      details:['ถ้าต้องการตรวจว่าตัวเองยังรับค้ำได้หรือไม่ เป็นข้อมูลเฉพาะสมาชิก ต้องให้เจ้าหน้าที่ตรวจภาระค้ำประกันปัจจุบัน'],actions:[['เปิดหลักเกณฑ์กู้สามัญล่าสุด',S.ordinaryLoanForms],['ติดต่อเจ้าหน้าที่กู้สามัญ',S.ordinaryLoanContact]],sources:[src('หลักเกณฑ์และแบบคำขอกู้เงินสามัญ',S.ordinaryLoanForms)]
+    });
+    if(/^(?:กู้ได้ไหม|ขอกู้ได้ไหม|มีสิทธิกู้ไหม)$/i.test(q)) return res('loan_eligibility','กู้ได้หรือไม่ต้องดูประเภทเงินกู้ คุณสมบัติ รายได้ ภาระหนี้ หุ้น/เงินฝาก และหลักประกันตามหลักเกณฑ์ปัจจุบันครับ',{
+      details:['เลือกประเภทเงินกู้ก่อน แล้วเปิดหลักเกณฑ์ของประเภทนั้น','ถ้าต้องการเช็กสิทธิของตัวเอง ให้เจ้าหน้าที่ตรวจข้อมูลสมาชิก'],actions:[['ดูหลักเกณฑ์กู้สามัญ',S.ordinaryLoanForms],['เงินกู้ฉุกเฉิน',S.emergencyLoan],['เงินกู้พิเศษ',S.specialLoanForms]],sources:[src('หน้ารวมระเบียบ',S.procedure)]
+    });
     if(/เงินกู้.*(?:กี่แบบ|กี่ประเภท|มีอะไร)|กู้.*(?:กี่แบบ|มีอะไร)|^เงินกู้$|^กู้$/i.test(q)) return res('loan_all','เงินกู้สมาชิกแบ่งเป็น 3 หมวดใหญ่: 1) เงินกู้สามัญ 2) เงินกู้เพื่อเหตุฉุกเฉิน 3) เงินกู้พิเศษ',{
-      details:['หน้าแบบกู้สามัญเผยแพร่แบบใช้งานหลายกรณี เช่น บุคคลค้ำ การศึกษา ภัยพิบัติ หุ้น/เงินฝาก พักผ่อน และพัฒนาคุณภาพชีวิต','วงเงิน ดอกเบี้ย คนค้ำ และเงื่อนไขตัวเลข ต้องตรวจฉบับปัจจุบันก่อนใช้ เพราะมีการแก้ไขระเบียบปี 2569'],actions:[['เงินกู้สามัญ/แบบฟอร์ม',S.ordinaryLoanForms],['เงินกู้ฉุกเฉิน',S.emergencyLoan],['เงินกู้พิเศษ',S.specialLoanForms]],sources:[src('ระเบียบและหลักเกณฑ์',S.procedure)]
+      details:['หน้าทางการรวม: บุคคลค้ำประกัน, ไม่เกินทุนเรือนหุ้น/เงินฝาก, การศึกษา, พักผ่อน, ภัยพิบัติ, ชำระหนี้ในฐานะผู้ค้ำประกัน, ปรับโครงสร้างหนี้ และแบบ/โครงการอื่นที่สหกรณ์ประกาศ','นอกจากนี้มีเงินกู้ฉุกเฉินและเงินกู้พิเศษ','วงเงิน ดอกเบี้ย จำนวนผู้ค้ำ และเงื่อนไขตัวเลข ต้องตรวจฉบับปัจจุบันก่อนใช้ เพราะมีการแก้ไขหลักเกณฑ์ปี 2569'],actions:[['เงินกู้สามัญ/แบบฟอร์ม',S.ordinaryLoanForms],['เงินกู้ฉุกเฉิน',S.emergencyLoan],['เงินกู้พิเศษ',S.specialLoanForms]],sources:[src('ระเบียบและหลักเกณฑ์',S.procedure)]
     });
     if(/กู้สามัญ|เงินกู้สามัญ/i.test(q)) return res('loan_ordinary','เงินกู้สามัญมีแบบฟอร์มและหลักเกณฑ์ทางการให้เลือกตามวัตถุประสงค์ครับ',{
       details:['ถ้าถามวงเงิน ดอกเบี้ย จำนวนผู้ค้ำ หรือคุณสมบัติเฉพาะตัว ระบบจะไม่เดา ให้เปิดหลักเกณฑ์ปัจจุบันหรือติดต่อเจ้าหน้าที่'],actions:[['เปิดแบบกู้สามัญ',S.ordinaryLoanForms],['ติดต่อกู้สามัญ',S.ordinaryLoanContact]],sources:[src('หน้ารวมแบบกู้สามัญ',S.ordinaryLoanForms),src('หน้ารวมระเบียบ',S.procedure)]
@@ -189,7 +215,7 @@
     if(/กู้.*การศึกษา|เพื่อการศึกษา|ค่าเทอม/i.test(q)) return res('loan_education','กู้เพื่อการศึกษามีแบบคำขอเฉพาะ และเอกสารหลักเกี่ยวกับผู้กู้/ผู้ค้ำ รายได้ และสถานศึกษา',{
       details:['แบบที่ตรวจไว้ระบุหลักฐานรายได้ย้อนหลัง 3 เดือน','รายละเอียดเงื่อนไขให้ยึดแบบและหลักเกณฑ์ปัจจุบัน'],actions:[['เปิดแบบกู้เพื่อการศึกษา',S.educationLoan]],sources:[src('แบบกู้เพื่อการศึกษา',S.educationLoan)]
     });
-    if(/กู้.*(?:ภัยพิบัติ|น้ำท่วม|ไฟไหม้)/i.test(q)) return res('loan_disaster','มีแบบเงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีภัยพิบัติ แยกจากสวัสดิการประสบภัยครับ',{
+    if(/(?:กู้.*(?:ภัยพิบัติ|น้ำท่วม|ไฟไหม้)|(?:ภัยพิบัติ|น้ำท่วม|ไฟไหม้).*กู้)/i.test(q)) return res('loan_disaster','มีแบบเงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีภัยพิบัติ แยกจากสวัสดิการประสบภัยครับ',{
       details:['เอกสารเฉพาะที่แบบกำหนดรวมถึงหนังสือรับรองผู้ประสบภัยและภาพความเสียหาย'],actions:[['เปิดแบบกู้ภัยพิบัติ',S.disasterLoan]],sources:[src('แบบกู้ภัยพิบัติ',S.disasterLoan)]
     });
 
@@ -203,6 +229,15 @@
       actions:[['เปิดระเบียบการออกจากสมาชิก',S.resignation]],sources:[src('ระเบียบการให้สมาชิกออก',S.resignation)]
     });
 
+    if(/เปิดบัญชี.*ฝาก|เปิด.*เงินฝาก/i.test(q)) return res('deposit_open','เปิดบัญชีเงินฝากออมทรัพย์พิเศษได้ตามขั้นตอนและแบบฟอร์มทางการครับ',{
+      details:['ส่งเอกสารได้ทางไปรษณีย์ หรืออีเมล dla.deposit01@gmail.com ตามหน้าทางการ','หน้าทางการระบุช่วงรับเอกสาร 08.30–15.00 น.'],actions:[['ขั้นตอน/แบบเปิดบัญชีเงินฝาก',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('เงินฝากออมทรัพย์-แบบฟอร์มและหลักเกณฑ์',S.depositForms)]
+    });
+    if(/(?:ฝากเงิน.*(?:ยังไง|อย่างไร|ทำไง)|วิธีฝากเงิน|นำฝากเงิน)/i.test(q)) return res('deposit_add','การฝากเงินออมทรัพย์พิเศษมีขั้นตอนและแบบฟอร์มชำระเงินฝากพิเศษ (7196) ในหน้าทางการครับ',{
+      actions:[['เปิดขั้นตอนการฝากเงิน/แบบ 7196',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('เงินฝากออมทรัพย์-แบบฟอร์มและหลักเกณฑ์',S.depositForms)]
+    });
+    if(/(?:ถอนเงิน.*(?:ยังไง|อย่างไร|ทำไง)|ถอนเงินฝาก|ถอนฝาก|ปิดบัญชีเงินฝาก)/i.test(q)) return res('deposit_withdraw','ถอนหรือปิดบัญชีเงินฝากออมทรัพย์พิเศษให้ใช้คำขอถอน/ปิดบัญชีตามหน้าทางการครับ',{
+      details:['ส่งเอกสารได้ทางไปรษณีย์ หรืออีเมล dla.deposit01@gmail.com ตามหลักเกณฑ์ที่หน้าเงินฝากระบุ','หากเป็นยอด/บัญชีของตัวเอง ให้ติดต่อเจ้าหน้าที่เงินฝากเพื่อยืนยันข้อมูลเฉพาะสมาชิก'],actions:[['เปิดคำขอถอน/ปิดบัญชีเงินฝาก',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('เงินฝากออมทรัพย์-แบบฟอร์มและหลักเกณฑ์',S.depositForms)]
+    });
     if(/เงินฝาก|เปิดบัญชี|ปิดบัญชี|ถอนเงินฝาก/i.test(q)) return res('deposit','เรื่องเงินฝากมีหน้าแบบฟอร์มและขั้นตอนทางการของสหกรณ์ครับ',{
       details:['อัตราดอกเบี้ยเป็นข้อมูลที่เปลี่ยนได้ จึงไม่ฝังตัวเลขเก่าในระบบนี้ ให้ตรวจประกาศ/หน้าเงินฝากปัจจุบันก่อนทำรายการ'],actions:[['แบบฟอร์มเงินฝาก',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('แบบฟอร์มเงินฝาก',S.depositForms),src('คำแนะนำงานเงินฝาก',S.depositGuide)]
     });
@@ -239,6 +274,6 @@ document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q))
 document.querySelectorAll('[data-contact]').forEach(b=>b.onclick=()=>box.classList.remove('hidden'));
 document.getElementById('contactBtn').onclick=()=>box.classList.remove('hidden');document.getElementById('closeContact').onclick=()=>box.classList.add('hidden');
 document.getElementById('homeBtn').onclick=()=>{q.value='';out.classList.add('hidden');out.replaceChildren();box.classList.add('hidden');document.getElementById('home').scrollIntoView({behavior:'smooth'});q.focus()};
-document.getElementById('copyLine').onclick=async()=>{try{await navigator.clipboard.writeText('@dlasavingcoop');document.getElementById('copyLine').textContent='คัดลอก @dlasavingcoop แล้ว'}catch{alert('LINE Official: @dlasavingcoop')}};
+document.getElementById('copyLine').onclick=async()=>{window.open(COOP_KB.official.line,'_blank','noopener');try{await navigator.clipboard.writeText('@dlasavingcoop');document.getElementById('copyLine').textContent='เปิด LINE / คัดลอก @dlasavingcoop แล้ว'}catch{alert('LINE Official: @dlasavingcoop')}};
 </script>
 </body></html>
