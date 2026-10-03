@@ -106,7 +106,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'2.3.0-pages',
+    version:'2.3.1-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -209,7 +209,13 @@
     const details=[...(opt.details||[])];
     const actions=[...(opt.actions||[])];
     const sources=[...(opt.sources||[])];
-    const addAction=(label,url)=>{if(url&&!actions.some(x=>x[1]===url)) actions.push([label,url]);};
+    const addAction=(label,url)=>{
+      if(!url) return;
+      const found=actions.find(x=>x[1]===url);
+      if(!found){actions.push([label,url]);return;}
+      const authority=/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|แบบฟอร์ม|วิธีการชำระ|คำแนะนำ/;
+      if(authority.test(label)&&!authority.test(found[0])) found[0]=label;
+    };
     const addSource=(title,url,note='')=>{if(url&&!sources.some(x=>x.url===url)) sources.push(src(title,url,note));};
     const hasSteps=()=>details.some(x=>/ขั้นตอน|1\)/.test(String(x)));
     const hasFinish=()=>details.some(x=>/จบกระบวนการเมื่อ|ถือว่ารายการเสร็จ|เสร็จสิ้นเมื่อ/.test(String(x)));
