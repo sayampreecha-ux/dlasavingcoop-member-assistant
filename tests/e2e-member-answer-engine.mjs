@@ -33,7 +33,7 @@ check('personal approval routes away from invented answer',()=>{const r=ans('ก
 check('personal debt detected',()=>{if(!app.personal('ยอดหนี้ผมเหลือเท่าไร'))throw new Error('not personal')});
 check('personal deposit detected',()=>{if(!app.personal('เงินฝากของผมเท่าไร'))throw new Error('not personal')});
 check('dynamic dividend does not invent percent',()=>{const r=ans('ปันผลปี 2569 กี่เปอร์เซ็นต์'); if(/\d+(?:\.\d+)?\s*%/.test(r.answer||''))throw new Error('invented rate')});
-check('quality cross-loan does not invent numeric threshold',()=>{const r=ans('คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้'); if(/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' ')))throw new Error('invented cross-loan threshold')});
+check('quality cross-loan blocks ordinary without invented threshold',()=>{const r=ans('คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้'); if(r.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected current cross-loan prohibition'); const all=(r.answer||'')+' '+(r.details||[]).join(' '); if(!/ยกเว้นเงินกู้ฉุกเฉิน/.test(all))throw new Error('missing emergency exception'); if(/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test(all))throw new Error('invented cross-loan threshold')});
 check('release marker',()=>{if(!html.includes('4.0.0-smart-rule-master'))throw new Error('wrong release')});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
