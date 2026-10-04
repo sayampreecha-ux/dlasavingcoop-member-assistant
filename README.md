@@ -22,8 +22,8 @@
 
 สถานะ: **FROZEN FOR PILOT**
 
-- Current Pilot version: `3.1.1-pilot-pages`
-- Pilot reference branches: `pilot/v3.1.1` (baseline), `pilot/v3.1.1` (logo asset patch)
+- Current Pilot version: `3.1.2-pilot-pages`
+- Pilot reference branches: `pilot/v3.1.2` (baseline), `pilot/v3.1.1` (logo asset patch)
 - ช่วง Pilot ให้แก้เฉพาะ:
   - ข้อมูลผิด/ลิงก์เสีย/ข้อมูลทางการเปลี่ยน
   - บั๊กที่ทำให้สมาชิกทำรายการไม่ได้
@@ -35,6 +35,7 @@
 - `pilot/v3.1.0` และ `pilot/v3.1.1` ใช้เป็น snapshot อ้างอิง ห้ามพัฒนา feature ต่อบน branch เหล่านี้
 
 ### Pilot hotfixes
+- v3.1.2: Clean cooperative emblem — ใช้ตราสหกรณ์เดี่ยวจริง ไม่มีข้อความ/พื้นหลังติดมา
 - v3.1.1: Logo rendering hotfix — ใช้โลโก้จริงแบบ inline เพื่อให้แสดงผลสม่ำเสมอบนมือถือและคอมพิวเตอร์
 
 ### Pilot UX baseline
