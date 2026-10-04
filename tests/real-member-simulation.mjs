@@ -19,16 +19,16 @@ const cases=[
 ['ปันผลความรู้','ปันผลกับเฉลี่ยคืนต่างกันยังไง',r=>r.intent==='dividend_knowledge'&&r.answerClass==='KNOWLEDGE'],
 ['ปันผลส่วนตัว','ปีนี้ผมจะได้ปันผลเท่าไร',r=>r.intent==='personal_handoff'&&r.privacy],
 ['ผลกู้ส่วนตัว','กู้ของผมอนุมัติหรือยัง',r=>r.intent==='personal_handoff'&&r.privacy],
-['คุณภาพชีวิตข้ามประเภท','คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้',r=>r.decision==='UNVERIFIED_RULE'&&!/ขอทราบ.*กี่งวด/.test(r.answer)],
+['คุณภาพชีวิตข้ามประเภท','คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้',r=>r.decision==='UNVERIFIED_RULE'&&r.answer.length>20&&/ยังตอบ|ยังยืนยัน|ไม่.*กู้ได้/.test(r.answer)&&!(/ขอทราบ.*กี่งวด/.test(r.answer))],
 ['หักกลบผสม','มีสามัญเดิมกับคุณภาพชีวิต ถ้ากู้สามัญใหม่ต้องปิดตัวไหนบ้าง',r=>r.intent==='loan_compound_reasoning'&&r.decision==='UNVERIFIED_RULE'],
-['คำถามรวม','สามัญส่ง 12 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.intent==='loan_compound_reasoning'&&r.decision==='UNVERIFIED_RULE'&&/12 งวด/.test((r.details||[]).join(' '))&&/2 คน/.test((r.details||[]).join(' '))],
+['คำถามรวม','สามัญส่ง 12 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.intent==='loan_compound_reasoning'&&r.decision==='UNVERIFIED_RULE'&&r.answer.length>20&&/ยังตอบ|ยังยืนยัน|ไม่.*กู้ได้/.test(r.answer)&&/12 งวด/.test((r.details||[]).join(' '))&&/2 คน/.test((r.details||[]).join(' '))],
 ['คำถามรวมไม่ผ่าน','สามัญส่ง 8 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.intent==='loan_compound_reasoning'&&r.decision==='NOT_YET_ELIGIBLE'],
 ['ไม่แต่งเกณฑ์คุณภาพชีวิต','คุณภาพชีวิตส่ง 5 งวดแล้ว กู้สามัญได้ไหม',r=>r.decision==='UNVERIFIED_RULE'&&!/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' '))],
 ['ไม่แต่งปันผล','ปันผลปี 2569 กี่เปอร์เซ็นต์',r=>!/\d+(?:\.\d+)?\s*%/.test(r.answer||'')],
 ['ยอดหนี้ส่วนตัว','ยอดหนี้ผมเหลือเท่าไร',r=>r.intent==='personal_handoff'],
 ['เงินฝากส่วนตัว','เงินฝากของผมเท่าไร',r=>r.intent==='personal_handoff'],
 ['ประกาศรายรอบ','รอบอนุมัติกู้ฉุกเฉินวันไหน',r=>r.intent==='live_schedule'],
-['release','เงินกู้มีกี่แบบ',r=>html.includes('3.5.0-rule-master')]
+['release','เงินกู้มีกี่แบบ',r=>html.includes('3.5.1-no-silent-answer')]
 ];
 let bad=0;for(const [name,q,assert] of cases){const r=app.answer(q);const ok=!!assert(r);if(!ok)bad++;console.log((ok?'PASS':'FAIL')+' | '+name+' | intent='+r.intent+' decision='+(r.decision||'-')+' status='+r.status);if(!ok)console.log('  answer='+r.answer+'\n  details='+(r.details||[]).join(' | '));}
 console.log('REAL MEMBER SEMANTIC SIMULATION',cases.length-bad,'passed,',bad,'failed');if(bad)process.exit(1);
