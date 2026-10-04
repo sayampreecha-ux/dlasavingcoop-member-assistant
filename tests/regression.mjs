@@ -23,7 +23,7 @@ const cases=[
  ['ฌาปนกิจสงเคราะห์','funeral'],['สมัครฌาปนกิจ','funeral'],['ตรวจผลอนุมัติฌาปนกิจ','funeral'],['ชำระเงินฌาปนกิจ','funeral'],
  ['ผู้รับผลประโยชน์ฌาปนกิจ','funeral'],
 
- ['น้ำท่วมขอสวัสดิการ','welfare_disaster'],['เพิ่งคลอดลูก ขอแบบอะไร','welfare_childbirth'],['ทุนเรียนลูก','scholarship'],
+ ['น้ำท่วมขอสวัสดิการ','welfare_disaster'],['บ้านน้ำท่วม','welfare_disaster'],['ไฟไหม้บ้าน','welfare_disaster'],['พายุทำบ้านเสียหาย','welfare_disaster'],['เพิ่งคลอดลูก ขอแบบอะไร','welfare_childbirth'],['ทุนเรียนลูก','scholarship'],
  ['แต่งงานได้สวัสดิการไหม','welfare_marriage'],['บวชได้สวัสดิการไหม','welfare_religion'],
  ['เรียนจบได้สวัสดิการไหม','welfare_graduation'],['สวัสดิการบำเหน็จสมาชิก','welfare_gratuity'],
  ['สมาชิกเสียชีวิต','welfare_member_death'],['สวัสดิการมีกี่แบบ','welfare_all'],['แม่เสียได้สวัสดิการไหม','welfare_family_death'],
@@ -31,7 +31,7 @@ const cases=[
  ['กู้โดยใช้หุ้นตัวเอง','loan_share_secured'],['กู้เพื่อพักผ่อน','loan_vacation'],['ปิดยอดกู้','loan_close'],
  ['เปลี่ยนผู้ค้ำ','loan_change_guarantor'],['กู้ต้องค้ำกี่คน','loan_guarantor_count'],['ค้ำประกันได้กี่คน','guarantor_capacity'],
  ['กู้ได้ไหม','loan_eligibility'],['เงินกู้มีกี่แบบ','loan_all'],['เงินกู้สามัญ','loan_ordinary'],
- ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],
+ ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['กู้น้ำท่วม','loan_disaster'],
 
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
  ['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],['ถอนเงินฝาก','deposit_withdraw'],['เงินฝาก','deposit'],
@@ -127,7 +127,7 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.0.0-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='3.0.1-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
 const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
