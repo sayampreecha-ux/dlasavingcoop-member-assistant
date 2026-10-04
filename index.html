@@ -7,17 +7,76 @@
 <meta name="description" content="AI ผู้ช่วยสมาชิก สอ.อปท. ตอบคำถามพื้นฐานจากข้อมูลทางการ และส่งต่อเจ้าหน้าที่เมื่อเป็นข้อมูลเฉพาะสมาชิก">
 <title>AI ผู้ช่วยสมาชิก สอ.อปท.</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f3f7f4;color:#17322a;font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;line-height:1.55}.wrap{max-width:760px;margin:auto;padding:12px 12px 90px}.top{position:sticky;top:0;z-index:10;background:#f3f7f4eF;backdrop-filter:blur(8px);padding:8px 0;display:flex;gap:8px}.top button,.top a{flex:1;min-height:44px;border:1px solid #d7e5dc;border-radius:12px;background:#fff;font:inherit;font-weight:750;color:#245441;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;padding:8px}.top .contact{background:#e7f5ed;color:#176b45}.top .coopweb{background:#f4f1ff;color:#5b43a2}.hero{background:#fff;border:1px solid #e2ebe5;border-radius:22px;padding:22px 17px;box-shadow:0 10px 34px #1b563315}.eyebrow{font-size:13px;font-weight:800;color:#176b45}.hero h1{font-size:clamp(25px,6vw,34px);line-height:1.2;margin:5px 0}.sub{margin:0;color:#5c6f67;font-size:17px}.ask{display:flex;gap:8px;margin:18px 0 8px}.ask input{flex:1;min-width:0;border:2px solid #cbdad1;border-radius:14px;min-height:54px;padding:13px;font:inherit;font-size:17px}.ask input:focus{outline:3px solid #d6efe1;border-color:#176b45}.ask button{min-width:72px;border:0;border-radius:14px;background:#176b45;color:white;font:inherit;font-weight:800}.hint{font-size:13px;color:#6b7d75}.title{font-weight:850;margin:18px 0 9px}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.quick{min-height:92px;border:1px solid #dce7e0;border-radius:18px;background:#fff;text-align:left;padding:14px;font:inherit;font-size:17px;font-weight:850;color:#17322a;box-shadow:0 5px 18px #17392a0a}.quick:active{transform:scale(.99)}.quick small{display:block;font-size:13px;font-weight:500;color:#6c7c76;margin-top:5px;line-height:1.35}.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}.chip{white-space:nowrap;border:1px solid #d8e5dc;border-radius:999px;padding:9px 12px;background:#fff;font:inherit}.privacy{margin:18px 0 0;background:#f7faf8;border:1px solid #e4ece7;border-radius:14px;padding:12px;font-size:13px;color:#61736b}.ans{margin-top:14px;background:#fff;border:1px solid #e0e9e3;border-radius:18px;padding:18px;box-shadow:0 7px 24px #17392a0d}.hidden{display:none}.badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#e9f5ef;color:#176b45;font-size:13px;font-weight:800}.body{white-space:pre-line;margin-top:9px}.detail{margin:12px 0 0;padding-left:1.2rem}.actions{display:grid;gap:8px;margin-top:14px}.actions a{display:block;text-decoration:none;padding:11px 12px;border-radius:11px;background:#edf6ff;color:#164d83;font-weight:750}.sources{margin-top:14px;border-top:1px solid #edf1ee;padding-top:10px}.sources summary{cursor:pointer;font-weight:750;color:#586c63}.sources a{display:block;margin-top:6px;color:#276044;overflow-wrap:anywhere}.follow{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}.contactbox{position:fixed;left:12px;right:12px;bottom:12px;max-width:736px;margin:auto;background:#fff;border:1px solid #dce8e0;border-radius:18px;padding:16px;box-shadow:0 18px 50px #10281e30;z-index:30}.contacthead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#eef4f0;border-radius:10px;width:38px;height:38px;font-size:20px}.clinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.clinks a,.clinks button{min-height:48px;border:0;border-radius:12px;padding:10px;font:inherit;font-weight:750;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}.tel{background:#e8f5ed;color:#176b45}.line{background:#eefbea;color:#28751f}.fb{background:#edf5ff;color:#155298}.fbcopy{background:#f2f6fb;color:#315a7c}.web{background:#f4f1ff;color:#5b43a2}.qrbox{margin-top:12px;padding:14px;border:1px solid #dce8e0;border-radius:14px;text-align:center;background:#fff}.qrbox img{width:210px;max-width:72vw;height:auto;border-radius:10px}.qrbox strong{display:block;margin-bottom:6px}.qrbox small{display:block;color:#64766e;margin-top:7px}@media(min-width:620px){.grid{grid-template-columns:repeat(3,1fr)}}@media(max-width:420px){.wrap{padding-left:9px;padding-right:9px}.hero{padding:18px 14px}.clinks{grid-template-columns:1fr}.top{gap:5px}.top button,.top a{font-size:13px;padding:7px 5px}}
-.contactbox{max-height:calc(100vh - 24px);overflow:auto}.contactnote{margin:8px 0 12px;color:#5c6f67}.staffgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.staffcard{border:1px solid #dce8e0;border-radius:14px;padding:12px;background:#f9fbfa}.staffcard strong{display:block;margin-bottom:7px;color:#17322a}.staffcard a{display:block;color:#1f5b88;text-decoration:none;padding:5px 0;overflow-wrap:anywhere}.staffwarn{display:block;margin-top:12px;color:#6b7d75}@media(max-width:620px){.staffgrid{grid-template-columns:1fr}}
+:root{
+  --green:#0f6b45;--green2:#16865a;--orange:#f58220;--orange2:#ff9b3d;--gold:#d9a62e;
+  --cream:#fffaf0;--ink:#173a2d;--muted:#6c7d74;--line:#e5dcc4;--white:#fff;
+}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 100%);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Thai",sans-serif;line-height:1.55}
+.wrap{max-width:760px;margin:auto;padding:10px 10px 92px}
+.top{position:sticky;top:0;z-index:20;background:#fffdf4f2;backdrop-filter:blur(10px);padding:7px 0 9px;display:flex;gap:6px;border-bottom:1px solid #efe5ce}
+.top button,.top a{flex:1;min-height:44px;border:1px solid #eadfc4;border-radius:14px;background:#fff;font:inherit;font-weight:800;color:var(--green);display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;padding:7px 6px;box-shadow:0 3px 10px #6a51200b}
+.top .contact{background:#eaf6ef;color:var(--green)}
+.top .coopweb{background:#fff1df;color:#b75b0d}
+.hero{background:#fff;border:1px solid #eadfc4;border-radius:24px;padding:18px 15px;box-shadow:0 12px 36px #67511f14;overflow:hidden;position:relative}
+.hero:before{content:"";position:absolute;inset:0 0 auto 0;height:7px;background:linear-gradient(90deg,var(--orange) 0 36%,var(--gold) 36% 58%,var(--green) 58%)}
+.brand{display:flex;align-items:center;gap:12px;padding-top:4px}
+.brand-logo{width:68px;height:74px;object-fit:cover;border-radius:16px;border:2px solid #efd99b;background:#f3f9e8;box-shadow:0 7px 18px #95711d1a;flex:0 0 auto}
+.brand-copy{min-width:0}.eyebrow{font-size:12px;font-weight:900;color:var(--green);letter-spacing:.1px}
+.hero h1{font-size:clamp(24px,6vw,32px);line-height:1.15;margin:4px 0 3px;color:#184d38}
+.pilot-pill{display:inline-flex;align-items:center;gap:5px;background:#fff1d7;color:#9a6110;border:1px solid #edd08d;border-radius:999px;padding:3px 8px;font-size:11px;font-weight:900;margin-top:5px}
+.sub{margin:10px 0 0;color:var(--muted);font-size:16px}
+.ask{display:flex;gap:8px;margin:16px 0 7px}
+.ask input{flex:1;min-width:0;border:2px solid #dfd3b7;border-radius:15px;min-height:54px;padding:13px 14px;font:inherit;font-size:17px;background:#fffdfa}
+.ask input:focus{outline:3px solid #ffe3bd;border-color:var(--orange)}
+.ask button{min-width:72px;border:0;border-radius:15px;background:linear-gradient(135deg,var(--orange),#e56e10);color:white;font:inherit;font-weight:900;box-shadow:0 6px 16px #e8751c33}
+.hint{font-size:12px;color:#78877f}.title{font-weight:900;margin:18px 0 9px;color:#315a45}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.quick{min-height:90px;border:1px solid #eadfc4;border-radius:18px;background:#fff;text-align:left;padding:13px;font:inherit;font-size:17px;font-weight:900;color:#24483a;box-shadow:0 5px 16px #73561d10;position:relative;overflow:hidden}
+.quick:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--orange)}
+.quick:nth-child(3n+2):before{background:var(--green)}.quick:nth-child(3n):before{background:var(--gold)}
+.quick:nth-child(3n+2){background:#f2faf5}.quick:nth-child(3n){background:#fff9ec}
+.quick:active{transform:scale(.985)}
+.quick small{display:block;font-size:12px;font-weight:600;color:#78877f;margin-top:4px;line-height:1.35}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:2px 0 6px;scrollbar-width:none}.chips::-webkit-scrollbar{display:none}
+.chip{white-space:nowrap;border:1px solid #e5d7b7;border-radius:999px;padding:9px 12px;background:#fffdf7;color:#315a45;font:inherit;font-weight:750}
+.privacy{margin:16px 0 0;background:#f2f8f4;border:1px solid #d5e8dc;border-radius:14px;padding:11px 12px;font-size:12px;color:#61736b}
+.ans{margin-top:12px;background:#fff;border:1px solid #eadfc4;border-radius:20px;padding:16px;box-shadow:0 8px 25px #73561d10}
+.hidden{display:none}.badge{display:inline-block;padding:4px 9px;border-radius:999px;background:#e9f6ee;color:var(--green);font-size:12px;font-weight:900;border:1px solid #d5e9dd}
+.body{white-space:pre-line;margin-top:10px;font-size:17px;font-weight:650;line-height:1.55}
+.actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:13px}
+.actions a{display:block;text-decoration:none;padding:11px 12px;border-radius:12px;background:#fff7e9;color:#97520f;font-weight:800;border:1px solid #f1d7aa}
+.actions a:nth-child(even){background:#edf8f1;color:#176645;border-color:#d4e9dc}
+.more{margin-top:12px;border:1px solid #ece2ca;border-radius:14px;background:#fffdf8;overflow:hidden}
+.more summary{cursor:pointer;padding:11px 12px;font-weight:850;color:#5f5c42}
+.detail{margin:0;padding:2px 18px 12px 30px}.detail li{margin:7px 0}
+.sources{margin-top:10px;border-top:0;padding-top:0;border:1px solid #e7eee9;border-radius:14px;overflow:hidden}
+.sources summary{cursor:pointer;font-weight:800;color:#586c63;padding:10px 12px;background:#f7faf8}
+.sources a{display:block;margin:0;padding:8px 12px;color:#276044;overflow-wrap:anywhere;border-top:1px solid #edf1ee}
+.follow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.contactbox{position:fixed;left:10px;right:10px;bottom:10px;max-width:736px;margin:auto;background:#fff;border:1px solid #eadfc4;border-radius:20px;padding:15px;box-shadow:0 18px 50px #10281e30;z-index:30;max-height:calc(100vh - 20px);overflow:auto}
+.contacthead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#fff2df;border-radius:10px;width:38px;height:38px;font-size:20px;color:#a85c13}
+.clinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.clinks a,.clinks button{min-height:48px;border:0;border-radius:12px;padding:10px;font:inherit;font-weight:800;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
+.tel{background:#e8f5ed;color:#176b45}.line{background:#eefbea;color:#28751f}.fb{background:#edf5ff;color:#155298}.fbcopy{background:#f2f6fb;color:#315a7c}.web{background:#fff1df;color:#a95912}
+.contactnote{margin:8px 0 12px;color:#5c6f67}.staffgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.staffcard{border:1px solid #eadfc4;border-radius:14px;padding:12px;background:#fffdf8}.staffcard strong{display:block;margin-bottom:7px;color:#17322a}.staffcard a{display:block;color:#1f5b88;text-decoration:none;padding:5px 0;overflow-wrap:anywhere}.staffwarn{display:block;margin-top:12px;color:#6b7d75}
+@media(min-width:620px){.grid{grid-template-columns:repeat(3,1fr)}.actions{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.wrap{padding-left:8px;padding-right:8px}.hero{padding:16px 12px}.brand-logo{width:60px;height:66px}.hero h1{font-size:24px}.sub{font-size:15px}.clinks{grid-template-columns:1fr}.top{gap:4px}.top button,.top a{font-size:13px;padding:6px 4px}.quick{min-height:84px;padding:12px;font-size:16px}.body{font-size:16px}}
+@media(max-width:620px){.staffgrid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <main class="wrap">
   <div class="top"><button id="homeBtn">🏠 หน้าแรก</button><a class="coopweb" href="https://www.dlasavingcoop.com/" target="_blank" rel="noopener" aria-label="เปิดเว็บไซต์สหกรณ์">🌐 เว็บไซต์สหกรณ์</a><button id="contactBtn" class="contact">☎️ ติดต่อ</button></div>
   <section class="hero" id="home">
-    <div class="eyebrow">สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด</div>
-    <h1>🤖 AI ผู้ช่วยสมาชิก สอ.อปท.</h1>
-    <p class="sub"><strong>ถามเรื่องสหกรณ์ได้เลย</strong> — ตอบจากข้อมูลทางการที่จัดเตรียมไว้</p>
+    <div class="brand">
+      <img class="brand-logo" alt="ตราสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น" src="data:image/webp;base64,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">
+      <div class="brand-copy">
+        <div class="eyebrow">สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด</div>
+        <h1>AI ผู้ช่วยสมาชิก สอ.อปท.</h1>
+        <div class="pilot-pill">🟠🟢 Pilot Version</div>
+      </div>
+    </div>
+    <p class="sub"><strong>ถามเรื่องสหกรณ์ได้เลย</strong> — คำตอบสั้นก่อน แล้วค่อยเปิดรายละเอียดเมื่อจำเป็น</p>
     <form id="form" class="ask"><input id="q" maxlength="500" autocomplete="off" placeholder="พิมพ์คำถาม เช่น สวัสดิการมีกี่แบบ"><button>ถาม</button></form>
     <div class="hint">กดหัวข้อก็ได้ ไม่ต้องรู้ชื่อระเบียบหรือประกาศ</div>
     <div class="title">เลือกเรื่องที่ต้องการ</div>
@@ -113,7 +172,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'3.0.9-pages',
+    version:'3.1.0-pilot-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -951,7 +1010,7 @@
 </script>
 <script>
 const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');
-function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='850';h.style.fontSize='18px';h.style.marginBottom='8px';h.textContent='คำตอบ';out.append(h);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.details?.length){const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});out.append(ul)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 แหล่งข้อมูล';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x);d.append(bt)});out.append(d)}out.scrollIntoView({behavior:'smooth',block:'start'})}
+function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x);d.append(bt)});out.append(d)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 แหล่งข้อมูล';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 function ask(text){q.value=text;render(COOP_APP.answer(text));}
 document.getElementById('form').onsubmit=e=>{e.preventDefault();ask(q.value)};
 document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q));
