@@ -569,6 +569,12 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const q=norm(input);
     if(!q) return res('empty','พิมพ์คำถามได้เลย เช่น “สวัสดิการมีกี่แบบ” หรือ “ขอใบสมัครสมาชิก”',{status:'พร้อมตอบ'});
 
+    // Verified historical/current-rule guard from official cooperative evidence.
+    // Never apply a dated threshold outside its verified effective window.
+    if(/(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม).*(?:เงินเหลือ|รายได้คงเหลือ|กู้สามัญ)|(?:เงินเหลือ|รายได้คงเหลือ).*(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม)/i.test(q)){
+      return res('loan_ordinary_legacy_balance','สำหรับหลักเกณฑ์เดิมที่สหกรณ์ยืนยันว่าใช้ถึง 30 มิถุนายน 2569 รายได้คงเหลือใช้เกณฑ์ 5,000 บาทครับ แต่ไม่ควรนำตัวเลขนี้ไปใช้ตัดสินคำขอหลังวันดังกล่าว',{details:['นี่เป็นกฎที่มีช่วงเวลาบังคับใช้ชัดเจน จึงแยกออกจากหลักเกณฑ์ปัจจุบัน','ถ้าจะยื่นกู้ปัจจุบัน ระบบต้องใช้หลักเกณฑ์ปี 2569 ฉบับที่มีผล ณ วันยื่น ไม่ใช้เกณฑ์เดิม'],actions:[['📢 หลักเกณฑ์เงินกู้สามัญปัจจุบัน',S.loanGeneralAnnouncement2569]],sources:[src('คำตอบทางการ สอ.อปท. เรื่องหลักเกณฑ์กู้สามัญเดิม','https://dlasavingcoop.com/board_content.php?No=41045'),src('หน้ารวมหลักเกณฑ์เงินกู้สามัญ',S.ordinaryLoanForms)],confidence:'ยืนยันเฉพาะช่วงถึง 30 มิถุนายน 2569; ห้ามใช้แทนเกณฑ์ปัจจุบัน'});
+    }
+
     // Zero-API guided diagnosis: ask for the minimum missing fact instead of sending members to documents.
     if(/(?:กู้|เงินกู้).*(?:ได้ไหม|ได้มั้ย|ผ่านไหม|ผ่านมั้ย)$/.test(q) && !/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)){
       return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
