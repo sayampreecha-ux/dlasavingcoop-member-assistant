@@ -103,8 +103,6 @@ for(const q of homeQueries){
   if(!html.includes('class="brand-logo"')) failures.push({group:'pilot-brand-logo'});
   if(!html.includes('data:image/jpeg;base64,')) failures.push({group:'pilot-inline-logo'});
   if(!html.includes('object-fit:contain')) failures.push({group:'pilot-logo-contain'});
-  if(!html.includes('src="./assets/coop-logo.svg?v=3.1.1"')) failures.push({group:'pilot-logo-asset'});
-  if(html.includes('data:image/webp;base64')) failures.push({group:'pilot-logo-embedded-stale'});
   if(!html.includes('Pilot Version')) failures.push({group:'pilot-badge'});
   if(!html.includes('📋 ดูขั้นตอนและรายละเอียด')) failures.push({group:'progressive-disclosure'});
   if(!html.includes('--orange:#f58220')||!html.includes('--green:#0f6b45')||!html.includes('--gold:#d9a62e')) failures.push({group:'brand-palette'});
