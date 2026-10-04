@@ -90,5 +90,16 @@ for(const [q,[evidence,phrase]] of smartCases){
  if(r.evidence!==evidence||!detail.includes(phrase)||!r.confidence) failures.push({q,group:'smart-evidence',expectedEvidence:evidence,actualEvidence:r.evidence,confidence:r.confidence,detail});
 }
 
+const guidedCases=[
+ ['มีหนี้สามัญและคุณภาพชีวิต เงินเดือนเหลือไม่มาก จะกู้ใหม่ได้ไหม','ไม่จำเป็นต้องเปิดเอกสารเอง'],
+ ['สามัญใหม่ต้องใช้ผู้ค้ำและหักกลบคุณภาพชีวิตอย่างไร','ผู้ค้ำรายนี้มีภาระค้ำเงินกู้อื่นอยู่หรือไม่'],
+ ['ถามเรื่องสิทธิที่ไม่เคยมีในระบบ','ไม่ต้องไปค้นเอกสารเอง']
+];
+for(const [q,phrase] of guidedCases){
+ const r=globalThis.COOP_APP.answer(q);
+ const all=[r.answer,...(r.details||[]),...(r.followups||[])].join(' ');
+ if(!all.includes(phrase)) failures.push({q,group:'guided-until-resolved',phrase,intent:r.intent,all});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
