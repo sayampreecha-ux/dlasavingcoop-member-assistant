@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "productRelease": "4.1.0-member-decision",
+  "productRelease": "4.2.0-safe-calculator",
   "verifiedAt": "2026-10-04",
   "policy": {
     "sourcePriority": [
@@ -474,6 +474,52 @@
         "decisionMode": "FRESH_NOTICE_REQUIRED",
         "source": "https://www.dlasavingcoop.com/list.php?Category=notice"
       }
+    }
+  },
+  "calculatorGovernance": {
+    "status": "VERIFIED_INPUTS_ONLY",
+    "policy": "คำนวณเฉพาะสูตร/เพดานที่มีหลักฐานทางการเข้ารหัสแล้ว; ห้ามอนุมานสูตรค่างวดจากอัตราดอกเบี้ยเพียงอย่างเดียว",
+    "officialInterestRateSource": "https://dlasavingcoop.com/show.php?No=4063",
+    "verifiedAt": "2026-10-05",
+    "outputs": [
+      "เพดานวงเงินตามกฎที่ยืนยัน",
+      "จำนวนผู้ค้ำขั้นต่ำตามช่วงวงเงิน",
+      "เพดาน LTV สำหรับพัฒนาคุณภาพชีวิต",
+      "ระยะเวลาสูงสุด",
+      "อายุเมื่อสิ้นสุดสัญญา",
+      "อัตราดอกเบี้ยที่ประกาศทางการ"
+    ],
+    "paymentFormulaStatus": "UNVERIFIED_FORMULA",
+    "paymentFormulaNote": "ยังไม่คำนวณค่างวดจนกว่าจะถอดและทดสอบสูตรต้นฉบับ/ตารางประมาณการของสหกรณ์"
+  },
+  "interestRatesCurrent": {
+    "status": "OFFICIAL_RATE_PAGE",
+    "source": "https://dlasavingcoop.com/show.php?No=4063",
+    "verifiedAt": "2026-10-05",
+    "ratesPercentPerYear": {
+      "ordinary_person_guarantee": 7.5,
+      "ordinary_share_collateral": 7.5,
+      "ordinary_education": 5.5,
+      "ordinary_disaster": 4.75,
+      "ordinary_pensioner": 7.5,
+      "ordinary_guarantor_debt": 2,
+      "special_housing_tiered": [
+        {
+          "installments": "1-12",
+          "rate": 3.6
+        },
+        {
+          "installments": "13-24",
+          "rate": 4.35
+        },
+        {
+          "installments": "25-360",
+          "rate": 5.5
+        }
+      ],
+      "quality_of_life_real_estate": 6.5,
+      "special_redeem_mortgage": 6.5,
+      "emergency_cash_transfer": 7.5
     }
   }
 }
