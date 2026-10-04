@@ -710,7 +710,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       needs?'จากข้อมูลที่ให้มา ผ่านบางเงื่อนไขครับ แต่ยังขาดข้อมูลสำคัญ จึงยังไม่ควรฟันธงว่า “กู้ได้”':
       qualityOffsetOnly?'ถ้าจะกู้พัฒนาคุณภาพชีวิตและมีสัญญาเงินกู้อื่นอยู่ เมื่อได้รับอนุมัติต้องยินยอมให้สหกรณ์หักกลบหนี้เงินกู้สัญญาอื่นทุกประเภท เพื่อให้เหลือเพียงสัญญานี้สัญญาเดียวครับ':
       'จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล',
-      {answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,confidence:'Rule Master 4.0 multi-condition reasoning'});
+      {answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังไม่ผ่านเงื่อนไขที่ตรวจได้':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,confidence:'Rule Master 4.0 multi-condition reasoning'});
   }
 
   function answer(input){
