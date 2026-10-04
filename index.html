@@ -539,7 +539,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   // Member Answer Engine 3.5 — one current, evidence-gated rule registry.
   const ANSWER_CLASS={RULE:'RULE_DECISION',PROCEDURE:'PROCEDURE',KNOWLEDGE:'KNOWLEDGE',DYNAMIC:'DYNAMIC',MEMBER:'MEMBER_DATA'};
   const RULE_MASTER={
-    version:'3.5.0',
+    version:'4.0.0',
     verifiedAt:'4 ต.ค. 2569',
     rules:{
       emergency_repeat:{status:'VERIFIED',effectiveFrom:'2569-10-01',minInstallments:3,offsetExistingEmergency:true,source:S.loanEmergencyAnnouncement},
@@ -549,7 +549,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       quality_of_life_2569:{status:'CURRENT_PROGRAM',source:'https://dlasavingcoop.com/show.php?No=4845'},
       quality_to_ordinary_wait:{status:'NEED_VERIFIED_RULE',source:'https://dlasavingcoop.com/show.php?No=4845'},
       cross_loan_offset:{status:'NEED_VERIFIED_RULE',source:S.loanGeneralAnnouncement2569},
-      current_ordinary_remaining_income:{status:'NEED_VERIFIED_RULE',source:S.loanGeneralAnnouncement2569}
+      current_ordinary_remaining_income:{status:'VERIFIED',effectiveFrom:'2569-10-01',minPercent:15,minBaht:6000,source:S.loanGeneralAnnouncement2569},
+      ordinary_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',membershipMinMonths:6,shareMinInstallments:6,maxAmount:2000000,maxTerm:240,maxAge:75,repeatMinInstallments:12,guarantorMaxBorrowers:3,source:S.loanGeneralAnnouncement2569},
+      quality_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',remainingIncomeMinPercent:15,remainingIncomeMinBaht:6000,maxLtvPercent:80,maxAmount:5000000,maxTerm:360,maxAge:75,refinanceAllOtherLoans:true,cannotCombineOtherLoan:true,source:S.loanSpecialQualityAnnouncement}
     }
   };
   const DECISION_RULES=[
@@ -636,6 +638,14 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     // Personal debt/top-up without a named loan type depends on the member's real account data.
     if(/(?:หนี้|ยอดหนี้|หนี้คงเหลือ).*?(?:\d+|ล้าน|แสน).*?(?:กู้เพิ่ม|ขอเพิ่ม|เพิ่มอีก)/i.test(q)&&!/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)) return handoff(q);
 
+    // Rule Master 4.0: current rules effective 1 Oct 2569.
+    if(/(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ).*(?:สามัญ|กู้)|(?:สามัญ|กู้).*(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ)/i.test(q)){
+      return res('ordinary_current_remaining_income','หลักเกณฑ์กู้สามัญปัจจุบันกำหนดว่า หลังหักชำระค่าหุ้นและหนี้เงินกู้ทุกประเภทแล้ว ต้องมีรายได้คงเหลือไม่น้อยกว่าร้อยละ 15 ของเงินได้รายเดือน และต้องไม่น้อยกว่า 6,000 บาทต่อเดือนตลอดอายุสัญญา',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',details:['ยังต้องตรวจเงื่อนไขอื่นร่วมด้วย เช่น อายุสมาชิก การส่งหุ้น ภาระหนี้ ประวัติค้างชำระ วงเงิน และหลักประกัน/ผู้ค้ำตามช่วงวงเงิน'],sources:[src('หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',S.loanGeneralAnnouncement2569)]});
+    }
+    if(/(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต).*(?:วงเงิน|ได้เท่าไร|กี่บาท|หลักประกัน|อสังหา|ผ่อน|กี่งวด|อายุ|รายได้คงเหลือ|เงินเหลือ)/i.test(q)){
+      return res('quality_current_rules','หลักเกณฑ์พัฒนาคุณภาพชีวิตปัจจุบันใช้หลักประกันอสังหาริมทรัพย์ กู้ได้ไม่เกิน 80% ของราคาประเมินและไม่เกิน 5,000,000 บาท ผ่อนไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',details:['รายได้คงเหลือหลังหักค่าหุ้นและหนี้ทุกประเภทต้องไม่น้อยกว่า 15% และไม่น้อยกว่า 6,000 บาท/เดือน','ถ้ามีสัญญาเงินกู้อื่น ผู้กู้ต้องยินยอมให้หักกลบหนี้เดิมเมื่อได้รับอนุมัติกู้นี้','หลังได้รับอนุมัติกู้ประเภทนี้ ไม่สามารถกู้ประเภทอื่นได้อีก ยกเว้นเงินกู้ฉุกเฉิน'],sources:[src('หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement)]});
+    }
+
     // Multi-condition gate: never let one passing rule become a whole-answer decision.
     const compoundFirst=compoundLoanAnswer(q);
     if(compoundFirst) return compoundFirst;
@@ -647,7 +657,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
     }
     if(/(?:คุณภาพชีวิต|พัฒนาคุณภาพชีวิต)/.test(q)&&/(?:สามัญ|ฉุกเฉิน)/.test(q)&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q)){
-      return res('loan_cross_wait_unverified','ยังไม่ควรฟันธงจำนวนงวดครับ — ระบบพบว่าเป็นเงื่อนไขข้ามประเภทเงินกู้ แต่ Rule Master ยังไม่มีต้นฉบับปัจจุบันที่ยืนยันจำนวนงวดสำหรับเงื่อนไขนี้ จึงไม่ถามจำนวนงวดและไม่สร้างตัวเลขขึ้นเอง',{answerClass:ANSWER_CLASS.RULE,status:'ต้องยืนยันกฎปัจจุบันก่อน',decision:'UNVERIFIED_RULE',details:['สิ่งที่ยืนยันได้: มีโครงการเงินกู้เพื่อพัฒนาคุณภาพชีวิตสมาชิก ประจำปี 2569','สิ่งที่ยังต้องยืนยันจากต้นฉบับ: จำนวนงวด/เงื่อนไขที่ทำให้สัญญาคุณภาพชีวิตเดิมมีผลต่อการยื่นสามัญหรือฉุกเฉิน'],actions:[['📢 โครงการพัฒนาคุณภาพชีวิต 2569','https://dlasavingcoop.com/show.php?No=4845'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],sources:[src('โครงการเงินกู้เพื่อพัฒนาคุณภาพชีวิตสมาชิก ประจำปี 2569','https://dlasavingcoop.com/show.php?No=4845')]});
+      return res('loan_cross_wait_unverified','ตอบได้บางส่วนอย่างแม่นยำครับ — หลักเกณฑ์พัฒนาคุณภาพชีวิตที่มีผล 1 ต.ค. 2569 ระบุว่า เมื่อกู้ประเภทนี้ ผู้กู้ที่มีสัญญาเงินกู้อื่นต้องยินยอมให้สหกรณ์หักกลบหนี้เดิม และไม่สามารถกู้ประเภทอื่นได้อีก ยกเว้นเงินกู้ฉุกเฉิน แต่ต้นฉบับสองฉบับที่ตรวจยังไม่ได้ระบุ “จำนวนงวดของคุณภาพชีวิตก่อนกลับมายื่นสามัญใหม่” จึงไม่สร้างตัวเลขขึ้นเอง',{answerClass:ANSWER_CLASS.RULE,status:'ต้องยืนยันกฎปัจจุบันก่อน',decision:'UNVERIFIED_RULE',details:['สิ่งที่ยืนยันได้: มีโครงการเงินกู้เพื่อพัฒนาคุณภาพชีวิตสมาชิก ประจำปี 2569','สิ่งที่ยังต้องยืนยันจากต้นฉบับ: จำนวนงวด/เงื่อนไขที่ทำให้สัญญาคุณภาพชีวิตเดิมมีผลต่อการยื่นสามัญหรือฉุกเฉิน'],actions:[['📢 โครงการพัฒนาคุณภาพชีวิต 2569','https://dlasavingcoop.com/show.php?No=4845'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],sources:[src('โครงการเงินกู้เพื่อพัฒนาคุณภาพชีวิตสมาชิก ประจำปี 2569','https://dlasavingcoop.com/show.php?No=4845')]});
     }
     if(/(?:กี่งวด|กู้ซ้ำ|กู้ใหม่|กู้เพิ่ม|(?:ฉุกเฉิน|คุณภาพชีวิต|สามัญ).*ซ้ำ).*(?:ได้ไหม|ได้มั้ย)?/.test(q) && /(?:ฉุกเฉิน|คุณภาพชีวิต|สามัญ)/.test(q) && !/\d+\s*(?:งวด|เดือน)/.test(q)){
       const guidedIntent=/ฉุกเฉิน/.test(q)?'loan_emergency_need_installments':/คุณภาพชีวิต/.test(q)?'loan_special_need_installments':'loan_ordinary_need_installments';
@@ -1206,7 +1216,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='3.5.1-no-silent-answer';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.0.0-smart-rule-master';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
