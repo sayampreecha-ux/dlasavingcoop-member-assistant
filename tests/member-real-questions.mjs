@@ -111,5 +111,13 @@ for(const [q,expected,phrase] of zeroApiGuided){
  if(r.intent!==expected||![r.answer,...(r.details||[])].join(' ').includes(phrase)) failures.push({q,group:'zero-api-guided',expected,actual:r.intent});
 }
 
+const freshnessCases=[
+ ['หลักเกณฑ์เดิมก่อน 30 มิถุนายน เงินเหลือเท่าไร','loan_ordinary_legacy_balance','5,000 บาท'],
+ ['เงินเหลือห้าพันกู้ได้มั้ย','loan_living_balance',null]
+];
+for(const [q,expected,must] of freshnessCases){
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.intent!==expected||(must&&!r.answer.includes(must))) failures.push({q,group:'rule-freshness',expected,actual:r.intent,answer:r.answer});
+}
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
