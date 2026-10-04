@@ -620,7 +620,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(hasIncome) followups.push('หลังหักรายการประจำแล้ว เงินได้คงเหลือต่อเดือนประมาณเท่าไร');
     if(hasGuarantor) followups.push('ผู้ค้ำรายนี้มีภาระค้ำเงินกู้อื่นอยู่หรือไม่');
     details.push('วิธีใช้งาน: ตอบคำถามต่อด้านบนได้เลย ระบบจะใช้คำตอบเพื่อไล่เงื่อนไขต่อ ไม่จำเป็นต้องเปิดเอกสารเอง; เอกสารด้านล่างมีไว้ตรวจสอบที่มา');
-    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ ระบบตรวจทุกเงื่อนไขที่ยืนยันได้พร้อมกัน และจะไม่ใช้ผลผ่านเพียงข้อเดียวสรุปสิทธิทั้งคำขอ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ผ่านบางเงื่อนไข — ยังมีกฎที่ต้องยืนยัน':'ต้องการข้อมูลเพิ่ม',details,actions,sources,followups:followups.length?followups:['เงินกู้สามัญ','กู้ฉุกเฉิน'],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
+    return res('loan_compound_reasoning',anyFail?'ยังยื่นกู้ใหม่ไม่ได้จากเงื่อนไขที่ตรวจพบครับ — มีอย่างน้อยหนึ่งเงื่อนไขที่ยังไม่ผ่าน ดูรายละเอียดด้านล่าง':anyUnverified?'ยังตอบว่า “กู้ได้” ไม่ได้ครับ — เงื่อนไขที่ยืนยันแล้วตรวจให้ได้ แต่ยังขาดกฎปัจจุบันที่ยืนยันผลของเงินกู้พัฒนาคุณภาพชีวิตต่อการกู้สามัญใหม่ จึงไม่เดาคำตอบ หากต้องการผลกรณีของตนเองให้ติดต่อเจ้าหน้าที่งานเงินกู้':'ยังฟันธงไม่ได้ครับ — ต้องมีข้อมูลสมาชิกเพิ่มเพื่อประเมินเงื่อนไขที่เหลือ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ยังยืนยันสิทธิไม่ได้ — ติดต่อเจ้าหน้าที่ได้ทันที':'ต้องการข้อมูลเพิ่ม',details,actions:[...actions,['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources,followups:followups.length?followups:[],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
   }
 
   function answer(input){
@@ -1202,20 +1202,26 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='3.5.0-rule-master';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='3.5.1-no-silent-answer';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
   const value=String(text||'').trim();
   q.value=value;
-  let result;
-  if(continuation&&conversationState?.ruleId){
-    result=COOP_APP.smartDecision(value,conversationState);
-    if(!result) result=COOP_APP.answer(value);
-  }else result=COOP_APP.answer(value);
-  if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
-  else conversationState=null;
-  render(result);
+  try{
+    let result;
+    if(continuation&&conversationState?.ruleId){
+      result=COOP_APP.smartDecision(value,conversationState);
+      if(!result) result=COOP_APP.answer(value);
+    }else result=COOP_APP.answer(value);
+    if(!result) throw new Error('EMPTY_ANSWER');
+    if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
+    else conversationState=null;
+    render(result);
+  }catch(err){
+    conversationState=null;
+    render({status:'ตอบอัตโนมัติไม่ได้',answer:'ระบบไม่ควรเงียบครับ กรุณาติดต่อเจ้าหน้าที่เพื่อให้ได้คำตอบที่ถูกต้อง',details:['ระบบพบข้อผิดพลาดในการประมวลผลคำถามนี้และจะไม่เดาคำตอบ'],actions:[['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources:[]});
+  }
 }
 document.getElementById('form').onsubmit=e=>{e.preventDefault();ask(q.value)};
 document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q));
