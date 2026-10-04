@@ -43,6 +43,9 @@ function idFrom(url,title){
 }
 
 function scoreTitle(title){
+  const currentThaiYear=new Date().getFullYear()+543;
+  const years=[...title.matchAll(/25\d{2}/g)].map(m=>Number(m[0]));
+  if(years.some(y=>y<currentThaiYear)) return 0;
   let score=0;
   const tests=[
     [/ยืนยันยอด/i,100],
