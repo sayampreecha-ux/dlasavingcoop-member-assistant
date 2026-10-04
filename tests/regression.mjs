@@ -104,6 +104,11 @@ for(const q of homeQueries){
   if(!html.includes('data:image/webp;base64,')) failures.push({group:'pilot-inline-logo'});
   if(!html.includes('object-fit:contain')) failures.push({group:'pilot-logo-contain'});
   if(!html.includes('Pilot Version')) failures.push({group:'pilot-badge'});
+  if(!html.includes('id="currentEvents"')) failures.push({group:'current-events-panel'});
+  if(!html.includes("./data/current-events.json?ts=")) failures.push({group:'current-events-fetch'});
+  if(!html.includes('function renderCurrentEvents(data)')) failures.push({group:'current-events-renderer'});
+  if(!html.includes('function eventActive(e)')) failures.push({group:'current-events-freshness'});
+  if(!html.includes('ดูวิธีทำ')) failures.push({group:'current-events-action'});
   if(!html.includes('📋 ดูขั้นตอนและรายละเอียด')) failures.push({group:'progressive-disclosure'});
   if(!html.includes('--orange:#f58220')||!html.includes('--green:#0f6b45')||!html.includes('--gold:#d9a62e')) failures.push({group:'brand-palette'});
 }
@@ -137,7 +142,7 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.1.2-pilot-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='3.2.0-pilot-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
 const forbidden=['show.php?No=4650','17%282%29.jpg','4%2823%29.jpg','12%285%29.jpg','66%282%29.png','1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18','1l-WYt403pVZ0Rc6aWbFnIH5-BXkUisZ8','16sy_LWmvP5agwyTAkwXWjlpxsA0xK6JD','1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E','1enzqVcofpAbstQQQziZoOjrQtmTPgH32','Funeralsociety.pdf','777.jpg','pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
