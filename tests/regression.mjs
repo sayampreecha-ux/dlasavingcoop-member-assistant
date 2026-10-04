@@ -9,7 +9,7 @@ new Function(scripts[2]);
 
 const cases=[
  ['', 'empty'],['ยอดหนี้ของผมเหลือเท่าไร','personal_handoff'],['ติดต่อสวัสดิการ','welfare_contact'],
- ['ติดต่อทะเบียนสมาชิก','registration_contact'],['ติดต่อเจ้าหน้าที่จังหวัด','province_contact'],['ช่องทางติดต่อสหกรณ์','contact'],
+ ['ติดต่อทะเบียนสมาชิก','registration_contact'],['ติดต่อเจ้าหน้าที่จังหวัด','province_contact'],['ช่องทางติดต่อสหกรณ์','contact'],['เว็บไซต์สหกรณ์','contact'],
 
  ['หุ้นและทุนเรือนหุ้น','share_all'],['เปลี่ยนอัตราหุ้นรายเดือน','share_change_rate'],['ซื้อหุ้นเพิ่ม','share_purchase'],['ถอนหุ้นได้ไหม','share_refund'],
  ['หนังสือยืนยันยอด 2569','balance_confirmation'],['ติดตามผลและสถานะเอกสาร','status_center'],['ผลอนุมัติเงินกู้','status_center'],
@@ -31,7 +31,7 @@ const cases=[
  ['กู้โดยใช้หุ้นตัวเอง','loan_share_secured'],['กู้เพื่อพักผ่อน','loan_vacation'],['ปิดยอดกู้','loan_close'],
  ['เปลี่ยนผู้ค้ำ','loan_change_guarantor'],['กู้ต้องค้ำกี่คน','loan_guarantor_count'],['ค้ำประกันได้กี่คน','guarantor_capacity'],
  ['กู้ได้ไหม','loan_eligibility'],['เงินกู้มีกี่แบบ','loan_all'],['เงินกู้สามัญ','loan_ordinary'],
- ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['กู้น้ำท่วม','loan_disaster'],
+ ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['รวมหนี้','loan_special'],['กู้น้ำท่วม','loan_disaster'],
 
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
  ['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],['ถอนเงินฝาก','deposit_withdraw'],['เงินฝาก','deposit'],
@@ -88,7 +88,7 @@ for(const q of homeQueries){
 
 {
   const signup=globalThis.COOP_APP.answer('สมัครฌาปนกิจ');
-  if(signup.actions?.[0]?.[1] !== globalThis.COOP_KB.official.funeralApplyHowToImage) failures.push({group:'funeral-signup',actual:signup.actions?.[0]});
+  if(signup.actions?.[0]?.[1] !== globalThis.COOP_KB.official.funeralApply) failures.push({group:'funeral-signup',actual:signup.actions?.[0]});
   const contact=globalThis.COOP_APP.answer('ช่องทางติดต่อสหกรณ์');
   if(!contact.actions?.some(x=>x[1]===globalThis.COOP_KB.official.home)) failures.push({group:'contact-website'});
   if(!html.includes('🌐 เว็บไซต์สหกรณ์ www.dlasavingcoop.com')) failures.push({group:'contact-panel-website'});
@@ -103,7 +103,7 @@ for(const q of homeQueries){
 }
 
 const transactionCases=[
- ['ปิดหนี้','loan_close'],['กู้เพื่อพักผ่อน','loan_vacation'],['เงินกู้สามัญ','loan_ordinary'],['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],
+ ['ปิดหนี้','loan_close'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['กู้เพื่อพักผ่อน','loan_vacation'],['เงินกู้สามัญ','loan_ordinary'],['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],
  ['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],['ถอนเงินฝาก','deposit_withdraw'],['ปิดบัญชีเงินฝาก','deposit_withdraw'],
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
  ['เพิ่งคลอดลูก ขอแบบอะไร','welfare_childbirth'],['ทุนเรียนลูก','scholarship'],['แม่เสียได้สวัสดิการไหม','welfare_family_death'],
@@ -131,9 +131,9 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.0.2-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='3.0.5-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
-const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
+const forbidden=['Funeralsociety.pdf','777.jpg','pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
 for(const token of forbidden) if(html.includes(token)) failures.push({token,group:'stale'});
 
