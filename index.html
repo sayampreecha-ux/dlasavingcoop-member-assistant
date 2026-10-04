@@ -466,7 +466,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const confidence=opt.confidence||(sources.length?(dynamic?'ตรวจประกาศล่าสุดก่อนดำเนินการ':'มีแหล่งทางการประกอบ'):'หลักฐานยังไม่พอสำหรับฟันธง');
     if(!details.some(x=>/สถานะหลักฐาน/.test(String(x)))) details.push('สถานะหลักฐาน: '+confidence);
     const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
-    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,requiredFact:opt.requiredFact||null,decision:opt.decision||null};
+    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,flowId:opt.flowId||null,facts:opt.facts||null,requiredFact:opt.requiredFact||null,decision:opt.decision||null};
   }
 
   function norm(s=''){
@@ -539,7 +539,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   // Member Answer Engine 3.5 — one current, evidence-gated rule registry.
   const ANSWER_CLASS={RULE:'RULE_DECISION',PROCEDURE:'PROCEDURE',KNOWLEDGE:'KNOWLEDGE',DYNAMIC:'DYNAMIC',MEMBER:'MEMBER_DATA'};
   const RULE_MASTER={
-    version:'4.0.0',
+    version:'4.1.0',
     verifiedAt:'4 ต.ค. 2569',
     rules:{
       emergency_repeat:{status:'VERIFIED',effectiveFrom:'2569-10-01',minInstallments:3,offsetExistingEmergency:true,source:S.loanEmergencyAnnouncement},
@@ -555,6 +555,226 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       quality_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',membershipMinYearsFor3m:3,shareMinInstallmentsFor3m:36,membershipMinYearsFor5m:5,shareMinInstallmentsFor5m:60,remainingIncomeMinPercent:15,remainingIncomeMinBaht:6000,noArrearsInstallments:12,maxLtvPercent:80,maxAmount:5000000,maxTerm:360,maxAge:75,offsetAllExistingLoanContractsOnApproval:true,allowedOtherLoanTypesAfterApproval:['emergency'],cashOutMaxPercentOfRemainingEligibleAmount:50,source:S.loanSpecialQualityAnnouncement}
     }
   };
+
+  const GUIDED_ELIGIBILITY={
+    ordinary:{
+      id:'ordinary_eligibility',
+      title:'เงินกู้สามัญ',
+      source:()=>S.loanGeneralAnnouncement2569,
+      sourceTitle:'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',
+      order:['membershipMonths','requestAmount','shareInstallments','shareCapital','monthlyIncome','remainingIncome','guarantorCount','term','age','arrears12','otherCoopDebt']
+    },
+    quality:{
+      id:'quality_eligibility',
+      title:'เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต',
+      source:()=>S.loanSpecialQualityAnnouncement,
+      sourceTitle:'หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',
+      order:['requestAmount','membershipYears','shareInstallments','collateralValue','monthlyIncome','remainingIncome','term','age','arrears12']
+    }
+  };
+
+  function numberWithUnit(text=''){
+    const s=String(text).replace(/,/g,'').trim();
+    const m=s.match(/(\d+(?:\.\d+)?)\s*(ล้าน|แสน|หมื่น|พัน|บาท)?/);
+    if(!m) return NaN;
+    let n=Number(m[1]); if(!Number.isFinite(n)) return NaN;
+    const mul={ล้าน:1000000,แสน:100000,หมื่น:10000,พัน:1000,บาท:1};
+    return n*(mul[m[2]]||1);
+  }
+
+  function factValue(input,fact){
+    const s=norm(input);
+    if(fact==='membershipMonths'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/),m=s.match(/(\d+)\s*เดือน/);
+      if(y) return Math.round(Number(y[1])*12)+(m?Number(m[1]):0);
+      if(m) return Number(m[1]);
+      return Number((s.match(/\d+/)||[])[0]||NaN);
+    }
+    if(fact==='membershipYears'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/),m=s.match(/(\d+)\s*เดือน/);
+      if(y) return Number(y[1])+(m?Number(m[1])/12:0);
+      if(m) return Number(m[1])/12;
+      return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    }
+    if(['requestAmount','shareCapital','monthlyIncome','remainingIncome','collateralValue'].includes(fact)) return numberWithUnit(s);
+    if(fact==='shareInstallments'||fact==='guarantorCount'||fact==='age') return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    if(fact==='term'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/); if(y)return Math.round(Number(y[1])*12);
+      return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    }
+    if(fact==='arrears12'||fact==='otherCoopDebt'){
+      if(/^(?:ไม่มี|ไม่|ไม่เคย|ไม่มีครับ|ไม่มีค่ะ|no)$/i.test(s)||/ไม่(?:มี|เคย).*(?:ค้าง|หนี้)/.test(s)) return false;
+      if(/^(?:มี|เคยมี|มีครับ|มีค่ะ|yes)$/i.test(s)||/(?:มี|เคย).*(?:ค้าง|หนี้)/.test(s)) return true;
+      return null;
+    }
+    return null;
+  }
+
+  function factPrompt(flowId,fact,facts={}){
+    const amount=Number(facts.requestAmount||0);
+    const prompts={
+      membershipMonths:['เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?',['5 เดือน','6 เดือน','12 เดือน']],
+      membershipYears:['เป็นสมาชิกสหกรณ์มาแล้วกี่ปีครับ?',['2 ปี','3 ปี','5 ปี']],
+      requestAmount:['ต้องการกู้ประมาณเท่าไรครับ?',['200,000 บาท','500,000 บาท','1,000,000 บาท']],
+      shareInstallments:['ส่งค่าหุ้นมาแล้วกี่งวดครับ?',['6 งวด','12 งวด','36 งวด','60 งวด']],
+      shareCapital:['ปัจจุบันมีทุนเรือนหุ้นสะสมประมาณเท่าไรครับ?',['50,000 บาท','100,000 บาท','200,000 บาท']],
+      monthlyIncome:['เงินได้รายเดือนประมาณเท่าไรครับ?',['30,000 บาท','40,000 บาท','50,000 บาท']],
+      remainingIncome:['หลังหักค่าหุ้นและหนี้เงินกู้ทุกประเภทแล้ว เหลือเงินได้ต่อเดือนประมาณเท่าไรครับ?',['5,000 บาท','7,000 บาท','10,000 บาท']],
+      guarantorCount:['วงเงิน '+amount.toLocaleString('th-TH')+' บาท มีผู้ค้ำประกันกี่คนครับ?',['1 คน','2 คน','3 คน']],
+      term:['ต้องการผ่อนกี่งวดครับ?',['120 งวด','180 งวด','240 งวด']],
+      age:['ปัจจุบันอายุเท่าไรครับ?',['45 ปี','55 ปี','65 ปี']],
+      arrears12:['ใน 12 งวดที่ผ่านมา มีค้างชำระค่าหุ้นหรือหนี้เงินกู้กับสหกรณ์หรือไม่ครับ?',['ไม่มี','มี']],
+      otherCoopDebt:['ปัจจุบันเป็นผู้กู้ที่มีหนี้กับสหกรณ์อื่นอยู่หรือไม่ครับ?',['ไม่มี','มี']],
+      collateralValue:['อสังหาริมทรัพย์ที่จะใช้เป็นหลักประกันมีราคาประเมินประมาณเท่าไรครับ?',['3,000,000 บาท','5,000,000 บาท','7,000,000 บาท']]
+    };
+    return prompts[fact]||['ขอข้อมูลเพิ่มเติมครับ',[]];
+  }
+
+  function nextFact(flowId,facts){
+    const flow=flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+    for(const fact of flow.order){
+      if(fact==='shareCapital' && !(Number(facts.requestAmount)>200000)) continue;
+      if(Object.prototype.hasOwnProperty.call(facts,fact)) continue;
+      return fact;
+    }
+    return null;
+  }
+
+  function evaluateGuided(flowId,facts){
+    const checks=[],fail=[];
+    const add=(name,ok,text)=>{checks.push({name,ok,text});if(!ok)fail.push(name);};
+    if(flowId==='ordinary_eligibility'){
+      const R=RULE_MASTER.rules.ordinary_current;
+      if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=R.membershipMinMonths,facts.membershipMonths+' เดือน / ขั้นต่ำ '+R.membershipMinMonths+' เดือน');
+      if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
+      if(Number.isFinite(facts.shareInstallments)){
+        const need=Number(facts.requestAmount)>200000?R.shareMinInstallmentsOver200k:R.shareMinInstallmentsBase;
+        add('จำนวนงวดส่งหุ้น',facts.shareInstallments>=need,facts.shareInstallments+' งวด / ขั้นต่ำ '+need+' งวด');
+      }
+      if(Number(facts.requestAmount)>200000 && Number.isFinite(facts.shareCapital)){
+        const need=Number(facts.requestAmount)*R.minSharePercentOver200k/100;
+        add('ทุนเรือนหุ้นสะสม',facts.shareCapital>=need,facts.shareCapital.toLocaleString('th-TH')+' บาท / ขั้นต่ำ '+need.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.monthlyIncome)&&Number.isFinite(facts.remainingIncome)){
+        const percent=facts.monthlyIncome>0?facts.remainingIncome/facts.monthlyIncome*100:0;
+        add('รายได้คงเหลือ',facts.remainingIncome>=R.remainingIncomeMinBaht&&percent>=R.remainingIncomeMinPercent,
+          facts.remainingIncome.toLocaleString('th-TH')+' บาท ('+percent.toFixed(1)+'%) / ต้อง ≥ '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ ≥ '+R.remainingIncomeMinPercent+'%');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.guarantorCount)){
+        const band=R.guarantorBands.find(b=>(b.min==null||facts.requestAmount>=b.min)&&(b.max==null||facts.requestAmount<=b.max));
+        if(band)add('จำนวนผู้ค้ำ',facts.guarantorCount>=band.minGuarantors,facts.guarantorCount+' คน / ขั้นต่ำ '+band.minGuarantors+' คนตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อน',facts.term<=R.maxTerm,facts.term+' งวด / สูงสุด '+R.maxTerm+' งวด');
+      if(Number.isFinite(facts.age)&&Number.isFinite(facts.term)){
+        const endAge=facts.age+facts.term/12;
+        add('อายุเมื่อสิ้นสุดสัญญา',endAge<=R.maxAge,endAge.toFixed(1)+' ปี / ต้องไม่เกิน '+R.maxAge+' ปี');
+      }
+      if(typeof facts.arrears12==='boolean')add('ประวัติค้างชำระ 12 งวด',!facts.arrears12,facts.arrears12?'มีประวัติค้างชำระ':'ไม่มีประวัติค้างชำระตามข้อมูลที่แจ้ง');
+      if(typeof facts.otherCoopDebt==='boolean')add('หนี้ผู้กู้กับสหกรณ์อื่น',!facts.otherCoopDebt,facts.otherCoopDebt?'มีหนี้กับสหกรณ์อื่น':'ไม่มีตามข้อมูลที่แจ้ง');
+    }else{
+      const R=RULE_MASTER.rules.quality_current;
+      if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.membershipYears)){
+        const need=Number(facts.requestAmount)>3000000?R.membershipMinYearsFor5m:R.membershipMinYearsFor3m;
+        add('อายุสมาชิก',facts.membershipYears>=need,facts.membershipYears.toFixed(1)+' ปี / ขั้นต่ำ '+need+' ปีตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.shareInstallments)){
+        const need=Number(facts.requestAmount)>3000000?R.shareMinInstallmentsFor5m:R.shareMinInstallmentsFor3m;
+        add('จำนวนงวดส่งหุ้น',facts.shareInstallments>=need,facts.shareInstallments+' งวด / ขั้นต่ำ '+need+' งวดตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.collateralValue)){
+        const max=facts.collateralValue*R.maxLtvPercent/100;
+        add('ราคาประเมินหลักประกัน',facts.requestAmount<=max,'ขอ '+facts.requestAmount.toLocaleString('th-TH')+' บาท / '+R.maxLtvPercent+'% ของราคาประเมิน = '+max.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.monthlyIncome)&&Number.isFinite(facts.remainingIncome)){
+        const percent=facts.monthlyIncome>0?facts.remainingIncome/facts.monthlyIncome*100:0;
+        add('รายได้คงเหลือ',facts.remainingIncome>=R.remainingIncomeMinBaht&&percent>=R.remainingIncomeMinPercent,
+          facts.remainingIncome.toLocaleString('th-TH')+' บาท ('+percent.toFixed(1)+'%) / ต้อง ≥ '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ ≥ '+R.remainingIncomeMinPercent+'%');
+      }
+      if(Number.isFinite(facts.term))add('ระยะเวลาผ่อน',facts.term<=R.maxTerm,facts.term+' งวด / สูงสุด '+R.maxTerm+' งวด');
+      if(Number.isFinite(facts.age)&&Number.isFinite(facts.term)){
+        const endAge=facts.age+facts.term/12;
+        add('อายุเมื่อสิ้นสุดสัญญา',endAge<=R.maxAge,endAge.toFixed(1)+' ปี / ต้องไม่เกิน '+R.maxAge+' ปี');
+      }
+      if(typeof facts.arrears12==='boolean')add('ประวัติค้างชำระ 12 งวด',!facts.arrears12,facts.arrears12?'มีประวัติค้างชำระ':'ไม่มีประวัติค้างชำระตามข้อมูลที่แจ้ง');
+    }
+    return {checks,fail};
+  }
+
+  function guidedResponse(flowId,facts={}){
+    const flow=flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+    const ev=evaluateGuided(flowId,facts);
+    if(ev.fail.length){
+      return res('guided_'+flowId,'จากข้อมูลที่ให้มา ยังไม่ผ่านอย่างน้อยหนึ่งเงื่อนไขที่ตรวจได้ครับ',{
+        answerClass:ANSWER_CLASS.RULE,flowId,facts,decision:'NOT_YET_ELIGIBLE',status:'ยังไม่ผ่านเงื่อนไขที่ตรวจได้',
+        details:ev.checks.map(x=>(x.ok?'✓ ':'✗ ')+x.name+': '+x.text).concat(['ระบบหยุดถามต่อเมื่อพบเงื่อนไขที่ไม่ผ่าน เพื่อไม่ให้สมาชิกกรอกข้อมูลเกินจำเป็น']),
+        actions:[['☎️ ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src(flow.sourceTitle,flow.source())],
+        confidence:'ตัดสินเฉพาะเงื่อนไขที่ Rule Master ยืนยันแล้ว'
+      });
+    }
+    const need=nextFact(flowId,facts);
+    if(need){
+      const prompt=factPrompt(flowId,need,facts);
+      return res('guided_'+flowId,prompt[0],{
+        answerClass:ANSWER_CLASS.RULE,flowId,facts,requiredFact:need,decision:'NEED_INFO',status:'กำลังตรวจสิทธิ — ต้องการข้อมูลเพิ่ม',
+        details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(['ถามเฉพาะข้อมูลที่กฎต้องใช้ และจะไม่ถามซ้ำข้อมูลที่ตอบแล้ว']),
+        followups:prompt[1],sources:[src(flow.sourceTitle,flow.source())],confidence:'Rule Master 4.1 guided decision'
+      });
+    }
+    return res('guided_'+flowId,'ข้อมูลที่ให้มาผ่านเงื่อนไขหลักที่ Rule Master ยืนยันและตรวจได้ครับ แต่ผลอนุมัติจริงยังต้องตรวจข้อมูลสมาชิก เอกสาร และกระบวนการพิจารณาของสหกรณ์',{
+      answerClass:ANSWER_CLASS.RULE,flowId,facts,decision:'ELIGIBLE_CONDITION',status:'ผ่านเงื่อนไขหลักที่ตรวจได้',
+      details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(flowId==='quality_eligibility'?['หากมีสัญญาเงินกู้อื่นและได้รับอนุมัติเงินกู้พัฒนาคุณภาพชีวิต ต้องดำเนินการหักกลบตามหลักเกณฑ์ปัจจุบัน']:[]),
+      actions:[['☎️ ส่งต่อ/ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src(flow.sourceTitle,flow.source())],
+      confidence:'ไม่ใช่ผลอนุมัติส่วนบุคคล'
+    });
+  }
+
+  function continueDecision(input,state=null){
+    if(!state?.flowId||!state?.requiredFact)return null;
+    const facts={...(state.facts||{})};
+    const v=factValue(input,state.requiredFact);
+    const boolFact=state.requiredFact==='arrears12'||state.requiredFact==='otherCoopDebt';
+    if((boolFact&&typeof v!=='boolean')||(!boolFact&&!Number.isFinite(v))){
+      const prompt=factPrompt(state.flowId,state.requiredFact,facts);
+      const flow=state.flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+      return res('guided_'+state.flowId,'ยังอ่านค่านั้นไม่ชัดครับ — '+prompt[0],{
+        answerClass:ANSWER_CLASS.RULE,flowId:state.flowId,facts,requiredFact:state.requiredFact,decision:'NEED_INFO',
+        status:'ขอข้อมูลให้ชัดอีกครั้ง',followups:prompt[1],details:['ตอบเฉพาะข้อมูลที่ถามได้เลย ระบบจะจำคำตอบก่อนหน้าไว้'],
+        sources:[src(flow.sourceTitle,flow.source())]
+      });
+    }
+    facts[state.requiredFact]=v;
+    return guidedResponse(state.flowId,facts);
+  }
+
+  function sourceGuidedEligibility(q){
+    if(!/(?:ได้ไหม|ได้มั้ย|ผ่านไหม|มีสิทธิ|ขอกู้|กู้ได้|ยื่นได้)/.test(q))return null;
+    const spec=[
+      {re:/กู้บ้าน|ซื้อบ้าน|สร้างบ้าน|ปลูกบ้าน|ต่อเติมบ้าน|ซ่อมบ้าน|เคหะ|ที่อยู่อาศัย/,intent:'loan_special_housing_eligibility',name:'เงินกู้พิเศษเพื่อการเคหะ',url:()=>S.loanSpecialHousingAnnouncement},
+      {re:/ไถ่ถอนจำนอง|รีไฟแนนซ์บ้าน|ปิดจำนอง/,intent:'loan_special_redeem_eligibility',name:'เงินกู้พิเศษเพื่อไถ่ถอนจำนองบ้านพร้อมที่ดิน',url:()=>S.loanSpecialRedeemAnnouncement},
+      {re:/ภัยพิบัติ|น้ำท่วม|ไฟไหม้/,intent:'loan_disaster_eligibility',name:'เงินกู้ช่วยเหลือสมาชิกกรณีภัยพิบัติ',url:()=>S.disasterLoan},
+      {re:/ชำระหนี้.*ผู้ค้ำ|หนี้.*ผู้ค้ำ/,intent:'loan_guarantor_debt_eligibility',name:'เงินกู้กรณีต้องชำระหนี้ในฐานะผู้ค้ำ',url:()=>S.guarantorDebtLoan},
+      {re:/เพื่อการศึกษา|กู้.*การศึกษา|ค่าเทอม/,intent:'loan_education_eligibility',name:'เงินกู้เพื่อการศึกษา',url:()=>S.educationLoan},
+      {re:/กู้ฉุกเฉิน|เงินกู้ฉุกเฉิน/,intent:'loan_emergency_eligibility',name:'เงินกู้เพื่อเหตุฉุกเฉิน',url:()=>S.loanEmergencyAnnouncement}
+    ];
+    const hit=spec.find(x=>x.re.test(q)); if(!hit)return null;
+    return res(hit.intent,'พบหลักเกณฑ์ทางการของ '+hit.name+' ครับ แต่ Rule Master ตอนนี้ยังไม่ได้ถอดเงื่อนไขสิทธิทุกข้อของประเภทนี้ครบ จึงไม่เดาว่า “ได้/ไม่ได้” จากข้อมูลที่ยังไม่ครบ',{
+      answerClass:ANSWER_CLASS.RULE,decision:'NEED_RULE_EXTRACTION',status:'พบกฎทางการ — ยังต้องถอด Rule ให้ครบ',
+      details:['ระบบแยก “มีหลักเกณฑ์อยู่แล้ว” ออกจาก “ถอดเงื่อนไขเป็น Rule แล้ว” เพื่อไม่ตอบมั่ว','ถ้าเป็นสถานะ/ยอดเฉพาะสมาชิก เจ้าหน้าที่จะตรวจต่อเฉพาะส่วนนั้น ไม่ใช่เริ่มอธิบายกฎใหม่ทั้งหมด'],
+      actions:[['📚 เปิดหลักเกณฑ์ทางการ',hit.url()],['☎️ ติดต่อเจ้าหน้าที่','#staff-directory']],
+      sources:[src('หลักเกณฑ์ '+hit.name,hit.url())],confidence:'SOURCE_PRESENT_NEEDS_RULE_EXTRACTION'
+    });
+  }
+
+  function startEligibilityFlow(q){
+    const eligible=/(?:ได้ไหม|ได้มั้ย|ผ่านไหม|มีสิทธิ|ขอกู้|กู้ได้|ยื่นได้)/.test(q);
+    if(!eligible)return sourceGuidedEligibility(q);
+    if(/สามัญ/.test(q)&&!/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q))return guidedResponse('ordinary_eligibility',{});
+    if(/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q))return guidedResponse('quality_eligibility',{});
+    return sourceGuidedEligibility(q);
+  }
+
+
   const DECISION_RULES=[
     {answerClass:ANSWER_CLASS.RULE,id:'emergency_repeat',match:q=>/ฉุกเฉิน/.test(q)&&/(?:ซ้ำ|อีก|ใหม่|เพิ่ม|เพิ่มวงเงิน|กู้(?:ฉุกเฉิน)?ใหม่)/.test(q),fact:'installments',ask:'สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?',chips:['2 งวด','3 งวด','6 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=3,
       yes:n=>'ได้ครับ — ชำระสัญญาฉุกเฉินเดิมแล้ว '+n+' งวด ผ่านเงื่อนไขอย่างน้อย 3 งวดสำหรับยื่นสัญญาใหม่ โดยสัญญาใหม่ต้องหักกลบหนี้ฉุกเฉินเดิม และยังต้องผ่านคุณสมบัติอื่นตามประกาศ',
@@ -743,8 +963,11 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     // Zero-API guided diagnosis: ask for the minimum missing fact instead of sending members to documents.
     const smart=smartDecision(q);
     if(smart) return smart;
+    // Rule-based eligibility must run before personal-account handoff. Pronouns such as “ผม” do not make a rule question private data.
+    const guided=startEligibilityFlow(q);
+    if(guided) return guided;
     if(/(?:กู้|เงินกู้).*(?:ได้ไหม|ได้มั้ย|ผ่านไหม|ผ่านมั้ย)$/.test(q) && !/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)){
-      return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
+      return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต','กู้ซื้อ/สร้างบ้าน','กู้ไถ่ถอนจำนอง','กู้กรณีภัยพิบัติ'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
     }
     if(/(?:คุณภาพชีวิต|พัฒนาคุณภาพชีวิต)/.test(q)&&/(?:สามัญ|ฉุกเฉิน)/.test(q)&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q)){
       if(/สามัญ/.test(q)) return res('loan_cross_wait_current','ขณะสัญญากู้พัฒนาคุณภาพชีวิตยังมีผล ไม่สามารถกู้สามัญเพิ่มได้ครับ — หลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่นหลังได้รับอนุมัติ ยกเว้นเงินกู้ฉุกเฉิน จึงไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมายื่นสามัญเพิ่มได้ระหว่างถือสัญญานี้',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',decision:'NOT_YET_ELIGIBLE',details:['ข้อยกเว้นที่ระบุไว้คือเงินกู้ฉุกเฉิน','ระบบไม่สร้างจำนวนงวดขึ้นเอง เพราะต้นฉบับใช้ข้อห้ามตามประเภทเงินกู้ ไม่ใช่เกณฑ์รอจำนวนงวด'],sources:[src('หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement)]});
@@ -1302,12 +1525,12 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     });
   }
 
-  return {answer,smartDecision,personal,norm};
+  return {answer,smartDecision,continueDecision,personal,norm};
 });
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.0.0-smart-rule-master';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.1.0-member-decision';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
@@ -1315,12 +1538,16 @@ function ask(text,{continuation=false}={}){
   q.value=value;
   try{
     let result;
-    if(continuation&&conversationState?.ruleId){
+    if(continuation&&conversationState?.flowId){
+      result=COOP_APP.continueDecision(value,conversationState);
+      if(!result) result=COOP_APP.answer(value);
+    }else if(continuation&&conversationState?.ruleId){
       result=COOP_APP.smartDecision(value,conversationState);
       if(!result) result=COOP_APP.answer(value);
     }else result=COOP_APP.answer(value);
     if(!result) throw new Error('EMPTY_ANSWER');
-    if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
+    if(result?.flowId&&result?.requiredFact) conversationState={flowId:result.flowId,requiredFact:result.requiredFact,facts:result.facts||{}};
+    else if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
     else conversationState=null;
     render(result);
   }catch(err){
