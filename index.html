@@ -113,7 +113,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'3.0.5-pages',
+    version:'3.0.6-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -144,13 +144,14 @@
       loanGeneralAnnouncement2569:'https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing',
       loanVacationAnnouncement:'https://www.dlasavingcoop.com/show.php?No=774',
       loanInterestAnnouncement:'https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing',
-      loanEmergencyAnnouncement:'https://drive.google.com/file/d/1enzqVcofpAbstQQQziZoOjrQtmTPgH32/view?usp=sharing',
+      loanEmergencyAnnouncement:'https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing',
       loanEmergencyForm:'https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing',
       loanSpecialHousingAnnouncement:'https://drive.google.com/file/d/1PDrTLU46Q8y9qJju6KixhU4atYjDCLkn/view?usp=sharing',
       loanSpecialHousingForm:'https://drive.google.com/file/d/1KgHOea6BKduE4zNFx6NNlW7iRjZzqOee/view?usp=sharing',
-      loanSpecialRedeemAnnouncement:'https://drive.google.com/file/d/1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E/view?usp=sharing',
+      loanSpecialRedeemAnnouncement:'https://drive.google.com/file/d/1BbkfCefJUCsWRwTpSEXfvvziZ21R225O/view?usp=sharing',
       loanSpecialRedeemForm:'https://drive.google.com/file/d/1E-VSAXKzmiQYO_tLF0AfBwptqu944Ojh/view?usp=sharing',
-      loanSpecialQualityAnnouncement:'https://drive.google.com/file/d/16sy_LWmvP5agwyTAkwXWjlpxsA0xK6JD/view?usp=sharing',
+      loanSpecialQualityAnnouncement:'https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing',
+      loanSpecialQualityForm:'https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing',
       changeGuarantorForm:'https://drive.google.com/file/d/1Uc6JD284vxazmidC2qi9H5h-LlnfiiZb/view?usp=sharing',
       memberApplication:'https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing',
       educationLoan:'https://drive.google.com/file/d/1cK6zUQSPdT-3NT7bJ3WXO_MWP_ruzXLi/view?usp=sharing',
@@ -160,8 +161,7 @@
       guarantorDebtLoan:'https://drive.google.com/file/d/1ZjfxQntcenz5DfpWSd4owcM6zOwEHfW8/view?usp=sharing',
       transfer:'https://drive.google.com/file/d/1ejFNdA3oKnhHyszg8bQjwmhVUf5Dp6Jy/view?usp=sharing',
       resignation:'https://www.dlasavingcoop.com/show.php?No=772',
-      welfareRule:'https://drive.google.com/file/d/1l-WYt403pVZ0Rc6aWbFnIH5-BXkUisZ8/view?usp=sharing',
-      welfareAmendment2:'https://drive.google.com/file/d/1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18/view?usp=sharing',
+      welfareRule:'https://www.dlasavingcoop.com/show.php?No=775',
       welfareFamilyDeath:'https://www.dlasavingcoop.com/show.php?No=775',
       facebook:'https://www.facebook.com/Dlasavingcooppage',
       line:'https://line.me/R/ti/p/@dlasavingcoop',
@@ -817,7 +817,7 @@
     });
 
     if(/กู้พิเศษ|เงินกู้พิเศษ|เคหะ|ไถ่ถอนจำนอง|รวมหนี้|รวมภาระหนี้/i.test(q)) return res('loan_special','เงินกู้พิเศษมี 3 กลุ่มในหน้าทางการ: เคหะ / ไถ่ถอนจำนองบ้านพร้อมที่ดิน / พัฒนาคุณภาพชีวิต (รวมหนี้) ครับ',{
-      details:['ขั้นตอน: 1) เลือกประเภท 2) เปิดหลักเกณฑ์และแบบ 3) ตรวจหลักประกัน/การประเมิน/ประกันตามประเภท 4) เตรียมเอกสาร 5) ยื่นคำขอ 6) ติดตามกับงานเงินกู้ฉุกเฉิน/พิเศษ'],actions:[['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['📄 แบบกู้พิเศษเพื่อการเคหะ',S.loanSpecialHousingForm],['📢 ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement],['📄 แบบไถ่ถอนจำนอง',S.loanSpecialRedeemForm],['📢 ประกาศพัฒนาคุณภาพชีวิต (รวมหนี้) 2569',S.loanSpecialQualityAnnouncement],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement]],sources:[src('ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement),src('ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement),src('ประกาศพัฒนาคุณภาพชีวิต 2569',S.loanSpecialQualityAnnouncement)]
+      details:['ขั้นตอน: 1) เลือกประเภท 2) เปิดหลักเกณฑ์และแบบ 3) ตรวจหลักประกัน/การประเมิน/ประกันตามประเภท 4) เตรียมเอกสาร 5) ยื่นคำขอ 6) ติดตามกับงานเงินกู้ฉุกเฉิน/พิเศษ'],actions:[['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['📄 แบบกู้พิเศษเพื่อการเคหะ',S.loanSpecialHousingForm],['📢 ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement],['📄 แบบไถ่ถอนจำนอง',S.loanSpecialRedeemForm],['📢 ประกาศพัฒนาคุณภาพชีวิต (รวมหนี้) 2569',S.loanSpecialQualityAnnouncement],['📄 แบบกู้พิเศษพัฒนาคุณภาพชีวิต (รวมหนี้)',S.loanSpecialQualityForm],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement]],sources:[src('ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement),src('ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement),src('ประกาศพัฒนาคุณภาพชีวิต 2569',S.loanSpecialQualityAnnouncement)]
     });
 
     if(/กู้.*การศึกษา|เพื่อการศึกษา|ค่าเทอม/i.test(q)) return res('loan_education','กู้เพื่อการศึกษามีแบบคำขอเฉพาะ และเอกสารหลักเกี่ยวกับผู้กู้/ผู้ค้ำ รายได้ และสถานศึกษา',{
