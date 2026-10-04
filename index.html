@@ -243,7 +243,11 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
         memberForms:{url:'https://www.dlasavingcoop.com/show.php?No=772',type:'FORM_INDEX',freshness:'DYNAMIC'},
         balanceConfirmation2569:{url:'https://dlasavingcoop.com/show.php?No=4931',type:'CURRENT_SERVICE',freshness:'2569_CAMPAIGN'},
         payment:{url:'https://dlasavingcoop.com/show.php?Category=payment',type:'PROCEDURE',freshness:'DYNAMIC'},
-        beneficiaryGuide:{url:'https://dlasavingcoop.com/show.php?No=4062',type:'GUIDE',freshness:'CHECK_CURRENT_RULE'}
+        beneficiaryGuide:{url:'https://dlasavingcoop.com/show.php?No=4062',type:'GUIDE',freshness:'CHECK_CURRENT_RULE'},
+        ordinaryLoanForms:{url:'https://www.dlasavingcoop.com/show.php?No=774',type:'RULE_AND_FORM_INDEX',freshness:'VERSIONED_2569'},
+        emergencyLoan:{url:'https://www.dlasavingcoop.com/show.php?No=773',type:'RULE_AND_FORM_INDEX',freshness:'VERSIONED_2569'},
+        qualityOfLife2569:{url:'https://dlasavingcoop.com/show.php?No=4845',type:'CURRENT_PROGRAM',freshness:'2569_CAMPAIGN'},
+        home:{url:'https://www.dlasavingcoop.com/',type:'LIVE_RESULT_INDEX',freshness:'DYNAMIC'}
       }
     },
     contacts:{
@@ -547,6 +551,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(/(?:รอบ|ประชุม|อนุมัติ|โอน|เช็ค|เงิน).*(?:ฉุกเฉิน|พัฒนาคุณภาพชีวิต|เงินกู้|บัตรเครดิต).*(?:วันไหน|วันที่เท่าไร|วันที่|เมื่อไหร่|ถึงไหน|ถึงหรือยัง|มาแล้ว|ส่งมาหรือยัง|ไปรับ|รอบต่อไป)|(?:ฉุกเฉิน|เงินกู้|บัตรเครดิต).*(?:โอน|เช็ค).*(?:วันไหน|เมื่อไหร่|ถึงหรือยัง)|(?:สวัสดิการ.*การศึกษา|ทุน.*บุตร|ทุนบุตร).*(?:ประกาศผล|ประกาศ.*เมื่อไหร่|ผล.*เมื่อไหร่|เดือนไหน)/i.test(q)) return res('live_schedule','เรื่องวันประชุม วันอนุมัติ วันโอน ผลสวัสดิการ หรือสถานะเช็คเป็นข้อมูลที่เปลี่ยนตามรอบครับ ต้องตรวจประกาศล่าสุด; ถ้าเป็นสถานะของสมาชิกคนใดคนหนึ่งต้องให้เจ้าหน้าที่ตรวจข้อมูลจริง',{status:'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด',details:['ระบบจะไม่ใช้วันจากโพสต์/แชตเก่ามาตอบเป็นกำหนดการปัจจุบัน','ถ้าเป็นสถานะเฉพาะตัว เช่น เช็คของฉันออกหรือยัง ให้ติดต่อเจ้าหน้าที่ผ่านช่องทางทางการ'],actions:[['📣 ประกาศล่าสุด',S.notices],['🌐 เว็บไซต์สหกรณ์',S.home],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices),src('เว็บไซต์สหกรณ์',S.home)]});
 
     if(/(?:ทำไม|เหตุใด).*(?:ผู้ค้ำ|คนค้ำ).*(?:ไม่ผ่าน|ไม่ได้|ติด)|(?:ผู้ค้ำ|คนค้ำ).*(?:ไม่ผ่าน|ไม่ได้|ติด).*(?:อะไร|ตรงไหน|เพราะ)/i.test(q)) return handoff(q);
+
+    // Generic personal eligibility/top-up questions require member data even when the member omits pronouns.
+    if(/^(?:กู้เพิ่มได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่)|เพิ่มวงเงินได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่))$/i.test(q)) return handoff(q);
 
     if(personal(q)) return handoff(q);
 
