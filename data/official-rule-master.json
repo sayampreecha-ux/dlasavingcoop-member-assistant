@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "productRelease": "4.0.0-smart-rule-master",
+  "productRelease": "4.1.0-member-decision",
   "verifiedAt": "2026-10-04",
   "policy": {
     "sourcePriority": [
@@ -13,7 +13,8 @@
       "ห้ามสร้างตัวเลขจากกระทู้สมาชิก",
       "กฎที่มีวันบังคับใช้ต้องตรวจ version ก่อนใช้",
       "กฎที่ยังไม่มีต้นฉบับยืนยันให้ตอบ UNVERIFIED_RULE",
-      "ข้อมูลยอด/สถานะเฉพาะสมาชิกให้ส่งเจ้าหน้าที่"
+      "ข้อมูลยอด/สถานะเฉพาะสมาชิกให้ส่งเจ้าหน้าที่",
+      "มีต้นฉบับทางการแต่ยังไม่ได้ถอด Rule: ห้ามตอบว่าไม่มีข้อมูล ให้ระบุว่าพบกฎและส่งต่อเฉพาะส่วนที่ยังต้องตรวจ"
     ]
   },
   "domains": {
@@ -178,6 +179,301 @@
       ],
       "cashOutMaxPercentOfRemainingEligibleAmount": 50,
       "noArrearsInstallments": 12
+    },
+    "welfareCommon": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk",
+      "eligibleMemberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "sharePaymentMinMonths": 6,
+      "noArrearsInClaimAccountingYear": true
+    },
+    "welfareChildbirth": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk",
+      "memberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "legalChildOnly": true,
+      "adoptedChildExcluded": true,
+      "amountBahtPerChild": 1000,
+      "maxChildren": 3,
+      "ifBothParentsMembersOnlyOneClaim": true,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "birth_notification_date"
+    },
+    "welfareMarriage": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk",
+      "memberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "legalMarriageRegistration": true,
+      "amountBaht": 1000,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "marriage_registration_date"
+    },
+    "welfareReligion": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk",
+      "memberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "amountBaht": 2000,
+      "onceOnly": true,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "end_of_religious_practice"
+    },
+    "welfareGraduation": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk",
+      "memberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "amountsBaht": {
+        "bachelor": 1000,
+        "master": 2000,
+        "doctorate": 3000
+      },
+      "firstGraduationAtEachLevelOnly": true,
+      "claimDeadlineDays": 365,
+      "deadlineFrom": "university_completion_certification_date"
+    },
+    "welfareGratuity": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2025-10-02",
+      "source": "https://drive.google.com/file/d/1xXdqsBGeKd27_o75C2UgIkXR7ZrUmWac/view?usp=drivesdk",
+      "supersedes": [
+        "https://drive.google.com/file/d/1mALErEJHDcCzkObKj5W4YM491JskuYQt/view?usp=sharing",
+        "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+      ],
+      "memberTypes": [
+        "member"
+      ],
+      "ageCutoffYears": 60,
+      "ageCutoffDate": "10-01",
+      "membershipMinYears": 5,
+      "membershipYearRounding": "fraction_6_months_or_more_counts_as_1_year",
+      "amountBahtPerMembershipYear": 1000,
+      "transferTenureStartsFromCoopAcceptanceDate": true,
+      "onceOnly": true,
+      "debtOffsetWhenOutstandingDebtOverShareCapitalPercent": 90
+    },
+    "welfareMemberDeath": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://www.dlasavingcoop.com/show.php?No=775",
+      "detailSource": "https://drive.google.com/file/d/1pqK0iiJvRkaN98LN3JlMAxbspGp18pvh/view?usp=drivesdk",
+      "memberTypes": [
+        "member"
+      ],
+      "sharePaymentMinMonths": 6,
+      "noArrearsInClaimAccountingYear": true,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "death_date",
+      "funeralAidBandsBaht": [
+        {
+          "membership": "6_months_to_1_year",
+          "amount": 15000
+        },
+        {
+          "membership": "over_1_to_5_years",
+          "amount": 20000
+        },
+        {
+          "membership": "over_5_to_10_years",
+          "amount": 25000
+        },
+        {
+          "membership": "over_10_to_15_years",
+          "amount": 30000
+        },
+        {
+          "membership": "over_15_years",
+          "amount": 35000
+        }
+      ],
+      "southernUnrestSpecifiedAreaMultiplier": 2
+    },
+    "welfareFamilyDeath": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://www.dlasavingcoop.com/show.php?No=775",
+      "detailSource": "https://drive.google.com/file/d/1Fs51CIR2Rm5-4oxkTwfYYHyJAnKCPRZ7/view?usp=drivesdk",
+      "memberTypes": [
+        "member"
+      ],
+      "sharePaymentMinMonths": 6,
+      "noArrearsInClaimAccountingYear": true,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "death_date",
+      "spouseOrLegalChildAidBandsBaht": [
+        {
+          "membership": "6_months_to_1_year",
+          "amount": 7500
+        },
+        {
+          "membership": "over_1_to_5_years",
+          "amount": 10000
+        },
+        {
+          "membership": "over_5_to_10_years",
+          "amount": 12500
+        },
+        {
+          "membership": "over_10_to_15_years",
+          "amount": 15000
+        },
+        {
+          "membership": "over_15_years",
+          "amount": 17500
+        }
+      ],
+      "legalFatherOrMotherAmountBaht": 3000,
+      "adoptiveParentsExcluded": true,
+      "adoptedChildExcluded": true
+    },
+    "welfareDisaster": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2023-08-11",
+      "source": "https://www.dlasavingcoop.com/show.php?No=775",
+      "detailSource": "https://drive.google.com/file/d/1Awki_okvVEN24KEsRlfG6SD_eVUBasUC/view?usp=drivesdk",
+      "memberTypes": [
+        "member",
+        "associate_member"
+      ],
+      "sharePaymentMinMonths": 6,
+      "noArrearsInClaimAccountingYear": true,
+      "propertyAidPercent": 10,
+      "propertyAidMinBaht": 1000,
+      "propertyAidMaxBahtPerEvent": 5000,
+      "exceptionalDamageOverBaht": 500000,
+      "exceptionalAidMaxBaht": 50000,
+      "sameDamagedPropertySpouseMembersOnlyOneClaim": true,
+      "injuryDisabilityAidMaxBahtPerEvent": 5000,
+      "claimDeadlineDays": 120,
+      "deadlineFrom": "date_disaster_ended"
+    }
+  },
+  "decisionCoverage": {
+    "policy": "VERIFIED rules may decide; PARTIAL rules may decide only the verified condition; SOURCE_PRESENT rules must never invent thresholds.",
+    "loans": {
+      "ordinary": {
+        "status": "VERIFIED_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT",
+        "source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+      },
+      "emergency": {
+        "status": "VERIFIED_REPEAT_RULE",
+        "decisionMode": "GUIDED_REPEAT_ONLY",
+        "source": "https://www.dlasavingcoop.com/show.php?No=773"
+      },
+      "education": {
+        "status": "PARTIAL_VERIFIED",
+        "decisionMode": "GUIDED_REPEAT_ONLY",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "qualityOfLife": {
+        "status": "VERIFIED_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT",
+        "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+      },
+      "specialHousing": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+      },
+      "specialRedeemMortgage": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+      },
+      "disasterAssistance": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "guarantorDebtAssistance": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "vacation": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "shareDepositBacked": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      }
+    },
+    "welfare": {
+      "childbirth": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareChildbirth"
+      },
+      "marriage": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareMarriage"
+      },
+      "religion": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareReligion"
+      },
+      "graduation": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareGraduation"
+      },
+      "gratuity": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareGratuity"
+      },
+      "memberDeath": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareMemberDeath"
+      },
+      "familyDeath": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareFamilyDeath"
+      },
+      "disaster": {
+        "status": "VERIFIED_CURRENT",
+        "decisionMode": "GUIDED_RULE_DECISION",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775",
+        "rule": "welfareDisaster"
+      },
+      "childScholarship": {
+        "status": "ANNUAL_NOTICE",
+        "decisionMode": "FRESH_NOTICE_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/list.php?Category=notice"
+      }
     }
   }
 }

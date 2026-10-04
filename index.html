@@ -276,8 +276,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     welfare:{
       types:['สวัสดิการเพื่อการคลอดบุตร','สวัสดิการเพื่อการสมรส','สวัสดิการเพื่อการศาสนา','สวัสดิการเพื่อการสำเร็จการศึกษา','สวัสดิการบำเหน็จสมาชิก','เงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม','เงินสงเคราะห์กรณีบุคคลในครอบครัวถึงแก่กรรม','เงินสงเคราะห์กรณีผู้ประสบภัย'],
       scholarshipLevels:['อุดมศึกษา','มัธยมศึกษา','ประถมศึกษา','ก่อนประถมศึกษา/ปฐมวัย'],
-      childBirth:['เป็นสวัสดิการประเภทหนึ่งตามระเบียบสวัสดิการสมาชิก','ใช้แบบขอรับสวัสดิการจากหน้าสวัสดิการทางการ','หลักฐานสำคัญรวมถึงสำเนาสูติบัตร','ยื่นภายใน 180 วันตามหลักเกณฑ์ที่ตรวจไว้'],
-      familyDeath:['กรณีบิดา/มารดาโดยชอบด้วยกฎหมายถึงแก่กรรม มีหลักเกณฑ์สงเคราะห์ครอบครัว','ข้อมูลที่ตรวจไว้ระบุ 3,000 บาทต่อคนสำหรับกรณีที่เข้าเงื่อนไข','เพื่อความปลอดภัยควรยื่นภายใน 120 วัน; หากเกินให้เจ้าหน้าที่ตรวจข้อกำหนดที่ใช้บังคับ']
+      childBirth:['สมาชิกหรือสมาชิกสมทบที่เข้าเงื่อนไขได้รับ 1,000 บาทต่อบุตร','เป็นบุตรโดยชอบด้วยกฎหมาย ไม่รวมบุตรบุญธรรม และรับได้ไม่เกิน 3 คน','ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ ให้รับได้เพียงคนเดียว','ยื่นภายใน 120 วันนับแต่วันแจ้งเกิด พร้อมหลักฐานตามแบบ'],
+      familyDeath:['บิดาหรือมารดาโดยชอบด้วยกฎหมายถึงแก่กรรม: 3,000 บาทต่อราย เมื่อสมาชิกเข้าเงื่อนไข','คู่สมรสหรือบุตรโดยชอบด้วยกฎหมาย: เงินช่วยเหลือขึ้นกับอายุการเป็นสมาชิก ตั้งแต่ 7,500–17,500 บาท','สมาชิกสามัญต้องส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือน ไม่ค้างชำระตามหลักเกณฑ์ และยื่นภายใน 120 วันนับแต่วันถึงแก่กรรม']
     }
   };
 });
@@ -466,7 +466,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const confidence=opt.confidence||(sources.length?(dynamic?'ตรวจประกาศล่าสุดก่อนดำเนินการ':'มีแหล่งทางการประกอบ'):'หลักฐานยังไม่พอสำหรับฟันธง');
     if(!details.some(x=>/สถานะหลักฐาน/.test(String(x)))) details.push('สถานะหลักฐาน: '+confidence);
     const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
-    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,requiredFact:opt.requiredFact||null,decision:opt.decision||null};
+    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,flowId:opt.flowId||null,facts:opt.facts||null,requiredFact:opt.requiredFact||null,decision:opt.decision||null};
   }
 
   function norm(s=''){
@@ -539,7 +539,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   // Member Answer Engine 3.5 — one current, evidence-gated rule registry.
   const ANSWER_CLASS={RULE:'RULE_DECISION',PROCEDURE:'PROCEDURE',KNOWLEDGE:'KNOWLEDGE',DYNAMIC:'DYNAMIC',MEMBER:'MEMBER_DATA'};
   const RULE_MASTER={
-    version:'4.0.0',
+    version:'4.1.0',
     verifiedAt:'4 ต.ค. 2569',
     rules:{
       emergency_repeat:{status:'VERIFIED',effectiveFrom:'2569-10-01',minInstallments:3,offsetExistingEmergency:true,source:S.loanEmergencyAnnouncement},
@@ -552,9 +552,490 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       quality_cross_refinance:{status:'VERIFIED',effectiveFrom:'2569-10-01',offsetAllExistingLoanContractsOnApproval:true,source:S.loanSpecialQualityAnnouncement},
       current_ordinary_remaining_income:{status:'VERIFIED',effectiveFrom:'2569-10-01',minPercent:15,minBaht:6000,source:S.loanGeneralAnnouncement2569},
       ordinary_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',membershipMinMonths:6,shareMinInstallmentsBase:6,shareMinInstallmentsOver200k:12,minSharePercentOver200k:10,remainingIncomeMinPercent:15,remainingIncomeMinBaht:6000,noBorrowerDebtWithOtherCooperatives:true,noArrearsInstallments:12,maxAmount:2000000,maxTerm:240,maxAge:75,repeatMinInstallments:12,guarantorMaxBorrowers:3,guarantorBands:[{max:500000,minGuarantors:1},{min:500001,max:1000000,minGuarantors:2},{min:1000001,max:2000000,minGuarantors:3}],source:S.loanGeneralAnnouncement2569},
-      quality_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',membershipMinYearsFor3m:3,shareMinInstallmentsFor3m:36,membershipMinYearsFor5m:5,shareMinInstallmentsFor5m:60,remainingIncomeMinPercent:15,remainingIncomeMinBaht:6000,noArrearsInstallments:12,maxLtvPercent:80,maxAmount:5000000,maxTerm:360,maxAge:75,offsetAllExistingLoanContractsOnApproval:true,allowedOtherLoanTypesAfterApproval:['emergency'],cashOutMaxPercentOfRemainingEligibleAmount:50,source:S.loanSpecialQualityAnnouncement}
+      quality_current:{status:'VERIFIED',effectiveFrom:'2569-10-01',membershipMinYearsFor3m:3,shareMinInstallmentsFor3m:36,membershipMinYearsFor5m:5,shareMinInstallmentsFor5m:60,remainingIncomeMinPercent:15,remainingIncomeMinBaht:6000,noArrearsInstallments:12,maxLtvPercent:80,maxAmount:5000000,maxTerm:360,maxAge:75,offsetAllExistingLoanContractsOnApproval:true,allowedOtherLoanTypesAfterApproval:['emergency'],cashOutMaxPercentOfRemainingEligibleAmount:50,source:S.loanSpecialQualityAnnouncement},
+      welfare_common:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],sharePaymentMinMonths:6,noArrearsInClaimAccountingYear:true,source:S.welfareForms},
+      welfare_childbirth:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],legalChildOnly:true,adoptedChildExcluded:true,amountPerChild:1000,maxChildren:3,bothParentsMembersOneClaim:true,claimDeadlineDays:120,source:S.welfareForms},
+      welfare_marriage:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],legalMarriage:true,amount:1000,claimDeadlineDays:120,source:S.welfareForms},
+      welfare_religion:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],amount:2000,onceOnly:true,claimDeadlineDays:120,source:S.welfareForms},
+      welfare_graduation:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],amounts:{bachelor:1000,master:2000,doctorate:3000},firstAtLevelOnly:true,claimDeadlineDays:365,source:S.welfareForms},
+      welfare_gratuity:{status:'VERIFIED',effectiveFrom:'2568-10-02',memberTypes:['member'],ageAtOct1Min:60,membershipMinMonthsAtOct1:60,roundMembershipYearAtMonths:6,amountPerMembershipYear:1000,onceOnly:true,debtOffsetThresholdPercentOfShares:90,source:'https://drive.google.com/file/d/1xXdqsBGeKd27_o75C2UgIkXR7ZrUmWac/view?usp=drivesdk'},
+      welfare_member_death:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member'],sharePaymentMinMonths:6,noArrearsInClaimAccountingYear:true,claimDeadlineDays:120,bands:[{maxMonths:12,amount:15000},{minMonths:13,maxMonths:60,amount:20000},{minMonths:61,maxMonths:120,amount:25000},{minMonths:121,maxMonths:180,amount:30000},{minMonths:181,amount:35000}],southernSpecifiedAreaMultiplier:2,source:S.welfareForms},
+      welfare_family_death:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member'],sharePaymentMinMonths:6,noArrearsInClaimAccountingYear:true,claimDeadlineDays:120,parentAmount:3000,spouseChildBands:[{maxMonths:12,amount:7500},{minMonths:13,maxMonths:60,amount:10000},{minMonths:61,maxMonths:120,amount:12500},{minMonths:121,maxMonths:180,amount:15000},{minMonths:181,amount:17500}],adoptiveParentExcluded:true,adoptedChildExcluded:true,source:S.welfareForms},
+      welfare_disaster:{status:'VERIFIED',effectiveFrom:'2566-08-11',memberTypes:['member','associate'],sharePaymentMinMonths:6,noArrearsInClaimAccountingYear:true,propertyAidPercent:10,propertyAidMin:1000,propertyAidMax:5000,exceptionalDamageOver:500000,exceptionalAidMax:50000,injuryDisabilityAidMax:5000,claimDeadlineDays:120,source:S.welfareForms}
     }
   };
+
+  const GUIDED_ELIGIBILITY={
+    ordinary:{
+      id:'ordinary_eligibility',
+      title:'เงินกู้สามัญ',
+      source:()=>S.loanGeneralAnnouncement2569,
+      sourceTitle:'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',
+      order:['membershipMonths','requestAmount','shareInstallments','shareCapital','monthlyIncome','remainingIncome','guarantorCount','term','age','arrears12','otherCoopDebt']
+    },
+    quality:{
+      id:'quality_eligibility',
+      title:'เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต',
+      source:()=>S.loanSpecialQualityAnnouncement,
+      sourceTitle:'หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',
+      order:['requestAmount','membershipYears','shareInstallments','collateralValue','monthlyIncome','remainingIncome','term','age','arrears12']
+    }
+  };
+
+  function numberWithUnit(text=''){
+    const s=String(text).replace(/,/g,'').trim();
+    const m=s.match(/(\d+(?:\.\d+)?)\s*(ล้าน|แสน|หมื่น|พัน|บาท)?/);
+    if(!m) return NaN;
+    let n=Number(m[1]); if(!Number.isFinite(n)) return NaN;
+    const mul={ล้าน:1000000,แสน:100000,หมื่น:10000,พัน:1000,บาท:1};
+    return n*(mul[m[2]]||1);
+  }
+
+  function factValue(input,fact){
+    const s=norm(input);
+    if(fact==='membershipMonths'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/),m=s.match(/(\d+)\s*เดือน/);
+      if(y) return Math.round(Number(y[1])*12)+(m?Number(m[1]):0);
+      if(m) return Number(m[1]);
+      return Number((s.match(/\d+/)||[])[0]||NaN);
+    }
+    if(fact==='membershipYears'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/),m=s.match(/(\d+)\s*เดือน/);
+      if(y) return Number(y[1])+(m?Number(m[1])/12:0);
+      if(m) return Number(m[1])/12;
+      return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    }
+    if(['requestAmount','shareCapital','monthlyIncome','remainingIncome','collateralValue'].includes(fact)) return numberWithUnit(s);
+    if(fact==='shareInstallments'||fact==='guarantorCount'||fact==='age') return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    if(fact==='term'){
+      const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/); if(y)return Math.round(Number(y[1])*12);
+      return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    }
+    if(fact==='arrears12'||fact==='otherCoopDebt'){
+      if(/^(?:ไม่มี|ไม่|ไม่เคย|ไม่มีครับ|ไม่มีค่ะ|no)$/i.test(s)||/ไม่(?:มี|เคย).*(?:ค้าง|หนี้)/.test(s)) return false;
+      if(/^(?:มี|เคยมี|มีครับ|มีค่ะ|yes)$/i.test(s)||/(?:มี|เคย).*(?:ค้าง|หนี้)/.test(s)) return true;
+      return null;
+    }
+    return null;
+  }
+
+  function factPrompt(flowId,fact,facts={}){
+    const amount=Number(facts.requestAmount||0);
+    const prompts={
+      membershipMonths:['เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?',['5 เดือน','6 เดือน','12 เดือน']],
+      membershipYears:['เป็นสมาชิกสหกรณ์มาแล้วกี่ปีครับ?',['2 ปี','3 ปี','5 ปี']],
+      requestAmount:['ต้องการกู้ประมาณเท่าไรครับ?',['200,000 บาท','500,000 บาท','1,000,000 บาท']],
+      shareInstallments:['ส่งค่าหุ้นมาแล้วกี่งวดครับ?',['6 งวด','12 งวด','36 งวด','60 งวด']],
+      shareCapital:['ปัจจุบันมีทุนเรือนหุ้นสะสมประมาณเท่าไรครับ?',['50,000 บาท','100,000 บาท','200,000 บาท']],
+      monthlyIncome:['เงินได้รายเดือนประมาณเท่าไรครับ?',['30,000 บาท','40,000 บาท','50,000 บาท']],
+      remainingIncome:['หลังหักค่าหุ้นและหนี้เงินกู้ทุกประเภทแล้ว เหลือเงินได้ต่อเดือนประมาณเท่าไรครับ?',['5,000 บาท','7,000 บาท','10,000 บาท']],
+      guarantorCount:['วงเงิน '+amount.toLocaleString('th-TH')+' บาท มีผู้ค้ำประกันกี่คนครับ?',['1 คน','2 คน','3 คน']],
+      term:['ต้องการผ่อนกี่งวดครับ?',['120 งวด','180 งวด','240 งวด']],
+      age:['ปัจจุบันอายุเท่าไรครับ?',['45 ปี','55 ปี','65 ปี']],
+      arrears12:['ใน 12 งวดที่ผ่านมา มีค้างชำระค่าหุ้นหรือหนี้เงินกู้กับสหกรณ์หรือไม่ครับ?',['ไม่มี','มี']],
+      otherCoopDebt:['ปัจจุบันเป็นผู้กู้ที่มีหนี้กับสหกรณ์อื่นอยู่หรือไม่ครับ?',['ไม่มี','มี']],
+      collateralValue:['อสังหาริมทรัพย์ที่จะใช้เป็นหลักประกันมีราคาประเมินประมาณเท่าไรครับ?',['3,000,000 บาท','5,000,000 บาท','7,000,000 บาท']]
+    };
+    return prompts[fact]||['ขอข้อมูลเพิ่มเติมครับ',[]];
+  }
+
+  function nextFact(flowId,facts){
+    const flow=flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+    for(const fact of flow.order){
+      if(fact==='shareCapital' && !(Number(facts.requestAmount)>200000)) continue;
+      if(Object.prototype.hasOwnProperty.call(facts,fact)) continue;
+      return fact;
+    }
+    return null;
+  }
+
+  function evaluateGuided(flowId,facts){
+    const checks=[],fail=[];
+    const add=(name,ok,text)=>{checks.push({name,ok,text});if(!ok)fail.push(name);};
+    if(flowId==='ordinary_eligibility'){
+      const R=RULE_MASTER.rules.ordinary_current;
+      if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=R.membershipMinMonths,facts.membershipMonths+' เดือน / ขั้นต่ำ '+R.membershipMinMonths+' เดือน');
+      if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
+      if(Number.isFinite(facts.shareInstallments)){
+        const need=Number(facts.requestAmount)>200000?R.shareMinInstallmentsOver200k:R.shareMinInstallmentsBase;
+        add('จำนวนงวดส่งหุ้น',facts.shareInstallments>=need,facts.shareInstallments+' งวด / ขั้นต่ำ '+need+' งวด');
+      }
+      if(Number(facts.requestAmount)>200000 && Number.isFinite(facts.shareCapital)){
+        const need=Number(facts.requestAmount)*R.minSharePercentOver200k/100;
+        add('ทุนเรือนหุ้นสะสม',facts.shareCapital>=need,facts.shareCapital.toLocaleString('th-TH')+' บาท / ขั้นต่ำ '+need.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.monthlyIncome)&&Number.isFinite(facts.remainingIncome)){
+        const percent=facts.monthlyIncome>0?facts.remainingIncome/facts.monthlyIncome*100:0;
+        add('รายได้คงเหลือ',facts.remainingIncome>=R.remainingIncomeMinBaht&&percent>=R.remainingIncomeMinPercent,
+          facts.remainingIncome.toLocaleString('th-TH')+' บาท ('+percent.toFixed(1)+'%) / ต้อง ≥ '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ ≥ '+R.remainingIncomeMinPercent+'%');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.guarantorCount)){
+        const band=R.guarantorBands.find(b=>(b.min==null||facts.requestAmount>=b.min)&&(b.max==null||facts.requestAmount<=b.max));
+        if(band)add('จำนวนผู้ค้ำ',facts.guarantorCount>=band.minGuarantors,facts.guarantorCount+' คน / ขั้นต่ำ '+band.minGuarantors+' คนตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อน',facts.term<=R.maxTerm,facts.term+' งวด / สูงสุด '+R.maxTerm+' งวด');
+      if(Number.isFinite(facts.age)&&Number.isFinite(facts.term)){
+        const endAge=facts.age+facts.term/12;
+        add('อายุเมื่อสิ้นสุดสัญญา',endAge<=R.maxAge,endAge.toFixed(1)+' ปี / ต้องไม่เกิน '+R.maxAge+' ปี');
+      }
+      if(typeof facts.arrears12==='boolean')add('ประวัติค้างชำระ 12 งวด',!facts.arrears12,facts.arrears12?'มีประวัติค้างชำระ':'ไม่มีประวัติค้างชำระตามข้อมูลที่แจ้ง');
+      if(typeof facts.otherCoopDebt==='boolean')add('หนี้ผู้กู้กับสหกรณ์อื่น',!facts.otherCoopDebt,facts.otherCoopDebt?'มีหนี้กับสหกรณ์อื่น':'ไม่มีตามข้อมูลที่แจ้ง');
+    }else{
+      const R=RULE_MASTER.rules.quality_current;
+      if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.membershipYears)){
+        const need=Number(facts.requestAmount)>3000000?R.membershipMinYearsFor5m:R.membershipMinYearsFor3m;
+        add('อายุสมาชิก',facts.membershipYears>=need,facts.membershipYears.toFixed(1)+' ปี / ขั้นต่ำ '+need+' ปีตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.shareInstallments)){
+        const need=Number(facts.requestAmount)>3000000?R.shareMinInstallmentsFor5m:R.shareMinInstallmentsFor3m;
+        add('จำนวนงวดส่งหุ้น',facts.shareInstallments>=need,facts.shareInstallments+' งวด / ขั้นต่ำ '+need+' งวดตามช่วงวงเงิน');
+      }
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.collateralValue)){
+        const max=facts.collateralValue*R.maxLtvPercent/100;
+        add('ราคาประเมินหลักประกัน',facts.requestAmount<=max,'ขอ '+facts.requestAmount.toLocaleString('th-TH')+' บาท / '+R.maxLtvPercent+'% ของราคาประเมิน = '+max.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.monthlyIncome)&&Number.isFinite(facts.remainingIncome)){
+        const percent=facts.monthlyIncome>0?facts.remainingIncome/facts.monthlyIncome*100:0;
+        add('รายได้คงเหลือ',facts.remainingIncome>=R.remainingIncomeMinBaht&&percent>=R.remainingIncomeMinPercent,
+          facts.remainingIncome.toLocaleString('th-TH')+' บาท ('+percent.toFixed(1)+'%) / ต้อง ≥ '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ ≥ '+R.remainingIncomeMinPercent+'%');
+      }
+      if(Number.isFinite(facts.term))add('ระยะเวลาผ่อน',facts.term<=R.maxTerm,facts.term+' งวด / สูงสุด '+R.maxTerm+' งวด');
+      if(Number.isFinite(facts.age)&&Number.isFinite(facts.term)){
+        const endAge=facts.age+facts.term/12;
+        add('อายุเมื่อสิ้นสุดสัญญา',endAge<=R.maxAge,endAge.toFixed(1)+' ปี / ต้องไม่เกิน '+R.maxAge+' ปี');
+      }
+      if(typeof facts.arrears12==='boolean')add('ประวัติค้างชำระ 12 งวด',!facts.arrears12,facts.arrears12?'มีประวัติค้างชำระ':'ไม่มีประวัติค้างชำระตามข้อมูลที่แจ้ง');
+    }
+    return {checks,fail};
+  }
+
+  function guidedResponse(flowId,facts={}){
+    const flow=flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+    const ev=evaluateGuided(flowId,facts);
+    if(ev.fail.length){
+      return res('guided_'+flowId,'จากข้อมูลที่ให้มา ยังไม่ผ่านอย่างน้อยหนึ่งเงื่อนไขที่ตรวจได้ครับ',{
+        answerClass:ANSWER_CLASS.RULE,flowId,facts,decision:'NOT_YET_ELIGIBLE',status:'ยังไม่ผ่านเงื่อนไขที่ตรวจได้',
+        details:ev.checks.map(x=>(x.ok?'✓ ':'✗ ')+x.name+': '+x.text).concat(['ระบบหยุดถามต่อเมื่อพบเงื่อนไขที่ไม่ผ่าน เพื่อไม่ให้สมาชิกกรอกข้อมูลเกินจำเป็น']),
+        actions:[['☎️ ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src(flow.sourceTitle,flow.source())],
+        confidence:'ตัดสินเฉพาะเงื่อนไขที่ Rule Master ยืนยันแล้ว'
+      });
+    }
+    const need=nextFact(flowId,facts);
+    if(need){
+      const prompt=factPrompt(flowId,need,facts);
+      return res('guided_'+flowId,prompt[0],{
+        answerClass:ANSWER_CLASS.RULE,flowId,facts,requiredFact:need,decision:'NEED_INFO',status:'กำลังตรวจสิทธิ — ต้องการข้อมูลเพิ่ม',
+        details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(['ถามเฉพาะข้อมูลที่กฎต้องใช้ และจะไม่ถามซ้ำข้อมูลที่ตอบแล้ว']),
+        followups:prompt[1],sources:[src(flow.sourceTitle,flow.source())],confidence:'Rule Master 4.1 guided decision'
+      });
+    }
+    return res('guided_'+flowId,'ข้อมูลที่ให้มาผ่านเงื่อนไขหลักที่ Rule Master ยืนยันและตรวจได้ครับ แต่ผลอนุมัติจริงยังต้องตรวจข้อมูลสมาชิก เอกสาร และกระบวนการพิจารณาของสหกรณ์',{
+      answerClass:ANSWER_CLASS.RULE,flowId,facts,decision:'ELIGIBLE_CONDITION',status:'ผ่านเงื่อนไขหลักที่ตรวจได้',
+      details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(flowId==='quality_eligibility'?['หากมีสัญญาเงินกู้อื่นและได้รับอนุมัติเงินกู้พัฒนาคุณภาพชีวิต ต้องดำเนินการหักกลบตามหลักเกณฑ์ปัจจุบัน']:[]),
+      actions:[['☎️ ส่งต่อ/ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src(flow.sourceTitle,flow.source())],
+      confidence:'ไม่ใช่ผลอนุมัติส่วนบุคคล'
+    });
+  }
+
+  function continueDecision(input,state=null){
+    if(!state?.flowId||!state?.requiredFact)return null;
+    if(String(state.flowId).startsWith('welfare_')) return continueWelfareDecision(input,state);
+    const facts={...(state.facts||{})};
+    const v=factValue(input,state.requiredFact);
+    const boolFact=state.requiredFact==='arrears12'||state.requiredFact==='otherCoopDebt';
+    if((boolFact&&typeof v!=='boolean')||(!boolFact&&!Number.isFinite(v))){
+      const prompt=factPrompt(state.flowId,state.requiredFact,facts);
+      const flow=state.flowId==='ordinary_eligibility'?GUIDED_ELIGIBILITY.ordinary:GUIDED_ELIGIBILITY.quality;
+      return res('guided_'+state.flowId,'ยังอ่านค่านั้นไม่ชัดครับ — '+prompt[0],{
+        answerClass:ANSWER_CLASS.RULE,flowId:state.flowId,facts,requiredFact:state.requiredFact,decision:'NEED_INFO',
+        status:'ขอข้อมูลให้ชัดอีกครั้ง',followups:prompt[1],details:['ตอบเฉพาะข้อมูลที่ถามได้เลย ระบบจะจำคำตอบก่อนหน้าไว้'],
+        sources:[src(flow.sourceTitle,flow.source())]
+      });
+    }
+    facts[state.requiredFact]=v;
+    return guidedResponse(state.flowId,facts);
+  }
+
+  function sourceGuidedEligibility(q){
+    if(!/(?:ได้ไหม|ได้มั้ย|ผ่านไหม|มีสิทธิ|ขอกู้|กู้ได้|ยื่นได้)/.test(q))return null;
+    const spec=[
+      {re:/กู้บ้าน|ซื้อบ้าน|สร้างบ้าน|ปลูกบ้าน|ต่อเติมบ้าน|ซ่อมบ้าน|เคหะ|ที่อยู่อาศัย/,intent:'loan_special_housing_eligibility',name:'เงินกู้พิเศษเพื่อการเคหะ',url:()=>S.loanSpecialHousingAnnouncement},
+      {re:/ไถ่ถอนจำนอง|รีไฟแนนซ์บ้าน|ปิดจำนอง/,intent:'loan_special_redeem_eligibility',name:'เงินกู้พิเศษเพื่อไถ่ถอนจำนองบ้านพร้อมที่ดิน',url:()=>S.loanSpecialRedeemAnnouncement},
+      {re:/ภัยพิบัติ|น้ำท่วม|ไฟไหม้/,intent:'loan_disaster_eligibility',name:'เงินกู้ช่วยเหลือสมาชิกกรณีภัยพิบัติ',url:()=>S.disasterLoan},
+      {re:/ชำระหนี้.*ผู้ค้ำ|หนี้.*ผู้ค้ำ/,intent:'loan_guarantor_debt_eligibility',name:'เงินกู้กรณีต้องชำระหนี้ในฐานะผู้ค้ำ',url:()=>S.guarantorDebtLoan},
+      {re:/เพื่อการศึกษา|กู้.*การศึกษา|ค่าเทอม/,intent:'loan_education_eligibility',name:'เงินกู้เพื่อการศึกษา',url:()=>S.educationLoan},
+      {re:/กู้ฉุกเฉิน|เงินกู้ฉุกเฉิน/,intent:'loan_emergency_eligibility',name:'เงินกู้เพื่อเหตุฉุกเฉิน',url:()=>S.loanEmergencyAnnouncement}
+    ];
+    const hit=spec.find(x=>x.re.test(q)); if(!hit)return null;
+    return res(hit.intent,'พบหลักเกณฑ์ทางการของ '+hit.name+' ครับ แต่ Rule Master ตอนนี้ยังไม่ได้ถอดเงื่อนไขสิทธิทุกข้อของประเภทนี้ครบ จึงไม่เดาว่า “ได้/ไม่ได้” จากข้อมูลที่ยังไม่ครบ',{
+      answerClass:ANSWER_CLASS.RULE,decision:'NEED_RULE_EXTRACTION',status:'พบกฎทางการ — ยังต้องถอด Rule ให้ครบ',
+      details:['ระบบแยก “มีหลักเกณฑ์อยู่แล้ว” ออกจาก “ถอดเงื่อนไขเป็น Rule แล้ว” เพื่อไม่ตอบมั่ว','ถ้าเป็นสถานะ/ยอดเฉพาะสมาชิก เจ้าหน้าที่จะตรวจต่อเฉพาะส่วนนั้น ไม่ใช่เริ่มอธิบายกฎใหม่ทั้งหมด'],
+      actions:[['📚 เปิดหลักเกณฑ์ทางการ',hit.url()],['☎️ ติดต่อเจ้าหน้าที่','#staff-directory']],
+      sources:[src('หลักเกณฑ์ '+hit.name,hit.url())],confidence:'SOURCE_PRESENT_NEEDS_RULE_EXTRACTION'
+    });
+  }
+
+  function startEligibilityFlow(q){
+    const eligible=/(?:ได้ไหม|ได้มั้ย|ผ่านไหม|มีสิทธิ|ขอกู้|กู้ได้|ยื่นได้)/.test(q);
+    if(!eligible)return sourceGuidedEligibility(q);
+    if(/สามัญ/.test(q)&&!/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q))return guidedResponse('ordinary_eligibility',{});
+    if(/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q))return guidedResponse('quality_eligibility',{});
+    return sourceGuidedEligibility(q);
+  }
+
+
+
+  const WELFARE_FLOWS={
+    childbirth:{flowId:'welfare_childbirth_flow',intent:'welfare_childbirth',title:'สวัสดิการเพื่อการคลอดบุตร',rule:'welfare_childbirth',order:['memberType','shareMonths','welfareArrears','legalChild','childCount','eventDays']},
+    marriage:{flowId:'welfare_marriage_flow',intent:'welfare_marriage',title:'สวัสดิการเพื่อการสมรส',rule:'welfare_marriage',order:['memberType','shareMonths','welfareArrears','legalMarriage','eventDays']},
+    religion:{flowId:'welfare_religion_flow',intent:'welfare_religion',title:'สวัสดิการเพื่อการศาสนา',rule:'welfare_religion',order:['memberType','shareMonths','welfareArrears','priorClaim','eventDays']},
+    graduation:{flowId:'welfare_graduation_flow',intent:'welfare_graduation',title:'สวัสดิการเพื่อการสำเร็จการศึกษา',rule:'welfare_graduation',order:['memberType','shareMonths','welfareArrears','degreeLevel','firstAtLevel','eventDays']},
+    gratuity:{flowId:'welfare_gratuity_flow',intent:'welfare_gratuity',title:'สวัสดิการบำเหน็จสมาชิก',rule:'welfare_gratuity',order:['memberType','shareMonths','welfareArrears','ageOnOct1','membershipMonthsAtOct1','priorClaim']},
+    memberDeath:{flowId:'welfare_member_death_flow',intent:'welfare_member_death',title:'เงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม',rule:'welfare_member_death',order:['memberType','shareMonths','welfareArrears','membershipMonthsAtEvent','eventDays']},
+    familyDeath:{flowId:'welfare_family_death_flow',intent:'welfare_family_death',title:'เงินสงเคราะห์กรณีบุคคลในครอบครัวถึงแก่กรรม',rule:'welfare_family_death',order:['memberType','shareMonths','welfareArrears','familyRelation','legalRelation','membershipMonthsAtEvent','eventDays']},
+    disaster:{flowId:'welfare_disaster_flow',intent:'welfare_disaster',title:'เงินสงเคราะห์กรณีผู้ประสบภัย',rule:'welfare_disaster',order:['memberType','shareMonths','welfareArrears','disasterClaimType','eventDays','propertyEligible','damageAmount','seriousInjury']}
+  };
+
+  function yesNoValue(s=''){
+    const q=norm(s);
+    if(/^(?:ไม่มี|ไม่|ไม่เคย|ไม่ใช่|ไม่เคยรับ|ยังไม่เคย|no)$/i.test(q)||/^(?:ไม่ค้าง|ไม่มีค้าง)$/.test(q)) return false;
+    if(/^(?:มี|ใช่|เคย|เคยรับ|yes)$/i.test(q)) return true;
+    return null;
+  }
+  function welfareFactValue(input,fact){
+    const s=norm(input);
+    if(fact==='memberType'){
+      if(/สมทบ/.test(s))return 'associate';
+      if(/สามัญ|สมาชิกเต็ม|สมาชิก$/.test(s))return 'member';
+      return null;
+    }
+    if(['shareMonths','membershipMonthsAtOct1','membershipMonthsAtEvent'].includes(fact)){
+      return factValue(s,'membershipMonths');
+    }
+    if(['eventDays','childCount','ageOnOct1'].includes(fact)) return Number((s.match(/\d+(?:\.\d+)?/)||[])[0]||NaN);
+    if(['welfareArrears','legalChild','legalMarriage','priorClaim','firstAtLevel','legalRelation','propertyEligible','seriousInjury'].includes(fact)) return yesNoValue(s);
+    if(fact==='degreeLevel'){
+      if(/เอก|doctor|phd/i.test(s))return 'doctorate';
+      if(/โท|master/i.test(s))return 'master';
+      if(/ตรี|bachelor/i.test(s))return 'bachelor';
+      return null;
+    }
+    if(fact==='familyRelation'){
+      if(/พ่อ|บิดา/.test(s))return 'father';
+      if(/แม่|มารดา/.test(s))return 'mother';
+      if(/สามี|ภรรยา|คู่สมรส/.test(s))return 'spouse';
+      if(/ลูก|บุตร/.test(s))return 'child';
+      return null;
+    }
+    if(fact==='disasterClaimType'){
+      if(/บาดเจ็บ|ทุพพล|อวัยวะ/.test(s))return 'injury';
+      if(/บ้าน|ทรัพย์|น้ำท่วม|ไฟไหม้|พายุ|เสียหาย/.test(s))return 'property';
+      return null;
+    }
+    if(fact==='damageAmount')return numberWithUnit(s);
+    return null;
+  }
+  function welfarePrompt(kind,fact){
+    const prompts={
+      memberType:['เป็น “สมาชิกสามัญ” หรือ “สมาชิกสมทบ” ครับ?',['สมาชิกสามัญ','สมาชิกสมทบ']],
+      shareMonths:['ชำระค่าหุ้นต่อเนื่องมาแล้วกี่เดือนครับ?',['6 เดือน','12 เดือน','5 ปี']],
+      welfareArrears:['ในปีบัญชีที่ขอสวัสดิการ มีค้างชำระค่าหุ้นหรือหนี้ (ต้นเงินหรือดอกเบี้ย) งวดใดงวดหนึ่งหรือไม่ครับ?',['ไม่มี','มี']],
+      legalChild:['บุตรเป็นบุตรโดยชอบด้วยกฎหมายและไม่ใช่บุตรบุญธรรม ใช่ไหมครับ?',['ใช่','ไม่ใช่']],
+      childCount:['ก่อนกรณีนี้ เคยรับสวัสดิการคลอดบุตรไปแล้วกี่คนครับ?',['0 คน','1 คน','2 คน','3 คน']],
+      legalMarriage:['เป็นการจดทะเบียนสมรสตามกฎหมายใช่ไหมครับ?',['ใช่','ไม่ใช่']],
+      priorClaim:[kind==='gratuity'?'เคยได้รับบำเหน็จสมาชิกจากสหกรณ์แล้วหรือยังครับ?':kind==='religion'?'เคยได้รับสวัสดิการเพื่อการศาสนาจากสหกรณ์แล้วหรือยังครับ?':'เคยใช้สิทธินี้แล้วหรือยังครับ?',['ยังไม่เคย','เคย']],
+      eventDays:[kind==='childbirth'?'นับจากวันแจ้งเกิดถึงวันนี้กี่วันแล้วครับ?':kind==='marriage'?'นับจากวันจดทะเบียนสมรสถึงวันนี้กี่วันแล้วครับ?':kind==='religion'?'นับจากวันสิ้นสุดการปฏิบัติทางศาสนาถึงวันนี้กี่วันแล้วครับ?':kind==='graduation'?'นับจากวันที่มหาวิทยาลัยออกหนังสือรับรองการสำเร็จการศึกษาถึงวันนี้กี่วันแล้วครับ?':kind==='disaster'?'นับจากวันที่พ้นจากภัยถึงวันนี้กี่วันแล้วครับ?':'นับจากวันที่ถึงแก่กรรมถึงวันนี้กี่วันแล้วครับ?',['30 วัน','90 วัน','120 วัน','130 วัน']],
+      degreeLevel:['สำเร็จการศึกษาระดับใดครับ?',['ปริญญาตรี','ปริญญาโท','ปริญญาเอก']],
+      firstAtLevel:['นี่เป็นการสำเร็จการศึกษาครั้งแรกในระดับนี้ระหว่างเป็นสมาชิกใช่ไหมครับ?',['ใช่','ไม่ใช่']],
+      ageOnOct1:['ณ วันที่ 1 ตุลาคมของปีที่รับบำเหน็จ อายุครบกี่ปีครับ?',['59 ปี','60 ปี','65 ปี']],
+      membershipMonthsAtOct1:['ณ วันที่ 1 ตุลาคมของปีที่รับบำเหน็จ เป็นสมาชิกติดต่อกันมากี่ปี/กี่เดือนครับ?',['5 ปี','10 ปี','15 ปี 6 เดือน']],
+      membershipMonthsAtEvent:['ณ วันที่เกิดเหตุ/ถึงแก่กรรม เป็นสมาชิกมาแล้วกี่ปีหรือกี่เดือนครับ?',['6 เดือน','3 ปี','8 ปี','16 ปี']],
+      familyRelation:['ผู้ถึงแก่กรรมเป็นใครของสมาชิกครับ?',['บิดา','มารดา','คู่สมรส','บุตร']],
+      legalRelation:['เป็นความสัมพันธ์โดยชอบด้วยกฎหมายตามหลักเกณฑ์ (และไม่ใช่บุตร/บิดามารดาบุญธรรมในกรณีที่กฎตัดออก) ใช่ไหมครับ?',['ใช่','ไม่ใช่']],
+      disasterClaimType:['ขอรับสวัสดิการจาก “ทรัพย์สิน/ที่อยู่อาศัยเสียหาย” หรือ “บาดเจ็บจนสูญเสียอวัยวะ/ทุพพลภาพ” ครับ?',['ทรัพย์สินเสียหาย','บาดเจ็บ/ทุพพลภาพ']],
+      propertyEligible:['ทรัพย์ที่เสียหายเป็นที่อยู่อาศัยประจำของสมาชิกที่สมาชิกหรือคู่สมรสมีกรรมสิทธิ์/สิทธิครอบครอง และไม่ใช่บ้านเช่า ใช่ไหมครับ?',['ใช่','ไม่ใช่']],
+      damageAmount:['มูลค่าความเสียหายที่ประเมินได้ประมาณเท่าไรครับ?',['10,000 บาท','50,000 บาท','600,000 บาท']],
+      seriousInjury:['การบาดเจ็บจากภัยทำให้สูญเสียอวัยวะหรือทุพพลภาพใช่ไหมครับ?',['ใช่','ไม่ใช่']]
+    };
+    return prompts[fact]||['ขอข้อมูลเพิ่มเติมครับ',[]];
+  }
+  function welfareFlowById(flowId){return Object.values(WELFARE_FLOWS).find(x=>x.flowId===flowId)||null}
+  function nextWelfareFact(kind,facts){
+    const flow=WELFARE_FLOWS[kind];
+    for(const fact of flow.order){
+      if(kind==='familyDeath'&&fact==='membershipMonthsAtEvent'&&['father','mother'].includes(facts.familyRelation))continue;
+      if(kind==='disaster'&&fact==='propertyEligible'&&facts.disasterClaimType==='injury')continue;
+      if(kind==='disaster'&&fact==='damageAmount'&&facts.disasterClaimType==='injury')continue;
+      if(kind==='disaster'&&fact==='seriousInjury'&&facts.disasterClaimType==='property')continue;
+      if(Object.prototype.hasOwnProperty.call(facts,fact))continue;
+      return fact;
+    }
+    return null;
+  }
+  function welfareBand(bands,months){
+    return bands.find(b=>(b.minMonths==null||months>=b.minMonths)&&(b.maxMonths==null||months<=b.maxMonths))||null;
+  }
+  function evaluateWelfare(kind,facts){
+    const flow=WELFARE_FLOWS[kind],R=RULE_MASTER.rules[flow.rule],C=RULE_MASTER.rules.welfare_common;
+    const checks=[],fail=[],notes=[];
+    const add=(name,ok,text)=>{checks.push({name,ok,text});if(!ok)fail.push(name)};
+    if(facts.memberType){
+      const allowed=(R.memberTypes||C.memberTypes).includes(facts.memberType);
+      add('ประเภทสมาชิก',allowed,(facts.memberType==='member'?'สมาชิกสามัญ':'สมาชิกสมทบ')+(allowed?' อยู่ในประเภทที่กฎให้สิทธิ':' ไม่อยู่ในประเภทที่กฎนี้ให้สิทธิ'));
+    }
+    if(Number.isFinite(facts.shareMonths))add('การชำระค่าหุ้นต่อเนื่อง',facts.shareMonths>=6,facts.shareMonths+' เดือน / ขั้นต่ำ 6 เดือน');
+    if(typeof facts.welfareArrears==='boolean')add('การค้างชำระในปีบัญชีที่ขอ',!facts.welfareArrears,facts.welfareArrears?'มีค้างชำระตามข้อมูลที่แจ้ง':'ไม่มีค้างชำระตามข้อมูลที่แจ้ง');
+
+    if(kind==='childbirth'){
+      if(typeof facts.legalChild==='boolean')add('สถานะบุตร',facts.legalChild,facts.legalChild?'บุตรโดยชอบด้วยกฎหมายและไม่ใช่บุตรบุญธรรม':'ไม่ตรงเงื่อนไขบุตรตามหลักเกณฑ์');
+      if(Number.isFinite(facts.childCount))add('จำนวนบุตรที่ใช้สิทธิ',facts.childCount<3,'เคยใช้สิทธิ '+facts.childCount+' คน / ใช้ได้ไม่เกิน 3 คน');
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับแต่วันแจ้งเกิด');
+      notes.push('จำนวนเงิน: 1,000 บาทต่อบุตร; ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ รับได้เพียงคนเดียว');
+    }else if(kind==='marriage'){
+      if(typeof facts.legalMarriage==='boolean')add('การสมรสตามกฎหมาย',facts.legalMarriage,facts.legalMarriage?'จดทะเบียนสมรสตามกฎหมาย':'ไม่ใช่การจดทะเบียนสมรสตามกฎหมาย');
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับแต่วันจดทะเบียนสมรส');
+      notes.push('จำนวนเงิน: 1,000 บาทต่อราย');
+    }else if(kind==='religion'){
+      if(typeof facts.priorClaim==='boolean')add('สิทธิครั้งเดียว',!facts.priorClaim,facts.priorClaim?'เคยรับสิทธินี้แล้ว':'ยังไม่เคยรับสิทธินี้');
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับแต่วันสิ้นสุดการปฏิบัติทางศาสนา');
+      notes.push('จำนวนเงิน: 2,000 บาท และรับได้เพียงครั้งเดียว');
+    }else if(kind==='graduation'){
+      if(facts.degreeLevel){
+        const amount=R.amounts[facts.degreeLevel];
+        add('ระดับการศึกษา',!!amount,(facts.degreeLevel==='bachelor'?'ปริญญาตรี':facts.degreeLevel==='master'?'ปริญญาโท':'ปริญญาเอก')+' / '+Number(amount||0).toLocaleString('th-TH')+' บาท');
+      }
+      if(typeof facts.firstAtLevel==='boolean')add('ครั้งแรกในระดับนั้น',facts.firstAtLevel,facts.firstAtLevel?'เป็นการสำเร็จครั้งแรกในระดับนี้ระหว่างเป็นสมาชิก':'เคยสำเร็จ/ใช้สิทธิในระดับนี้แล้ว');
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน 1 ปีนับจากวันที่มหาวิทยาลัยออกหนังสือรับรอง');
+    }else if(kind==='gratuity'){
+      if(Number.isFinite(facts.ageOnOct1))add('อายุ ณ 1 ตุลาคม',facts.ageOnOct1>=R.ageAtOct1Min,facts.ageOnOct1+' ปี / ต้องครบ 60 ปีบริบูรณ์ ณ 1 ตุลาคม');
+      if(Number.isFinite(facts.membershipMonthsAtOct1))add('อายุการเป็นสมาชิก',facts.membershipMonthsAtOct1>=R.membershipMinMonthsAtOct1,facts.membershipMonthsAtOct1+' เดือน / อย่างน้อย 5 ปี ณ 1 ตุลาคม');
+      if(typeof facts.priorClaim==='boolean')add('รับบำเหน็จได้ครั้งเดียว',!facts.priorClaim,facts.priorClaim?'เคยได้รับแล้ว':'ยังไม่เคยได้รับ');
+      if(Number.isFinite(facts.membershipMonthsAtOct1)&&facts.membershipMonthsAtOct1>=60){
+        const years=Math.floor(facts.membershipMonthsAtOct1/12)+(facts.membershipMonthsAtOct1%12>=6?1:0);
+        notes.push('บำเหน็จตามจำนวนปีสมาชิก: '+years.toLocaleString('th-TH')+' ปี × 1,000 บาท = '+(years*1000).toLocaleString('th-TH')+' บาท');
+      }
+      notes.push('ถ้ามีหนี้ค้างชำระกับสหกรณ์เกิน 90% ของทุนเรือนหุ้น เงินบำเหน็จที่คำนวณได้ต้องนำไปหักชำระหนี้ทั้งหมดก่อน');
+    }else if(kind==='memberDeath'){
+      if(Number.isFinite(facts.membershipMonthsAtEvent)){
+        const band=welfareBand(R.bands,facts.membershipMonthsAtEvent);
+        if(band)notes.push('เงินช่วยค่าทำศพตามอายุสมาชิก: '+band.amount.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับแต่วันถึงแก่กรรม');
+      notes.push('กรณีปฏิบัติงานในพื้นที่ชายแดนใต้ที่หลักเกณฑ์ระบุและถึงแก่กรรมจากเหตุความไม่สงบ/ก่อการร้าย เงินช่วยค่าทำศพเพิ่มอีกหนึ่งเท่า');
+    }else if(kind==='familyDeath'){
+      if(facts.familyRelation)notes.push('ความสัมพันธ์: '+({father:'บิดา',mother:'มารดา',spouse:'คู่สมรส',child:'บุตร'}[facts.familyRelation]||facts.familyRelation));
+      if(typeof facts.legalRelation==='boolean')add('ความสัมพันธ์ตามกฎหมาย',facts.legalRelation,facts.legalRelation?'ตรงเงื่อนไขความสัมพันธ์ตามกฎหมาย':'ไม่ตรงเงื่อนไขความสัมพันธ์ตามกฎหมาย');
+      if(['father','mother'].includes(facts.familyRelation))notes.push('บิดาหรือมารดาโดยชอบด้วยกฎหมาย: 3,000 บาทต่อราย');
+      if(['spouse','child'].includes(facts.familyRelation)&&Number.isFinite(facts.membershipMonthsAtEvent)){
+        const band=welfareBand(R.spouseChildBands,facts.membershipMonthsAtEvent);
+        if(band)notes.push('เงินช่วยค่าทำศพตามอายุสมาชิก: '+band.amount.toLocaleString('th-TH')+' บาท');
+      }
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับแต่วันถึงแก่กรรม');
+    }else if(kind==='disaster'){
+      if(Number.isFinite(facts.eventDays))add('กำหนดยื่น',facts.eventDays<=R.claimDeadlineDays,facts.eventDays+' วัน / ภายใน '+R.claimDeadlineDays+' วันนับจากวันที่พ้นจากภัย');
+      if(facts.disasterClaimType==='property'){
+        if(typeof facts.propertyEligible==='boolean')add('ทรัพย์สินที่เข้าเกณฑ์',facts.propertyEligible,facts.propertyEligible?'เป็นที่อยู่อาศัยประจำที่มีกรรมสิทธิ์/สิทธิครอบครองและไม่ใช่บ้านเช่า':'ทรัพย์สินไม่ตรงเงื่อนไขที่อยู่อาศัยตามหลักเกณฑ์');
+        if(Number.isFinite(facts.damageAmount)){
+          const standard=Math.min(R.propertyAidMax,Math.max(R.propertyAidMin,facts.damageAmount*R.propertyAidPercent/100));
+          notes.push('ตามสูตรปกติ 10% ของความเสียหาย โดยขั้นต่ำ 1,000 บาท และไม่เกิน 5,000 บาทต่อครั้ง: ประมาณ '+standard.toLocaleString('th-TH')+' บาท');
+          if(facts.damageAmount>R.exceptionalDamageOver)notes.push('ความเสียหายเกิน 500,000 บาท: คณะกรรมการดำเนินการอาจพิจารณาช่วยเกินอัตราปกติได้ แต่รวมไม่เกิน 50,000 บาท — ระบบไม่เดาจำนวนที่จะอนุมัติ');
+        }
+      }else if(facts.disasterClaimType==='injury'&&typeof facts.seriousInjury==='boolean'){
+        add('การบาดเจ็บที่เข้าเกณฑ์',facts.seriousInjury,facts.seriousInjury?'สูญเสียอวัยวะหรือทุพพลภาพจากอุบัติเหตุ':'ไม่ใช่การสูญเสียอวัยวะหรือทุพพลภาพตามเงื่อนไขนี้');
+        notes.push('เงินช่วยเหลือกรณีบาดเจ็บที่เข้าเกณฑ์: ไม่เกิน 5,000 บาทต่อครั้ง');
+      }
+    }
+    return {checks,fail,notes};
+  }
+  function welfareResponse(kind,facts={}){
+    const flow=WELFARE_FLOWS[kind],ev=evaluateWelfare(kind,facts);
+    if(ev.fail.length){
+      return res(flow.intent,'จากข้อมูลที่ให้มา ยังไม่ผ่านอย่างน้อยหนึ่งเงื่อนไขของ '+flow.title+' ครับ',{
+        answerClass:ANSWER_CLASS.RULE,flowId:flow.flowId,facts,decision:'NOT_YET_ELIGIBLE',status:'ยังไม่ผ่านเงื่อนไขที่ตรวจได้',
+        details:ev.checks.map(x=>(x.ok?'✓ ':'✗ ')+x.name+': '+x.text).concat(ev.notes),
+        actions:[['📄 แบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253']],
+        sources:[src('หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน',S.welfareForms)],confidence:'Rule Master 4.1 — ไม่ใช่ผลอนุมัติส่วนบุคคล'
+      });
+    }
+    const need=nextWelfareFact(kind,facts);
+    if(need){
+      const p=welfarePrompt(kind,need);
+      return res(flow.intent,p[0],{
+        answerClass:ANSWER_CLASS.RULE,flowId:flow.flowId,facts,requiredFact:need,decision:'NEED_INFO',status:'กำลังตรวจสิทธิสวัสดิการ — ต้องการข้อมูลเพิ่ม',
+        details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(ev.notes).concat(['ระบบถามเฉพาะข้อมูลที่หลักเกณฑ์ต้องใช้ และไม่ถามซ้ำคำตอบเดิม']),
+        followups:p[1],sources:[src('หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน',S.welfareForms)],confidence:'Verified welfare rule'
+      });
+    }
+    return res(flow.intent,'ข้อมูลที่ให้มาผ่านเงื่อนไขหลักของ '+flow.title+' ที่ระบบตรวจได้ครับ',{
+      answerClass:ANSWER_CLASS.RULE,flowId:flow.flowId,facts,decision:'ELIGIBLE_CONDITION',status:'ผ่านเงื่อนไขหลักที่ตรวจได้',
+      details:ev.checks.map(x=>'✓ '+x.name+': '+x.text).concat(ev.notes).concat(['ผลสุดท้ายยังต้องตรวจเอกสารจริงและอนุมัติ/จ่ายโดยสหกรณ์']),
+      actions:[['📄 เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253']],
+      sources:[src('หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน',S.welfareForms)],confidence:'ไม่ใช่ผลอนุมัติส่วนบุคคล'
+    });
+  }
+  function continueWelfareDecision(input,state){
+    const flow=welfareFlowById(state?.flowId); if(!flow||!state?.requiredFact)return null;
+    const facts={...(state.facts||{})},v=welfareFactValue(input,state.requiredFact);
+    const boolFacts=['welfareArrears','legalChild','legalMarriage','priorClaim','firstAtLevel','legalRelation','propertyEligible','seriousInjury'];
+    const numFacts=['shareMonths','membershipMonthsAtOct1','membershipMonthsAtEvent','eventDays','childCount','ageOnOct1','damageAmount'];
+    const invalid=(boolFacts.includes(state.requiredFact)&&typeof v!=='boolean')||(numFacts.includes(state.requiredFact)&&!Number.isFinite(v))||(!boolFacts.includes(state.requiredFact)&&!numFacts.includes(state.requiredFact)&&!v);
+    if(invalid){
+      const p=welfarePrompt(Object.keys(WELFARE_FLOWS).find(k=>WELFARE_FLOWS[k].flowId===flow.flowId),state.requiredFact);
+      return res(flow.intent,'ยังอ่านคำตอบนั้นไม่ชัดครับ — '+p[0],{answerClass:ANSWER_CLASS.RULE,flowId:flow.flowId,facts,requiredFact:state.requiredFact,decision:'NEED_INFO',status:'ขอข้อมูลให้ชัดอีกครั้ง',followups:p[1],sources:[src('หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน',S.welfareForms)]});
+    }
+    facts[state.requiredFact]=v;
+    const kind=Object.keys(WELFARE_FLOWS).find(k=>WELFARE_FLOWS[k].flowId===flow.flowId);
+    return welfareResponse(kind,facts);
+  }
+  function seedWelfareFacts(kind,q){
+    const facts={};
+    if(/สมาชิกสมทบ/.test(q))facts.memberType='associate';
+    else if(/สมาชิกสามัญ/.test(q))facts.memberType='member';
+    if(kind==='familyDeath'){
+      if(/พ่อ|บิดา/.test(q))facts.familyRelation='father';
+      else if(/แม่|มารดา/.test(q))facts.familyRelation='mother';
+      else if(/สามี|ภรรยา|คู่สมรส/.test(q))facts.familyRelation='spouse';
+      else if(/ลูก|บุตร/.test(q))facts.familyRelation='child';
+    }
+    if(kind==='disaster'){
+      if(/บาดเจ็บ|ทุพพล|อวัยวะ/.test(q))facts.disasterClaimType='injury';
+      else if(/น้ำท่วม|ไฟไหม้|พายุ|บ้าน|ทรัพย์สิน/.test(q))facts.disasterClaimType='property';
+    }
+    return facts;
+  }
+  function welfareKindFromQuestion(q){
+    if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/.test(q))return 'childbirth';
+    if(/สมรส|แต่งงาน/.test(q))return 'marriage';
+    if(/ศาสนา|อุปสมบท|บวช/.test(q))return 'religion';
+    if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/.test(q)&&!/ทุน/.test(q))return 'graduation';
+    if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/.test(q))return 'gratuity';
+    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/.test(q))return 'memberDeath';
+    if(/(?:พ่อ|แม่|บิดา|มารดา|คู่สมรส|สามี|ภรรยา|บุตร|ลูก).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/.test(q))return 'familyDeath';
+    if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/.test(q)&&!/กู้|เงินกู้/.test(q))return 'disaster';
+    return null;
+  }
+  function startWelfareFlow(q){
+    const kind=welfareKindFromQuestion(q); if(!kind)return null;
+    if(!/(?:ได้ไหม|ได้มั้ย|มีสิทธิ|ขอได้|รับได้|ได้เท่าไร|ได้เท่าไหร่|กี่บาท|ช่วยเท่าไร|เท่าไหร่)/.test(q))return null;
+    return welfareResponse(kind,seedWelfareFacts(kind,q));
+  }
+  function welfareStatic(kind){
+    const R=RULE_MASTER.rules[WELFARE_FLOWS[kind].rule];
+    const d=[];
+    if(kind==='childbirth')d.push('1,000 บาทต่อบุตร; บุตรโดยชอบด้วยกฎหมาย ไม่รวมบุตรบุญธรรม; ไม่เกิน 3 คน','ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ รับได้เพียงคนเดียว','ยื่นภายใน 120 วันนับแต่วันแจ้งเกิด');
+    if(kind==='marriage')d.push('จดทะเบียนสมรสตามกฎหมาย: 1,000 บาทต่อราย','ยื่นภายใน 120 วันนับแต่วันจดทะเบียนสมรส');
+    if(kind==='religion')d.push('2,000 บาทต่อราย และรับได้เพียงครั้งเดียว','ยื่นภายใน 120 วันนับแต่วันสิ้นสุดการปฏิบัติทางศาสนา');
+    if(kind==='graduation')d.push('ปริญญาตรี 1,000 บาท / ปริญญาโท 2,000 บาท / ปริญญาเอก 3,000 บาท','รับเมื่อสำเร็จการศึกษาครั้งแรกในแต่ละระดับระหว่างเป็นสมาชิก','ยื่นภายใน 1 ปีนับแต่วันที่มหาวิทยาลัยออกหนังสือรับรอง');
+    if(kind==='gratuity')d.push('สมาชิกสามัญอายุครบ 60 ปีบริบูรณ์ ณ 1 ตุลาคม และเป็นสมาชิกติดต่อกันไม่น้อยกว่า 5 ปี','ฉบับปัจจุบัน: 1,000 บาทต่อปีสมาชิก; เศษปีตั้งแต่ 6 เดือนขึ้นไปนับเป็น 1 ปี','รับได้ครั้งเดียว; หากมีหนี้ค้างชำระเกิน 90% ของทุนเรือนหุ้น ให้หักบำเหน็จชำระหนี้ก่อน');
+    if(kind==='memberDeath')d.push('สมาชิกสามัญ: เงินช่วยค่าทำศพตามอายุสมาชิก 15,000 / 20,000 / 25,000 / 30,000 / 35,000 บาท','ยื่นเอกสารภายใน 120 วันนับแต่วันถึงแก่กรรม','พื้นที่ชายแดนใต้ตามที่หลักเกณฑ์ระบุและเสียชีวิตจากเหตุความไม่สงบ/ก่อการร้าย ได้เพิ่มอีกหนึ่งเท่า');
+    if(kind==='familyDeath')d.push('บิดา/มารดาโดยชอบด้วยกฎหมาย: 3,000 บาทต่อราย','คู่สมรส/บุตรโดยชอบด้วยกฎหมาย: ตามอายุสมาชิก 7,500 / 10,000 / 12,500 / 15,000 / 17,500 บาท','ยื่นภายใน 120 วันนับแต่วันถึงแก่กรรม');
+    if(kind==='disaster')d.push('ทรัพย์สินที่อยู่อาศัยประจำที่เข้าเกณฑ์: 10% ของความเสียหาย ขั้นต่ำ 1,000 บาท และไม่เกิน 5,000 บาทต่อครั้ง','ถ้าความเสียหายเกิน 500,000 บาท คณะกรรมการอาจพิจารณาเกินอัตราปกติ แต่รวมไม่เกิน 50,000 บาท','บาดเจ็บจนสูญเสียอวัยวะหรือทุพพลภาพ: ไม่เกิน 5,000 บาทต่อครั้ง','ยื่นภายใน 120 วันนับจากวันที่พ้นจากภัย');
+    d.unshift('คุณสมบัติพื้นฐาน: ประเภทสมาชิกต้องตรงกับสิทธิ ชำระค่าหุ้นต่อเนื่องอย่างน้อย 6 เดือน และไม่ค้างชำระตามหลักเกณฑ์ในปีบัญชีที่ขอ');
+    return res(WELFARE_FLOWS[kind].intent,WELFARE_FLOWS[kind].title+' — ระบบตรวจหลักเกณฑ์ปัจจุบันแล้วครับ',{answerClass:ANSWER_CLASS.RULE,status:'กฎสวัสดิการที่ตรวจยืนยันแล้ว',details:d,actions:[['📄 แบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน',S.welfareForms)],followups:[WELFARE_FLOWS[kind].title+' ได้ไหม']});
+  }
+
+
   const DECISION_RULES=[
     {answerClass:ANSWER_CLASS.RULE,id:'emergency_repeat',match:q=>/ฉุกเฉิน/.test(q)&&/(?:ซ้ำ|อีก|ใหม่|เพิ่ม|เพิ่มวงเงิน|กู้(?:ฉุกเฉิน)?ใหม่)/.test(q),fact:'installments',ask:'สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?',chips:['2 งวด','3 งวด','6 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=3,
       yes:n=>'ได้ครับ — ชำระสัญญาฉุกเฉินเดิมแล้ว '+n+' งวด ผ่านเงื่อนไขอย่างน้อย 3 งวดสำหรับยื่นสัญญาใหม่ โดยสัญญาใหม่ต้องหักกลบหนี้ฉุกเฉินเดิม และยังต้องผ่านคุณสมบัติอื่นตามประกาศ',
@@ -568,7 +1049,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       yes:n=>'ผ่านเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระแล้ว '+n+' งวด ครบอย่างน้อย 6 งวดสำหรับยื่นคำขอใหม่ แต่ยังต้องตรวจคุณสมบัติและวงเงินตามหลักเกณฑ์',
       no:n=>'ยังไม่ครบเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระ '+n+' งวด แต่ต้องไม่น้อยกว่า 6 งวดก่อนยื่นคำขอใหม่',
       source:()=>S.educationLoan,sourceTitle:'หลักเกณฑ์เงินกู้เพื่อการศึกษา'},
-    {answerClass:ANSWER_CLASS.RULE,id:'ordinary_guarantor_capacity',match:q=>/(?:ค้ำ|ผู้ค้ำ)/.test(q)&&/(?:สามัญ|กู้)/.test(q)&&/(?:กี่คน|เพิ่ม|อีก|อยู่)/.test(q),fact:'guaranteedBorrowers',ask:'ปัจจุบันผู้ค้ำรายนี้ค้ำผู้กู้อยู่กี่คนครับ?',chips:['1 คน','2 คน','3 คน'],extract:q=>Number((q.match(/(\d+)\s*คน/)||[])[1]||NaN),decide:n=>n<3,
+    {answerClass:ANSWER_CLASS.RULE,id:'ordinary_guarantor_capacity',match:q=>/(?:ค้ำ|ผู้ค้ำ)/.test(q)&&/(?:สามัญ|กู้)/.test(q)&&/(?:ค้ำ[^\n]{0,20}(?:เพิ่ม|อีก|อยู่|ให้)|(?:เพิ่ม|อีก)[^\n]{0,20}ค้ำ)/.test(q),fact:'guaranteedBorrowers',ask:'ปัจจุบันผู้ค้ำรายนี้ค้ำผู้กู้อยู่กี่คนครับ?',chips:['1 คน','2 คน','3 คน'],extract:q=>Number((q.match(/(\d+)\s*คน/)||[])[1]||NaN),decide:n=>n<3,
       yes:n=>'ได้ในด้านจำนวนผู้กู้ครับ — ปัจจุบันค้ำอยู่ '+n+' คน หากค้ำเพิ่มอีก 1 คนจะไม่เกินเพดาน 3 คน แต่ยังต้องผ่านเงื่อนไขผู้ค้ำอื่นของสัญญานั้น',
       no:n=>'ค้ำเพิ่มไม่ได้ในด้านจำนวนผู้กู้ครับ — ปัจจุบันค้ำอยู่ '+n+' คน และหลักเกณฑ์กำหนดว่าผู้ค้ำคนหนึ่งจะค้ำผู้กู้พร้อมกันเกิน 3 คนไม่ได้',
       source:()=>S.loanGeneralAnnouncement2569,sourceTitle:'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569'}
@@ -743,8 +1224,13 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     // Zero-API guided diagnosis: ask for the minimum missing fact instead of sending members to documents.
     const smart=smartDecision(q);
     if(smart) return smart;
+    // Rule-based eligibility must run before personal-account handoff. Pronouns such as “ผม” do not make a rule question private data.
+    const guided=startEligibilityFlow(q);
+    if(guided) return guided;
+    const welfareGuided=startWelfareFlow(q);
+    if(welfareGuided) return welfareGuided;
     if(/(?:กู้|เงินกู้).*(?:ได้ไหม|ได้มั้ย|ผ่านไหม|ผ่านมั้ย)$/.test(q) && !/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)){
-      return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
+      return res('loan_eligibility','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต','กู้ซื้อ/สร้างบ้าน','กู้ไถ่ถอนจำนอง','กู้กรณีภัยพิบัติ'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
     }
     if(/(?:คุณภาพชีวิต|พัฒนาคุณภาพชีวิต)/.test(q)&&/(?:สามัญ|ฉุกเฉิน)/.test(q)&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q)){
       if(/สามัญ/.test(q)) return res('loan_cross_wait_current','ขณะสัญญากู้พัฒนาคุณภาพชีวิตยังมีผล ไม่สามารถกู้สามัญเพิ่มได้ครับ — หลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่นหลังได้รับอนุมัติ ยกเว้นเงินกู้ฉุกเฉิน จึงไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมายื่นสามัญเพิ่มได้ระหว่างถือสัญญานี้',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',decision:'NOT_YET_ELIGIBLE',details:['ข้อยกเว้นที่ระบุไว้คือเงินกู้ฉุกเฉิน','ระบบไม่สร้างจำนวนงวดขึ้นเอง เพราะต้นฉบับใช้ข้อห้ามตามประเภทเงินกู้ ไม่ใช่เกณฑ์รอจำนวนงวด'],sources:[src('หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement)]});
@@ -1034,45 +1520,20 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       });
     }
 
-    if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/i.test(q) && !/กู้|เงินกู้/i.test(q)) return res('welfare_disaster','หากสมาชิกประสบภัย เช่น น้ำท่วม ไฟไหม้ หรือวาตภัย สอ.อปท. มี “เงินสงเคราะห์กรณีผู้ประสบภัย” และมีแบบคำขอเฉพาะครับ',{
-      details:[
-        'เป็น “สวัสดิการ/เงินสงเคราะห์” คนละเรื่องกับเงินกู้เพื่อช่วยเหลือสมาชิกกรณีภัยพิบัติ',
-        'หน้าเว็บทางการมี 3 ส่วนสำหรับเรื่องนี้โดยตรง: แบบขอรับเงินสงเคราะห์กรณีผู้ประสบภัย / ตัวอย่างการยื่นเอกสารประกอบเป็นรูปภาพ / หลักเกณฑ์เงินสงเคราะห์กรณีผู้ประสบภัย',
-        'หลักฐานควรเตรียมตามแบบและหลักเกณฑ์ฉบับปัจจุบัน โดยเฉพาะหลักฐานที่ยืนยันเหตุภัย ความเสียหาย และความเกี่ยวข้องกับที่อยู่อาศัยหรือทรัพย์สินของสมาชิกตามที่แบบกำหนด',
-        'ขั้นตอน: 1) เปิดหน้า “สวัสดิการ-แบบฟอร์มคำขอและหลักเกณฑ์” 2) เลือก “แบบฟอร์มขอรับเงินสงเคราะห์สมาชิก กรณีผู้ประสบภัย” 3) เปิดตัวอย่างการยื่นเอกสารประกอบ(รูปภาพ) 4) เปิด “หลักเกณฑ์เงินสงเคราะห์กรณีผู้ประสบภัย” และตรวจคุณสมบัติ/กำหนดยื่น/วงเงินตามฉบับล่าสุด 5) กรอกแบบและแนบหลักฐานให้ครบ 6) ยื่นต่อสหกรณ์ 7) ติดตามผลการพิจารณากับงานสวัสดิการ',
-        'ระบบจะไม่ใส่จำนวนเงินหรือกำหนดยื่นจากความจำ เพราะหลักเกณฑ์มีการแก้ไขเพิ่มเติม ให้ยึดฉบับล่าสุดที่หน้าเว็บทางการ',
-        'จบกระบวนการเมื่อ: สหกรณ์แจ้งผลการพิจารณา และสมาชิกได้รับเงินสงเคราะห์หรือได้รับแจ้งเหตุที่ไม่ผ่านตามหลักเกณฑ์แล้ว'
-      ],
-      actions:[
-        ['🌊🔥 แบบ/หลักเกณฑ์ผู้ประสบภัย',S.welfareDisaster],
-        ['📘 ประกาศ/หลักเกณฑ์สวัสดิการล่าสุด',S.welfareForms],
-        ['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253'],
-        ['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']
-      ],
-      followups:['บ้านน้ำท่วม ขอเงินสงเคราะห์อย่างไร','ไฟไหม้บ้าน ขอสวัสดิการได้ไหม','เงินกู้ช่วยเหลือภัยพิบัติต่างจากสวัสดิการอย่างไร'],
-      sources:[
-        src('สวัสดิการ-แบบฟอร์มคำขอและหลักเกณฑ์สวัสดิการ',S.welfareDisaster),
-        src('ประกาศ/หลักเกณฑ์สวัสดิการสมาชิก',S.welfareForms)
-      ]
-    });
-    if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return res('welfare_childbirth','มีสวัสดิการเพื่อการคลอดบุตรครับ',{
-      details:KB.welfare.childBirth,actions:[['เปิดแบบขอรับสวัสดิการ',S.welfareForms]],sources:[src('แบบฟอร์ม/หลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['สวัสดิการมีกี่แบบ','ติดต่อสวัสดิการ']
-    });
+    if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/i.test(q) && !/กู้|เงินกู้/i.test(q)) return welfareStatic('disaster'); /* legacy welfare_disaster details removed */     if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return welfareStatic('childbirth');
     if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|มหาลัย|มหาวิทยาลัย|หมดเขต.*ทุน|ทุน.*หมดเขต/i.test(q)) return res('scholarship',`มีโครงการทุนส่งเสริมการศึกษาของบุตรสมาชิก โดยระดับที่ระบบตรวจไว้คือ: ${KB.welfare.scholarshipLevels.join(' / ')}`,{
       details:['ช่วงเวลารับสมัครและจำนวนทุนเป็นประกาศประจำปี ให้เปิดประกาศล่าสุดก่อนยื่น'],actions:[['ดูประกาศทุน/ประกาศล่าสุด',S.notices],['ดูแบบสวัสดิการ',S.welfareForms]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices),src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]
     });
-    if(/สมรส|แต่งงาน/i.test(q)) return res('welfare_marriage','มีสวัสดิการเพื่อการสมรสตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
-    if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return res('welfare_religion','มีสวัสดิการเพื่อการศาสนาตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
-    if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return res('welfare_graduation','มีสวัสดิการเพื่อการสำเร็จการศึกษาตามหลักเกณฑ์สวัสดิการสมาชิกครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
-    if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/i.test(q)) return res('welfare_gratuity','มีสวัสดิการบำเหน็จสมาชิกตามหลักเกณฑ์สวัสดิการครับ',{actions:[['เปิดแบบ/หลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
-    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return res('welfare_member_death','มีเงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม โดยใช้แบบและหลักเกณฑ์เฉพาะครับ',{actions:[['เปิดแบบ/หลักเกณฑ์กรณีสมาชิกถึงแก่กรรม',S.welfareForms]],sources:[src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]});
+    if(/สมรส|แต่งงาน/i.test(q)) return welfareStatic('marriage');
+    if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return welfareStatic('religion');
+    if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return welfareStatic('graduation');
+    if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/i.test(q)) return welfareStatic('gratuity');
+    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return welfareStatic('memberDeath');
     if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ|สวัสดิการทั้งหมด/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันจากหน้าทางการมี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
       details:['ขั้นตอนใช้งาน: 1) เลือกประเภทสิทธิ 2) เปิดหลักเกณฑ์/แบบคำขอ 3) ตรวจคุณสมบัติและกำหนดยื่น 4) เตรียมหลักฐานตามแบบ 5) ยื่นต่อสหกรณ์ 6) ติดตามผลการพิจารณา','จำนวนเงิน/กำหนดเวลาอาจต่างกันแต่ละประเภท ให้ยึดหลักเกณฑ์ล่าสุดในหน้าทางการ','ฌาปนกิจสงเคราะห์เป็นงานของสมาคมฌาปนกิจ แยกจากสวัสดิการ 8 ประเภทนี้'],
       actions:[['❤️ เปิดแบบ/หลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['⚱️ เปิดเมนูฌาปนกิจใน AI','#ask:ฌาปนกิจสงเคราะห์']],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','บ้านน้ำท่วม ขอเงินสงเคราะห์อย่างไร','ไฟไหม้บ้าน ขอสวัสดิการได้ไหม','แม่เสียได้สวัสดิการไหม','ฌาปนกิจสมัครอย่างไร']
     });
-    if(/(?:พ่อ|แม่|บิดา|มารดา).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/i.test(q)) return res('welfare_family_death','กรณีบิดา/มารดาโดยชอบด้วยกฎหมายถึงแก่กรรม มีสวัสดิการสงเคราะห์ครอบครัวตามหลักเกณฑ์ที่เกี่ยวข้อง',{
-      details:KB.welfare.familyDeath,actions:[['เปิดแบบสวัสดิการ',S.welfareForms]],sources:[src('หลักเกณฑ์กรณีครอบครัวถึงแก่กรรม',S.welfareFamilyDeath),src('แบบสวัสดิการ',S.welfareForms)]
-    });
+    if(/(?:พ่อ|แม่|บิดา|มารดา|คู่สมรส|สามี|ภรรยา|บุตร|ลูก).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/i.test(q)) return welfareStatic('familyDeath');
     if(/ชำระหนี้แทน(?:ผู้กู้|ลูกหนี้)|หนี้ในฐานะผู้ค้ำ|ผู้ค้ำ.*ชำระหนี้|กู้.*ชำระหนี้.*ผู้ค้ำ/i.test(q)) return res('loan_guarantor_debt','สหกรณ์มีแบบเงินกู้สามัญสำหรับสมาชิกที่ต้องชำระหนี้ในฐานะผู้ค้ำประกันครับ',{
       details:[
         'เป็นกรณีเฉพาะของเงินกู้สามัญ ไม่ใช่การชำระหนี้แทนกันแบบทั่วไป ต้องให้เจ้าหน้าที่ตรวจภาระค้ำและหนี้ที่เกิดขึ้นจริงก่อน',
@@ -1302,12 +1763,12 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     });
   }
 
-  return {answer,smartDecision,personal,norm};
+  return {answer,smartDecision,continueDecision,personal,norm};
 });
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.0.0-smart-rule-master';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.1.0-member-decision';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
@@ -1315,12 +1776,16 @@ function ask(text,{continuation=false}={}){
   q.value=value;
   try{
     let result;
-    if(continuation&&conversationState?.ruleId){
+    if(continuation&&conversationState?.flowId){
+      result=COOP_APP.continueDecision(value,conversationState);
+      if(!result) result=COOP_APP.answer(value);
+    }else if(continuation&&conversationState?.ruleId){
       result=COOP_APP.smartDecision(value,conversationState);
       if(!result) result=COOP_APP.answer(value);
     }else result=COOP_APP.answer(value);
     if(!result) throw new Error('EMPTY_ANSWER');
-    if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
+    if(result?.flowId&&result?.requiredFact) conversationState={flowId:result.flowId,requiredFact:result.requiredFact,facts:result.facts||{}};
+    else if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
     else conversationState=null;
     render(result);
   }catch(err){

@@ -28,7 +28,7 @@ const cases=[
 ['ยอดหนี้ส่วนตัว','ยอดหนี้ผมเหลือเท่าไร',r=>r.intent==='personal_handoff'],
 ['เงินฝากส่วนตัว','เงินฝากของผมเท่าไร',r=>r.intent==='personal_handoff'],
 ['ประกาศรายรอบ','รอบอนุมัติกู้ฉุกเฉินวันไหน',r=>r.intent==='live_schedule'],
-['release','เงินกู้มีกี่แบบ',r=>html.includes('4.0.0-smart-rule-master')],
+['release','เงินกู้มีกี่แบบ',r=>html.includes('4.1.0-member-decision')],
 ['โหด26','คุณภาพชีวิตส่ง 5 งวดแล้ว กู้สามัญได้ไหม',r=>r.answer?.length>20&&r.decision==='NOT_YET_ELIGIBLE'&&!/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' '))],
 ['โหด27','สามัญส่ง 12 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.answer?.length>20&&r.decision==='NOT_YET_ELIGIBLE'],
 ['โหด28','สามัญส่ง 8 งวด ค้ำอยู่ 3 คน มีคุณภาพชีวิต จะกู้ใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'],
@@ -78,7 +78,16 @@ const cases=[
 ['ข้าม72','ค้างชำระเมื่อ 6 เดือนก่อน จะกู้คุณภาพชีวิต',r=>r.decision==='NOT_YET_ELIGIBLE'&&/12 งวด/.test((r.details||[]).join(' '))],
 ['ข้าม73','มีหนี้บัตรเครดิต เงินเหลือ 7000 จะกู้สามัญได้ไหม',r=>r.decision==='NEED_INFO'&&/15%/.test((r.details||[]).join(' '))],
 ['ข้าม74','มีหนี้บัตรเครดิต เงินเหลือ 7000 จะกู้คุณภาพชีวิตได้ไหม',r=>r.decision==='NEED_INFO'&&/15%/.test((r.details||[]).join(' '))],
-['ข้าม75','สามัญ 12 งวด ค้ำ 2 คน เงินเหลือ 6500 มีคุณภาพชีวิต จะกู้ใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'&&/ยกเว้นเงินกู้ฉุกเฉิน/.test((r.details||[]).join(' '))]
+['ข้าม75','สามัญ 12 งวด ค้ำ 2 คน เงินเหลือ 6500 มีคุณภาพชีวิต จะกู้ใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'&&/ยกเว้นเงินกู้ฉุกเฉิน/.test((r.details||[]).join(' '))],
+['ใหม่76','ผมกู้สามัญได้ไหม',r=>r.flowId==='ordinary_eligibility'&&r.requiredFact==='membershipMonths'&&r.decision==='NEED_INFO'&&r.intent!=='personal_handoff'],
+['ใหม่77','ผมกู้สามัญได้ไหม',r=>{const x=app.continueDecision('5 เดือน',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});return x.decision==='NOT_YET_ELIGIBLE'&&/6 เดือน/.test((x.details||[]).join(' '))}],
+['ใหม่78','ผมกู้พัฒนาคุณภาพชีวิตได้ไหม',r=>r.flowId==='quality_eligibility'&&r.requiredFact==='requestAmount'&&r.decision==='NEED_INFO'],
+['ใหม่79','ผมกู้พัฒนาคุณภาพชีวิตได้ไหม',r=>{const a=app.continueDecision('4,000,000 บาท',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});const b=app.continueDecision('3 ปี',{flowId:a.flowId,requiredFact:a.requiredFact,facts:a.facts||{}});return b.decision==='NOT_YET_ELIGIBLE'&&/ขั้นต่ำ 5 ปี/.test((b.details||[]).join(' '))}],
+['ใหม่80','ผมกู้บ้านได้ไหม',r=>r.intent==='loan_special_housing_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
+['ใหม่81','ผมกู้ฉุกเฉินได้ไหม',r=>r.intent==='loan_emergency_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
+['ใหม่82','ผมกู้เพื่อการศึกษาได้ไหม',r=>r.intent==='loan_education_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
+['ใหม่83','กู้ได้ไหม',r=>r.intent==='loan_eligibility'&&Array.isArray(r.followups)&&r.followups.some(x=>/บ้าน/.test(x))&&r.followups.some(x=>/ภัยพิบัติ/.test(x))],
+['ใหม่84','ผมกู้สามัญได้ไหม',r=>{let x=r,s={flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}};for(const v of ['8 เดือน','300,000 บาท','12 งวด','40,000 บาท','40,000 บาท','10,000 บาท','2 คน','120 งวด','50 ปี','ไม่มี','ไม่มี']){if(!x.requiredFact)break;x=app.continueDecision(v,s);s={flowId:x.flowId,requiredFact:x.requiredFact,facts:x.facts||{}}}return x.decision==='ELIGIBLE_CONDITION'&&/ผ่านเงื่อนไขหลัก/.test(x.status)}]
 ];
 let bad=0;for(const [name,q,assert] of cases){const r=app.answer(q);const ok=!!assert(r);if(!ok)bad++;console.log((ok?'PASS':'FAIL')+' | '+name+' | intent='+r.intent+' decision='+(r.decision||'-')+' status='+r.status);if(!ok)console.log('  answer='+r.answer+'\n  details='+(r.details||[]).join(' | '));}
 console.log('REAL MEMBER SEMANTIC SIMULATION',cases.length-bad,'passed,',bad,'failed');if(bad)process.exit(1);
