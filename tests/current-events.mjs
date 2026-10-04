@@ -16,6 +16,7 @@ for(const e of data.events||[]){
   ids.add(e.id);
   if(!e.title||!e.summary||!e.statusLabel) errors.push('missing display fields: '+e.id);
   if(!/^https:\/\/(www\.)?dlasavingcoop\.com\//i.test(e.url||'')) errors.push('non-official URL: '+e.url);
+  if(/board_(?:content|post)\.php/i.test(e.url||'')) errors.push('member board must not be promoted as official current event: '+e.url);
   if(urls.has(e.url)) errors.push('duplicate URL: '+e.url);
   urls.add(e.url);
   if(!e.ask) errors.push('missing internal ask route: '+e.id);
