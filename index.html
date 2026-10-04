@@ -113,7 +113,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'3.0.3-pages',
+    version:'3.0.4-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -592,7 +592,7 @@
       sources:[src('หน้าติดต่อ สอ.อปท.',S.contact)]
     });
 
-    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|เจ้าหน้าที่|รายชื่อเจ้าหน้าที่|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
+    if(/ช่องทางติดต่อ|ติดต่อสหกรณ์|เบอร์สหกรณ์|โทรสหกรณ์|เว็บไซต์สหกรณ์|เว็บสหกรณ์|เจ้าหน้าที่|รายชื่อเจ้าหน้าที่|ไลน์|line|facebook|เฟสบุ|เฟซบุ/i.test(q)) return res('contact',
       `เลือกติดต่อเจ้าหน้าที่ตามเรื่องได้เลยครับ\n• เงินกู้สามัญ: ${line(C.ordinaryLoan.people)}\n• เงินกู้ฉุกเฉิน: ${line(C.emergencyLoan.people)}\n• เงินกู้พิเศษ: ${line(C.specialLoan.people)}\n• ทะเบียนสมาชิก: ${line(C.registration.people)}\n• เงินฝาก: ${line(C.deposit.people)}\n• สวัสดิการ: ${line(C.welfare.people)}\n• ฌาปนกิจ: ${line(C.funeral.people)}\n• เจ้าหน้าที่ประจำจังหวัด: ดูจากหน้าติดต่อทางการ`,{
         details:['หากรายชื่อหรือเบอร์มีการเปลี่ยนแปลง ให้ตรวจหน้าติดต่อทางการของสหกรณ์','Facebook ใช้ลิงก์เพจทางการโดยตรง'],
         actions:[['☎️ เปิดรายชื่อเจ้าหน้าที่','#staff-directory'],['🌐 เปิดหน้าติดต่อทางการ',S.contact],['Facebook สอ.อปท.',S.facebook],['LINE Official',S.line],['🌐 เว็บไซต์สหกรณ์',S.home]],
@@ -822,7 +822,7 @@
       details:['ขั้นตอน: 1) เปิดหลักเกณฑ์ฉุกเฉินล่าสุด 2) ตรวจคุณสมบัติ/วงเงินตามประกาศ 3) ดาวน์โหลดแบบคำขอ 4) เตรียมเอกสารตามแบบ 5) ยื่นคำขอ 6) ติดตามผลกับงานเงินกู้ฉุกเฉิน','เปิดประกาศและแบบคำขอจริงได้โดยตรงด้านล่าง'],actions:[['📢 ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['📄 แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm],['☎️ คุณอรวรรณ 083-929-3058','tel:0839293058'],['☎️ คุณวรัญญา 091-727-2541','tel:0917272541']],sources:[src('ประกาศหลักเกณฑ์กู้ฉุกเฉิน',S.loanEmergencyAnnouncement),src('แบบคำขอกู้ฉุกเฉิน',S.loanEmergencyForm)]
     });
 
-    if(/กู้พิเศษ|เงินกู้พิเศษ|เคหะ|ไถ่ถอนจำนอง/i.test(q)) return res('loan_special','เงินกู้พิเศษมี 3 กลุ่มในหน้าทางการ: เคหะ / ไถ่ถอนจำนองบ้านพร้อมที่ดิน / พัฒนาคุณภาพชีวิต (รวมหนี้) ครับ',{
+    if(/กู้พิเศษ|เงินกู้พิเศษ|เคหะ|ไถ่ถอนจำนอง|รวมหนี้|รวมภาระหนี้/i.test(q)) return res('loan_special','เงินกู้พิเศษมี 3 กลุ่มในหน้าทางการ: เคหะ / ไถ่ถอนจำนองบ้านพร้อมที่ดิน / พัฒนาคุณภาพชีวิต (รวมหนี้) ครับ',{
       details:['ขั้นตอน: 1) เลือกประเภท 2) เปิดหลักเกณฑ์และแบบ 3) ตรวจหลักประกัน/การประเมิน/ประกันตามประเภท 4) เตรียมเอกสาร 5) ยื่นคำขอ 6) ติดตามกับงานเงินกู้ฉุกเฉิน/พิเศษ'],actions:[['📢 ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement],['📄 แบบกู้พิเศษเพื่อการเคหะ',S.loanSpecialHousingForm],['📢 ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement],['📄 แบบไถ่ถอนจำนอง',S.loanSpecialRedeemForm],['📢 ประกาศพัฒนาคุณภาพชีวิต (รวมหนี้) 2569',S.loanSpecialQualityAnnouncement],['📢 ประกาศอัตราดอกเบี้ย',S.loanInterestAnnouncement]],sources:[src('ประกาศกู้พิเศษเพื่อการเคหะ 2569',S.loanSpecialHousingAnnouncement),src('ประกาศไถ่ถอนจำนอง 2569',S.loanSpecialRedeemAnnouncement),src('ประกาศพัฒนาคุณภาพชีวิต 2569',S.loanSpecialQualityAnnouncement)]
     });
 
