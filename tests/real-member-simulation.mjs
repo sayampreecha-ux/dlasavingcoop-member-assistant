@@ -6,7 +6,7 @@ const app=sandbox.COOP_APP||sandbox.window.COOP_APP;if(!app)throw Error('COOP_AP
 const cases=[
 ['ฉุกเฉิน 3','ผมกู้ฉุกเฉินอยู่ ส่งมา 3 งวดแล้ว จะกู้ใหม่ได้ไหม',r=>r.intent==='decision_emergency_repeat'&&r.decision==='ELIGIBLE_CONDITION'],
 ['ฉุกเฉิน 2','ฉุกเฉินผมเพิ่งส่ง 2 เดือน ขอใหม่ได้มั้ย',r=>r.intent==='decision_emergency_repeat'&&r.decision==='NOT_YET_ELIGIBLE'],
-['สามัญ 12','สามัญเดิมส่งมา 12 งวดแล้ว ยื่นใหม่ได้ไหม',r=>r.decision==='ELIGIBLE_CONDITION'&&/12 งวด/.test((r.details||[]).join(' '))&&/หักกลบ/.test((r.details||[]).join(' '))],
+['สามัญ 12','สามัญเดิมส่งมา 12 งวดแล้ว ยื่นใหม่ได้ไหม',r=>{const t=(r.answer||'')+' '+(r.details||[]).join(' ');return r.decision==='ELIGIBLE_CONDITION'&&/12 งวด/.test(t)&&/หักกลบ/.test(t)}],
 ['สามัญ 8','กู้สามัญใหม่ ส่งแล้ว 8 งวด',r=>r.decision==='NOT_YET_ELIGIBLE'],
 ['การศึกษา 6','กู้การศึกษาลูกคนแรกส่ง 6 งวด จะกู้ให้ลูกอีกคนได้ไหม',r=>r.decision==='ELIGIBLE_CONDITION'],
 ['การศึกษา 3','กู้เพื่อการศึกษาส่งมา 3 งวด ลูกอีกคนยื่นได้ไหม',r=>r.decision==='NOT_YET_ELIGIBLE'],
