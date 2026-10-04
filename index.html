@@ -330,6 +330,10 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     }
 
     if(isLoan){
+      // Verified Answer Engine: loan answers must explain the decision first and expose primary evidence.
+      // Numeric eligibility is allowed only when a versioned primary source has been encoded and reviewed.
+      if(!details.some(x=>/หลักฐานที่ใช้ตอบ/.test(String(x)))) details.unshift('หลักฐานที่ใช้ตอบ: ใช้ระเบียบ/หลักเกณฑ์/ประกาศทางการของ สอ.อปท. ตามประเภทเงินกู้ และแสดงเอกสารต้นฉบับด้านล่าง');
+      if(!details.some(x=>/การตีความ/.test(String(x)))) details.push('การตีความ: หากคำถามขึ้นกับวงเงินจริง ยอดหนี้ จำนวนงวด หรือสถานะของสมาชิก ระบบจะอธิบายกฎที่ตรวจได้ แต่จะไม่เดาข้อมูลเฉพาะสมาชิก');
       if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ประกาศที่ใช้บังคับ 2) ตรวจประเภทและเงื่อนไขของรายการ 3) ดาวน์โหลด/เตรียมแบบและเอกสาร 4) ยื่นหรือขอยอดจากเจ้าหน้าที่ 5) ดำเนินการชำระ/ทำสัญญาตามกรณี 6) ให้เจ้าหน้าที่ตรวจและติดตามสถานะจนเสร็จ');
       if(/emergency/.test(intent)){
         addAction('📢 หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
