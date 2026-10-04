@@ -206,8 +206,13 @@ const enriched=[];
 for(const item of candidates) enriched.push(await enrich(item));
 
 const active=enriched.filter(x=>{
-  if(!x.expiresAt) return true;
-  return new Date(x.expiresAt)>now;
+  if(x.priority<75) return false;
+  if(x.expiresAt && new Date(x.expiresAt)<=now) return false;
+  if(!x.eventDate && x.publishedAt){
+    const ageMs=now-new Date(x.publishedAt);
+    if(ageMs>30*24*60*60*1000) return false;
+  }
+  return true;
 });
 
 // Preserve the official confirmation banner if the site's HTML is image-heavy and the parser misses its text.
