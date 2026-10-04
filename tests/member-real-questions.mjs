@@ -56,5 +56,15 @@ for(const [q,expected] of conversational){
  if(r.intent!==expected) failures.push({q,expected,actual:r.intent,group:'conversational'});
 }
 
+// Verified Answer Engine gate: loan answers must expose evidence and explain the no-guess boundary.
+for(const q of ['กู้การศึกษาเพิ่มได้ไหม','เงินเหลือห้าพันกู้ได้มั้ย','สามัญกลบคุณภาพชีวิตไหม','คุณภาพชีวิตกี่งวดกู้ฉุกเฉินได้','กู้ฉุกเฉิน']){
+ const r=globalThis.COOP_APP.answer(q);
+ const detail=(r.details||[]).join(' ');
+ const hasEvidence=/หลักฐานที่ใช้ตอบ/.test(detail);
+ const hasInterpretation=/การตีความ/.test(detail);
+ const hasOfficialSource=(r.sources||[]).some(s=>/^https?:/.test(s.url||''));
+ if(!hasEvidence||!hasInterpretation||!hasOfficialSource) failures.push({q,group:'verified-answer-gate',hasEvidence,hasInterpretation,hasOfficialSource});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
