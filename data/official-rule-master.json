@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0",
+  "productRelease": "3.5.0-rule-master",
+  "verifiedAt": "2026-10-04",
+  "policy": {
+    "sourcePriority": [
+      "ข้อบังคับ/ระเบียบปัจจุบัน",
+      "ประกาศ/หลักเกณฑ์ล่าสุด",
+      "แบบฟอร์มทางการ",
+      "ผลอนุมัติ/ประกาศรายรอบ"
+    ],
+    "rules": [
+      "ห้ามสร้างตัวเลขจากกระทู้สมาชิก",
+      "กฎที่มีวันบังคับใช้ต้องตรวจ version ก่อนใช้",
+      "กฎที่ยังไม่มีต้นฉบับยืนยันให้ตอบ UNVERIFIED_RULE",
+      "ข้อมูลยอด/สถานะเฉพาะสมาชิกให้ส่งเจ้าหน้าที่"
+    ]
+  },
+  "domains": {
+    "ordinaryLoan": {
+      "status": "PARTIAL_VERIFIED",
+      "verified": [
+        "กู้ซ้ำ: สัญญาเดิมอย่างน้อย 12 งวด",
+        "ผู้ค้ำหนึ่งคนค้ำผู้กู้พร้อมกันไม่เกิน 3 คน"
+      ],
+      "source": "https://www.dlasavingcoop.com/show.php?No=774"
+    },
+    "emergencyLoan": {
+      "status": "VERIFIED_CORE",
+      "verified": [
+        "กู้ซ้ำ: สัญญาเดิมอย่างน้อย 3 งวด",
+        "สัญญาใหม่หักกลบหนี้ฉุกเฉินเดิม"
+      ],
+      "source": "https://www.dlasavingcoop.com/show.php?No=773"
+    },
+    "educationLoan": {
+      "status": "PARTIAL_VERIFIED",
+      "verified": [
+        "สัญญาเดิมอย่างน้อย 6 งวดก่อนยื่นใหม่"
+      ],
+      "source": "https://www.dlasavingcoop.com/show.php?No=774"
+    },
+    "qualityOfLife": {
+      "status": "CURRENT_PROGRAM_NEEDS_RULE_EXTRACTION",
+      "source": "https://dlasavingcoop.com/show.php?No=4845",
+      "unresolved": [
+        "จำนวนงวดข้ามประเภท",
+        "การหักกลบกับสามัญ/ฉุกเฉิน"
+      ]
+    },
+    "shares": {
+      "status": "OFFICIAL_INDEX",
+      "source": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+    },
+    "deposits": {
+      "status": "OFFICIAL_INDEX",
+      "source": "https://dlasavingcoop.com/show.php?No=807"
+    },
+    "membership": {
+      "status": "OFFICIAL_INDEX",
+      "source": "https://dlasavingcoop.com/show.php?No=772"
+    },
+    "resignation": {
+      "status": "VERIFIED_PROCEDURE",
+      "source": "https://www.dlasavingcoop.com/show.php?Category=member_end"
+    },
+    "welfare": {
+      "status": "OFFICIAL_INDEX",
+      "source": "https://www.dlasavingcoop.com/show.php?No=775"
+    },
+    "funeral": {
+      "status": "OFFICIAL_INDEX",
+      "source": "https://dlasavingcoop.com/show.php?No=4650"
+    },
+    "payment": {
+      "status": "VERIFIED_PROCEDURE",
+      "source": "https://dlasavingcoop.com/show.php?Category=payment"
+    },
+    "dividendPatronage": {
+      "status": "DYNAMIC_RATE",
+      "source": "https://www.dlasavingcoop.com/list.php?Category=notice"
+    },
+    "memberSpecific": {
+      "status": "STAFF_REQUIRED",
+      "examples": [
+        "ยอดหนี้",
+        "ยอดหุ้น",
+        "ยอดเงินฝาก",
+        "ผลอนุมัติ",
+        "เงินปันผลรายบุคคล"
+      ]
+    }
+  }
+}
