@@ -18,6 +18,31 @@
 - ทุกครั้งต้อง: แก้ `main` → regression ผ่าน → สำรอง production เดิม → sync `index.html` ไป `gh-pages` เพียงครั้งเดียว → ตรวจ version/hash
 - หาก `main` กับ `gh-pages` ไม่ตรง ห้ามรายงานว่า production เป็นรุ่นล่าสุด
 
+## Pilot Freeze — v3.1.0
+
+สถานะ: **FROZEN FOR PILOT**
+
+- Pilot version: `3.1.0-pilot-pages`
+- Pilot reference branch: `pilot/v3.1.0`
+- ช่วง Pilot ให้แก้เฉพาะ:
+  - ข้อมูลผิด/ลิงก์เสีย/ข้อมูลทางการเปลี่ยน
+  - บั๊กที่ทำให้สมาชิกทำรายการไม่ได้
+  - Privacy/Security issue
+  - Critical UX issue ที่ขัดขวางการใช้งานจริง
+- ห้ามเพิ่ม feature ใหม่, เปลี่ยนโครงหน้าใหญ่, ต่อ backend/AI API/LINE API หรือเปลี่ยนสถาปัตยกรรมระหว่าง Pilot โดยไม่มีเหตุจำเป็น
+- ทุกการแก้ระหว่าง Pilot ต้องเพิ่ม regression case ที่ reproduces ปัญหาก่อน
+- เก็บ feedback สมาชิกจริงไว้เป็น backlog สำหรับรุ่นหลัง Pilot
+- `pilot/v3.1.0` ใช้เป็น snapshot อ้างอิง ห้ามพัฒนา feature ต่อบน branch นี้
+
+### Pilot UX baseline
+- โทนแบรนด์: ส้ม–เขียว–ทอง–ขาว
+- มีตราสหกรณ์ใน header
+- Mobile-first
+- Answer First
+- ขั้นตอน/รายละเอียดใช้ progressive disclosure
+- รักษา 8 บริการหลัก + 10 บริการเพิ่มเติม
+- คง Privacy Gate / Freshness Gate / Transaction Completion Contract
+
 ## Member Service Coverage v3
 
 หน้าแรกใช้ 8 บริการหลัก:
