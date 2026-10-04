@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T02:46:01.760Z",
-  "lastCheckedAt": "2026-10-04T02:46:01.760Z",
+  "generatedAt": "2026-10-04T02:47:07.680Z",
+  "lastCheckedAt": "2026-10-04T02:47:07.680Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -38,23 +38,9 @@
       "url": "https://www.dlasavingcoop.com/show.php?No=4935",
       "ask": "ประชุมใหญ่",
       "source": "homepage",
-      "publishedAt": null,
+      "publishedAt": "2026-10-03T11:54:11.000Z",
       "eventDate": "2026-11-08",
       "expiresAt": "2026-11-08T17:00:00.000Z"
-    },
-    {
-      "id": "official-41854",
-      "title": "ปันผล เฉลี่ยคืน ปีนี้จ่ายเท่าไหร่คะ",
-      "summary": "เปิดดูรายละเอียดจากประกาศทางการ",
-      "status": "money",
-      "statusLabel": "เรื่องการเงิน",
-      "priority": 93,
-      "url": "https://www.dlasavingcoop.com/board_content.php?No=41854",
-      "ask": "ปันผลปี 69",
-      "source": "homepage",
-      "publishedAt": null,
-      "eventDate": null,
-      "expiresAt": null
     }
   ]
 }
