@@ -34,6 +34,6 @@ check('personal debt detected',()=>{if(!app.personal('ยอดหนี้ผ�
 check('personal deposit detected',()=>{if(!app.personal('เงินฝากของผมเท่าไร'))throw new Error('not personal')});
 check('dynamic dividend does not invent percent',()=>{const r=ans('ปันผลปี 2569 กี่เปอร์เซ็นต์'); if(/\d+(?:\.\d+)?\s*%/.test(r.answer||''))throw new Error('invented rate')});
 check('quality cross-loan does not invent numeric threshold',()=>{const r=ans('คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้'); if(/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' ')))throw new Error('invented cross-loan threshold')});
-check('release marker',()=>{if(!html.includes('3.5.0-rule-master'))throw new Error('wrong release')});
+check('release marker',()=>{if(!html.includes('3.5.1-no-silent-answer'))throw new Error('wrong release')});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
