@@ -607,6 +607,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     }
 
     // Zero-API guided diagnosis: ask for the minimum missing fact instead of sending members to documents.
+    const smart=smartDecision(q);
+    if(smart) return smart;
     if(/(?:กู้|เงินกู้).*(?:ได้ไหม|ได้มั้ย|ผ่านไหม|ผ่านมั้ย)$/.test(q) && !/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)){
       return res('loan_need_type','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
     }
@@ -614,9 +616,6 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       const guidedIntent=/ฉุกเฉิน/.test(q)?'loan_emergency_need_installments':/คุณภาพชีวิต/.test(q)?'loan_special_need_installments':'loan_ordinary_need_installments';
       return res(guidedIntent,'ผมตรวจต่อให้ได้ครับ ขอทราบก่อนว่า “สัญญาเดิมชำระมาแล้วกี่งวด”',{details:['ตอบเป็นจำนวนงวดได้เลย เช่น “6 งวด” ระบบจะใช้ข้อมูลนี้เทียบกับกฎที่ยืนยันไว้','ถ้ากฎจำนวนงวดยังไม่มีหลักฐานทางการที่ยืนยัน ระบบจะบอกตรง ๆ และไม่สร้างตัวเลขขึ้นเอง'],followups:['ชำระแล้ว 3 งวด','ชำระแล้ว 6 งวด','ชำระแล้ว 12 งวด'],sources:[src('หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement),src('หลักเกณฑ์พัฒนาคุณภาพชีวิต',S.loanSpecialQualityAnnouncement)]});
     }
-
-    const smart=smartDecision(q);
-    if(smart) return smart;
 
     const compound=compoundLoanAnswer(q);
     if(compound) return compound;
