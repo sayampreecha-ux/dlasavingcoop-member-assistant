@@ -124,7 +124,10 @@ const spokenLoanCases=[
  ['เงินกู้ฉุกเฉินเพิ่มวงเงินได้ไหม','loan_emergency_repeat'],
  ['ผ่อนฉุกเฉินมา 6 งวด ขอเพิ่มได้มั้ย','loan_emergency_repeat'],
  ['กู้ฉุกเฉินซ้ำได้มั้ย','loan_need_installments'],
- ['กู้ฉุกเฉินซ้ำได้ไหม','loan_need_installments']
+ ['กู้ฉุกเฉินซ้ำได้ไหม','loan_need_installments'],
+ ['ขอกู้ฉุกเฉินอีกได้ไหม','loan_need_installments'],
+ ['กู้ฉุกเฉินใหม่ได้มั้ย','loan_need_installments'],
+ ['ฉุกเฉินเพิ่มวงเงินได้ไหม','loan_need_installments']
 ];
 for(const [q,expected] of spokenLoanCases){
  const r=globalThis.COOP_APP.answer(q);
