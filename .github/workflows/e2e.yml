@@ -16,4 +16,4 @@ jobs:
         with:
           node-version: 22
       - name: Run deterministic E2E regression
-        run: node tests/e2e-member-answer-engine.mjs
+        run: node tests/e2e-member-answer-engine.mjs && node tests/real-member-simulation.mjs
