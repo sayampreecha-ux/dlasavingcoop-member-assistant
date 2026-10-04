@@ -588,41 +588,78 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
   function compoundLoanAnswer(q){
     const hasOrd=/สามัญ/.test(q), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
-    const hasDebt=/หนี้|ยอด|คงเหลือ|วงเงิน/.test(q), hasGuarantor=/ค้ำ|ผู้ค้ำ/.test(q), hasIncome=/เงินเดือน|เงินได้|เงินเหลือ|รายได้/.test(q);
-    const topics=[hasOrd,hasEmergency,hasQuality,hasDebt,hasGuarantor,hasIncome].filter(Boolean).length;
-    if(!/กู้|เงินกู้|สามัญ|ฉุกเฉิน|คุณภาพชีวิต/.test(q)||topics<2) return null;
-    // "ผู้ค้ำ + สามัญ" is one guarantor-capacity decision, not a compound loan case.
-    if(hasOrd&&hasGuarantor&&!hasEmergency&&!hasQuality&&!hasDebt&&!hasIncome&&!/(?:ส่ง|ชำระ).*\d+\s*(?:งวด|เดือน)|(?:กู้|ยื่น).*ใหม่/.test(q)) return null;
-    const details=['ระบบแยกคำถามนี้เป็นหลายเงื่อนไขและตรวจทีละส่วน เพื่อไม่ให้คำตอบข้อหนึ่งกลบอีกข้อ'];
-    const checks=[];
-    const ordinaryPaid=hasOrd?Number((q.match(/สามัญ[^\d]{0,24}(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN):NaN;
-    const guarantorCount=hasGuarantor?Number((q.match(/ค้ำ[^\d]{0,24}(\d+)\s*คน/)||[])[1]||NaN):NaN;
-    if(hasOrd&&Number.isFinite(ordinaryPaid)) checks.push({name:'จำนวนงวดสามัญเดิม',status:ordinaryPaid>=RULE_MASTER.rules.ordinary_repeat.minInstallments?'PASS':'FAIL',text:ordinaryPaid+' งวด'});
-    if(hasGuarantor&&Number.isFinite(guarantorCount)) checks.push({name:'จำนวนผู้กู้ที่ค้ำอยู่',status:guarantorCount<RULE_MASTER.rules.ordinary_guarantor_capacity.maxBorrowers?'PASS':'FAIL',text:guarantorCount+' คน'});
-    if(hasQuality&&hasOrd) checks.push({name:'ผลของสัญญาคุณภาพชีวิตต่อการกู้สามัญใหม่',status:'UNVERIFIED_RULE',text:'ต้องยืนยันต้นฉบับกฎข้ามประเภทปัจจุบัน'});
-    checks.forEach(x=>details.push((x.status==='PASS'?'✓':x.status==='FAIL'?'✗':'?')+' '+x.name+': '+x.text+' ['+x.status+']'));
-    const actions=[],sources=[];
-    const add=(label,url,title=label)=>{if(url&&!actions.some(x=>x[1]===url)) actions.push([label,url]);if(url&&!sources.some(x=>x.url===url)) sources.push(src(title,url));};
-    if(hasOrd){details.push('เงินกู้สามัญ: ตรวจคุณสมบัติ วัตถุประสงค์ ภาระเดิม ผู้ค้ำ/หลักประกัน และเกณฑ์เงินได้คงเหลือตามหลักเกณฑ์ฉบับปัจจุบัน');add('📢 หลักเกณฑ์เงินกู้สามัญ',S.loanGeneralAnnouncement2569);}
-    if(hasEmergency){details.push('เงินกู้ฉุกเฉิน: ตรวจคุณสมบัติ วงเงิน/สัญญาเดิม และเงื่อนไขการกู้ซ้ำตามหลักเกณฑ์ฉบับปัจจุบัน');add('🚨 หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);}
-    if(hasQuality){details.push('พัฒนาคุณภาพชีวิต: ต้องแยกว่าเป็นโครงการ/สัญญาประเภทใด แล้วตรวจเงื่อนไขการชำระเดิม การหักกลบ และการยื่นกู้ประเภทใหม่');add('🧩 หลักเกณฑ์พัฒนาคุณภาพชีวิต',S.loanSpecialQualityAnnouncement);}
-    if(hasGuarantor) details.push('ผู้ค้ำ: ต้องตรวจภาระค้ำเดิมและข้อจำกัดของประเภทเงินกู้ที่ถาม ไม่สรุปจากจำนวนคนเพียงอย่างเดียว');
-    if(hasIncome) details.push('เงินได้คงเหลือ: ต้องใช้รายการเงินได้และรายการหักที่หลักเกณฑ์รับรอง แล้วเทียบกับเกณฑ์ที่มีผลในวันยื่น');
-    if(hasDebt) details.push('ยอดหนี้/วงเงินคงเหลือจริงเป็นข้อมูลเฉพาะสมาชิก ระบบอธิบายวิธีพิจารณาได้ แต่ไม่สร้างยอดหรือสิทธิส่วนบุคคลขึ้นเอง');
-    const missing=[];
-    if(hasDebt) missing.push('ยอดหนี้/ยอดคงเหลือจริง');
-    if(hasIncome) missing.push('เงินได้และรายการหักจริง');
-    if(hasGuarantor) missing.push('ภาระค้ำของผู้ค้ำจริง');
-    if(missing.length) details.push('ข้อมูลที่ยังขาดเพื่อฟันธงกรณีของสมาชิก: '+missing.join(' + '));
-    const anyFail=checks.some(x=>x.status==='FAIL'), anyUnverified=checks.some(x=>x.status==='UNVERIFIED_RULE');
-    details.push(anyFail?'สรุปการตัดสินใจ: มีอย่างน้อยหนึ่งเงื่อนไขที่ยังไม่ผ่าน จึงยังสรุปว่าได้ไม่ได้':anyUnverified?'สรุปการตัดสินใจ: เงื่อนไขที่ยืนยันแล้วอาจผ่าน แต่ยังมีกฎสำคัญที่ต้องยืนยัน จึงห้ามสรุปว่า “กู้ได้”':'สรุปการตัดสินใจ: ส่วนที่เป็นกฎตอบจากหลักฐานทางการได้ทันที; ส่วนที่ขึ้นกับยอด/ประวัติสมาชิกต้องตรวจข้อมูลจริงก่อนจึงฟันธงได้');
-    actions.push(['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']);
-    const followups=[];
-    if(hasDebt) followups.push('ยอดหนี้คงเหลือของแต่ละสัญญาประมาณเท่าไร');
-    if(hasIncome) followups.push('หลังหักรายการประจำแล้ว เงินได้คงเหลือต่อเดือนประมาณเท่าไร');
-    if(hasGuarantor) followups.push('ผู้ค้ำรายนี้มีภาระค้ำเงินกู้อื่นอยู่หรือไม่');
-    details.push('วิธีใช้งาน: ตอบคำถามต่อด้านบนได้เลย ระบบจะใช้คำตอบเพื่อไล่เงื่อนไขต่อ ไม่จำเป็นต้องเปิดเอกสารเอง; เอกสารด้านล่างมีไว้ตรวจสอบที่มา');
-    return res('loan_compound_reasoning',anyFail?'ยังยื่นกู้ใหม่ไม่ได้จากเงื่อนไขที่ตรวจพบครับ — มีอย่างน้อยหนึ่งเงื่อนไขที่ยังไม่ผ่าน ดูรายละเอียดด้านล่าง':anyUnverified?'ยังตอบว่า “กู้ได้” ไม่ได้ครับ — เงื่อนไขที่ยืนยันแล้วตรวจให้ได้ แต่ยังขาดกฎปัจจุบันที่ยืนยันผลของเงินกู้พัฒนาคุณภาพชีวิตต่อการกู้สามัญใหม่ จึงไม่เดาคำตอบ หากต้องการผลกรณีของตนเองให้ติดต่อเจ้าหน้าที่งานเงินกู้':'ยังฟันธงไม่ได้ครับ — ต้องมีข้อมูลสมาชิกเพิ่มเพื่อประเมินเงื่อนไขที่เหลือ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ยังยืนยันสิทธิไม่ได้ — ติดต่อเจ้าหน้าที่ได้ทันที':'ต้องการข้อมูลเพิ่ม',details,actions:[...actions,['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources,followups:followups.length?followups:[],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
+    const hasGuarantor=/ค้ำ|ผู้ค้ำ/.test(q), hasIncome=/เงินเดือน|เงินได้|เงินเหลือ|รายได้/.test(q);
+    const hasMembership=/สมาชิก/.test(q), hasShare=/ส่งหุ้น|ค่าหุ้น|หุ้น/.test(q), hasArrear=/ค้างชำระ|ค้าง/.test(q);
+    const wantsLoan=/กู้|ยื่น|ขอ/.test(q);
+    const facts={};
+    let m;
+    if(hasOrd && (m=q.match(/สามัญ[^\d]{0,28}(\d+)\s*(?:งวด|เดือน)/))) facts.ordinaryPaid=+m[1];
+    if(hasGuarantor && (m=q.match(/ค้ำ[^\d]{0,28}(\d+)\s*คน/))) facts.guarantorCount=+m[1];
+    if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
+    if(hasShare && (m=q.match(/(?:ส่งหุ้น|ค่าหุ้น|หุ้น)[^\d]{0,18}(\d+)\s*(?:งวด|เดือน)/))) facts.sharePaid=+m[1];
+    if(hasIncome && (m=q.match(/(?:เงินเดือนเหลือ|เงินเหลือ|รายได้คงเหลือ)[^\d]{0,12}([\d,]+)/))) facts.remainingIncome=+m[1].replace(/,/g,'');
+    if((m=q.match(/(?:ขอ|กู้|วงเงิน)[^\d]{0,12}([\d,.]+)\s*(ล้าน|แสน|บาท)?/))){
+      let n=parseFloat(m[1].replace(/,/g,'')); if(m[2]==='ล้าน')n*=1000000; if(m[2]==='แสน')n*=100000; facts.requestAmount=n;
+    }
+    if(hasQuality && (m=q.match(/(?:หลักประกัน|ประเมิน)[^\d]{0,12}([\d,.]+)\s*(ล้าน|แสน|บาท)?/))){
+      let n=parseFloat(m[1].replace(/,/g,'')); if(m[2]==='ล้าน')n*=1000000; if(m[2]==='แสน')n*=100000; facts.collateralValue=n;
+    }
+    if((m=q.match(/อายุ[^\d]{0,8}(\d+)\s*(?:ปี)?/))) facts.age=+m[1];
+    if((m=q.match(/ผ่อน[^\d]{0,8}(\d+)\s*(?:งวด|เดือน)/))) facts.term=+m[1];
+
+    const multiFacts=Object.keys(facts).length>=2;
+    const crossTypes=[hasOrd,hasEmergency,hasQuality].filter(Boolean).length>=2;
+    const qualityWait=hasQuality&&hasOrd&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q);
+    const complex=(wantsLoan&&(multiFacts||crossTypes||hasArrear))||qualityWait;
+    if(!complex) return null;
+
+    const checks=[],details=['ระบบอ่านข้อมูลทั้งหมดในประโยคก่อน แล้วตรวจทุกเงื่อนไขที่เกี่ยวข้องร่วมกัน'];
+    const add=(name,status,text)=>checks.push({name,status,text});
+    if(hasOrd){
+      if(Number.isFinite(facts.ordinaryPaid)) add('จำนวนงวดสามัญเดิม',facts.ordinaryPaid>=12?'PASS':'FAIL',facts.ordinaryPaid+' งวด; เกณฑ์กู้ใหม่อย่างน้อย 12 งวด');
+      if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=6?'PASS':'FAIL',facts.membershipMonths+' เดือน; เกณฑ์อย่างน้อย 6 เดือน');
+      if(Number.isFinite(facts.sharePaid)) add('การส่งหุ้น',facts.sharePaid>=6?'PASS':'FAIL',facts.sharePaid+' งวด; เกณฑ์พื้นฐานอย่างน้อย 6 งวด');
+      if(Number.isFinite(facts.remainingIncome)) add('รายได้คงเหลือขั้นต่ำ',facts.remainingIncome>=6000?'PARTIAL_PASS':'FAIL',facts.remainingIncome.toLocaleString('th-TH')+' บาท; ต้องผ่านทั้ง ≥6,000 บาท และ ≥15% ของเงินได้รายเดือน');
+      if(Number.isFinite(facts.requestAmount)){
+        add('เพดานวงเงินสามัญ',facts.requestAmount<=2000000?'PASS':'FAIL',facts.requestAmount.toLocaleString('th-TH')+' บาท; สูงสุด 2,000,000 บาท');
+        if(hasGuarantor&&Number.isFinite(facts.guarantorCount)){
+          const need=facts.requestAmount<=500000?1:facts.requestAmount<=1000000?2:3;
+          add('จำนวนผู้ค้ำตามวงเงิน',facts.guarantorCount>=need?'PASS':'FAIL',facts.guarantorCount+' คน; วงเงินนี้ต้องอย่างน้อย '+need+' คน');
+        }
+      }
+      if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อนสามัญ',facts.term<=240?'PASS':'FAIL',facts.term+' งวด; สูงสุด 240 งวด และอายุสิ้นสุดสัญญาต้องไม่เกิน 75 ปี');
+    }
+    if(hasQuality){
+      if(Number.isFinite(facts.remainingIncome)) add('รายได้คงเหลือขั้นต่ำ',facts.remainingIncome>=6000?'PARTIAL_PASS':'FAIL',facts.remainingIncome.toLocaleString('th-TH')+' บาท; ต้องผ่านทั้ง ≥6,000 บาท และ ≥15% ของเงินได้รายเดือน');
+      if(Number.isFinite(facts.requestAmount)) add('เพดานวงเงินคุณภาพชีวิต',facts.requestAmount<=5000000?'PASS':'FAIL',facts.requestAmount.toLocaleString('th-TH')+' บาท; สูงสุด 5,000,000 บาท');
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.collateralValue)) add('80% ราคาประเมิน',facts.requestAmount<=facts.collateralValue*.8?'PASS':'FAIL','ขอ '+facts.requestAmount.toLocaleString('th-TH')+' บาท; 80% ของราคาประเมิน = '+(facts.collateralValue*.8).toLocaleString('th-TH')+' บาท');
+      if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อนคุณภาพชีวิต',facts.term<=360?'PASS':'FAIL',facts.term+' งวด; สูงสุด 360 งวด และอายุสิ้นสุดสัญญาต้องไม่เกิน 75 ปี');
+      if(hasOrd) add('การถือสัญญาคุณภาพชีวิตร่วมกับสามัญ','FAIL','หลักเกณฑ์คุณภาพชีวิตระบุว่าเมื่อได้รับอนุมัติแล้วไม่สามารถกู้ประเภทอื่นได้อีก ยกเว้นเงินกู้ฉุกเฉิน');
+      if(hasEmergency) add('ข้อยกเว้นเงินกู้ฉุกเฉิน','PASS','หลักเกณฑ์คุณภาพชีวิตยกเว้นให้กู้ฉุกเฉินได้ แต่ยังต้องผ่านเกณฑ์ฉุกเฉินเอง');
+    }
+    if(hasArrear) add('ประวัติค้างชำระ 12 งวด','NEED_FACT','หลักเกณฑ์กำหนดต้องไม่ค้างชำระค่าหุ้นและหนี้เงินกู้ทุกประเภท ย้อนหลัง 12 งวด');
+    if(Number.isFinite(facts.age)&&Number.isFinite(facts.term)){
+      const endAge=facts.age+facts.term/12;
+      add('อายุเมื่อสิ้นสุดสัญญา',endAge<=75?'PASS':'FAIL','ประมาณ '+endAge.toFixed(1)+' ปี; ต้องไม่เกิน 75 ปี');
+    }
+    checks.forEach(x=>details.push((x.status==='PASS'||x.status==='PARTIAL_PASS'?'✓':x.status==='FAIL'?'✗':'?')+' '+x.name+': '+x.text+' ['+x.status+']'));
+
+    const sources=[],actions=[]; const sourceAdd=(label,url)=>{if(url&&!sources.some(x=>x.url===url))sources.push(src(label,url));if(url&&!actions.some(x=>x[1]===url))actions.push(['📢 '+label,url]);};
+    if(hasOrd)sourceAdd('หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',S.loanGeneralAnnouncement2569);
+    if(hasQuality)sourceAdd('หลักเกณฑ์พัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement);
+    if(hasEmergency)sourceAdd('หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
+
+    const anyFail=checks.some(x=>x.status==='FAIL'), needs=checks.some(x=>x.status==='NEED_FACT'||x.status==='PARTIAL_PASS');
+    if(qualityWait) details.push('ไม่มีจำนวนงวดที่ทำให้สัญญาคุณภาพชีวิตกลับมากู้สามัญได้ เพราะหลักเกณฑ์ปัจจุบันระบุห้ามกู้ประเภทอื่นระหว่างถือสัญญานี้ ยกเว้นฉุกเฉิน');
+    if(anyFail) details.push('สรุป: มีเงื่อนไขอย่างน้อยหนึ่งข้อไม่ผ่าน จึงยังไม่ควรสรุปว่ายื่นผ่าน');
+    else if(needs) details.push('สรุป: เงื่อนไขที่ให้มาตรวจได้บางส่วน แต่ยังต้องมีข้อมูลเพิ่มเพื่อฟันธงสิทธิทั้งหมด');
+    else details.push('สรุป: เงื่อนไขที่ผู้ใช้ระบุผ่านส่วนที่ตรวจได้ แต่ผลอนุมัติจริงยังขึ้นกับข้อมูลสมาชิกและเอกสารจริง');
+
+    return res('loan_compound_reasoning',
+      anyFail?'จากข้อมูลที่ให้มา ยังไม่ผ่านอย่างน้อยหนึ่งเงื่อนไขครับ — ระบบตรวจหลายเงื่อนไขพร้อมกันแล้ว ดูข้อที่ไม่ผ่านด้านล่าง':
+      needs?'จากข้อมูลที่ให้มา ผ่านบางเงื่อนไขครับ แต่ยังขาดข้อมูลสำคัญ จึงยังไม่ควรฟันธงว่า “กู้ได้”':
+      'จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล',
+      {answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,confidence:'Rule Master 4.0 multi-condition reasoning'});
   }
 
   function answer(input){
@@ -638,6 +675,10 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     // Personal debt/top-up without a named loan type depends on the member's real account data.
     if(/(?:หนี้|ยอดหนี้|หนี้คงเหลือ).*?(?:\d+|ล้าน|แสน).*?(?:กู้เพิ่ม|ขอเพิ่ม|เพิ่มอีก)/i.test(q)&&!/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)) return handoff(q);
 
+    // Multi-condition gate: never let one passing rule become a whole-answer decision.
+    const compoundFirst=compoundLoanAnswer(q);
+    if(compoundFirst) return compoundFirst;
+
     // Rule Master 4.0: current rules effective 1 Oct 2569.
     if(/(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ).*(?:สามัญ|กู้)|(?:สามัญ|กู้).*(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ)/i.test(q)){
       return res('ordinary_current_remaining_income','หลักเกณฑ์กู้สามัญปัจจุบันกำหนดว่า หลังหักชำระค่าหุ้นและหนี้เงินกู้ทุกประเภทแล้ว ต้องมีรายได้คงเหลือไม่น้อยกว่าร้อยละ 15 ของเงินได้รายเดือน และต้องไม่น้อยกว่า 6,000 บาทต่อเดือนตลอดอายุสัญญา',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',details:['ยังต้องตรวจเงื่อนไขอื่นร่วมด้วย เช่น อายุสมาชิก การส่งหุ้น ภาระหนี้ ประวัติค้างชำระ วงเงิน และหลักประกัน/ผู้ค้ำตามช่วงวงเงิน'],sources:[src('หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',S.loanGeneralAnnouncement2569)]});
@@ -645,10 +686,6 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(/(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต).*(?:วงเงิน|ได้เท่าไร|กี่บาท|หลักประกัน|อสังหา|ผ่อน|กี่งวด|อายุ|รายได้คงเหลือ|เงินเหลือ)/i.test(q)){
       return res('quality_current_rules','หลักเกณฑ์พัฒนาคุณภาพชีวิตปัจจุบันใช้หลักประกันอสังหาริมทรัพย์ กู้ได้ไม่เกิน 80% ของราคาประเมินและไม่เกิน 5,000,000 บาท ผ่อนไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',details:['รายได้คงเหลือหลังหักค่าหุ้นและหนี้ทุกประเภทต้องไม่น้อยกว่า 15% และไม่น้อยกว่า 6,000 บาท/เดือน','ถ้ามีสัญญาเงินกู้อื่น ผู้กู้ต้องยินยอมให้หักกลบหนี้เดิมเมื่อได้รับอนุมัติกู้นี้','หลังได้รับอนุมัติกู้ประเภทนี้ ไม่สามารถกู้ประเภทอื่นได้อีก ยกเว้นเงินกู้ฉุกเฉิน'],sources:[src('หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement)]});
     }
-
-    // Multi-condition gate: never let one passing rule become a whole-answer decision.
-    const compoundFirst=compoundLoanAnswer(q);
-    if(compoundFirst) return compoundFirst;
 
     // Zero-API guided diagnosis: ask for the minimum missing fact instead of sending members to documents.
     const smart=smartDecision(q);
