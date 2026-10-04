@@ -39,7 +39,7 @@ check('ordinary guided eligibility starts before personal handoff',()=>{const r=
 check('ordinary guided flow fails early on membership',()=>{const r=ans('ผมกู้สามัญได้ไหม');const x=app.continueDecision('5 เดือน',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});if(x.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected early fail')});
 check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พัฒนาคุณภาพชีวิตได้ไหม');if(r.flowId!=='quality_eligibility'||r.requiredFact!=='requestAmount')throw new Error('guided quality flow not started')});
 check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
-check('release marker',()=>{if(!html.includes('4.1.0-member-decision'))throw new Error('wrong release')});
+check('release marker',()=>{if(!html.includes('4.2.0-safe-calculator'))throw new Error('wrong release')});
 
 // Safe Calculator 4.2 gate: calculate only verified constraints/rates; never invent a monthly payment.
 for(const [q,expect] of [
@@ -47,11 +47,11 @@ for(const [q,expect] of [
  ['คำนวณกู้พัฒนาคุณภาพชีวิต 4000000 บาท 360 งวด','6.50%'],
  ['คำนวณกู้บ้าน 2000000 บาท 240 งวด','ดอกเบี้ยขั้นบันได']
 ]){
- const r=globalThis.COOP_APP.answer(q); const all=[r.answer,...(r.details||[])].join(' ');
+ const r=app.answer(q); const all=[r.answer,...(r.details||[])].join(' ');
  if(r.intent!=='loan_safe_calculator'||!all.includes(expect)||!/ยังไม่แสดง/.test(all)||!/ไม่อนุมานสูตรค่างวด/.test(all)) failures.push({q,group:'safe-calculator',intent:r.intent,all});
 }
 {
- const r=globalThis.COOP_APP.answer('คำนวณกู้สามัญ 2500000 บาท 120 งวด');
+ const r=app.answer('คำนวณกู้สามัญ 2500000 บาท 120 งวด');
  if(r.intent!=='loan_safe_calculator'||r.decision!=='NOT_YET_ELIGIBLE'||!/(เกินเพดาน)/.test((r.details||[]).join(' '))) failures.push({group:'safe-calculator-cap',r});
 }
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
