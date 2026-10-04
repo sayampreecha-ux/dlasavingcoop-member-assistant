@@ -119,5 +119,15 @@ for(const [q,expected,must] of freshnessCases){
  const r=globalThis.COOP_APP.answer(q);
  if(r.intent!==expected||(must&&!r.answer.includes(must))) failures.push({q,group:'rule-freshness',expected,actual:r.intent,answer:r.answer});
 }
+const spokenLoanCases=[
+ ['ฉุกเฉินเพิ่มวงเงินได้มั้ย','loan_emergency_repeat'],
+ ['เงินกู้ฉุกเฉินเพิ่มวงเงินได้ไหม','loan_emergency_repeat'],
+ ['ผ่อนฉุกเฉินมา 6 งวด ขอเพิ่มได้มั้ย','loan_emergency_repeat'],
+ ['กู้ฉุกเฉินซ้ำได้มั้ย','loan_need_installments']
+];
+for(const [q,expected] of spokenLoanCases){
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.intent!==expected) failures.push({q,group:'spoken-loan',expected,actual:r.intent,answer:r.answer});
+}
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
