@@ -1,6 +1,12 @@
 name: Update current member events
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/update-current-events.mjs'
+      - 'tests/current-events.mjs'
+      - '.github/workflows/update-current-events.yml'
   schedule:
     - cron: '10 0,6 * * *'
   workflow_dispatch:
