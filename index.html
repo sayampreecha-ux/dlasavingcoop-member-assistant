@@ -533,9 +533,31 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     });
   }
 
+  function compoundLoanAnswer(q){
+    const hasOrd=/สามัญ/.test(q), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
+    const hasDebt=/หนี้|ยอด|คงเหลือ|วงเงิน/.test(q), hasGuarantor=/ค้ำ|ผู้ค้ำ/.test(q), hasIncome=/เงินเดือน|เงินได้|เงินเหลือ|รายได้/.test(q);
+    const topics=[hasOrd,hasEmergency,hasQuality,hasDebt,hasGuarantor,hasIncome].filter(Boolean).length;
+    if(!/กู้|เงินกู้|สามัญ|ฉุกเฉิน|คุณภาพชีวิต/.test(q)||topics<2) return null;
+    const details=['ระบบแยกคำถามนี้เป็นหลายเงื่อนไขและตรวจทีละส่วน เพื่อไม่ให้คำตอบข้อหนึ่งกลบอีกข้อ'];
+    const actions=[],sources=[];
+    const add=(label,url,title=label)=>{if(url&&!actions.some(x=>x[1]===url)) actions.push([label,url]);if(url&&!sources.some(x=>x.url===url)) sources.push(src(title,url));};
+    if(hasOrd){details.push('เงินกู้สามัญ: ตรวจคุณสมบัติ วัตถุประสงค์ ภาระเดิม ผู้ค้ำ/หลักประกัน และเกณฑ์เงินได้คงเหลือตามหลักเกณฑ์ฉบับปัจจุบัน');add('📢 หลักเกณฑ์เงินกู้สามัญ',S.loanGeneralAnnouncement2569);}
+    if(hasEmergency){details.push('เงินกู้ฉุกเฉิน: ตรวจคุณสมบัติ วงเงิน/สัญญาเดิม และเงื่อนไขการกู้ซ้ำตามหลักเกณฑ์ฉบับปัจจุบัน');add('🚨 หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);}
+    if(hasQuality){details.push('พัฒนาคุณภาพชีวิต: ต้องแยกว่าเป็นโครงการ/สัญญาประเภทใด แล้วตรวจเงื่อนไขการชำระเดิม การหักกลบ และการยื่นกู้ประเภทใหม่');add('🧩 หลักเกณฑ์พัฒนาคุณภาพชีวิต',S.loanSpecialQualityAnnouncement);}
+    if(hasGuarantor) details.push('ผู้ค้ำ: ต้องตรวจภาระค้ำเดิมและข้อจำกัดของประเภทเงินกู้ที่ถาม ไม่สรุปจากจำนวนคนเพียงอย่างเดียว');
+    if(hasIncome) details.push('เงินได้คงเหลือ: ต้องใช้รายการเงินได้และรายการหักที่หลักเกณฑ์รับรอง แล้วเทียบกับเกณฑ์ที่มีผลในวันยื่น');
+    if(hasDebt) details.push('ยอดหนี้/วงเงินคงเหลือจริงเป็นข้อมูลเฉพาะสมาชิก ระบบอธิบายวิธีพิจารณาได้ แต่ไม่สร้างยอดหรือสิทธิส่วนบุคคลขึ้นเอง');
+    details.push('สรุปการตัดสินใจ: ส่วนที่เป็นกฎตอบจากหลักฐานทางการได้ทันที; ส่วนที่ขึ้นกับยอด/ประวัติสมาชิกต้องตรวจข้อมูลจริงก่อนจึงฟันธงได้');
+    actions.push(['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']);
+    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ จึงต้องพิจารณาร่วมกัน ไม่ควรตอบเพียง “ได้/ไม่ได้” จากเงื่อนไขเดียว',{details,actions,sources,followups:['เงินกู้สามัญ','กู้ฉุกเฉิน','เรื่องผู้ค้ำประกัน']});
+  }
+
   function answer(input){
     const q=norm(input);
     if(!q) return res('empty','พิมพ์คำถามได้เลย เช่น “สวัสดิการมีกี่แบบ” หรือ “ขอใบสมัครสมาชิก”',{status:'พร้อมตอบ'});
+
+    const compound=compoundLoanAnswer(q);
+    if(compound) return compound;
 
     // Member Intelligence Layer: real member-language scenarios.
     // Numeric eligibility rules are never invented here; where current official evidence is not encoded,
