@@ -486,7 +486,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     return q;
   }
   function personal(q){
-    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้เพิ่มได้เท่าไร|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
+    return /\b\d{13}\b|(?:OTP|รหัสผ่าน|password)|(?:อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|เช็คหุ้น|ตรวจหุ้น)|(?:ผู้ค้ำ|คนค้ำ|ค้ำประกัน).*(?:ผม|ฉัน|ดิฉัน|หนู|เรา).*(?:ไม่ผ่าน|ถูกปฏิเสธ|ติดอะไร)|(?:ผม|ฉัน|ดิฉัน|หนู|เรา).*(?:ผู้ค้ำ|คนค้ำ).*(?:ไม่ผ่าน|ถูกปฏิเสธ|ติดอะไร)|(?:หนี้|ยอดหนี้|หนี้คงเหลือ).*?(?:\d+|ล้าน|แสน).*?(?:กู้เพิ่ม|ขอเพิ่ม|เพิ่มอีก)|(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|ยอดเงินฝาก|เงินฝาก|ผลอนุมัติ|วงเงินคงเหลือ|กู้เพิ่มได้ไหม|กู้เพิ่มได้เท่าไร|กู้ได้เท่าไร|กู้ได้ไหม|ปันผล|เฉลี่ยคืน).*(?:ผม|ฉัน|ดิฉัน|หนู|ของผม|ของฉัน|ของหนู|เหลือเท่าไหร่|เหลือเท่าไร)|(?:ผม|ฉัน|ดิฉัน|หนู).*(?:ยอดหนี้|หนี้|หุ้น|เงินฝาก|ผลอนุมัติ|สถานะกู้|กู้เพิ่ม|กู้ได้|ปันผล|เฉลี่ยคืน)/i.test(q);
   }
   function editDistance(a='',b=''){
     const x=[...a],y=[...b],dp=Array(y.length+1).fill(0).map((_,j)=>j);
@@ -561,7 +561,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       yes:n=>'ผ่านเงื่อนไขจำนวนงวดครับ — สัญญาสามัญเดิมชำระแล้ว '+n+' งวด ครบอย่างน้อย 12 งวดสำหรับยื่นสัญญาใหม่ โดยสัญญาใหม่ต้องหักกลบสัญญาสามัญเดิม และยังต้องผ่านเงื่อนไขอื่น',
       no:n=>'ยังไม่ครบเงื่อนไขจำนวนงวดครับ — สัญญาสามัญเดิมชำระ '+n+' งวด แต่ต้องไม่น้อยกว่า 12 งวดก่อนยื่นสัญญาใหม่',
       source:()=>S.loanGeneralAnnouncement2569,sourceTitle:'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569'},
-    {answerClass:ANSWER_CLASS.RULE,id:'education_repeat',match:q=>/(?:กู้.*การศึกษา|เพื่อการศึกษา)/.test(q)&&/(?:กู้เพิ่ม|ยื่นใหม่|อีกสัญญา|ลูก.*(?:คนที่|อีกคน)|อีกคน)/.test(q),fact:'installments',ask:'สัญญากู้เพื่อการศึกษาเดิมชำระแล้วกี่งวดครับ?',chips:['3 งวด','6 งวด','12 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=6,
+    {answerClass:ANSWER_CLASS.RULE,id:'education_repeat',match:q=>/(?:กู้.*การศึกษา|เพื่อการศึกษา|การศึกษา.*(?:ส่ง|ชำระ|งวด|เดือน))/.test(q)&&/(?:กู้เพิ่ม|ยื่นใหม่|อีกสัญญา|ลูก.*(?:คนที่|อีกคน)|อีกคน|ยื่น)/.test(q),fact:'installments',ask:'สัญญากู้เพื่อการศึกษาเดิมชำระแล้วกี่งวดครับ?',chips:['3 งวด','6 งวด','12 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=6,
       yes:n=>'ผ่านเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระแล้ว '+n+' งวด ครบอย่างน้อย 6 งวดสำหรับยื่นคำขอใหม่ แต่ยังต้องตรวจคุณสมบัติและวงเงินตามหลักเกณฑ์',
       no:n=>'ยังไม่ครบเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระ '+n+' งวด แต่ต้องไม่น้อยกว่า 6 งวดก่อนยื่นคำขอใหม่',
       source:()=>S.educationLoan,sourceTitle:'หลักเกณฑ์เงินกู้เพื่อการศึกษา'},
@@ -620,7 +620,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(hasIncome) followups.push('หลังหักรายการประจำแล้ว เงินได้คงเหลือต่อเดือนประมาณเท่าไร');
     if(hasGuarantor) followups.push('ผู้ค้ำรายนี้มีภาระค้ำเงินกู้อื่นอยู่หรือไม่');
     details.push('วิธีใช้งาน: ตอบคำถามต่อด้านบนได้เลย ระบบจะใช้คำตอบเพื่อไล่เงื่อนไขต่อ ไม่จำเป็นต้องเปิดเอกสารเอง; เอกสารด้านล่างมีไว้ตรวจสอบที่มา');
-    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ ระบบตรวจทุกเงื่อนไขที่ยืนยันได้พร้อมกัน และจะไม่ใช้ผลผ่านเพียงข้อเดียวสรุปสิทธิทั้งคำขอ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ผ่านบางเงื่อนไข — ยังมีกฎที่ต้องยืนยัน':'ต้องการข้อมูลเพิ่ม',details,actions,sources,followups:followups.length?followups:['เงินกู้สามัญ','กู้ฉุกเฉิน'],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
+    return res('loan_compound_reasoning',anyFail?'ยังยื่นกู้ใหม่ไม่ได้จากเงื่อนไขที่ตรวจพบครับ — มีอย่างน้อยหนึ่งเงื่อนไขที่ยังไม่ผ่าน ดูรายละเอียดด้านล่าง':anyUnverified?'ยังตอบว่า “กู้ได้” ไม่ได้ครับ — เงื่อนไขที่ยืนยันแล้วตรวจให้ได้ แต่ยังขาดกฎปัจจุบันที่ยืนยันผลของเงินกู้พัฒนาคุณภาพชีวิตต่อการกู้สามัญใหม่ จึงไม่เดาคำตอบ หากต้องการผลกรณีของตนเองให้ติดต่อเจ้าหน้าที่งานเงินกู้':'ยังฟันธงไม่ได้ครับ — ต้องมีข้อมูลสมาชิกเพิ่มเพื่อประเมินเงื่อนไขที่เหลือ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ยังยืนยันสิทธิไม่ได้ — ติดต่อเจ้าหน้าที่ได้ทันที':'ต้องการข้อมูลเพิ่ม',details,actions:[...actions,['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources,followups:followups.length?followups:[],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
   }
 
   function answer(input){
@@ -632,6 +632,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(/(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม).*(?:เงินเหลือ|รายได้คงเหลือ|กู้สามัญ)|(?:เงินเหลือ|รายได้คงเหลือ).*(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม)/i.test(q)){
       return res('loan_ordinary_legacy_balance','สำหรับหลักเกณฑ์เดิมที่สหกรณ์ยืนยันว่าใช้ถึง 30 มิถุนายน 2569 รายได้คงเหลือใช้เกณฑ์ 5,000 บาทครับ แต่ไม่ควรนำตัวเลขนี้ไปใช้ตัดสินคำขอหลังวันดังกล่าว',{details:['นี่เป็นกฎที่มีช่วงเวลาบังคับใช้ชัดเจน จึงแยกออกจากหลักเกณฑ์ปัจจุบัน','ถ้าจะยื่นกู้ปัจจุบัน ระบบต้องใช้หลักเกณฑ์ปี 2569 ฉบับที่มีผล ณ วันยื่น ไม่ใช้เกณฑ์เดิม'],actions:[['📢 หลักเกณฑ์เงินกู้สามัญปัจจุบัน',S.loanGeneralAnnouncement2569]],sources:[src('คำตอบทางการ สอ.อปท. เรื่องหลักเกณฑ์กู้สามัญเดิม','https://dlasavingcoop.com/board_content.php?No=41045'),src('หน้ารวมหลักเกณฑ์เงินกู้สามัญ',S.ordinaryLoanForms)],confidence:'ยืนยันเฉพาะช่วงถึง 30 มิถุนายน 2569; ห้ามใช้แทนเกณฑ์ปัจจุบัน'});
     }
+
+    // Personal debt/top-up without a named loan type depends on the member's real account data.
+    if(/(?:หนี้|ยอดหนี้|หนี้คงเหลือ).*?(?:\d+|ล้าน|แสน).*?(?:กู้เพิ่ม|ขอเพิ่ม|เพิ่มอีก)/i.test(q)&&!/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)) return handoff(q);
 
     // Multi-condition gate: never let one passing rule become a whole-answer decision.
     const compoundFirst=compoundLoanAnswer(q);
@@ -727,6 +730,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
         actions:[['📄 แบบเปลี่ยนอัตราหุ้น/แบบสมาชิก',S.memberForms],['📘 ระเบียบว่าด้วยหุ้น',S.procedure],['☎️ งานทะเบียน 083-929-2739','tel:0839292739']],
         sources:[src('แบบฟอร์มสมาชิก',S.memberForms),src('ระเบียบ/ข้อบังคับสหกรณ์',S.procedure)]
       });
+      if(/(?:ลาออก|ออกจากสหกรณ์).*(?:วันนี้|ทันที|เลย|หุ้นคืน|ได้เงิน)|(?:หุ้นคืน|ได้เงินหุ้นคืน).*(?:ลาออก|ออกจากสหกรณ์)/i.test(q)) return res('resignation','การลาออกและการคืนหุ้นไม่ควรสรุปว่าได้เงินคืนทันทีครับ ต้องตรวจหนี้ ภาระค้ำ และภาระผูกพันก่อน แล้วดำเนินการตามขั้นตอนพ้นสมาชิกภาพ',{answerClass:ANSWER_CLASS.PROCEDURE,details:['ยื่นความจำนงลาออกเป็นหนังสือ','ตรวจหนี้/หุ้น/ภาระค้ำและภาระผูกพันกับสหกรณ์','รอการพิจารณาและการดำเนินการคืนสิทธิตามขั้นตอน'],actions:[['📘 การสิ้นสุดสมาชิกภาพ','https://www.dlasavingcoop.com/show.php?Category=member_end'],['☎️ งานทะเบียน 083-929-2739','tel:0839292739']],sources:[src('การสิ้นสุดสมาชิกภาพ','https://www.dlasavingcoop.com/show.php?Category=member_end')]});
       if(/ถอนหุ้น|คืนหุ้น|ได้เงินหุ้นคืน|ลาออก.*หุ้น|หุ้น.*ลาออก/i.test(q)) return res('share_refund','การถอน/คืนทุนเรือนหุ้นต้องดูเหตุและสถานะสมาชิกตามข้อบังคับและระเบียบหุ้น ไม่ควรสรุปว่า “ถอนได้ทันที” โดยไม่ตรวจเงื่อนไขครับ',{
         details:['กรณีลาออก พ้นสมาชิกภาพ หรือเสียชีวิต มีขั้นตอนและภาระผูกพันที่ต้องตรวจ เช่น หนี้/การค้ำประกัน/สิทธิผู้รับโอนประโยชน์'],
         actions:[['📘 ข้อบังคับ/ระเบียบหุ้น',S.procedure],['📄 แบบฟอร์มสมาชิก/ลาออก',S.memberForms],['☎️ งานทะเบียน 083-929-2739','tel:0839292739']],
@@ -1166,7 +1170,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       details:['อัตราดอกเบี้ยเป็นข้อมูลที่เปลี่ยนได้ จึงไม่ฝังตัวเลขเก่าในระบบนี้ ให้ตรวจประกาศ/หน้าเงินฝากปัจจุบันก่อนทำรายการ'],actions:[['แบบฟอร์มเงินฝาก',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('แบบฟอร์มเงินฝาก',S.depositForms),src('คำแนะนำงานเงินฝาก',S.depositGuide)]
     });
 
-    if(/(?:ปันผล.*เฉลี่ยคืน|เฉลี่ยคืน.*ปันผล)/i.test(q)&&/(?:ต่าง|คืออะไร|หมายถึง|เหมือน)/i.test(q)) return res('dividend_knowledge','ปันผลกับเฉลี่ยคืนเป็นคนละฐานกันครับ — “ปันผล” เป็นผลตอบแทนที่สัมพันธ์กับทุนเรือนหุ้น ส่วน “เฉลี่ยคืน” เป็นการคืนประโยชน์แก่สมาชิกตามหลักเกณฑ์/ธุรกรรมที่สหกรณ์กำหนดในปีบัญชีนั้น อัตราจริงต้องยึดมติและประกาศประจำปี ไม่ควรนำอัตราปีก่อนมาตอบแทนปีปัจจุบัน',{answerClass:ANSWER_CLASS.KNOWLEDGE,status:'คำอธิบายหลักการ — อัตราจริงตรวจประกาศรายปี',details:['ถ้าถามว่า “ปีนี้กี่เปอร์เซ็นต์” ระบบจะเปลี่ยนไปใช้ข้อมูลประกาศปัจจุบัน','ถ้าถามว่า “ของฉันได้เท่าไร” ต้องใช้ข้อมูลเฉพาะสมาชิกและส่งต่อเจ้าหน้าที่'],actions:[['📣 ประกาศทางการ',S.notices]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices)]});
+    if(/(?:ปันผล.*เฉลี่ยคืน|เฉลี่ยคืน.*ปันผล)/i.test(q)&&/(?:ต่าง|คืออะไร|หมายถึง|เหมือน|อันเดียวกัน|เดียวกัน)/i.test(q)) return res('dividend_knowledge','ปันผลกับเฉลี่ยคืนเป็นคนละฐานกันครับ — “ปันผล” เป็นผลตอบแทนที่สัมพันธ์กับทุนเรือนหุ้น ส่วน “เฉลี่ยคืน” เป็นการคืนประโยชน์แก่สมาชิกตามหลักเกณฑ์/ธุรกรรมที่สหกรณ์กำหนดในปีบัญชีนั้น อัตราจริงต้องยึดมติและประกาศประจำปี ไม่ควรนำอัตราปีก่อนมาตอบแทนปีปัจจุบัน',{answerClass:ANSWER_CLASS.KNOWLEDGE,status:'คำอธิบายหลักการ — อัตราจริงตรวจประกาศรายปี',details:['ถ้าถามว่า “ปีนี้กี่เปอร์เซ็นต์” ระบบจะเปลี่ยนไปใช้ข้อมูลประกาศปัจจุบัน','ถ้าถามว่า “ของฉันได้เท่าไร” ต้องใช้ข้อมูลเฉพาะสมาชิกและส่งต่อเจ้าหน้าที่'],actions:[['📣 ประกาศทางการ',S.notices]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices)]});
     if(/ปันผล|เฉลี่ยคืน/i.test(q)) return res('dividend',`ประกาศปันผล/เฉลี่ยคืนที่ตรวจไว้ล่าสุด ณ ${KB.dividend.verifiedAt}: “${KB.dividend.title}” (${KB.dividend.noticeNo}, ${KB.dividend.published})`,{
       details:[KB.dividend.note,'หากใช้งานหลังวันที่ตรวจสอบ ให้เปิดหน้าประกาศทางการเพื่อตรวจว่ามีฉบับใหม่กว่าหรือไม่'],actions:[['เปิดหน้าประกาศล่าสุด',S.notices]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices)]
     });
@@ -1202,20 +1206,26 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='3.5.0-rule-master';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='3.5.1-no-silent-answer';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
   const value=String(text||'').trim();
   q.value=value;
-  let result;
-  if(continuation&&conversationState?.ruleId){
-    result=COOP_APP.smartDecision(value,conversationState);
-    if(!result) result=COOP_APP.answer(value);
-  }else result=COOP_APP.answer(value);
-  if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
-  else conversationState=null;
-  render(result);
+  try{
+    let result;
+    if(continuation&&conversationState?.ruleId){
+      result=COOP_APP.smartDecision(value,conversationState);
+      if(!result) result=COOP_APP.answer(value);
+    }else result=COOP_APP.answer(value);
+    if(!result) throw new Error('EMPTY_ANSWER');
+    if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
+    else conversationState=null;
+    render(result);
+  }catch(err){
+    conversationState=null;
+    render({status:'ตอบอัตโนมัติไม่ได้',answer:'ระบบไม่ควรเงียบครับ กรุณาติดต่อเจ้าหน้าที่เพื่อให้ได้คำตอบที่ถูกต้อง',details:['ระบบพบข้อผิดพลาดในการประมวลผลคำถามนี้และจะไม่เดาคำตอบ'],actions:[['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources:[]});
+  }
 }
 document.getElementById('form').onsubmit=e=>{e.preventDefault();ask(q.value)};
 document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>ask(b.dataset.q));
