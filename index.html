@@ -594,7 +594,10 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const facts={};
     let m;
     if(hasOrd && (m=q.match(/สามัญ[^\d]{0,28}(\d+)\s*(?:งวด|เดือน)/))) facts.ordinaryPaid=+m[1];
-    if(hasGuarantor && (m=q.match(/ค้ำ[^\d]{0,28}(\d+)\s*คน/))) facts.guarantorCount=+m[1];
+    if(hasGuarantor && (m=q.match(/ค้ำ[^\d]{0,28}(\d+)\s*คน/))) {
+      if(/ค้ำ(?:สามัญ)?(?:อยู่|ให้)|ค้ำ.*(?:คนแล้ว|อีกคน|เพิ่ม)/.test(q)) facts.existingGuaranteedBorrowers=+m[1];
+      else facts.guarantorCount=+m[1];
+    }
     if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
     if(hasShare && (m=q.match(/(?:ส่งหุ้น|ค่าหุ้น|หุ้น)[^\d]{0,18}(\d+)\s*(?:งวด|เดือน)/))) facts.sharePaid=+m[1];
     if(hasIncome && (m=q.match(/(?:เงินเดือนเหลือ|เงินเหลือ|รายได้คงเหลือ)[^\d]{0,12}([\d,]+)/))) facts.remainingIncome=+m[1].replace(/,/g,'');
@@ -616,6 +619,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const checks=[],details=['ระบบอ่านข้อมูลทั้งหมดในประโยคก่อน แล้วตรวจทุกเงื่อนไขที่เกี่ยวข้องร่วมกัน'];
     const add=(name,status,text)=>checks.push({name,status,text});
     if(hasOrd){
+      if(Number.isFinite(facts.existingGuaranteedBorrowers)) add('จำนวนผู้กู้ที่สมาชิกค้ำอยู่',facts.existingGuaranteedBorrowers<3?'PASS':'FAIL',facts.existingGuaranteedBorrowers+' คน; ผู้ค้ำ 1 คนค้ำผู้กู้พร้อมกันเกิน 3 คนไม่ได้');
       if(Number.isFinite(facts.ordinaryPaid)) add('จำนวนงวดสามัญเดิม',facts.ordinaryPaid>=12?'PASS':'FAIL',facts.ordinaryPaid+' งวด; เกณฑ์กู้ใหม่อย่างน้อย 12 งวด');
       if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=6?'PASS':'FAIL',facts.membershipMonths+' เดือน; เกณฑ์อย่างน้อย 6 เดือน');
       if(Number.isFinite(facts.sharePaid)) add('การส่งหุ้น',facts.sharePaid>=6?'PASS':'FAIL',facts.sharePaid+' งวด; เกณฑ์พื้นฐานอย่างน้อย 6 งวด');
