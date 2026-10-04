@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T02:43:50.458Z",
-  "lastCheckedAt": "2026-10-04T02:43:50.458Z",
+  "generatedAt": "2026-10-04T02:45:33.221Z",
+  "lastCheckedAt": "2026-10-04T02:45:33.221Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -43,15 +43,15 @@
       "expiresAt": "2026-11-08T17:00:00.000Z"
     },
     {
-      "id": "official-4691",
-      "title": "รายชื่อสมาชิกลงทะเบียนเข้าร่วมประชุมใหญ่สามัญประจำปีบัญชี 2568",
+      "id": "official-41854",
+      "title": "ปันผล เฉลี่ยคืน ปีนี้จ่ายเท่าไหร่คะ",
       "summary": "เปิดดูรายละเอียดจากประกาศทางการ",
-      "status": "notice",
-      "statusLabel": "ประกาศใหม่",
-      "priority": 95,
-      "url": "https://www.dlasavingcoop.com/show.php?No=4691",
-      "ask": "ประชุมใหญ่",
-      "source": "official-notice",
+      "status": "money",
+      "statusLabel": "เรื่องการเงิน",
+      "priority": 93,
+      "url": "https://www.dlasavingcoop.com/board_content.php?No=41854",
+      "ask": "ปันผลปี 69",
+      "source": "homepage",
       "publishedAt": null,
       "eventDate": null,
       "expiresAt": null
