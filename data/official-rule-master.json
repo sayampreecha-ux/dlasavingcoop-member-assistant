@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "productRelease": "4.0.0-smart-rule-master",
+  "productRelease": "4.1.0-member-decision",
   "verifiedAt": "2026-10-04",
   "policy": {
     "sourcePriority": [
@@ -13,7 +13,8 @@
       "ห้ามสร้างตัวเลขจากกระทู้สมาชิก",
       "กฎที่มีวันบังคับใช้ต้องตรวจ version ก่อนใช้",
       "กฎที่ยังไม่มีต้นฉบับยืนยันให้ตอบ UNVERIFIED_RULE",
-      "ข้อมูลยอด/สถานะเฉพาะสมาชิกให้ส่งเจ้าหน้าที่"
+      "ข้อมูลยอด/สถานะเฉพาะสมาชิกให้ส่งเจ้าหน้าที่",
+      "มีต้นฉบับทางการแต่ยังไม่ได้ถอด Rule: ห้ามตอบว่าไม่มีข้อมูล ให้ระบุว่าพบกฎและส่งต่อเฉพาะส่วนที่ยังต้องตรวจ"
     ]
   },
   "domains": {
@@ -178,6 +179,108 @@
       ],
       "cashOutMaxPercentOfRemainingEligibleAmount": 50,
       "noArrearsInstallments": 12
+    }
+  },
+  "decisionCoverage": {
+    "policy": "VERIFIED rules may decide; PARTIAL rules may decide only the verified condition; SOURCE_PRESENT rules must never invent thresholds.",
+    "loans": {
+      "ordinary": {
+        "status": "VERIFIED_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT",
+        "source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+      },
+      "emergency": {
+        "status": "VERIFIED_REPEAT_RULE",
+        "decisionMode": "GUIDED_REPEAT_ONLY",
+        "source": "https://www.dlasavingcoop.com/show.php?No=773"
+      },
+      "education": {
+        "status": "PARTIAL_VERIFIED",
+        "decisionMode": "GUIDED_REPEAT_ONLY",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "qualityOfLife": {
+        "status": "VERIFIED_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT",
+        "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+      },
+      "specialHousing": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+      },
+      "specialRedeemMortgage": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+      },
+      "disasterAssistance": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "guarantorDebtAssistance": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "vacation": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "shareDepositBacked": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      }
+    },
+    "welfare": {
+      "childbirth": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "marriage": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "religion": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "graduation": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "gratuity": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "memberDeath": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "familyDeath": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "disaster": {
+        "status": "CURRENT_RULE_INDEX_PRESENT",
+        "decisionMode": "RULE_DETAIL_EXTRACTION_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/show.php?No=775"
+      },
+      "childScholarship": {
+        "status": "ANNUAL_NOTICE",
+        "decisionMode": "FRESH_NOTICE_REQUIRED",
+        "source": "https://www.dlasavingcoop.com/list.php?Category=notice"
+      }
     }
   }
 }
