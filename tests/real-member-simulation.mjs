@@ -86,7 +86,7 @@ const cases=[
 ['ใหม่80','ผมกู้บ้านได้ไหม',r=>r.intent==='loan_special_housing_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
 ['ใหม่81','ผมกู้ฉุกเฉินได้ไหม',r=>r.intent==='loan_emergency_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
 ['ใหม่82','ผมกู้เพื่อการศึกษาได้ไหม',r=>r.intent==='loan_education_eligibility'&&r.decision==='NEED_RULE_EXTRACTION'&&r.intent!=='personal_handoff'],
-['ใหม่83','กู้ได้ไหม',r=>r.intent==='loan_need_type'&&Array.isArray(r.followups)&&r.followups.some(x=>/บ้าน/.test(x))&&r.followups.some(x=>/ภัยพิบัติ/.test(x))],
+['ใหม่83','กู้ได้ไหม',r=>r.intent==='loan_eligibility'&&Array.isArray(r.followups)&&r.followups.some(x=>/บ้าน/.test(x))&&r.followups.some(x=>/ภัยพิบัติ/.test(x))],
 ['ใหม่84','ผมกู้สามัญได้ไหม',r=>{let x=r,s={flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}};for(const v of ['8 เดือน','300,000 บาท','12 งวด','40,000 บาท','40,000 บาท','10,000 บาท','2 คน','120 งวด','50 ปี','ไม่มี','ไม่มี']){if(!x.requiredFact)break;x=app.continueDecision(v,s);s={flowId:x.flowId,requiredFact:x.requiredFact,facts:x.facts||{}}}return x.decision==='ELIGIBLE_CONDITION'&&/ผ่านเงื่อนไขหลัก/.test(x.status)}]
 ];
 let bad=0;for(const [name,q,assert] of cases){const r=app.answer(q);const ok=!!assert(r);if(!ok)bad++;console.log((ok?'PASS':'FAIL')+' | '+name+' | intent='+r.intent+' decision='+(r.decision||'-')+' status='+r.status);if(!ok)console.log('  answer='+r.answer+'\n  details='+(r.details||[]).join(' | '));}
