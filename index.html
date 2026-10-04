@@ -466,7 +466,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const confidence=opt.confidence||(sources.length?(dynamic?'ตรวจประกาศล่าสุดก่อนดำเนินการ':'มีแหล่งทางการประกอบ'):'หลักฐานยังไม่พอสำหรับฟันธง');
     if(!details.some(x=>/สถานะหลักฐาน/.test(String(x)))) details.push('สถานะหลักฐาน: '+confidence);
     const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
-    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence};
+    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,requiredFact:opt.requiredFact||null,decision:opt.decision||null};
   }
 
   function norm(s=''){
