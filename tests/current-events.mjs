@@ -19,6 +19,9 @@ for(const e of data.events||[]){
   if(urls.has(e.url)) errors.push('duplicate URL: '+e.url);
   urls.add(e.url);
   if(!e.ask) errors.push('missing internal ask route: '+e.id);
+  const currentThaiYear=new Date().getFullYear()+543;
+  const years=[...String(e.title||'').matchAll(/25\d{2}/g)].map(m=>Number(m[0]));
+  if(years.some(y=>y<currentThaiYear)) errors.push('prior-year headline must not be current: '+e.id);
   if(e.expiresAt){
     const d=new Date(e.expiresAt);
     if(Number.isNaN(d.getTime())) errors.push('invalid expiresAt: '+e.id);
