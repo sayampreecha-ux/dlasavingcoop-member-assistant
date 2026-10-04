@@ -78,5 +78,17 @@ for(const [q,expected] of compoundCases){
  if(r.intent!==expected||!/หลายเงื่อนไข/.test(d)||!(r.sources||[]).length) failures.push({q,expected,actual:r.intent,group:'compound-reasoning'});
 }
 
+const smartCases=[
+ ['มีหนี้สามัญและคุณภาพชีวิต เงินเดือนเหลือไม่มาก จะกู้ใหม่ได้ไหม',['OFFICIAL_EVIDENCE','ข้อมูลที่ยังขาด']],
+ ['สามัญใหม่ต้องใช้ผู้ค้ำและหักกลบคุณภาพชีวิตอย่างไร',['OFFICIAL_EVIDENCE','ข้อมูลที่ยังขาด']],
+ ['กู้สามัญ',['OFFICIAL_EVIDENCE','สถานะหลักฐาน']],
+ ['รอบอนุมัติฉุกเฉินวันไหน',['LIVE_OFFICIAL','สถานะหลักฐาน']]
+];
+for(const [q,[evidence,phrase]] of smartCases){
+ const r=globalThis.COOP_APP.answer(q);
+ const detail=(r.details||[]).join(' ');
+ if(r.evidence!==evidence||!detail.includes(phrase)||!r.confidence) failures.push({q,group:'smart-evidence',expectedEvidence:evidence,actualEvidence:r.evidence,confidence:r.confidence,detail});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
