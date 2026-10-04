@@ -633,6 +633,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       return res('loan_ordinary_legacy_balance','สำหรับหลักเกณฑ์เดิมที่สหกรณ์ยืนยันว่าใช้ถึง 30 มิถุนายน 2569 รายได้คงเหลือใช้เกณฑ์ 5,000 บาทครับ แต่ไม่ควรนำตัวเลขนี้ไปใช้ตัดสินคำขอหลังวันดังกล่าว',{details:['นี่เป็นกฎที่มีช่วงเวลาบังคับใช้ชัดเจน จึงแยกออกจากหลักเกณฑ์ปัจจุบัน','ถ้าจะยื่นกู้ปัจจุบัน ระบบต้องใช้หลักเกณฑ์ปี 2569 ฉบับที่มีผล ณ วันยื่น ไม่ใช้เกณฑ์เดิม'],actions:[['📢 หลักเกณฑ์เงินกู้สามัญปัจจุบัน',S.loanGeneralAnnouncement2569]],sources:[src('คำตอบทางการ สอ.อปท. เรื่องหลักเกณฑ์กู้สามัญเดิม','https://dlasavingcoop.com/board_content.php?No=41045'),src('หน้ารวมหลักเกณฑ์เงินกู้สามัญ',S.ordinaryLoanForms)],confidence:'ยืนยันเฉพาะช่วงถึง 30 มิถุนายน 2569; ห้ามใช้แทนเกณฑ์ปัจจุบัน'});
     }
 
+    // Personal debt/top-up without a named loan type depends on the member's real account data.
+    if(/(?:หนี้|ยอดหนี้|หนี้คงเหลือ).*?(?:\d+|ล้าน|แสน).*?(?:กู้เพิ่ม|ขอเพิ่ม|เพิ่มอีก)/i.test(q)&&!/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)) return handoff(q);
+
     // Multi-condition gate: never let one passing rule become a whole-answer decision.
     const compoundFirst=compoundLoanAnswer(q);
     if(compoundFirst) return compoundFirst;
