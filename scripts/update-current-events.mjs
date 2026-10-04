@@ -28,6 +28,8 @@ function resolveUrl(href,base){
   try{
     const u=new URL(href,base);
     if(!/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)) return null;
+    if(/board_(?:content|post)\.php/i.test(u.pathname)) return null;
+    if(!/(?:show|list)\.php$/i.test(u.pathname)) return null;
     u.protocol='https:';
     return u.toString();
   }catch{return null}
@@ -79,7 +81,9 @@ function eventMeta(title){
 }
 
 function parsePublishedNear(html,end){
-  const s=decode(html.slice(end,end+260));
+  const rowEnd=html.indexOf('</tr>',end);
+  const stop=rowEnd>0&&rowEnd-end<1600?rowEnd:end+800;
+  const s=decode(html.slice(end,stop));
   const m=s.match(/(20\d{2}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})/);
   return m ? new Date(m[1]+'T'+m[2]+'+07:00').toISOString() : null;
 }
