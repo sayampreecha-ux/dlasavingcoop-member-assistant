@@ -40,5 +40,19 @@ check('ordinary guided flow fails early on membership',()=>{const r=ans('ผม�
 check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พัฒนาคุณภาพชีวิตได้ไหม');if(r.flowId!=='quality_eligibility'||r.requiredFact!=='requestAmount')throw new Error('guided quality flow not started')});
 check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
 check('release marker',()=>{if(!html.includes('4.1.0-member-decision'))throw new Error('wrong release')});
+
+// Safe Calculator 4.2 gate: calculate only verified constraints/rates; never invent a monthly payment.
+for(const [q,expect] of [
+ ['คำนวณกู้สามัญ 800000 บาท 120 งวด','7.50%'],
+ ['คำนวณกู้พัฒนาคุณภาพชีวิต 4000000 บาท 360 งวด','6.50%'],
+ ['คำนวณกู้บ้าน 2000000 บาท 240 งวด','ดอกเบี้ยขั้นบันได']
+]){
+ const r=globalThis.COOP_APP.answer(q); const all=[r.answer,...(r.details||[])].join(' ');
+ if(r.intent!=='loan_safe_calculator'||!all.includes(expect)||!/ยังไม่แสดง/.test(all)||!/ไม่อนุมานสูตรค่างวด/.test(all)) failures.push({q,group:'safe-calculator',intent:r.intent,all});
+}
+{
+ const r=globalThis.COOP_APP.answer('คำนวณกู้สามัญ 2500000 บาท 120 งวด');
+ if(r.intent!=='loan_safe_calculator'||r.decision!=='NOT_YET_ELIGIBLE'||!/(เกินเพดาน)/.test((r.details||[]).join(' '))) failures.push({group:'safe-calculator-cap',r});
+}
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
