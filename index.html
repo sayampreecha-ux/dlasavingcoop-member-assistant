@@ -590,6 +590,13 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const topics=[hasOrd,hasEmergency,hasQuality,hasDebt,hasGuarantor,hasIncome].filter(Boolean).length;
     if(!/กู้|เงินกู้|สามัญ|ฉุกเฉิน|คุณภาพชีวิต/.test(q)||topics<2) return null;
     const details=['ระบบแยกคำถามนี้เป็นหลายเงื่อนไขและตรวจทีละส่วน เพื่อไม่ให้คำตอบข้อหนึ่งกลบอีกข้อ'];
+    const checks=[];
+    const ordinaryPaid=hasOrd?Number((q.match(/(?:สามัญ[^\d]{0,20})?(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN):NaN;
+    const guarantorCount=hasGuarantor?Number((q.match(/(?:ค้ำ[^\d]{0,20})?(\d+)\s*คน/)||[])[1]||NaN):NaN;
+    if(hasOrd&&Number.isFinite(ordinaryPaid)) checks.push({name:'จำนวนงวดสามัญเดิม',status:ordinaryPaid>=RULE_MASTER.rules.ordinary_repeat.minInstallments?'PASS':'FAIL',text:ordinaryPaid+' งวด'});
+    if(hasGuarantor&&Number.isFinite(guarantorCount)) checks.push({name:'จำนวนผู้กู้ที่ค้ำอยู่',status:guarantorCount<RULE_MASTER.rules.ordinary_guarantor_capacity.maxBorrowers?'PASS':'FAIL',text:guarantorCount+' คน'});
+    if(hasQuality&&hasOrd) checks.push({name:'ผลของสัญญาคุณภาพชีวิตต่อการกู้สามัญใหม่',status:'UNVERIFIED_RULE',text:'ต้องยืนยันต้นฉบับกฎข้ามประเภทปัจจุบัน'});
+    checks.forEach(x=>details.push((x.status==='PASS'?'✓':x.status==='FAIL'?'✗':'?')+' '+x.name+': '+x.text+' ['+x.status+']'));
     const actions=[],sources=[];
     const add=(label,url,title=label)=>{if(url&&!actions.some(x=>x[1]===url)) actions.push([label,url]);if(url&&!sources.some(x=>x.url===url)) sources.push(src(title,url));};
     if(hasOrd){details.push('เงินกู้สามัญ: ตรวจคุณสมบัติ วัตถุประสงค์ ภาระเดิม ผู้ค้ำ/หลักประกัน และเกณฑ์เงินได้คงเหลือตามหลักเกณฑ์ฉบับปัจจุบัน');add('📢 หลักเกณฑ์เงินกู้สามัญ',S.loanGeneralAnnouncement2569);}
@@ -603,14 +610,15 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(hasIncome) missing.push('เงินได้และรายการหักจริง');
     if(hasGuarantor) missing.push('ภาระค้ำของผู้ค้ำจริง');
     if(missing.length) details.push('ข้อมูลที่ยังขาดเพื่อฟันธงกรณีของสมาชิก: '+missing.join(' + '));
-    details.push('สรุปการตัดสินใจ: ส่วนที่เป็นกฎตอบจากหลักฐานทางการได้ทันที; ส่วนที่ขึ้นกับยอด/ประวัติสมาชิกต้องตรวจข้อมูลจริงก่อนจึงฟันธงได้');
+    const anyFail=checks.some(x=>x.status==='FAIL'), anyUnverified=checks.some(x=>x.status==='UNVERIFIED_RULE');
+    details.push(anyFail?'สรุปการตัดสินใจ: มีอย่างน้อยหนึ่งเงื่อนไขที่ยังไม่ผ่าน จึงยังสรุปว่าได้ไม่ได้':anyUnverified?'สรุปการตัดสินใจ: เงื่อนไขที่ยืนยันแล้วอาจผ่าน แต่ยังมีกฎสำคัญที่ต้องยืนยัน จึงห้ามสรุปว่า “กู้ได้”':'สรุปการตัดสินใจ: ส่วนที่เป็นกฎตอบจากหลักฐานทางการได้ทันที; ส่วนที่ขึ้นกับยอด/ประวัติสมาชิกต้องตรวจข้อมูลจริงก่อนจึงฟันธงได้');
     actions.push(['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']);
     const followups=[];
     if(hasDebt) followups.push('ยอดหนี้คงเหลือของแต่ละสัญญาประมาณเท่าไร');
     if(hasIncome) followups.push('หลังหักรายการประจำแล้ว เงินได้คงเหลือต่อเดือนประมาณเท่าไร');
     if(hasGuarantor) followups.push('ผู้ค้ำรายนี้มีภาระค้ำเงินกู้อื่นอยู่หรือไม่');
     details.push('วิธีใช้งาน: ตอบคำถามต่อด้านบนได้เลย ระบบจะใช้คำตอบเพื่อไล่เงื่อนไขต่อ ไม่จำเป็นต้องเปิดเอกสารเอง; เอกสารด้านล่างมีไว้ตรวจสอบที่มา');
-    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ ผมสรุปกฎที่เกี่ยวข้องให้แล้ว และจะถามเฉพาะข้อมูลที่ยังขาดเพื่อไปต่อจนได้ข้อสรุป โดยไม่ให้สมาชิกต้องอ่านระเบียบเอง',{details,actions,sources,followups:followups.length?followups:['เงินกู้สามัญ','กู้ฉุกเฉิน'],confidence:'วิเคราะห์กฎได้; ถ้าข้อมูลส่วนบุคคลครบจึงสรุปกรณีสมาชิกได้'});
+    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ ระบบตรวจทุกเงื่อนไขที่ยืนยันได้พร้อมกัน และจะไม่ใช้ผลผ่านเพียงข้อเดียวสรุปสิทธิทั้งคำขอ',{answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':anyUnverified?'UNVERIFIED_RULE':'NEED_INFO',status:anyFail?'ยังมีเงื่อนไขไม่ผ่าน':anyUnverified?'ผ่านบางเงื่อนไข — ยังมีกฎที่ต้องยืนยัน':'ต้องการข้อมูลเพิ่ม',details,actions,sources,followups:followups.length?followups:['เงินกู้สามัญ','กู้ฉุกเฉิน'],confidence:'ประเมินแบบหลายเงื่อนไข; ไม่ฟันธงเมื่อหลักฐานหรือข้อมูลยังไม่ครบ'});
   }
 
   function answer(input){
