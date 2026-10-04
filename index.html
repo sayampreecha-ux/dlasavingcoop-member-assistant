@@ -613,7 +613,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const multiFacts=Object.keys(facts).length>=2;
     const crossTypes=[hasOrd,hasEmergency,hasQuality].filter(Boolean).length>=2;
     const qualityWait=hasQuality&&hasOrd&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q);
-    const complex=(wantsLoan&&(multiFacts||crossTypes||hasArrear))||qualityWait;
+    const guaranteeCapacity=/ค้ำ(?:กู้)?สามัญ(?:อยู่|ให้)|ค้ำ.*(?:คนแล้ว|อีกคน|เพิ่ม)/.test(q)&&Number.isFinite(facts.existingGuaranteedBorrowers);
+    const complex=(wantsLoan&&(multiFacts||crossTypes||hasArrear||guaranteeCapacity))||qualityWait;
     if(!complex) return null;
 
     const checks=[],details=['ระบบอ่านข้อมูลทั้งหมดในประโยคก่อน แล้วตรวจทุกเงื่อนไขที่เกี่ยวข้องร่วมกัน'];
