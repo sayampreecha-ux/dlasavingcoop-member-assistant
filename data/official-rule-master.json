@@ -18,10 +18,14 @@
   },
   "domains": {
     "ordinaryLoan": {
-      "status": "PARTIAL_VERIFIED",
+      "status": "VERIFIED_CORE",
       "verified": [
-        "กู้ซ้ำ: สัญญาเดิมอย่างน้อย 12 งวด",
-        "ผู้ค้ำหนึ่งคนค้ำผู้กู้พร้อมกันไม่เกิน 3 คน"
+        "สมาชิกไม่น้อยกว่า 6 เดือน",
+        "กู้ซ้ำสามัญ: สัญญาเดิมอย่างน้อย 12 งวด และสัญญาใหม่หักกลบสัญญาสามัญเดิม",
+        "วงเงินเกิน 200,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือนและมีทุนเรือนหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "ผู้ค้ำหนึ่งคนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน",
+        "รายได้คงเหลือไม่น้อยกว่า 15% และไม่น้อยกว่า 6,000 บาทต่อเดือน",
+        "หากมีสัญญาฉุกเฉิน ATM สัญญาสามัญใหม่ต้องหักกลบตามหลักเกณฑ์; ห้ามเหมารวมฉุกเฉินทุกประเภท"
       ],
       "source": "https://www.dlasavingcoop.com/show.php?No=774"
     },
@@ -41,11 +45,13 @@
       "source": "https://www.dlasavingcoop.com/show.php?No=774"
     },
     "qualityOfLife": {
-      "status": "CURRENT_PROGRAM_NEEDS_RULE_EXTRACTION",
-      "source": "https://dlasavingcoop.com/show.php?No=4845",
-      "unresolved": [
-        "จำนวนงวดข้ามประเภท",
-        "การหักกลบกับสามัญ/ฉุกเฉิน"
+      "status": "VERIFIED_CORE",
+      "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing",
+      "verified": [
+        "กู้ได้ไม่เกิน 80% ของราคาประเมิน และไม่เกิน 5,000,000 บาท",
+        "ผ่อนไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "ถ้ามีสัญญาเงินกู้อื่น ต้องยินยอมให้หักกลบหนี้เดิมเมื่อได้รับอนุมัติให้เหลือสัญญาเดียว",
+        "หลังได้รับอนุมัติแล้วไม่สามารถกู้ประเภทอื่นได้อีก ยกเว้นเงินกู้ฉุกเฉิน"
       ]
     },
     "shares": {
@@ -100,8 +106,6 @@
       "sharePaymentMinInstallments": 6,
       "remainingIncomeMinPercent": 15,
       "remainingIncomeMinBaht": 6000,
-      "noExternalCreditorDebt": true,
-      "noArrearsMonths": 12,
       "maxAmountBaht": 2000000,
       "maxTermInstallments": 240,
       "maxAgeAtEnd": 75,
@@ -125,13 +129,13 @@
       ],
       "repeatOrdinaryMinInstallments": 12,
       "crossRefinance": [
-        "ordinary",
-        "emergency"
+        "ordinary_other",
+        "emergency_atm"
       ],
       "crossRefinanceExceptions": [
         "disaster_assistance",
         "guarantor_debt_assistance",
-        "funeral_special"
+        "special_housing"
       ],
       "guarantorBands": [
         {
@@ -149,7 +153,9 @@
           "minGuarantors": 3
         }
       ],
-      "guarantorMaxBorrowers": 3
+      "guarantorMaxBorrowers": 3,
+      "noBorrowerDebtWithOtherCooperatives": true,
+      "noArrearsInstallments": 12
     },
     "qualityOfLifeCurrent": {
       "status": "VERIFIED",
@@ -162,14 +168,16 @@
       "sharePaymentMinInstallmentsFor5m": 60,
       "remainingIncomeMinPercent": 15,
       "remainingIncomeMinBaht": 6000,
-      "noArrearsMonths": 12,
       "maxLtvPercent": 80,
       "maxAmountBaht": 5000000,
       "maxTermInstallments": 360,
       "maxAgeAtEnd": 75,
-      "refinanceAllOtherLoans": true,
-      "cannotCombineWithOtherLoanType": true,
-      "extraAboveEligibleMaxPercent": 50
+      "offsetAllExistingLoanContractsOnApproval": true,
+      "allowedOtherLoanTypesAfterApproval": [
+        "emergency"
+      ],
+      "cashOutMaxPercentOfRemainingEligibleAmount": 50,
+      "noArrearsInstallments": 12
     }
   }
 }
