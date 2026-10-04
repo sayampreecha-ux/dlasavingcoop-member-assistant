@@ -31,7 +31,7 @@ const cases=[
  ['กู้โดยใช้หุ้นตัวเอง','loan_share_secured'],['กู้เพื่อพักผ่อน','loan_vacation'],['ปิดยอดกู้','loan_close'],
  ['เปลี่ยนผู้ค้ำ','loan_change_guarantor'],['กู้ต้องค้ำกี่คน','loan_guarantor_count'],['ค้ำประกันได้กี่คน','guarantor_capacity'],
  ['กู้ได้ไหม','loan_eligibility'],['เงินกู้มีกี่แบบ','loan_all'],['เงินกู้สามัญ','loan_ordinary'],
- ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['รวมหนี้','loan_special'],['กู้น้ำท่วม','loan_disaster'],
+ ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้บ้าน','loan_special_housing'],['ซื้อบ้าน','loan_special_housing'],['สร้างบ้าน','loan_special_housing'],['ต่อเติมบ้าน','loan_special_housing'],['เคหะ','loan_special_housing'],['รีไฟแนนซ์บ้าน','loan_special_redeem'],['ไถ่ถอนจำนองบ้าน','loan_special_redeem'],['รวมหนี้','loan_special_quality'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['กู้น้ำท่วม','loan_disaster'],
 
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
  ['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],['ถอนเงินฝาก','deposit_withdraw'],['เงินฝาก','deposit'],
@@ -46,7 +46,7 @@ const workflow=new Set([
  'welfare_childbirth','scholarship','welfare_marriage','welfare_religion','welfare_graduation','welfare_gratuity',
  'welfare_member_death','welfare_all','welfare_family_death','welfare_disaster',
  'loan_share_secured','loan_vacation','loan_close','loan_change_guarantor','loan_guarantor_count','loan_eligibility',
- 'loan_all','loan_ordinary','loan_emergency','loan_special','loan_education','loan_disaster',
+ 'loan_all','loan_ordinary','loan_emergency','loan_special','loan_special_housing','loan_special_redeem','loan_special_quality','loan_guarantor_debt','loan_education','loan_disaster',
  'member_apply','transfer','resignation','deposit_open','deposit_add','deposit_withdraw','deposit','funeral','payment'
 ]);
 const needContact=new Set([...workflow,'welfare_contact','registration_contact','province_contact','contact','personal_handoff','dividend','status_center','insurance','retirement']);
@@ -103,7 +103,7 @@ for(const q of homeQueries){
 }
 
 const transactionCases=[
- ['ปิดหนี้','loan_close'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['กู้เพื่อพักผ่อน','loan_vacation'],['เงินกู้สามัญ','loan_ordinary'],['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],
+ ['ปิดหนี้','loan_close'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['กู้เพื่อพักผ่อน','loan_vacation'],['เงินกู้สามัญ','loan_ordinary'],['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้บ้าน','loan_special_housing'],['ไถ่ถอนจำนองบ้าน','loan_special_redeem'],['รวมหนี้','loan_special_quality'],
  ['เปิดบัญชีเงินฝาก','deposit_open'],['วิธีฝากเงิน','deposit_add'],['ถอนเงินฝาก','deposit_withdraw'],['ปิดบัญชีเงินฝาก','deposit_withdraw'],
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
  ['เพิ่งคลอดลูก ขอแบบอะไร','welfare_childbirth'],['ทุนเรียนลูก','scholarship'],['แม่เสียได้สวัสดิการไหม','welfare_family_death'],
@@ -131,7 +131,7 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.0.8-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='3.0.9-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
 const forbidden=['show.php?No=4650','17%282%29.jpg','4%2823%29.jpg','12%285%29.jpg','66%282%29.png','1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18','1l-WYt403pVZ0Rc6aWbFnIH5-BXkUisZ8','16sy_LWmvP5agwyTAkwXWjlpxsA0xK6JD','1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E','1enzqVcofpAbstQQQziZoOjrQtmTPgH32','Funeralsociety.pdf','777.jpg','pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
