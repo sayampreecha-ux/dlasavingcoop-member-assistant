@@ -129,5 +129,10 @@ for(const [q,expected] of spokenLoanCases){
  const r=globalThis.COOP_APP.answer(q);
  if(r.intent!==expected) failures.push({q,group:'spoken-loan',expected,actual:r.intent,answer:r.answer});
 }
+// UX contract: guided answers must be renderable with an inline free-text reply field.
+const pageSource=fs.readFileSync(path.join(root,'index.html'),'utf8');
+for(const token of ['follow-input','ตอบข้อมูลเพิ่มตรงนี้…','ตอบข้อมูลเพิ่มเติม']){
+ if(!pageSource.includes(token)) failures.push({group:'inline-followup-ui',missing:token});
+}
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
