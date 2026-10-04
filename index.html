@@ -461,9 +461,12 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       if(!details.some(x=>/ข้อมูลรายรอบ|ประกาศล่าสุด|วันที่ประกาศ/.test(String(x)))) details.push('ข้อมูลนี้อาจเปลี่ยนเป็นรายรอบ ให้ตรวจวันที่ประกาศ/สถานะล่าสุดจากหน้าเว็บทางการก่อนดำเนินการ');
     }
 
-    const dynamic=/^(status_center|insurance|retirement|org_rights|share_purchase|dividend)$/.test(intent);
-    const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':'ข้อมูลจากแหล่งทางการ');
-    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy};
+    const dynamic=/^(status_center|insurance|retirement|org_rights|share_purchase|dividend|live_schedule)$/.test(intent);
+    const evidence=sources.length?(dynamic?'LIVE_OFFICIAL':'OFFICIAL_EVIDENCE'):'LIMITED_EVIDENCE';
+    const confidence=opt.confidence||(sources.length?(dynamic?'ตรวจประกาศล่าสุดก่อนดำเนินการ':'มีแหล่งทางการประกอบ'):'หลักฐานยังไม่พอสำหรับฟันธง');
+    if(!details.some(x=>/สถานะหลักฐาน/.test(String(x)))) details.push('สถานะหลักฐาน: '+confidence);
+    const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
+    return {intent,answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence};
   }
 
   function norm(s=''){
@@ -547,9 +550,18 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(hasGuarantor) details.push('ผู้ค้ำ: ต้องตรวจภาระค้ำเดิมและข้อจำกัดของประเภทเงินกู้ที่ถาม ไม่สรุปจากจำนวนคนเพียงอย่างเดียว');
     if(hasIncome) details.push('เงินได้คงเหลือ: ต้องใช้รายการเงินได้และรายการหักที่หลักเกณฑ์รับรอง แล้วเทียบกับเกณฑ์ที่มีผลในวันยื่น');
     if(hasDebt) details.push('ยอดหนี้/วงเงินคงเหลือจริงเป็นข้อมูลเฉพาะสมาชิก ระบบอธิบายวิธีพิจารณาได้ แต่ไม่สร้างยอดหรือสิทธิส่วนบุคคลขึ้นเอง');
+    const missing=[];
+    if(hasDebt) missing.push('ยอดหนี้/ยอดคงเหลือจริง');
+    if(hasIncome) missing.push('เงินได้และรายการหักจริง');
+    if(hasGuarantor) missing.push('ภาระค้ำของผู้ค้ำจริง');
+    if(missing.length) details.push('ข้อมูลที่ยังขาดเพื่อฟันธงกรณีของสมาชิก: '+missing.join(' + '));
     details.push('สรุปการตัดสินใจ: ส่วนที่เป็นกฎตอบจากหลักฐานทางการได้ทันที; ส่วนที่ขึ้นกับยอด/ประวัติสมาชิกต้องตรวจข้อมูลจริงก่อนจึงฟันธงได้');
     actions.push(['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']);
-    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ จึงต้องพิจารณาร่วมกัน ไม่ควรตอบเพียง “ได้/ไม่ได้” จากเงื่อนไขเดียว',{details,actions,sources,followups:['เงินกู้สามัญ','กู้ฉุกเฉิน','เรื่องผู้ค้ำประกัน']});
+    const followups=[];
+    if(hasDebt) followups.push('ต้องเตรียมยอดหนี้อะไรบ้าง');
+    if(hasIncome) followups.push('เงินได้คงเหลือคิดอย่างไร');
+    if(hasGuarantor) followups.push('ผู้ค้ำต้องตรวจอะไรบ้าง');
+    return res('loan_compound_reasoning','คำถามนี้มีหลายเงื่อนไขครับ จึงต้องพิจารณาร่วมกัน ไม่ควรตอบเพียง “ได้/ไม่ได้” จากเงื่อนไขเดียว',{details,actions,sources,followups:followups.length?followups:['เงินกู้สามัญ','กู้ฉุกเฉิน'],confidence:'วิเคราะห์กฎได้; ต้องมีข้อมูลสมาชิกจริงก่อนฟันธงสิทธิส่วนบุคคล'});
   }
 
   function answer(input){
