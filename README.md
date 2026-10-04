@@ -22,8 +22,8 @@
 
 สถานะ: **FROZEN FOR PILOT**
 
-- Current Pilot version: `3.1.2-pilot-pages`
-- Pilot reference branches: `pilot/v3.1.2` (baseline), `pilot/v3.1.1` (logo asset patch)
+- Current Pilot version: `3.2.0-pilot-pages`
+- Pilot reference branches: `pilot/v3.2.0` (baseline), `pilot/v3.1.1` (logo asset patch)
 - ช่วง Pilot ให้แก้เฉพาะ:
   - ข้อมูลผิด/ลิงก์เสีย/ข้อมูลทางการเปลี่ยน
   - บั๊กที่ทำให้สมาชิกทำรายการไม่ได้
@@ -35,6 +35,7 @@
 - `pilot/v3.1.0` และ `pilot/v3.1.1` ใช้เป็น snapshot อ้างอิง ห้ามพัฒนา feature ต่อบน branch เหล่านี้
 
 ### Pilot hotfixes
+- v3.2.0: Auto Current Events — เพิ่ม “เรื่องสำคัญช่วงนี้” ตรวจเว็บทางการอัตโนมัติ + Freshness/Expiry Gate
 - v3.1.2: Clean cooperative emblem — ใช้ตราสหกรณ์เดี่ยวจริง ไม่มีข้อความ/พื้นหลังติดมา
 - v3.1.1: Logo rendering hotfix — ใช้โลโก้จริงแบบ inline เพื่อให้แสดงผลสม่ำเสมอบนมือถือและคอมพิวเตอร์
 
@@ -46,6 +47,23 @@
 - ขั้นตอน/รายละเอียดใช้ progressive disclosure
 - รักษา 8 บริการหลัก + 10 บริการเพิ่มเติม
 - คง Privacy Gate / Freshness Gate / Transaction Completion Contract
+
+## Auto Current Events
+
+ส่วน **🔔 เรื่องสำคัญช่วงนี้** อัปเดตอัตโนมัติจากเว็บไซต์ทางการของสหกรณ์
+
+- ต้นทาง: หน้าแรก `dlasavingcoop.com` และหน้า `Category=notice`
+- ตรวจอัตโนมัติวันละ 2 ครั้ง: ประมาณ 07:10 และ 13:10 น. เวลาไทย
+- แสดงหน้าแรกไม่เกิน 3 เรื่อง
+- คัดเฉพาะข่าวที่กระทบสิทธิ/ต้องดำเนินการ เช่น ยืนยันยอด ประชุมใหญ่ ปันผล ซื้อหุ้นเพิ่ม เรียกเก็บ ประกัน และเอกสารสำคัญ
+- ใช้เฉพาะ URL โดเมนทางการ `dlasavingcoop.com`
+- ข่าวที่มี deadline/event date จะหมดอายุอัตโนมัติ
+- ข่าวที่ไม่มี deadline จะไม่ค้างหน้าแรกเกิน 30 วันจากวันที่เผยแพร่
+- ถ้าแหล่งทางการทั้งสองจุดเปิดไม่ได้ ระบบจะคงข้อมูลเดิมไว้ ไม่เขียนข้อมูลว่างทับ production
+- ก่อน sync production ต้องผ่าน `tests/current-events.mjs` และ `tests/regression.mjs`
+- ไฟล์ข้อมูล production: `data/current-events.json`
+- Updater: `scripts/update-current-events.mjs`
+- Workflow: `.github/workflows/update-current-events.yml`
 
 ## Member Service Coverage v3
 
