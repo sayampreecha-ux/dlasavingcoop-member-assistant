@@ -189,8 +189,10 @@ try{existing=JSON.parse(await fs.readFile(OUT,'utf8'))}catch{}
 
 const sourceHealth={homepage:'error',notices:'error'};
 let found=[];
+let homepageHtml='';
 try{
   const h=await fetchText(HOME);
+  homepageHtml=h;
   sourceHealth.homepage='ok';
   found.push(...anchors(h,HOME,'homepage'));
 }catch(e){console.error('homepage:',e.message)}
@@ -222,10 +224,11 @@ const active=enriched.filter(x=>{
   return true;
 });
 
-// Preserve the official confirmation banner if the site's HTML is image-heavy and the parser misses its text.
+// Preserve the official confirmation banner only when the current homepage still contains evidence of it.
 if(!active.some(x=>/ยืนยันยอด/.test(x.title))){
-  const old=(existing.events||[]).find(x=>x.id==='balance-confirmation-2569'||/ยืนยันยอด/.test(x.title));
-  if(old&&sourceHealth.homepage==='ok') active.push(old);
+  const homepageEvidence=/ยืนยันยอด|show\.php\?No=4910/i.test(decode(homepageHtml)) || /show\.php\?No=4910/i.test(homepageHtml);
+  const old=(existing.events||[]).find(x=>x.id==='official-4910'||x.id==='balance-confirmation-2569'||/ยืนยันยอด/.test(x.title));
+  if(old&&sourceHealth.homepage==='ok'&&homepageEvidence) active.push(old);
 }
 
 const top=active
