@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "productRelease": "3.5.0-rule-master",
+  "productRelease": "4.0.0-smart-rule-master",
   "verifiedAt": "2026-10-04",
   "policy": {
     "sourcePriority": [
@@ -89,6 +89,87 @@
         "ผลอนุมัติ",
         "เงินปันผลรายบุคคล"
       ]
+    }
+  },
+  "rules": {
+    "ordinaryLoanCurrent": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2026-10-01",
+      "source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing",
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "noExternalCreditorDebt": true,
+      "noArrearsMonths": 12,
+      "maxAmountBaht": 2000000,
+      "maxTermInstallments": 240,
+      "maxAgeAtEnd": 75,
+      "amountBands": [
+        {
+          "max": 200000,
+          "sharePaymentMinMonths": 6
+        },
+        {
+          "min": 200001,
+          "max": 500000,
+          "sharePaymentMinMonths": 12,
+          "minSharePercent": 10
+        },
+        {
+          "min": 500001,
+          "max": 2000000,
+          "sharePaymentMinMonths": 12,
+          "minSharePercent": 10
+        }
+      ],
+      "repeatOrdinaryMinInstallments": 12,
+      "crossRefinance": [
+        "ordinary",
+        "emergency"
+      ],
+      "crossRefinanceExceptions": [
+        "disaster_assistance",
+        "guarantor_debt_assistance",
+        "funeral_special"
+      ],
+      "guarantorBands": [
+        {
+          "max": 500000,
+          "minGuarantors": 1
+        },
+        {
+          "min": 500001,
+          "max": 1000000,
+          "minGuarantors": 2
+        },
+        {
+          "min": 1000001,
+          "max": 2000000,
+          "minGuarantors": 3
+        }
+      ],
+      "guarantorMaxBorrowers": 3
+    },
+    "qualityOfLifeCurrent": {
+      "status": "VERIFIED",
+      "effectiveFrom": "2026-10-01",
+      "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing",
+      "collateralType": "real_estate",
+      "membershipMinYearsFor3m": 3,
+      "sharePaymentMinInstallmentsFor3m": 36,
+      "membershipMinYearsFor5m": 5,
+      "sharePaymentMinInstallmentsFor5m": 60,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "noArrearsMonths": 12,
+      "maxLtvPercent": 80,
+      "maxAmountBaht": 5000000,
+      "maxTermInstallments": 360,
+      "maxAgeAtEnd": 75,
+      "refinanceAllOtherLoans": true,
+      "cannotCombineWithOtherLoanType": true,
+      "extraAboveEligibleMaxPercent": 50
     }
   }
 }
