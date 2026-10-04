@@ -588,6 +588,11 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
   function compoundLoanAnswer(q){
     const hasOrd=/สามัญ/.test(q), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
+    const directGuarantee=(q.match(/ค้ำ(?:กู้)?(?:สามัญ)?(?:อยู่|ให้)?\s*(\d+)\s*คน/)||[]);
+    if(hasOrd&&directGuarantee[1]&&/(?:ค้ำเพิ่ม|ค้ำอีก|อีกคน|เพิ่มได้ไหม)/.test(q)){
+      const n=+directGuarantee[1],ok=n<3;
+      return res('decision_ordinary_guarantor_capacity',ok?'ผ่านเงื่อนไขจำนวนภาระค้ำที่ตรวจได้ครับ — ปัจจุบันค้ำอยู่ '+n+' คน การค้ำเพิ่มอีก 1 คนยังไม่เกินเพดาน 3 คน':'ยังไม่ผ่านเงื่อนไขครับ — ปัจจุบันค้ำอยู่ '+n+' คนแล้ว จึงไม่สามารถค้ำผู้กู้เพิ่มเป็นคนที่ '+(n+1)+' ได้',{answerClass:ANSWER_CLASS.RULE,decision:ok?'ELIGIBLE_CONDITION':'NOT_YET_ELIGIBLE',status:ok?'ผ่านเงื่อนไขที่ตรวจได้':'ยังไม่ผ่านเงื่อนไขที่ตรวจได้',details:['ผู้ค้ำ 1 คนเป็นผู้ค้ำสำหรับผู้กู้ในเวลาเดียวกันเกินกว่า 3 คนไม่ได้'],sources:[src('หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',S.loanGeneralAnnouncement2569)]});
+    }
     const hasGuarantor=/ค้ำ|ผู้ค้ำ/.test(q), hasIncome=/เงินเดือน|เงินได้|เงินเหลือ|รายได้/.test(q);
     const hasMembership=/สมาชิก/.test(q), hasShare=/ส่งหุ้น|ค่าหุ้น|หุ้น/.test(q), hasArrear=/ค้างชำระ|ค้าง/.test(q);
     const wantsLoan=/กู้|ยื่น|ขอ/.test(q);
