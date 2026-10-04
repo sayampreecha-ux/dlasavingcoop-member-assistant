@@ -101,7 +101,7 @@
     </div>
     <div class="staffcard"><strong>⚱️ งานสมาคมฌาปนกิจสงเคราะห์</strong>
       <a href="tel:0836155533">น.ส.ณัฐชา แสนสุขสันติ 083-615-5533</a>
-      <a href="https://dlasavingcoop.com/show.php?No=4650" target="_blank" rel="noopener">รวมเรื่องฌาปนกิจทางการ</a>
+      <a href="https://www.dlasavingcoop.com/show.php?No=3977" target="_blank" rel="noopener">สมัคร/ข้อมูลฌาปนกิจทางการ</a>
     </div>
   </div>
   <small class="staffwarn">ข้อมูลรายชื่อ/เบอร์อาจมีการเปลี่ยนแปลง หากโทรไม่ติดให้ใช้ “หน้าติดต่อทางการ” หรือโทรศัพท์กลาง</small>
@@ -113,7 +113,7 @@
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'3.0.7-pages',
+    version:'3.0.8-pages',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
@@ -132,7 +132,6 @@
       welfareDisaster:'https://www.dlasavingcoop.com/show.php?No=775',
       depositForms:'https://www.dlasavingcoop.com/show.php?No=807',
       specialLoanForms:'https://www.dlasavingcoop.com/show.php?No=2385',
-      funeralHub:'https://dlasavingcoop.com/show.php?No=4650',
       funeralApply:'https://www.dlasavingcoop.com/show.php?No=3977',
       funeralApproval:'https://www.dlasavingcoop.com/show.php?No=4241',
       funeralRules:'https://www.dlasavingcoop.com/show.php?No=4401',
@@ -167,7 +166,7 @@
       depositGuide:'https://dlasavingcoop.com/show.php?No=2959'
     },
     sourceRegistry:{
-      verifiedAt:'3 ต.ค. 2569',
+      verifiedAt:'4 ต.ค. 2569',
       authorityOrder:['ข้อบังคับ/ระเบียบปัจจุบัน','ประกาศ/หลักเกณฑ์ล่าสุด','แบบฟอร์มทางการ','ผลอนุมัติ/ประกาศรายรอบ','หน้าติดต่อปัจจุบัน'],
       sources:{
         procedure:{url:'https://www.dlasavingcoop.com/show.php?Category=procedure',type:'RULE_INDEX',freshness:'VERSIONED'},
@@ -656,10 +655,11 @@
         ],
         actions:[
           ['☎️ แจ้งเจ้าหน้าที่ฌาปนกิจ 083-615-5533','tel:0836155533'],
-          ['🕯 ขั้นตอนขอรับเงินสงเคราะห์ (หน้ารวมทางการ)',S.funeralHub],
-          ['📘 ข้อบังคับสมาคม',S.funeralRules]
+          ['📘 ข้อบังคับสมาคม',S.funeralRules],
+          ['🌐 หน้าสมัคร/ข้อมูลสมาคม',S.funeralApply],
+          ['🌐 หน้าติดต่อทางการ',S.contact]
         ],
-        sources:[src('รวมเรื่องสมาคมฌาปนกิจสงเคราะห์สมาชิก',S.funeralHub),src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules)]
+        sources:[src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules),src('หน้าสมัคร/ข้อมูลสมาคม',S.funeralApply),src('หน้าติดต่อทางการ',S.contact)]
       });
 
       if(isRule) return res('funeral','ข้อบังคับสมาคมฌาปนกิจสงเคราะห์ให้เปิดจากหน้าข้อบังคับทางการครับ',{
@@ -691,8 +691,7 @@
         sources:[
           src('สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApply),
           src('ผลการอนุมัติสมาชิกสมาคมฌาปนกิจสงเคราะห์',S.funeralApproval),
-          src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules),
-          src('รวมเรื่องสมาคมฌาปนกิจ',S.funeralHub)
+          src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules)
         ]
       });
     }
