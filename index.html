@@ -593,8 +593,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(hasOrd&&hasGuarantor&&!hasEmergency&&!hasQuality&&!hasDebt&&!hasIncome&&!/(?:ส่ง|ชำระ).*\d+\s*(?:งวด|เดือน)|(?:กู้|ยื่น).*ใหม่/.test(q)) return null;
     const details=['ระบบแยกคำถามนี้เป็นหลายเงื่อนไขและตรวจทีละส่วน เพื่อไม่ให้คำตอบข้อหนึ่งกลบอีกข้อ'];
     const checks=[];
-    const ordinaryPaid=hasOrd?Number((q.match(/(?:สามัญ[^\d]{0,20})?(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN):NaN;
-    const guarantorCount=hasGuarantor?Number((q.match(/(?:ค้ำ[^\d]{0,20})?(\d+)\s*คน/)||[])[1]||NaN):NaN;
+    const ordinaryPaid=hasOrd?Number((q.match(/สามัญ[^\d]{0,24}(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN):NaN;
+    const guarantorCount=hasGuarantor?Number((q.match(/ค้ำ[^\d]{0,24}(\d+)\s*คน/)||[])[1]||NaN):NaN;
     if(hasOrd&&Number.isFinite(ordinaryPaid)) checks.push({name:'จำนวนงวดสามัญเดิม',status:ordinaryPaid>=RULE_MASTER.rules.ordinary_repeat.minInstallments?'PASS':'FAIL',text:ordinaryPaid+' งวด'});
     if(hasGuarantor&&Number.isFinite(guarantorCount)) checks.push({name:'จำนวนผู้กู้ที่ค้ำอยู่',status:guarantorCount<RULE_MASTER.rules.ordinary_guarantor_capacity.maxBorrowers?'PASS':'FAIL',text:guarantorCount+' คน'});
     if(hasQuality&&hasOrd) checks.push({name:'ผลของสัญญาคุณภาพชีวิตต่อการกู้สามัญใหม่',status:'UNVERIFIED_RULE',text:'ต้องยืนยันต้นฉบับกฎข้ามประเภทปัจจุบัน'});
