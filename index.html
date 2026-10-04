@@ -594,8 +594,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const facts={};
     let m;
     if(hasOrd && (m=q.match(/สามัญ[^\d]{0,28}(\d+)\s*(?:งวด|เดือน)/))) facts.ordinaryPaid=+m[1];
-    if(hasGuarantor && (m=q.match(/ค้ำ[^\d]{0,28}(\d+)\s*คน/))) {
-      if(/ค้ำ(?:สามัญ)?(?:อยู่|ให้)|ค้ำ.*(?:คนแล้ว|อีกคน|เพิ่ม)/.test(q)) facts.existingGuaranteedBorrowers=+m[1];
+    if(hasGuarantor && (m=q.match(/ค้ำ(?:กู้)?(?:สามัญ)?[^\d]{0,28}(\d+)\s*คน/))) {
+      if(/ค้ำ(?:กู้)?(?:สามัญ)?(?:อยู่|ให้)|ค้ำ.*(?:คนแล้ว|อีกคน|เพิ่ม)/.test(q)) facts.existingGuaranteedBorrowers=+m[1];
       else facts.guarantorCount=+m[1];
     }
     if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
