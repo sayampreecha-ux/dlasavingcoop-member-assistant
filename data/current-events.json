@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-10-04T02:20:00.000Z",
+  "lastCheckedAt": "2026-10-04T02:20:00.000Z",
+  "mode": "official-auto",
+  "sourceHealth": {
+    "homepage": "ok",
+    "notices": "ok"
+  },
+  "events": [
+    {
+      "id": "balance-confirmation-2569",
+      "title": "หนังสือยืนยันยอด ปี 2569",
+      "summary": "ตรวจสอบ → ติ๊กเลือก → ส่งคืน",
+      "status": "action",
+      "statusLabel": "ต้องดำเนินการ",
+      "priority": 100,
+      "url": "https://www.dlasavingcoop.com/show.php?No=4910",
+      "ask": "หนังสือยืนยันยอด 2569",
+      "source": "homepage-banner",
+      "publishedAt": null,
+      "eventDate": null,
+      "expiresAt": null
+    },
+    {
+      "id": "annual-meeting-2569",
+      "title": "ประชุมใหญ่สามัญ ประจำปีบัญชี 2569",
+      "summary": "8 พฤศจิกายน 2569 เวลา 08.00 น. โรงแรมเพชรรัตน์ จ.ร้อยเอ็ด",
+      "status": "notice",
+      "statusLabel": "ประกาศใหม่",
+      "priority": 95,
+      "url": "https://www.dlasavingcoop.com/show.php?No=4935",
+      "ask": "ประชุมใหญ่",
+      "source": "official-notice",
+      "publishedAt": "2026-10-03T18:54:11+07:00",
+      "eventDate": "2026-11-08",
+      "expiresAt": "2026-11-09T00:00:00+07:00"
+    }
+  ]
+}
