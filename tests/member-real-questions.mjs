@@ -66,5 +66,17 @@ for(const q of ['กู้การศึกษาเพิ่มได้ไห
  if(!hasEvidence||!hasInterpretation||!hasOfficialSource) failures.push({q,group:'verified-answer-gate',hasEvidence,hasInterpretation,hasOfficialSource});
 }
 
+const compoundCases=[
+ ['มีสามัญเดิมกับคุณภาพชีวิต ถ้าจะกู้สามัญใหม่ต้องปิดตัวไหน','loan_compound_reasoning'],
+ ['มีหนี้สามัญและคุณภาพชีวิต เงินเดือนเหลือไม่มาก จะกู้ใหม่ได้ไหม','loan_compound_reasoning'],
+ ['กู้ฉุกเฉินอยู่และมีหนี้สามัญ จะกู้เพิ่มได้ไหม','loan_compound_reasoning'],
+ ['สามัญใหม่ต้องใช้ผู้ค้ำและหักกลบคุณภาพชีวิตอย่างไร','loan_compound_reasoning']
+];
+for(const [q,expected] of compoundCases){
+ const r=globalThis.COOP_APP.answer(q);
+ const d=(r.details||[]).join(' ');
+ if(r.intent!==expected||!/หลายเงื่อนไข/.test(d)||!(r.sources||[]).length) failures.push({q,expected,actual:r.intent,group:'compound-reasoning'});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
