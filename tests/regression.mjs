@@ -96,6 +96,10 @@ for(const q of homeQueries){
   if(!html.includes('data-q="หุ้นและทุนเรือนหุ้น"')) failures.push({group:'shares-home'});
   if(!html.includes('data-q="วิธีชำระเงินสหกรณ์"')) failures.push({group:'payment-home'});
   if(!html.includes('data-q="ติดตามผลและสถานะเอกสาร"')) failures.push({group:'status-home'});
+  const welfare=globalThis.COOP_APP.answer('สวัสดิการมีกี่แบบ');
+  const wf=welfare.actions?.find(x=>x[1]==='#ask:ฌาปนกิจสงเคราะห์');
+  if(!wf) failures.push({group:'welfare-funeral-internal',actions:welfare.actions});
+  if(!html.includes("else if(/^#ask:/.test(u))")) failures.push({group:'internal-action-renderer'});
 }
 
 const transactionCases=[
@@ -127,7 +131,7 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.0.1-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='3.0.2-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
 const forbidden=['pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
