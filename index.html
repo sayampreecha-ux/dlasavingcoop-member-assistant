@@ -539,15 +539,15 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   // Smart Guided Decision Engine — verified rules have priority over generic/compound routing.
   const ANSWER_CLASS={RULE:'RULE_DECISION',PROCEDURE:'PROCEDURE',KNOWLEDGE:'KNOWLEDGE',DYNAMIC:'DYNAMIC',MEMBER:'MEMBER_DATA'};
   const DECISION_RULES=[
-    {answerClass:ANSWER_CLASS.RULE,id:'emergency_repeat',match:q=>/ฉุกเฉิน/.test(q)&&/(?:ซ้ำ|อีก|ใหม่|เพิ่ม|เพิ่มวงเงิน)/.test(q),fact:'installments',ask:'สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?',chips:['2 งวด','3 งวด','6 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=3,
+    {answerClass:ANSWER_CLASS.RULE,id:'emergency_repeat',match:q=>/ฉุกเฉิน/.test(q)&&/(?:ซ้ำ|อีก|ใหม่|เพิ่ม|เพิ่มวงเงิน|กู้(?:ฉุกเฉิน)?ใหม่)/.test(q),fact:'installments',ask:'สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?',chips:['2 งวด','3 งวด','6 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=3,
       yes:n=>'ได้ครับ — ชำระสัญญาฉุกเฉินเดิมแล้ว '+n+' งวด ผ่านเงื่อนไขอย่างน้อย 3 งวดสำหรับยื่นสัญญาใหม่ โดยสัญญาใหม่ต้องหักกลบหนี้ฉุกเฉินเดิม และยังต้องผ่านคุณสมบัติอื่นตามประกาศ',
       no:n=>'ยังไม่ได้ครับ — ชำระสัญญาฉุกเฉินเดิม '+n+' งวด ยังไม่ครบอย่างน้อย 3 งวดสำหรับยื่นสัญญาใหม่',
       source:()=>S.loanEmergencyAnnouncement,sourceTitle:'หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569'},
-    {answerClass:ANSWER_CLASS.RULE,id:'ordinary_repeat',match:q=>/สามัญ/.test(q)&&/(?:กู้ใหม่|กู้ซ้ำ|อีกสัญญา|ยื่นใหม่)/.test(q),fact:'installments',ask:'สัญญาเงินกู้สามัญเดิมชำระแล้วกี่งวดครับ?',chips:['6 งวด','12 งวด','15 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=12,
+    {answerClass:ANSWER_CLASS.RULE,id:'ordinary_repeat',match:q=>/สามัญ/.test(q)&&/(?:กู้(?:สามัญ)?ใหม่|กู้ซ้ำ|อีกสัญญา|ยื่นใหม่)/.test(q),fact:'installments',ask:'สัญญาเงินกู้สามัญเดิมชำระแล้วกี่งวดครับ?',chips:['6 งวด','12 งวด','15 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=12,
       yes:n=>'ผ่านเงื่อนไขจำนวนงวดครับ — สัญญาสามัญเดิมชำระแล้ว '+n+' งวด ครบอย่างน้อย 12 งวดสำหรับยื่นสัญญาใหม่ โดยสัญญาใหม่ต้องหักกลบสัญญาสามัญเดิม และยังต้องผ่านเงื่อนไขอื่น',
       no:n=>'ยังไม่ครบเงื่อนไขจำนวนงวดครับ — สัญญาสามัญเดิมชำระ '+n+' งวด แต่ต้องไม่น้อยกว่า 12 งวดก่อนยื่นสัญญาใหม่',
       source:()=>S.loanGeneralAnnouncement2569,sourceTitle:'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569'},
-    {answerClass:ANSWER_CLASS.RULE,id:'education_repeat',match:q=>/(?:กู้.*การศึกษา|เพื่อการศึกษา)/.test(q)&&/(?:กู้เพิ่ม|ยื่นใหม่|อีกสัญญา|ลูก.*(?:คนที่|อีกคน))/.test(q),fact:'installments',ask:'สัญญากู้เพื่อการศึกษาเดิมชำระแล้วกี่งวดครับ?',chips:['3 งวด','6 งวด','12 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=6,
+    {answerClass:ANSWER_CLASS.RULE,id:'education_repeat',match:q=>/(?:กู้.*การศึกษา|เพื่อการศึกษา)/.test(q)&&/(?:กู้เพิ่ม|ยื่นใหม่|อีกสัญญา|ลูก.*(?:คนที่|อีกคน)|อีกคน)/.test(q),fact:'installments',ask:'สัญญากู้เพื่อการศึกษาเดิมชำระแล้วกี่งวดครับ?',chips:['3 งวด','6 งวด','12 งวด'],extract:q=>Number((q.match(/(\d+)\s*(?:งวด|เดือน)/)||[])[1]||NaN),decide:n=>n>=6,
       yes:n=>'ผ่านเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระแล้ว '+n+' งวด ครบอย่างน้อย 6 งวดสำหรับยื่นคำขอใหม่ แต่ยังต้องตรวจคุณสมบัติและวงเงินตามหลักเกณฑ์',
       no:n=>'ยังไม่ครบเงื่อนไขจำนวนงวดครับ — สัญญากู้เพื่อการศึกษาเดิมชำระ '+n+' งวด แต่ต้องไม่น้อยกว่า 6 งวดก่อนยื่นคำขอใหม่',
       source:()=>S.educationLoan,sourceTitle:'หลักเกณฑ์เงินกู้เพื่อการศึกษา'},
