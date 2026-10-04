@@ -619,6 +619,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if((m=q.match(/ผ่อน[^\d]{0,8}(\d+)\s*(?:งวด|เดือน)/))) facts.term=+m[1];
     if(hasArrear && (m=q.match(/ค้าง(?:ชำระ)?[^\d]{0,16}(\d+)\s*(?:เดือน|งวด)(?:ก่อน|ที่ผ่านมา)?/))) facts.arrearMonthsAgo=+m[1];
 
+    const directOrdinaryRepeat=hasOrd&&Number.isFinite(facts.ordinaryPaid)&&Object.keys(facts).length===1&&!hasEmergency&&!hasQuality&&!hasGuarantor&&!hasIncome&&!hasMembership&&!hasShare&&!hasArrear;
+    if(directOrdinaryRepeat) return null;
     const hasFacts=Object.keys(facts).length>=1;
     const crossTypes=[hasOrd,hasEmergency,hasQuality].filter(Boolean).length>=2;
     const qualityWait=hasQuality&&hasOrd&&!applyingQuality&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q);
