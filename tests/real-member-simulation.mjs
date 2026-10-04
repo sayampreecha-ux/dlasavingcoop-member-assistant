@@ -28,7 +28,32 @@ const cases=[
 ['ยอดหนี้ส่วนตัว','ยอดหนี้ผมเหลือเท่าไร',r=>r.intent==='personal_handoff'],
 ['เงินฝากส่วนตัว','เงินฝากของผมเท่าไร',r=>r.intent==='personal_handoff'],
 ['ประกาศรายรอบ','รอบอนุมัติกู้ฉุกเฉินวันไหน',r=>r.intent==='live_schedule'],
-['release','เงินกู้มีกี่แบบ',r=>html.includes('3.5.1-no-silent-answer')]
+['release','เงินกู้มีกี่แบบ',r=>html.includes('3.5.1-no-silent-answer')],
+['โหด26','คุณภาพชีวิตส่ง 5 งวดแล้ว กู้สามัญได้ไหม',r=>r.answer?.length>20&&r.decision==='UNVERIFIED_RULE'],
+['โหด27','สามัญส่ง 12 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.answer?.length>20&&r.decision==='UNVERIFIED_RULE'],
+['โหด28','สามัญส่ง 8 งวด ค้ำอยู่ 3 คน มีคุณภาพชีวิต จะกู้ใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'],
+['โหด29','ฉุกเฉินส่ง 3 งวดแล้วขอใหม่ได้มั้ยครับ',r=>r.decision==='ELIGIBLE_CONDITION'],
+['โหด30','ฉุกเฉิน 2 งวด จะเอาใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'],
+['โหด31','สามัญ 12 เดือนแล้วจะยื่นใหม่',r=>r.decision==='ELIGIBLE_CONDITION'],
+['โหด32','สามัญส่ง 11 เดือนกู้ใหม่ได้ป่าว',r=>r.decision==='NOT_YET_ELIGIBLE'],
+['โหด33','การศึกษาส่ง 6 เดือน ลูกอีกคนกู้ได้ไหม',r=>r.decision==='ELIGIBLE_CONDITION'],
+['โหด34','การศึกษาส่ง 5 งวด ลูกอีกคนยื่นใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'],
+['โหด35','ค้ำสามัญอยู่2คน ขอค้ำอีกคน',r=>r.decision==='ELIGIBLE_CONDITION'],
+['โหด36','ค้ำสามัญอยู่3คน จะค้ำคนที่4',r=>r.decision==='NOT_YET_ELIGIBLE'],
+['โหด37','มีสามัญกับคุณภาพชีวิต จะกู้สามัญใหม่ต้องหักอะไร',r=>r.intent==='loan_compound_reasoning'&&r.decision==='UNVERIFIED_RULE'],
+['โหด38','คุณภาพชีวิต 10 งวดแล้ว กู้ฉุกเฉินได้ไหม',r=>r.answer?.length>20&&!/คุณภาพชีวิต.*ต้อง.*\d+.*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' '))],
+['โหด39','เงินเดือนเหลือ 6500 กู้สามัญผ่านไหม',r=>r.answer?.length>20&&!/ผ่านแน่นอน|ได้แน่นอน/.test(r.answer)],
+['โหด40','หนี้ล้านนึง จะกู้เพิ่มสองแสนได้ไหม',r=>r.intent==='personal_handoff'||r.decision==='NEED_INFO'],
+['โหด41','หุ้น 133000 หนี้ล้าน กู้เพิ่ม 2 แสนได้ไหม',r=>r.answer?.length>20],
+['โหด42','ฝาก150000 หุ้น50000 จะกู้2ล้านได้ไหม',r=>r.answer?.length>20],
+['โหด43','ฉุกเฉิน30000 อยากเพิ่มวงเงิน ส่ง3งวด',r=>r.answer?.length>20],
+['โหด44','ผู้ค้ำผมทำไมไม่ผ่าน',r=>r.intent==='personal_handoff'&&r.privacy],
+['โหด45','เช็คปิดบัตรเครดิตของผมถึงหรือยัง',r=>r.intent==='live_schedule'||r.intent==='personal_handoff'],
+['โหด46','ทุนบุตรประกาศผลเมื่อไหร่',r=>r.intent==='live_schedule'],
+['โหด47','ขอลาออกวันนี้ได้เงินหุ้นคืนเลยไหม',r=>r.answer?.length>20&&!/ได้ทันที/.test(r.answer)],
+['โหด48','ผมมีหนี้และค้ำคนอื่นอยู่ ลาออกได้ไหม',r=>r.answer?.length>20],
+['โหด49','ปันผลกับเฉลี่ยคืนมันอันเดียวกันปะ',r=>r.intent==='dividend_knowledge'],
+['โหด50','ปีนี้ปันผลผมได้เท่าไหร่ครับ',r=>r.intent==='personal_handoff'&&r.privacy]
 ];
 let bad=0;for(const [name,q,assert] of cases){const r=app.answer(q);const ok=!!assert(r);if(!ok)bad++;console.log((ok?'PASS':'FAIL')+' | '+name+' | intent='+r.intent+' decision='+(r.decision||'-')+' status='+r.status);if(!ok)console.log('  answer='+r.answer+'\n  details='+(r.details||[]).join(' | '));}
 console.log('REAL MEMBER SEMANTIC SIMULATION',cases.length-bad,'passed,',bad,'failed');if(bad)process.exit(1);
