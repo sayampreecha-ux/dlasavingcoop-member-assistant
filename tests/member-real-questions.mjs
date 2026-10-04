@@ -36,5 +36,25 @@ for(const [q,expected] of cases){
    if(!hasAuthority) failures.push({q,group:'missing-authority-action'});
  }
 }
+
+const conversational=[
+ ['กู้การศึกษาเพิ่มได้ไหม','loan_education_topup'],
+ ['ลูกคนที่สองกู้การศึกษาได้มั้ย','loan_education_topup'],
+ ['ค้ำคุณภาพชีวิตเพิ่มได้ไหม','guarantor_quality_capacity'],
+ ['เงินเหลือห้าพันกู้ได้มั้ย','loan_living_balance'],
+ ['สามัญกลบคุณภาพชีวิตไหม','loan_cross_offset'],
+ ['คุณภาพชีวิตส่งกี่งวดกู้สามัญได้','loan_cross_wait'],
+ ['คุณภาพชีวิตกี่งวดกู้ฉุกเฉินได้','loan_cross_wait'],
+ ['รอบอนุมัติฉุกเฉินวันไหน','live_schedule'],
+ ['เงินฉุกเฉินโอนวันไหน','live_schedule'],
+ ['ทุนบุตรประกาศเมื่อไหร่','live_schedule'],
+ ['เช็คบัตรเครดิตถึงหรือยัง','live_schedule'],
+ ['ผู้ค้ำผมไม่ผ่านเพราะอะไร','personal_handoff']
+];
+for(const [q,expected] of conversational){
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.intent!==expected) failures.push({q,expected,actual:r.intent,group:'conversational'});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
-console.log(JSON.stringify({ok:true,cases:cases.length},null,2));
+console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
