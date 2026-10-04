@@ -101,5 +101,15 @@ for(const [q,phrase] of guidedCases){
  if(!all.includes(phrase)) failures.push({q,group:'guided-until-resolved',phrase,intent:r.intent,all});
 }
 
+const zeroApiGuided=[
+ ['กู้ได้ไหม','loan_need_type','ประเภทเงินกู้'],
+ ['กู้ฉุกเฉินกู้ซ้ำได้ไหม','loan_need_installments','ชำระมาแล้วกี่งวด'],
+ ['คุณภาพชีวิตกู้ใหม่ได้ไหม','loan_need_installments','ชำระมาแล้วกี่งวด']
+];
+for(const [q,expected,phrase] of zeroApiGuided){
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.intent!==expected||![r.answer,...(r.details||[])].join(' ').includes(phrase)) failures.push({q,group:'zero-api-guided',expected,actual:r.intent});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
