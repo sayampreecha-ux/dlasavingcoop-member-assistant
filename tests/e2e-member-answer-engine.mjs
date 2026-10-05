@@ -76,5 +76,16 @@ check('rule master has 2569 loan evidence gates',()=>{
   if(e.extractionState.housing!=='PRIMARY_TEXT_EXTRACTION_PENDING') throw new Error('housing must remain evidence-locked');
   if(rm.decisionCoverage.loans.debtConsolidation.legacyAnswerPolicy!=='NEVER_AUTHORITY') throw new Error('legacy debt consolidation answer must never be authority');
 });
+
+check('primary 2569 ordinary and debt consolidation are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const o=rm.rules.ordinaryLoanCurrent, q=rm.rules.qualityOfLifeCurrent;
+ if(!o.primaryEvidenceVerified||o.maxAmountBaht!==2000000||o.realEstateCollateralMaxPercentOfAppraisal!==90) throw new Error('ordinary primary rules incomplete');
+ if(o.employeeGuarantorMinServiceYears!==3||o.guarantorReplacementDeadlineDays!==180) throw new Error('ordinary guarantor rules incomplete');
+ if(!q.primaryEvidenceVerified||q.maxAmountBaht!==5000000||q.maxLtvPercent!==80||q.maxTermInstallments!==360) throw new Error('debt consolidation primary rules incomplete');
+ if(q.membershipMinYearsFor3m!==3||q.sharePaymentMinInstallmentsFor3m!==36||q.membershipMinYearsFor5m!==5||q.sharePaymentMinInstallmentsFor5m!==60) throw new Error('debt consolidation membership bands incomplete');
+ if(q.cashOutMaxPercentOfRemainingEligibleAmount!==50||!q.buildingFireInsuranceRequired) throw new Error('debt consolidation collateral rules incomplete');
+ if(rm.decisionCoverage.loans.debtConsolidation.status!=='VERIFIED_CORE') throw new Error('debt consolidation not promoted');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
