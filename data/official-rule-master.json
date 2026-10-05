@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "productRelease": "4.2.0-safe-calculator",
+  "productRelease": "4.3.0-member-self-service",
   "verifiedAt": "2026-10-04",
   "policy": {
     "sourcePriority": [
@@ -88,13 +88,21 @@
       "source": "https://www.dlasavingcoop.com/list.php?Category=notice"
     },
     "memberSpecific": {
-      "status": "STAFF_REQUIRED",
+      "status": "MEMBER_SELF_SERVICE_FIRST",
+      "portal": "https://member.dlasavingcoop.com/coop/",
+      "policy": "Member account values/status should be checked by the member in the official member system first. AI must not request credentials or access the member account. Staff handoff is reserved for exceptions, disputed data, document review, or decisions requiring staff judgment.",
       "examples": [
         "ยอดหนี้",
         "ยอดหุ้น",
         "ยอดเงินฝาก",
-        "ผลอนุมัติ",
+        "ผลอนุมัติ/สถานะที่ระบบสมาชิกแสดง",
         "เงินปันผลรายบุคคล"
+      ],
+      "staffRequiredExamples": [
+        "เหตุผลที่ผู้ค้ำไม่ผ่าน",
+        "ข้อมูลไม่ตรง/ต้องแก้ไข",
+        "ขออนุโลม",
+        "กรณีต้องให้เจ้าหน้าที่วินิจฉัยหรือดำเนินการ"
       ]
     }
   },
