@@ -32,10 +32,15 @@
       "source": "https://www.dlasavingcoop.com/show.php?No=774"
     },
     "emergencyLoan": {
-      "status": "VERIFIED_CORE",
+      "status": "VERIFIED_PRIMARY",
       "verified": [
-        "กู้ซ้ำ: สัญญาเดิมอย่างน้อย 3 งวด",
-        "สัญญาใหม่หักกลบหนี้ฉุกเฉินเดิม"
+        "สมาชิกติดต่อกันไม่น้อยกว่า 6 เดือน",
+        "ส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด",
+        "เงินได้รายเดือนคงเหลือหลังชำระหุ้นและหนี้ทุกประเภทไม่น้อยกว่าร้อยละ 25 ตลอดอายุสัญญา โดยไม่นับสินเชื่อหมุนเวียน บัตรเครดิต และบัตรกดเงินสด",
+        "กู้ฉุกเฉินซ้ำต้องชำระหนี้ฉุกเฉินมาแล้วไม่น้อยกว่า 3 งวด",
+        "หนี้เงินกู้ประเภทอื่นต้องชำระมาแล้วไม่น้อยกว่า 6 งวด",
+        "กรณีมีสัญญาเงินกู้สามัญเพื่อปรับโครงสร้างหนี้ ต้องชำระมาแล้วไม่น้อยกว่า 12 งวด",
+        "ไม่มีภาระหนี้ในฐานะผู้กู้กับสหกรณ์อื่น"
       ],
       "source": "https://www.dlasavingcoop.com/show.php?No=773"
     },
@@ -489,6 +494,26 @@
       "buildingFireInsuranceRequired": true,
       "buildingFireInsuranceMinContinuousYears": 3,
       "primaryEvidenceVerified": true
+    },
+    "emergencyLoanCurrent": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-01-01",
+      "source": "https://drive.google.com/file/d/1GCashOZpSBBWCARoEZZAPyQ8Htj-Y9qz/view?usp=sharing",
+      "primaryEvidenceTitle": "หลักเกณฑ์ฯ เงินกู้เพื่อเหตุฉุกเฉิน แก้ไขเพิ่มเติม (ฉบับที่ 2) พ.ศ. 2568",
+      "announcementDate": "2025-11-17",
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "remainingIncomeMinPercent": 25,
+      "remainingIncomeExclusions": [
+        "revolving_credit",
+        "credit_card",
+        "cash_card"
+      ],
+      "salaryDeductionOrIndividualAgreementRequired": true,
+      "repeatEmergencyMinInstallments": 3,
+      "otherLoanMinInstallments": 6,
+      "restructuredOrdinaryMinInstallments": 12,
+      "noBorrowerDebtWithOtherCooperatives": true
     }
   },
   "decisionCoverage": {
@@ -500,10 +525,11 @@
         "source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
       },
       "emergency": {
-        "status": "VERIFIED_REPEAT_RULE",
+        "status": "VERIFIED_CORE",
         "decisionMode": "GUIDED_REPEAT_ONLY",
         "source": "https://www.dlasavingcoop.com/show.php?No=773",
-        "currentVersionEvidence": "หลักเกณฑ์ พ.ศ.2569"
+        "currentVersionEvidence": "หลักเกณฑ์ พ.ศ.2569",
+        "rule": "emergencyLoanCurrent"
       },
       "education": {
         "status": "PARTIAL_VERIFIED",
@@ -685,7 +711,7 @@
     },
     "extractionState": {
       "ordinary": "PRIMARY_PDF_VERIFIED_AND_CORE_ENCODED",
-      "emergency": "LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION; CURRENT_OFFICIAL_PAGE_VERIFIED; 2568_AMENDMENT_EFFECTIVE_2026-01-01_READ; FULL_2569_PRIMARY_TEXT_EXTRACTION_PENDING",
+      "emergency": "PRIMARY_EFFECTIVE_2026-01-01_VERIFIED_AND_ENCODED",
       "housing": "PRIMARY_AMENDMENT_NO3_VERIFIED; PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "redeemMortgage": "PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "debtConsolidation": "PRIMARY_PDF_LATEST_FULL_CRITERIA_VERIFIED_AND_ENCODED"
