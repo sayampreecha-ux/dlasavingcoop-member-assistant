@@ -30,6 +30,8 @@ jobs:
           const fs=require('fs');
           const c=JSON.parse(fs.readFileSync('data/cooperative-rule-coverage.json','utf8'));
           if(c.domains.length < 40) throw new Error('cooperative domain coverage incomplete');
+          if(!c.evidenceExpansion?.educationLoanForm || !c.evidenceExpansion?.disasterLoanForm || !c.evidenceExpansion?.funeralAssociationBylaws) throw new Error('new primary evidence registry incomplete');
+          if(c.evidenceExpansion.funeralAssociationBylaws.status.includes('VERIFIED_CURRENT')) throw new Error('funeral bylaws must remain version-locked until amendment check');
           const ids=new Set(c.domains.map(x=>x.id));
           for(const id of ['ordinaryLoan','emergencyLoan','specialLoan','shares','memberDeposits','memberWelfare','funeralAssociation','membership','resignation','debtRestructuring','debtCompromise','budget','generalMeeting','procurement','staff','itControl']){
             if(!ids.has(id)) throw new Error('missing cooperative domain '+id);

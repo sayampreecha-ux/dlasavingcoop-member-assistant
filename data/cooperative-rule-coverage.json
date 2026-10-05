@@ -16,7 +16,11 @@
     {
       "id": "shares",
       "name": "หุ้น",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "PRIMARY_SOURCE_FOUND_NEEDS_VERSION_CHECK",
+      "primarySources": [
+        "https://drive.google.com/file/d/19ra7Xhzut0Hn734mQSuJT9_6jQYmRC-2/view?usp=drivesdk",
+        "https://drive.google.com/file/d/1H1VwPZhUi--SsA99CDDc0X8-cW_tOu39/view?usp=drivesdk"
+      ]
     },
     {
       "id": "memberDeposits",
@@ -186,7 +190,11 @@
     {
       "id": "funeralAssociation",
       "name": "สมาคมฌาปนกิจสงเคราะห์",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "PRIMARY_SOURCE_FOUND_NEEDS_EXTRACTION",
+      "primarySources": [
+        "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view?usp=drivesdk",
+        "https://drive.google.com/file/d/1xPb9JgZnk_F0oZrlZ27wTzLJSdoAnWPG/view?usp=drivesdk"
+      ]
     },
     {
       "id": "dividendPatronage",
@@ -208,5 +216,23 @@
       "name": "ประกาศ/ผลอนุมัติ/ข่าว",
       "status": "FRESH_NOTICE_REQUIRED"
     }
-  ]
+  ],
+  "evidenceExpansion": {
+    "educationLoanForm": {
+      "status": "PRIMARY_FORM_FOUND",
+      "source": "https://drive.google.com/file/d/1cK6zUQSPdT-3NT7bJ3WXO_MWP_ruzXLi/view?usp=drivesdk"
+    },
+    "disasterLoanForm": {
+      "status": "PRIMARY_FORM_FOUND",
+      "source": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view?usp=drivesdk"
+    },
+    "shareDepositBackedLoan": {
+      "status": "PRIMARY_CRITERIA_FOUND_VERSION_2567_REQUIRES_CURRENT_VERSION_CHECK",
+      "source": "https://drive.google.com/file/d/19ra7Xhzut0Hn734mQSuJT9_6jQYmRC-2/view?usp=drivesdk"
+    },
+    "funeralAssociationBylaws": {
+      "status": "PRIMARY_BYLAWS_FOUND_2567_REQUIRES_AMENDMENT_CHECK",
+      "source": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view?usp=drivesdk"
+    }
+  }
 }
