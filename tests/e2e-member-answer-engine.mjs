@@ -73,7 +73,7 @@ check('rule master has 2569 loan evidence gates',()=>{
   if(!e) throw new Error('loanEvidence2569 missing');
   if(!/ฉบับที่ 3.*2569/.test(e.officialIndexes.housing.currentEvidence)) throw new Error('housing 2569 version missing');
   if(!/ฉบับที่ 4.*2569/.test(e.officialIndexes.debtConsolidation.currentEvidence)) throw new Error('debt consolidation 2569 version missing');
-  if(!String(e.extractionState.housing||'').includes('PRIMARY_AMENDMENT_NO3_VERIFIED')) throw new Error('housing source state mismatch');
+  if(!String(e.extractionState.housing||'').includes('PRIMARY_PDF_VERIFIED_AND_ENCODED')) throw new Error('housing source state mismatch');
   if(rm.decisionCoverage.loans.debtConsolidation.legacyAnswerPolicy!=='NEVER_AUTHORITY') throw new Error('legacy debt consolidation answer must never be authority');
 });
 
@@ -91,10 +91,10 @@ check('primary 2569 ordinary and debt consolidation are encoded',()=>{
 check('primary housing redeem and emergency amendment rules are encoded',()=>{
  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
  const h=rm.rules.specialHousingCurrent, r=rm.rules.specialRedeemMortgageCurrent, e=rm.rules.emergencyLoanAmendment2568Effective2569;
- if(!h.primaryEvidenceVerified||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalDebtAllTypesBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
- if(!r.primaryEvidenceVerified||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
+ if(h.status!=='VERIFIED_PRIMARY'||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalCoopDebtBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
+ if(r.status!=='VERIFIED_PRIMARY'||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
  if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
- if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
+ if(!/KEEP_NUMERIC_RULES_EVIDENCE_LOCKED/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
 });
 
 check('primary 2569 housing and mortgage redemption are encoded',()=>{
