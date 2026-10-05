@@ -94,7 +94,7 @@ check('primary housing redeem and emergency amendment rules are encoded',()=>{
  if(!h.primaryEvidenceVerified||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalDebtAllTypesBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
  if(!r.primaryEvidenceVerified||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
  if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
- if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
+ if(!/PRIMARY_EFFECTIVE_2026-01-01_VERIFIED_AND_ENCODED/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency effective-rule state mismatch');
 });
 
 check('primary 2569 housing and mortgage redemption are encoded',()=>{
@@ -104,6 +104,15 @@ check('primary 2569 housing and mortgage redemption are encoded',()=>{
  if(h.maxTermInstallments!==360||h.maxAgeAtEnd!==75||h.earlyClosureWithin5YearsPenaltyPercentOfRemainingPrincipal!==3) throw new Error('housing term incomplete');
  if(m.status!=='VERIFIED_PRIMARY'||m.maxAmountBaht!==3000000||m.maxTermInstallments!==360||m.maxAgeAtEnd!==75) throw new Error('redeem mortgage incomplete');
  if(rm.decisionCoverage.loans.specialHousing.status!=='VERIFIED_CORE'||rm.decisionCoverage.loans.specialRedeemMortgage.status!=='VERIFIED_CORE') throw new Error('decision coverage not promoted');
+});
+
+check('effective emergency primary criteria are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const e=rm.rules.emergencyLoanCurrent;
+ if(e.status!=='VERIFIED_PRIMARY'||e.effectiveFrom!=='2026-01-01') throw new Error('emergency evidence state');
+ if(e.membershipMinMonths!==6||e.sharePaymentMinInstallments!==6||e.remainingIncomeMinPercent!==25) throw new Error('emergency qualification rules');
+ if(e.repeatEmergencyMinInstallments!==3||e.otherLoanMinInstallments!==6||e.restructuredOrdinaryMinInstallments!==12) throw new Error('emergency prior-loan rules');
+ if(!e.noBorrowerDebtWithOtherCooperatives) throw new Error('emergency other-coop rule');
 });
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
