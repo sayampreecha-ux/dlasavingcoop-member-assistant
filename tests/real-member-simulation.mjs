@@ -28,7 +28,7 @@ const cases=[
 ['ยอดหนี้ส่วนตัว','ยอดหนี้ผมเหลือเท่าไร',r=>r.intent==='personal_handoff'],
 ['เงินฝากส่วนตัว','เงินฝากของผมเท่าไร',r=>r.intent==='personal_handoff'],
 ['ประกาศรายรอบ','รอบอนุมัติกู้ฉุกเฉินวันไหน',r=>r.intent==='live_schedule'],
-['release','เงินกู้มีกี่แบบ',r=>html.includes('4.2.0-safe-calculator')],
+['release','เงินกู้มีกี่แบบ',r=>html.includes('4.3.0-member-self-service')],
 ['โหด26','คุณภาพชีวิตส่ง 5 งวดแล้ว กู้สามัญได้ไหม',r=>r.answer?.length>20&&r.decision==='NOT_YET_ELIGIBLE'&&!/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' '))],
 ['โหด27','สามัญส่ง 12 งวด ค้ำอยู่ 2 คน มีคุณภาพชีวิตด้วย ผมกู้ใหม่ได้ไหม',r=>r.answer?.length>20&&r.decision==='NOT_YET_ELIGIBLE'],
 ['โหด28','สามัญส่ง 8 งวด ค้ำอยู่ 3 คน มีคุณภาพชีวิต จะกู้ใหม่',r=>r.decision==='NOT_YET_ELIGIBLE'],
