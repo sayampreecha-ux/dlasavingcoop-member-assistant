@@ -8,6 +8,9 @@ try{
  for(const width of [390,1365]){
   const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!globalThis.COOP_APP);
+  await page.locator('.brand-logo').waitFor({state:'visible'});
+  assert.ok(await page.locator('.brand-logo').evaluate(img=>img.complete&&img.naturalWidth>0),'cooperative logo loads');
+  assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'),'#176b45','original theme retained');
   // Execute every source pattern through the real browser engine, including product-context variants.
   const collected=await page.evaluate(rows=>{
    const answers={},contexts={};for(const row of rows)for(const q of row.question_patterns){answers[q]=COOP_APP.answer(q);if(row.expected_rule){const c=COOP_APP.contextualize(q,row.expected_rule);contexts[row.expected_rule+'|'+q]=c;answers[c]=COOP_APP.answer(c);}if(row.id===48)answers['กู้สามัญ '+q]=COOP_APP.answer('กู้สามัญ '+q);}

@@ -40,3 +40,7 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify live Production on mobile and desktop
+        env:
+          MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
+        run: node scripts/browser-pilot-smoke.mjs
