@@ -66,5 +66,15 @@ for(const [q,expect] of [
  const r=app.answer('คำนวณกู้สามัญ 2500000 บาท 120 งวด');
  if(r.intent!=='loan_safe_calculator'||r.decision!=='NOT_YET_ELIGIBLE'||!/(เกินเพดาน)/.test((r.details||[]).join(' '))) failures.push({group:'safe-calculator-cap',r});
 }
+
+check('rule master has 2569 loan evidence gates',()=>{
+  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+  const e=rm.loanEvidence2569;
+  if(!e) throw new Error('loanEvidence2569 missing');
+  if(!/ฉบับที่ 3.*2569/.test(e.officialIndexes.housing.currentEvidence)) throw new Error('housing 2569 version missing');
+  if(!/ฉบับที่ 4.*2569/.test(e.officialIndexes.debtConsolidation.currentEvidence)) throw new Error('debt consolidation 2569 version missing');
+  if(e.extractionState.housing!=='PRIMARY_TEXT_EXTRACTION_PENDING') throw new Error('housing must remain evidence-locked');
+  if(rm.decisionCoverage.loans.debtConsolidation.legacyAnswerPolicy!=='NEVER_AUTHORITY') throw new Error('legacy debt consolidation answer must never be authority');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
