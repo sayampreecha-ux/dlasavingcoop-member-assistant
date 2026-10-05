@@ -413,6 +413,60 @@
       "injuryDisabilityAidMaxBahtPerEvent": 5000,
       "claimDeadlineDays": 120,
       "deadlineFrom": "date_disaster_ended"
+    },
+    "specialHousingCurrent": {
+      "status": "VERIFIED_AMENDMENT_CORE",
+      "source": "https://drive.google.com/file/d/1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2/view?usp=sharing",
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceTitle": "เงินกู้พิเศษเพื่อการเคหะ แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569",
+      "announcementDate": "2026-01-19",
+      "effectiveFrom": "2026-04-01",
+      "maxLtvPercent": 90,
+      "maxAmountBaht": 3000000,
+      "maxTotalDebtAllTypesBaht": 5000000,
+      "maxTermInstallments": 360,
+      "maxAgeAtEnd": 75,
+      "creditBureauRequired": true,
+      "lifeInsuranceRequired": true,
+      "overseasDefaultPenaltyPercentOfOutstanding": 3,
+      "buildingFireInsuranceRequired": true,
+      "buildingFireInsuranceMinContinuousYears": 3,
+      "borrowerPaysAppraisalAndMortgageCosts": true,
+      "constructionDisbursementStages": 4,
+      "note": "Encoded from the clauses replaced by amendment No.3; unchanged base-rule clauses remain governed by the continuing prior criteria."
+    },
+    "specialRedeemMortgageCurrent": {
+      "status": "VERIFIED_AMENDMENT_CORE",
+      "source": "https://drive.google.com/file/d/1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E/view?usp=sharing",
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceTitle": "เงินกู้พิเศษเพื่อไถ่ถอนจำนองบ้านพร้อมที่ดิน แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569",
+      "announcementDate": "2026-01-19",
+      "effectiveFrom": "2026-04-01",
+      "maxAmountBaht": 3000000,
+      "maxTermInstallments": 360,
+      "maxAgeAtEnd": 75,
+      "creditBureauRequired": true,
+      "lifeInsuranceRequired": true,
+      "borrowerPaysMortgageCosts": true,
+      "buildingFireInsuranceRequired": true,
+      "buildingFireInsuranceMinContinuousYears": 3,
+      "note": "Maximum amount is capped by the outstanding debt owed to the financial institution and cannot exceed 3,000,000 baht. Encoded from amendment No.3."
+    },
+    "emergencyLoanAmendment2568Effective2569": {
+      "status": "VERIFIED_PRIMARY_AMENDMENT",
+      "source": "https://drive.google.com/file/d/1GCashOZpSBBWCARoEZZAPyQ8Htj-Y9qz/view?usp=sharing",
+      "primaryEvidenceTitle": "เงินกู้เพื่อเหตุฉุกเฉิน แก้ไขเพิ่มเติม (ฉบับที่ 2) พ.ศ. 2568",
+      "announcementDate": "2025-11-17",
+      "effectiveFrom": "2026-01-01",
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "remainingIncomeMinPercent": 25,
+      "salaryDeductionRequired": true,
+      "noArrearsInstallments": 3,
+      "noShareArrearsInstallments": 6,
+      "ordinaryRestructureBorrowerNoArrearsInstallments": 12,
+      "noDebtAsBorrowerWithOtherCooperatives": true,
+      "note": "This primary document is an amendment effective 1 Jan 2569. The official product page also lists a later 'พ.ศ.2569' criterion; do not treat this amendment as the sole current full rule until that later primary document is extracted."
     }
   },
   "decisionCoverage": {
@@ -440,16 +494,16 @@
         "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
       },
       "specialHousing": {
-        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
-        "decisionMode": "SOURCE_GUIDED_HANDOFF",
-        "source": "https://www.dlasavingcoop.com/show.php?No=2385",
-        "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569"
+        "status": "VERIFIED_AMENDMENT_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT_WITH_BASE_RULE_GUARD",
+        "source": "https://drive.google.com/file/d/1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2/view?usp=sharing",
+        "rule": "specialHousingCurrent"
       },
       "specialRedeemMortgage": {
-        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
-        "decisionMode": "SOURCE_GUIDED_HANDOFF",
-        "source": "https://www.dlasavingcoop.com/show.php?No=2385",
-        "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569"
+        "status": "VERIFIED_AMENDMENT_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT_WITH_BASE_RULE_GUARD",
+        "source": "https://drive.google.com/file/d/1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E/view?usp=sharing",
+        "rule": "specialRedeemMortgageCurrent"
       },
       "disasterAssistance": {
         "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
@@ -609,9 +663,9 @@
     },
     "extractionState": {
       "ordinary": "PRIMARY_PDF_VERIFIED_AND_CORE_ENCODED",
-      "emergency": "REPEAT_RULE_ENCODED; FULL_2569_PRIMARY_TEXT_EXTRACTION_PENDING",
-      "housing": "PRIMARY_TEXT_EXTRACTION_PENDING",
-      "redeemMortgage": "PRIMARY_TEXT_EXTRACTION_PENDING",
+      "emergency": "PRIMARY_AMENDMENT_EFFECTIVE_2569_VERIFIED; LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION",
+      "housing": "PRIMARY_AMENDMENT_NO3_VERIFIED; BASE_UNCHANGED_CLAUSES_CONTINUE",
+      "redeemMortgage": "PRIMARY_AMENDMENT_NO3_VERIFIED; BASE_UNCHANGED_CLAUSES_CONTINUE",
       "debtConsolidation": "PRIMARY_PDF_VERIFIED_AND_ENCODED"
     },
     "safeBehavior": "When primary text for a numeric threshold is not extracted, guide to the exact official product page/form and do not infer a threshold from legacy LINE answers."
