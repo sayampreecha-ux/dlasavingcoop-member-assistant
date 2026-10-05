@@ -73,7 +73,7 @@ check('rule master has 2569 loan evidence gates',()=>{
   if(!e) throw new Error('loanEvidence2569 missing');
   if(!/ฉบับที่ 3.*2569/.test(e.officialIndexes.housing.currentEvidence)) throw new Error('housing 2569 version missing');
   if(!/ฉบับที่ 4.*2569/.test(e.officialIndexes.debtConsolidation.currentEvidence)) throw new Error('debt consolidation 2569 version missing');
-  if(e.extractionState.housing!=='PRIMARY_TEXT_EXTRACTION_PENDING') throw new Error('housing must remain evidence-locked');
+  if(!String(e.extractionState.housing||'').includes('PRIMARY_AMENDMENT_NO3_VERIFIED')) throw new Error('housing source state mismatch');
   if(rm.decisionCoverage.loans.debtConsolidation.legacyAnswerPolicy!=='NEVER_AUTHORITY') throw new Error('legacy debt consolidation answer must never be authority');
 });
 
