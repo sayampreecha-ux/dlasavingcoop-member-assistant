@@ -107,3 +107,5 @@ check('primary 2569 housing and mortgage redemption are encoded',()=>{
 });
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
+
+// CI verification: Rule Master compatibility fix
