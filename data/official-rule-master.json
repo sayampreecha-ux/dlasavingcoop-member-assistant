@@ -219,15 +219,15 @@
       "salaryDeductionRequired": true,
       "memberWelfareFuneralAssociationRequired": true,
       "noSeriousDisciplinaryOrBankruptcyProceeding": true,
-      "collateralOwnershipDocument": [
-        "title_deed",
-        "nor_sor_3_kor"
-      ],
       "propertyAppraiserMustBeCoopApproved": true,
       "borrowerPaysAppraisalAndMortgageCosts": true,
       "buildingCollateralFireInsuranceRequired": true,
       "buildingFireInsuranceMinContinuousYears": 3,
-      "disbursement": "monthly_equal_principal_plus_interest_except_first_or_last_installment"
+      "acceptableLandRightDocuments": [
+        "title_deed",
+        "nor_sor_3_kor"
+      ],
+      "repaymentMethod": "monthly_equal_principal_plus_interest_except_first_or_last_installment"
     },
     "welfareCommon": {
       "status": "VERIFIED",
@@ -682,11 +682,11 @@
     },
     "extractionState": {
       "ordinary": "PRIMARY_PDF_VERIFIED_AND_CORE_ENCODED",
-      "emergency": "CURRENT_OFFICIAL_PAGE_VERIFIED; 2568_AMENDMENT_EFFECTIVE_2026-01-01_READ; FULL_2569_PRIMARY_TEXT_EXTRACTION_PENDING",
+      "emergency": "OFFICIAL_PAGE_LISTS_2569_CRITERIA; FULL_2569_PRIMARY_TEXT_NOT_YET_EXTRACTED; KEEP_NUMERIC_RULES_EVIDENCE_LOCKED",
       "housing": "PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "redeemMortgage": "PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "debtConsolidation": "PRIMARY_PDF_LATEST_FULL_CRITERIA_VERIFIED_AND_ENCODED"
     },
-    "safeBehavior": "When primary text for a numeric threshold is not extracted, guide to the exact official product page/form and do not infer a threshold from legacy LINE answers."
+    "safeBehavior": "Use only extracted primary evidence for numeric thresholds. Legacy LINE answers are regression inputs only. If the official page lists a newer document whose primary text has not been extracted, keep that rule locked and route the exact official page/form instead of inferring."
   }
 }
