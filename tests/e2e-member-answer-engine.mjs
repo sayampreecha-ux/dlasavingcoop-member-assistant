@@ -73,8 +73,28 @@ check('rule master has 2569 loan evidence gates',()=>{
   if(!e) throw new Error('loanEvidence2569 missing');
   if(!/ฉบับที่ 3.*2569/.test(e.officialIndexes.housing.currentEvidence)) throw new Error('housing 2569 version missing');
   if(!/ฉบับที่ 4.*2569/.test(e.officialIndexes.debtConsolidation.currentEvidence)) throw new Error('debt consolidation 2569 version missing');
-  if(e.extractionState.housing!=='PRIMARY_TEXT_EXTRACTION_PENDING') throw new Error('housing must remain evidence-locked');
+  if(!String(e.extractionState.housing||'').includes('PRIMARY_AMENDMENT_NO3_VERIFIED')) throw new Error('housing source state mismatch');
   if(rm.decisionCoverage.loans.debtConsolidation.legacyAnswerPolicy!=='NEVER_AUTHORITY') throw new Error('legacy debt consolidation answer must never be authority');
+});
+
+check('primary 2569 ordinary and debt consolidation are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const o=rm.rules.ordinaryLoanCurrent, q=rm.rules.qualityOfLifeCurrent;
+ if(!o.primaryEvidenceVerified||o.maxAmountBaht!==2000000||o.realEstateCollateralMaxPercentOfAppraisal!==90) throw new Error('ordinary primary rules incomplete');
+ if(o.employeeGuarantorMinServiceYears!==3||o.guarantorReplacementDeadlineDays!==180) throw new Error('ordinary guarantor rules incomplete');
+ if(!q.primaryEvidenceVerified||q.maxAmountBaht!==5000000||q.maxLtvPercent!==80||q.maxTermInstallments!==360) throw new Error('debt consolidation primary rules incomplete');
+ if(q.membershipMinYearsFor3m!==3||q.sharePaymentMinInstallmentsFor3m!==36||q.membershipMinYearsFor5m!==5||q.sharePaymentMinInstallmentsFor5m!==60) throw new Error('debt consolidation membership bands incomplete');
+ if(q.cashOutMaxPercentOfRemainingEligibleAmount!==50||!q.buildingCollateralFireInsuranceRequired) throw new Error('debt consolidation collateral rules incomplete');
+ if(rm.decisionCoverage.loans.debtConsolidation.status!=='VERIFIED_CORE') throw new Error('debt consolidation not promoted');
+});
+
+check('primary housing redeem and emergency amendment rules are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const h=rm.rules.specialHousingCurrent, r=rm.rules.specialRedeemMortgageCurrent, e=rm.rules.emergencyLoanAmendment2568Effective2569;
+ if(!h.primaryEvidenceVerified||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalDebtAllTypesBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
+ if(!r.primaryEvidenceVerified||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
+ if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
+ if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
 });
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
