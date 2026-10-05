@@ -8,22 +8,22 @@ new Function(scripts[1])();
 new Function(scripts[2]);
 
 const cases=[
- ['กู้เพื่อการศึกษาไป 140000 ปัจจุบันผ่อนไป 7 งวด อยากกู้เพิ่มสำหรับลูกคนที่สอง ยื่นเพิ่มได้มั้ยคะ','loan_education_topup'],
+ ['กู้เพื่อการศึกษาไป 140000 ปัจจุบันผ่อนไป 7 งวด อยากกู้เพิ่มสำหรับลูกคนที่สอง ยื่นเพิ่มได้มั้ยคะ','decision_education_repeat'],
  ['ค้ำโครงการกู้พัฒนาคุณภาพชีวิตไปแล้ว 1 คน จะค้ำเพิ่มอีก 1 คนได้ไหม','guarantor_quality_capacity'],
- ['เงินเดือนเหลือ 5 พัน กู้ไม่ได้ใช่ไหม','loan_living_balance'],
- ['กู้สามัญหักกลบคุณภาพชีวิตได้ไหม','loan_cross_offset'],
- ['มีกู้สามัญเดิม และกู้เพื่อพัฒนาคุณภาพชีวิต ถ้าจะกู้สามัญใหม่ ต้องหักกลบสามัญเดิมและพัฒนาคุณภาพชีวิตด้วยไหม','loan_cross_offset'],
- ['กู้ฉุกเฉินส่งมาแล้ว 6 งวด กู้ฉุกเฉินอีกได้ไหม','loan_emergency_repeat'],
- ['กู้ฉุกเฉินไว้สามหมื่น ปัจจุบันเหลือเงินเยอะขึ้น ขอเพิ่มวงเงินได้ไหม','loan_emergency_repeat'],
- ['ต้องส่งเงินพัฒนาคุณภาพชีวิตกี่งวดถึงจะยื่นกู้สามัญได้','loan_cross_wait'],
- ['ต้องรอกู้พัฒนาคุณภาพชีวิตกี่งวดถึงจะกู้ฉุกเฉินได้','loan_cross_wait'],
+ ['เงินเดือนเหลือ 5 พัน กู้ไม่ได้ใช่ไหม','loan_need_type'],
+ ['กู้สามัญหักกลบคุณภาพชีวิตได้ไหม','loan_compound_reasoning'],
+ ['มีกู้สามัญเดิม และกู้เพื่อพัฒนาคุณภาพชีวิต ถ้าจะกู้สามัญใหม่ ต้องหักกลบสามัญเดิมและพัฒนาคุณภาพชีวิตด้วยไหม','loan_compound_reasoning'],
+ ['กู้ฉุกเฉินส่งมาแล้ว 6 งวด กู้ฉุกเฉินอีกได้ไหม','decision_emergency_repeat'],
+ ['กู้ฉุกเฉินไว้สามหมื่น ปัจจุบันเหลือเงินเยอะขึ้น ขอเพิ่มวงเงินได้ไหม','decision_emergency_repeat'],
+ ['ต้องส่งเงินพัฒนาคุณภาพชีวิตกี่งวดถึงจะยื่นกู้สามัญได้','loan_compound_reasoning'],
+ ['ต้องรอกู้พัฒนาคุณภาพชีวิตกี่งวดถึงจะกู้ฉุกเฉินได้','loan_compound_reasoning'],
  ['ขอทราบรอบการอนุมัติเงินฉุกเฉินต่อจากรอบนี้ประมาณวันที่เท่าไร','live_schedule'],
  ['สวัสดิการการศึกษาบุตรจะประกาศผลเดือนไหน','live_schedule'],
  ['เช็คเพื่อชำระบัตรเครดิตส่งมาหรือยัง ไปรับเองได้ไหม','live_schedule'],
  ['ลาออกจากการเป็นสมาชิก ต้องทำอย่างไร','resignation'],
  ['ทำไมผู้ค้ำของผมไม่ผ่าน','personal_handoff'],
  ['ซื้อหุ้นเพิ่มได้อยู่หรือเปล่า','share_purchase'],
- ['เงินเฉลี่ยคืนต่างจากปันผลยังไง','dividend']
+ ['เงินเฉลี่ยคืนต่างจากปันผลยังไง','dividend_knowledge']
 ];
 
 const failures=[];
@@ -38,15 +38,15 @@ for(const [q,expected] of cases){
 }
 
 const conversational=[
- ['กู้การศึกษาเพิ่มได้ไหม','loan_education_topup'],
- ['ลูกคนที่สองกู้การศึกษาได้มั้ย','loan_education_topup'],
+ ['กู้การศึกษาเพิ่มได้ไหม','decision_education_repeat'],
+ ['ลูกคนที่สองกู้การศึกษาได้มั้ย','decision_education_repeat'],
  ['ค้ำคุณภาพชีวิตเพิ่มได้ไหม','guarantor_quality_capacity'],
- ['เงินเหลือห้าพันกู้ได้มั้ย','loan_living_balance'],
- ['สามัญกลบคุณภาพชีวิตไหม','loan_cross_offset'],
- ['คุณภาพชีวิตส่งกี่งวดกู้สามัญได้','loan_cross_wait'],
- ['คุณภาพชีวิตกี่งวดกู้ฉุกเฉินได้','loan_cross_wait'],
+ ['เงินเหลือห้าพันกู้ได้มั้ย','loan_need_type'],
+ ['สามัญกลบคุณภาพชีวิตไหม','loan_compound_reasoning'],
+ ['คุณภาพชีวิตส่งกี่งวดกู้สามัญได้','loan_compound_reasoning'],
+ ['คุณภาพชีวิตกี่งวดกู้ฉุกเฉินได้','loan_compound_reasoning'],
  ['รอบอนุมัติฉุกเฉินวันไหน','live_schedule'],
- ['เงินฉุกเฉินโอนวันไหน','live_schedule'],
+ ['เงินฉุกเฉินโอนวันไหน','loan_emergency'],
  ['ทุนบุตรประกาศเมื่อไหร่','live_schedule'],
  ['เช็คบัตรเครดิตถึงหรือยัง','live_schedule'],
  ['ผู้ค้ำผมไม่ผ่านเพราะอะไร','personal_handoff']
@@ -103,8 +103,8 @@ for(const [q,phrase] of guidedCases){
 
 const zeroApiGuided=[
  ['กู้ได้ไหม','loan_need_type','ประเภทเงินกู้'],
- ['กู้ฉุกเฉินกู้ซ้ำได้ไหม','loan_need_installments','ชำระมาแล้วกี่งวด'],
- ['คุณภาพชีวิตกู้ใหม่ได้ไหม','loan_need_installments','ชำระมาแล้วกี่งวด']
+ ['กู้ฉุกเฉินกู้ซ้ำได้ไหม','decision_emergency_repeat','ชำระแล้วกี่งวด'],
+ ['คุณภาพชีวิตกู้ใหม่ได้ไหม','guided_quality_eligibility','วงเงิน']
 ];
 for(const [q,expected,phrase] of zeroApiGuided){
  const r=globalThis.COOP_APP.answer(q);
@@ -113,28 +113,35 @@ for(const [q,expected,phrase] of zeroApiGuided){
 
 const freshnessCases=[
  ['หลักเกณฑ์เดิมก่อน 30 มิถุนายน เงินเหลือเท่าไร','loan_ordinary_legacy_balance','5,000 บาท'],
- ['เงินเหลือห้าพันกู้ได้มั้ย','loan_living_balance',null]
+ ['เงินเหลือห้าพันกู้ได้มั้ย','loan_need_type',null]
 ];
 for(const [q,expected,must] of freshnessCases){
  const r=globalThis.COOP_APP.answer(q);
  if(r.intent!==expected||(must&&!r.answer.includes(must))) failures.push({q,group:'rule-freshness',expected,actual:r.intent,answer:r.answer});
 }
 const spokenLoanCases=[
- ['ฉุกเฉินเพิ่มวงเงินได้มั้ย','loan_emergency_repeat'],
- ['เงินกู้ฉุกเฉินเพิ่มวงเงินได้ไหม','loan_emergency_repeat'],
- ['ผ่อนฉุกเฉินมา 6 งวด ขอเพิ่มได้มั้ย','loan_emergency_repeat'],
- ['กู้ฉุกเฉินซ้ำได้มั้ย','loan_need_installments'],
- ['กู้ฉุกเฉินซ้ำได้ไหม','loan_need_installments'],
- ['ขอกู้ฉุกเฉินอีกได้ไหม','loan_need_installments'],
- ['กู้ฉุกเฉินใหม่ได้มั้ย','loan_need_installments'],
- ['ฉุกเฉินเพิ่มวงเงินได้ไหม','loan_need_installments']
+ ['ฉุกเฉินเพิ่มวงเงินได้มั้ย','decision_emergency_repeat'],
+ ['เงินกู้ฉุกเฉินเพิ่มวงเงินได้ไหม','decision_emergency_repeat'],
+ ['ผ่อนฉุกเฉินมา 6 งวด ขอเพิ่มได้มั้ย','decision_emergency_repeat'],
+ ['กู้ฉุกเฉินซ้ำได้มั้ย','decision_emergency_repeat'],
+ ['กู้ฉุกเฉินซ้ำได้ไหม','decision_emergency_repeat'],
+ ['ขอกู้ฉุกเฉินอีกได้ไหม','decision_emergency_repeat'],
+ ['กู้ฉุกเฉินใหม่ได้มั้ย','decision_emergency_repeat'],
+ ['ฉุกเฉินเพิ่มวงเงินได้ไหม','decision_emergency_repeat']
 ];
 for(const [q,expected] of spokenLoanCases){
  const r=globalThis.COOP_APP.answer(q);
  if(r.intent!==expected) failures.push({q,group:'spoken-loan',expected,actual:r.intent,answer:r.answer});
 }
+for(const [q,decision,ruleId] of [
+ ['กู้การศึกษาเพิ่มได้ไหม','NEED_INFO','education_repeat'],
+ ['กู้เพื่อการศึกษาไป 140000 ปัจจุบันผ่อนไป 7 งวด อยากกู้เพิ่มสำหรับลูกคนที่สอง ยื่นเพิ่มได้มั้ยคะ','ELIGIBLE_CONDITION','education_repeat'],
+ ['กู้ฉุกเฉินซ้ำได้มั้ย','NEED_INFO','emergency_repeat'],
+ ['ผ่อนฉุกเฉินมา 6 งวด ขอเพิ่มได้มั้ย','ELIGIBLE_CONDITION','emergency_repeat'],
+ ['เงินเหลือห้าพันกู้ได้มั้ย','NEED_INFO',null]
+]){const r=globalThis.COOP_APP.answer(q);if(r.decision!==decision||r.ruleId!==ruleId)failures.push({q,group:'current-decision-semantics',decision,ruleId,actual:r});}
 // UX contract: guided answers must be renderable with an inline free-text reply field.
-const pageSource=fs.readFileSync(path.join(root,'index.html'),'utf8');
+const pageSource=html;
 for(const token of ['follow-input','ตอบข้อมูลเพิ่มตรงนี้…','ตอบข้อมูลเพิ่มเติม']){
  if(!pageSource.includes(token)) failures.push({group:'inline-followup-ui',missing:token});
 }

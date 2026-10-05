@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Complete release gate including 69 executable records
+        run: node scripts/verify-release.mjs
       - name: Member answer engine
         run: node tests/e2e-member-answer-engine.mjs
       - name: Real member simulation
