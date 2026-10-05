@@ -32,6 +32,13 @@ for(const [name,q,reply,status] of [
 check('personal approval routes away from invented answer',()=>{const r=ans('กู้ของผมอนุมัติหรือยัง'); if(!app.personal('กู้ของผมอนุมัติหรือยัง'))throw new Error('not detected personal'); if(/อนุมัติแล้ว|ผ่านแล้ว/.test(r.answer||''))throw new Error('invented approval')});
 check('personal debt detected',()=>{if(!app.personal('ยอดหนี้ผมเหลือเท่าไร'))throw new Error('not personal')});
 check('personal deposit detected',()=>{if(!app.personal('เงินฝากของผมเท่าไร'))throw new Error('not personal')});
+
+check('member debt uses official self-service before staff',()=>{const r=ans('ยอดหนี้ผมเหลือเท่าไร');if(r.intent!=='member_self_service')throw new Error('expected member self service');if(!(r.actions||[]).some(x=>x[1]==='https://member.dlasavingcoop.com/coop/'))throw new Error('missing official member portal');if((r.actions||[]).some(x=>x[1]==='#staff-directory'))throw new Error('should not force staff for self-service data')});
+check('member shares use official self-service',()=>{const r=ans('ยอดหุ้นของผมเท่าไร');if(r.intent!=='member_self_service')throw new Error('expected member self service')});
+check('member deposit uses official self-service',()=>{const r=ans('เงินฝากของผมเท่าไร');if(r.intent!=='member_self_service')throw new Error('expected member self service')});
+check('member approval status uses self-service first',()=>{const r=ans('กู้ของผมอนุมัติหรือยัง');if(r.intent!=='member_self_service')throw new Error('expected self service status')});
+check('guarantor failure reason still hands off to staff',()=>{const r=ans('ทำไมผู้ค้ำของผมไม่ผ่าน ติดอะไร');if(r.intent!=='personal_handoff')throw new Error('expected staff handoff for judgment')});
+
 check('dynamic dividend does not invent percent',()=>{const r=ans('ปันผลปี 2569 กี่เปอร์เซ็นต์'); if(/\d+(?:\.\d+)?\s*%/.test(r.answer||''))throw new Error('invented rate')});
 check('quality cross-loan blocks ordinary without invented threshold',()=>{const r=ans('คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้'); if(r.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected current cross-loan prohibition'); const all=(r.answer||'')+' '+(r.details||[]).join(' '); if(!/ยกเว้นเงินกู้ฉุกเฉิน/.test(all))throw new Error('missing emergency exception'); if(/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test(all))throw new Error('invented cross-loan threshold')});
 
@@ -39,7 +46,7 @@ check('ordinary guided eligibility starts before personal handoff',()=>{const r=
 check('ordinary guided flow fails early on membership',()=>{const r=ans('ผมกู้สามัญได้ไหม');const x=app.continueDecision('5 เดือน',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});if(x.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected early fail')});
 check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พัฒนาคุณภาพชีวิตได้ไหม');if(r.flowId!=='quality_eligibility'||r.requiredFact!=='requestAmount')throw new Error('guided quality flow not started')});
 check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
-check('release marker',()=>{if(!html.includes('4.2.0-safe-calculator'))throw new Error('wrong release')});
+check('release marker',()=>{if(!html.includes('4.3.0-member-self-service'))throw new Error('wrong release')});
 
 // Safe Calculator 4.2 gate: calculate only verified constraints/rates; never invent a monthly payment.
 for(const [q,expect] of [
