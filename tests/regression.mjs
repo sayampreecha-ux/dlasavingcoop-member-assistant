@@ -8,7 +8,7 @@ new Function(scripts[1])();
 new Function(scripts[2]);
 
 const cases=[
- ['', 'empty'],['ยอดหนี้ของผมเหลือเท่าไร','personal_handoff'],['ติดต่อสวัสดิการ','welfare_contact'],
+ ['', 'empty'],['ยอดหนี้ของผมเหลือเท่าไร','member_self_service'],['ติดต่อสวัสดิการ','welfare_contact'],
  ['ติดต่อทะเบียนสมาชิก','registration_contact'],['ติดต่อเจ้าหน้าที่จังหวัด','province_contact'],['ช่องทางติดต่อสหกรณ์','contact'],['เว็บไซต์สหกรณ์','contact'],
 
  ['หุ้นและทุนเรือนหุ้น','share_all'],['เปลี่ยนอัตราหุ้นรายเดือน','share_change_rate'],['ซื้อหุ้นเพิ่ม','share_purchase'],['ถอนหุ้นได้ไหม','share_refund'],
@@ -30,7 +30,7 @@ const cases=[
 
  ['กู้โดยใช้หุ้นตัวเอง','loan_share_secured'],['กู้เพื่อพักผ่อน','loan_vacation'],['ปิดยอดกู้','loan_close'],
  ['เปลี่ยนผู้ค้ำ','loan_change_guarantor'],['กู้ต้องค้ำกี่คน','loan_guarantor_count'],['ค้ำประกันได้กี่คน','guarantor_capacity'],
- ['กู้ได้ไหม','loan_eligibility'],['เงินกู้มีกี่แบบ','loan_all'],['เงินกู้สามัญ','loan_ordinary'],
+ ['กู้ได้ไหม','loan_need_type'],['เงินกู้มีกี่แบบ','loan_all'],['เงินกู้สามัญ','loan_ordinary'],
  ['กู้ฉุกเฉิน','loan_emergency'],['เงินกู้พิเศษ','loan_special'],['กู้บ้าน','loan_special_housing'],['ซื้อบ้าน','loan_special_housing'],['สร้างบ้าน','loan_special_housing'],['ต่อเติมบ้าน','loan_special_housing'],['เคหะ','loan_special_housing'],['รีไฟแนนซ์บ้าน','loan_special_redeem'],['ไถ่ถอนจำนองบ้าน','loan_special_redeem'],['รวมหนี้','loan_special_quality'],['กู้เพื่อการศึกษา','loan_education'],['กู้กรณีน้ำท่วม','loan_disaster'],['ชำระหนี้แทนผู้กู้','loan_guarantor_debt'],['กู้น้ำท่วม','loan_disaster'],
 
  ['สมัครสมาชิกใหม่','member_apply'],['สมาชิกย้าย','transfer'],['ลาออกจากสหกรณ์','resignation'],
@@ -77,7 +77,7 @@ for(const [q,expected] of typos){
 
 for(const q of ['1234567890123','รหัสผ่านของผม','OTP 123456','ยอดหุ้นของผม','ผลอนุมัติของผม','ยอดเงินฝากของฉัน','กู้เพิ่มได้เท่าไรของผม']){
   const r=globalThis.COOP_APP.answer(q);
-  if(r.intent!=='personal_handoff'||r.privacy!==true) failures.push({q,actual:r.intent,group:'privacy'});
+  if(r.intent!==( /ยอดหุ้น|ผลอนุมัติ|ยอดเงินฝาก/.test(q)?'member_self_service':'personal_handoff')||r.privacy!==true) failures.push({q,actual:r.intent,group:'privacy'});
 }
 
 const homeQueries=[...html.matchAll(/data-q="([^"]+)"/g)].map(m=>m[1]);
@@ -142,11 +142,21 @@ for(const q of ['ซื้อหุ้นเพิ่ม','ผลอนุมั
 }
 
 if(!globalThis.COOP_KB.sourceRegistry?.authorityOrder?.length) failures.push({group:'source-registry'});
-if(globalThis.COOP_KB.version!=='3.2.0-pilot-pages') failures.push({group:'version',actual:globalThis.COOP_KB.version});
+if(globalThis.COOP_KB.version!=='4.4.0-member-journey') failures.push({group:'version',actual:globalThis.COOP_KB.version});
 
 const forbidden=['show.php?No=4650','17%282%29.jpg','4%2823%29.jpg','12%285%29.jpg','66%282%29.png','1DVazU8xDNsSmK5oCobOcS_jnwdzNmg18','1l-WYt403pVZ0Rc6aWbFnIH5-BXkUisZ8','16sy_LWmvP5agwyTAkwXWjlpxsA0xK6JD','1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E','1enzqVcofpAbstQQQziZoOjrQtmTPgH32','Funeralsociety.pdf','777.jpg','pay%281%29.pdf','#facebook-copy','id="copyFb"','092-391-8135','0923918135',
  '13wpjwmUycDYCkNIK6oPX1EorzEN7LOaK','1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'];
-for(const token of forbidden) if(html.includes(token)) failures.push({token,group:'stale'});
+for(const token of forbidden){
+ if(['1QhkAh71xlx8ESPfMBvT7mIzA7rsgap8E','1F93n6m5LQcGIzZZ8seLwzGNH-pAYQ7U2'].includes(token)){
+  const history=Object.values(globalThis.COOP_KB.ruleAuthority.rules).filter(x=>(x.source||'').includes(token));
+  if(!history.length||history.some(x=>x.evidenceState!=='PRIMARY_VERIFIED_SUPERSEDED'||x.effectiveUntil!=='2026-09-30'))failures.push({token,group:'unlocked-historical-primary'});
+  for(const [q]of cases){const r=globalThis.COOP_APP.answer(q);if([...(r.actions||[]).map(x=>x[1]),...(r.sources||[]).map(x=>x.url)].some(x=>x.includes(token)))failures.push({q,token,group:'superseded-runtime-source'});}
+ }else if(html.includes(token))failures.push({token,group:'stale'});
+}
+for(const q of ['ยอดหุ้นของผม','ยอดหนี้ของผมเหลือเท่าไร','ผลอนุมัติของผม','ยอดเงินฝากของฉัน']){
+ const r=globalThis.COOP_APP.answer(q);
+ if(!r.privacy||!(r.actions||[]).some(x=>x[1]==='https://member.dlasavingcoop.com/coop/')||(r.actions||[]).some(x=>x[1]==='#staff-directory'))failures.push({q,group:'self-service-before-staff'});
+}
 
 if(failures.length){
   console.error(JSON.stringify({ok:false,failures},null,2));

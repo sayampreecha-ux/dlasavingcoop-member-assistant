@@ -6,7 +6,8 @@ if(ids.size!==69||Math.min(...ids)!==1||Math.max(...ids)!==69) throw new Error('
 for(const r of c.records){
  if(!r.question||!r.intent) throw new Error('missing question/intent '+r.id);
  if(r.legacy_answer_policy!=='NEVER_AUTHORITY') throw new Error('legacy authority violation '+r.id);
- if(Object.prototype.hasOwnProperty.call(r,'legacy_answer')) throw new Error('legacy answer must not be executable authority '+r.id);
+ if(typeof r.legacy_answer!=='string'||!r.question_patterns?.length||!Array.isArray(r.keywords)||!r.verification_status||!r.expected_behavior) throw new Error('incomplete real executable record '+r.id);
+ if(fs.readFileSync('index.html','utf8').includes(r.legacy_answer)&&r.legacy_answer.length>50) throw new Error('legacy answer leaked into runtime '+r.id);
 }
 const counts=c.records.reduce((a,r)=>(a[r.intent]=(a[r.intent]||0)+1,a),{});
 const expected={loan_debt_consolidation:17,contact:1,greeting:1,loan_housing:15,loan_emergency:11,loan_ordinary_related:16,membership:8};

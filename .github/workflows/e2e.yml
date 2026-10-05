@@ -2,18 +2,24 @@ name: E2E Member Answer Engine
 on:
   pull_request:
     branches: [main]
-    paths: ["index.html", "tests/**", ".github/workflows/e2e.yml"]
+    paths: ["index.html", "data/**", "tests/**", "scripts/**", ".github/workflows/e2e.yml"]
+  push:
+    branches: [fix/pilot-69-executable-hardening]
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   e2e:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Run deterministic E2E regression
-        run: node tests/e2e-member-answer-engine.mjs && node tests/real-member-simulation.mjs
+      - name: Run every release regression suite
+        run: node scripts/verify-release.mjs
+      - name: Install browser test runtime
+        run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
+      - name: Real browser Pilot regression on mobile and desktop
+        run: node scripts/browser-pilot-smoke.mjs

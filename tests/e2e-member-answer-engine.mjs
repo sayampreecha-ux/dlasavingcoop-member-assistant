@@ -49,7 +49,7 @@ check('quality cross-loan blocks ordinary without invented threshold',()=>{const
 check('ordinary guided eligibility starts before personal handoff',()=>{const r=ans('ผมกู้สามัญได้ไหม');if(r.flowId!=='ordinary_eligibility'||r.requiredFact!=='membershipMonths')throw new Error('guided ordinary flow not started')});
 check('ordinary guided flow fails early on membership',()=>{const r=ans('ผมกู้สามัญได้ไหม');const x=app.continueDecision('5 เดือน',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});if(x.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected early fail')});
 check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พัฒนาคุณภาพชีวิตได้ไหม');if(r.flowId!=='quality_eligibility'||r.requiredFact!=='requestAmount')throw new Error('guided quality flow not started')});
-check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
+check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_MEMBER_DATA'||!r.details.join(' ').includes('80%'))throw new Error('housing rule question misrouted')});
 check('release marker',()=>{if(!html.includes('4.4.0-member-journey'))throw new Error('wrong release')});
 
 if(!html.includes('ทดลองคำนวณเงินกู้')) throw new Error('calculator entry missing');
@@ -90,17 +90,17 @@ check('primary 2569 ordinary and debt consolidation are encoded',()=>{
 
 check('primary housing redeem and emergency amendment rules are encoded',()=>{
  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
- const h=rm.rules.specialHousingCurrent, r=rm.rules.specialRedeemMortgageCurrent, e=rm.rules.emergencyLoanAmendment2568Effective2569;
+ const h=rm.rules.specialHousingCurrentAmendment3History, r=rm.rules.redeemMortgageCurrentAmendment3History, e=rm.rules.emergencyLoanAmendment2568Effective2569;
  if(!h.primaryEvidenceVerified||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalDebtAllTypesBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
  if(!r.primaryEvidenceVerified||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
- if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
- if(!/PRIMARY_EFFECTIVE_2026-01-01_VERIFIED_AND_ENCODED/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency effective-rule state mismatch');
+ if(e.status!=='VERIFIED_PRIMARY'||e.evidenceState!=='PRIMARY_VERIFIED_SUPERSEDED'||e.remainingIncomeMinPercent!==25||e.repeatEmergencyMinInstallments!==3||e.sharePaymentMinInstallments!==6) throw new Error('emergency amendment incomplete');
+ if(!/PRIMARY_FULL_2569_EFFECTIVE_2026-10-01_VERIFIED_AND_ENCODED/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency effective-rule state mismatch');
 });
 
 check('primary 2569 housing and mortgage redemption are encoded',()=>{
  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
  const h=rm.rules.specialHousingCurrent, m=rm.rules.redeemMortgageCurrent;
- if(h.status!=='VERIFIED_PRIMARY'||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalCoopDebtBaht!==5000000) throw new Error('housing core incomplete');
+ if(h.status!=='VERIFIED_PRIMARY'||h.secondHandHomeMaxLtvPercent!==80||h.newHomeOrConstructionMaxLtvPercent!==100||h.maxAmountBaht!==3000000||h.maxTotalCoopDebtBaht!==5000000) throw new Error('housing core incomplete');
  if(h.maxTermInstallments!==360||h.maxAgeAtEnd!==75||h.earlyClosureWithin5YearsPenaltyPercentOfRemainingPrincipal!==3) throw new Error('housing term incomplete');
  if(m.status!=='VERIFIED_PRIMARY'||m.maxAmountBaht!==3000000||m.maxTermInstallments!==360||m.maxAgeAtEnd!==75) throw new Error('redeem mortgage incomplete');
  if(rm.decisionCoverage.loans.specialHousing.status!=='VERIFIED_CORE'||rm.decisionCoverage.loans.specialRedeemMortgage.status!=='VERIFIED_CORE') throw new Error('decision coverage not promoted');
@@ -109,9 +109,9 @@ check('primary 2569 housing and mortgage redemption are encoded',()=>{
 check('effective emergency primary criteria are encoded',()=>{
  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
  const e=rm.rules.emergencyLoanCurrent;
- if(e.status!=='VERIFIED_PRIMARY'||e.effectiveFrom!=='2026-01-01') throw new Error('emergency evidence state');
- if(e.membershipMinMonths!==6||e.sharePaymentMinInstallments!==6||e.remainingIncomeMinPercent!==25) throw new Error('emergency qualification rules');
- if(e.repeatEmergencyMinInstallments!==3||e.otherLoanMinInstallments!==6||e.restructuredOrdinaryMinInstallments!==12) throw new Error('emergency prior-loan rules');
+ if(e.status!=='VERIFIED_PRIMARY'||e.effectiveFrom!=='2026-10-01') throw new Error('emergency evidence state');
+ if(e.membershipMinMonths!==3||e.sharePaymentMinInstallments!==3||e.remainingIncomeMinBaht!==3000||Object.hasOwn(e,"remainingIncomeMinPercent")) throw new Error('emergency qualification rules');
+ if(e.repeatEmergencyMinInstallments!==3||e.otherLoanMinInstallments!==3||e.restructuredOrdinaryMinInstallments!==12) throw new Error('emergency prior-loan rules');
  if(!e.noBorrowerDebtWithOtherCooperatives) throw new Error('emergency other-coop rule');
 });
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
