@@ -22,12 +22,14 @@
     "ordinaryRegulation": "amended through No.5 B.E.2569",
     "emergencyRegulation": "No.2 B.E.2569",
     "specialRegulation": "No.3 B.E.2569",
-    "debtConsolidationCriteria": "amended through No.4 B.E.2569"
+    "debtConsolidationCriteria": "amended through No.4 B.E.2569",
+    "emergencyCriteria": "Amendment No.2 B.E.2568, effective 2026-01-01 (primary text verified)"
   },
   "officialSources": [
     "https://www.dlasavingcoop.com/show.php?No=774",
     "https://www.dlasavingcoop.com/show.php?No=773",
     "https://www.dlasavingcoop.com/show.php?No=2385",
     "https://www.dlasavingcoop.com/show.php?Category=procedure"
-  ]
+  ],
+  "corpusExecutionStatus": "SOURCE_XLSX_HAS_69_NONBLANK_ROWS_VERIFIED; FULL_RUNTIME_CORPUS_FILE_PENDING"
 }
