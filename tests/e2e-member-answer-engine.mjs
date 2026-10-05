@@ -105,5 +105,14 @@ check('primary 2569 housing and mortgage redemption are encoded',()=>{
  if(m.status!=='VERIFIED_PRIMARY'||m.maxAmountBaht!==3000000||m.maxTermInstallments!==360||m.maxAgeAtEnd!==75) throw new Error('redeem mortgage incomplete');
  if(rm.decisionCoverage.loans.specialHousing.status!=='VERIFIED_CORE'||rm.decisionCoverage.loans.specialRedeemMortgage.status!=='VERIFIED_CORE') throw new Error('decision coverage not promoted');
 });
+
+check('unextracted newer emergency evidence stays locked',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const state=rm.loanEvidence2569.extractionState.emergency||'';
+ if(!state.includes('KEEP_NUMERIC_RULES_EVIDENCE_LOCKED')) throw new Error('emergency newer evidence must stay locked');
+ if(rm.rules.qualityOfLifeCurrent.collateralOwnershipDocument) throw new Error('ambiguous collateral ownership key remains');
+ if(!Array.isArray(rm.rules.qualityOfLifeCurrent.acceptableLandRightDocuments)) throw new Error('land-right documents missing');
+ if(!rm.rules.qualityOfLifeCurrent.repaymentMethod) throw new Error('repayment method missing');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
