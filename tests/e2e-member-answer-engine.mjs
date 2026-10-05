@@ -52,6 +52,7 @@ check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พ�
 check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
 check('release marker',()=>{if(!html.includes('4.4.0-member-journey'))throw new Error('wrong release')});
 
+if(!html.includes('ทดลองคำนวณเงินกู้')) throw new Error('calculator entry missing');
 // Safe Calculator 4.2 gate: calculate only verified constraints/rates; never invent a monthly payment.
 for(const [q,expect] of [
  ['คำนวณกู้สามัญ 800000 บาท 120 งวด','7.50%'],
