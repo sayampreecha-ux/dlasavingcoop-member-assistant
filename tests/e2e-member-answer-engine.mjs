@@ -96,5 +96,14 @@ check('primary housing redeem and emergency amendment rules are encoded',()=>{
  if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
  if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
 });
+
+check('primary 2569 housing and mortgage redemption are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const h=rm.rules.specialHousingCurrent, m=rm.rules.redeemMortgageCurrent;
+ if(h.status!=='VERIFIED_PRIMARY'||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalCoopDebtBaht!==5000000) throw new Error('housing core incomplete');
+ if(h.maxTermInstallments!==360||h.maxAgeAtEnd!==75||h.earlyClosureWithin5YearsPenaltyPercentOfRemainingPrincipal!==3) throw new Error('housing term incomplete');
+ if(m.status!=='VERIFIED_PRIMARY'||m.maxAmountBaht!==3000000||m.maxTermInstallments!==360||m.maxAgeAtEnd!==75) throw new Error('redeem mortgage incomplete');
+ if(rm.decisionCoverage.loans.specialHousing.status!=='VERIFIED_CORE'||rm.decisionCoverage.loans.specialRedeemMortgage.status!=='VERIFIED_CORE') throw new Error('decision coverage not promoted');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
