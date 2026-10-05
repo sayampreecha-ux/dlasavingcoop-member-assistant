@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
   "productRelease": "4.4.0-member-journey",
-  "verifiedAt": "2026-10-04",
+  "verifiedAt": "2026-10-05",
   "policy": {
     "sourcePriority": [
       "ข้อบังคับ/ระเบียบปัจจุบัน",
@@ -386,7 +386,8 @@
       "emergency": {
         "status": "VERIFIED_REPEAT_RULE",
         "decisionMode": "GUIDED_REPEAT_ONLY",
-        "source": "https://www.dlasavingcoop.com/show.php?No=773"
+        "source": "https://www.dlasavingcoop.com/show.php?No=773",
+        "currentVersionEvidence": "หลักเกณฑ์ พ.ศ.2569"
       },
       "education": {
         "status": "PARTIAL_VERIFIED",
@@ -401,12 +402,14 @@
       "specialHousing": {
         "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
         "decisionMode": "SOURCE_GUIDED_HANDOFF",
-        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569"
       },
       "specialRedeemMortgage": {
         "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
         "decisionMode": "SOURCE_GUIDED_HANDOFF",
-        "source": "https://www.dlasavingcoop.com/show.php?No=2385"
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569"
       },
       "disasterAssistance": {
         "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
@@ -427,6 +430,13 @@
         "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
         "decisionMode": "SOURCE_GUIDED_HANDOFF",
         "source": "https://www.dlasavingcoop.com/show.php?No=774"
+      },
+      "debtConsolidation": {
+        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
+        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "source": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 4) พ.ศ.2569",
+        "legacyAnswerPolicy": "NEVER_AUTHORITY"
       }
     },
     "welfare": {
@@ -530,5 +540,39 @@
       "special_redeem_mortgage": 6.5,
       "emergency_cash_transfer": 7.5
     }
+  },
+  "loanEvidence2569": {
+    "verifiedAt": "2026-10-05",
+    "policy": "VERSION_AND_SOURCE_PRESENCE_VERIFIED; NUMERIC_RULES_REQUIRE_EXTRACTED_PRIMARY_EVIDENCE",
+    "officialIndexes": {
+      "ordinary": {
+        "url": "https://www.dlasavingcoop.com/show.php?No=774",
+        "currentEvidence": "หลักเกณฑ์เงินกู้สามัญ แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569 และหลักเกณฑ์ พ.ศ.2569 ปรากฏในหน้าทางการ"
+      },
+      "emergency": {
+        "url": "https://www.dlasavingcoop.com/show.php?No=773",
+        "currentEvidence": "หลักเกณฑ์เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569 และตารางประมาณการคำนวณวงเงินกู้ฉุกเฉินปรากฏในหน้าทางการ"
+      },
+      "housing": {
+        "url": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentEvidence": "หลักเกณฑ์เงินกู้พิเศษเพื่อการเคหะ แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569 ปรากฏในหน้าทางการ"
+      },
+      "redeemMortgage": {
+        "url": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentEvidence": "หลักเกณฑ์ไถ่ถอนจำนองบ้านพร้อมที่ดิน แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ.2569 ปรากฏในหน้าทางการ"
+      },
+      "debtConsolidation": {
+        "url": "https://www.dlasavingcoop.com/show.php?No=2385",
+        "currentEvidence": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้) แก้ไขเพิ่มเติม (ฉบับที่ 4) พ.ศ.2569 ปรากฏในหน้าทางการ"
+      }
+    },
+    "extractionState": {
+      "ordinary": "CORE_ALREADY_ENCODED; RECHECK_NUMERIC_RULES_WHEN_PRIMARY_FILE_AVAILABLE",
+      "emergency": "REPEAT_RULE_ENCODED; FULL_2569_PRIMARY_TEXT_EXTRACTION_PENDING",
+      "housing": "PRIMARY_TEXT_EXTRACTION_PENDING",
+      "redeemMortgage": "PRIMARY_TEXT_EXTRACTION_PENDING",
+      "debtConsolidation": "PRIMARY_TEXT_EXTRACTION_PENDING"
+    },
+    "safeBehavior": "When primary text for a numeric threshold is not extracted, guide to the exact official product page/form and do not infer a threshold from legacy LINE answers."
   }
 }
