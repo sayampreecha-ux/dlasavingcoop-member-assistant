@@ -38,5 +38,7 @@ jobs:
           }
           for(const d of c.domains) if(!d.status) throw new Error('domain without evidence status: '+d.id);
           NODE
+      - name: Validate all 69 real legacy LINE questions
+        run: node tests/validate-legacy-line-69.cjs
       - name: Validate legacy LINE acceptance contract
         run: node -e "const x=require('./tests/legacy-line-69-acceptance.json'); if(x.sourceRecordCount!==69) process.exit(1); if(!x.requirements||x.requirements.length<6) process.exit(1); console.log('legacy LINE acceptance contract OK:',x.sourceRecordCount)"
