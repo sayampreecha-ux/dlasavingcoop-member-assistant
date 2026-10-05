@@ -8,6 +8,9 @@ try{
  for(const width of [390,1365]){
   const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!globalThis.COOP_APP);
+  await page.locator('.brand-logo').waitFor({state:'visible'});
+  assert.ok(await page.locator('.brand-logo').evaluate(img=>img.complete&&img.naturalWidth>0),'cooperative logo loads');
+  assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'),'#176b45','original theme retained');
   // Execute every source pattern through the real browser engine, including product-context variants.
   const collected=await page.evaluate(rows=>{
    const answers={},contexts={};for(const row of rows)for(const q of row.question_patterns){answers[q]=COOP_APP.answer(q);if(row.expected_rule){const c=COOP_APP.contextualize(q,row.expected_rule);contexts[row.expected_rule+'|'+q]=c;answers[c]=COOP_APP.answer(c);}if(row.id===48)answers['กู้สามัญ '+q]=COOP_APP.answer('กู้สามัญ '+q);}
@@ -18,6 +21,10 @@ try{
   // Exercise the actual input and renderer for all 69 source records. Reset conversation between independent cases.
   for(const row of corpus.records){await page.evaluate(()=>{previousTopic='';conversationState=null;});await page.locator('#q').fill(row.question);await page.locator('#q').press('Enter');const rendered=await page.locator('#out .body').textContent();assert.equal(rendered,collected.answers[row.question].answer,'rendered source question '+row.id);}
   const ask=async q=>{await page.locator('#q').fill(q);await page.locator('#q').press('Enter');};
+  for(const [name,expected]of [['สามัญ',/6 เดือน/],['ฉุกเฉิน',/3 เดือน/],['รวมหนี้',/3 ปี/],['เคหะ',/6 เดือน/],['ไถ่ถอนจำนอง',/12 เดือน/]]){
+   await ask('กู้'+name+'ต้องเป็นสมาชิกกี่เดือน');const answer=await page.locator('#out .body').textContent();assert.match(answer,expected);assert.doesNotMatch(answer,/undefined|NaN/);
+  }
+  await ask('กู้ไถ่ถอนจำนองวงเงินสูงสุดเท่าไร');assert.match(await page.locator('#out .body').textContent(),/ยอดหนี้จำนองเดิม.*3,000,000/);
   await ask('กู้ฉุกเฉินใหม่ได้ไหม');await page.getByRole('textbox',{name:'ตอบข้อมูลเพิ่มเติม',exact:true}).fill('2 งวด');await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/ยังไม่|ยังไม่ได้/);
   await ask('กู้ฉุกเฉินใหม่ได้ไหม');await page.getByRole('textbox',{name:'ตอบข้อมูลเพิ่มเติม',exact:true}).fill('3 งวด');await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/ผ่านเงื่อนไข/);
   await ask('กู้รวมหนี้ดอกเบี้ยเท่าไหร่');await ask('แล้วผ่อนได้กี่งวด');assert.match(await page.locator('#out .body').textContent(),/360 งวด/);
