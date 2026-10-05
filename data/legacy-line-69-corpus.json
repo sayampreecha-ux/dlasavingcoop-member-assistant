@@ -1,0 +1,421 @@
+{
+  "schemaVersion": "1.0",
+  "source": "คำถามบอทไลน์.xlsx",
+  "recordCount": 69,
+  "records": [
+    {
+      "id": 1,
+      "question": "กู้รวมหนี้ต้องเป็นสมาชิกกี่เดือน",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 2,
+      "question": "กู้รวมหนี้ต้องเหลือเงินเดือนเท่าไหร่",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 3,
+      "question": "กู้รวมหนี้หักชำระอย่างไร",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 4,
+      "question": "กู้รวมหนี้ต้องเป็นสมาชิกสมาคมฌาปนกิจไหม",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 5,
+      "question": "กู้รวมหนี้มีข้อห้ามอะไร",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 6,
+      "question": "กู้รวมหนี้ได้เท่าไหร่",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 7,
+      "question": "กู้รวมหนี้ดอกเบี้ยเท่าไหร่",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 8,
+      "question": "กู้รวมหนี้ผ่อนได้กี่งวด",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 9,
+      "question": "กู้รวมหนี้ใช้อะไรค้ำได้บ้าง",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 10,
+      "question": "ถ้ามีสัญญากู้กับสหกรณ์อื่นอยู่กู้รวมหนี้ได้ไหม",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 11,
+      "question": "อนุมัติรวมหนี้แล้วกู้แบบอื่นได้ไหม",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 12,
+      "question": "กู้รวมหนี้ใครจ่ายค่าประเมิน",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 13,
+      "question": "กู้รวมหนี้ต้องประเมินหลักทรัพย์ที่ไหน",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 14,
+      "question": "กู้รวมหนี้ต้องทำประกันอัคคีภัยไหม",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 15,
+      "question": "กู้รวมหนี้ขอเกินหนี้เดิมได้ไหม",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 16,
+      "question": "กู้รวมหนี้หักกลบสัญญาเดิมอย่างไร",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 17,
+      "question": "กู้รวมหนี้ส่งต้นเงินอย่างไร",
+      "intent": "loan_debt_consolidation",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 18,
+      "question": "เบอร์โทร",
+      "intent": "contact",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 19,
+      "question": "สวัสดี",
+      "intent": "greeting",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 20,
+      "question": "กู้เคหะใช้ทำอะไรได้บ้าง",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 21,
+      "question": "กู้เคหะต้องเป็นสมาชิกกี่เดือน",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 22,
+      "question": "กู้เคหะต้องมีรายได้เหลือเท่าไหร่",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 23,
+      "question": "กู้เคหะหักชำระอย่างไร",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 24,
+      "question": "กู้เคหะต้องเป็นสมาชิกสมาคมฌาปนกิจไหม",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 25,
+      "question": "กู้เคหะดูเครดิตบูโรไหม",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 26,
+      "question": "กู้เคหะได้เท่าไหร่",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 27,
+      "question": "กู้เคหะผ่อนได้กี่งวด",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 28,
+      "question": "กู้เคหะผ่อนได้กี่งวด",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 29,
+      "question": "ปิดกู้เคหะก่อนกำหนดเสียค่าปรับไหม",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 30,
+      "question": "กู้เคหะใครออกค่าประเมิน",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 31,
+      "question": "กู้เคหะต้องประเมินหลักทรัพย์ที่ไหน",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 32,
+      "question": "กู้เคหะดอกเบี้ยเท่าไหร่",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 33,
+      "question": "กู้เคหะต้องทำประกันอัคคีภัยไหม",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 34,
+      "question": "กู้เคหะปลูกสร้างเบิกเงินอย่างไร",
+      "intent": "loan_housing",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินได้เท่าไหร่",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 36,
+      "question": "กู้ฉุกเฉินต้องเป็นสมาชิกกี่เดือน",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 37,
+      "question": "สมาชิกเกิน 12 เดือนกู้ฉุกเฉินมีเงื่อนไขอะไร",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 38,
+      "question": "กู้ฉุกเฉินต้องเหลือเงินเดือนเท่าไหร่",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 39,
+      "question": "กู้ฉุกเฉินผ่อนได้กี่งวด",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 40,
+      "question": "กู้ฉุกเฉินดอกเบี้ยเท่าไหร่",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 41,
+      "question": "กู้ฉุกเฉินหักจากอะไร",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 42,
+      "question": "เคยกู้สามัญหรือพิเศษแล้วกู้ฉุกเฉินได้ไหม",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 43,
+      "question": "กู้ฉุกเฉินเดิมอยู่กู้ใหม่ได้ไหม",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 44,
+      "question": "กู้ฉุกเฉินยื่นได้ถึงกี่โมง",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 45,
+      "question": "ส่งเอกสารกู้ฉุกเฉินอย่างไร",
+      "intent": "loan_emergency",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญได้สูงสุดเท่าไหร่",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนได้กี่งวด",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 48,
+      "question": "กู้ใหม่หักกลบสัญญาเดิมต้องส่งกี่งวด",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 49,
+      "question": "เป็นสมาชิกกี่เดือนถึงกู้สามัญได้",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 50,
+      "question": "สมาชิก 12 เดือนกู้สามัญได้เท่าไหร่",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 51,
+      "question": "กู้สามัญต้องถือหุ้นไหม",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 52,
+      "question": "กู้สามัญต้องค้างชำระได้ไหม",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 53,
+      "question": "กู้สามัญต้องมีเงินเดือนเหลือเท่าไหร่",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 54,
+      "question": "กู้สามัญใช้อะไรค้ำได้บ้าง",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 55,
+      "question": "ใช้เงินฝากค้ำกู้สามัญได้ไหม",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 56,
+      "question": "คนค้ำกู้สามัญต้องมีคุณสมบัติอะไร",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 57,
+      "question": "กู้สามัญใช้คนค้ำกี่คน",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 58,
+      "question": "เคยปรับโครงสร้างหนี้กู้สามัญได้ไหม",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 59,
+      "question": "กู้สามัญใช้หุ้นค้ำได้ไหม",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 60,
+      "question": "กู้เพื่อการศึกษากู้ได้เท่าไหร่",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 61,
+      "question": "กู้ภัยพิบัติได้เท่าไหร่",
+      "intent": "loan_ordinary_related",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 62,
+      "question": "สมัครสมาชิกสหกรณ์ที่ไหน",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 63,
+      "question": "สมัครสมาชิกต้องกรอกอะไรบ้าง",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 64,
+      "question": "สมัครสมาชิกต้องส่งเอกสารอะไร",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 65,
+      "question": "สมัครสมาชิกส่งเอกสารไปที่ไหน",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 66,
+      "question": "สมัครสมาชิกแล้วรู้ผลทางไหน",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 67,
+      "question": "สมัครสมาชิกต้องโอนเงินอะไร",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 68,
+      "question": "สมัครสมาชิกโอนเงินอย่างไร",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    },
+    {
+      "id": 69,
+      "question": "สมัครสมาชิกแล้วไม่โอนเงินภายในกี่วัน",
+      "intent": "membership",
+      "legacy_answer_policy": "NEVER_AUTHORITY"
+    }
+  ]
+}
