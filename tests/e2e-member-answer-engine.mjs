@@ -105,6 +105,15 @@ check('primary 2569 housing and mortgage redemption are encoded',()=>{
  if(m.status!=='VERIFIED_PRIMARY'||m.maxAmountBaht!==3000000||m.maxTermInstallments!==360||m.maxAgeAtEnd!==75) throw new Error('redeem mortgage incomplete');
  if(rm.decisionCoverage.loans.specialHousing.status!=='VERIFIED_CORE'||rm.decisionCoverage.loans.specialRedeemMortgage.status!=='VERIFIED_CORE') throw new Error('decision coverage not promoted');
 });
+
+check('effective emergency primary criteria are encoded',()=>{
+ const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+ const e=rm.rules.emergencyLoanCurrent;
+ if(e.status!=='VERIFIED_PRIMARY'||e.effectiveFrom!=='2026-01-01') throw new Error('emergency evidence state');
+ if(e.membershipMinMonths!==6||e.sharePaymentMinInstallments!==6||e.remainingIncomeMinPercent!==25) throw new Error('emergency qualification rules');
+ if(e.repeatEmergencyMinInstallments!==3||e.otherLoanMinInstallments!==6||e.restructuredOrdinaryMinInstallments!==12) throw new Error('emergency prior-loan rules');
+ if(!e.noBorrowerDebtWithOtherCooperatives) throw new Error('emergency other-coop rule');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 
