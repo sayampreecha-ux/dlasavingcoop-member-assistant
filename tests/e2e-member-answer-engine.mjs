@@ -96,5 +96,15 @@ check('primary housing redeem and emergency amendment rules are encoded',()=>{
  if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
  if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
 });
+
+check('primary PDF loan rules are encoded for member information',()=>{
+  const rm=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+  const h=rm.rules.specialHousingCurrent;
+  if(h.maxLtvPercent!==90||h.maxHousingAmountBaht!==3000000||h.maxTotalCoopLoansBaht!==5000000) throw new Error('housing amendment thresholds mismatch');
+  if(h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing term/age mismatch');
+  if(rm.rules.ordinaryLoanCurrent.primaryEvidence.status!=='PRIMARY_PDF_VISUAL_VERIFIED') throw new Error('ordinary primary evidence missing');
+  if(rm.rules.qualityOfLifeCurrent.primaryEvidence.status!=='PRIMARY_PDF_VISUAL_VERIFIED') throw new Error('quality-of-life primary evidence missing');
+  if(h.use!=='MEMBER_INFORMATION_AND_PRELIMINARY_SELF_CHECK_ONLY') throw new Error('housing use boundary missing');
+});
 console.log('\nRESULT',pass,'passed,',failures.length,'failed');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
