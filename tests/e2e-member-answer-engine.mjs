@@ -39,6 +39,8 @@ check('member deposit uses official self-service',()=>{const r=ans('เงิน
 check('member approval status uses self-service first',()=>{const r=ans('กู้ของผมอนุมัติหรือยัง');if(r.intent!=='member_self_service')throw new Error('expected self service status')});
 check('guarantor failure reason still hands off to staff',()=>{const r=ans('ทำไมผู้ค้ำของผมไม่ผ่าน ติดอะไร');if(r.intent!=='personal_handoff')throw new Error('expected staff handoff for judgment')});
 
+check('dividend routes to exact official notice',()=>{const r=ans('ปันผลปี 2569 ออกเมื่อไร');if(!(r.actions||[]).some(x=>x[1]==='https://www.dlasavingcoop.com/show.php?No=4916'))throw new Error('missing direct dividend notice');if((r.actions||[]).some(x=>/Category=notice/.test(x[1]||'')))throw new Error('must not route dividend to notice index')});
+check('dividend knowledge routes to exact notice',()=>{const r=ans('ปันผลกับเฉลี่ยคืนต่างกันยังไง');if(!(r.actions||[]).some(x=>x[1]==='https://www.dlasavingcoop.com/show.php?No=4916'))throw new Error('missing direct dividend notice')});
 check('dynamic dividend does not invent percent',()=>{const r=ans('ปันผลปี 2569 กี่เปอร์เซ็นต์'); if(/\d+(?:\.\d+)?\s*%/.test(r.answer||''))throw new Error('invented rate')});
 check('quality cross-loan blocks ordinary without invented threshold',()=>{const r=ans('คุณภาพชีวิตส่งกี่งวดถึงกู้สามัญได้'); if(r.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected current cross-loan prohibition'); const all=(r.answer||'')+' '+(r.details||[]).join(' '); if(!/ยกเว้นเงินกู้ฉุกเฉิน/.test(all))throw new Error('missing emergency exception'); if(/ต้อง(?:ส่ง|ชำระ).*\d+\s*งวด/.test(all))throw new Error('invented cross-loan threshold')});
 
@@ -46,7 +48,7 @@ check('ordinary guided eligibility starts before personal handoff',()=>{const r=
 check('ordinary guided flow fails early on membership',()=>{const r=ans('ผมกู้สามัญได้ไหม');const x=app.continueDecision('5 เดือน',{flowId:r.flowId,requiredFact:r.requiredFact,facts:r.facts||{}});if(x.decision!=='NOT_YET_ELIGIBLE')throw new Error('expected early fail')});
 check('quality guided eligibility starts',()=>{const r=ans('ผมกู้พัฒนาคุณภาพชีวิตได้ไหม');if(r.flowId!=='quality_eligibility'||r.requiredFact!=='requestAmount')throw new Error('guided quality flow not started')});
 check('named housing eligibility is not misrouted to private handoff',()=>{const r=ans('ผมกู้บ้านได้ไหม');if(r.intent==='personal_handoff'||r.decision!=='NEED_RULE_EXTRACTION')throw new Error('housing rule question misrouted')});
-check('release marker',()=>{if(!html.includes('4.3.0-member-self-service'))throw new Error('wrong release')});
+check('release marker',()=>{if(!html.includes('4.4.0-member-journey'))throw new Error('wrong release')});
 
 // Safe Calculator 4.2 gate: calculate only verified constraints/rates; never invent a monthly payment.
 for(const [q,expect] of [
