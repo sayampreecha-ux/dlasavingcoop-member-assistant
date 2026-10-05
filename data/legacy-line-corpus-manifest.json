@@ -34,5 +34,20 @@
     "emergency": "https://www.dlasavingcoop.com/show.php?No=773",
     "housing": "https://www.dlasavingcoop.com/show.php?No=2385",
     "current_regulations_index": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+  },
+  "runtimeAcceptance": {
+    "totalRecords": 69,
+    "noDeadEnd": true,
+    "legacyAnswersNeverAuthority": true,
+    "numericRulesRequireCurrentOfficialEvidence": true,
+    "safeFallbackWhenEvidencePending": true,
+    "personalDataRoute": "MEMBER_SELF_SERVICE_FIRST",
+    "humanHandoff": "LAST_RESORT"
+  },
+  "currentOfficialVersionsObserved": {
+    "ordinaryRegulation": "amended through No.5 B.E.2569",
+    "emergencyRegulation": "No.2 B.E.2569",
+    "specialRegulation": "No.3 B.E.2569",
+    "debtConsolidationCriteria": "amended through No.4 B.E.2569"
   }
 }
