@@ -436,7 +436,9 @@
       "propertyAppraiserMustBeCoopApproved": true,
       "constructionDisbursementStages": 4,
       "constructionFirstDisbursementStages": 2,
-      "constructionSubsequentDisbursementRequiresProgressAppraisal": true
+      "constructionSubsequentDisbursementRequiresProgressAppraisal": true,
+      "primaryEvidenceVerified": true,
+      "maxTotalDebtAllTypesBaht": 5000000
     },
     "specialRedeemMortgageCurrent": {
       "status": "VERIFIED_AMENDMENT_CORE",
@@ -485,7 +487,8 @@
       "lifeInsuranceBeneficiary": "cooperative",
       "borrowerPaysMortgageRegistrationCosts": true,
       "buildingFireInsuranceRequired": true,
-      "buildingFireInsuranceMinContinuousYears": 3
+      "buildingFireInsuranceMinContinuousYears": 3,
+      "primaryEvidenceVerified": true
     }
   },
   "decisionCoverage": {
@@ -682,8 +685,8 @@
     },
     "extractionState": {
       "ordinary": "PRIMARY_PDF_VERIFIED_AND_CORE_ENCODED",
-      "emergency": "OFFICIAL_PAGE_LISTS_2569_CRITERIA; FULL_2569_PRIMARY_TEXT_NOT_YET_EXTRACTED; KEEP_NUMERIC_RULES_EVIDENCE_LOCKED",
-      "housing": "PRIMARY_PDF_VERIFIED_AND_ENCODED",
+      "emergency": "LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION; OFFICIAL_PAGE_LISTS_2569_CRITERIA; FULL_2569_PRIMARY_TEXT_NOT_YET_EXTRACTED; KEEP_NUMERIC_RULES_EVIDENCE_LOCKED",
+      "housing": "PRIMARY_AMENDMENT_NO3_VERIFIED; PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "redeemMortgage": "PRIMARY_PDF_VERIFIED_AND_ENCODED",
       "debtConsolidation": "PRIMARY_PDF_LATEST_FULL_CRITERIA_VERIFIED_AND_ENCODED"
     },
