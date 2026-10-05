@@ -94,7 +94,7 @@ check('primary housing redeem and emergency amendment rules are encoded',()=>{
  if(!h.primaryEvidenceVerified||h.maxLtvPercent!==90||h.maxAmountBaht!==3000000||h.maxTotalDebtAllTypesBaht!==5000000||h.maxTermInstallments!==360||h.maxAgeAtEnd!==75) throw new Error('housing amendment incomplete');
  if(!r.primaryEvidenceVerified||r.maxAmountBaht!==3000000||r.maxTermInstallments!==360||r.maxAgeAtEnd!==75) throw new Error('redeem amendment incomplete');
  if(e.status!=='VERIFIED_PRIMARY_AMENDMENT'||e.remainingIncomeMinPercent!==25||e.noArrearsInstallments!==3||e.noShareArrearsInstallments!==6) throw new Error('emergency amendment incomplete');
- if(!/LATER_2569_FULL_CRITERIA_STILL_REQUIRES_EXTRACTION/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency later-rule guard missing');
+ if(!/PRIMARY_EFFECTIVE_2026-01-01_VERIFIED_AND_ENCODED/.test(rm.loanEvidence2569.extractionState.emergency)) throw new Error('emergency effective-rule state mismatch');
 });
 
 check('primary 2569 housing and mortgage redemption are encoded',()=>{
