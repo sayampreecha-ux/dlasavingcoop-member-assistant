@@ -16,16 +16,18 @@
     {
       "id": "shares",
       "name": "หุ้น",
-      "status": "PRIMARY_SOURCE_FOUND_NEEDS_VERSION_CHECK",
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
       "primarySources": [
         "https://drive.google.com/file/d/19ra7Xhzut0Hn734mQSuJT9_6jQYmRC-2/view?usp=drivesdk",
         "https://drive.google.com/file/d/1H1VwPZhUi--SsA99CDDc0X8-cW_tOu39/view?usp=drivesdk"
-      ]
+      ],
+      "currentVersionEvidence": "ระเบียบว่าด้วยหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 2) พ.ศ.2566"
     },
     {
       "id": "memberDeposits",
       "name": "เงินฝากสมาชิก",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
+      "currentVersionEvidence": "ระเบียบว่าด้วยการรับฝากเงินจากสมาชิกสหกรณ์ แก้ไขเพิ่มเติม (ฉบับที่ 2) พ.ศ.2566"
     },
     {
       "id": "cashManagement",
@@ -55,12 +57,15 @@
     {
       "id": "debtRestructuring",
       "name": "ปรับโครงสร้างหนี้",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
+      "currentVersionEvidence": "ระเบียบว่าด้วยการปรับโครงสร้างหนี้ของสมาชิก พ.ศ.2564",
+      "loanCriteriaVersionEvidence": "หลักเกณฑ์เงินกู้สามัญเพื่อปรับโครงสร้างหนี้ แก้ไขเพิ่มเติม พ.ศ.2569"
     },
     {
       "id": "debtCompromise",
       "name": "ประนอมหนี้",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
+      "currentVersionEvidence": "ระเบียบว่าด้วยการประนอมหนี้ พ.ศ.2566"
     },
     {
       "id": "procurement",
@@ -80,17 +85,22 @@
     {
       "id": "resignation",
       "name": "สมาชิกออกจากสหกรณ์",
-      "status": "VERIFIED_PROCEDURE"
+      "status": "OFFICIAL_INDEX_CURRENT_VERSION_VERIFIED",
+      "currentVersionEvidence": "ระเบียบว่าด้วยการให้สมาชิกออกจากสหกรณ์ พ.ศ.2569",
+      "primarySource": "https://drive.google.com/file/d/1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN/view?usp=drivesdk"
     },
     {
       "id": "memberTransfer",
       "name": "โอนสมาชิกระหว่างสหกรณ์",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
+      "currentVersionEvidence": "ระเบียบว่าด้วยการโอนสมาชิกระหว่างสหกรณ์ พ.ศ.2566",
+      "primarySource": "https://drive.google.com/file/d/1ejFNdA3oKnhHyszg8bQjwmhVUf5Dp6Jy/view?usp=drivesdk"
     },
     {
       "id": "guarantorAidFund",
       "name": "ทุนช่วยเหลือผู้ค้ำเงินกู้สามัญ",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "OFFICIAL_INDEX_VERSION_VERIFIED_NEEDS_RULE_EXTRACTION",
+      "currentVersionEvidence": "ระเบียบว่าด้วยทุนช่วยเหลือสมาชิกผู้ค้ำประกันเงินกู้สามัญ พ.ศ.2566"
     },
     {
       "id": "debtCollectionCosts",
@@ -233,6 +243,17 @@
     "funeralAssociationBylaws": {
       "status": "PRIMARY_BYLAWS_FOUND_2567_REQUIRES_AMENDMENT_CHECK",
       "source": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view?usp=drivesdk"
+    }
+  },
+  "loanSubtypes2569": {
+    "source": "https://www.dlasavingcoop.com/show.php?No=774",
+    "status": "OFFICIAL_INDEX_VERSION_VERIFIED_RULE_TEXT_PENDING",
+    "types": {
+      "debtRestructuring": "แก้ไขเพิ่มเติม พ.ศ.2569",
+      "shareDepositBacked": "แก้ไขเพิ่มเติม พ.ศ.2569",
+      "guarantorDebt": "แก้ไขเพิ่มเติม พ.ศ.2569",
+      "education": "แก้ไขเพิ่มเติม พ.ศ.2569",
+      "disaster": "แก้ไขเพิ่มเติม พ.ศ.2569"
     }
   }
 }
