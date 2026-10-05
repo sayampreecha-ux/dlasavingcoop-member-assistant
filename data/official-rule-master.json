@@ -20,7 +20,7 @@
   },
   "domains": {
     "ordinaryLoan": {
-      "status": "VERIFIED_CORE",
+      "status": "VERIFIED_PRIMARY",
       "verified": [
         "สมาชิกไม่น้อยกว่า 6 เดือน",
         "กู้ซ้ำสามัญ: สัญญาเดิมอย่างน้อย 12 งวด และสัญญาใหม่หักกลบสัญญาสามัญเดิม",
@@ -47,7 +47,7 @@
       "source": "https://www.dlasavingcoop.com/show.php?No=774"
     },
     "qualityOfLife": {
-      "status": "VERIFIED_CORE",
+      "status": "VERIFIED_PRIMARY",
       "source": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing",
       "verified": [
         "กู้ได้ไม่เกิน 80% ของราคาประเมิน และไม่เกิน 5,000,000 บาท",
@@ -165,7 +165,31 @@
       ],
       "guarantorMaxBorrowers": 3,
       "noBorrowerDebtWithOtherCooperatives": true,
-      "noArrearsInstallments": 12
+      "noArrearsInstallments": 12,
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceVerifiedAt": "2026-10-05",
+      "primaryEvidenceTitle": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+      "announcementDate": "2026-09-11",
+      "salaryDeductionRequired": true,
+      "memberWelfareFuneralAssociationRequired": true,
+      "noDebtAsBorrowerWithOtherCooperatives": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "collateralOptions": [
+        "member_guarantor",
+        "real_estate",
+        "government_securities",
+        "coop_deposit"
+      ],
+      "realEstateCollateralMaxPercentOfAppraisal": 90,
+      "employeeGuarantorMinServiceYears": 3,
+      "guarantorReplacementDeadlineDays": 180,
+      "loanDisbursementChannels": [
+        "in_person",
+        "post",
+        "mobile_application",
+        "web_application",
+        "other_coop_defined_channel"
+      ]
     },
     "qualityOfLifeCurrent": {
       "status": "VERIFIED",
@@ -187,7 +211,23 @@
         "emergency"
       ],
       "cashOutMaxPercentOfRemainingEligibleAmount": 50,
-      "noArrearsInstallments": 12
+      "noArrearsInstallments": 12,
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceVerifiedAt": "2026-10-05",
+      "primaryEvidenceTitle": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+      "announcementDate": "2026-09-11",
+      "salaryDeductionRequired": true,
+      "memberWelfareFuneralAssociationRequired": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "collateralOwnershipDocument": [
+        "title_deed",
+        "nor_sor_3_kor"
+      ],
+      "propertyAppraiserMustBeCoopApproved": true,
+      "borrowerPaysAppraisalAndMortgageCosts": true,
+      "buildingCollateralFireInsuranceRequired": true,
+      "buildingFireInsuranceMinContinuousYears": 3,
+      "disbursement": "monthly_equal_principal_plus_interest_except_first_or_last_installment"
     },
     "welfareCommon": {
       "status": "VERIFIED",
@@ -432,11 +472,12 @@
         "source": "https://www.dlasavingcoop.com/show.php?No=774"
       },
       "debtConsolidation": {
-        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
-        "decisionMode": "SOURCE_GUIDED_HANDOFF",
+        "status": "VERIFIED_CORE",
+        "decisionMode": "GUIDED_MULTI_FACT",
         "source": "https://www.dlasavingcoop.com/show.php?No=2385",
         "currentVersionEvidence": "แก้ไขเพิ่มเติม (ฉบับที่ 4) พ.ศ.2569",
-        "legacyAnswerPolicy": "NEVER_AUTHORITY"
+        "legacyAnswerPolicy": "NEVER_AUTHORITY",
+        "rule": "qualityOfLifeCurrent"
       }
     },
     "welfare": {
@@ -567,11 +608,11 @@
       }
     },
     "extractionState": {
-      "ordinary": "CORE_ALREADY_ENCODED; RECHECK_NUMERIC_RULES_WHEN_PRIMARY_FILE_AVAILABLE",
+      "ordinary": "PRIMARY_PDF_VERIFIED_AND_CORE_ENCODED",
       "emergency": "REPEAT_RULE_ENCODED; FULL_2569_PRIMARY_TEXT_EXTRACTION_PENDING",
       "housing": "PRIMARY_TEXT_EXTRACTION_PENDING",
       "redeemMortgage": "PRIMARY_TEXT_EXTRACTION_PENDING",
-      "debtConsolidation": "PRIMARY_TEXT_EXTRACTION_PENDING"
+      "debtConsolidation": "PRIMARY_PDF_VERIFIED_AND_ENCODED"
     },
     "safeBehavior": "When primary text for a numeric threshold is not extracted, guide to the exact official product page/form and do not infer a threshold from legacy LINE answers."
   }
