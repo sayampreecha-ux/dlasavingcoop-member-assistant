@@ -1,0 +1,28 @@
+name: Regression
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  member-answer-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Member answer engine
+        run: node tests/e2e-member-answer-engine.mjs
+      - name: Real member simulation
+        run: node tests/real-member-simulation.mjs
+      - name: Validate legacy LINE acceptance contract
+        run: node -e "const x=require('./tests/legacy-line-69-acceptance.json'); if(x.sourceRecordCount!==69) process.exit(1); if(!x.requirements||x.requirements.length<6) process.exit(1); console.log('legacy LINE acceptance contract OK:',x.sourceRecordCount)"
