@@ -182,12 +182,13 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   else root.COOP_KB=data;
 })(typeof globalThis!=='undefined'?globalThis:this,function(){
   return {
-    version:'4.3.0-member-self-service',
+    version:'4.4.0-member-journey',
     verifiedAt:'2026-10-03',
     product:'AI ผู้ช่วยสมาชิก สอ.อปท.',
     official:{
       home:'https://www.dlasavingcoop.com/',
       memberPortal:'https://member.dlasavingcoop.com/coop/',
+      dividendNotice2569:'https://www.dlasavingcoop.com/show.php?No=4916',
       procedure:'https://www.dlasavingcoop.com/show.php?Category=procedure',
       balanceConfirmation2569:'https://dlasavingcoop.com/show.php?No=4931',
       beneficiaryGuide:'https://dlasavingcoop.com/show.php?No=4062',
@@ -1772,9 +1773,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       details:['อัตราดอกเบี้ยเป็นข้อมูลที่เปลี่ยนได้ จึงไม่ฝังตัวเลขเก่าในระบบนี้ ให้ตรวจประกาศ/หน้าเงินฝากปัจจุบันก่อนทำรายการ'],actions:[['แบบฟอร์มเงินฝาก',S.depositForms],['ติดต่อเงินฝาก',S.depositGuide]],sources:[src('แบบฟอร์มเงินฝาก',S.depositForms),src('คำแนะนำงานเงินฝาก',S.depositGuide)]
     });
 
-    if(/(?:ปันผล.*เฉลี่ยคืน|เฉลี่ยคืน.*ปันผล)/i.test(q)&&/(?:ต่าง|คืออะไร|หมายถึง|เหมือน|อันเดียวกัน|เดียวกัน)/i.test(q)) return res('dividend_knowledge','ปันผลกับเฉลี่ยคืนเป็นคนละฐานกันครับ — “ปันผล” เป็นผลตอบแทนที่สัมพันธ์กับทุนเรือนหุ้น ส่วน “เฉลี่ยคืน” เป็นการคืนประโยชน์แก่สมาชิกตามหลักเกณฑ์/ธุรกรรมที่สหกรณ์กำหนดในปีบัญชีนั้น อัตราจริงต้องยึดมติและประกาศประจำปี ไม่ควรนำอัตราปีก่อนมาตอบแทนปีปัจจุบัน',{answerClass:ANSWER_CLASS.KNOWLEDGE,status:'คำอธิบายหลักการ — อัตราจริงตรวจประกาศรายปี',details:['ถ้าถามว่า “ปีนี้กี่เปอร์เซ็นต์” ระบบจะเปลี่ยนไปใช้ข้อมูลประกาศปัจจุบัน','ถ้าถามว่า “ของฉันได้เท่าไร” ต้องใช้ข้อมูลเฉพาะสมาชิกและส่งต่อเจ้าหน้าที่'],actions:[['📣 ประกาศทางการ',S.notices]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices)]});
+    if(/(?:ปันผล.*เฉลี่ยคืน|เฉลี่ยคืน.*ปันผล)/i.test(q)&&/(?:ต่าง|คืออะไร|หมายถึง|เหมือน|อันเดียวกัน|เดียวกัน)/i.test(q)) return res('dividend_knowledge','ปันผลกับเฉลี่ยคืนเป็นคนละฐานกันครับ — “ปันผล” เป็นผลตอบแทนที่สัมพันธ์กับทุนเรือนหุ้น ส่วน “เฉลี่ยคืน” เป็นการคืนประโยชน์แก่สมาชิกตามหลักเกณฑ์/ธุรกรรมที่สหกรณ์กำหนดในปีบัญชีนั้น อัตราจริงต้องยึดมติและประกาศประจำปี ไม่ควรนำอัตราปีก่อนมาตอบแทนปีปัจจุบัน',{answerClass:ANSWER_CLASS.KNOWLEDGE,status:'คำอธิบายหลักการ — อัตราจริงตรวจประกาศรายปี',details:['ถ้าถามว่า “ปีนี้กี่เปอร์เซ็นต์” ระบบจะเปลี่ยนไปใช้ข้อมูลประกาศปัจจุบัน','ถ้าถามว่า “ของฉันได้เท่าไร” ต้องใช้ข้อมูลเฉพาะสมาชิกและส่งต่อเจ้าหน้าที่'],actions:[['📄 เปิดประกาศปันผล/เฉลี่ยคืน ปี 2569',S.dividendNotice2569]],sources:[src('ประกาศกำหนดแนวทางการจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ปี 2569',S.dividendNotice2569)]});
     if(/ปันผล|เฉลี่ยคืน/i.test(q)) return res('dividend',`ประกาศปันผล/เฉลี่ยคืนที่ตรวจไว้ล่าสุด ณ ${KB.dividend.verifiedAt}: “${KB.dividend.title}” (${KB.dividend.noticeNo}, ${KB.dividend.published})`,{
-      details:[KB.dividend.note,'หากใช้งานหลังวันที่ตรวจสอบ ให้เปิดหน้าประกาศทางการเพื่อตรวจว่ามีฉบับใหม่กว่าหรือไม่'],actions:[['เปิดหน้าประกาศล่าสุด',S.notices]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices)]
+      details:[KB.dividend.note,'เปิดประกาศฉบับที่ตรงเรื่องได้โดยตรง ไม่ต้องค้นจากหน้ารวมประกาศ','หากถามยอดของสมาชิกแต่ละราย ให้ตรวจจากระบบสมาชิกทางการ'],actions:[['📄 เปิดประกาศปันผล/เฉลี่ยคืน ปี 2569',S.dividendNotice2569],['🔐 ตรวจข้อมูลของฉัน',S.memberPortal]],sources:[src('ประกาศกำหนดแนวทางการจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ปี 2569',S.dividendNotice2569)]
     });
 
     if(/แบบฟอร์ม|แบบขอรับ|ดาวน์โหลด/i.test(q)) return res('forms','หาแบบฟอร์มได้ตามงาน โดยใช้หน้ารวมทางการเพื่อให้ได้ฉบับล่าสุดครับ',{
@@ -1808,7 +1809,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.3.0-member-self-service';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.4.0-member-journey';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 function ask(text,{continuation=false}={}){
