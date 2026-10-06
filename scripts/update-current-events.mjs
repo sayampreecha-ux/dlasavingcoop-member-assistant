@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
 const OUT=new URL('../data/current-events.json',import.meta.url);
-const OFFICIAL_FACEBOOK='https://www.facebook.com/Dlasavingcooppage';
+const OFFICIAL_FACEBOOK='https://www.facebook.com/dlasaving';
 // Facebook is discovery/news only. It must never promote or rewrite Rule Master.
 const SOCIAL_DISCOVERY=[
   {
