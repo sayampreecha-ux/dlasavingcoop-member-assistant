@@ -158,5 +158,19 @@ for(const [q,expect] of [
  if(r.intent!==expect.intent||r.decision!==expect.decision||!expect.must.test(all)) failures.push({q,group:'real-line-2026-10-06',expected:expect,actual:{intent:r.intent,decision:r.decision,answer:r.answer,details:r.details}});
 }
 
+// UX hardening: quality-of-life -> emergency asks the missing installment fact and continues in place.
+{
+ const q='กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม';
+ const first=globalThis.COOP_APP.answer(q);
+ const all=[first.answer,...(first.details||[])].join(' ');
+ if(first.flowId!=='quality_to_emergency_flow'||first.requiredFact!=='qualityPaid'||!/ชำระแล้วกี่งวด/.test(first.answer)||!(first.followups||[]).includes('3 งวด')||(first.actions||[]).some(x=>/เงินกู้สามัญ/.test(x[0]))) failures.push({q,group:'quality-emergency-followup-first',actual:first});
+ const turn=globalThis.COOP_APP.conversationTurn(q,{});
+ const pass3=globalThis.COOP_APP.conversationTurn('3 งวด',turn.state,{continuation:true});
+ if(pass3.result.decision!=='ELIGIBLE_CONDITION'||!/ครบอย่างน้อย 3 งวด/.test([pass3.result.answer,...(pass3.result.details||[])].join(' '))) failures.push({q,group:'quality-emergency-followup-3',actual:pass3.result});
+ const turn2=globalThis.COOP_APP.conversationTurn(q,{});
+ const fail2=globalThis.COOP_APP.conversationTurn('2 งวด',turn2.state,{continuation:true});
+ if(fail2.result.decision!=='NOT_YET_ELIGIBLE'||!/อย่างน้อย 3 งวด/.test([fail2.result.answer,...(fail2.result.details||[])].join(' '))) failures.push({q,group:'quality-emergency-followup-2',actual:fail2.result});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));

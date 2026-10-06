@@ -17,7 +17,15 @@ try{
   assert.match(await ask('กู้ฉุกเฉิน ณ วันที่ 30 กันยายน 2569 ต้องเป็นสมาชิกกี่เดือน'),/6 เดือน/);pass++;
   assert.match(await ask('เงินเดือน 32,000 บาท ปัจจุบันต้องถือหุ้นเดือนละเท่าไร'),/ประกาศอัตรา|ตาราง/);assert.doesNotMatch(await page.locator('#out .body').textContent(),/1,600|1600/);pass++;
   assert.match(await ask('สมาชิกเกษียณอายุราชการแล้วสามารถค้ำประกันเงินกู้ได้หรือไม่'),/ต้องตรวจ|ยืนยัน/);assert.ok(await page.locator('#out a[href*="contact"]').count());pass++;
-  assert.match(await ask('กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม'),/อย่างน้อย 3 งวด/);pass++;
+  await ask('กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม');
+  let lineOut=await page.locator('#out').textContent();
+  assert.match(lineOut,/ชำระแล้วกี่งวด/);
+  assert.doesNotMatch(lineOut,/แบบฟอร์มเงินกู้สามัญ|งานเงินกู้สามัญ 083-928-8638/);
+  assert.ok(await page.getByRole('button',{name:'3 งวด',exact:true}).count());
+  await page.getByRole('button',{name:'3 งวด',exact:true}).click();
+  await page.waitForFunction(()=>document.querySelector('#out .body')?.textContent.includes('ผ่านเงื่อนไขจำนวนงวด'));
+  lineOut=await page.locator('#out').textContent();
+  assert.doesNotMatch(lineOut,/แบบฟอร์มเงินกู้สามัญ|งานเงินกู้สามัญ 083-928-8638/);pass++;
   assert.match(await ask('ส่งพัฒนาคุณภาพชีวิตครบ 3 งวด แต่ถ้ากู้สามัญใหญ่เพื่อปิดกู้พัฒนาคุณภาพชีวิต สามารถยื่นเอกสารได้เลยใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
   assert.match(await ask('ถ้าสามัญใหญ่ส่งครบ 12 งวด สามารถยื่นได้ แจ้งความประสงค์หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต เนื่องจากตามหลักเกณฑ์ไม่หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต ใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
   await ask('กรอกคำขอเปลี่ยนแปลงแล้ว ต้องแนบเอกสารอะไรเพิ่มเติมหรือไม่ และส่งเอกสารไปที่ไหน');assert.match(await page.locator('#out').textContent(),/111\/1.*คลองหลวง 8/);pass++;
