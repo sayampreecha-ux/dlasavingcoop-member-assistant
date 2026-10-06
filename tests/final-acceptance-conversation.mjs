@@ -26,6 +26,7 @@ check('F01 positive and invalid boolean answers stay safe',()=>{
  const invalid=reply(t,'ไม่รู้');assert.equal(invalid.result.requiredFact,'arrears12');assert.deepEqual(invalid.result.facts,t.result.facts);
 });
 for(const [q,re]of [['ผ่อนได้กี่งวด',/240 งวด/],['กู้ใหม่หักกลบสัญญาเดิมต้องส่งกี่งวด',/12 งวด.*หักกลบ/],['กู้ต้องค้ำกี่คน',/500,000.*1 คน/]])check('F02 type choice preserves '+q,()=>{const t=begin(q);assert.equal(t.result.requiredFact,'loanProduct');assert.match(text(reply(t,'กู้สามัญ')),re);});
+check('F02 a new complete main-input question replaces the pending question',()=>{const t=reply(begin('ผ่อนได้กี่งวด'),'กู้ฉุกเฉินวงเงินสูงสุดเท่าไร',false);assert.equal(t.result.concern,'amount');assert.match(t.result.answer,/30,000.*60,000/);assert.doesNotMatch(t.result.answer,/ผ่อนได้/);});
 check('F03 child welfare asks a specific choice and preserves document question',()=>{
  let t=begin('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');assert.equal(t.result.requiredFact,'welfareKind');assert.deepEqual(Array.from(t.result.followups),['คลอดบุตร','ทุนการศึกษาบุตร']);
  t=reply(t,'คลอดบุตร');assert.equal(t.result.intent,'welfare_childbirth');assert.ok(t.result.actions.some(x=>/No=775/.test(x[1])));
