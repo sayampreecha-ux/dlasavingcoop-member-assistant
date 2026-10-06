@@ -47,12 +47,13 @@
       "ask": "อัตราเงินได้รายเดือนและการถือหุ้น 2569",
       "source": "official-facebook",
       "publishedAt": "2026-10-06T10:00:00.000Z",
-      "directSourceUrl": null,
+      "directSourceUrl": "https://www.facebook.com/share/p/1EvnJMdZzn/?mibextid=wwXIfr",
       "discoveryUrl": "https://www.facebook.com/dlasaving",
-      "sourceState": "DIRECT_SOURCE_PENDING",
-      "sourceLabel": "กำลังตรวจต้นฉบับ",
+      "sourceState": "DIRECT_VERIFIED",
+      "sourceLabel": "โพสต์ต้นฉบับจาก Facebook",
       "eventDate": null,
-      "expiresAt": null
+      "expiresAt": null,
+      "directSourceVerification": "USER_SUPPLIED_EXACT_POST"
     },
     {
       "contentKind": "NEWS",

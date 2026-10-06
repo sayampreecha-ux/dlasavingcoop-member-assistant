@@ -4,6 +4,7 @@ const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
 const OUT=new URL('../data/current-events.json',import.meta.url);
 const OFFICIAL_FACEBOOK='https://www.facebook.com/dlasaving';
+const SHARE_RATE_POST='https://www.facebook.com/share/p/1EvnJMdZzn/?mibextid=wwXIfr';
 
 function directOfficialDetail(url){
   try{
@@ -13,13 +14,24 @@ function directOfficialDetail(url){
     return /^\d+$/.test(u.searchParams.get('No')||'');
   }catch{return false}
 }
+function directFacebookPost(url){
+  try{
+    const u=new URL(url);
+    if(!/^(www\.)?facebook\.com$/i.test(u.hostname)) return false;
+    if(/^\/share\/p\/[A-Za-z0-9_-]+\/?$/i.test(u.pathname)) return true;
+    return /\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search);
+  }catch{return false}
+}
 function sourceMetadata(item){
   if(item.source==='official-facebook'){
+    const exact=item.directSourceUrl||null;
+    const direct=directFacebookPost(exact);
     return {
-      discoveryUrl:item.url||OFFICIAL_FACEBOOK,
-      directSourceUrl:null,
-      sourceState:'DIRECT_SOURCE_PENDING',
-      sourceLabel:'กำลังตรวจต้นฉบับ'
+      discoveryUrl:item.discoveryUrl||item.url||OFFICIAL_FACEBOOK,
+      directSourceUrl:direct?exact:null,
+      sourceState:direct?'DIRECT_VERIFIED':'DIRECT_SOURCE_PENDING',
+      sourceLabel:direct?'โพสต์ต้นฉบับจาก Facebook':'กำลังตรวจต้นฉบับ',
+      ...(direct?{directSourceVerification:item.directSourceVerification||'EXACT_POST_VERIFIED'}:{})
     };
   }
   const direct=directOfficialDetail(item.url);
@@ -42,8 +54,9 @@ const SOCIAL_DISCOVERY=[
     status:'notice',statusLabel:'ประกาศใหม่',priority:97,
     url:OFFICIAL_FACEBOOK,ask:'อัตราเงินได้รายเดือนและการถือหุ้น 2569',
     source:'official-facebook',publishedAt:'2026-10-06T10:00:00.000Z',
-    directSourceUrl:null,discoveryUrl:OFFICIAL_FACEBOOK,
-    sourceState:'DIRECT_SOURCE_PENDING',sourceLabel:'กำลังตรวจต้นฉบับ',
+    directSourceUrl:SHARE_RATE_POST,discoveryUrl:OFFICIAL_FACEBOOK,
+    sourceState:'DIRECT_VERIFIED',sourceLabel:'โพสต์ต้นฉบับจาก Facebook',
+    directSourceVerification:'USER_SUPPLIED_EXACT_POST',
     eventDate:null,expiresAt:null
   }
 ];
