@@ -9,7 +9,7 @@
         "membership",
         "ordinaryLoan"
       ],
-      "expectedPolicy": "EVIDENCE_LOCK_UNTIL_SCOPE_VERIFIED"
+      "expectedPolicy": "CURRENT_PRIMARY_CRITERIA_WITH_MEMBER_CONDITIONS"
     },
     {
       "id": "freshness-salary-shares",
@@ -17,7 +17,7 @@
       "domains": [
         "shares"
       ],
-      "expectedPolicy": "CURRENT_SALARY_SCHEDULE_OR_EVIDENCE_LOCK"
+      "expectedPolicy": "CURRENT_SALARY_SCHEDULE_VERIFIED_FOR_32000"
     },
     {
       "id": "freshness-now",
