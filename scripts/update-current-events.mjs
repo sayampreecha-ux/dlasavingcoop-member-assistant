@@ -3,6 +3,19 @@ import fs from 'node:fs/promises';
 const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
 const OUT=new URL('../data/current-events.json',import.meta.url);
+const OFFICIAL_FACEBOOK='https://www.facebook.com/Dlasavingcooppage';
+// Facebook is discovery/news only. It must never promote or rewrite Rule Master.
+const SOCIAL_DISCOVERY=[
+  {
+    contentKind:'NEWS',rulePromotion:false,id:'facebook-share-rate-2569',
+    title:'การกำหนดอัตราเงินได้รายเดือน และการถือหุ้น พ.ศ. 2569',
+    summary:'ประกาศใหม่จาก Facebook ทางการ — ตรวจอัตราหุ้นรายเดือนและเงื่อนไขล่าสุด',
+    status:'notice',statusLabel:'ประกาศใหม่',priority:97,
+    url:OFFICIAL_FACEBOOK,ask:'อัตราเงินได้รายเดือนและการถือหุ้น 2569',
+    source:'official-facebook',publishedAt:'2026-10-06T10:00:00.000Z',
+    eventDate:null,expiresAt:null
+  }
+];
 
 const TH_MONTHS={
   'มกราคม':1,'กุมภาพันธ์':2,'มีนาคม':3,'เมษายน':4,'พฤษภาคม':5,'มิถุนายน':6,
@@ -235,6 +248,11 @@ if(!active.some(x=>/ยืนยันยอด/.test(x.title))){
   if(old&&sourceHealth.homepage==='ok'&&homepageEvidence) active.push(old);
 }
 
+// Social posts may surface as discovery/news, but never as rule evidence.
+for(const item of SOCIAL_DISCOVERY){
+  const ageMs=now-new Date(item.publishedAt);
+  if(ageMs<=7*24*60*60*1000 && !active.some(x=>x.id===item.id)) active.push(item);
+}
 const top=active
   .sort((a,b)=>b.priority-a.priority)
   .slice(0,3);
