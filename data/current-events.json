@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T11:30:00.050Z",
-  "lastCheckedAt": "2026-10-06T11:30:00.050Z",
+  "generatedAt": "2026-10-06T11:40:42.832Z",
+  "lastCheckedAt": "2026-10-06T11:40:42.832Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -27,6 +27,22 @@
       "ask": "หนังสือยืนยันยอด 2569",
       "source": "homepage",
       "publishedAt": null,
+      "eventDate": null,
+      "expiresAt": null
+    },
+    {
+      "contentKind": "NEWS",
+      "rulePromotion": false,
+      "id": "facebook-share-rate-2569",
+      "title": "การกำหนดอัตราเงินได้รายเดือน และการถือหุ้น พ.ศ. 2569",
+      "summary": "ประกาศใหม่จาก Facebook ทางการ — ตรวจอัตราหุ้นรายเดือนและเงื่อนไขล่าสุด",
+      "status": "notice",
+      "statusLabel": "ประกาศใหม่",
+      "priority": 97,
+      "url": "https://www.facebook.com/Dlasavingcooppage",
+      "ask": "อัตราเงินได้รายเดือนและการถือหุ้น 2569",
+      "source": "official-facebook",
+      "publishedAt": "2026-10-06T10:00:00.000Z",
       "eventDate": null,
       "expiresAt": null
     },
