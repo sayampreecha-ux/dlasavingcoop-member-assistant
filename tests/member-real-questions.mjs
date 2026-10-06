@@ -145,5 +145,18 @@ const pageSource=html;
 for(const token of ['follow-input','ตอบข้อมูลเพิ่มตรงนี้…','ตอบข้อมูลเพิ่มเติม']){
  if(!pageSource.includes(token)) failures.push({group:'inline-followup-ui',missing:token});
 }
+// Real LINE-group questions captured 6 Oct 2569: permanent regression.
+for(const [q,expect] of [
+ ['กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม',{intent:'loan_compound_reasoning',decision:'NEED_INFO',must:/อย่างน้อย 3 งวด/}],
+ ['ส่งพัฒนาคุณภาพชีวิตครบ 3 งวด สามารถกู้ฉุกเฉินต่อได้ไหม',{intent:'loan_compound_reasoning',decision:'ELIGIBLE_CONDITION',must:/ครบอย่างน้อย 3 งวด/}],
+ ['ส่งพัฒนาคุณภาพชีวิตครบ 3 งวด แต่ถ้ากู้สามัญใหญ่เพื่อปิดกู้พัฒนาคุณภาพชีวิต สามารถยื่นเอกสารได้เลยใช่ไหม',{intent:'loan_compound_reasoning',decision:'NOT_YET_ELIGIBLE',must:/เฉพาะเงินกู้ฉุกเฉิน/}],
+ ['ถ้าสามัญใหญ่ส่งครบ 12 งวด สามารถยื่นได้ แจ้งความประสงค์หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต เนื่องจากตามหลักเกณฑ์ไม่หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต ใช่ไหม',{intent:'loan_compound_reasoning',decision:'NOT_YET_ELIGIBLE',must:/เฉพาะเงินกู้ฉุกเฉิน/}],
+ ['กรอกคำขอเปลี่ยนแปลงแล้ว ต้องแนบเอกสารอะไรเพิ่มเติมหรือไม่ และส่งเอกสารไปที่ไหน',{intent:'member_information_change',decision:'PROCEDURE_INFORMATION',must:/111\/1.*คลองหลวง 8/}]
+]){
+ const r=globalThis.COOP_APP.answer(q);
+ const all=[r.answer,...(r.details||[])].join(' ');
+ if(r.intent!==expect.intent||r.decision!==expect.decision||!expect.must.test(all)) failures.push({q,group:'real-line-2026-10-06',expected:expect,actual:{intent:r.intent,decision:r.decision,answer:r.answer,details:r.details}});
+}
+
 if(failures.length){console.error(JSON.stringify({ok:false,failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,cases:cases.length+conversational.length,real:cases.length,conversational:conversational.length},null,2));
