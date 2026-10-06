@@ -9,7 +9,7 @@
   },
   "rules": {
     "maxItems": 3,
-    "source": "official dlasavingcoop.com only",
+    "source": "official dlasavingcoop.com + official Facebook discovery only",
     "selection": "actionable member news only",
     "expiry": "explicit deadlines/event dates expire automatically"
   },
@@ -28,7 +28,11 @@
       "source": "homepage",
       "publishedAt": null,
       "eventDate": null,
-      "expiresAt": null
+      "expiresAt": null,
+      "discoveryUrl": "https://www.dlasavingcoop.com/",
+      "directSourceUrl": "https://dlasavingcoop.com/show.php?No=4910",
+      "sourceState": "DIRECT_VERIFIED",
+      "sourceLabel": "ต้นฉบับทางการ"
     },
     {
       "contentKind": "NEWS",
@@ -44,7 +48,11 @@
       "source": "official-facebook",
       "publishedAt": "2026-10-06T10:00:00.000Z",
       "eventDate": null,
-      "expiresAt": null
+      "expiresAt": null,
+      "discoveryUrl": "https://www.facebook.com/dlasaving",
+      "directSourceUrl": null,
+      "sourceState": "DIRECT_SOURCE_PENDING",
+      "sourceLabel": "กำลังตรวจต้นฉบับ"
     },
     {
       "contentKind": "NEWS",
@@ -60,7 +68,11 @@
       "source": "homepage",
       "publishedAt": "2026-10-03T11:54:11.000Z",
       "eventDate": "2026-11-08",
-      "expiresAt": "2026-11-08T17:00:00.000Z"
+      "expiresAt": "2026-11-08T17:00:00.000Z",
+      "discoveryUrl": "https://www.dlasavingcoop.com/",
+      "directSourceUrl": "https://www.dlasavingcoop.com/show.php?No=4935",
+      "sourceState": "DIRECT_VERIFIED",
+      "sourceLabel": "ต้นฉบับทางการ"
     }
   ]
 }
