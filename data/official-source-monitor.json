@@ -33,7 +33,7 @@
         "deposits",
         "guarantor"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "a5099309a1d092063c5f4ddab249ed0ba00165841ace03005f5531c1970b0ed2",
       "etag": null,
       "lastModified": null,
@@ -121,7 +121,7 @@
         "dividendPatronage",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "dedb9075f1fa3d04229bbc0e99529f9e684afe9730e5f3646faeeb5e176166df",
       "etag": null,
       "lastModified": null,
@@ -179,7 +179,7 @@
         "guarantor",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "9781cd3d29c74a60251aaa2d93837291213f8411c4fced8a2645d294d474b2fe",
       "etag": null,
       "lastModified": null,
@@ -217,7 +217,7 @@
       "domains": [
         "emergencyLoan"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "b31caa9e8582467ab048e49de5119be4f3064573ec75fe0a29e205590057688e",
       "etag": null,
       "lastModified": null,
@@ -240,7 +240,7 @@
         "specialHousing",
         "redeemMortgage"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "aa071587f63881ced4eb2c3df17ab3fb15c3918a198318cc22aef923b2bb3b97",
       "etag": null,
       "lastModified": null,
@@ -279,7 +279,7 @@
         "shares",
         "resignation"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "159ab6a2ab52d556abdeedc3cb2143b6f65b599a3ea335dde860de8b3d3400c9",
       "etag": null,
       "lastModified": null,
@@ -309,7 +309,7 @@
       "domains": [
         "welfare"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "87b9c5eb757342489d377e87e8df83038c56a864ac54e3faddcab3b5ada686e4",
       "etag": null,
       "lastModified": null,
@@ -340,7 +340,7 @@
       "domains": [
         "deposits"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-06T02:05:35.626Z",
       "fingerprint": "0b3613d2d2e4af99456844da9a37581da1357ec8657f3bb058084bb05279b47b",
       "etag": null,
       "lastModified": null,
@@ -682,9 +682,9 @@
       "mayAffectRules": false,
       "fingerprint": "f359f6cf6b569af5c964a37cc971b800faa14b237d4a9ae71776bc033c46a596",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "contentHash": "33aae193e72c0c6c67e186898c42c5359276fac88c7e2ded64c4aa2437606111",
       "etag": null,
-      "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "contentError": null
     },
     {
@@ -706,9 +706,9 @@
       "mayAffectRules": false,
       "fingerprint": "1d64d62c400bc1ca5645c7973e7ae4aea030bcca7325fa9a5d123bb0eb17dc5f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "contentHash": "0e8c8d89b5b603404b07665f589282d9daf4e30af8cf3614efe1dc00c89e5d50",
       "etag": null,
-      "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "contentError": null
     },
     {
@@ -729,7 +729,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "b0b6ed79eebbb760b58611d020ebb99722464916c60b7d603acb52c08fb8f1b6",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "5b409611a4353870a2cc8db5a108ff00cb0cc91f378fc77082493f55ca5ba23f",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-e590ab4ed195b477e324",
@@ -749,7 +753,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "5350865585746e76d8b0b2405d4faae59afac5bf178520f49f2b5fb4ac9dd3b0",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "7f6758f25c5b110dc2e59cc19797e3b77c965af06b393f90f19615af08defe60",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-a099580bf4282167fccb",
@@ -769,7 +777,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "99f16c2e5077c57c8c2a5803318a77de5d41394efba5d6dfa81b44c4d2aa3ac1",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "82a70d550aebe9eeae9e86e2d06727c5779348943fd2d0a69e8ea10652d9b795",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-9730eee8f9af00577e01",
@@ -789,7 +801,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "11875a9ca269672adadf516c3350061d094099976681469263f03c8cea2156d4",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "d245f7b91453f30249cdf78e8518b435f989dc0130a6887445be2f175400f660",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-91118e0ac52e84f35e45",
@@ -809,7 +825,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "d5439eaf1b549745165623fa9c27a5444ebfb7dc8e55f35caede1528a63457d4",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "5b5eb48cd1e9eb5b764e756d0467432d0560954105fa352a5476791718b2de1c",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-0a15c8588cc42212eb8c",
@@ -829,7 +849,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "ae705ef96856f943a8b2a4af508465f98561530404ed1338fa14c03072b9592c",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "6e5cd1d2f16364bf38b1a36e90010cc642d60e05ec6dc8bed9c771b881c99a68",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-27259d256c4e4f241253",
@@ -869,7 +893,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "6762e32757409518190f79b2ace6220e080c59aa8d80e9e2c02281936f97896c",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "7a53682928269499837965b9292ee5470fd677d08bf4a2897ddccb153b2d7dc0",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-3f49d967257d3392c3a8",
@@ -889,7 +917,11 @@
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "bae0d9e3186cf27485054a5cdb407c9cac556a682c37714fb6f9d58edf91d5fd",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "contentHash": "c939e2d494b34494bb3b0c05a62d6f26811cc76914c0087da1056b9aecabe259",
+      "etag": null,
+      "lastContentCheck": "2026-10-06T02:05:35.626Z",
+      "contentError": null
     },
     {
       "id": "doc-7c4dd2362d37afcdbe4b",
@@ -5156,5 +5188,5 @@
       }
     }
   ],
-  "lastSyncAt": "2026-10-06T01:53:18.800Z"
+  "lastSyncAt": "2026-10-06T02:05:35.626Z"
 }
