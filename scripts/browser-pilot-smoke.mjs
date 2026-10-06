@@ -43,6 +43,7 @@ try{
   for(const [question,expected]of [['ผ่อนได้กี่งวด',/240 งวด/],['กู้ใหม่หักกลบสัญญาเดิมต้องส่งกี่งวด',/12 งวด.*หักกลบ/],['กู้ต้องค้ำกี่คน',/500,000.*1 คน/]]){
    await fresh(question);await choose('กู้สามัญ');assert.match(await body(),expected,'type choice must answer the original question');
   }
+  await fresh('ผ่อนได้กี่งวด');await ask('กู้ฉุกเฉินวงเงินสูงสุดเท่าไร');assert.match(await body(),/30,000.*60,000/);assert.doesNotMatch(await body(),/ผ่อนได้/);
   await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');assert.match(await body(),/คลอดบุตร.*ทุนการศึกษา/);
   await choose('คลอดบุตร');assert.match(await body(),/คลอดบุตร/);assert.ok(await page.locator('#out a[href="https://www.dlasavingcoop.com/show.php?No=775"]').count());
   await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');await choose('ทุนการศึกษาบุตร');assert.match(await body(),/ทุน|การศึกษา/);

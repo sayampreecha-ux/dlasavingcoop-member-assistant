@@ -1991,15 +1991,17 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   // Shared UI turn handler: retain the question awaiting a choice and pass fact replies raw.
   function conversationTurn(input,state={},options={}){
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
+    const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
+    const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
     let query=raw,result,lastFact=null;
-    if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)){
+    if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice){
       query=raw+' '+state.question;result=answer(query);
-    }else if(prior?.requiredFact==='welfareKind'&&(welfareKindFromQuestion(raw)||/ทุน|การศึกษา/.test(raw))){
+    }else if(prior?.requiredFact==='welfareKind'&&choice&&(welfareKindFromQuestion(raw)||/ทุน|การศึกษา/.test(raw))){
       query=raw+' '+state.question;result=answer(query);
-    }else if(prior?.flowId&&(options.continuation||correction||(!questionDomain(raw)&&prior.requiredFact))){
+    }else if(prior?.flowId&&(options.continuation||correction||(!questionDomain(raw)&&!newQuestion&&prior.requiredFact))){
       lastFact=correction?state.lastFact:prior.requiredFact;
       result=continueDecision(raw,{...prior,requiredFact:lastFact});
-    }else if(prior?.ruleId&&(options.continuation||correction||(!questionDomain(raw)&&prior.requiredFact))){
+    }else if(prior?.ruleId&&(options.continuation||correction||(!questionDomain(raw)&&!newQuestion&&prior.requiredFact))){
       result=smartDecision(raw,prior);
     }
     if(!result){query=contextualize(raw,state?.topic);result=answer(query);}
