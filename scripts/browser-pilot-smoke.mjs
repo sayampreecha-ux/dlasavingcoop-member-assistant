@@ -45,7 +45,7 @@ try{
   }
   await fresh('ผ่อนได้กี่งวด');await ask('กู้ฉุกเฉินวงเงินสูงสุดเท่าไร');assert.match(await body(),/30,000.*60,000/);assert.doesNotMatch(await body(),/ผ่อนได้/);
   await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');assert.match(await body(),/คลอดบุตร.*ทุนการศึกษา/);
-  await choose('คลอดบุตร');assert.match(await body(),/คลอดบุตร/);assert.ok(await page.locator('#out a[href="https://www.dlasavingcoop.com/show.php?No=775"]').count());
+  await choose('คลอดบุตร');assert.match(await body(),/คลอดบุตร/);assert.ok(await page.locator('#out a[href*="1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I"]').count(),'childbirth must expose direct welfare original');
   await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');await choose('ทุนการศึกษาบุตร');assert.match(await body(),/ทุน|การศึกษา/);
   await fresh('ขอรายละเอียดเพิ่มเติม');await choose('เป็นเรื่องสวัสดิการ');assert.equal(await page.locator('#out .follow').getByRole('button',{name:'เป็นเรื่องสวัสดิการ',exact:true}).count(),0);assert.ok(await page.locator('#out .follow button').count());
   await fresh('กู้ฉุกเฉินใหม่ได้ไหม');await follow('2 งวด');assert.match(await body(),/ยังไม่ได้/);await ask('แก้เป็น 3 งวดครับ');assert.match(await body(),/ผ่านเงื่อนไข.*หักกลบ/);await ask('เปลี่ยนเป็น 2 งวดครับ');assert.match(await body(),/ยังไม่ได้/);
@@ -63,6 +63,15 @@ try{
   assert.ok(fbLinks.every(h=>h==='https://www.facebook.com/dlasaving'),'all Facebook navigation uses canonical cooperative page');
   assert.equal(fbLinks.filter(h=>/\/share\//i.test(h)).length,0,'no Facebook share URLs remain');
   assert.equal(fbLinks.filter(h=>/Dlasavingcooppage/i.test(h)).length,0,'no legacy Facebook vanity URL remains');
+  await page.locator('#currentEvents:not(.hidden)').waitFor({state:'visible'});
+  const shareCard=page.locator('.now-card').filter({hasText:'การกำหนดอัตราเงินได้รายเดือน และการถือหุ้น พ.ศ. 2569'});
+  if(await shareCard.count()){
+    assert.equal(await shareCard.locator('a[data-direct-source="true"]').count(),0,'Facebook profile must not be labeled as original');
+    assert.match(await shareCard.innerText(),/กำลังตรวจต้นฉบับ/);
+  }
+  const directCards=page.locator('.now-card a[data-direct-source="true"]');
+  const directHrefs=await directCards.evaluateAll(as=>as.map(a=>a.href));
+  assert.ok(directHrefs.every(h=>/dlasavingcoop\.com\/show\.php\?No=\d+/i.test(h)||/drive\.google\.com\/file\/d\//i.test(h)),'current-event original buttons must be direct sources');
   assert.ok(await page.locator('text=Pilot Version').count());
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no mobile horizontal overflow');assert.deepEqual(errors,[],'no runtime JS error');
   if(process.env.MEMBER_BROWSER_OUTPUT_DIR){fs.mkdirSync(process.env.MEMBER_BROWSER_OUTPUT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.MEMBER_BROWSER_OUTPUT_DIR,'pilot-'+width+'.png'),fullPage:true});}
