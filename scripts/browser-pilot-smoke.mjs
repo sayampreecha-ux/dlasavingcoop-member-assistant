@@ -8,6 +8,8 @@ try{
  for(const width of [390,1365]){
   const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!globalThis.COOP_APP);
+  // Wait for the asynchronous official-source refresh before capturing expected answers.
+  await page.waitForFunction(()=>document.getElementById('q') && !document.getElementById('q').disabled);
   await page.locator('.brand-logo').waitFor({state:'visible'});
   assert.ok(await page.locator('.brand-logo').evaluate(img=>img.complete&&img.naturalWidth>0),'cooperative logo loads');
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'),'#176b45','original theme retained');
