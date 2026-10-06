@@ -209,7 +209,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(/กู้พิเศษ|เงินกู้พิเศษ/.test(text)&&!special.some(x=>d.includes(x)))special.forEach(add);
     if(/สามัญ/.test(text)&&!/การศึกษา|ภัยพิบัติ/.test(text))add('ordinaryLoan');
     if(/ค้ำ|หลักประกัน/.test(text))add('guarantor');
-    if(/สมัครสมาชิก|สมาชิกภาพ|เกษียณ|บำนาญ|ข้อบังคับ|โอนสมาชิก/.test(text))add('membership');
+    if(/สมัคร(?:เป็น)?สมาชิก|สมาชิกภาพ|เกษียณ|บำนาญ|ข้อบังคับ|โอนสมาชิก/.test(text))add('membership');
     if(/ลาออก|ออกจากสหกรณ์|สิ้นสุดสมาชิก|พ้นสมาชิก/.test(text))add('resignation');
     if(/ปันผล|เฉลี่ยคืน/.test(text))add('dividendPatronage');
     if(/ดอกเบี้ย/.test(text))add('interest');
@@ -2115,7 +2115,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       details:['เอกสารเฉพาะที่แบบกำหนดรวมถึงหนังสือรับรองผู้ประสบภัยและภาพความเสียหาย'],actions:[['เปิดแบบกู้ภัยพิบัติ',S.disasterLoan]],sources:[src('แบบกู้ภัยพิบัติ',S.disasterLoan)]
     });
 
-    if(/แบบฟอร์ม.*สมาชิก|ใบสมัครสมาชิก|สมัครสมาชิก|สมาชิกใหม่/i.test(q)) return res('member_apply','สมัครสมาชิกมีใบสมัครสมาชิกประเภทสามัญและแบบงานทะเบียนที่เกี่ยวข้องในหน้าทางการครับ',{
+    if(/แบบฟอร์ม.*สมาชิก|ใบสมัครสมาชิก|สมัคร(?:เป็น)?สมาชิก|สมาชิกใหม่/i.test(q)) return res('member_apply','สมัครสมาชิกมีใบสมัครสมาชิกประเภทสามัญและแบบงานทะเบียนที่เกี่ยวข้องในหน้าทางการครับ',{
       details:['แบบสมัครที่ตรวจไว้มีค่าธรรมเนียมและเอกสารประกอบระบุในตัวแบบ','ให้ใช้แบบล่าสุดจากหน้าเว็บก่อนยื่น'],actions:[['เปิดใบสมัครสมาชิก',S.memberApplication],['แบบฟอร์มสมาชิก/ทะเบียนทั้งหมด',S.memberForms]],sources:[src('แบบฟอร์มสมาชิก',S.memberForms),src('ใบสมัครสมาชิก',S.memberApplication)]
     });
     if(/โอนย้าย|โอนสมาชิก|ย้ายสหกรณ์|ย้าย|เปลี่ยนต้นสังกัด|เปลี่ยนหน่วยงาน|ย้ายงาน/i.test(q)) return res('transfer','ถ้าสมาชิก “ย้าย” ต้องแยกก่อนว่าเป็นการย้ายต้นสังกัด หรือการโอนสมาชิกระหว่างสหกรณ์ครับ',{
