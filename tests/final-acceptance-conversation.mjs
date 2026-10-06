@@ -29,7 +29,7 @@ for(const [q,re]of [['ผ่อนได้กี่งวด',/240 งวด/],
 check('F02 a new complete main-input question replaces the pending question',()=>{const t=reply(begin('ผ่อนได้กี่งวด'),'กู้ฉุกเฉินวงเงินสูงสุดเท่าไร',false);assert.equal(t.result.concern,'amount');assert.match(t.result.answer,/30,000.*60,000/);assert.doesNotMatch(t.result.answer,/ผ่อนได้/);});
 check('F03 child welfare asks a specific choice and preserves document question',()=>{
  let t=begin('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');assert.equal(t.result.requiredFact,'welfareKind');assert.deepEqual(Array.from(t.result.followups),['คลอดบุตร','ทุนการศึกษาบุตร']);
- t=reply(t,'คลอดบุตร');assert.equal(t.result.intent,'welfare_childbirth');assert.ok(t.result.actions.some(x=>/No=775/.test(x[1])));
+ t=reply(t,'คลอดบุตร');assert.equal(t.result.intent,'welfare_childbirth');assert.ok(t.result.actions.some(x=>/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/.test(x[1])),'child welfare must open the verified direct original');
  const scholarship=reply(begin('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร'),'ทุนการศึกษาบุตร');assert.notEqual(scholarship.result.intent,'fallback');assert.match(text(scholarship),/ทุน|การศึกษา/);
 });
 check('F03 generic category is actionable rather than a category loop',()=>{const t=reply(begin('ขอรายละเอียดเพิ่มเติม'),'เป็นเรื่องสวัสดิการ');assert.match(text(t),/สวัสดิการ/);assert.ok(t.result.followups.length);assert.ok(t.result.followups.every(x=>!/^เป็นเรื่อง/.test(x)));});
