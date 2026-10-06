@@ -1,15 +1,16 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T20:21:05.425Z",
-  "lastCheckedAt": "2026-10-06T20:21:05.425Z",
+  "generatedAt": "2026-10-06T20:41:11.905Z",
+  "lastCheckedAt": "2026-10-06T20:41:11.905Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
-    "notices": "ok"
+    "notices": "ok",
+    "facebook": "disabled"
   },
   "rules": {
     "maxItems": 3,
-    "source": "official dlasavingcoop.com + official Facebook discovery only",
+    "source": "official dlasavingcoop.com + verified direct Facebook posts only",
     "selection": "actionable member news only",
     "expiry": "explicit deadlines/event dates expire automatically"
   },
@@ -52,6 +53,7 @@
       "sourceState": "DIRECT_VERIFIED",
       "sourceLabel": "โพสต์ต้นฉบับจาก Facebook",
       "directSourceVerification": "USER_SUPPLIED_EXACT_POST",
+      "topicKey": "shares",
       "eventDate": null,
       "expiresAt": null
     },
