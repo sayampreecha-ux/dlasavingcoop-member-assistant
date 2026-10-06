@@ -11,14 +11,51 @@ if((data.events||[]).length>3) errors.push('homepage current events must be <= 3
 if(!data.lastCheckedAt||Number.isNaN(Date.parse(data.lastCheckedAt))) errors.push('lastCheckedAt missing/invalid');
 
 const ids=new Set(),urls=new Set();
+
+function isDirectSource(url=''){
+  try{
+    const u=new URL(url);
+    if(u.hostname==='drive.google.com'&&/\/file\/d\//.test(u.pathname)) return true;
+    if(/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)){
+      if(/\.pdf$/i.test(u.pathname)) return true;
+      if(/show\.php$/i.test(u.pathname)&&/^\d+$/.test(u.searchParams.get('No')||'')) return true;
+    }
+    if(/^(www\.)?facebook\.com$/i.test(u.hostname)){
+      if(/\/share\//i.test(u.pathname)||/^\/dlasaving\/?$/i.test(u.pathname)) return false;
+      return /\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search);
+    }
+    return false;
+  }catch{return false}
+}
+function isAggregateOrProfile(url=''){
+  try{
+    const u=new URL(url);
+    if(/^(www\.)?facebook\.com$/i.test(u.hostname)&&(/^\/dlasaving\/?$/i.test(u.pathname)||/\/share\//i.test(u.pathname))) return true;
+    if(/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)){
+      if(u.pathname==='/'||/\/list\.php$/i.test(u.pathname)||u.searchParams.has('Category')) return true;
+    }
+  }catch{}
+  return false;
+}
 for(const e of data.events||[]){
   if(!e.id||ids.has(e.id)) errors.push('duplicate/missing id: '+e.id);
   ids.add(e.id);
   if(!e.title||!e.summary||!e.statusLabel) errors.push('missing display fields: '+e.id);
   if(!/^https:\/\/(www\.)?dlasavingcoop\.com\//i.test(e.url||'') && !(e.source==='official-facebook' && e.rulePromotion===false && /^https:\/\/(www\.)?facebook\.com\/dlasaving\/?/i.test(e.url||''))) errors.push('non-official URL: '+e.url);
   if(/board_(?:content|post)\.php/i.test(e.url||'')) errors.push('member board must not be promoted as official current event: '+e.url);
-  if(urls.has(e.url)) errors.push('duplicate URL: '+e.url);
-  urls.add(e.url);
+  if(!e.sourceState||!['DIRECT_VERIFIED','DIRECT_SOURCE_PENDING'].includes(e.sourceState)) errors.push('invalid sourceState: '+e.id);
+  if(e.sourceState==='DIRECT_VERIFIED'){
+    if(!e.directSourceUrl||!isDirectSource(e.directSourceUrl)) errors.push('verified event lacks direct source: '+e.id);
+    if(e.sourceLabel!=='ต้นฉบับทางการ'&&e.sourceLabel!=='โพสต์ต้นฉบับจาก Facebook') errors.push('verified event has misleading source label: '+e.id);
+  } else {
+    if(e.directSourceUrl) errors.push('pending event must not expose directSourceUrl: '+e.id);
+    if(e.sourceLabel!=='กำลังตรวจต้นฉบับ') errors.push('pending event must show pending label: '+e.id);
+    if(!e.discoveryUrl) errors.push('pending event missing discoveryUrl: '+e.id);
+  }
+  if(e.directSourceUrl&&isAggregateOrProfile(e.directSourceUrl)) errors.push('aggregate/profile cannot be direct source: '+e.id);
+  const dedupeUrl=e.directSourceUrl||e.discoveryUrl||e.url;
+  if(urls.has(dedupeUrl)) errors.push('duplicate URL: '+dedupeUrl);
+  urls.add(dedupeUrl);
   if(!e.ask) errors.push('missing internal ask route: '+e.id);
   if(e.source==='official-facebook' && e.rulePromotion!==false) errors.push('Facebook discovery must never promote rules: '+e.id);
   const currentThaiYear=new Date().getFullYear()+543;
