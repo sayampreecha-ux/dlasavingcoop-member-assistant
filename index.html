@@ -440,6 +440,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(isDirectSourceKind(current)) return url;
     const text=String(label||'');
     let candidate=null;
+    // These products have a verified official index/form but their exact current
+    // primary numeric rule is not fully extracted. Never substitute another
+    // loan product's PDF as their "direct original".
+    if(/^(?:loan_(?:education|disaster|vacation|guarantor_debt|share_secured))$/.test(intent)) return null;
     // Resolve only verified rule/evidence originals. Forms and service actions
     // remain their own direct actions and must never be promoted into rule evidence.
     const welfareMap={
