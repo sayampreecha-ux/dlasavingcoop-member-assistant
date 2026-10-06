@@ -53,6 +53,7 @@ function scoreTitle(title){
     [/ยืนยันยอด/i,100],
     [/ประชุมใหญ่สามัญ/i,95],
     [/ปันผล|เฉลี่ยคืน/i,93],
+    [/กำหนดอัตราเงินได้รายเดือน|การถือหุ้น|อัตรา.*ถือหุ้น/i,94],
     [/ซื้อหุ้นเพิ่ม|หุ้นเพิ่ม/i,90],
     [/ส่งเอกสาร|เอกสาร.*ไม่ครบ|เอกสารไม่ครบ/i,88],
     [/เรียกเก็บ|เงินสมทบ|สมนาคุณ|ค่าบำรุง/i,82],
@@ -73,6 +74,7 @@ function eventMeta(title){
   if(/ยืนยันยอด/i.test(title)) return {status:'action',statusLabel:'ต้องดำเนินการ',ask:'หนังสือยืนยันยอด 2569'};
   if(/ปันผล|เฉลี่ยคืน/i.test(title)) return {status:'money',statusLabel:'เรื่องการเงิน',ask:'ปันผลปี 69'};
   if(/ประชุมใหญ่/i.test(title)) return {status:'notice',statusLabel:'ประกาศใหม่',ask:'ประชุมใหญ่'};
+  if(/กำหนดอัตราเงินได้รายเดือน|การถือหุ้น|อัตรา.*ถือหุ้น/i.test(title)) return {status:'action',statusLabel:'ประกาศใหม่',ask:'อัตราเงินได้รายเดือนและการถือหุ้น 2569'};
   if(/หุ้นเพิ่ม|ซื้อหุ้น/i.test(title)) return {status:'action',statusLabel:'สิทธิสมาชิก',ask:'ซื้อหุ้นเพิ่ม'};
   if(/ประกัน/i.test(title)) return {status:'action',statusLabel:'ต้องตรวจสอบ',ask:'เรื่องประกันสหกรณ์'};
   if(/สวัสดิการ|ผลการอนุมัติ|เอกสารไม่ครบ|เลขทะเบียน/i.test(title)) return {status:'result',statusLabel:'ติดตามผล',ask:'ติดตามผลและสถานะเอกสาร'};
@@ -162,6 +164,7 @@ async function enrich(item){
   if(/ยืนยันยอด/i.test(item.title)) summary='ตรวจสอบ → ติ๊กเลือก → ส่งคืน';
   else if(/ประชุมใหญ่/i.test(item.title)&&eventDate) summary=`กำหนด ${prettyDate(eventDate)} — เปิดดูสถานที่/กำหนดการจากประกาศทางการ`;
   else if(/ปันผล|เฉลี่ยคืน/i.test(item.title)&&eventDate) summary=`กำหนดดำเนินการภายใน ${prettyDate(eventDate)}`;
+  else if(/กำหนดอัตราเงินได้รายเดือน|การถือหุ้น|อัตรา.*ถือหุ้น/i.test(item.title)) summary='ตรวจอัตราหุ้นรายเดือนตามเงินได้และเงื่อนไขจากประกาศทางการล่าสุด';
   else if(/หุ้นเพิ่ม/i.test(item.title)) summary='ตรวจเงื่อนไขและช่วงเวลาจากประกาศล่าสุดก่อนดำเนินการ';
   else if(/ผลการอนุมัติ/i.test(item.title)) summary='เปิดตรวจผลจากประกาศทางการ';
   else summary='เปิดดูรายละเอียดจากประกาศทางการ';
