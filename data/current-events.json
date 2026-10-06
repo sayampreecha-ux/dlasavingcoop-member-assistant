@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-04T03:04:12.353Z",
-  "lastCheckedAt": "2026-10-04T03:04:12.353Z",
+  "generatedAt": "2026-10-06T02:05:44.469Z",
+  "lastCheckedAt": "2026-10-06T02:05:44.469Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -15,6 +15,8 @@
   },
   "events": [
     {
+      "contentKind": "NEWS",
+      "rulePromotion": false,
       "id": "official-4910",
       "title": "ได้รับ \"หนังสือยืนยันยอด ปี 2569\" ต้องทำอย่างไร? ดู 3 ขั้นตอนง่ายๆ ที่นี่...",
       "summary": "ตรวจสอบ → ติ๊กเลือก → ส่งคืน",
@@ -29,6 +31,8 @@
       "expiresAt": null
     },
     {
+      "contentKind": "NEWS",
+      "rulePromotion": false,
       "id": "official-4935",
       "title": "ขอเชิญประชุมใหญ่สามัญ ประจำปีบัญชี 2569",
       "summary": "กำหนด 8 พฤศจิกายน 2569 — เปิดดูสถานที่/กำหนดการจากประกาศทางการ",
