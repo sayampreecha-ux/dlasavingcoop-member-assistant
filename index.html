@@ -439,36 +439,24 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const current=sourceKind(url);
     if(isDirectSourceKind(current)) return url;
     const text=String(label||'');
-    const formOnly=/แบบฟอร์ม|แบบคำ|แบบกู้|ใบสมัคร|ใบลาออก/.test(text)&&!/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ/.test(text);
     let candidate=null;
-    if(formOnly){
-      if(/ฉุกเฉิน/.test(text)||/emergency/.test(intent)) candidate=S.loanEmergencyForm;
-      else if(/เคหะ/.test(text)||/special_housing/.test(intent)) candidate=S.loanSpecialHousingForm;
-      else if(/ไถ่ถอน/.test(text)||/special_redeem/.test(intent)) candidate=S.loanSpecialRedeemForm;
-      else if(/คุณภาพชีวิต/.test(text)||/special_quality/.test(intent)) candidate=S.loanSpecialQualityForm;
-      else if(/การศึกษา/.test(text)||/education/.test(intent)) candidate=S.educationLoan;
-      else if(/ภัยพิบัติ/.test(text)||/disaster/.test(intent)) candidate=S.disasterLoan;
-      else if(/พักผ่อน/.test(text)||/vacation/.test(intent)) candidate=S.vacationLoan;
-      else if(/เปลี่ยนผู้ค้ำ/.test(text)||/change_guarantor/.test(intent)) candidate=S.changeGuarantorForm;
-      else if(/เปลี่ยน.*ข้อมูล/.test(text)||/member_(?:change_info|information_change)/.test(intent)) candidate=S.memberInfoChangeForm;
-      else if(/สมัครสมาชิก/.test(text)||intent==='member_apply') candidate=S.memberApplication;
-    }else{
-      const welfareMap={
-        welfare_childbirth:'welfareChildbirth',welfare_marriage:'welfareMarriage',
-        welfare_religion:'welfareReligion',welfare_graduation:'welfareGraduation',
-        welfare_gratuity:'welfareGratuity',welfare_member_death:'welfareMemberDeath',
-        welfare_family_death:'welfareFamilyDeath',welfare_disaster:'welfareDisaster'
-      };
-      if(welfareMap[intent]) candidate=directRuleSource(welfareMap[intent]);
-      else if(/^welfare_/.test(intent)) candidate=directRuleSource('welfareCommon');
-      else if(/^share_/.test(intent)||/หุ้น/.test(text)) candidate=directRuleSource('sharesClause7Current');
-      else if(/ฉุกเฉิน/.test(text)||/emergency/.test(intent)) candidate=directRuleSource('emergencyLoanCurrent');
-      else if(/พัฒนาคุณภาพชีวิต|รวมหนี้/.test(text)||/special_quality/.test(intent)) candidate=directRuleSource('qualityOfLifeCurrent');
-      else if(/ไถ่ถอน/.test(text)||/special_redeem/.test(intent)) candidate=directRuleSource('specialRedeemMortgageCurrent');
-      else if(/เคหะ/.test(text)||/special_housing/.test(intent)) candidate=directRuleSource('specialHousingCurrent');
-      else if(/สามัญ/.test(text)||/ordinary/.test(intent)||/guarantor/.test(intent)) candidate=directRuleSource('ordinaryLoanCurrent');
-      else if(/member_(?:change_info|information_change)/.test(intent)) candidate=directRuleSource('memberInformationChange');
-    }
+    // Resolve only verified rule/evidence originals. Forms and service actions
+    // remain their own direct actions and must never be promoted into rule evidence.
+    const welfareMap={
+      welfare_childbirth:'welfareChildbirth',welfare_marriage:'welfareMarriage',
+      welfare_religion:'welfareReligion',welfare_graduation:'welfareGraduation',
+      welfare_gratuity:'welfareGratuity',welfare_member_death:'welfareMemberDeath',
+      welfare_family_death:'welfareFamilyDeath',welfare_disaster:'welfareDisaster'
+    };
+    if(welfareMap[intent]) candidate=directRuleSource(welfareMap[intent]);
+    else if(/^welfare_/.test(intent)) candidate=directRuleSource('welfareCommon');
+    else if(/^share_/.test(intent)||/หุ้น/.test(text)) candidate=directRuleSource('sharesClause7Current');
+    else if(/ฉุกเฉิน/.test(text)||/emergency/.test(intent)) candidate=directRuleSource('emergencyLoanCurrent');
+    else if(/พัฒนาคุณภาพชีวิต|รวมหนี้/.test(text)||/special_quality/.test(intent)) candidate=directRuleSource('qualityOfLifeCurrent');
+    else if(/ไถ่ถอน/.test(text)||/special_redeem/.test(intent)) candidate=directRuleSource('specialRedeemMortgageCurrent');
+    else if(/เคหะ/.test(text)||/special_housing/.test(intent)) candidate=directRuleSource('specialHousingCurrent');
+    else if(/สามัญ/.test(text)||/ordinary/.test(intent)||/guarantor/.test(intent)) candidate=directRuleSource('ordinaryLoanCurrent');
+    else if(/member_(?:change_info|information_change)/.test(intent)) candidate=directRuleSource('memberInformationChange');
     return candidate&&isDirectSourceKind(sourceKind(candidate))?candidate:null;
   }
   function normalizeSourceLink(intent,label,url){
@@ -655,9 +643,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
     const normalizedActions=actions.map(([label,url])=>{
       if(!/^https:/i.test(url||'')) return [label,url];
+      const evidenceAction=/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|ต้นฉบับ/.test(String(label||''));
+      if(!evidenceAction) return [label,url];
       const n=normalizeSourceLink(intent,label,url);
       if(n.url!==url) return [label,n.url];
-      if(n.sourceState==='DIRECT_SOURCE_PENDING'&&/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|แบบฟอร์ม|แบบคำ|แบบกู้/.test(label)){
+      if(n.sourceState==='DIRECT_SOURCE_PENDING'){
         return ['🗂️ หน้ารวมทางการ — '+String(label).replace(/^[^ก-๙A-Za-z0-9]+/u,''),url];
       }
       return [label,url];
