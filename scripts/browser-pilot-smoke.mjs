@@ -11,6 +11,7 @@ try{
   // Wait for the asynchronous official-source refresh before capturing expected answers.
   await page.waitForFunction(()=>document.getElementById('q') && !document.getElementById('q').disabled);
   await page.locator('.brand-logo').waitFor({state:'visible'});
+  await page.evaluate(()=>{window.__memberRenderVersion=0;const out=document.getElementById('out');new MutationObserver(()=>{window.__memberRenderVersion++}).observe(out,{childList:true,subtree:true,characterData:true});});
   assert.ok(await page.locator('.brand-logo').evaluate(img=>img.complete&&img.naturalWidth>0),'cooperative logo loads');
   assert.equal(await page.locator('meta[name="theme-color"]').getAttribute('content'),'#176b45','original theme retained');
   // Execute every source pattern through the real browser engine, including product-context variants.
@@ -24,9 +25,11 @@ try{
   for(const row of corpus.records){
    await page.evaluate(()=>{previousTopic='';conversationState=null;});
    const expected=collected.answers[row.question].answer;
+   const before=await page.evaluate(()=>window.__memberRenderVersion||0);
    await page.locator('#q').fill(row.question);await page.locator('#q').press('Enter');
-   await page.waitForFunction(exp=>document.querySelector('#out .body')?.textContent===exp,expected);
-   const rendered=await page.locator('#out .body').textContent();assert.equal(rendered,expected,'rendered source question '+row.id);
+   await page.waitForFunction(v=>(window.__memberRenderVersion||0)>v&&!!document.querySelector('#out .body'),before,{timeout:30000});
+   const rendered=await page.locator('#out .body').textContent();
+   assert.equal(rendered,expected,'rendered source question '+row.id+' ['+row.question+']');
   }
   const ask=async q=>{await page.locator('#q').fill(q);await page.locator('#q').press('Enter');};
   for(const [name,expected]of [['สามัญ',/6 เดือน/],['ฉุกเฉิน',/3 เดือน/],['รวมหนี้',/3 ปี/],['เคหะ',/6 เดือน/],['ไถ่ถอนจำนอง',/12 เดือน/]]){
