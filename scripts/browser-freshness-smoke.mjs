@@ -20,7 +20,7 @@ try{
   assert.match(await ask('กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม'),/อย่างน้อย 3 งวด/);pass++;
   assert.match(await ask('ส่งพัฒนาคุณภาพชีวิตครบ 3 งวด แต่ถ้ากู้สามัญใหญ่เพื่อปิดกู้พัฒนาคุณภาพชีวิต สามารถยื่นเอกสารได้เลยใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
   assert.match(await ask('ถ้าสามัญใหญ่ส่งครบ 12 งวด สามารถยื่นได้ แจ้งความประสงค์หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต เนื่องจากตามหลักเกณฑ์ไม่หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต ใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
-  assert.match(await ask('กรอกคำขอเปลี่ยนแปลงแล้ว ต้องแนบเอกสารอะไรเพิ่มเติมหรือไม่ และส่งเอกสารไปที่ไหน'),/111\/1.*คลองหลวง 8/);pass++;
+  await ask('กรอกคำขอเปลี่ยนแปลงแล้ว ต้องแนบเอกสารอะไรเพิ่มเติมหรือไม่ และส่งเอกสารไปที่ไหน');assert.match(await page.locator('#out').textContent(),/111\/1.*คลองหลวง 8/);pass++;
   // Synthetic new publication exists only in this test page, never in production data.
   await page.evaluate(()=>{const r=COOP_APP.getSourceRegistry();r.documents.push({id:'browser-test-new-shares',title:'ระเบียบว่าด้วยหุ้น แก้ไขเพิ่มเติม (เอกสารจำลองเพื่อทดสอบ)',type:'AMENDMENT',originalUrl:'https://drive.google.com/file/d/test-browser-fixture/view',officialIndexUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',linkVerified:true,status:'PENDING',mayAffectRules:true,affects:['shares'],effectiveDate:null});COOP_APP.applySourceMonitor(r);});
   assert.match(await ask('หุ้นรายเดือนตอนนี้ต้องส่งเท่าไร'),/พบเอกสารทางการ.*ยืนยัน/);pass++;
