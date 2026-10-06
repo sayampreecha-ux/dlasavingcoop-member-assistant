@@ -1,5 +1,8 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {execFileSync} from 'node:child_process';
 import F from '../scripts/official-freshness.js';
 import {hash,extractLinks,ingest,sync,fetchResource} from '../scripts/sync-official-sources.mjs';
 import {impactedQuestions} from '../scripts/run-impacted-regression.mjs';
@@ -41,4 +44,23 @@ await check('refresh of matching primary bytes keeps the verified extraction unc
 await check('exported decision entry points cannot bypass a newly detected rule',()=>{const a=loadMemberEngine(),prior=a.answer('กู้สามัญได้ไหม'),r=fresh();r.documents.push({...newdoc,affects:['ordinaryLoan']});a.applySourceMonitor(r);assert.equal(a.continueDecision('12 เดือน',prior).decision,'EVIDENCE_LOCK');const b=loadMemberEngine(),repeat=b.answer('กู้สามัญใหม่ได้ไหม');b.applySourceMonitor(r);assert.equal(b.smartDecision('12 งวด',repeat).decision,'EVIDENCE_LOCK');});
 await check('invalid historical dates and unconfirmed future dates cannot leak current rules',()=>{assert.equal(loadMemberEngine().answer('กู้สามัญ ณ 2026-99-99 ผ่อนได้กี่งวด').decision,'EVIDENCE_LOCK');assert.equal(F.gate(registry,'กู้สามัญ ณ วันที่ 1 มกราคม 2570 ผ่อนได้กี่งวด',{now}).reason,'FUTURE_RULE_NOT_CONFIRMED');});
 await check('an unchanged initial listing initializes per-index metadata before the first real amendment',async()=>{const r=fresh();r.monitors=[{...r.monitors[0],fingerprint:hash(JSON.stringify([[newdoc.originalUrl,newdoc.title]]))}];r.documents=[{...newdoc,status:'CURRENT',mayAffectRules:false,indexFingerprints:{}}];const first=await sync(r,{fetcher:async()=>new Response(fixture),now:now.toISOString(),maxDocumentChecks:0});assert.equal(first.report.processed,0);assert.equal(first.registry.documents[0].indexFingerprints[r.monitors[0].id],newdoc.fingerprint);const changed=fixture.replace('ฉบับที่ 4','ฉบับที่ 5');const second=await sync(first.registry,{fetcher:async()=>new Response(changed),now:now.toISOString(),maxDocumentChecks:0});assert.equal(second.registry.documents[0].status,'PENDING');assert.equal(second.report.changes.length,1);});
+await check('monitor publication succeeds twice without losing locks or changing main',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'source-monitor-publish-')),remote=path.join(root,'remote.git'),repo=path.join(root,'repo');
+ const git=(...args)=>execFileSync('git',args,{cwd:repo,stdio:'pipe'}).toString().trim();
+ try {
+  fs.mkdirSync(repo);execFileSync('git',['init','--bare',remote],{stdio:'pipe'});git('init','-b','main');git('config','user.name','Fixture');git('config','user.email','fixture@example.test');git('remote','add','origin',remote);
+  fs.mkdirSync(path.join(repo,'data'));fs.mkdirSync(path.join(repo,'docs'));
+  const files=['data/official-source-registry.json','data/official-source-monitor.json','docs/official-source-sync-report.json','docs/impacted-regression.json'];
+  for(const f of files)fs.writeFileSync(path.join(repo,f),'{}\n');git('add','.');git('commit','-m','Base');git('push','origin','main');const main=git('rev-parse','main');
+  const workflow=fs.readFileSync(new URL('../.github/workflows/official-source-sync.yml',import.meta.url),'utf8');
+  const block=workflow.split('      - name: Publish detection state without changing Rule Master\n        run: |\n')[1].split('      - uses:')[0];
+  const script=block.split('\n').map(line=>line.replace(/^          /,'')).join('\n').replaceAll('/tmp/new-',root+'/new-');
+  for(let cycle=1;cycle<=2;cycle++){
+   git('switch','main');for(const f of files)fs.writeFileSync(path.join(repo,f),JSON.stringify({cycle,status:'PENDING',mayAffectRules:true})+'\n');
+   execFileSync('bash',['-e','-c',script],{cwd:repo,stdio:'pipe'});git('fetch','origin','official-source-monitor:refs/remotes/origin/official-source-monitor');
+   assert.equal(JSON.parse(git('show','origin/official-source-monitor:data/official-source-monitor.json')).cycle,cycle);
+   assert.equal(JSON.parse(git('show','origin/official-source-monitor:data/official-source-monitor.json')).status,'PENDING');assert.equal(git('rev-parse','main'),main);assert.equal(git('status','--porcelain'),'');
+  }
+ } finally {fs.rmSync(root,{recursive:true,force:true});}
+});
 console.log('OFFICIAL FRESHNESS:',pass,'PASS / 0 FAIL');
