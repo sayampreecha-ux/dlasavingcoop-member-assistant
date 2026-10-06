@@ -58,7 +58,11 @@ try{
   await fresh('กู้ฉุกเฉิน');await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).click();assert.match(await body(),/ประเมินเงินกู้/);assert.doesNotMatch(await page.locator('#out .actions').innerText(),/เงินกู้สามัญ/);assert.match(await page.locator('#out .actions').innerText(),/เงินกู้ฉุกเฉิน/);
   console.log('FINAL ACCEPTANCE UI '+width+'px: all eight reported issues, positive/negative facts, main-input corrections and type/category buttons PASS');
   await ask('กู้สามัญ');assert.ok(await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).count());
-  assert.ok(await page.locator('a[href="https://www.facebook.com/Dlasavingcooppage"]').count());
+  const fbLinks=await page.locator('a[href*="facebook.com"]').evaluateAll(as=>as.map(a=>a.href));
+  assert.ok(fbLinks.length>0,'Facebook navigation exists');
+  assert.ok(fbLinks.every(h=>h==='https://www.facebook.com/dlasaving'),'all Facebook navigation uses canonical cooperative page');
+  assert.equal(fbLinks.filter(h=>/\/share\//i.test(h)).length,0,'no Facebook share URLs remain');
+  assert.equal(fbLinks.filter(h=>/Dlasavingcooppage/i.test(h)).length,0,'no legacy Facebook vanity URL remains');
   assert.ok(await page.locator('text=Pilot Version').count());
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no mobile horizontal overflow');assert.deepEqual(errors,[],'no runtime JS error');
   if(process.env.MEMBER_BROWSER_OUTPUT_DIR){fs.mkdirSync(process.env.MEMBER_BROWSER_OUTPUT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.MEMBER_BROWSER_OUTPUT_DIR,'pilot-'+width+'.png'),fullPage:true});}

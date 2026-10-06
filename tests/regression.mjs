@@ -93,6 +93,12 @@ for(const q of homeQueries){
   if(!contact.actions?.some(x=>x[1]===globalThis.COOP_KB.official.home)) failures.push({group:'contact-website'});
   if(!html.includes('🌐 เว็บไซต์สหกรณ์ www.dlasavingcoop.com')) failures.push({group:'contact-panel-website'});
   if(!html.includes('<a class="coopweb" href="https://www.dlasavingcoop.com/"')) failures.push({group:'top-website'});
+  const facebookHrefs=[...html.matchAll(/href="([^"]*facebook\.com[^"]*)"/ig)].map(m=>m[1]);
+  if(!facebookHrefs.length) failures.push({group:'facebook-navigation-missing'});
+  if(facebookHrefs.some(h=>h!=='https://www.facebook.com/dlasaving')) failures.push({group:'facebook-navigation-not-canonical',hrefs:facebookHrefs});
+  if(/facebook\.com\/share\//i.test(html)) failures.push({group:'facebook-share-url-forbidden'});
+  if(/Dlasavingcooppage/i.test(html)) failures.push({group:'facebook-legacy-url-forbidden'});
+
   if(!html.includes('data-q="หุ้นและทุนเรือนหุ้น"')) failures.push({group:'shares-home'});
   if(!html.includes('data-q="วิธีชำระเงินสหกรณ์"')) failures.push({group:'payment-home'});
   if(!html.includes('data-q="ติดตามผลและสถานะเอกสาร"')) failures.push({group:'status-home'});
