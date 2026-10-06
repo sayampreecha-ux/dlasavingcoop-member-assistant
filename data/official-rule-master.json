@@ -109,6 +109,15 @@
         "ขออนุโลม",
         "กรณีต้องให้เจ้าหน้าที่วินิจฉัยหรือดำเนินการ"
       ]
+    },
+    "memberInformationChange": {
+      "status": "VERIFIED_PROCEDURE",
+      "source": "https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/change%20member%20information27012023.pdf",
+      "verified": [
+        "เอกสารแนบขึ้นกับรายการข้อมูลสมาชิกที่เปลี่ยน",
+        "สำเนาเอกสารทุกฉบับต้องลงนามรับรอง",
+        "ส่งเอกสารได้ตามที่อยู่สหกรณ์ที่ระบุในแบบ"
+      ]
     }
   },
   "rules": {
@@ -725,6 +734,38 @@
       "reduceAfterMonths": 6,
       "salaryBandSchedule": "PENDING_VERIFICATION",
       "scope": "ข้อ 7; ยอดหุ้นตามเงินเดือนต้องใช้ประกาศอัตราแยกต่างหาก"
+    },
+    "memberInformationChange": {
+      "status": "VERIFIED_PROCEDURE",
+      "source": "https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/change%20member%20information27012023.pdf",
+      "evidenceState": "OFFICIAL_FORM_VERIFIED",
+      "certificationRequired": true,
+      "attachmentsByItem": {
+        "6": [
+          "สำเนาคำสั่งแต่งตั้ง"
+        ],
+        "7": [
+          "สำเนาคำสั่งหรือบัญชีเลื่อนขั้นเงินเดือน"
+        ],
+        "11": [
+          "สำเนาคำสั่งแต่งตั้งหรือโอนย้าย"
+        ],
+        "12": [
+          "สำเนาหน้าสมุดบัญชีธนาคาร"
+        ],
+        "1-5": [
+          "เอกสารการเปลี่ยนชื่อ-นามสกุลและสำเนาบัตรประชาชน",
+          "ทะเบียนสมรสกรณีสมรส",
+          "ใบหย่ากรณีหย่า"
+        ]
+      },
+      "unspecifiedAttachmentItems": [
+        "8",
+        "9",
+        "10"
+      ],
+      "deliveryAddress": "สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120",
+      "note": "แบบทางการระบุ LINE เจ้าหน้าที่/เบอร์โทรเป็นช่องทางติดต่อเพิ่มเติม แต่ให้ใช้หน้าติดต่อทางการเมื่อไม่ยืนยันผู้รับเฉพาะราย"
     }
   },
   "decisionCoverage": {

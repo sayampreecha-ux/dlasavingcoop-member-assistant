@@ -42,7 +42,7 @@ const cases=[
 ['โหด35','ค้ำสามัญอยู่2คน ขอค้ำอีกคน',r=>r.decision==='ELIGIBLE_CONDITION'],
 ['โหด36','ค้ำสามัญอยู่3คน จะค้ำคนที่4',r=>r.decision==='NOT_YET_ELIGIBLE'],
 ['โหด37','มีสามัญกับคุณภาพชีวิต จะกู้สามัญใหม่ต้องหักอะไร',r=>r.intent==='loan_compound_reasoning'&&r.decision==='NOT_YET_ELIGIBLE'&&/ยกเว้นเงินกู้ฉุกเฉิน/.test((r.details||[]).join(' '))],
-['โหด38','คุณภาพชีวิต 10 งวดแล้ว กู้ฉุกเฉินได้ไหม',r=>r.answer?.length>20&&!/คุณภาพชีวิต.*ต้อง.*\d+.*งวด/.test((r.answer||'')+' '+(r.details||[]).join(' '))],
+['โหด38','คุณภาพชีวิต 10 งวดแล้ว กู้ฉุกเฉินได้ไหม',r=>r.intent==='loan_compound_reasoning'&&r.decision==='ELIGIBLE_CONDITION'&&/เงินกู้ประเภทอื่นต้องชำระมาแล้วอย่างน้อย 3 งวด/.test((r.details||[]).join(' '))],
 ['โหด39','เงินเดือนเหลือ 6500 กู้สามัญผ่านไหม',r=>r.answer?.length>20&&!/ผ่านแน่นอน|ได้แน่นอน/.test(r.answer)],
 ['โหด40','หนี้ล้านนึง จะกู้เพิ่มสองแสนได้ไหม',r=>r.intent==='member_self_service'||r.decision==='NEED_INFO'],
 ['โหด41','หุ้น 133000 หนี้ล้าน กู้เพิ่ม 2 แสนได้ไหม',r=>r.answer?.length>20],

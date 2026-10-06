@@ -17,6 +17,10 @@ try{
   assert.match(await ask('กู้ฉุกเฉิน ณ วันที่ 30 กันยายน 2569 ต้องเป็นสมาชิกกี่เดือน'),/6 เดือน/);pass++;
   assert.match(await ask('เงินเดือน 32,000 บาท ปัจจุบันต้องถือหุ้นเดือนละเท่าไร'),/ประกาศอัตรา|ตาราง/);assert.doesNotMatch(await page.locator('#out .body').textContent(),/1,600|1600/);pass++;
   assert.match(await ask('สมาชิกเกษียณอายุราชการแล้วสามารถค้ำประกันเงินกู้ได้หรือไม่'),/ต้องตรวจ|ยืนยัน/);assert.ok(await page.locator('#out a[href*="contact"]').count());pass++;
+  assert.match(await ask('กรณีเพิ่มกู้เงินพัฒนาคุณภาพชีวิตมา สามารถกู้ฉุกเฉินต่อได้เลยไหม'),/อย่างน้อย 3 งวด/);pass++;
+  assert.match(await ask('ส่งพัฒนาคุณภาพชีวิตครบ 3 งวด แต่ถ้ากู้สามัญใหญ่เพื่อปิดกู้พัฒนาคุณภาพชีวิต สามารถยื่นเอกสารได้เลยใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
+  assert.match(await ask('ถ้าสามัญใหญ่ส่งครบ 12 งวด สามารถยื่นได้ แจ้งความประสงค์หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต เนื่องจากตามหลักเกณฑ์ไม่หักกลบสัญญาเพื่อพัฒนาคุณภาพชีวิต ใช่ไหม'),/เฉพาะเงินกู้ฉุกเฉิน/);pass++;
+  await ask('กรอกคำขอเปลี่ยนแปลงแล้ว ต้องแนบเอกสารอะไรเพิ่มเติมหรือไม่ และส่งเอกสารไปที่ไหน');assert.match(await page.locator('#out').textContent(),/111\/1.*คลองหลวง 8/);pass++;
   // Synthetic new publication exists only in this test page, never in production data.
   await page.evaluate(()=>{const r=COOP_APP.getSourceRegistry();r.documents.push({id:'browser-test-new-shares',title:'ระเบียบว่าด้วยหุ้น แก้ไขเพิ่มเติม (เอกสารจำลองเพื่อทดสอบ)',type:'AMENDMENT',originalUrl:'https://drive.google.com/file/d/test-browser-fixture/view',officialIndexUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',linkVerified:true,status:'PENDING',mayAffectRules:true,affects:['shares'],effectiveDate:null});COOP_APP.applySourceMonitor(r);});
   assert.match(await ask('หุ้นรายเดือนตอนนี้ต้องส่งเท่าไร'),/พบเอกสารทางการ.*ยืนยัน/);pass++;
@@ -26,7 +30,7 @@ try{
   await page.evaluate(()=>{const r=COOP_APP.getSourceRegistry();r.documents.push({id:'browser-test-loan-change',title:'หลักเกณฑ์เงินกู้สามัญ (เอกสารจำลอง)',type:'CRITERIA',originalUrl:'https://drive.google.com/file/d/test-loan-fixture/view',officialIndexUrl:'https://www.dlasavingcoop.com/show.php?No=774',linkVerified:true,status:'PENDING',mayAffectRules:true,affects:['ordinaryLoan']});COOP_APP.applySourceMonitor(r);});
   await page.getByRole('textbox',{name:'ตอบข้อมูลเพิ่มเติม',exact:true}).fill('12 เดือน');await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();await page.waitForFunction(()=>document.querySelector('#out .body')?.textContent.includes('พบเอกสารทางการ'));pass++;
   assert.deepEqual(errors,[]);assert.ok(await page.locator('.brand-logo').isVisible());
-  console.log('FRESHNESS BROWSER '+width+'px: 8 PASS, current/history/pending/privacy/conversation PASS');await page.close();
+  console.log('FRESHNESS BROWSER '+width+'px: 12 PASS, current/history/pending/privacy/conversation PASS');await page.close();
  }
  console.log('FRESHNESS BROWSER:',pass,'PASS / 0 FAIL');
 }finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
