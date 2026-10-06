@@ -27,13 +27,15 @@ jobs:
       - name: Install browser test runtime
         run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Browser release gate
-        run: node scripts/browser-pilot-smoke.mjs
+        run: |
+          node scripts/browser-pilot-smoke.mjs
+          node scripts/browser-freshness-smoke.mjs
       - name: Stage public Pilot files
         run: |
           mkdir -p _site/data
           cp index.html .nojekyll _site/
           cp -r assets _site/
-          cp data/current-events.json data/official-rule-master.json _site/data/
+          cp data/current-events.json data/official-rule-master.json data/official-source-registry.json data/official-source-monitor.json _site/data/
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -43,4 +45,6 @@ jobs:
       - name: Verify live Production on mobile and desktop
         env:
           MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
-        run: node scripts/browser-pilot-smoke.mjs
+        run: |
+          node scripts/browser-pilot-smoke.mjs
+          node scripts/browser-freshness-smoke.mjs
