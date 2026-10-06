@@ -341,13 +341,13 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       if(!details.some(x=>/หลักฐานที่ใช้ตอบ/.test(String(x)))) details.unshift('หลักฐานที่ใช้ตอบ: ใช้ระเบียบ/หลักเกณฑ์/ประกาศทางการของ สอ.อปท. ตามประเภทเงินกู้ และแสดงเอกสารต้นฉบับด้านล่าง');
       if(!details.some(x=>/การตีความ/.test(String(x)))) details.push('การตีความ: หากคำถามขึ้นกับวงเงินจริง ยอดหนี้ จำนวนงวด หรือสถานะของสมาชิก ระบบจะอธิบายกฎที่ตรวจได้ แต่จะไม่เดาข้อมูลเฉพาะสมาชิก');
       if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ประกาศที่ใช้บังคับ 2) ตรวจประเภทและเงื่อนไขของรายการ 3) ดาวน์โหลด/เตรียมแบบและเอกสาร 4) ยื่นหรือขอยอดจากเจ้าหน้าที่ 5) ดำเนินการชำระ/ทำสัญญาตามกรณี 6) ให้เจ้าหน้าที่ตรวจและติดตามสถานะจนเสร็จ');
-      if(/emergency/.test(intent)){
+      if(opt.domain==='emergencyLoanCurrent'||/emergency/.test(intent)){
         addAction('📢 หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
         addAction('📄 แบบฟอร์มเงินกู้ฉุกเฉิน',S.emergencyLoan);
         addSource('หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
         addSource('แบบฟอร์มเงินกู้ฉุกเฉิน',S.emergencyLoan);
         addAction('☎️ งานเงินกู้ฉุกเฉิน 083-929-3058','tel:0839293058');
-      } else if(/special/.test(intent)){
+      } else if(['qualityOfLifeCurrent','specialHousingCurrent','redeemMortgageCurrent'].includes(opt.domain)||/special/.test(intent)){
         addAction('📘 หลักเกณฑ์/แบบเงินกู้พิเศษ',S.specialLoanForms);
         addSource('หลักเกณฑ์และแบบฟอร์มเงินกู้พิเศษ',S.specialLoanForms);
         addAction('☎️ งานเงินกู้พิเศษ 092-391-7912','tel:0923917912');
@@ -1263,6 +1263,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     return null;
   }
   function verifiedLoanInquiry(q){
+    if(personal(q)&&questionDomain(q)==='shares')return null;
     const product=loanProduct(q);
     const productCount=[/สามัญ/.test(q)&&!/การศึกษา/.test(q),/ฉุกเฉิน/.test(q),/รวมหนี้|คุณภาพชีวิต/.test(q),/เคหะ|กู้บ้าน/.test(q)].filter(Boolean).length;
     if(productCount>1&&!/(?:รวมหนี้.*กู้ฉุกเฉิน|เคยกู้สามัญหรือพิเศษแล้วกู้ฉุกเฉิน|ปรับโครงสร้างหนี้แล้วกู้ฉุกเฉิน)/.test(q))return null;
@@ -1343,6 +1344,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     else if(concern==='offset')text=quality?'เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว':ordinary?'กู้สามัญใหม่ต้องชำระสัญญาสามัญเดิมอย่างน้อย '+R.repeatOrdinaryMinInstallments+' งวด และหักกลบสัญญาสามัญเดิม รวมฉุกเฉิน ATM ตามหลักเกณฑ์':'';
     else if(concern==='cashOut')text=quality?'รับเงินส่วนต่างได้ไม่เกิน '+R.cashOutMaxPercentOfRemainingEligibleAmount+'% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง':'';
     else if(concern==='repayment')text=R.disbursement==='monthly_equal_principal_plus_interest_except_first_or_last_installment'?'ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ':'';
+    else if(concern==='collateral'&&ordinary&&/หุ้น.*ค้ำ|ค้ำ.*หุ้น/.test(q)){pending=true;text='ประเด็นใช้ทุนเรือนหุ้นค้ำเงินกู้สามัญยังไม่มีหลักเกณฑ์เฉพาะที่ยืนยันจากต้นฉบับใน Rule Master ครับ จึงไม่ยืนยันว่าใช้ได้หรือกำหนดวงเงินจากคำตอบเก่า ตรวจหลักเกณฑ์และแบบทางการด้านล่างได้เลย';}
     else if(concern==='collateral')text=quality?'ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน '+R.maxLtvPercent+'% ของราคาประเมิน':ordinary?'หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน '+R.realEstateCollateralMaxPercentOfAppraisal+'% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ':'';
     else if(concern==='guarantor')text=ordinary?'ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า '+R.employeeGuarantorMinServiceYears+' ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน '+R.guarantorMaxBorrowers+' คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน':'';
     else if(concern==='guarantorCount')text=ordinary?'เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน '+R.guarantorMaxBorrowers+' คน':'';
@@ -1359,8 +1361,32 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,domain:product,concern,evidenceState:pending?'NEEDS_PRIMARY_EVIDENCE':'PRIMARY_VERIFIED_CURRENT',decision:pending?'NEED_RULE_EXTRACTION':'RULE_INFORMATION',actions:[['หลักเกณฑ์ที่ใช้ตอบ',source],['แบบคำขอ/ตารางทางการ',index]],sources:[src(R?.primaryEvidenceTitle||'หลักเกณฑ์/แบบเฉพาะประเภท',source)],details:[...(quality&&concern==='summary'?['สมาชิกอย่างน้อย 3 ปีและส่งหุ้น 36 งวด สำหรับวงเงินไม่เกิน 3 ล้านบาท; 5 ปีและ60 งวด สำหรับไม่เกิน5 ล้านบาท']:[]),...(ordinary&&concern==='amount'?['เกิน 200,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือนและมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้']:[]),pending?'Evidence Lock เฉพาะประเด็นนี้ ไม่ใช่ไม่มีหลักเกณฑ์':'ใช้ฉบับมีผล '+R.effectiveFrom,'การประเมินเบื้องต้น ไม่ใช่ผลอนุมัติสินเชื่อ']});
   }
 
+  function questionDomain(q){
+    if(/ลาออก|พ้นสมาชิกภาพ/.test(q))return 'resignation';
+    if(/สวัสดิการ|ทุน.*บุตร/.test(q))return 'welfare';
+    if(/เงินฝาก/.test(q))return 'deposit';
+    if(/ปันผล|เฉลี่ยคืน/.test(q))return 'dividend';
+    if(/หุ้น/.test(q)&&!/กู้|ค้ำ/.test(q))return 'shares';
+    if(/กู้|เงินกู้/.test(q))return 'loan';
+    return null;
+  }
+  function multiDomainAnswer(q){
+    const parts=q.split(/\s*(?:และ|รวมทั้ง|แล้วก็|[;\n])\s*/).filter(Boolean);
+    const domains=parts.map(questionDomain);
+    if(parts.length<2||domains.some(x=>!x)||new Set(domains).size<2)return null;
+    const replies=parts.map(x=>answer(x));
+    return res('multiple_domains',replies.map((r,i)=>parts[i]+':\n'+r.answer).join('\n\n'),{
+      details:replies.flatMap(r=>r.details||[]),actions:replies.flatMap(r=>r.actions||[]),sources:replies.flatMap(r=>r.sources||[]),
+      decision:'MULTIPLE_TOPICS',privacy:replies.some(r=>r.privacy),
+      followups:parts.filter((_,i)=>replies[i].requiredFact)
+    });
+  }
+
   function answer(input){
     const q=norm(input);
+    const multiple=multiDomainAnswer(q);if(multiple)return multiple;
+    if(/สวัสดิการ.*(?:บุตร|ลูก)/.test(q)&&!welfareKindFromQuestion(q)&&!/ทุน|การศึกษา/.test(q))return res('welfare_need_kind','เป็นสวัสดิการคลอดบุตร หรือทุนการศึกษาบุตรครับ? เลือกประเภทแล้วผมจะตอบเรื่องเดิมต่อให้',{requiredFact:'welfareKind',followups:['คลอดบุตร','ทุนการศึกษาบุตร'],sources:[src('แบบและหลักเกณฑ์สวัสดิการ',S.welfareForms)]});
+    if(/^เป็นเรื่อง/.test(q))return answer(q.replace(/^เป็นเรื่อง/,''));
     const calculator=safeLoanCalculator(q); if(calculator) return calculator;
     if(/สมัครสมาชิก|ใบสมัครสมาชิก|สมัครใหม่|ค่าสมัคร|ค่าหุ้นแรกเข้า|ไม่โอน.*60|ไม่จ่าย.*60/.test(q)){
       let a='ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ';
@@ -1408,7 +1434,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const welfareGuided=startWelfareFlow(q);
     if(welfareGuided) return welfareGuided;
     if(/(?:กู้|เงินกู้).*(?:ได้ไหม|ได้มั้ย|ผ่านไหม|ผ่านมั้ย)$/.test(q) && !/(?:สามัญ|ฉุกเฉิน|การศึกษา|คุณภาพชีวิต|พิเศษ)/.test(q)){
-      return res('loan_eligibility','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต','กู้ซื้อ/สร้างบ้าน','กู้ไถ่ถอนจำนอง','กู้กรณีภัยพิบัติ'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
+      return res('loan_eligibility','ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด',{requiredFact:'loanProduct',details:['เลือกประเภทที่ต้องการกู้ แล้วระบบจะตรวจเงื่อนไขต่อให้เอง ไม่ต้องอ่านระเบียบ'],followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เพื่อการศึกษา','กู้พัฒนาคุณภาพชีวิต','กู้ซื้อ/สร้างบ้าน','กู้ไถ่ถอนจำนอง','กู้กรณีภัยพิบัติ'],sources:[src('หลักเกณฑ์และแบบเงินกู้ทางการ',S.ordinaryLoanForms)]});
     }
     if(/(?:คุณภาพชีวิต|พัฒนาคุณภาพชีวิต)/.test(q)&&/(?:สามัญ|ฉุกเฉิน)/.test(q)&&/(?:กี่งวด|ส่ง.*งวด|ชำระ.*งวด)/.test(q)){
       if(/สามัญ/.test(q)) return res('loan_cross_wait_current','ขณะสัญญากู้พัฒนาคุณภาพชีวิตยังมีผล ไม่สามารถกู้สามัญเพิ่มได้ครับ — หลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่นหลังได้รับอนุมัติ ยกเว้นเงินกู้ฉุกเฉิน จึงไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมายื่นสามัญเพิ่มได้ระหว่างถือสัญญานี้',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',decision:'NOT_YET_ELIGIBLE',details:['ข้อยกเว้นที่ระบุไว้คือเงินกู้ฉุกเฉิน','ระบบไม่สร้างจำนวนงวดขึ้นเอง เพราะต้นฉบับใช้ข้อห้ามตามประเภทเงินกู้ ไม่ใช่เกณฑ์รอจำนวนงวด'],sources:[src('หลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement)]});
@@ -1462,7 +1488,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 
     if(personal(q)){
       // Account values/status are self-service first. Cases asking WHY a guarantor/decision failed were already routed to staff above.
-      if(/(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|เช็คหุ้น|ตรวจหุ้น|ยอดเงินฝาก|เงินฝาก|วงเงินคงเหลือ|ปันผล|เฉลี่ยคืน|อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|ผลอนุมัติ)/i.test(q)) return memberSelfService(q);
+      if(/(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|เช็คหุ้น|ตรวจหุ้น|ยอดเงินฝาก|เงินฝาก|วงเงินคงเหลือ|ปันผล|เฉลี่ยคืน|อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|ผลอนุมัติ)/i.test(q)) return memberSelfService(q);
       return handoff(q);
     }
 
@@ -1950,7 +1976,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(!previousTopic) return q;
     if(previousTopic==='resignation' && /^(?:แล้ว)?(?:ถ้า)?(?:มี)?(?:ภาระ|หนี้|ค้ำ|คนค้ำ|ผู้ค้ำ)(?:ล่ะ|ละ|ครับ|คะ|ไหม|มั้ย)?$/i.test(q)) return 'ผมมีหนี้และค้ำคนอื่นอยู่ ลาออกได้ไหม';
     if(previousTopic==='dividend' && /^(?:แล้ว)?(?:ออก|จ่าย|ได้)(?:เมื่อไร|เดือนไหน|วันไหน|ตอนไหน)(?:ครับ|คะ)?$/i.test(q)) return 'ปันผลปี 2569 ออกเมื่อไร';
-    if(KB.ruleAuthority.rules[previousTopic]&&!loanProduct(q))return ({ordinaryLoanCurrent:'กู้สามัญ ',emergencyLoanCurrent:'กู้ฉุกเฉิน ',qualityOfLifeCurrent:'กู้รวมหนี้ ',specialHousingCurrent:'กู้เคหะ ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง '})[previousTopic]+q;
+    if(KB.ruleAuthority.rules[previousTopic]&&!loanProduct(q)&&(!questionDomain(q)||questionDomain(q)==='loan'||/ค้ำ|หลักประกัน/.test(q)||(questionDomain(q)==='shares'&&!personal(q))))return ({ordinaryLoanCurrent:'กู้สามัญ ',emergencyLoanCurrent:'กู้ฉุกเฉิน ',qualityOfLifeCurrent:'กู้รวมหนี้ ',specialHousingCurrent:'กู้เคหะ ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง '})[previousTopic]+q;
     return q;
   }
   function topicOf(q,r){
@@ -1962,7 +1988,25 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     return '';
   }
 
-  return {answer,smartDecision,continueDecision,personal,norm,contextualize,topicOf};
+  // Shared UI turn handler: retain the question awaiting a choice and pass fact replies raw.
+  function conversationTurn(input,state={},options={}){
+    const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
+    let query=raw,result,lastFact=null;
+    if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)){
+      query=raw+' '+state.question;result=answer(query);
+    }else if(prior?.requiredFact==='welfareKind'&&(welfareKindFromQuestion(raw)||/ทุน|การศึกษา/.test(raw))){
+      query=raw+' '+state.question;result=answer(query);
+    }else if(prior?.flowId&&(options.continuation||correction||(!questionDomain(raw)&&prior.requiredFact))){
+      lastFact=correction?state.lastFact:prior.requiredFact;
+      result=continueDecision(raw,{...prior,requiredFact:lastFact});
+    }else if(prior?.ruleId&&(options.continuation||correction||(!questionDomain(raw)&&prior.requiredFact))){
+      result=smartDecision(raw,prior);
+    }
+    if(!result){query=contextualize(raw,state?.topic);result=answer(query);}
+    const topic=topicOf(query,result)||state?.topic||'';
+    return {result,state:{result,topic,question:query,lastFact:lastFact||result.requiredFact||state?.lastFact||null},query};
+  }
+  return {answer,smartDecision,continueDecision,personal,norm,contextualize,topicOf,conversationTurn};
 });
 
 </script>
@@ -1973,22 +2017,13 @@ let conversationState=null;
 let previousTopic='';
 function ask(text,{continuation=false}={}){
   let value=String(text||'').trim();
-  value=COOP_APP.contextualize(value,previousTopic);
   q.value=value;
   try{
-    let result;
-    if(continuation&&conversationState?.flowId){
-      result=COOP_APP.continueDecision(value,conversationState);
-      if(!result) result=COOP_APP.answer(value);
-    }else if(continuation&&conversationState?.ruleId){
-      result=COOP_APP.smartDecision(value,conversationState);
-      if(!result) result=COOP_APP.answer(value);
-    }else result=COOP_APP.answer(value);
+    const turn=COOP_APP.conversationTurn(value,conversationState||{topic:previousTopic},{continuation});
+    const result=turn.result;
     if(!result) throw new Error('EMPTY_ANSWER');
-    previousTopic=COOP_APP.topicOf(value,result)||previousTopic;
-    if(result?.flowId&&result?.requiredFact) conversationState={flowId:result.flowId,requiredFact:result.requiredFact,facts:result.facts||{}};
-    else if(result?.ruleId&&result?.requiredFact) conversationState={ruleId:result.ruleId,requiredFact:result.requiredFact};
-    else conversationState=null;
+    previousTopic=turn.state.topic;
+    conversationState=turn.state;
     render(result);
   }catch(err){
     conversationState=null;
