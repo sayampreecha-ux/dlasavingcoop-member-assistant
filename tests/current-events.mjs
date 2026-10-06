@@ -21,6 +21,7 @@ function isDirectSource(url=''){
       if(/show\.php$/i.test(u.pathname)&&/^\d+$/.test(u.searchParams.get('No')||'')) return true;
     }
     if(/^(www\.)?facebook\.com$/i.test(u.hostname)){
+      if(/^\/share\/p\/[A-Za-z0-9_-]+\/?$/i.test(u.pathname)) return true;
       if(/\/share\//i.test(u.pathname)||/^\/dlasaving\/?$/i.test(u.pathname)) return false;
       return /\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search);
     }
@@ -30,7 +31,10 @@ function isDirectSource(url=''){
 function isAggregateOrProfile(url=''){
   try{
     const u=new URL(url);
-    if(/^(www\.)?facebook\.com$/i.test(u.hostname)&&(/^\/dlasaving\/?$/i.test(u.pathname)||/\/share\//i.test(u.pathname))) return true;
+    if(/^(www\.)?facebook\.com$/i.test(u.hostname)){
+      if(/^\/dlasaving\/?$/i.test(u.pathname)) return true;
+      if(/\/share\//i.test(u.pathname)&&!/^\/share\/p\/[A-Za-z0-9_-]+\/?$/i.test(u.pathname)) return true;
+    }
     if(/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)){
       if(u.pathname==='/'||/\/list\.php$/i.test(u.pathname)||u.searchParams.has('Category')) return true;
     }
@@ -53,6 +57,10 @@ for(const e of data.events||[]){
     if(!e.discoveryUrl) errors.push('pending event missing discoveryUrl: '+e.id);
   }
   if(e.directSourceUrl&&isAggregateOrProfile(e.directSourceUrl)) errors.push('aggregate/profile cannot be direct source: '+e.id);
+  if(e.directSourceUrl&&/^https:\/\/(www\.)?facebook\.com\/share\/p\//i.test(e.directSourceUrl)){
+    if(e.source!=='official-facebook') errors.push('Facebook exact-post link must be official-facebook discovery: '+e.id);
+    if(e.directSourceVerification!=='USER_SUPPLIED_EXACT_POST') errors.push('Facebook share-post link lacks explicit exact-post verification: '+e.id);
+  }
   const dedupeUrl=e.directSourceUrl||e.discoveryUrl||e.url;
   if(urls.has(dedupeUrl)) errors.push('duplicate URL: '+dedupeUrl);
   urls.add(dedupeUrl);
