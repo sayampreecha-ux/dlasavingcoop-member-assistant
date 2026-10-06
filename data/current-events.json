@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-06T14:06:09.901Z",
-  "lastCheckedAt": "2026-10-06T14:06:09.901Z",
+  "generatedAt": "2026-10-06T20:21:05.425Z",
+  "lastCheckedAt": "2026-10-06T20:21:05.425Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -51,9 +51,9 @@
       "discoveryUrl": "https://www.facebook.com/dlasaving",
       "sourceState": "DIRECT_VERIFIED",
       "sourceLabel": "โพสต์ต้นฉบับจาก Facebook",
+      "directSourceVerification": "USER_SUPPLIED_EXACT_POST",
       "eventDate": null,
-      "expiresAt": null,
-      "directSourceVerification": "USER_SUPPLIED_EXACT_POST"
+      "expiresAt": null
     },
     {
       "contentKind": "NEWS",
