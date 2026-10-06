@@ -107,7 +107,7 @@ export async function sync(registry,{fetcher=fetch,now=new Date().toISOString(),
       for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\.google\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){doc.status='PENDING';doc.mayAffectRules=true;doc.pendingReason='PRIMARY_LINK_REMOVED';changes.push(doc.id);}
      }
      changes.push(...ingest(next,monitor,links,now,{baseline}));processed++;
-    }else unchanged++;
+    }else{changes.push(...ingest(next,monitor,links,now,{baseline}));unchanged++;}
     monitor.documentIds=links.map(d=>next.documents.find(x=>F.canonical(x.originalUrl)===d.originalUrl)?.id).filter(Boolean);
     monitor.fingerprint=fingerprint;monitor.etag=resource.response.headers.get('etag');monitor.lastModified=resource.response.headers.get('last-modified');
    }
