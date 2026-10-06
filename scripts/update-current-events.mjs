@@ -4,6 +4,35 @@ const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
 const OUT=new URL('../data/current-events.json',import.meta.url);
 const OFFICIAL_FACEBOOK='https://www.facebook.com/dlasaving';
+
+function directOfficialDetail(url){
+  try{
+    const u=new URL(url);
+    if(!/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)) return false;
+    if(!/show\.php$/i.test(u.pathname)) return false;
+    return /^\d+$/.test(u.searchParams.get('No')||'');
+  }catch{return false}
+}
+function sourceMetadata(item){
+  if(item.source==='official-facebook'){
+    return {
+      discoveryUrl:item.url||OFFICIAL_FACEBOOK,
+      directSourceUrl:null,
+      sourceState:'DIRECT_SOURCE_PENDING',
+      sourceLabel:'กำลังตรวจต้นฉบับ'
+    };
+  }
+  const direct=directOfficialDetail(item.url);
+  return {
+    discoveryUrl:item.source==='homepage'?HOME:NOTICES,
+    directSourceUrl:direct?item.url:null,
+    sourceState:direct?'DIRECT_VERIFIED':'DIRECT_SOURCE_PENDING',
+    sourceLabel:direct?'ต้นฉบับทางการ':'กำลังตรวจต้นฉบับ'
+  };
+}
+function withSourceMetadata(item){
+  return {...item,...sourceMetadata(item)};
+}
 // Facebook is discovery/news only. It must never promote or rewrite Rule Master.
 const SOCIAL_DISCOVERY=[
   {
@@ -13,6 +42,8 @@ const SOCIAL_DISCOVERY=[
     status:'notice',statusLabel:'ประกาศใหม่',priority:97,
     url:OFFICIAL_FACEBOOK,ask:'อัตราเงินได้รายเดือนและการถือหุ้น 2569',
     source:'official-facebook',publishedAt:'2026-10-06T10:00:00.000Z',
+    directSourceUrl:null,discoveryUrl:OFFICIAL_FACEBOOK,
+    sourceState:'DIRECT_SOURCE_PENDING',sourceLabel:'กำลังตรวจต้นฉบับ',
     eventDate:null,expiresAt:null
   }
 ];
@@ -255,7 +286,8 @@ for(const item of SOCIAL_DISCOVERY){
 }
 const top=active
   .sort((a,b)=>b.priority-a.priority)
-  .slice(0,3);
+  .slice(0,3)
+  .map(withSourceMetadata);
 
 const output={
   schemaVersion:1,
@@ -265,7 +297,7 @@ const output={
   sourceHealth,
   rules:{
     maxItems:3,
-    source:'official dlasavingcoop.com only',
+    source:'official dlasavingcoop.com + official Facebook discovery only',
     selection:'actionable member news only',
     expiry:'explicit deadlines/event dates expire automatically'
   },
