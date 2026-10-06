@@ -40,6 +40,8 @@ jobs:
           cp data/official-source-monitor.json /tmp/new-monitor.json
           cp docs/official-source-sync-report.json /tmp/new-sync-report.json
           cp docs/impacted-regression.json /tmp/new-impact-report.json
+          # Generated state is safe above; clear only these temporary outputs before switching.
+          git restore -- data/official-source-registry.json data/official-source-monitor.json docs/official-source-sync-report.json docs/impacted-regression.json
           if git show-ref --verify --quiet refs/remotes/origin/official-source-monitor; then
             git switch -C official-source-monitor origin/official-source-monitor
           else
