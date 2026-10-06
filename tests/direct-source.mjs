@@ -60,7 +60,7 @@ for(const [q,re] of probes){
 
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.ok(html.includes("if(e.directSourceUrl)"),'current-event renderer must use directSourceUrl');
-assert.ok(html.includes("DIRECT_SOURCE_PENDING"),'pending source state must be rendered');
+assert.ok(html.includes("e.sourceState==='DIRECT_VERIFIED'&&!!e.directSourceUrl"),'member-facing current events must filter out pending discovery-only items');
 assert.ok(!/e\.url[^\n]{0,180}ต้นฉบับทางการ/.test(html),'generic event url must never be labeled as original');
 
-console.log('DIRECT SOURCE LAYER: verified originals, pending lock and core member topics PASS');
+console.log('DIRECT SOURCE LAYER: verified originals, pending discovery hidden from members, core member topics PASS');
