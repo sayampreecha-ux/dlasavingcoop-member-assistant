@@ -29,6 +29,33 @@ try{
   await ask('กู้ฉุกเฉินใหม่ได้ไหม');await page.getByRole('textbox',{name:'ตอบข้อมูลเพิ่มเติม',exact:true}).fill('3 งวด');await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/ผ่านเงื่อนไข/);
   await ask('กู้รวมหนี้ดอกเบี้ยเท่าไหร่');await ask('แล้วผ่อนได้กี่งวด');assert.match(await page.locator('#out .body').textContent(),/360 งวด/);
   await ask('ยอดหนี้ของผมเหลือเท่าไร');assert.ok(await page.locator('#out a[href="https://member.dlasavingcoop.com/coop/"]').count());assert.equal(await page.locator('#out a').filter({hasText:'รายชื่อเจ้าหน้าที่'}).count(),0);
+  // Final Acceptance regressions: physical UI submission and offered buttons, on both viewports.
+  const fresh=async question=>{await page.locator('#homeBtn').click();await ask(question);};
+  const body=()=>page.locator('#out .body').textContent();
+  const follow=async value=>{await page.getByRole('textbox',{name:'ตอบข้อมูลเพิ่มเติม',exact:true}).fill(value);await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();};
+  const choose=label=>page.locator('#out .follow').getByRole('button',{name:label,exact:true}).click();
+  const ordinary=async()=>{await fresh('ผมกู้สามัญได้ไหม');for(const value of ['12 เดือน','200000 บาท','12 งวด','30000 บาท','10000 บาท','1 คน','120 งวด','45 ปี'])await follow(value);};
+  await ordinary();assert.match(await body(),/12 งวด.*ค้าง/);
+  await choose('ไม่มี');assert.match(await body(),/หนี้กับสหกรณ์อื่น/);
+  await choose('ไม่มี');assert.match(await body(),/ผ่านเงื่อนไขหลัก.*ผลอนุมัติจริงยังต้องตรวจ/);
+  await ordinary();await follow('ไม่มี');assert.match(await body(),/หนี้กับสหกรณ์อื่น/);await follow('ไม่มี');assert.match(await body(),/ผ่านเงื่อนไขหลัก/);
+  await ordinary();await choose('มี');assert.match(await body(),/ยังไม่ผ่าน/);
+  for(const [question,expected]of [['ผ่อนได้กี่งวด',/240 งวด/],['กู้ใหม่หักกลบสัญญาเดิมต้องส่งกี่งวด',/12 งวด.*หักกลบ/],['กู้ต้องค้ำกี่คน',/500,000.*1 คน/]]){
+   await fresh(question);await choose('กู้สามัญ');assert.match(await body(),expected,'type choice must answer the original question');
+  }
+  await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');assert.match(await body(),/คลอดบุตร.*ทุนการศึกษา/);
+  await choose('คลอดบุตร');assert.match(await body(),/คลอดบุตร/);assert.ok(await page.locator('#out a[href="https://www.dlasavingcoop.com/show.php?No=775"]').count());
+  await fresh('ขอสวัสดิการบุตรต้องใช้เอกสารอะไร');await choose('ทุนการศึกษาบุตร');assert.match(await body(),/ทุน|การศึกษา/);
+  await fresh('ขอรายละเอียดเพิ่มเติม');await choose('เป็นเรื่องสวัสดิการ');assert.equal(await page.locator('#out .follow').getByRole('button',{name:'เป็นเรื่องสวัสดิการ',exact:true}).count(),0);assert.ok(await page.locator('#out .follow button').count());
+  await fresh('กู้ฉุกเฉินใหม่ได้ไหม');await follow('2 งวด');assert.match(await body(),/ยังไม่ได้/);await ask('แก้เป็น 3 งวดครับ');assert.match(await body(),/ผ่านเงื่อนไข.*หักกลบ/);await ask('เปลี่ยนเป็น 2 งวดครับ');assert.match(await body(),/ยังไม่ได้/);
+  await fresh('ผมกู้สามัญได้ไหม');await follow('5 เดือน');assert.match(await body(),/ยังไม่ผ่าน/);await ask('แก้เป็น 12 เดือนครับ');assert.match(await body(),/ต้องการกู้ประมาณเท่าไร/);
+  await fresh('หุ้นของผมมีเท่าไร');assert.ok(await page.locator('#out a[href="https://member.dlasavingcoop.com/coop/"]').count());
+  await fresh('กู้สามัญได้กี่บาทและลาออกต้องทำยังไง');assert.match(await body(),/2,000,000/);assert.match(await body(),/ลาออก/);assert.ok(await page.locator('#out a[href*="member_end"]').count());
+  await fresh('กู้สามัญใช้หุ้นค้ำได้ไหม');assert.match(await body(),/ทุนเรือนหุ้น.*ยังไม่มีหลักเกณฑ์เฉพาะ/);assert.doesNotMatch(await body(),/\d/);await page.locator('#out details.more summary').click();assert.match(await page.locator('#out').innerText(),/Evidence Lock/);
+  await page.locator('#homeBtn').click();await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).click();await choose('คำนวณกู้ฉุกเฉิน');
+  assert.match(await body(),/ประเมินเงินกู้/);const calculatorActions=await page.locator('#out .actions').innerText();assert.doesNotMatch(calculatorActions,/เงินกู้สามัญ/);assert.match(calculatorActions,/เงินกู้ฉุกเฉิน/);await page.locator('#out details.more summary').click();assert.match(await page.locator('#out').innerText(),/ไม่ใช่ผลอนุมัติสินเชื่อ/);
+  await fresh('กู้ฉุกเฉิน');await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).click();assert.match(await body(),/ประเมินเงินกู้/);assert.doesNotMatch(await page.locator('#out .actions').innerText(),/เงินกู้สามัญ/);assert.match(await page.locator('#out .actions').innerText(),/เงินกู้ฉุกเฉิน/);
+  console.log('FINAL ACCEPTANCE UI '+width+'px: all eight reported issues, positive/negative facts, main-input corrections and type/category buttons PASS');
   await ask('กู้สามัญ');assert.ok(await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).count());
   assert.ok(await page.locator('a[href="https://www.facebook.com/Dlasavingcooppage"]').count());
   assert.ok(await page.locator('text=Pilot Version').count());
