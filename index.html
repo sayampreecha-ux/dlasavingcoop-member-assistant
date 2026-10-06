@@ -1340,7 +1340,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const emergencyMin=RULE_MASTER.rules.emergency_current.otherLoanMinInstallments;
     const lineAnswer=qualityToEmergency
       ?(anyFail?'ยังยื่นกู้ฉุกเฉินไม่ได้ในตอนนี้ครับ — สัญญาพัฒนาคุณภาพชีวิตต้องชำระมาแล้วอย่างน้อย '+emergencyMin+' งวด และยังต้องผ่านเกณฑ์ฉุกเฉินอื่นด้วย'
-        :needs?'กู้ฉุกเฉินต่อได้ตามประเภทเงินกู้ครับ แต่ไม่ใช่ “ได้เลย” — ต้องชำระสัญญาพัฒนาคุณภาพชีวิตมาแล้วอย่างน้อย '+emergencyMin+' งวดก่อน และยังต้องผ่านเกณฑ์ฉุกเฉินอื่น'
+        :needs?'กู้ฉุกเฉินต่อได้ตามประเภทเงินกู้ครับ แต่ไม่ใช่ “ได้เลย” — ต้องชำระสัญญาพัฒนาคุณภาพชีวิตมาแล้วอย่างน้อย '+emergencyMin+' งวดก่อน และยังต้องผ่านเกณฑ์ฉุกเฉินอื่นครับ\n\nสัญญาพัฒนาคุณภาพชีวิตชำระแล้วกี่งวดครับ?'
         :'ผ่านเงื่อนไขจำนวนงวดที่ตรวจได้ครับ — สัญญาพัฒนาคุณภาพชีวิตชำระครบอย่างน้อย '+emergencyMin+' งวดแล้ว จึงยื่นกู้ฉุกเฉินได้ในประเด็นนี้ แต่ยังต้องผ่านคุณสมบัติฉุกเฉินอื่นและการอนุมัติจริง')
       :qualityToOrdinaryBlocked
         ?'ตามหลักเกณฑ์พัฒนาคุณภาพชีวิตปัจจุบัน หากสัญญายังมีผล จะกู้สามัญใหม่ไม่ได้ครับ เพราะอนุญาตให้กู้เพิ่มได้เฉพาะเงินกู้ฉุกเฉินเท่านั้น หากมีแนวปฏิบัติยกเว้นเฉพาะกรณี ต้องให้เจ้าหน้าที่ยืนยันจากเอกสารทางการก่อน'
@@ -1351,7 +1351,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       needs?'จากข้อมูลที่ให้มา ผ่านบางเงื่อนไขครับ แต่ยังขาดข้อมูลสำคัญ จึงยังไม่ควรฟันธงว่า “กู้ได้”':
       qualityOffsetOnly?'ถ้าจะกู้พัฒนาคุณภาพชีวิตและมีสัญญาเงินกู้อื่นอยู่ เมื่อได้รับอนุมัติต้องยินยอมให้สหกรณ์หักกลบหนี้เงินกู้สัญญาอื่นทุกประเภท เพื่อให้เหลือเพียงสัญญานี้สัญญาเดียวครับ':
       'จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล'),
-      {domain:crossTypes?null:hasOrd?'ordinaryLoanCurrent':hasEmergency?'emergencyLoanCurrent':hasQuality?'qualityOfLifeCurrent':null,answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังไม่ผ่านเงื่อนไขที่ตรวจได้':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,confidence:'Rule Master 4.0 multi-condition reasoning'});
+      {domain:qualityToEmergency?'emergencyLoanCurrent':crossTypes?null:hasOrd?'ordinaryLoanCurrent':hasEmergency?'emergencyLoanCurrent':hasQuality?'qualityOfLifeCurrent':null,answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังไม่ผ่านเงื่อนไขที่ตรวจได้':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,flowId:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?'quality_to_emergency_flow':null,requiredFact:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?'qualityPaid':null,followups:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?['1 งวด','2 งวด','3 งวด','มากกว่า 3 งวด']:[],confidence:'Rule Master 4.0 multi-condition reasoning'});
   }
 
   function safeLoanCalculator(q){
@@ -2127,6 +2127,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       query=raw+' '+state.question;result=answer(query);
     }else if(prior?.requiredFact==='welfareKind'&&choice&&(welfareKindFromQuestion(raw)||/ทุน|การศึกษา/.test(raw))){
       query=raw+' '+state.question;result=answer(query);
+    }else if(prior?.flowId==='quality_to_emergency_flow'&&prior.requiredFact==='qualityPaid'&&(options.continuation||choice)){
+      query=(state.question||'พัฒนาคุณภาพชีวิตกู้ฉุกเฉินต่อได้ไหม')+' ชำระพัฒนาคุณภาพชีวิต '+raw;
+      result=answer(query);
     }else if(prior?.flowId&&(options.continuation||correction||(!questionDomain(raw)&&!newQuestion&&prior.requiredFact))){
       lastFact=correction?state.lastFact:prior.requiredFact;
       result=continueDecision(raw,{...prior,requiredFact:lastFact});
