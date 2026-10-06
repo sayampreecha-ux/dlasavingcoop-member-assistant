@@ -432,7 +432,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   const isDirectSourceKind=k=>['DIRECT_DOCUMENT','DIRECT_DETAIL','DIRECT_SOCIAL'].includes(k);
   function directRuleSource(key){
-    const r=RULE_MASTER?.rules?.[key];
+    const r=KB?.ruleAuthority?.rules?.[key]||RULE_MASTER?.rules?.[key];
     return r?.detailSource||r?.source||null;
   }
   function verifiedDirectFor(intent,label,url){
