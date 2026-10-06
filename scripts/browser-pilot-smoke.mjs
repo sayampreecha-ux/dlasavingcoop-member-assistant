@@ -73,10 +73,9 @@ try{
   assert.equal(fbLinks.filter(h=>/Dlasavingcooppage/i.test(h)).length,0,'no legacy Facebook vanity URL remains');
   await page.locator('#currentEvents:not(.hidden)').waitFor({state:'visible'});
   const shareCard=page.locator('.now-card').filter({hasText:'การกำหนดอัตราเงินได้รายเดือน และการถือหุ้น พ.ศ. 2569'});
-  if(await shareCard.count()){
-    assert.equal(await shareCard.locator('a[data-direct-source="true"]').count(),0,'Facebook profile must not be labeled as original');
-    assert.match(await shareCard.innerText(),/กำลังตรวจต้นฉบับ/);
-  }
+  assert.equal(await shareCard.count(),0,'pending discovery-only event must stay hidden from members until a direct original is verified');
+  const pendingLabels=page.locator('.now-card .now-source-pending');
+  assert.equal(await pendingLabels.count(),0,'member-facing current events must never show pending-original placeholders');
   const directCards=page.locator('.now-card a[data-direct-source="true"]');
   const directHrefs=await directCards.evaluateAll(as=>as.map(a=>a.href));
   assert.ok(directHrefs.every(h=>/dlasavingcoop\.com\/show\.php\?No=\d+/i.test(h)||/drive\.google\.com\/file\/d\//i.test(h)),'current-event original buttons must be direct sources');
