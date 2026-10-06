@@ -405,6 +405,80 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   const S=KB.official;
   const C=KB.contacts;
   const line=(rows=[])=>rows.map(x=>`${x[0]} ${x[1]}`).join(' · ');
+  const DIRECT_TOPIC_INDEX_NOS=new Set(['772','773','774','775','807','2385']);
+  function sourceKind(url=''){
+    if(!url||/^#|^tel:/i.test(url)) return 'NAVIGATION';
+    try{
+      const u=new URL(url);
+      if(u.hostname==='drive.google.com'&&/\/file\/d\//.test(u.pathname)) return 'DIRECT_DOCUMENT';
+      if(/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)){
+        if(/\.pdf$/i.test(u.pathname)) return 'DIRECT_DOCUMENT';
+        if(u.pathname==='/'||/\/list\.php$/i.test(u.pathname)||u.searchParams.has('Category')) return 'AGGREGATE';
+        if(/\/show\.php$/i.test(u.pathname)){
+          const no=u.searchParams.get('No');
+          if(no&&DIRECT_TOPIC_INDEX_NOS.has(no)) return 'TOPIC_INDEX';
+          if(no) return 'DIRECT_DETAIL';
+        }
+        return 'OFFICIAL_PAGE';
+      }
+      if(/^(www\.)?facebook\.com$/i.test(u.hostname)){
+        if(/\/share\//i.test(u.pathname)) return 'FORBIDDEN';
+        if(/^\/dlasaving\/?$/i.test(u.pathname)) return 'DISCOVERY_PROFILE';
+        if(/\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search)) return 'DIRECT_SOCIAL';
+        return 'SOCIAL_OTHER';
+      }
+      return 'EXTERNAL';
+    }catch{return 'INVALID'}
+  }
+  const isDirectSourceKind=k=>['DIRECT_DOCUMENT','DIRECT_DETAIL','DIRECT_SOCIAL'].includes(k);
+  function directRuleSource(key){
+    const r=RULE_MASTER?.rules?.[key];
+    return r?.detailSource||r?.source||null;
+  }
+  function verifiedDirectFor(intent,label,url){
+    const current=sourceKind(url);
+    if(isDirectSourceKind(current)) return url;
+    const text=String(label||'');
+    const formOnly=/แบบฟอร์ม|แบบคำ|แบบกู้|ใบสมัคร|ใบลาออก/.test(text)&&!/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ/.test(text);
+    let candidate=null;
+    if(formOnly){
+      if(/ฉุกเฉิน/.test(text)||/emergency/.test(intent)) candidate=S.loanEmergencyForm;
+      else if(/เคหะ/.test(text)||/special_housing/.test(intent)) candidate=S.loanSpecialHousingForm;
+      else if(/ไถ่ถอน/.test(text)||/special_redeem/.test(intent)) candidate=S.loanSpecialRedeemForm;
+      else if(/คุณภาพชีวิต/.test(text)||/special_quality/.test(intent)) candidate=S.loanSpecialQualityForm;
+      else if(/การศึกษา/.test(text)||/education/.test(intent)) candidate=S.educationLoan;
+      else if(/ภัยพิบัติ/.test(text)||/disaster/.test(intent)) candidate=S.disasterLoan;
+      else if(/พักผ่อน/.test(text)||/vacation/.test(intent)) candidate=S.vacationLoan;
+      else if(/เปลี่ยนผู้ค้ำ/.test(text)||/change_guarantor/.test(intent)) candidate=S.changeGuarantorForm;
+      else if(/เปลี่ยน.*ข้อมูล/.test(text)||/member_(?:change_info|information_change)/.test(intent)) candidate=S.memberInfoChangeForm;
+      else if(/สมัครสมาชิก/.test(text)||intent==='member_apply') candidate=S.memberApplication;
+    }else{
+      const welfareMap={
+        welfare_childbirth:'welfareChildbirth',welfare_marriage:'welfareMarriage',
+        welfare_religion:'welfareReligion',welfare_graduation:'welfareGraduation',
+        welfare_gratuity:'welfareGratuity',welfare_member_death:'welfareMemberDeath',
+        welfare_family_death:'welfareFamilyDeath',welfare_disaster:'welfareDisaster'
+      };
+      if(welfareMap[intent]) candidate=directRuleSource(welfareMap[intent]);
+      else if(/^welfare_/.test(intent)) candidate=directRuleSource('welfareCommon');
+      else if(/^share_/.test(intent)||/หุ้น/.test(text)) candidate=directRuleSource('sharesClause7Current');
+      else if(/ฉุกเฉิน/.test(text)||/emergency/.test(intent)) candidate=directRuleSource('emergencyLoanCurrent');
+      else if(/พัฒนาคุณภาพชีวิต|รวมหนี้/.test(text)||/special_quality/.test(intent)) candidate=directRuleSource('qualityOfLifeCurrent');
+      else if(/ไถ่ถอน/.test(text)||/special_redeem/.test(intent)) candidate=directRuleSource('specialRedeemMortgageCurrent');
+      else if(/เคหะ/.test(text)||/special_housing/.test(intent)) candidate=directRuleSource('specialHousingCurrent');
+      else if(/สามัญ/.test(text)||/ordinary/.test(intent)||/guarantor/.test(intent)) candidate=directRuleSource('ordinaryLoanCurrent');
+      else if(/member_(?:change_info|information_change)/.test(intent)) candidate=directRuleSource('memberInformationChange');
+    }
+    return candidate&&isDirectSourceKind(sourceKind(candidate))?candidate:null;
+  }
+  function normalizeSourceLink(intent,label,url){
+    const kind=sourceKind(url);
+    if(isDirectSourceKind(kind)) return {url,sourceState:'DIRECT_VERIFIED'};
+    const direct=verifiedDirectFor(intent,label,url);
+    if(direct) return {url:direct,sourceState:'DIRECT_VERIFIED'};
+    if(['AGGREGATE','TOPIC_INDEX','DISCOVERY_PROFILE','FORBIDDEN'].includes(kind)) return {url,sourceState:'DIRECT_SOURCE_PENDING'};
+    return {url,sourceState:'NAVIGATION'};
+  }
   const src=(title,url,note='')=>({title,url,note});
   function res(intent,answer,opt={}){
     const details=[...(opt.details||[])];
@@ -579,7 +653,21 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const confidence=opt.confidence||(sources.length?(dynamic?'ตรวจประกาศล่าสุดก่อนดำเนินการ':'มีแหล่งทางการประกอบ'):'หลักฐานยังไม่พอสำหรับฟันธง');
     if(!details.some(x=>/สถานะหลักฐาน/.test(String(x)))) details.push('สถานะหลักฐาน: '+confidence);
     const status=opt.status||(dynamic?'ข้อมูลรายรอบ — ตรวจประกาศล่าสุด':(sources.length?'ข้อมูลจากแหล่งทางการ':'ยังยืนยันข้อมูลนี้ไม่ได้'));
-    return {intent,domain:opt.domain||(opt.ruleId==='emergency_repeat'?'emergencyLoanCurrent':opt.ruleId==='ordinary_repeat'?'ordinaryLoanCurrent':opt.ruleId==='education_repeat'?'education':null),concern:opt.concern||null,evidenceState:opt.evidenceState||null,missingFacts:opt.requiredFact?[opt.requiredFact]:[],answer,details,actions,sources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,flowId:opt.flowId||null,facts:opt.facts||null,requiredFact:opt.requiredFact||null,decision:opt.decision||(opt.requiredFact?'NEED_INFO':null)};
+    const normalizedActions=actions.map(([label,url])=>{
+      if(!/^https:/i.test(url||'')) return [label,url];
+      const n=normalizeSourceLink(intent,label,url);
+      if(n.url!==url) return [label,n.url];
+      if(n.sourceState==='DIRECT_SOURCE_PENDING'&&/หลักเกณฑ์|ระเบียบ|ประกาศ|ข้อบังคับ|แบบฟอร์ม|แบบคำ|แบบกู้/.test(label)){
+        return ['🗂️ หน้ารวมทางการ — '+String(label).replace(/^[^ก-๙A-Za-z0-9]+/u,''),url];
+      }
+      return [label,url];
+    });
+    const normalizedSources=sources.map(x=>{
+      const n=normalizeSourceLink(intent,x.title,x.url);
+      const pending=n.sourceState==='DIRECT_SOURCE_PENDING';
+      return {...x,url:n.url,sourceState:n.sourceState,note:x.note||(pending?'หน้ารวมทางการ — ต้นฉบับเฉพาะเรื่องกำลังตรวจยืนยัน':'')};
+    });
+    return {intent,domain:opt.domain||(opt.ruleId==='emergency_repeat'?'emergencyLoanCurrent':opt.ruleId==='ordinary_repeat'?'ordinaryLoanCurrent':opt.ruleId==='education_repeat'?'education':null),concern:opt.concern||null,evidenceState:opt.evidenceState||null,missingFacts:opt.requiredFact?[opt.requiredFact]:[],answer,details,actions:normalizedActions,sources:normalizedSources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,flowId:opt.flowId||null,facts:opt.facts||null,requiredFact:opt.requiredFact||null,decision:opt.decision||(opt.requiredFact?'NEED_INFO':null)};
   }
 
   function norm(s=''){
@@ -2212,7 +2300,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 </script>
 <script>
 const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.4.0-member-journey';
-function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
+function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d);const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);setTimeout(()=>inp.focus({preventScroll:true}),0)}if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';if(x.sourceState)a.dataset.sourceState=x.sourceState;det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 let previousTopic='';
 // Refresh detection state once per session/15 minutes. No member query or personal data is sent.
@@ -2265,7 +2353,8 @@ function renderCurrentEvents(data){
     const summary=document.createElement('div');summary.className='now-summary';summary.textContent=e.summary||'เปิดดูรายละเอียดจากประกาศทางการ';card.append(summary);
     const actions=document.createElement('div');actions.className='now-actions';
     if(e.ask){const bt=document.createElement('button');bt.type='button';bt.textContent='ดูวิธีทำ';bt.onclick=()=>ask(e.ask);actions.append(bt)}
-    if(e.url){const a=document.createElement('a');a.href=e.url;a.target='_blank';a.rel='noopener';a.textContent='ต้นฉบับทางการ';actions.append(a)}
+    if(e.directSourceUrl){const a=document.createElement('a');a.href=e.directSourceUrl;a.target='_blank';a.rel='noopener';a.textContent=e.sourceLabel||'ต้นฉบับทางการ';a.dataset.directSource='true';actions.append(a)}
+    else if(e.sourceState==='DIRECT_SOURCE_PENDING'){const p=document.createElement('span');p.className='now-source-pending';p.textContent=e.sourceLabel||'กำลังตรวจต้นฉบับ';p.setAttribute('aria-disabled','true');actions.append(p)}
     card.append(actions);currentEventsList.append(card);
   });
   if(data?.lastCheckedAt){
