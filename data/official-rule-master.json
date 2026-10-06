@@ -710,6 +710,21 @@
       "evidenceState": "PRIMARY_VERIFIED_SUPERSEDED",
       "effectiveUntil": "2026-09-30",
       "supersededBy": "redeemMortgageCurrent"
+    },
+    "sharesClause7Current": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-10-01",
+      "announcementDate": "2026-09-30",
+      "version": "amendment_3_2569_clause_7",
+      "source": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing",
+      "primaryEvidenceTitle": "ระเบียบว่าด้วยหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569",
+      "evidenceState": "PRIMARY_VERIFIED_PARTIAL",
+      "maxMonthlyShares": 5000,
+      "returnMemberWithDebtFirstPaymentMinBaht": 100,
+      "returnMemberWithDebtMonthlyMinShares": 50,
+      "reduceAfterMonths": 6,
+      "salaryBandSchedule": "PENDING_VERIFICATION",
+      "scope": "ข้อ 7; ยอดหุ้นตามเงินเดือนต้องใช้ประกาศอัตราแยกต่างหาก"
     }
   },
   "decisionCoverage": {

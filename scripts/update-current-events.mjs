@@ -167,6 +167,7 @@ async function enrich(item){
   else summary='เปิดดูรายละเอียดจากประกาศทางการ';
 
   return {
+    contentKind:'NEWS',rulePromotion:false,
     id:item.id,title:item.title.replace(/^\s*\[[^\]]+\]\s*/,''),summary,
     status:meta.status,statusLabel:meta.statusLabel,priority:item.score,
     url:item.url,ask:meta.ask,source:item.source,publishedAt:item.publishedAt,
