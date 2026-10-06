@@ -79,6 +79,9 @@ for(const e of data.events||[]){
 if(!data.sourceHealth||!['ok','error'].includes(data.sourceHealth.homepage)||!['ok','error'].includes(data.sourceHealth.notices)){
   errors.push('sourceHealth invalid');
 }
+if(data.sourceHealth?.facebook && !['ok','error','disabled'].includes(data.sourceHealth.facebook)){
+  errors.push('facebook sourceHealth invalid');
+}
 if(data.sourceHealth?.homepage==='error'&&data.sourceHealth?.notices==='error') errors.push('both official sources unavailable');
 
 if(errors.length){
