@@ -180,12 +180,12 @@ for (const [q, intentPattern] of [
   ['ยอดหุ้นของผมเท่าไร', /member_self_service/]
 ]) {
   const r=globalThis.COOP_APP.answer(q);
-  if(!intentPattern.test(r.intent)) fail('member-gateway-route',q+' -> '+r.intent);
-  if(!(r.actions||[]).length) fail('member-gateway-next-action',q);
+  if(!intentPattern.test(r.intent)) throw new Error('member-gateway-route: '+q+' -> '+r.intent);
+  if(!(r.actions||[]).length) throw new Error('member-gateway-next-action: '+q);
 }
 for (const q of ['เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง','อยากกู้พิเศษซื้อบ้าน','ขอแบบฟอร์มสวัสดิการน้ำท่วม']) {
   const r=globalThis.COOP_APP.answer(q);
-  if(!(r.sources||[]).some(s=>/^https?:/.test(s.url||''))) fail('member-gateway-official-evidence',q);
+  if(!(r.sources||[]).some(s=>/^https?:/.test(s.url||''))) throw new Error('member-gateway-official-evidence: '+q);
 }
 
 console.log(JSON.stringify({
