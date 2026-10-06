@@ -1,10 +1,14 @@
 import fs from 'node:fs/promises';
+import {directFacebookPost,facebookTopicKey,normalizeGraphPosts,chooseLatestFacebookByTopic} from './facebook-direct-source.mjs';
 
 const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
 const OUT=new URL('../data/current-events.json',import.meta.url);
 const OFFICIAL_FACEBOOK='https://www.facebook.com/dlasaving';
 const SHARE_RATE_POST='https://www.facebook.com/share/p/1EvnJMdZzn/?mibextid=wwXIfr';
+const FACEBOOK_PAGE_REF=process.env.FACEBOOK_PAGE_REF||'dlasaving';
+const FACEBOOK_PAGE_ACCESS_TOKEN=process.env.FACEBOOK_PAGE_ACCESS_TOKEN||'';
+const FACEBOOK_GRAPH_VERSION=process.env.FACEBOOK_GRAPH_VERSION||'';
 
 function directOfficialDetail(url){
   try{
@@ -12,14 +16,6 @@ function directOfficialDetail(url){
     if(!/^(www\.)?dlasavingcoop\.com$/i.test(u.hostname)) return false;
     if(!/show\.php$/i.test(u.pathname)) return false;
     return /^\d+$/.test(u.searchParams.get('No')||'');
-  }catch{return false}
-}
-function directFacebookPost(url){
-  try{
-    const u=new URL(url);
-    if(!/^(www\.)?facebook\.com$/i.test(u.hostname)) return false;
-    if(/^\/share\/p\/[A-Za-z0-9_-]+\/?$/i.test(u.pathname)) return true;
-    return /\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search);
   }catch{return false}
 }
 function sourceMetadata(item){
@@ -57,6 +53,7 @@ const SOCIAL_DISCOVERY=[
     directSourceUrl:SHARE_RATE_POST,discoveryUrl:OFFICIAL_FACEBOOK,
     sourceState:'DIRECT_VERIFIED',sourceLabel:'โพสต์ต้นฉบับจาก Facebook',
     directSourceVerification:'USER_SUPPLIED_EXACT_POST',
+    topicKey:'shares',
     eventDate:null,expiresAt:null
   }
 ];
@@ -189,6 +186,24 @@ async function fetchText(url){
   return await r.text();
 }
 
+async function fetchFacebookGraphPosts(){
+  if(!FACEBOOK_PAGE_ACCESS_TOKEN) return {status:'disabled',posts:[]};
+  try{
+    const prefix=FACEBOOK_GRAPH_VERSION?FACEBOOK_GRAPH_VERSION.replace(/^\/+|\/+$/g,'')+'/':'';
+    const u=new URL(`https://graph.facebook.com/${prefix}${encodeURIComponent(FACEBOOK_PAGE_REF)}/posts`);
+    u.searchParams.set('fields','id,message,created_time,permalink_url');
+    u.searchParams.set('limit','25');
+    u.searchParams.set('access_token',FACEBOOK_PAGE_ACCESS_TOKEN);
+    const r=await fetch(u,{headers:{'user-agent':'DLASavingCoop-Member-Assistant/1.0 (+facebook monitoring)'}});
+    if(!r.ok) throw new Error(`${r.status} Facebook Graph API`);
+    const data=await r.json();
+    return {status:'ok',posts:Array.isArray(data?.data)?data.data:[]};
+  }catch(e){
+    console.error('facebook:',e.message);
+    return {status:'error',posts:[]};
+  }
+}
+
 function anchors(html,base,source){
   const out=[];
   const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
@@ -248,7 +263,7 @@ const now=new Date();
 let existing={schemaVersion:1,events:[]};
 try{existing=JSON.parse(await fs.readFile(OUT,'utf8'))}catch{}
 
-const sourceHealth={homepage:'error',notices:'error'};
+const sourceHealth={homepage:'error',notices:'error',facebook:'disabled'};
 let found=[];
 let homepageHtml='';
 try{
@@ -293,11 +308,34 @@ if(!active.some(x=>/ยืนยันยอด/.test(x.title))){
 }
 
 // Social posts may surface as discovery/news, but never as rule evidence.
-for(const item of SOCIAL_DISCOVERY){
+// A Facebook headline is publishable only when the exact post permalink is available.
+// When multiple posts belong to the same topic, the newest verified direct post replaces the older one.
+const graph=await fetchFacebookGraphPosts();
+sourceHealth.facebook=graph.status;
+const graphSocial=normalizeGraphPosts(graph.posts,{
+  officialPageUrl:OFFICIAL_FACEBOOK,
+  now,
+  maxAgeDays:7,
+  scoreTitle,
+  eventMeta
+});
+const seededSocial=SOCIAL_DISCOVERY.filter(item=>{
   const ageMs=now-new Date(item.publishedAt);
-  if(ageMs<=7*24*60*60*1000 && !active.some(x=>x.id===item.id)) active.push(item);
+  return ageMs<=7*24*60*60*1000 && directFacebookPost(item.directSourceUrl);
+});
+const latestSocial=chooseLatestFacebookByTopic([...seededSocial,...graphSocial]);
+for(const item of latestSocial){
+  const topic=item.topicKey||facebookTopicKey(item.title);
+  if(topic){
+    for(let i=active.length-1;i>=0;i--){
+      const sameTopic=active[i].source==='official-facebook'&&(active[i].topicKey||facebookTopicKey(active[i].title))===topic;
+      if(sameTopic) active.splice(i,1);
+    }
+  }
+  active.push(item);
 }
 const top=active
+  .filter(x=>x.source!=='official-facebook'||(x.sourceState==='DIRECT_VERIFIED'&&directFacebookPost(x.directSourceUrl)))
   .sort((a,b)=>b.priority-a.priority)
   .slice(0,3)
   .map(withSourceMetadata);
@@ -310,7 +348,7 @@ const output={
   sourceHealth,
   rules:{
     maxItems:3,
-    source:'official dlasavingcoop.com + official Facebook discovery only',
+    source:'official dlasavingcoop.com + verified direct Facebook posts only',
     selection:'actionable member news only',
     expiry:'explicit deadlines/event dates expire automatically'
   },
