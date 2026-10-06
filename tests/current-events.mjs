@@ -15,7 +15,7 @@ for(const e of data.events||[]){
   if(!e.id||ids.has(e.id)) errors.push('duplicate/missing id: '+e.id);
   ids.add(e.id);
   if(!e.title||!e.summary||!e.statusLabel) errors.push('missing display fields: '+e.id);
-  if(!/^https:\/\/(www\.)?dlasavingcoop\.com\//i.test(e.url||'') && !(e.source==='official-facebook' && e.rulePromotion===false && /^https:\/\/(www\.)?facebook\.com\/Dlasavingcooppage\/?/i.test(e.url||''))) errors.push('non-official URL: '+e.url);
+  if(!/^https:\/\/(www\.)?dlasavingcoop\.com\//i.test(e.url||'') && !(e.source==='official-facebook' && e.rulePromotion===false && /^https:\/\/(www\.)?facebook\.com\/dlasaving\/?/i.test(e.url||''))) errors.push('non-official URL: '+e.url);
   if(/board_(?:content|post)\.php/i.test(e.url||'')) errors.push('member board must not be promoted as official current event: '+e.url);
   if(urls.has(e.url)) errors.push('duplicate URL: '+e.url);
   urls.add(e.url);
