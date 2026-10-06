@@ -2337,7 +2337,7 @@ document.getElementById('contactBtn').onclick=()=>{box.classList.remove('hidden'
 const currentEvents=document.getElementById('currentEvents'),currentEventsList=document.getElementById('currentEventsList'),currentEventsUpdated=document.getElementById('currentEventsUpdated');
 function eventActive(e){return !e.expiresAt||new Date(e.expiresAt)>new Date()}
 function renderCurrentEvents(data){
-  const items=(data?.events||[]).filter(eventActive).slice(0,3);
+  const items=(data?.events||[]).filter(e=>eventActive(e)&&e.sourceState==='DIRECT_VERIFIED'&&!!e.directSourceUrl).slice(0,3);
   currentEventsList.replaceChildren();
   if(!items.length){currentEvents.classList.add('hidden');return}
   items.forEach(e=>{
