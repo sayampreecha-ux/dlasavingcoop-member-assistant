@@ -66,20 +66,23 @@ try{
   await fresh('กู้ฉุกเฉิน');await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).click();assert.match(await body(),/ประเมินเงินกู้/);assert.doesNotMatch(await page.locator('#out .actions').innerText(),/เงินกู้สามัญ/);assert.match(await page.locator('#out .actions').innerText(),/เงินกู้ฉุกเฉิน/);
   console.log('FINAL ACCEPTANCE UI '+width+'px: all eight reported issues, positive/negative facts, main-input corrections and type/category buttons PASS');
   await ask('กู้สามัญ');assert.ok(await page.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).count());
-  const fbLinks=await page.locator('a[href*="facebook.com"]').evaluateAll(as=>as.map(a=>a.href));
-  assert.ok(fbLinks.length>0,'Facebook navigation exists');
-  assert.ok(fbLinks.every(h=>h==='https://www.facebook.com/dlasaving'),'all Facebook navigation uses canonical cooperative page');
-  assert.equal(fbLinks.filter(h=>/\/share\//i.test(h)).length,0,'no Facebook share URLs remain');
-  assert.equal(fbLinks.filter(h=>/Dlasavingcooppage/i.test(h)).length,0,'no legacy Facebook vanity URL remains');
+  const fbNavLinks=await page.locator('a.fb[href*="facebook.com"]').evaluateAll(as=>as.map(a=>a.href));
+  assert.ok(fbNavLinks.length>0,'Facebook navigation exists');
+  assert.ok(fbNavLinks.every(h=>h==='https://www.facebook.com/dlasaving'),'all Facebook navigation uses canonical cooperative page');
+  assert.equal(fbNavLinks.filter(h=>/\/share\//i.test(h)).length,0,'navigation must never use Facebook share URLs');
+  assert.equal(fbNavLinks.filter(h=>/Dlasavingcooppage/i.test(h)).length,0,'no legacy Facebook vanity URL remains');
   await page.locator('#currentEvents:not(.hidden)').waitFor({state:'visible'});
   const shareCard=page.locator('.now-card').filter({hasText:'การกำหนดอัตราเงินได้รายเดือน และการถือหุ้น พ.ศ. 2569'});
   if(await shareCard.count()){
-    assert.equal(await shareCard.locator('a[data-direct-source="true"]').count(),0,'Facebook profile must not be labeled as original');
-    assert.match(await shareCard.innerText(),/กำลังตรวจต้นฉบับ/);
+    const direct=shareCard.locator('a[data-direct-source="true"]');
+    assert.equal(await direct.count(),1,'share-rate card must expose exactly one direct original');
+    assert.equal(await direct.textContent(),'โพสต์ต้นฉบับจาก Facebook');
+    assert.equal(await direct.getAttribute('href'),'https://www.facebook.com/share/p/1EvnJMdZzn/?mibextid=wwXIfr');
+    assert.doesNotMatch(await shareCard.innerText(),/กำลังตรวจต้นฉบับ/);
   }
   const directCards=page.locator('.now-card a[data-direct-source="true"]');
   const directHrefs=await directCards.evaluateAll(as=>as.map(a=>a.href));
-  assert.ok(directHrefs.every(h=>/dlasavingcoop\.com\/show\.php\?No=\d+/i.test(h)||/drive\.google\.com\/file\/d\//i.test(h)),'current-event original buttons must be direct sources');
+  assert.ok(directHrefs.every(h=>/dlasavingcoop\.com\/show\.php\?No=\d+/i.test(h)||/drive\.google\.com\/file\/d\//i.test(h)||/facebook\.com\/share\/p\/[A-Za-z0-9_-]+\/?/i.test(h)),'current-event original buttons must be direct sources');
   assert.ok(await page.locator('text=Pilot Version').count());
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'no mobile horizontal overflow');assert.deepEqual(errors,[],'no runtime JS error');
   if(process.env.MEMBER_BROWSER_OUTPUT_DIR){fs.mkdirSync(process.env.MEMBER_BROWSER_OUTPUT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.MEMBER_BROWSER_OUTPUT_DIR,'pilot-'+width+'.png'),fullPage:true});}
