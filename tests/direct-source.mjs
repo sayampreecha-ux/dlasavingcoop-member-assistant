@@ -13,6 +13,7 @@ function isDirectSource(url=''){
       }
     }
     if(/^(www\.)?facebook\.com$/i.test(u.hostname)){
+      if(/^\/share\/p\/[A-Za-z0-9_-]+\/?$/i.test(u.pathname)) return true;
       return !/\/share\//i.test(u.pathname)&&!/^\/dlasaving\/?$/i.test(u.pathname)&&/\/posts\/|\/permalink\.php|\/photo|\/reel\//i.test(u.pathname+u.search);
     }
   }catch{}
@@ -24,6 +25,10 @@ for(const e of events.events||[]){
   if(e.sourceState==='DIRECT_VERIFIED'){
     assert.ok(isDirectSource(e.directSourceUrl),'event must link to direct original: '+e.id);
     assert.ok(['ต้นฉบับทางการ','โพสต์ต้นฉบับจาก Facebook'].includes(e.sourceLabel),'verified event label');
+    if(/^https:\/\/(www\.)?facebook\.com\/share\/p\//i.test(e.directSourceUrl||'')){
+      assert.equal(e.source,'official-facebook','exact Facebook post must originate from official Facebook discovery');
+      assert.equal(e.directSourceVerification,'USER_SUPPLIED_EXACT_POST','exact Facebook share-post requires explicit verification provenance');
+    }
   }else{
     assert.equal(e.directSourceUrl,null,'pending event must not expose a fake direct URL: '+e.id);
     assert.equal(e.sourceLabel,'กำลังตรวจต้นฉบับ','pending event label: '+e.id);
