@@ -168,6 +168,26 @@ if(failures.length){
   console.error(JSON.stringify({ok:false,failures},null,2));
   process.exit(1);
 }
+
+
+// AI Member Gateway service-coverage contract (7 Oct 2569)
+for (const [q, intentPattern] of [
+  ['อยากสมัครเป็นสมาชิก ต้องทำยังไง', /member_apply|membership/],
+  ['เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง', /deposit_open/],
+  ['อยากกู้พิเศษซื้อบ้าน', /special|housing|loan/],
+  ['ขอแบบฟอร์มสวัสดิการน้ำท่วม', /welfare|forms/],
+  ['จะประนอมหนี้ ต้องทำยังไง', /debt|compromise|restructur/],
+  ['ยอดหุ้นของผมเท่าไร', /member_self_service/]
+]) {
+  const r=globalThis.COOP_APP.answer(q);
+  if(!intentPattern.test(r.intent)) fail('member-gateway-route',q+' -> '+r.intent);
+  if(!(r.actions||[]).length) fail('member-gateway-next-action',q);
+}
+for (const q of ['เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง','อยากกู้พิเศษซื้อบ้าน','ขอแบบฟอร์มสวัสดิการน้ำท่วม']) {
+  const r=globalThis.COOP_APP.answer(q);
+  if(!(r.sources||[]).some(s=>/^https?:/.test(s.url||''))) fail('member-gateway-official-evidence',q);
+}
+
 console.log(JSON.stringify({
   ok:true,
   version:globalThis.COOP_KB.version,
