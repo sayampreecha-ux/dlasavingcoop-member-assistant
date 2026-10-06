@@ -19,7 +19,13 @@ try{
   const result=runLegacy69({answer:q=>{assert.ok(Object.hasOwn(collected.answers,q),'browser query must have executed');return collected.answers[q];},contextualize:(q,k)=>collected.contexts[k+'|'+q]});
   assert.deepEqual(result.counts,{PASS:69,PARTIAL:0,FAIL:0},JSON.stringify(result.report.filter(x=>x.errors.length)));
   // Exercise the actual input and renderer for all 69 source records. Reset conversation between independent cases.
-  for(const row of corpus.records){await page.evaluate(()=>{previousTopic='';conversationState=null;});await page.locator('#q').fill(row.question);await page.locator('#q').press('Enter');const rendered=await page.locator('#out .body').textContent();assert.equal(rendered,collected.answers[row.question].answer,'rendered source question '+row.id);}
+  for(const row of corpus.records){
+   await page.evaluate(()=>{previousTopic='';conversationState=null;});
+   const expected=collected.answers[row.question].answer;
+   await page.locator('#q').fill(row.question);await page.locator('#q').press('Enter');
+   await page.waitForFunction(exp=>document.querySelector('#out .body')?.textContent===exp,expected);
+   const rendered=await page.locator('#out .body').textContent();assert.equal(rendered,expected,'rendered source question '+row.id);
+  }
   const ask=async q=>{await page.locator('#q').fill(q);await page.locator('#q').press('Enter');};
   for(const [name,expected]of [['สามัญ',/6 เดือน/],['ฉุกเฉิน',/3 เดือน/],['รวมหนี้',/3 ปี/],['เคหะ',/6 เดือน/],['ไถ่ถอนจำนอง',/12 เดือน/]]){
    await ask('กู้'+name+'ต้องเป็นสมาชิกกี่เดือน');const answer=await page.locator('#out .body').textContent();assert.match(answer,expected);assert.doesNotMatch(answer,/undefined|NaN/);
