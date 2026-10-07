@@ -80,6 +80,32 @@ for(const [q] of round3){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก/.test(all))
    failures.push({q,group:'round3-no-boundary'});
 }
+
+const round4=[
+ ['กู้สองล้านต้องหักค่าประกันชีวิตเท่าไร'],
+ ['กู้สัญญาใหม่แล้ว เงินประกันของสัญญาเดิมมีการเวนคืนหรือไม่'],
+ ['ประกันเงินกู้ทำครั้งเดียวตลอดสัญญาหรือต้องทำทุกปี'],
+ ['เปิดบัญชีเงินฝากใหม่แล้ว ต้องรอกี่วันจึงจะเห็นยอดในระบบสมาชิก'],
+ ['ดอกเบี้ยเงินฝากปีนี้เท่าไร และหักภาษีหรือไม่'],
+ ['เงินฝากพิเศษนำมารวมกับหุ้นเป็นหลักประกันเงินกู้ได้หรือไม่'],
+ ['ขอแบบฟอร์มสวัสดิการสมาชิกได้จากที่ไหน'],
+ ['บุตรไม่ได้จดทะเบียนตามกฎหมาย ขอทุนส่งเสริมการศึกษาบุตรได้ไหม'],
+ ['สมาชิกอยู่พื้นที่น้ำท่วม มีสวัสดิการช่วยเหลือจากสหกรณ์หรือไม่'],
+ ['มีโรคประจำตัว สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ได้ไหม'],
+ ['จำเลขทะเบียนสมาชิกฌาปนกิจไม่ได้ จะตรวจสอบอย่างไร'],
+ ['สมัครฌาปนกิจต้องใช้ใบรับรองแพทย์ตรวจเรื่องอะไรบ้าง'],
+ ['เป็นสมาชิกสหกรณ์อื่นแต่ไม่มีหนี้ จะสมัครเป็นสมาชิก สอ.อปท. ได้หรือไม่'],
+ ['กู้เดิมเหลือยอดอยู่แล้วกู้ใหม่เพิ่ม จำนวนผู้ค้ำคิดจากยอดใหม่หรือยอดรวมอย่างไร'],
+ ['ผู้ค้ำเหลืออายุราชการอีกไม่กี่ปี จะมีผลต่อการรับรองผู้ค้ำหรือไม่']
+];
+for(const [q] of round4){
+ const r=A(q), all=[r.answer,...(r.details||[]),...(r.followups||[])].join(' ');
+ if(r.intent==='fallback'||r.intent==='empty') failures.push({q,group:'round4-fallback'});
+ if(!r.answer) failures.push({q,group:'round4-empty'});
+ if(/ได้รับอนุมัติแล้ว|เงินจะเข้าแน่นอน|ผ่านแน่นอน|กู้ผ่านแน่นอน|สมัครได้แน่นอน/.test(all)) failures.push({q,group:'round4-unsafe-certainty'});
+ if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก|ประกาศ|แบบฟอร์ม/.test(all))
+   failures.push({q,group:'round4-no-boundary'});
+}
 const edge=[
  'ครบ 12 งวดพอดีวันเปลี่ยนหลักเกณฑ์ ยื่นกู้สามัญใหม่ได้ไหม',
  'เอกสารผ่านแต่รอเอกสารผู้ค้ำ จะทันรอบโอนไหม',
@@ -93,4 +119,4 @@ for(const q of edge){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
 }
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
-console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,total:cases.length+round2.length+round3.length+edge.length},null,2));
+console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,round4:round4.length,total:cases.length+round2.length+round3.length+round4.length+edge.length},null,2));
