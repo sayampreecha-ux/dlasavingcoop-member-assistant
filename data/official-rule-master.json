@@ -766,6 +766,98 @@
       ],
       "deliveryAddress": "สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120",
       "note": "แบบทางการระบุ LINE เจ้าหน้าที่/เบอร์โทรเป็นช่องทางติดต่อเพิ่มเติม แต่ให้ใช้หน้าติดต่อทางการเมื่อไม่ยืนยันผู้รับเฉพาะราย"
+    },
+    "education": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-10-01",
+      "announcementDate": "2026-09-11",
+      "source": "https://drive.google.com/file/d/1h_AhLqYbkI0Gfzsy5pIHuXtFRLVl7TM5/view",
+      "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว พ.ศ.2569",
+      "primaryEvidenceVerified": true,
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "maxAmountBaht": 200000,
+      "maxTermInstallments": 60,
+      "maxAgeAtEnd": 75,
+      "maxTotalOrdinaryDebtBaht": 2000000,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "noArrearsInstallments": 12,
+      "memberWelfareFuneralAssociationRequired": true,
+      "noDebtAsBorrowerWithOtherCoop": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "salaryDeductionOrIndividualAgreementRequired": true,
+      "guarantorBands": [
+        {
+          "max": 200000,
+          "minGuarantors": 1
+        }
+      ],
+      "guarantorSharePaymentMinMonths": 6,
+      "guarantorMaxConcurrentBorrowers": 3,
+      "guarantorNotSpouse": true,
+      "realEstateMaxLtvPercent": 90,
+      "purposeText": "ค่าใช้จ่ายการศึกษาที่จ่ายจริงของสมาชิก คู่สมรส บุตร หรือบุตรบุญธรรม ตั้งแต่อนุบาลถึงปริญญาเอก",
+      "lifeInsuranceRequired": true,
+      "repeatEducationMinInstallments": 6,
+      "requiredDocuments": [
+        "หนังสือรับรองจากหน่วยงาน",
+        "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+        "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+        "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+        "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+        "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+        "หนังสือรับรองจากสถานศึกษา",
+        "หลักฐานค่าใช้จ่ายการศึกษาและหลักฐานเข้ารับการศึกษา",
+        "เอกสารผู้เรียน/บุตรตามรายการในแบบ"
+      ],
+      "formUrl": "https://drive.google.com/file/d/1cK6zUQSPdT-3NT7bJ3WXO_MWP_ruzXLi/view"
+    },
+    "disaster": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-10-01",
+      "announcementDate": "2026-09-11",
+      "source": "https://drive.google.com/file/d/18zwMfC-yCHLmANcYSSRPbmAOka4_IOKh/view",
+      "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ พ.ศ.2569",
+      "primaryEvidenceVerified": true,
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "maxAmountBaht": 300000,
+      "maxTermInstallments": 120,
+      "maxAgeAtEnd": 75,
+      "maxTotalOrdinaryDebtBaht": 2000000,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "noArrearsInstallments": 12,
+      "memberWelfareFuneralAssociationRequired": true,
+      "noDebtAsBorrowerWithOtherCoop": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "salaryDeductionOrIndividualAgreementRequired": true,
+      "guarantorBands": [
+        {
+          "max": 300000,
+          "minGuarantors": 1
+        }
+      ],
+      "guarantorSharePaymentMinMonths": 6,
+      "guarantorMaxConcurrentBorrowers": 3,
+      "guarantorNotSpouse": true,
+      "realEstateMaxLtvPercent": 90,
+      "purposeText": "ซ่อมแซม ปรับปรุง หรือซื้อทดแทนบ้านหรือทรัพย์สินที่เสียหายจากภัยพิบัติของสมาชิก คู่สมรส บิดา หรือมารดา",
+      "lifeInsuranceRequired": true,
+      "applicationDeadlineDaysAfterDisaster": 180,
+      "requiredDocuments": [
+        "หนังสือรับรองจากหน่วยงาน",
+        "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+        "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+        "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+        "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+        "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+        "สำเนาทะเบียนบ้านที่เสียหายแสดงความเกี่ยวข้องกับสมาชิก บิดา มารดา หรือคู่สมรส",
+        "หนังสือรับรองผู้ประสบภัยจากหน่วยงานราชการในท้องที่ (แบบ ปภ.)",
+        "ภาพถ่ายความเสียหาย"
+      ],
+      "formUrl": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view"
     }
   },
   "decisionCoverage": {
