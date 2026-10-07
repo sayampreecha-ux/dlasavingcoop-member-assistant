@@ -2270,6 +2270,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
     // High-priority real-member routing. These are operational/account questions,
     // so route before generic loan classification and never infer a live outcome.
+    if(/(?:หนังสือรับรอง|หนังสือยืนยัน).*(?:ยอดหนี้|หนี้คงเหลือ)|(?:ยอดหนี้|หนี้คงเหลือ).*(?:หนังสือรับรอง|หนังสือยืนยัน)/.test(q))
+      return res('personal_handoff','การขอหนังสือรับรองยอดหนี้ต้องอ้างอิงยอดของสมาชิก ณ วันที่สหกรณ์ออกหนังสือครับ ให้ติดต่อสหกรณ์ผ่านช่องทางทางการเพื่อขอเอกสาร โดยระบบนี้ไม่สร้างหรือยืนยันยอดหนี้แทนสหกรณ์',{privacy:true,decision:'OFFICIAL_DOCUMENT_REQUEST',actions:[['ติดต่อเจ้าหน้าที่','#staff-directory'],['ตรวจข้อมูลในระบบสมาชิก','https://member.dlasavingcoop.com/coop/']],sources:[src('เว็บไซต์สหกรณ์',S.home)]});
     if(/รอบันทึกข้อมูล/.test(q)&&/(?:ประชุม|รอบนี้|ทันรอบ)/.test(q))
       return res('live_schedule','สถานะเข้ารอบประชุมเป็นข้อมูลรายรอบครับ ให้ตรวจสถานะล่าสุดในระบบสมาชิกหรือกับเจ้าหน้าที่ ไม่ใช้ข้อความจากรอบเก่าฟันธง',{privacy:true,actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ประกาศล่าสุด',S.notices],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices)]});
     if(/(?:เช็ค|เช็ก|ตรวจ|ดู).*(?:ติดค้ำ|ค้ำประกันใคร|ค้ำใคร)/.test(q))

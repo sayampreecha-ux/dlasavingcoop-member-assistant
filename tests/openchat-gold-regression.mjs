@@ -106,6 +106,32 @@ for(const [q] of round4){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก|ประกาศ|แบบฟอร์ม/.test(all))
    failures.push({q,group:'round4-no-boundary'});
 }
+
+const round5=[
+ ['เงินกู้ฉุกเฉินใช้เอกสารอะไรบ้าง และส่งทางไหน'],
+ ['กู้ฉุกเฉินครบงวดแล้ว จะยื่นซ้ำต้องหักกลบสัญญาเดิมหรือไม่'],
+ ['กู้สามัญต้องเป็นสมาชิกกี่เดือน และส่งหุ้นมาแล้วกี่งวดจึงยื่นได้'],
+ ['กู้สามัญหนึ่งล้านห้าแสนต้องใช้ผู้ค้ำกี่คน'],
+ ['กู้พัฒนาคุณภาพชีวิตใช้บ้านพร้อมที่ดินเป็นหลักประกันได้หรือไม่'],
+ ['กู้พัฒนาคุณภาพชีวิตแล้ว ยังขอกู้ฉุกเฉินได้หรือไม่'],
+ ['จะไถ่ถอนจำนองกับสหกรณ์ ต้องเริ่มจากเอกสารหรือขั้นตอนใด'],
+ ['สมาชิกสมทบมีสิทธิกู้เหมือนสมาชิกสามัญหรือไม่'],
+ ['ลาออกจากสมาชิกแล้วจะได้รับค่าหุ้นคืนเมื่อไร'],
+ ['ย้ายหน่วยงานไปอีกจังหวัด ต้องแจ้งสหกรณ์และส่งเอกสารอะไร'],
+ ['ขอเพิ่มส่งหุ้นรายเดือน ต้องใช้แบบไหนและมีผลเดือนไหน'],
+ ['เงินปันผลยังไม่เข้าบัญชี ต้องตรวจสถานะที่ไหน'],
+ ['ผู้รับผลประโยชน์เดิมเสียชีวิต ต้องเปลี่ยนข้อมูลอย่างไร'],
+ ['ขอหนังสือรับรองยอดหนี้ ต้องติดต่อส่วนไหน'],
+ ['จำรหัสผ่านระบบสมาชิกไม่ได้ ต้องดำเนินการอย่างไร']
+];
+for(const [q] of round5){
+ const r=A(q), all=[r.answer,...(r.details||[]),...(r.followups||[])].join(' ');
+ if(r.intent==='fallback'||r.intent==='empty') failures.push({q,group:'round5-fallback'});
+ if(!r.answer) failures.push({q,group:'round5-empty'});
+ if(/ได้รับอนุมัติแล้ว|เงินจะเข้าแน่นอน|ผ่านแน่นอน|กู้ผ่านแน่นอน/.test(all)) failures.push({q,group:'round5-unsafe-certainty'});
+ if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก|ประกาศ|แบบฟอร์ม|ขั้นตอน/.test(all))
+   failures.push({q,group:'round5-no-boundary'});
+}
 const edge=[
  'ครบ 12 งวดพอดีวันเปลี่ยนหลักเกณฑ์ ยื่นกู้สามัญใหม่ได้ไหม',
  'เอกสารผ่านแต่รอเอกสารผู้ค้ำ จะทันรอบโอนไหม',
@@ -119,4 +145,4 @@ for(const q of edge){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
 }
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
-console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,round4:round4.length,total:cases.length+round2.length+round3.length+round4.length+edge.length},null,2));
+console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,round4:round4.length,round5:round5.length,total:cases.length+round2.length+round3.length+round4.length+round5.length+edge.length},null,2));
