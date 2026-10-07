@@ -1,9 +1,4035 @@
 {
-  "checkedAt": "2026-10-07T06:10:26.252Z",
-  "impactedDomains": [],
+  "checkedAt": "2026-10-07T18:58:59.139Z",
+  "impactedDomains": [
+    "emergencyLoan",
+    "specialHousing",
+    "redeemMortgage",
+    "qualityOfLife",
+    "guarantor",
+    "deposits",
+    "welfare",
+    "ordinaryLoan"
+  ],
   "permanentLineRecords": 69,
-  "rerunQuestions": 0,
-  "PASS": 0,
+  "rerunQuestions": 251,
+  "PASS": 251,
   "FAIL": 0,
-  "results": []
+  "results": [
+    {
+      "id": 1,
+      "question": "กู้รวมหนี้ต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สมาชิกไม่น้อยกว่า 3 ปี ส่งหุ้นต่อเนื่องไม่น้อยกว่า 36 งวด สำหรับวงเงินไม่เกิน 3,000,000 บาท; สมาชิกไม่น้อยกว่า 5 ปี ส่งหุ้นไม่น้อยกว่า 60 งวด สำหรับวงเงินไม่เกิน 5,000,000 บาท\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 1,
+      "question": "รวมหนี้ต้องส่งค่าหุ้นกี่เดือน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สมาชิกไม่น้อยกว่า 3 ปี ส่งหุ้นต่อเนื่องไม่น้อยกว่า 36 งวด สำหรับวงเงินไม่เกิน 3,000,000 บาท; สมาชิกไม่น้อยกว่า 5 ปี ส่งหุ้นไม่น้อยกว่า 60 งวด สำหรับวงเงินไม่เกิน 5,000,000 บาท\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 1,
+      "question": "กู้พิเศษรวมหนี้เริ่มต้นอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 2,
+      "question": "กู้รวมหนี้ต้องเหลือเงินเดือนเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 2,
+      "question": "รวมหนี้ต้องเหลือ 5000 ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 2,
+      "question": "กู้รวมหนี้ต้องเหลือ 30 เปอร์เซ็นต์ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 3,
+      "question": "กู้รวมหนี้หักชำระอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระค่าหุ้นและหนี้โดยหักจากเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา)\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 3,
+      "question": "รวมหนี้ต้องหักหน้าฎีกาไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระค่าหุ้นและหนี้โดยหักจากเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา)\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 3,
+      "question": "รวมหนี้หักจากเงินเดือนหรือไม่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระค่าหุ้นและหนี้โดยหักจากเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา)\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 4,
+      "question": "กู้รวมหนี้ต้องเป็นสมาชิกสมาคมฌาปนกิจไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 4,
+      "question": "รวมหนี้ต้องสมัครสมาคมหรือไม่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 4,
+      "question": "เงื่อนไขสมาคมของกู้รวมหนี้",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 5,
+      "question": "กู้รวมหนี้มีข้อห้ามอะไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่อยู่ระหว่างดำเนินการทางวินัยอย่างร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลาย\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 5,
+      "question": "ถ้าถูกวินัยร้ายแรงกู้รวมหนี้ได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่อยู่ระหว่างดำเนินการทางวินัยอย่างร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลาย\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 5,
+      "question": "ล้มละลายกู้รวมหนี้ได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่อยู่ระหว่างดำเนินการทางวินัยอย่างร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลาย\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "กู้รวมหนี้ได้เท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "รวมหนี้กู้ได้กี่เปอร์เซ็นต์ของราคาประเมิน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "วงเงินกู้รวมหนี้สูงสุดเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "กู้รวมหนี้ได้เท่าไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "รวมหนี้ได้กี่ล้าน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "กู้รวมหนี้ได้กี่เปอร์เซ็นต์ของราคาประเมิน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 6,
+      "question": "รวมหนี้สูงสุดกี่บาท",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "กู้รวมหนี้ดอกเบี้ยเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "ดอกเบี้ยกู้พิเศษรวมหนี้กี่เปอร์เซ็นต์",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "รวมหนี้คิดดอกเบี้ยเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "กู้รวมหนี้ดอกเบี้ยเท่าไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "รวมหนี้ดอกกี่เปอร์เซ็นต์",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 7,
+      "question": "พิเศษรวมหนี้ดอกเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 8,
+      "question": "กู้รวมหนี้ผ่อนได้กี่งวด",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 8,
+      "question": "รวมหนี้ผ่อนได้นานแค่ไหน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 8,
+      "question": "รวมหนี้อายุไม่เกินเท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 8,
+      "question": "รวมหนี้อายุเกิน 75 ได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 9,
+      "question": "กู้รวมหนี้ใช้อะไรค้ำได้บ้าง",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 9,
+      "question": "รวมหนี้ใช้ที่ดินค้ำได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 9,
+      "question": "หลักประกันกู้รวมหนี้คืออะไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 9,
+      "question": "รวมหนี้ต้องจำนองไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "ถ้ามีสัญญากู้กับสหกรณ์อื่นอยู่กู้รวมหนี้ได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่อได้รับอนุมัติ ต้องหักกลบสัญญาเงินกู้เดิมทุกประเภทให้เหลือสัญญาเดียว ส่วนหนี้กับสหกรณ์อื่นต้องตรวจเงื่อนไขต้นฉบับเฉพาะก่อนยืนยันสิทธิ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "รวมหนี้ต้องหักกลบหนี้เดิมไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "กู้เดิมหลายสัญญาทำอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "รวมหนี้ต้องปิดหนี้เดิมไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "รวมหนี้ต้องเหลือสัญญาเดียวใช่ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 10,
+      "question": "มีหนี้หลายสัญญากู้รวมหนี้ได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "อนุมัติรวมหนี้แล้วกู้แบบอื่นได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "กู้รวมหนี้แล้วกู้ฉุกเฉินได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "กู้รวมหนี้แล้วกู้เพิ่มได้หรือไม่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "กู้รวมหนี้แล้วกู้แบบอื่นได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "รวมหนี้แล้วกู้ฉุกเฉินได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 11,
+      "question": "รวมหนี้แล้วกู้เพิ่มได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังอนุมัติรวมหนี้ ห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน ซึ่งต้องผ่านหลักเกณฑ์ฉุกเฉินแยกต่างหาก\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 12,
+      "question": "กู้รวมหนี้ใครจ่ายค่าประเมิน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 12,
+      "question": "รวมหนี้ใครจ่ายค่าจดทะเบียนจำนอง",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 12,
+      "question": "กู้รวมหนี้มีค่าใช้จ่ายอะไรบ้าง",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 13,
+      "question": "กู้รวมหนี้ต้องประเมินหลักทรัพย์ที่ไหน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 13,
+      "question": "รวมหนี้ใช้บริษัทประเมินอะไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 13,
+      "question": "กู้รวมหนี้ประเมินกับสำนักงานที่ดินได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 14,
+      "question": "กู้รวมหนี้ต้องทำประกันอัคคีภัยไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 14,
+      "question": "หลักประกันมีสิ่งปลูกสร้างต้องทำประกันไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 14,
+      "question": "รวมหนี้ต่อประกันกี่ปี",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 15,
+      "question": "กู้รวมหนี้ขอเกินหนี้เดิมได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 15,
+      "question": "รวมหนี้รับเงินส่วนต่างได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 15,
+      "question": "ถ้ากู้เกินหนี้เดิมทำได้หรือไม่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 15,
+      "question": "รวมหนี้ขอเงินเกินหนี้เดิมได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 15,
+      "question": "รวมหนี้เหลือเงินสดได้ไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 16,
+      "question": "กู้รวมหนี้หักกลบสัญญาเดิมอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 16,
+      "question": "รวมหนี้รับเงินสดได้เท่าไหร่",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "รับเงินส่วนต่างได้ไม่เกิน 50% ของวงเงินคงเหลือที่มีสิทธิหลังหักกลบหนี้ ต้องตรวจยอดหนี้และวงเงินตามข้อมูลจริง\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 16,
+      "question": "กู้พิเศษสัญญาใหม่กับสัญญาเดิมทำอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เมื่ออนุมัติ ต้องยินยอมให้หักกลบเงินกู้สัญญาเดิมทุกประเภท ให้เหลือสัญญารวมหนี้สัญญาเดียว\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "กู้รวมหนี้ส่งต้นเงินอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "รวมหนี้ส่งแบบงวดเท่ากันไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "กู้รวมหนี้ส่งเงินรายเดือนอย่างไร",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "รวมหนี้ส่งงวดละเท่ากันไหม",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "กู้รวมหนี้ส่งต้นดอกยังไง",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 17,
+      "question": "รวมหนี้ผ่อนรายเดือนแบบไหน",
+      "expectedRule": "qualityOfLifeCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระต้นเงินรายเดือนเท่ากันพร้อมดอกเบี้ย ยกเว้นงวดแรกหรืองวดสุดท้ายตามหลักเกณฑ์ ไม่คำนวณค่างวดโดยไม่มีสูตรทางการ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "qualityOfLifeCurrent@2026-10-01"
+    },
+    {
+      "id": 20,
+      "question": "กู้เคหะใช้ทำอะไรได้บ้าง",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 20,
+      "question": "กู้พิเศษเพื่อการเคหะมีวัตถุประสงค์อะไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 20,
+      "question": "กู้เคหะซื้อคอนโดได้ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 20,
+      "question": "กู้เคหะซื้อบ้านได้ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 20,
+      "question": "กู้เคหะต่อเติมบ้านได้ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 21,
+      "question": "กู้เคหะต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 21,
+      "question": "สมาชิกกี่เดือนถึงกู้เคหะได้",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 21,
+      "question": "กู้เคหะต้องส่งค่าหุ้นกี่งวด",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 22,
+      "question": "กู้เคหะต้องมีรายได้เหลือเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 22,
+      "question": "กู้เคหะต้องเหลือ 5000 ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 22,
+      "question": "หลังกู้แล้วต้องเหลือกี่เปอร์เซ็นต์",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 23,
+      "question": "กู้เคหะหักชำระอย่างไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 23,
+      "question": "กู้เคหะต้องหักหน้าฎีกาไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 23,
+      "question": "หักเงินเดือนกู้เคหะหรือไม่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 24,
+      "question": "กู้เคหะต้องเป็นสมาชิกสมาคมฌาปนกิจไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 24,
+      "question": "กู้เคหะต้องสมัครสมาคมไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 24,
+      "question": "เงื่อนไขสมาคมฌาปนกิจของกู้เคหะ",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์เงินกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 25,
+      "question": "กู้เคหะดูเครดิตบูโรไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องตรวจเครดิตบูโรตามหลักเกณฑ์ แต่ระบบนี้ไม่เข้าถึงผลเครดิตของสมาชิก",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 25,
+      "question": "กู้เคหะต้องมีประวัติชำระหนี้แบบไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องตรวจเครดิตบูโรตามหลักเกณฑ์ แต่ระบบนี้ไม่เข้าถึงผลเครดิตของสมาชิก",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 25,
+      "question": "กู้เคหะเช็ก NCB หรือไม่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องตรวจเครดิตบูโรตามหลักเกณฑ์ แต่ระบบนี้ไม่เข้าถึงผลเครดิตของสมาชิก",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "กู้เคหะได้เท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "วงเงินกู้เคหะสูงสุดเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "กู้เคหะได้กี่เปอร์เซ็นต์ของราคาประเมิน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "กู้เคหะได้เท่าไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "กู้บ้านสหกรณ์ได้กี่ล้าน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "เคหะได้กี่เปอร์เซ็นต์ของราคาประเมิน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 26,
+      "question": "กู้เคหะสูงสุดกี่บาท",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 3,000,000 บาท บ้านมือสองไม่เกิน 80%; บ้านมือหนึ่ง/ปลูกสร้างตามราคาประเมิน หนี้รวมกับสหกรณ์ไม่เกิน 5,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 27,
+      "question": "กู้เคหะผ่อนได้กี่งวด",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 27,
+      "question": "กู้เคหะผ่อนได้นานแค่ไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 27,
+      "question": "กู้บ้านกับสหกรณ์ผ่อนได้กี่ปี",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 27,
+      "question": "กู้บ้านสหกรณ์ผ่อนได้นานแค่ไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 27,
+      "question": "เคหะส่งได้กี่ปี",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 28,
+      "question": "กู้เคหะผ่อนได้กี่งวด",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 28,
+      "question": "กู้เคหะผ่อนได้นานแค่ไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 28,
+      "question": "กู้บ้านกับสหกรณ์ผ่อนได้กี่ปี",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 28,
+      "question": "กู้บ้านสหกรณ์ผ่อนได้นานแค่ไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 28,
+      "question": "เคหะส่งได้กี่ปี",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 29,
+      "question": "ปิดกู้เคหะก่อนกำหนดเสียค่าปรับไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปิดเงินกู้เคหะภายใน 5 ปี มีค่าปรับ 3% ของเงินต้นคงเหลือตามหลักเกณฑ์ ต้องตรวจยอดปิด ณ วันชำระจริง",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 29,
+      "question": "กู้เคหะปิดก่อน 5 ปีคิดเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปิดเงินกู้เคหะภายใน 5 ปี มีค่าปรับ 3% ของเงินต้นคงเหลือตามหลักเกณฑ์ ต้องตรวจยอดปิด ณ วันชำระจริง",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 29,
+      "question": "โปะกู้เคหะก่อนกำหนดได้ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปิดเงินกู้เคหะภายใน 5 ปี มีค่าปรับ 3% ของเงินต้นคงเหลือตามหลักเกณฑ์ ต้องตรวจยอดปิด ณ วันชำระจริง",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 30,
+      "question": "กู้เคหะใครออกค่าประเมิน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 30,
+      "question": "กู้เคหะใครจ่ายค่าจดทะเบียนจำนอง",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 30,
+      "question": "กู้เคหะมีค่าใช้จ่ายอะไรบ้าง",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้กู้เป็นผู้รับภาระค่าประเมินและค่าจดทะเบียนจำนองตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 31,
+      "question": "กู้เคหะต้องประเมินหลักทรัพย์ที่ไหน",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 31,
+      "question": "ประเมินบ้านกู้เคหะกับใคร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 31,
+      "question": "กู้เคหะใช้บริษัทประเมินอะไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องใช้ผู้ประเมินหลักทรัพย์ที่สหกรณ์เห็นชอบ ไม่เลือกบริษัทหรือสำนักงานประเมินเองก่อนตรวจเงื่อนไข",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "กู้เคหะดอกเบี้ยเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "ดอกเบี้ยกู้บ้านสหกรณ์กี่เปอร์เซ็นต์",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "กู้เคหะปีแรกดอกเบี้ยเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "กู้เคหะดอกเบี้ยเท่าไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "กู้บ้านสหกรณ์ดอกเบี้ยกี่เปอร์เซ็นต์",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "เคหะปีแรกดอกเบี้ยเท่าไหร่",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 32,
+      "question": "เคหะปี 2 ดอกเท่าไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ: งวด 1-12 = 3.60% ต่อปี; งวด 13-24 = 4.35% ต่อปี; งวด 25-360 = 5.50% ต่อปี",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 33,
+      "question": "กู้เคหะต้องทำประกันอัคคีภัยไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 33,
+      "question": "ห้องชุดค้ำกู้ต้องทำประกันไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 33,
+      "question": "กู้เคหะต้องต่อประกันกี่ปี",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 33,
+      "question": "กู้เคหะต้องทำประกันไฟไหม้ไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันที่มีสิ่งปลูกสร้างต้องทำประกันอัคคีภัยต่อเนื่องอย่างน้อย 3 ปีตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "กู้เคหะปลูกสร้างเบิกเงินอย่างไร",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "กู้ปลูกสร้างจ่ายเป็นงวดไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "เงินกู้ปลูกสร้างเบิกกี่งวด",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "กู้ปลูกสร้างเบิกเงินยังไง",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "กู้เคหะปลูกบ้านจ่ายเป็นงวดไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 34,
+      "question": "กู้ปลูกบ้านต้องตรวจงวดงานไหม",
+      "expectedRule": "specialHousingCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ปลูกสร้างแบ่งจ่าย 4 งวด จ่ายครั้งแรก 1 งวด และงวดถัดไปต้องตรวจความก้าวหน้าด้วยการประเมิน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "specialHousingCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินได้เท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "เงินกู้ฉุกเฉินสูงสุดเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินกี่เท่าของเงินเดือน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินได้เท่าไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินได้กี่บาท",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "กู้ฉุกเฉินได้กี่เท่าของเงินเดือน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "ฉุกเฉินสูงสุดเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 35,
+      "question": "เงินกู้ฉุกเฉิน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 36,
+      "question": "กู้ฉุกเฉินต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 36,
+      "question": "สมาชิกกี่เดือนถึงกู้ฉุกเฉินได้",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 36,
+      "question": "กู้ฉุกเฉินนับหุ้นแรกเข้าหรือไม่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 37,
+      "question": "สมาชิกเกิน 12 เดือนกู้ฉุกเฉินมีเงื่อนไขอะไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่ค้างชำระหุ้นและหนี้เงินกู้ทุกประเภทกับสหกรณ์ย้อนหลัง 12 งวดจนถึงวันยื่นคำขอ\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 37,
+      "question": "กู้ฉุกเฉินต้องชำระหนี้ต่อเนื่องไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่ค้างชำระหุ้นและหนี้เงินกู้ทุกประเภทกับสหกรณ์ย้อนหลัง 12 งวดจนถึงวันยื่นคำขอ\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 37,
+      "question": "กู้ฉุกเฉินต้องไม่ค้างกี่เดือน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่ค้างชำระหุ้นและหนี้เงินกู้ทุกประเภทกับสหกรณ์ย้อนหลัง 12 งวดจนถึงวันยื่นคำขอ\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 38,
+      "question": "กู้ฉุกเฉินต้องเหลือเงินเดือนเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 3,000 บาทตลอดอายุสัญญา โดยไม่นับสินเชื่อหมุนเวียน บัตรเครดิต และบัตรกดเงินสด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 38,
+      "question": "หลังหักค่าใช้จ่ายแล้วต้องเหลือเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 3,000 บาทตลอดอายุสัญญา โดยไม่นับสินเชื่อหมุนเวียน บัตรเครดิต และบัตรกดเงินสด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 38,
+      "question": "กู้ฉุกเฉินต้องเหลือ 5000 ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 3,000 บาทตลอดอายุสัญญา โดยไม่นับสินเชื่อหมุนเวียน บัตรเครดิต และบัตรกดเงินสด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 39,
+      "question": "กู้ฉุกเฉินผ่อนได้กี่งวด",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 15 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 39,
+      "question": "เงินกู้ฉุกเฉินส่งกี่งวด",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 15 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 39,
+      "question": "กู้ฉุกเฉินผ่อนนานแค่ไหน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 15 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 39,
+      "question": "กู้ฉุกเฉินส่งกี่งวด",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 15 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 39,
+      "question": "ฉุกเฉินผ่อนนานสุดเท่าไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 15 งวด\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "กู้ฉุกเฉินดอกเบี้ยเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "ดอกเบี้ยเงินกู้ฉุกเฉินกี่เปอร์เซ็นต์",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "กู้ฉุกเฉินคิดดอกเบี้ยเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "กู้ฉุกเฉินดอกเบี้ยกี่เปอร์เซ็นต์",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "ฉุกเฉินดอกเท่าไหร่",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 40,
+      "question": "ดอกเบี้ยฉุกเฉินเท่าไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": null
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 41,
+      "question": "กู้ฉุกเฉินหักจากอะไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 41,
+      "question": "หักเงินกู้ฉุกเฉินจากเงินเดือนไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 41,
+      "question": "หักชำระกู้ฉุกเฉินอย่างไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หักชำระค่าหุ้นและหนี้จากเงินได้รายเดือน ณ ที่จ่าย หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 42,
+      "question": "เคยกู้สามัญหรือพิเศษแล้วกู้ฉุกเฉินได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หากมีเงินกู้ประเภทอื่นต้องชำระแล้วอย่างน้อย 3 งวด; สามัญเพื่อปรับโครงสร้างหนี้ต้องชำระอย่างน้อย 12 งวด; ถ้ามีฉุกเฉินเดิมต้องชำระอย่างน้อย 3 งวด และหักกลบสัญญาเดิม\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 42,
+      "question": "เคยมีหนี้เดิมต้องส่งกี่งวดถึงกู้ฉุกเฉินได้",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หากมีเงินกู้ประเภทอื่นต้องชำระแล้วอย่างน้อย 3 งวด; สามัญเพื่อปรับโครงสร้างหนี้ต้องชำระอย่างน้อย 12 งวด; ถ้ามีฉุกเฉินเดิมต้องชำระอย่างน้อย 3 งวด และหักกลบสัญญาเดิม\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 42,
+      "question": "ปรับโครงสร้างหนี้แล้วกู้ฉุกเฉินได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สัญญาสามัญเพื่อปรับโครงสร้างหนี้ต้องชำระอย่างน้อย 12 งวดก่อนยื่นฉุกเฉิน\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 43,
+      "question": "กู้ฉุกเฉินเดิมอยู่กู้ใหม่ได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+        "decision": "NEED_INFO"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 43,
+      "question": "กู้ฉุกเฉินสัญญาเดิมต้องส่งกี่งวด",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หากมีเงินกู้ประเภทอื่นต้องชำระแล้วอย่างน้อย 3 งวด; สามัญเพื่อปรับโครงสร้างหนี้ต้องชำระอย่างน้อย 12 งวด; ถ้ามีฉุกเฉินเดิมต้องชำระอย่างน้อย 3 งวด และหักกลบสัญญาเดิม\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 43,
+      "question": "กู้ฉุกเฉินซ้ำต้องรอกี่งวด",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+        "decision": "NEED_INFO"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 44,
+      "question": "กู้ฉุกเฉินยื่นได้ถึงกี่โมง",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเองที่สำนักงานก่อน 15:00 น. ในวันทำการ โอนภายในวันยื่น; หลังเวลานี้หรือยื่นทางไปรษณีย์ อีเมล หรือแอป โอนภายใน 5 วันทำการนับแต่ได้รับคำขอ ตามหลักเกณฑ์ ไม่ใช่ผลอนุมัติของสมาชิก\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 44,
+      "question": "ยื่นกู้ฉุกเฉินวันไหนได้บ้าง",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเองที่สำนักงานก่อน 15:00 น. ในวันทำการ โอนภายในวันยื่น; หลังเวลานี้หรือยื่นทางไปรษณีย์ อีเมล หรือแอป โอนภายใน 5 วันทำการนับแต่ได้รับคำขอ ตามหลักเกณฑ์ ไม่ใช่ผลอนุมัติของสมาชิก\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 44,
+      "question": "ยื่นกู้ฉุกเฉินแล้วโอนวันไหน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเองที่สำนักงานก่อน 15:00 น. ในวันทำการ โอนภายในวันยื่น; หลังเวลานี้หรือยื่นทางไปรษณีย์ อีเมล หรือแอป โอนภายใน 5 วันทำการนับแต่ได้รับคำขอ ตามหลักเกณฑ์ ไม่ใช่ผลอนุมัติของสมาชิก\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 44,
+      "question": "กู้ฉุกเฉินยื่นวันไหน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเองที่สำนักงานก่อน 15:00 น. ในวันทำการ โอนภายในวันยื่น; หลังเวลานี้หรือยื่นทางไปรษณีย์ อีเมล หรือแอป โอนภายใน 5 วันทำการนับแต่ได้รับคำขอ ตามหลักเกณฑ์ ไม่ใช่ผลอนุมัติของสมาชิก\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 44,
+      "question": "ยื่นฉุกเฉินแล้วได้เงินวันไหน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเองที่สำนักงานก่อน 15:00 น. ในวันทำการ โอนภายในวันยื่น; หลังเวลานี้หรือยื่นทางไปรษณีย์ อีเมล หรือแอป โอนภายใน 5 วันทำการนับแต่ได้รับคำขอ ตามหลักเกณฑ์ ไม่ใช่ผลอนุมัติของสมาชิก\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "ส่งเอกสารกู้ฉุกเฉินอย่างไร",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "กู้ฉุกเฉินส่งเอกสารทางอีเมลได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "กู้ฉุกเฉินส่งเอกสารทางไปรษณีย์ได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "กู้ฉุกเฉินส่งเอกสารทางไหนได้บ้าง",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "กู้ฉุกเฉินส่งเมลได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 45,
+      "question": "กู้ฉุกเฉินส่งไปรษณีย์ได้ไหม",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล dlasavingloan01@gmail.com เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญได้สูงสุดเท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "วงเงินกู้สามัญสูงสุดเท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "เงินกู้สามัญกู้ได้กี่บาท",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญได้เท่าไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญได้เท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญสูงสุดกี่บาท",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "วงเงินกู้สามัญ",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญ 2 ล้านไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 46,
+      "question": "กู้สามัญเต็มที่ได้เท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนได้กี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "เงินกู้สามัญส่งได้กี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนนานแค่ไหน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญส่งกี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนได้กี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนสูงสุดกี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 47,
+      "question": "กู้สามัญผ่อนยาวสุดเท่าไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 48,
+      "question": "กู้ใหม่หักกลบสัญญาเดิมต้องส่งกี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้สามัญใหม่ต้องชำระสัญญาสามัญเดิมอย่างน้อย 12 งวด และหักกลบสัญญาสามัญเดิม รวมฉุกเฉิน ATM ตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 48,
+      "question": "หักกลบสัญญาเดิมต้องผ่อนมาก่อนกี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "กู้สามัญใหม่ต้องชำระสัญญาสามัญเดิมอย่างน้อย 12 งวด และหักกลบสัญญาสามัญเดิม รวมฉุกเฉิน ATM ตามหลักเกณฑ์",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 48,
+      "question": "กู้ใหม่ปิดสัญญาเดิมได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "สัญญาเงินกู้สามัญเดิมชำระแล้วกี่งวดครับ?",
+        "decision": "NEED_INFO"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 49,
+      "question": "เป็นสมาชิกกี่เดือนถึงกู้สามัญได้",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 49,
+      "question": "กู้สามัญต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 49,
+      "question": "สมาชิก 6 เดือนกู้สามัญได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล",
+        "decision": "ELIGIBLE_CONDITION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 50,
+      "question": "สมาชิก 12 เดือนกู้สามัญได้เท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "วงเงินสูงสุด 2,000,000 บาท",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 50,
+      "question": "กู้สามัญ 2 ล้านต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 50,
+      "question": "สมาชิกครบ 12 เดือนกู้ได้เท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 51,
+      "question": "กู้สามัญต้องถือหุ้นไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 51,
+      "question": "กู้สามัญต้องมีหุ้นเท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 51,
+      "question": "ต้องถือหุ้นตามระเบียบหรือไม่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เป็นสมาชิกไม่น้อยกว่า 6 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด ถ้ากู้เกิน 200,000 บาท ต้องส่งหุ้นไม่น้อยกว่า 12 เดือนและมีหุ้นสะสมไม่น้อยกว่า 10% ของวงเงินที่ขอกู้",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 52,
+      "question": "กู้สามัญต้องค้างชำระได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่ค้างชำระหุ้นและหนี้เงินกู้ทุกประเภทกับสหกรณ์ย้อนหลัง 12 งวดจนถึงวันยื่นคำขอ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 52,
+      "question": "กู้สามัญต้องส่งหุ้นหนี้ผ่านหน้าฎีกาไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ชำระค่าหุ้นและหนี้โดยหักจากเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา)",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 52,
+      "question": "ต้องมีประวัติชำระอย่างไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ต้องไม่ค้างชำระหุ้นและหนี้เงินกู้ทุกประเภทกับสหกรณ์ย้อนหลัง 12 งวดจนถึงวันยื่นคำขอ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "กู้สามัญต้องมีเงินเดือนเหลือเท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "หลังหักหนี้แล้วต้องเหลือเท่าไหร่",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "กู้สามัญต้องเหลือ 5000 ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "กู้สามัญต้องเหลือเงินเดือนเท่าไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "หลังหักหนี้แล้วต้องเหลือกี่บาท",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 53,
+      "question": "กู้สามัญต้องเหลือ 30 เปอร์เซ็นต์ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลังชำระหุ้นและหนี้ทุกประเภท ต้องมีรายได้คงเหลือ ไม่น้อยกว่า 15% และ ไม่น้อยกว่า 6,000 บาทตลอดอายุสัญญา",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 54,
+      "question": "กู้สามัญใช้อะไรค้ำได้บ้าง",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 54,
+      "question": "เอาที่ดินค้ำกู้สามัญได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 54,
+      "question": "อสังหาค้ำได้กี่เปอร์เซ็นต์",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 55,
+      "question": "ใช้เงินฝากค้ำกู้สามัญได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 55,
+      "question": "ใช้หลักทรัพย์รัฐบาลค้ำกู้ได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 55,
+      "question": "ค้ำด้วยเงินฝากได้กี่เปอร์เซ็นต์",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "หลักประกันตามประกาศ ได้แก่ บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล และเงินฝากสหกรณ์; อสังหาริมทรัพย์ได้ไม่เกิน 90% ของราคาประเมิน แต่สัดส่วนเงินฝาก/หลักทรัพย์ต้องตรวจหลักเกณฑ์เฉพาะ",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "คนค้ำกู้สามัญต้องมีคุณสมบัติอะไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "ผู้ค้ำกู้สามัญต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "บุคคลค้ำประกันต้องมีหุ้นไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "กู้สามัญคนค้ำต้องเป็นใคร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "ผู้ค้ำกู้สามัญต้องมีคุณสมบัติอะไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "ค้ำกู้สามัญต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 56,
+      "question": "คนค้ำต้องส่งหุ้นกี่เดือน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "กู้สามัญใช้คนค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "วงเงินเท่านี้ต้องค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "สมาชิก 1 คนค้ำได้กี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ผู้ค้ำที่เป็นพนักงานต้องมีอายุงานไม่น้อยกว่า 3 ปี; ผู้ค้ำ 1 คนค้ำผู้กู้ทุกประเภทพร้อมกันไม่เกิน 3 คน ส่วนอายุสมาชิก/หุ้นของผู้ค้ำต้องตรวจต้นฉบับก่อนยืนยัน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "กู้สามัญต้องค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "กู้ 5 แสนต้องค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "กู้ 1 ล้านต้องค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 57,
+      "question": "กู้ 2 ล้านต้องมีคนค้ำกี่คน",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 58,
+      "question": "เคยปรับโครงสร้างหนี้กู้สามัญได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น ผู้เคยปรับโครงสร้างหนี้ ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 58,
+      "question": "ปรับโครงสร้างหนี้แล้วกู้สามัญต้องส่งกี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น ผู้เคยปรับโครงสร้างหนี้ ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 58,
+      "question": "เคยปรับโครงสร้างต้องมีเงื่อนไขอะไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น ผู้เคยปรับโครงสร้างหนี้ ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 59,
+      "question": "กู้สามัญใช้หุ้นค้ำได้ไหม",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ประเด็นใช้ทุนเรือนหุ้นค้ำเงินกู้สามัญยังไม่มีหลักเกณฑ์เฉพาะที่ยืนยันจากต้นฉบับใน Rule Master ครับ จึงไม่ยืนยันว่าใช้ได้หรือกำหนดวงเงินจากคำตอบเก่า ตรวจหลักเกณฑ์และแบบทางการด้านล่างได้เลย",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 59,
+      "question": "กู้โดยใช้หุ้นค้ำมีเงื่อนไขอะไร",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ประเด็นใช้ทุนเรือนหุ้นค้ำเงินกู้สามัญยังไม่มีหลักเกณฑ์เฉพาะที่ยืนยันจากต้นฉบับใน Rule Master ครับ จึงไม่ยืนยันว่าใช้ได้หรือกำหนดวงเงินจากคำตอบเก่า ตรวจหลักเกณฑ์และแบบทางการด้านล่างได้เลย",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 59,
+      "question": "ใช้หุ้นค้ำได้กี่เปอร์เซ็นต์",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": null,
+      "before": {
+        "answer": "ประเด็นใช้ทุนเรือนหุ้นค้ำเงินกู้สามัญยังไม่มีหลักเกณฑ์เฉพาะที่ยืนยันจากต้นฉบับใน Rule Master ครับ จึงไม่ยืนยันว่าใช้ได้หรือกำหนดวงเงินจากคำตอบเก่า ตรวจหลักเกณฑ์และแบบทางการด้านล่างได้เลย",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": 60,
+      "question": "กู้การศึกษาต้องมีคนค้ำไหม",
+      "expectedRule": "education",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น guarantorCount ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": null
+    },
+    {
+      "id": 60,
+      "question": "กู้เรียนสหกรณ์ได้เท่าไร",
+      "expectedRule": "education",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น amount ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": null
+    },
+    {
+      "id": 61,
+      "question": "กู้พิบัติวงเงินเท่าไร",
+      "expectedRule": "disaster",
+      "valueField": null,
+      "before": {
+        "answer": "พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น amount ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที",
+        "decision": "NEED_RULE_EXTRACTION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": null
+    },
+    {
+      "id": "freshness-retired-guarantor",
+      "question": "สมาชิกเกษียณอายุราชการแล้วสามารถค้ำประกันเงินกู้ได้หรือไม่",
+      "expectedRule": null,
+      "valueField": null,
+      "before": {
+        "answer": "ได้ครับ การเกษียณอายุราชการเพียงอย่างเดียวไม่ได้ตัดสิทธิการเป็นผู้ค้ำเงินกู้สามัญ หากยังเป็นสมาชิกสหกรณ์และผ่านคุณสมบัติผู้ค้ำตามประกาศปัจจุบัน โดยยังต้องตรวจภาระค้ำเดิมและเงื่อนไขของวงเงินกู้ก่อนอนุมัติ",
+        "decision": "ELIGIBLE_CONDITION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": null
+    },
+    {
+      "id": "freshness-now",
+      "question": "ตอนนี้กู้สามัญผ่อนได้กี่งวด",
+      "expectedRule": "ordinaryLoanCurrent",
+      "valueField": "maxTermInstallments",
+      "before": {
+        "answer": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+        "decision": "RULE_INFORMATION"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "ordinaryLoanCurrent@2026-10-01"
+    },
+    {
+      "id": "freshness-history",
+      "question": "กู้ฉุกเฉิน ณ วันที่ 30 กันยายน 2569 ต้องเป็นสมาชิกกี่เดือน",
+      "expectedRule": "emergencyLoanCurrent",
+      "valueField": "membershipMinMonths",
+      "before": {
+        "answer": "ณ 2026-09-30 ต้องเป็นสมาชิกอย่างน้อย 6 เดือน ตามฉบับที่มีผลในเวลานั้นครับ หากถามการดำเนินการปัจจุบัน ต้องตรวจหลักเกณฑ์ล่าสุดก่อน ไม่ใช้วันที่ในข้อความเก่ายืนยันกฎปัจจุบัน",
+        "decision": "HISTORICAL_RULE"
+      },
+      "after": {
+        "answer": "พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้",
+        "decision": "EVIDENCE_LOCK"
+      },
+      "status": "PASS",
+      "expectedVersion": "emergencyLoanAmendment2568Effective2569@2026-01-01"
+    }
+  ]
 }
