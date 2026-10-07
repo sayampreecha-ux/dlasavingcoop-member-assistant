@@ -37,7 +37,9 @@ if(process.argv[1]===new URL(import.meta.url).pathname){
   const a=loadMemberEngine(),s=a.getSourceRegistry(),d=s.documents.find(x=>x.id===active.id);
   Object.assign(d,{status:'PENDING',mayAffectRules:true,pendingReason:reason,contentHash:'different-reviewed-bytes'});a.applySourceMonitor(s);assert.equal(a.answer('กู้ฉุกเฉิน').decision,'EVIDENCE_LOCK');pass++;
  }
- const a=loadMemberEngine(),s=a.getSourceRegistry();s.documents.push({id:'fixture-new-emergency-rule',title:'หลักเกณฑ์เงินกู้ฉุกเฉินฉบับใหม่',type:'CRITERIA',originalUrl:'https://www.dlasavingcoop.com/show.php?No=773',affects:['emergencyLoan'],status:'PENDING',mayAffectRules:true,pendingReason:'NEW_OFFICIAL_DOCUMENT',removedNonGoverningBaseline:true});a.applySourceMonitor(s);
- assert.equal(a.answer('กู้ฉุกเฉิน').decision,'EVIDENCE_LOCK');pass++;
+ for(const pendingReason of ['NEW_OFFICIAL_DOCUMENT','PRIMARY_LINK_REMOVED']){
+  const a=loadMemberEngine(),s=a.getSourceRegistry();s.documents.push({id:'fixture-new-emergency-rule',title:'หลักเกณฑ์เงินกู้ฉุกเฉินฉบับใหม่',type:'CRITERIA',originalUrl:'https://www.dlasavingcoop.com/show.php?No=773',affects:['emergencyLoan'],status:'PENDING',mayAffectRules:true,pendingReason,removedNonGoverningBaseline:true});a.applySourceMonitor(s);
+  assert.equal(a.answer('กู้ฉุกเฉิน').decision,'EVIDENCE_LOCK');pass++;
+ }
  console.log('ANSWER FIRST SERVICES:',pass,'PASS / 0 FAIL; current evidence, context and genuine locks verified');
 }
