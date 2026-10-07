@@ -451,6 +451,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const current=sourceKind(url);
     if(isDirectSourceKind(current)) return url;
     const text=String(label||'');
+    if(/ติดต่อ|ช่องทาง|ระบบสมาชิก/.test(text))return null;
     let candidate=null;
     // These products have a verified official index/form but their exact current
     // primary numeric rule is not fully extracted. Never substitute another
@@ -520,7 +521,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       loan_product_guide:'กรุณาระบุประเภทเงินกู้หรือวัตถุประสงค์ที่ต้องการครับ',
       membership_other_cooperative_review:'ต้องการสมัครสมาชิกหรือยื่นกู้ประเภทใดครับ?'
     };
-    if(clarificationPrompts[intent])answer+='\n\n'+clarificationPrompts[intent];
+    if(clarificationPrompts[intent]&&!opt.suppressClarification)answer+='\n\n'+clarificationPrompts[intent];
     const details=[...(opt.details||[])];
     const actions=[...(opt.actions||[])];
     const sources=[...(opt.sources||[])];
@@ -539,7 +540,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // every member transaction must surface an official rule/announcement/form,
     // explain the process through completion, and provide a responsible contact.
     const isWelfare=/^welfare_/.test(intent)||intent==='scholarship';
-    const isLoan=/^(?:loan_|decision_|guided_)/.test(intent);
+    const isLoan=/^(?:loan_|decision_|guided_)/.test(intent)&&!opt.navigationOnly;
     const isDeposit=/^deposit/.test(intent);
     const isRegistration=/^(member_apply|transfer|resignation)$/.test(intent);
     const isFuneral=intent==='funeral';
@@ -572,12 +573,21 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         addAction('📘 หลักเกณฑ์/แบบเงินกู้พิเศษ',S.specialLoanForms);
         addSource('หลักเกณฑ์และแบบฟอร์มเงินกู้พิเศษ',S.specialLoanForms);
         addAction('☎️ งานเงินกู้พิเศษ 092-391-7912','tel:0923917912');
-      } else {
+      } else if(['education','disaster'].includes(opt.domain)) {
+        const label=opt.domain==='education'?'หน้าทางการเงินกู้เพื่อการศึกษา':'หน้าทางการเงินกู้ช่วยเหลือสาธารณภัย';
+        addAction(label,S.ordinaryLoanForms);
+        addSource(label,S.ordinaryLoanForms);
+        addAction('ติดต่อฝ่ายที่รับผิดชอบ',S.contact);
+      } else if(opt.domain==='ordinaryLoanCurrent'||opt.ruleId==='ordinaryLoanCurrent'||/ordinary/.test(intent)) {
         addAction('📢 หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569);
         addAction('📄 แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
         addSource('หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569);
         addSource('แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
         addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
+      } else {
+        addAction('ประเภทและหลักเกณฑ์เงินกู้ทางการ',S.procedure);
+        addAction('ติดต่อฝ่ายที่รับผิดชอบ',S.contact);
+        addSource('ประเภทและหลักเกณฑ์เงินกู้ทางการ',S.procedure);
       }
       if(intent==='loan_close'){
         addAction('💳 วิธีการชำระเงินทางการ',S.payment);
@@ -2451,7 +2461,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const forms={emergencyLoanCurrent:S.loanEmergencyForm,specialHousingCurrent:S.loanSpecialHousingForm,redeemMortgageCurrent:S.loanSpecialRedeemForm,qualityOfLifeCurrent:S.loanSpecialQualityForm,education:S.educationLoan,disaster:S.disasterLoan};
       const url=forms[product]||S.ordinaryLoanForms;
       const label=({emergencyLoanCurrent:'กู้ฉุกเฉิน',ordinaryLoanCurrent:'กู้สามัญ',specialHousingCurrent:'กู้เคหะ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง',qualityOfLifeCurrent:'กู้พัฒนาคุณภาพชีวิต',education:'กู้เพื่อการศึกษา',disaster:'กู้ภัยพิบัติ'})[product];
-      return res('loan_form_navigation','แบบคำขอ'+label+' เปิดต้นฉบับทางการด้านล่างได้ครับ ตรวจรายการเอกสารและคำแนะนำในแบบก่อนกรอก หากต้องตรวจสิทธิหรือเงื่อนไข ให้ตรวจหลักเกณฑ์ฉบับปัจจุบันแยกจากการขอแบบฟอร์ม',{decision:'SOURCE_GUIDED',actions:[['แบบคำขอทางการ',url],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('แบบคำขอทางการ',url)]});
+      return res('loan_form_navigation','แบบคำขอ'+label+' เปิดต้นฉบับทางการด้านล่างได้ครับ ตรวจรายการเอกสารและคำแนะนำในแบบก่อนกรอก หากต้องตรวจสิทธิหรือเงื่อนไข ให้ตรวจหลักเกณฑ์ฉบับปัจจุบันแยกจากการขอแบบฟอร์ม',{navigationOnly:true,domain:product,decision:'SOURCE_GUIDED',actions:[['แบบคำขอทางการ',url],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('แบบคำขอทางการ',url)]});
     }
     if(/(?:ขอ|หา|ติดต่อ|สอบถาม).*(?:เบอร์|เจ้าหน้าที่|ฝ่าย|งาน)|^(?:เบอร์โทร|รายชื่อเจ้าหน้าที่)/.test(q)&&!/สิทธิ|คุณสมบัติ|วงเงิน|ได้ไหม|เท่าไร|กี่งวด/.test(q)){
       if(/จังหวัด/.test(q))return answerLegacy(q);
@@ -2463,7 +2473,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/^(?:เป็นเรื่อง)?สวัสดิการ$/.test(q)||/สวัสดิการ.*(?:บุตร|ลูก)/.test(q)&&!welfareKindFromQuestion(q)&&!/ทุน|การศึกษา/.test(q))return res(/บุตร|ลูก/.test(q)?'welfare_need_kind':'welfare_all',/บุตร|ลูก/.test(q)?'เป็นสวัสดิการคลอดบุตร หรือทุนการศึกษาบุตรครับ? เลือกประเภทแล้วผมจะตอบเรื่องเดิมต่อให้':'ต้องการสวัสดิการประเภทใดครับ? เลือกประเภทเพื่อให้ตรวจหลักเกณฑ์และแบบคำขอตรงเรื่อง',{decision:'NEED_INFO',requiredFact:'welfareKind',followups:/บุตร|ลูก/.test(q)?['คลอดบุตร','ทุนการศึกษาบุตร']:['คลอดบุตร','ทุนการศึกษาบุตร','สวัสดิการสาธารณภัย'],actions:[['แบบและหลักเกณฑ์สวัสดิการ',S.welfareForms]],sources:[src('แบบและหลักเกณฑ์สวัสดิการ',S.welfareForms)]});
     if(/ย้ายต้นสังกัด|ย้ายหน่วยงาน|เปลี่ยนต้นสังกัด|เปลี่ยนหน่วยงาน/.test(q)&&!/โอนสมาชิก|ระหว่างสหกรณ์|กู้|ค้ำ/.test(q)){
       const R=KB.ruleAuthority.rules.memberInformationChange;
-      return res('transfer','กรณีย้ายต้นสังกัด ให้ใช้แบบแจ้งความประสงค์เปลี่ยนแปลงข้อมูลสมาชิก และแนบสำเนาคำสั่งแต่งตั้งหรือโอนย้ายตามรายการในแบบครับ ให้งานทะเบียนตรวจการเปลี่ยนข้อมูลและการนำส่งเงินของต้นสังกัดใหม่',{decision:'PROCEDURE_INFORMATION',details:['สำเนาเอกสารต้องลงนามรับรองตามแบบ','ที่อยู่ส่งเอกสารตามแบบ: '+R.deliveryAddress],actions:[['แบบแจ้งเปลี่ยนแปลงข้อมูลสมาชิก',R.source],['ติดต่อทะเบียนสมาชิก',S.contact]],sources:[src('แบบแจ้งเปลี่ยนแปลงข้อมูลสมาชิก',R.source)]});
+      return res('transfer','กรณีย้ายต้นสังกัด ให้ใช้แบบแจ้งความประสงค์เปลี่ยนแปลงข้อมูลสมาชิก และแนบสำเนาคำสั่งแต่งตั้งหรือโอนย้ายตามรายการในแบบครับ ให้งานทะเบียนตรวจการเปลี่ยนข้อมูลและการนำส่งเงินของต้นสังกัดใหม่',{suppressClarification:true,decision:'PROCEDURE_INFORMATION',details:['สำเนาเอกสารต้องลงนามรับรองตามแบบ','ที่อยู่ส่งเอกสารตามแบบ: '+R.deliveryAddress],actions:[['แบบแจ้งเปลี่ยนแปลงข้อมูลสมาชิก',R.source],['ติดต่อทะเบียนสมาชิก',S.contact]],sources:[src('แบบแจ้งเปลี่ยนแปลงข้อมูลสมาชิก',R.source)]});
     }
     return null;
   }
