@@ -6,7 +6,11 @@ const browser=await chromium.launch({headless:true,...(process.env.MEMBER_CHROMI
 try{
  const corpus=JSON.parse(fs.readFileSync(path.join(root,'data/legacy-line-69-corpus.json')));
  for(const width of [390,1365]){
-  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(url,{waitUntil:'domcontentloaded'});
+  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));
+  // Optional reviewed-state fixture isolates exact-rule regression from live detection.
+  // Assertions and all source patterns are unchanged; live-state UI has its own gate.
+  if(process.env.MEMBER_MONITOR_FIXTURE)await page.route('**/official-source-monitor.json',route=>route.fulfill({json:JSON.parse(fs.readFileSync(process.env.MEMBER_MONITOR_FIXTURE,'utf8'))}));
+  await page.goto(url,{waitUntil:'domcontentloaded'});
   await page.waitForFunction(()=>!!globalThis.COOP_APP);
   // Wait for the asynchronous official-source refresh before capturing expected answers.
   await page.waitForFunction(()=>document.getElementById('q') && !document.getElementById('q').disabled);
