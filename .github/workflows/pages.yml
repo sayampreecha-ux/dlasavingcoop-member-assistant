@@ -10,9 +10,10 @@ permissions:
   id-token: write
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 jobs:
   deploy:
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -25,6 +26,7 @@ jobs:
       - name: Release gate before deployment
         run: node scripts/verify-release.mjs
       - name: Install browser test runtime
+        timeout-minutes: 5
         run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Browser release gate
         run: |
