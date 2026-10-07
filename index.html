@@ -667,7 +667,14 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function norm(s=''){
     let q=String(s).toLowerCase().trim().replace(/(?:^|\s)@[^\s]+/g,' ').replace(/\[(?:mention|member_id|phone|national_id)\]/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ').trim();
     const fixes=[
-      [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],
+      [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],[/กู(?=สามัญ|ฉุกเฉิน|เงิน)/g,'กู้'],
+      [/กู้\s*ฉฉ/g,'กู้ฉุกเฉิน'],[/กู้\s*พัฒนาชีวิต/g,'กู้พัฒนาคุณภาพชีวิต'],[/รีไฟแนน(?:ซ์)?\s*บ้าน/g,'ไถ่ถอนจำนองบ้าน'],
+      [/สมาชิด|สามาชิก|สมาขิก/g,'สมาชิก'],[/สมัค(?=สมาชิก)/g,'สมัคร'],[/ทุนเรือนหุ่น/g,'ทุนเรือนหุ้น'],
+      [/(ใช้|ขอ)แบบ(?=อะไร|ไหน|ใด)/g,'$1แบบฟอร์ม'],[/แบบขอกู้/g,'แบบฟอร์มเงินกู้'],
+      [/หรือ\s+ไม่/g,'หรือไม่'],[/หรือ\s+ยัง/g,'หรือยัง'],
+      [/ฉฉ(?=[\s.ฯ]|$)/g,'ฉุกเฉิน'],[/เฟส\s*(?:แรก|หนึ่ง)/g,'เฟส 1'],[/เฟส\s*สอง/g,'เฟส 2'],
+      [/สมนชิก/g,'สมาชิก'],[/เอสาร/g,'เอกสาร'],[/ณาปกิจ/g,'ฌาปนกิจ'],[/อุทรณ์/g,'อุทธรณ์'],
+      [/แสดงความเห็น/g,'แสดงความคิดเห็น'],[/หลักเกณ(?=นี้|นั้น|เก่า|ใหม่|$)/g,'หลักเกณฑ์'],
       [/ฌาปณกิจ|ฌาปกิจ|ชาปนกิจ|ฌาปะนกิจ|ฌาปนกิต/g,'ฌาปนกิจ'],
       [/สวสดิการ|สวัดดิการ|สวัดดีการ|สวัสดิการ์/g,'สวัสดิการ'],
       [/เฟสบุ๊ค|เฟสบุค|เฟสบุ๊ก|เฟซบุ๊ค|เฟซบุ๊ก/g,'facebook'],
@@ -678,6 +685,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       [/หนุ้|หุ้น|หุน(?=รายเดือน|เพิ่ม|สหกรณ์)/g,'หุ้น'],[/ยืนยันยออด|ยืนย้นยอด/g,'ยืนยันยอด'],[/ผุ้ค้ำ|ผู้คำประกัน/g,'ผู้ค้ำประกัน'],[/สมัครสมาชิก\s*ส\.?ฌ\.?/g,'สมัครฌาปนกิจ'],[/ส\.?ฌ\.?/g,'ฌาปนกิจ']
     ];
     fixes.forEach(([re,to])=>q=q.replace(re,to));
+    // Preserve an eligibility question when a duration precedes an unnamed product.
+    if(/สมาชิก/.test(q)&&/เดือน|ปี/.test(q))q=q.replace(/กู้อะไรได้บ้าง|กู้โครงการ(?:ฯ)?ไหน(?:กับสหกรณ์)?ได้บ้าง/g,'กู้ได้ไหม');
     return q;
   }
   function personal(q){
@@ -1292,6 +1301,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   function compoundLoanAnswer(q){
     const hasOrd=/สามัญ/.test(q), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
+    // These compound rules do not establish the age/term limits of other products.
+    // Let the verified product gate or product clarification handle those inquiries.
+    if(!hasOrd&&!hasEmergency&&!hasQuality) return null;
     const directGuarantee=(q.match(/ค้ำ(?:กู้)?(?:สามัญ)?(?:อยู่|ให้)?\s*(\d+)\s*คน/)||[]);
     if(hasOrd&&directGuarantee[1]&&/(?:ค้ำเพิ่ม|ค้ำอีก|อีกคน|เพิ่มได้ไหม)/.test(q)){
       const n=+directGuarantee[1],ok=n<RULE_MASTER.rules.ordinary_guarantor_capacity.maxBorrowers;
@@ -1409,6 +1421,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(hasQuality)sourceAdd('หลักเกณฑ์พัฒนาคุณภาพชีวิต พ.ศ.2569',S.loanSpecialQualityAnnouncement);
     if(hasEmergency)sourceAdd('หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement);
 
+    // An empty set of applicable verified rules cannot establish eligibility.
+    if(checks.length===0){
+      if(!hasOrd&&!hasEmergency&&!hasQuality) return null;
+      return res('loan_compound_reasoning','ยังสรุปสิทธิกู้จากข้อมูลนี้ไม่ได้ครับ ต้องทราบประเภทเงินกู้ที่จะยื่นและข้อมูลสัญญาเดิมก่อนตรวจหลายเงื่อนไขร่วมกัน',{decision:'NEED_INFO',requiredFact:'loanProduct',details:[...details,'ยังไม่มีเงื่อนไขที่ตรวจยืนยันผ่านจากข้อมูลที่ให้มา จึงไม่สรุปว่าผ่าน'],sources,actions,followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้พัฒนาคุณภาพชีวิต']});
+    }
     const anyFail=checks.some(x=>x.status==='FAIL'), needs=checks.some(x=>x.status==='NEED_FACT'||x.status==='PARTIAL_PASS');
     if(qualityWait) details.push('ไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมากู้สามัญเพิ่มได้ขณะสัญญายังมีผล เพราะหลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน');
     if(anyFail) details.push('สรุป: มีเงื่อนไขอย่างน้อยหนึ่งข้อไม่ผ่าน จึงยังไม่ควรสรุปว่ายื่นผ่าน');
@@ -2271,9 +2288,141 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     else return F.lock({...check,reason:'HISTORICAL_EXTRACTION_MISSING'},sourceRegistry);
     return {intent:'historical_rule',answer:'ณ '+check.date+' '+text+' ตามฉบับที่มีผลในเวลานั้นครับ',status:'หลักเกณฑ์ตามวันที่ถาม',decision:'HISTORICAL_RULE',domain:product,evidenceState:v.status,details:['ใช้ฉบับมีผล '+v.effectiveFrom+' ถึง '+(v.effectiveTo||'ปัจจุบัน'),'ไม่ใช้ตัดสินคำขอในช่วงเวลาอื่น'],actions:[['ต้นฉบับทางการ',doc.originalUrl]],sources:[{title:doc.title,url:doc.originalUrl}],ruleVersion:v.id};
   }
+  // Recover missing operational context only after established routes have failed.
+  // Never infer ledger values, transfer dates, or a release of pledged collateral.
+  function memberInquiry(q){
+    return /(?:ไหม|มั้ย|มั๊ย|มั่ย|มัย|เหรอ|หรอ|หรือคะ|หรือค่ะ|หรือว่า|หรือยัง|หรือไม่|รึยัง|รึไม่|ละยัง|ได้รับยัง|อย่างไร|ยังไง|อะไร|ถึงใคร|วันไหน|ตอนไหน|เมื่อไหร่|เมื่อไร|กี่|เท่าไร|เท่าไหร่|ที่ไหน|จากไหน|ช่องทางไหน|ทำไม|สอบถาม|อยากทราบ|ขอ|ชี้แนะ|ตรวจ|เช็ค|เช็ก)/.test(q)||/(?:ฝาก|ชำระ|เงิน|ยอด).*(?:ยังไม่|ไม่ปรับ|ไม่ขึ้น|ไม่พบ)/.test(q);
+  }
+  function recoverMemberRoute(q,r){
+    if(r?.intent!=='fallback')return r;
+    const inquiry=memberInquiry(q);
+    if(inquiry&&/งบการเงิน/.test(q))return res('financial_report_request','ต้องการงบการเงินปีหรือรอบใดครับ? ให้ตรวจเอกสารหรือประกาศที่สหกรณ์เผยแพร่ทางเว็บไซต์ทางการ หากไม่พบให้ขอเอกสารจากสหกรณ์โดยตรง AI ยังไม่ยืนยันว่ามีเอกสารของรอบนั้นเผยแพร่หรือรับรองตัวเลขในเอกสารที่ไม่ได้ตรวจ',{
+      decision:'NEED_INFO',requiredFact:'reportPeriod',actions:[['ตรวจเว็บไซต์ทางการ',S.home],['ตรวจประกาศทางการ',S.notices],['ขอเอกสารตามรอบ',S.contact]],sources:[src('เว็บไซต์ทางการ',S.home)]});
+    if(inquiry&&/ฝาก/.test(q)&&/เสาร์|อาทิตย์|วันหยุด/.test(q))return res('deposit_holiday_review','การฝากผ่านแอปในวันหยุดต้องตรวจช่องทางรับฝาก ประเภทบัญชี และวันที่สหกรณ์บันทึกรายการครับ AI ยังไม่ยืนยันว่ารับฝากหรือลงบัญชีได้ทันที ให้ตรวจขั้นตอนทางการและสอบถามฝ่ายรับฝากก่อนโอน; หากโอนแล้วให้ตรวจรายการของตนเองในระบบสมาชิก',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DEPOSIT_CHANNEL_AND_POSTING_RULE',actions:[['ตรวจรายการของตนเอง',S.memberPortal],['ยืนยันกับฝ่ายรับฝาก',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/สหกรณ์.*(?:ที่ไหน|พิเศษ)/.test(q))return res('cooperative_identity_review','ผู้ช่วยนี้ให้บริการเรื่องสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัดครับ หากหมายถึงสหกรณ์อื่น ต้องตรวจชื่อองค์กรก่อนและไม่ใช้หลักเกณฑ์ของที่นี่แทน ให้ยืนยันชื่อสหกรณ์และบริการที่ต้องการ แล้วใช้เว็บไซต์หรือช่องทางทางการขององค์กรนั้น',{
+      decision:'NEED_INFO',requiredFact:'cooperativeName',actions:[['เว็บไซต์ สอ.อปท.',S.home],['ยืนยันกับช่องทางทางการ',S.contact]],sources:[src('เว็บไซต์ทางการ สอ.อปท.',S.home)]});
+    if(inquiry&&/(?:เข้า|เปิด|ดู).*(?:เว็บ|เวป|เว็ป)|(?:เว็บ|เวป|เว็ป).*(?:ที่ไหน|อย่างไร|ยังไง)/.test(q)&&!/ปกติ|ล่ม|ขัดข้อง|เข้า(?:ได้|ไม่ได้)/.test(q))return res('official_website_access','เปิดเว็บไซต์สหกรณ์ทางการได้จากปุ่มด้านล่างครับ หากต้องการยอดหรือรายการของตนเองให้ใช้ระบบสมาชิกซึ่งเป็นคนละหน้ากับเว็บไซต์ข้อมูลทั่วไป ระบบนี้ไม่ขอรหัสผ่านหรือ OTP; ถ้าเข้าไม่ได้ให้ติดต่อช่องทางทางการ',{
+      decision:'OFFICIAL_CHANNEL_REQUIRED',actions:[['เปิดเว็บไซต์สหกรณ์',S.home],['เปิดระบบสมาชิก',S.memberPortal],['แก้ปัญหาการเข้าใช้งาน',S.contact]],sources:[src('เว็บไซต์สหกรณ์',S.home),src('ระบบสมาชิก',S.memberPortal)]});
+    if(inquiry&&/ออกใบ.*วันไหน/.test(q))return res('document_issue_review','หมายถึงใบหรือเอกสารประเภทใดครับ? การออกและส่งเอกสารต้องตรวจรายการกับงานผู้รับผิดชอบ AI ไม่ทราบว่าออกหรือส่งแล้วและไม่ยืนยันวันออก ให้ระบุประเภทใบ แล้วตรวจระบบสมาชิกหรือสอบถามเจ้าหน้าที่ผู้รับเรื่อง',{
+      privacy:true,decision:'LIVE_DOCUMENT_REQUIRED',requiredFact:'documentTopic',actions:[['ตรวจรายการของตนเอง',S.memberPortal],['ติดตามเอกสารกับเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/บัญชี.*พร้อมกัน|รายชื่อ.*สหกรณ์|สมาชิก.*หักหน้า[ฎฏ]ี?่?กา.*ตลอด/.test(q))return res('member_record_timing_review','คำถามนี้ต้องตรวจรายการ รอบจ่าย หรือประวัติการหักจริงของสมาชิกครับ AI ไม่เห็นข้อมูลและยังไม่ยืนยันว่ามีชื่อ ได้พร้อมกัน หรือหักครบทุกช่วง ให้ตรวจข้อมูลของตนเองในระบบสมาชิกและให้เจ้าหน้าที่ตรวจกรณีที่ไม่พบรายการ',{
+      privacy:true,decision:'LIVE_MEMBER_DATA_REQUIRED',actions:[['ตรวจรายการของตนเอง',S.memberPortal],['ให้เจ้าหน้าที่ตรวจรายการ',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
+    if(inquiry&&/หนังสือ.*(?:ไม่ได้เป็นสมาชิก|ไม่เป็นสมาชิก)/.test(q))return res('membership_certificate_review','หนังสือรับรองการเป็นหรือไม่เป็นสมาชิกสหกรณ์อื่นต้องตรวจว่าใช้ประกอบเรื่องใดและข้อกำหนดใดครับ AI ยังไม่ยืนยันว่าต้องขอหนังสือเพราะตำแหน่งงานอย่างเดียว ให้ระบุว่าใช้สมัครสมาชิกหรือยื่นกู้ แล้วให้ฝ่ายทะเบียนหรือฝ่ายเงินกู้ยืนยันเอกสารที่ใช้',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_MEMBERSHIP_CERTIFICATE_RULE',requiredFact:'documentTopic',followups:['สมัครสมาชิก','แบบฟอร์มเงินกู้'],actions:[['ยืนยันเอกสารกับสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ข่มขู่|โอที|เร่งด่วน.*สมาชิก|ใช้เวลานาน.*สมาชิก/.test(q))return res('member_service_feedback','เรื่องข้อกังวลหรือข้อเสนอการให้บริการให้ระบุงานและสิ่งที่ต้องการคำชี้แจงผ่านช่องทางสหกรณ์ครับ AI ยังไม่วินิจฉัยการกระทำของบุคคล ไม่สั่งเพิ่มเวลาทำงาน และไม่รับรองเวลาที่จะแก้ไข ให้ติดต่อสหกรณ์เพื่อขอคำชี้แจงหรือส่งข้อเสนอโดยไม่เผยข้อมูลสมาชิกในแชท',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_SERVICE_ISSUE_REVIEW',actions:[['ขอคำชี้แจงหรือส่งข้อเสนอ',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/อายัด/.test(q))return res('attachment_order_review','สิทธิและขอบเขตการอายัดต้องตรวจคำสั่ง ฐานอำนาจ และประเภทเงินกับธนาคารหรือหน่วยงานผู้ออกคำสั่งครับ AI ยังไม่ยืนยันว่าเงินส่วนใดอายัดได้หรือไม่ได้ ให้ขอคำชี้แจงและเอกสารที่อ้างจากธนาคารโดยใช้ช่องทางในเอกสารของตนเอง หากเกี่ยวกับเงินสหกรณ์ให้แจ้งเจ้าหน้าที่ตรวจรายการที่เกี่ยวข้อง',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_ORDER_AND_APPLICABLE_AUTHORITY',actions:[['สอบถามรายการเงินสหกรณ์ที่เกี่ยวข้อง',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+    if(inquiry&&/เช่าซื้อ|สินเชื่อ.*(?:ซื้อรถ|รถยนต์)/.test(q))return res('loan_purpose_review','สินเชื่อซื้อรถหรือเช่าซื้อต้องตรวจว่ามีผลิตภัณฑ์และวัตถุประสงค์ที่เปิดรับตามประกาศปัจจุบันครับ AI ยังไม่ยืนยันว่ามีเงินกู้ชื่อนี้หรือใช้เงินกู้ประเภทอื่นแทนได้ ให้ตรวจประเภทเงินกู้และให้ฝ่ายเงินกู้ยืนยันวัตถุประสงค์ก่อนยื่น',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_CURRENT_PRODUCT_PURPOSE',actions:[['ประเภทและหลักเกณฑ์เงินกู้',S.procedure],['ยืนยันวัตถุประสงค์กับฝ่ายเงินกู้',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
+    if(inquiry&&/ปิดแค่|ปิดบาง|ปิดธนาคาร/.test(q)&&/หนี้|รถ|ธนาคาร/.test(q))return res('debt_payoff_scope_review','การปิดหนี้บางรายการต้องตรวจประเภทเงินกู้และข้อกำหนดหักกลบหรือชำระเจ้าหนี้ครับ AI ยังไม่ยืนยันว่าเลือกปิดเฉพาะหนี้รถหรือธนาคารรายการหนึ่งได้ ให้ระบุประเภทกู้และให้ฝ่ายเงินกู้ตรวจรายการหนี้กับข้อกำหนดปัจจุบันก่อน',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DEBT_PAYOFF_SCOPE_RULE',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้พัฒนาคุณภาพชีวิต'],actions:[['หลักเกณฑ์หักกลบและวัตถุประสงค์',S.procedure],['ให้ฝ่ายเงินกู้ตรวจกรณี',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
+    if(inquiry&&/หักชำระ.*(?:ทั้งหมด|ก่อน)/.test(q))return res('remittance_order_review','ลำดับการหักชำระของหน่วยงานต้องตรวจข้อกำหนดการนำส่งและภาระรายการที่เกี่ยวข้องครับ AI ยังไม่ยืนยันว่าต้องหักหนี้สหกรณ์ทั้งหมดก่อนรายการอื่น ให้หน่วยงานผู้หักและสหกรณ์ยืนยันข้อกำหนดที่ใช้; หากเป็นรายการของสมาชิกให้ตรวจข้อมูลจริงในระบบสมาชิก',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_REMITTANCE_ORDER_RULE',actions:[['ยืนยันกับฝ่ายรับชำระ',S.contact],['ตรวจรายการของตนเอง',S.memberPortal]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/(?:แชร์|เชิญเพื่อน|เพิ่มเพื่อน|เข้ากลุ่ม)/.test(q))return res('group_channel_review','การแชร์หรือเชิญเข้ากลุ่มต้องทราบว่าหมายถึงกลุ่มและข้อมูลใดครับ AI ยังไม่ยืนยันสิทธิอนุญาตของผู้ดูแลกลุ่ม ให้สอบถามผู้ดูแลช่องทางนั้นก่อน และใช้หน้าติดต่อสหกรณ์เพื่อยืนยันว่าเป็นช่องทางทางการ ไม่เผยข้อมูลสมาชิกหรือเอกสารเฉพาะรายในกลุ่ม',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_CHANNEL_AND_GROUP_POLICY',requiredFact:'channelTopic',actions:[['ยืนยันช่องทางทางการกับสหกรณ์',S.contact]],sources:[src('หน้าติดต่อทางการ',S.contact)]});
+    if(inquiry&&/สถานการณ์น้ำ.*สหกรณ์|น้ำท่วม.*สหกรณ์/.test(q))return res('facility_condition_review','สภาพน้ำและการเข้าพื้นที่สหกรณ์เป็นข้อมูลปัจจุบันครับ AI ยังไม่ยืนยันระดับน้ำหรือว่าเดินทางเข้าพื้นที่ได้ ให้ดูประกาศล่าสุดและยืนยันกับสหกรณ์ก่อนเดินทาง; หากต้องการบริการระหว่างนี้ให้สอบถามช่องทางทางการที่ยังเปิดให้บริการ',{
+      decision:'LIVE_SERVICE_REQUIRED',actions:[['ประกาศปัจจุบัน',S.notices],['ยืนยันสภาพพื้นที่และบริการ',S.contact]],sources:[src('ประกาศทางการ',S.notices)]});
+    if(inquiry&&/ยอด(?:หนี้|หุ้น|เงินฝาก|เงิน)|หนี้คงเหลือ/.test(q))return res('member_balance_lookup','ยอดหนี้ หุ้น และเงินฝากเป็นข้อมูลเฉพาะรายครับ AI ไม่ทราบยอดจริง ให้ตรวจข้อมูลของตนเองในระบบสมาชิก หากเป็นข้อมูลของผู้อื่นให้เจ้าหน้าที่ตรวจสิทธิการเข้าถึงก่อน ไม่ใช้เลขสมาชิกจากแชทเพื่อเปิดข้อมูลแทน',{
+      privacy:true,decision:'LIVE_MEMBER_DATA_REQUIRED',actions:[['ตรวจยอดของตนเอง',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
+    if(inquiry&&/สั่งจ่าย|ตีเช็ค.*(?:ชื่อ|นาม)/.test(q))return res('disbursement_method_review','วิธีสั่งจ่ายและผู้รับเงินต้องตรวจประเภทเงินกู้ ข้อกำหนดการเบิกจ่าย และรายการของคำขอครับ AI ยังไม่ยืนยันว่าจะจ่ายให้สมาชิกหรือเจ้าหนี้ และไม่แนะนำให้ชำระล่วงหน้าจากข้อความแชท ให้ระบุประเภทกู้และให้ฝ่ายเงินกู้ยืนยันวิธีดำเนินการก่อน',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DISBURSEMENT_RULE_AND_CASE',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้ไถ่ถอนจำนองบ้าน'],actions:[['หลักเกณฑ์การกู้ปัจจุบัน',S.procedure],['ยืนยันกับฝ่ายเงินกู้',S.contact]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure),src('หน้าติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ยอดปิด/.test(q)&&/บริษัท|ธนาคาร|ไฟแนน|ลีสซิ่ง|ลิสซิ่ง/.test(q))return res('external_creditor_payoff','ยอดปิดหนี้ภายนอกต้องขอจากเจ้าหนี้ที่ระบุในสัญญาของตนเองครับ ให้ใช้ช่องทางทางการในเอกสารสัญญาเพื่อขอยอดที่ใช้ ณ วันที่ต้องการชำระ AI ไม่ทราบยอดปิดและยังไม่ยืนยันช่องทางของเจ้าหนี้รายนั้น หากใช้ประกอบกู้สหกรณ์ ให้ฝ่ายเงินกู้ยืนยันเอกสารและวิธีนำส่งก่อน ไม่ใช้ยอดประมาณจากแชท',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_CURRENT_CREDITOR_PAYOFF',requiredFact:'creditor',actions:[['ยืนยันเอกสารประกอบกู้กับสหกรณ์',S.contact]],sources:[src('ช่องทางฝ่ายเงินกู้สหกรณ์',S.contact)]});
+    if(inquiry&&/ฝาก|ชำระ/.test(q)&&/(?:ปรับ|ไม่).*ยอด|ยอด.*(?:ไม่|ยัง)|ไม่.*รายการ/.test(q))return res('member_ledger_review','ยอดฝากหรือชำระที่ยังไม่ปรับต้องตรวจวันที่ รายการรับเงิน และการลงบัญชีจริงครับ AI ไม่เห็นรายการและไม่ยืนยันว่าลงบัญชีแล้ว ให้ตรวจระบบสมาชิกและเก็บหลักฐานไว้ส่งให้เจ้าหน้าที่ทางการ หากติดต่อช่องทางหนึ่งไม่ได้ให้ใช้ช่องทางอื่นจากหน้าติดต่อสหกรณ์',{
+      privacy:true,decision:'LIVE_LEDGER_REQUIRED',actions:[['ตรวจรายการของตนเอง',S.memberPortal],['ติดตามรายการกับเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)]});
+    const operational=/(?:เอกสาร.*(?:ถึง|ลงรับ|ผ่าน|ตรวจ|ลำดับ|ได้รับ)|เช็ค.*(?:จัดส่ง|ส่งมา|ถึง)|(?:ลำดับ|สถานะ).*เอกสาร|สถานะ|คิว|รอตรวจ|รอบันทึก|อนุมัติ|เงินเข้า|โอนเงิน|เข้าประชุม|รอบเดือน|ตัดชำระ|ตัดยอด|ยอด.*ระบบ|ผล.*ยื่นกู้|ช่วงพิจารณา|ทันรอบ|(?:ได้|ทัน)รอบนี้|พิจารณา.*วันไหน|ยื่นกู้.*(?:ทราบ|ผ่าน)|(?:ฝาก|ชำระ).*(?:ปรับยอด|ยอด.*ไม่|ไม่.*ยอด))/.test(q);
+    if(inquiry&&operational)return res('status_center','คำถามนี้ต้องตรวจรายการหรือรอบดำเนินการล่าสุดครับ AI ไม่ทราบว่าเอกสารถึงแล้ว ผ่านอนุมัติแล้ว หรือเงินจะเข้าวันใด ให้ตรวจระบบสมาชิกก่อน และติดต่อเจ้าหน้าที่สหกรณ์หากไม่พบรายการหรือข้อมูลไม่ตรง',{
+      privacy:true,decision:'LIVE_STATUS_REQUIRED',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่ทางการ',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)],details:['ใช้ข้อมูลบัญชีเฉพาะในระบบทางการ ไม่ส่งรหัสผ่าน PIN หรือ OTP ให้ AI']});
+    if(inquiry&&/(?:ได้\s*เงิน|ได้รับเงิน(?:กู้)?|เงิน.*(?:จะได้|ได้เมื่อ|ได้วัน|ได้ตอนไหน)|โอนก่อน|โอน.*บ่าย|โอน.*เย็น|โอน.*(?:บัญชี|ภายใน|วันไหน|เมื่อ|คืน))/.test(q))return res('live_schedule','วันและเวลาที่ได้รับเงินต้องตรวจรอบโอนและรายการจริงครับ AI ไม่ทราบเวลาเงินเข้าบัญชีของสมาชิก ให้ตรวจระบบสมาชิกและประกาศรอบปัจจุบัน หากไม่พบรายการให้ติดต่อเจ้าหน้าที่',{
+      privacy:true,decision:'LIVE_SCHEDULE_REQUIRED',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ประกาศรอบปัจจุบัน',S.notices],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
+    if(inquiry&&/(?:เปิดทำการ|เปิด.*ปกติ|สหกรณ์.*(?:เปิด|หยุด)|เว็บไซต์|เวปไซ[ดต]|เว็บ.*(?:เข้า|ล่ม|ใช้))/.test(q))return res('service_availability','เวลาเปิดทำการและเหตุขัดข้องเป็นข้อมูลปัจจุบันครับ AI ยังไม่ยืนยันว่าบริการเปิดหรือเว็บไซต์ใช้งานได้ในเวลาที่ถาม ให้ดูประกาศล่าสุดหรือโทรยืนยันกับสหกรณ์ก่อนเดินทาง หากเว็บไซต์เข้าไม่ได้ใช้ช่องทางติดต่อทางการ',{
+      decision:'LIVE_SERVICE_REQUIRED',actions:[['ประกาศล่าสุด',S.notices],['ช่องทางติดต่อทางการ',S.contact]],sources:[src('ประกาศทางการ',S.notices),src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/(?:อีเม[ลล์]|อีเมล์|เมลล์|เมล์|email|อีเมล|ไลน์ส่วนตัว|ไลท์ส่วนตัว)/i.test(q))return res('official_contact_request','ช่องทางส่งข้อมูลให้ตรวจจากหน้าติดต่อทางการครับ ระบบไม่เดาที่อยู่อีเมลหรือใช้ช่องทางส่วนตัวจากแชท หากไม่พบช่องทางสำหรับงานนั้นให้ติดต่อสหกรณ์เพื่อขอช่องทางส่งที่ตรงเรื่อง',{
+      decision:'OFFICIAL_CHANNEL_REQUIRED',actions:[['หน้าติดต่อทางการ',S.contact]],sources:[src('หน้าติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ที่อยู่|ส่งถึง\s*(?:ใคร|ไหน|ที่|สหกรณ์|ฝ่าย|หน่วยงาน)/.test(q))return res('official_delivery_contact','ที่อยู่และผู้รับเอกสารต้องตรวจจากหน้าติดต่อทางการและงานที่รับเรื่องครับ ให้ระบุว่าเป็นเอกสารประเภทใด แล้วให้เจ้าหน้าที่ยืนยันที่อยู่และชื่อหน่วยงานก่อนส่ง ระบบไม่ยืนยันที่อยู่จากข้อความในแชท',{
+      decision:'OFFICIAL_CHANNEL_REQUIRED',requiredFact:'documentTopic',actions:[['ตรวจที่อยู่ทางการ',S.contact],['แบบและเอกสารสมาชิก',S.memberForms]],sources:[src('หน้าติดต่อทางการ',S.contact)]});
+    if(inquiry&&/เลือกตั้ง|ผู้ลงแข่งขัน|ผู้สมัคร.*(?:กรรมการ|ประธาน)|ผล.*ประชุม|มติ.*ประชุม|รางวัล/.test(q))return res('current_notice_review','ข้อมูลการเลือกตั้ง ผลประชุม หรือรางวัลต้องตรวจประกาศปัจจุบันของเรื่องนั้นครับ AI ยังไม่ยืนยันรายชื่อ ผลมติ สิทธิรับรางวัล หรือกำหนดจ่าย ให้เลือกเรื่องและรอบที่ถาม แล้วเปิดประกาศทางการ; รายการเฉพาะรายให้เจ้าหน้าที่ตรวจ',{
+      decision:'LIVE_NOTICE_REQUIRED',requiredFact:'noticeTopic',actions:[['ประกาศปัจจุบัน',S.notices],['สอบถามเจ้าหน้าที่',S.contact]],sources:[src('ประกาศทางการ',S.notices)]});
+    if(inquiry&&/บูโร|เครดิตยูโร|เครดิตบูโร|ตรวจเครดิต/.test(q))return res('credit_rule_clarification','เรื่องเครดิตบูโรต้องระบุประเภทเงินกู้และฉบับหลักเกณฑ์ที่ใช้ก่อนครับ ยังไม่ยืนยันว่าต้องแนบรายงานหรือว่าผลเครดิตจะทำให้ผ่านหรือไม่ผ่าน เลือกประเภทเงินกู้เพื่อดูเอกสารปัจจุบัน; ผลพิจารณาเฉพาะรายให้เจ้าหน้าที่ตรวจ',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_PRODUCT_CREDIT_RULE',requiredFact:'loanType',followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้พัฒนาคุณภาพชีวิต'],actions:[['หลักเกณฑ์และแบบเงินกู้ทางการ',S.procedure],['ติดต่อเจ้าหน้าที่เงินกู้',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
+    if(inquiry&&/พักหนี้|ประณีประนอม|ประนีประนอม|อุทธรณ์/.test(q))return res('member_case_review','การพักหนี้ ประนีประนอม หรืออุทธรณ์ต้องตรวจประกาศที่ใช้กับเรื่องนั้นและสถานะสัญญาจริงครับ AI ยังไม่ยืนยันว่ามีโครงการเปิดรับหรือว่าสมาชิกมีสิทธิ เลือกเรื่องและส่งให้เจ้าหน้าที่ตรวจตามช่องทางทางการ',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_CASE_AND_CURRENT_NOTICE',followups:['ปรับโครงสร้างหนี้','ประนีประนอมหนี้','ติดต่อเจ้าหน้าที่'],actions:[['ประกาศปัจจุบัน',S.notices],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ประกาศทางการ',S.notices),src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&(/โครงการ/.test(q)&&/ใหม่|เปิด|ช่วยเหลือ|มีโครงการ|โครงการ.*สมาชิก/.test(q)||/ขยาย.*(?:หลักเกณฑ์|อายุสมาชิก)|ลดระยะเวลา.*สมาชิก|หลักเกณฑ์(?:เก่า|นี้|นั้น)|มติ.*สิทธิ|แสดงความคิดเห็น/.test(q))&&!loanProduct(q))return res('member_policy_notice_review','โครงการ การขยายคุณสมบัติ หรือการเปลี่ยนหลักเกณฑ์ต้องตรวจชื่อเรื่อง มติ และประกาศที่มีผลปัจจุบันครับ AI ยังไม่ยืนยันว่าโครงการเปิดรับหรือมีการขยายสิทธิ และไม่มีอำนาจเปลี่ยนเงื่อนไข ให้ระบุชื่อโครงการหรือข้อที่ต้องการคำชี้แจง แล้วตรวจประกาศทางการหรือติดต่อสหกรณ์เพื่อส่งข้อเสนอ',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_NAMED_CURRENT_POLICY',requiredFact:'noticeTopic',actions:[['ตรวจประกาศปัจจุบัน',S.notices],['ขอคำชี้แจงหรือส่งข้อเสนอ',S.contact]],sources:[src('ประกาศทางการ',S.notices),src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ค่าเดินทาง|เบี้ยเลี้ยง/.test(q))return res('member_expense_review','ค่าเดินทางหรือเบี้ยเลี้ยงต้องตรวจบทบาท กิจกรรม และข้อกำหนดค่าใช้จ่ายของสหกรณ์ครับ AI ยังไม่ยืนยันว่ามีสิทธิเบิกหรือเบิกได้เท่าใด ให้แจ้งชื่อกิจกรรมและบทบาทโดยไม่ส่งข้อมูลส่วนตัว แล้วให้สหกรณ์ยืนยันระเบียบและผู้รับเรื่องก่อนดำเนินการ',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_ACTIVITY_EXPENSE_RULE',requiredFact:'activityRole',actions:[['สอบถามงานที่จัดกิจกรรม',S.contact],['ตรวจหลักเกณฑ์ทางการ',S.procedure]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ถอน/.test(q))return res('withdrawal_need_asset','ต้องการถอนเงินฝากหรือคืนค่าหุ้นครับ? ต้องแยกประเภทและตรวจว่ามีภาระหลักประกันอยู่หรือไม่ก่อน ระบบยังไม่ยืนยันสิทธิถอนจากข้อมูลที่ขาด เลือกเรื่องแล้วตรวจรายการจริงในระบบสมาชิก',{
+      privacy:true,decision:'NEED_INFO',requiredFact:'withdrawalAsset',followups:['ถอนเงินฝาก','คืนค่าหุ้น'],actions:[['ตรวจบัญชีในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
+    if(inquiry&&/(?:พยาน|ลงนาม|ลายมือชื่อ|หนังสือชี้แจง)|(?:คำขอ|สัญญา|แบบฟอร์ม).*กรอก|แบบสมาชิก.*(?:ทำถูก|ถูกไหม)/.test(q))return res('document_execution_review','การตรวจความถูกต้องของแบบ การกรอกจำนวนเงิน ผู้ลงนาม พยาน หรือผู้รับหนังสือต้องตรวจจากแบบและข้อกำหนดของเรื่องนั้นครับ ยังไม่ยืนยันว่าช่องใดสมาชิกกรอกเอง ใครลงนามแทนได้ หรือพยานต้องเป็นสมาชิก เลือกชื่อแบบหรือเรื่องโดยไม่ส่งข้อมูลบุคคล แล้วใช้ต้นฉบับปัจจุบัน; หากแบบไม่ระบุให้เจ้าหน้าที่ผู้รับเรื่องยืนยัน',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DOCUMENT_EXECUTION_RULE',requiredFact:'documentTopic',followups:['แบบฟอร์มเงินกู้','แบบฟอร์มสมาชิก'],actions:[['แบบและหลักเกณฑ์ทางการ',S.procedure],['สอบถามเจ้าหน้าที่ผู้รับเรื่อง',S.contact]],sources:[src('แบบและหลักเกณฑ์ทางการ',S.procedure)]});
+    if(inquiry&&/สำเนา|บัตรประชาชน|บัตรข้าราชการ|หนังสือรับรอง/.test(q)&&/กู้/.test(q))return res('loan_supporting_document_review','สำเนาบัตรหรือหนังสือรับรองต้องตรวจรายการแนบของแบบกู้ประเภทนั้นครับ AI ยังไม่ยืนยันว่าต้องถ่ายด้านหลัง ต้องเปลี่ยนบัตร หรือใช้หนังสือรับรองฉบับใด ให้ระบุประเภทเงินกู้ แล้วเปิดแบบคำขอปัจจุบัน; จุดที่แบบไม่ระบุให้ฝ่ายเงินกู้ยืนยันก่อนส่ง',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_PRODUCT_ATTACHMENT_RULE',requiredFact:'loanProduct',followups:['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต'],actions:[['แบบและรายการแนบเงินกู้',S.procedure],['ตรวจเอกสารกับฝ่ายเงินกู้',S.contact]],sources:[src('แบบและหลักเกณฑ์ทางการ',S.procedure)]});
+    if(inquiry&&/ชำระหนี้.*ด้วยตนเอง|หนี้เสีย|นิติกร/.test(q))return answerLegacy(/หนี้เสีย|นิติกร/.test(q)?'ปรับโครงสร้างหนี้':'ชำระเงินกู้');
+    if(inquiry&&/(?:รหัส|หมายเลข|เลข(?:ที่)?)\s*สมาชิก/.test(q))return res('member_identifier_lookup','ให้ตรวจเลขสมาชิกของตนเองในระบบสมาชิกหรือเอกสารสมาชิกทางการครับ หากเป็นเลขสมาชิกสมาคมฌาปนกิจให้ติดต่อสมาคมผ่านช่องทางทางการ เลขของแต่ละระบบอาจเป็นคนละรายการ AI ไม่ตรวจเลขหรือข้อมูลของผู้อื่นและไม่ยืนยันว่าเลขถูกต้องจากแชท',{
+      privacy:true,decision:'VERIFY_MEMBER_IDENTITY',actions:[['ตรวจข้อมูลของตนเอง',S.memberPortal],['ติดต่อทะเบียนหรือสมาคม',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/ติดต่อ(?!กัน)|เบอร์(?:โทร|ศัพท์)|โทรศัพท์/.test(q)&&/กู้|สหกรณ์|เจ้าหน้าที่|จนท/.test(q))return res('official_work_contact','ให้ใช้หน้าติดต่อทางการของสหกรณ์และเลือกงานที่รับเรื่องครับ หากเป็นเรื่องกู้ให้ติดต่อฝ่ายเงินกู้; ถ้าติดต่อไม่ได้ให้ตรวจช่องทางอื่นที่สหกรณ์ประกาศไว้ ระบบไม่เดาเบอร์หรือใช้เบอร์ส่วนตัวจากแชท',{
+      decision:'OFFICIAL_CHANNEL_REQUIRED',actions:[['เลือกเจ้าหน้าที่ตามงาน',S.contact]],sources:[src('หน้าติดต่อทางการ',S.contact)]});
+    const product=/(?:ฉุกเฉิน|สามัญ|พัฒนาคุณภาพชีวิต|คุณภาพชีวิต|ไถ่ถอน|เคหะ)/.test(q);
+    if(product){
+      const routed=answerLegacy('เงินกู้ '+q);
+      if(routed.intent!=='fallback')return routed;
+    }
+    if(inquiry&&/(?<!ค้ำ)ประกัน|สินไหม|เวนคืน|กรมธรรม์/.test(q))return answerLegacy('เรื่องประกันสหกรณ์');
+    if(inquiry&&/(?:บัญชี|ชำระ|โอน).*(?:ค่าหุ้น|ทุนเรือนหุ้น)|(?:ค่าหุ้น|ทุนเรือนหุ้น).*(?:บัญชี|ชำระ|โอน)/.test(q))return answerLegacy('ชำระเงินค่าหุ้น');
+    if(inquiry&&/เอกสาร|แบบฟอร์ม|หน้าซอง|ไปรษณีย์/.test(q))return res('document_need_topic','ต้องการส่งหรือขอเอกสารเรื่องใดครับ? เลือกประเภทเพื่อให้ระบบพาไปแบบและช่องทางที่ตรงเรื่อง ไม่ใช้เอกสารของบริการอื่นแทน',{
+      decision:'NEED_INFO',requiredFact:'documentTopic',followups:['แบบฟอร์มเงินกู้','แบบฟอร์มสมาชิก','แบบฟอร์มสวัสดิการ','เอกสารฌาปนกิจ'],actions:[['แบบและเอกสารทางการ',S.memberForms],['สอบถามช่องทางส่งเอกสาร',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(inquiry&&/กู้|เงินคงเหลือ|เหลือหลังหัก.*หนี้|งวด|วงเงิน|อัตราดอกเบี้ย|ดอกเบี้ย|ยอดปิด|ประเมินหลักทรัพย์/.test(q)&&!loanProduct(q))return res('loan_product_clarification','ต้องการถามเงินกู้ประเภทใดครับ? เลือกประเภทก่อนเพื่อให้ระบบตรวจหลักเกณฑ์ วงเงิน งวด หรือเงื่อนไขสัญญาให้ตรงเรื่อง อายุสมาชิกหรือยอดที่แจ้งอย่างเดียวยังใช้ยืนยันสิทธิกู้ไม่ได้ และ AI ไม่ทราบผลคำขอเฉพาะราย',{
+      decision:'NEED_INFO',requiredFact:'loanProduct',followups:['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ'],actions:[['ประเภทและหลักเกณฑ์เงินกู้',S.procedure],['ตรวจคำขอของตนเอง',S.memberPortal]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
+    if(inquiry&&/สมาชิก/.test(q)&&/สมัคร/.test(q))return answerLegacy('สมัครสมาชิก');
+    if(inquiry&&/วันที่\s*\d|กำหนด|วันทำการ/.test(q)&&/เสาร์|อาทิต(?:ย์)?|วันหยุด|เลื่อนวันทำการ/.test(q))return res('deadline_need_topic','เป็นกำหนดยื่นเอกสาร ชำระเงิน หรือวันเปิดทำการครับ? ต้องทราบเรื่องก่อนตรวจข้อกำหนดวันหยุด ระบบยังไม่ยืนยันว่าต้องเลื่อนก่อนหรือหลัง ให้ระบุประเภทกำหนดแล้วเปิดประกาศที่เกี่ยวข้อง หรือให้เจ้าหน้าที่ผู้รับเรื่องยืนยันก่อนถึงกำหนด',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DEADLINE_TOPIC_AND_RULE',requiredFact:'deadlineTopic',actions:[['ประกาศปัจจุบัน',S.notices],['ยืนยันกับเจ้าหน้าที่',S.contact]],sources:[src('ประกาศทางการ',S.notices)]});
+    return r;
+  }
+
   function answer(input){
     const q=norm(input),check=freshnessStatus(q);
     if(!check.allowed)return F.lock(check,sourceRegistry);
+    if(/หนังสือ.*(?:ไม่ได้เป็นสมาชิก|ไม่เป็นสมาชิก)/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
+    if(/ฌาปนกิจ/.test(q)&&/(?:รหัส|หมายเลข|เลข(?:ที่)?)\s*สมาชิก/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
+    if(/กู้/.test(q)&&/บัตรประชาชน|บัตรข้าราชการ/.test(q)&&/ด้านหลัง|ต้องเปลี่ยนบัตร/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
+    if(/ยอดปิด/.test(q)&&/บริษัท|ธนาคาร|ไฟแนน|ลีสซิ่ง|ลิสซิ่ง/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
+
+    if(/ไลน์ส่วนตัว|ไลท์ส่วนตัว/.test(q)&&/ขอ|ไหม|มั้ย|สอบถาม/.test(q))return recoverMemberRoute(q,{intent:'fallback'});
+    // Election and reward requests must not inherit a loan or transfer route.
+    if(/เลือกตั้ง|ผู้สมัคร.*(?:กรรมการ|ประธาน)|ผล.*ประชุม|มติ.*ประชุม|รางวัล/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
+
+    // A pure form request should reach the existing product form mapping before eligibility.
+    const formProduct=loanProduct(q);
+    if(formProduct&&/(?:ใช้|ขอ)แบบฟอร์ม|แบบฟอร์มเงินกู้/.test(q)&&!/กู้ได้|สิทธิ|คุณสมบัติ|วงเงิน|ผู้ค้ำ|ค้ำประกัน|เฟส|phase/.test(q)){
+      const productNames={ordinaryLoanCurrent:'กู้สามัญ',emergencyLoanCurrent:'กู้ฉุกเฉิน',qualityOfLifeCurrent:'กู้พัฒนาคุณภาพชีวิต',specialHousingCurrent:'กู้เคหะ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนองบ้าน',education:'กู้เพื่อการศึกษา',disaster:'กู้ภัยพิบัติ'};
+      return answerLegacy('แบบฟอร์ม '+productNames[formProduct]);
+    }
+
+    if(/สมาชิก.*สหกรณ์(?:ออมทรัพย์)?\s*อื่น|สหกรณ์.*อื่น.*สมาชิก/.test(q)&&/สมัคร|เป็นสมาชิก.*(?:ได้|ไหม)/.test(q))return res('membership_other_cooperative_review','การเป็นสมาชิกสหกรณ์อื่นต้องตรวจคุณสมบัติและข้อจำกัดตามข้อบังคับสมาชิกปัจจุบันครับ การไม่มีหนี้ที่สหกรณ์อื่นยังไม่เพียงพอให้ AI ยืนยันสิทธิสมัคร ให้เปิดใบสมัครและให้ฝ่ายทะเบียนตรวจกรณีสมาชิกซ้ำก่อนชำระหรือยื่น',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_CONCURRENT_MEMBERSHIP_RULE',actions:[['ใบสมัครสมาชิกทางการ',S.memberApplication],['ติดต่อฝ่ายทะเบียน',S.contact]],sources:[src('ใบสมัครสมาชิก',S.memberApplication),src('งานทะเบียนทางการ',S.memberForms)]});
+    if(/ชำระ|จ่าย|ส่ง.*(?:งวด|เงินกู้)/.test(q)&&/กำหนด|ครบกำหนด|วันที่\s*\d/.test(q)&&/เสาร์|อาทิต(?:ย์)?|วันหยุด|เลื่อน/.test(q))return res('payment_deadline_review','กำหนดชำระตรงวันหยุดต้องตรวจข้อกำหนดการรับชำระและวันที่บันทึกรายการของช่องทางนั้นครับ AI ยังไม่ยืนยันว่าเลื่อนไปวันทำการถัดไปได้ ให้เปิดประกาศปัจจุบันและสอบถามงานรับชำระก่อนครบกำหนด; หากชำระแล้วให้ตรวจรายการจริงในระบบสมาชิก',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_PAYMENT_DEADLINE_RULE',actions:[['ประกาศปัจจุบัน',S.notices],['สอบถามงานรับชำระ',S.contact],['ตรวจรายการชำระ',S.memberPortal]],sources:[src('ประกาศทางการ',S.notices),src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/(?:เฟส|phase)\s*[12๑๒]/.test(q)&&/กู้|คำขอ|คุณสมบัติ|สมาชิก/.test(q))return res('loan_phase_review','โครงการเงินกู้ที่แบ่งเฟสต้องตรวจประกาศของโครงการ รอบที่เปิด และแบบคำขอที่ใช้ครับ AI ยังไม่ยืนยันว่าเฟสเดิมกับเฟสใหม่ใช้วงเงิน เงื่อนไข หรือแบบเดียวกัน ให้ระบุชื่อโครงการและดูประกาศปัจจุบัน; ผลเฉพาะรายตรวจในระบบสมาชิก',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_PROJECT_PHASE_RULE',requiredFact:'loanProject',actions:[['ประกาศปัจจุบัน',S.notices],['หลักเกณฑ์และแบบคำขอ',S.procedure],['ระบบสมาชิก',S.memberPortal],['เจ้าหน้าที่เงินกู้',S.contact]],sources:[src('ประกาศทางการ',S.notices),src('หลักเกณฑ์ทางการ',S.procedure)]});
+
+    // Keep the credit concern when the product is missing, before generic loan routing.
+    if(/บูโร|เครดิตยูโร/.test(q)&&!loanProduct(q)&&/(?:ไหม|มั้ย|สอบถาม|ตรวจ|ขอ)/.test(q))return recoverMemberRoute(q,{intent:'fallback'});
+
+    if(/(?:เปิดทำการ|เปิด.*ปกติ|(?:เว็บไซต์|เวปไซ[ดต]|เว็บ).*(?:เข้า|ล่ม|ใช้))/.test(q)&&/(?:ไหม|มั้ย|หรือยัง|รึยัง|สอบถาม)/.test(q))return recoverMemberRoute(q,{intent:'fallback'});
+
+    if(/กู้|คำขอ|อนุมัติ/.test(q)&&/(?:เหตุผล.*(?:ไม่อนุมัติ|ไม่ผ่าน)|(?:ไม่อนุมัติ|ไม่ผ่าน).*(?:เพราะ|เหตุผล)|(?:ติดต่อ|โทร).*(?:ไม่สะดวก|ไม่รับ|ไม่ได้).*(?:ไม่อนุมัติ|ไม่ผ่าน))/.test(q))return res('personal_handoff','เหตุที่คำขอไม่ผ่านต้องตรวจหนังสือแจ้งผล ข้อกำหนดที่อ้าง และข้อเท็จจริงของคำขอครับ AI ไม่ทราบเหตุผลของเจ้าหน้าที่และไม่ยืนยันว่าการติดต่อไม่ได้เป็นเหตุปฏิเสธตามหลักเกณฑ์ ให้ขอคำชี้แจงและฐานข้อกำหนดจากงานที่พิจารณาโดยตรง',{
+      privacy:true,decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DENIAL_REASON_AND_RULE',actions:[['ตรวจสถานะในระบบสมาชิก',S.memberPortal],['ขอคำชี้แจงจากเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/ถอน/.test(q)&&/(?:เงินฝาก|ออมทรัพย์)/.test(q)&&/(?:กู้|หลักประกัน|ค้ำ|จำนำสิทธิ|รออนุมัติ)/.test(q))return res('deposit_collateral_release','การถอนเงินฝากที่เกี่ยวกับคำขอกู้ต้องตรวจว่าส่วนใดถูกผูกเป็นหลักประกันและได้รับการปลดแล้วหรือไม่ครับ ระบบยังไม่ยืนยันสิทธิถอน การยื่นกู้ไม่ผ่านหรือซื้อหุ้นเพิ่มยังใช้ยืนยันสิทธิถอนไม่ได้ ให้เจ้าหน้าที่เงินฝากและเงินกู้ตรวจบัญชี สัญญา และหลักเกณฑ์ปัจจุบันก่อน',{
+      privacy:true,decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_COLLATERAL_RELEASE_RULE',actions:[['ตรวจบัญชีในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่เงินฝากและเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+
+    if(/(?<!ค้ำ)ประกัน|สินไหม|เวนคืน/.test(q)&&/แบบ(?:ฟอร์ม)?|เอกสาร|ดาวน์โหลด/.test(q))return res('insurance_document_request','ต้องการเอกสารประกันชีวิตเงินกู้ ประกันอัคคีภัย หรือขอสินไหม/เวนคืนครับ? ยังไม่ยืนยันแบบเฉพาะเรื่องจากต้นฉบับ จึงไม่ส่งแบบเงินกู้หรือแบบสมาชิกแทน ให้เลือกประเภทและขอแบบปัจจุบันจากเจ้าหน้าที่สหกรณ์',{
+      decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_INSURANCE_FORM_MAPPING',requiredFact:'insuranceDocumentKind',followups:['ประกันชีวิตเงินกู้','ประกันอัคคีภัย','สินไหมและเวนคืนประกัน'],actions:[['ขอเอกสารประกันจากช่องทางทางการ',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+
+    // A pledged deposit is a collateral-release question, not a personal-guarantor count.
+    if(/(?:เงินฝาก|ออมทรัพย์)/.test(q)&&/(?:ค้ำ|หลักประกัน)/.test(q)&&/(?:ถอน|ปลด|คืน|เปลี่ยน)/.test(q))return res('deposit_collateral_release','เงินฝากที่ใช้เป็นหลักประกันต้องตรวจเงื่อนไขสัญญาและการปลดหลักประกันก่อนครับ การซื้อหุ้นเพิ่มไม่ได้ยืนยันว่าหลักประกันเดิมถูกปลดแล้ว AI ยังไม่ยืนยันสิทธิถอน ให้เจ้าหน้าที่เงินฝากและเงินกู้ตรวจรายการจริงและหลักเกณฑ์ปัจจุบันก่อนดำเนินการ',{
+      privacy:true,decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_COLLATERAL_RELEASE_RULE',actions:[['ตรวจบัญชีในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่เงินฝากและเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)],details:['อย่าใช้เงื่อนไขจำนวนผู้ค้ำบุคคลมาตัดสินการถอนหลักประกันเงินฝาก']});
 
     // Mass-audit routes: preserve evidence boundaries for real member phrasing.
     if(/(?:เงินเดือน|เงินคงเหลือ).*(?:พอ|เพียงพอ).*(?:ฉ(?:\s|$)|ฉุกเฉิน|กู้ ฉ|กู้ฉ).*(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต)|(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต).*(?:เงินเดือน|เงินคงเหลือ).*(?:พอ|เพียงพอ).*(?:ฉุกเฉิน|กู้ ฉ|กู้ฉ)/.test(q))
@@ -2338,7 +2487,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const saved={};
     try{
       for(const [dom,id]of Object.entries(ruleIds)){if(!check.domains.includes(dom))continue;const v=F.versionAt(sourceRegistry,id,check.date);if(v){saved[id]=KB.ruleAuthority.rules[id];KB.ruleAuthority.rules[id]=v.values;}}
-      const r=answerLegacy(q);r.freshness={checkedAt:sourceRegistry.lastSyncAt,asOf:check.date,status:'CURRENT_GATE_PASSED'};return r;
+      const r=recoverMemberRoute(q,answerLegacy(q));r.freshness={checkedAt:sourceRegistry.lastSyncAt,asOf:check.date,status:'CURRENT_GATE_PASSED'};return r;
     }finally{for(const [id,value]of Object.entries(saved))KB.ruleAuthority.rules[id]=value;}
   }
   function applySourceMonitor(snapshot){sourceRegistry=F.mergeMonitor(sourceRegistry,snapshot);return {pending:sourceRegistry.documents.filter(d=>d.status==='PENDING'&&d.mayAffectRules).length,lastSyncAt:sourceRegistry.lastSyncAt};}
