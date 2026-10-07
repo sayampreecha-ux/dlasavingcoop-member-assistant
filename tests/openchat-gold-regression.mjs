@@ -155,5 +155,20 @@ for(const [q,personal,live,rule] of massCluster){
  if((personal||live)&&!(r.actions||[]).length&&!/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก|ประกาศ|แบบฟอร์ม|ขั้นตอน|แหล่ง|หลักฐาน|ติดต่อ/.test(all)) failures.push({q,group:'mass-personal-live-dead-end'});
  if(rule&&!(r.sources||[]).length&&!/EVIDENCE|LOCK|PENDING|VERIFY|HANDOFF/.test(String(r.decision||'')+' '+String(r.evidenceState||''))&&!/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก|ประกาศ|แบบฟอร์ม|ขั้นตอน|แหล่ง|หลักฐาน|ติดต่อ/.test(all)) failures.push({q,group:'mass-rule-no-boundary'});
 }
+// Root-cause guards from the private 3,378-case mass audit. All cases are de-identified representatives.
+const massRootCause=[
+ ['[MENTION] เงินสวัสดิการสมาชิกได้รับอนุมัติแล้ว ไม่ทราบว่าจะโอนภายในช่วงไหนคะ','live_schedule'],
+ ['[MENTION] สอบถามการสมัครสมาชิก สฌ','funeral'],
+ ['[MENTION] สอบถามคะ การค้ำประกันนับแบบบุคคลหรือนับสัญญาค้ำคะ','guarantor_center'],
+ ['ขออนุญาตสอบถามค่ะ ส่งเอกสารขอสวัสดิการไปที่ไหนคะ','welfare_contact'],
+ ['สอบถามค่ะ ใช้เวลาเวนคืนเงินประกันนานไหมคะ','insurance']
+];
+for(const [q,intent] of massRootCause){
+ const r=A(q),all=[r?.answer,...(r?.details||[])].join(' ');
+ if(!r||!String(r.answer||'').trim()) failures.push({q,group:'mass-root-empty'});
+ if(r?.intent==='fallback') failures.push({q,group:'mass-root-fallback'});
+ if(intent&&r?.intent!==intent&&r?.intent!=='freshness_evidence_lock') failures.push({q,group:'mass-root-route',got:r?.intent,want:intent});
+ if(/ได้รับอนุมัติแล้ว|ผ่านแน่นอน|เงินจะเข้าแน่นอน|อนุมัติแน่นอน|กู้ผ่านแน่นอน/.test(all)) failures.push({q,group:'mass-root-unsafe'});
+}
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,round4:round4.length,round5:round5.length,total:cases.length+round2.length+round3.length+round4.length+round5.length+edge.length+massCluster.length},null,2));
