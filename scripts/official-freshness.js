@@ -19,7 +19,7 @@
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
     if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
-    if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text))add('welfare');
+    if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม/.test(text)&&/กู้/.test(text))add('educationLoan');
     if(/ภัยพิบัติ|น้ำท่วม/.test(text)&&/กู้/.test(text))add('disasterLoan');
@@ -62,16 +62,27 @@
     if(!valid.length||valid.filter(v=>v.effectiveFrom===valid[0].effectiveFrom).length>1)return null;
     return valid[0];
   }
-  function pendingFor(registry,ds,date){return (registry.documents||[]).filter(d=>d.status==='PENDING'&&d.mayAffectRules===true&&(d.affects||[]).some(x=>ds.includes(x))&&(!d.effectiveDate||!date||d.effectiveDate<=date));}
+  function documentScope(doc,text=''){
+    const declared=doc.affects||[];
+    let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
+    const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
+    const requested=domains(text).filter(x=>loanDomains.includes(x));
+    const titled=domains(doc.title||'').filter(x=>loanDomains.includes(x));
+    if(requested.length===1&&titled.length&&!titled.includes(requested[0]))scope=scope.filter(x=>x!=='guarantor');
+    // A named specialised loan does not govern every ordinary-loan inquiry.
+    if(/พักผ่อน/.test(doc.title||'')&&!/พักผ่อน/.test(text))return [];
+    return scope;
+  }
+  function pendingFor(registry,ds,date,text=''){return (registry.documents||[]).filter(d=>d.status==='PENDING'&&d.mayAffectRules===true&&documentScope(d,text).some(x=>ds.includes(x))&&(!d.effectiveDate||!date||d.effectiveDate<=date));}
   function gate(registry,text,{now=new Date(),personal=false}={}){
     const ds=queryDomains(text),time=asOf(text,now);
     if(personal||!ds.length||/^(?:เบอร์โทร|ติดต่อ|รายชื่อเจ้าหน้าที่)/.test(text))return {allowed:true,domains:ds,...time};
     if(time.date&&time.date>asOf('ตอนนี้',now).date)return {allowed:false,reason:'FUTURE_RULE_NOT_CONFIRMED',documents:[],domains:ds,...time};
-    const pending=pendingFor(registry,ds,time.date);
+    const pending=pendingFor(registry,ds,time.date,text);
     if(pending.length)return {allowed:false,reason:'PENDING_DOCUMENT',documents:pending,domains:ds,...time};
     const stale=(registry.monitors||[]).filter(m=>m.domains.some(x=>ds.includes(x))&&(!m.lastSuccessfulCheck||now-new Date(m.lastSuccessfulCheck)>(registry.policy.maxIndexAgeHours||72)*3600000||new Date(m.lastSuccessfulCheck)>now));
     if(stale.length)return {allowed:false,reason:'STALE_SOURCE',documents:[],sources:stale,domains:ds,...time};
-    const oldBytes=(registry.documents||[]).filter(d=>d.status==='CURRENT'&&d.contentHash&&(d.affects||[]).some(x=>ds.includes(x))&&(!d.lastContentCheck||now-new Date(d.lastContentCheck)>(registry.policy.maxPrimaryAgeHours||336)*3600000));
+    const oldBytes=(registry.documents||[]).filter(d=>d.status==='CURRENT'&&d.contentHash&&documentScope(d,text).some(x=>ds.includes(x))&&(!d.lastContentCheck||now-new Date(d.lastContentCheck)>(registry.policy.maxPrimaryAgeHours||336)*3600000));
     if(oldBytes.length)return {allowed:false,reason:'STALE_PRIMARY_DOCUMENT',documents:[],sources:oldBytes.map(d=>({url:d.officialIndexUrl})),domains:ds,...time};
     return {allowed:true,domains:ds,...time};
   }
