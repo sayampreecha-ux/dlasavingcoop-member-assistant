@@ -665,7 +665,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
 
   function norm(s=''){
-    let q=String(s).toLowerCase().trim().replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ');
+    let q=String(s).toLowerCase().trim().replace(/(?:^|\\s)@[^\\s]+/g,' ').replace(/\\[(?:mention|member_id|phone|national_id)\\]/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\\s+/g,' ').trim();
     const fixes=[
       [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],
       [/ฌาปณกิจ|ฌาปกิจ|ชาปนกิจ|ฌาปะนกิจ|ฌาปนกิต/g,'ฌาปนกิจ'],
@@ -675,7 +675,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       [/ย้ายสังกัด|ย้ายหน่วยงาน|ย้ายที่ทำงาน|ย้าย อปท\.?|โยกย้าย|สมาชิกย้าย/g,'โอนย้ายสมาชิก'],
       [/สมัครฌาปนกิจ|สมัครชาปนกิจ/g,'สมัครฌาปนกิจ'],
       [/เงนฝาก|เงินฝา่ก|เงิฝาก/g,'เงินฝาก'],[/แบบฟอม|แบบฟอร์ม์/g,'แบบฟอร์ม'],
-      [/หนุ้|หุ้น|หุน(?=รายเดือน|เพิ่ม|สหกรณ์)/g,'หุ้น'],[/ยืนยันยออด|ยืนย้นยอด/g,'ยืนยันยอด'],[/ผุ้ค้ำ|ผู้คำประกัน/g,'ผู้ค้ำประกัน']
+      [/หนุ้|หุ้น|หุน(?=รายเดือน|เพิ่ม|สหกรณ์)/g,'หุ้น'],[/ยืนยันยออด|ยืนย้นยอด/g,'ยืนยันยอด'],[/ผุ้ค้ำ|ผู้คำประกัน/g,'ผู้ค้ำประกัน'],[/ส\\.?ฌ\\.?/g,'ฌาปนกิจ']
     ];
     fixes.forEach(([re,to])=>q=q.replace(re,to));
     return q;
@@ -2189,6 +2189,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       sources:[src('วิธีการชำระเงิน',S.payment),src('หน้าติดต่อเจ้าหน้าที่',S.contact)]
     });
 
+    // Domain rescue for short/spoken member questions. Keep evidence and privacy boundaries;
+    // never infer a numeric entitlement or live member outcome from an underspecified phrase.
+    if(/(?:ผู้ค้ำ|คนค้ำ|ค้ำประกัน)/.test(q)) return res('guarantor_center','เรื่องผู้ค้ำต้องแยกก่อนว่าเป็น “หลักเกณฑ์ผู้ค้ำ” หรือ “สถานะผู้ค้ำของสมาชิก” ครับ ระบบจะไม่เดาจำนวน/สิทธิเมื่อคำถามยังไม่ครบ',{decision:'GUIDED_GUARANTOR',actions:[['หลักเกณฑ์เงินกู้/ผู้ค้ำ',S.procedure],['ตรวจข้อมูลสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์ทางการ',S.procedure)],followups:['ถามหลักเกณฑ์ผู้ค้ำ','ตรวจว่าฉันค้ำใครอยู่','เปลี่ยนผู้ค้ำ']});
+    if(/สวัสดิการ/.test(q)&&/(?:ส่ง|เอกสาร|ที่ไหน|ที่อยู่|ยื่น|ขอรับ)/.test(q)) return res('welfare_contact','การยื่นสวัสดิการให้เลือกประเภทสวัสดิการและใช้แบบ/ช่องทางทางการของประเภทนั้นครับ หากยังไม่ระบุประเภท ระบบจะไม่เดาเอกสารหรือสิทธิ',{decision:'GUIDED_WELFARE',actions:[['แบบและหลักเกณฑ์สวัสดิการ',S.welfareForms],['ช่องทางติดต่อทางการ',S.contact]],sources:[src('แบบและหลักเกณฑ์สวัสดิการ',S.welfareForms)],followups:['สาธารณภัย','คลอดบุตร','ทุนการศึกษาบุตร','สมาชิกเสียชีวิต']});
+    if(/(?:ประกันชีวิต|เงินประกัน|เวนคืน.*ประกัน|ประกัน.*เงินกู้)/.test(q)) return res('insurance','เรื่องประกันที่เกี่ยวกับเงินกู้ต้องตรวจเงื่อนไขกรมธรรม์/หลักเกณฑ์ที่ใช้กับสัญญาจริงครับ ระบบจะไม่เดาเบี้ย อัตราคืน หรือความคุ้มครองจากข้อความเก่า',{decision:'EVIDENCE_REQUIRED',actions:[['ตรวจหลักเกณฑ์ทางการ',S.procedure],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
+
     const fuzzy=fuzzyCanonical(q);
     if(fuzzy && fuzzy!==q) return answer(fuzzy);
 
@@ -2246,7 +2252,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function freshnessStatus(input,now=new Date()){
     const q=norm(input);
     const privateOnly=personal(q)&&/ยอดหนี้|ยอดหุ้น|ยอดเงินฝาก|สถานะ|อนุมัติหรือยัง|otp|password|รหัสผ่าน|ไม่ผ่าน|ถูกปฏิเสธ/i.test(q);
-    const check=F.gate(sourceRegistry,q,{now,personal:privateOnly});
+    const operationalOnly=/(?:สถานะ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง|เงิน.*(?:เข้า|โอน).*(?:เมื่อไร|เมื่อไหร่|วันไหน|ช่วงไหน|หรือยัง)|เอกสาร.*(?:ถึง|ลงรับ|รอตรวจ|ได้รับ|ไม่ผ่าน)|คิว|รอบประชุม|ตัดรอบ|หัก.*(?:เงินเดือน|ชำระ).*(?:ไม่ลด|ไม่ขึ้น|ไม่ตัด|ยังไม่)|(?:เช็ค|เช็ก|ตรวจ|ดู).*(?:ยอด|หุ้น|หนี้|เงินฝาก|ค้ำประกันใคร|ค้ำใคร))/.test(q);
+    const check=F.gate(sourceRegistry,q,{now,personal:privateOnly||operationalOnly});
     if(!check.allowed||privateOnly)return check;
     for(const dom of check.domains){const id=ruleIds[dom];if(!id)continue;const v=F.versionAt(sourceRegistry,id,check.date);if(!check.historical&&(!v||v.status!=='CURRENT'))return {...check,allowed:false,reason:'NO_CURRENT_RULE'};}
     return check;
@@ -2273,7 +2280,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return res('personal_handoff','เงินเดือนหรือเงินคงเหลือเพียงพออย่างเดียว ยังใช้สรุปไม่ได้ว่าต้องปิดหรือไม่ต้องปิดเงินกู้ฉุกเฉินครับ ต้องตรวจหลักเกณฑ์ที่ใช้กับสัญญาทั้งสองประเภทและสถานะสัญญาจริงของสมาชิกก่อน',{privacy:true,decision:'VERIFY_MEMBER_CONTRACTS',actions:[['ตรวจหลักเกณฑ์เงินกู้',S.procedure],['ตรวจข้อมูลในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
     if(/(?:ผลการอนุมัติ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง).*(?:พัฒนาคุณภาพชีวิต|เงินกู้)|(?:พัฒนาคุณภาพชีวิต|เงินกู้).*(?:ผลการอนุมัติ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง)/.test(q))
       return res('status_center','ผลอนุมัติเป็นข้อมูลสถานะรายคำขอครับ ให้ตรวจสถานะล่าสุดในระบบสมาชิกหรือกับเจ้าหน้าที่ ระบบนี้ไม่เดาผลอนุมัติแทนสหกรณ์',{privacy:true,decision:'LIVE_STATUS_REQUIRED',actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('เว็บไซต์สหกรณ์',S.home)]});
-    if(/(?:สวัสดิการ).*(?:โอนวันไหน|โอนเมื่อไหร่|เงินเข้าเมื่อไหร่|เงินเข้าวันไหน)/.test(q))
+    if(/(?:สวัสดิการ).*(?:โอนวันไหน|โอนเมื่อไหร่|โอนภายในช่วงไหน|โอนช่วงไหน|เงินเข้าเมื่อไหร่|เงินเข้าวันไหน)/.test(q))
       return res('live_schedule','วันโอนสวัสดิการเป็นข้อมูลรายรอบครับ ให้ตรวจประกาศล่าสุดหรือสถานะกับเจ้าหน้าที่ ระบบไม่ใช้กำหนดการรอบเก่าฟันธงวันเงินเข้า',{decision:'LIVE_SCHEDULE_REQUIRED',actions:[['ประกาศล่าสุด',S.notices],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices)]});
     if(/(?:สนใจ|อยาก|ต้องการ).*(?:กู้|เงินกู้).*(?:แนะนำ|โครงการ|แบบไหน)|(?:แนะนำ).*(?:เงินกู้|โครงการกู้)/.test(q))
       return res('loan_product_guide','เลือกประเภทเงินกู้ควรเริ่มจากวัตถุประสงค์ วงเงินที่ต้องการ สถานะสมาชิก ภาระหนี้ และหลักประกันครับ ระบบจะไม่รับรองผลการพิจารณาจากข้อมูลที่ยังไม่ครบ',{decision:'GUIDED_INTAKE',actions:[['ดูประเภทและหลักเกณฑ์เงินกู้',S.procedure],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
