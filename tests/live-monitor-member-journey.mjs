@@ -49,7 +49,8 @@ if(process.argv[1]===new URL(import.meta.url).pathname){
   if(/ประกันชีวิต/.test(q))assert.doesNotMatch(text,/ระเบียบเงินกู้ฉุกเฉิน/);
   if(/ยอดหุ้นของผม|ยอดยังไม่ขึ้น|รหัสผ่าน/.test(q))assert.ok(r.actions.some(x=>x[1]==='https://member.dlasavingcoop.com/coop/'));
   if(q==='ขอแบบฟอร์มกู้ฉุกเฉิน')assert.ok(r.actions.some(x=>/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/.test(x[1])));
-  if(q.includes('ย้าย')&&last)assert.doesNotMatch(r.answer,/ต้องแยกก่อน/);
+  if(q==='ขอแบบฟอร์มกู้ฉุกเฉิน'||q==='อยากกู้เงินแต่ไม่รู้ต้องเลือกแบบไหน')assert.doesNotMatch(JSON.stringify([r.actions,r.sources]),/1QQo5g|No=774|งานเงินกู้สามัญ/,'footer must not infer ordinary loan');
+  if(q.includes('ย้าย')&&last)assert.doesNotMatch(r.answer,/ต้องแยกก่อน|หมายถึง.*ย้ายต้นสังกัด/);
   count++;
  }
  const reg=journeyMonitor(loadMemberEngine()),now=new Date(reg.lastSyncAt);

@@ -17,7 +17,8 @@ try{for(const width of [390,1365]){
   if(last){await page.locator('#out .follow').getByRole('button',{name:nextOrExpected,exact:true}).click();await page.locator('#out .body').waitFor();text=await read();}
   assert.match(text,last||nextOrExpected,q+' at '+width);
   if(/น้ำท่วม|สวัสดิการ/.test(q))assert.doesNotMatch(text,/รับฝากเงิน.*ฌาปนกิจ/);
-  if(q.includes('ย้าย')&&last)assert.doesNotMatch(await page.locator('#out .body').textContent(),/ต้องแยกก่อน/);
+  if(q==='ขอแบบฟอร์มกู้ฉุกเฉิน'||q==='อยากกู้เงินแต่ไม่รู้ต้องเลือกแบบไหน')assert.equal(await page.locator('#out a[href*="1QQo5g"],#out a[href*="No=774"]').count(),0,'footer must not infer ordinary loan');
+  if(q.includes('ย้าย')&&last)assert.doesNotMatch(await page.locator('#out .body').textContent(),/ต้องแยกก่อน|หมายถึง.*ย้ายต้นสังกัด/);
   assert.ok(await page.locator('#out .actions a,#out .follow button').count(),'no practical next step');pass++;
  }
  // Exact menu controls must work as well as equivalent typed questions.
