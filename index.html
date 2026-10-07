@@ -1609,6 +1609,24 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/^(?:เบอร์โทร|ติดต่อ|ติดต่อสหกรณ์)$/.test(q))return res('contact','ตรวจเบอร์โทรและช่องทางปัจจุบันได้จากหน้าติดต่อทางการครับ',{actions:[['หน้าติดต่อทางการ',S.contact]],sources:[src('หน้าติดต่อสหกรณ์',S.contact)]});
     if(!q) return res('empty','พิมพ์คำถามได้เลย เช่น “สวัสดิการมีกี่แบบ” หรือ “ขอใบสมัครสมาชิก”',{status:'พร้อมตอบ'});
 
+    // Real-member OpenChat routing: dynamic/personal questions must go to a safe
+    // live-status or account handoff instead of fallback or an unrelated loan rule.
+    if(/(?:เอกสาร|คำขอ).*(?:ผ่าน|ลงรับ|รอตรวจ|ไม่ผ่าน|รอบันทึก|ไม่มีชื่อ|ติดอะไร|ถึงสหกรณ์)/.test(q)){
+      if(/(?:เงิน.*เข้า|โอน.*วัน|วันไหน|เมื่อไร|เมื่อไหร่|เข้าประชุม|รอบนี้|ทันรอบ)/.test(q))
+        return res('live_schedule','สถานะและวันโอนเป็นข้อมูลรายรอบครับ ระบบไม่ฟันธงจากข้อความเก่า ให้ตรวจประกาศ/สถานะล่าสุด และหากเป็นรายการของสมาชิกให้ตรวจในระบบสมาชิกก่อน',{privacy:true,actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ประกาศล่าสุด',S.notices],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices)]});
+      return res('status_center','ผมบอกสถานะเฉพาะรายการจากข้อความอย่างเดียวไม่ได้ครับ ให้ตรวจสถานะในระบบสมาชิกก่อน หากสถานะค้าง/ไม่ผ่านและไม่มีเหตุผล ให้ติดต่อเจ้าหน้าที่ตามงานเพื่อให้ตรวจรายการจริง',{privacy:true,actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('เว็บไซต์สหกรณ์',S.home)]});
+    }
+    if(/(?:เช็ค|ตรวจ|ดู).*(?:ติดค้ำ|ค้ำประกันใคร|ค้ำใคร)/.test(q))
+      return memberSelfService(q);
+    if(/ผู้ค้ำ.*(?:เสียชีวิต|ถึงแก่กรรม)/.test(q))
+      return res('loan_change_guarantor','กรณีผู้ค้ำเสียชีวิต ต้องให้สหกรณ์ตรวจสัญญาและสถานะผู้ค้ำจริงก่อนดำเนินการเปลี่ยนผู้ค้ำครับ ระบบไม่เดาว่าต้องใช้ผู้ค้ำใหม่กี่คน',{decision:'PROCEDURE_INFORMATION',actions:[['แบบ/หลักเกณฑ์เงินกู้สามัญ',S.ordinaryLoanForms],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์และแบบเงินกู้สามัญ',S.ordinaryLoanForms)]});
+    if(/(?:ปิดยอด|ปิดหนี้).*(?:ฉุกเฉิน).*(?:ยังหัก|หัก.*ฎีกา|หัก.*เงินเดือน)/.test(q))
+      return res('payment','หากปิดยอดแล้วแต่ต้นสังกัดยังหักเงิน ให้ตรวจยอดจริงในระบบสมาชิกและแจ้งหลักฐานการหักแก่สหกรณ์เพื่อกระทบยอดครับ ไม่ควรสรุปเองว่าเป็นยอดเกินจนกว่าสหกรณ์ตรวจรายการ',{privacy:true,actions:[['ตรวจยอดในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['วิธีชำระ/ติดต่อ',S.payment],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ช่องทางชำระเงินทางการ',S.payment)]});
+    if(/(?:ครบ.*งวด|ยื่น).*(?:ระบบยังไม่ตัด|ยังไม่ตัดชำระ|วันเปลี่ยน|สิ้นสุดหลักเกณฑ์|ตรวจหลังวันสิ้นสุด|ใช้เกณฑ์ไหน)/.test(q))
+      return res('personal_handoff','กรณีวันยื่น วันตัดชำระ และวันมีผลของหลักเกณฑ์คาบเกี่ยวกัน ต้องตรวจวันที่รายการจริงกับเอกสารฉบับที่มีผลในวันนั้นก่อนครับ ระบบจึงไม่เดาสิทธิจากจำนวนงวดหรือวันที่ในข้อความเพียงอย่างเดียว',{decision:'NEED_ACCOUNT_AND_EFFECTIVE_DATE',privacy:true,actions:[['หลักเกณฑ์ทางการ',S.procedure],['ตรวจข้อมูลสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('หลักเกณฑ์/ระเบียบทางการ',S.procedure)]});
+    if(/โอนเงิน.*(?:ธกส|กรุงไทย|ธนาคาร).*(?:พร้อม|วันไหน|เมื่อไร|เมื่อไหร่)/.test(q))
+      return res('live_schedule','รอบโอนและเวลาที่เงินเข้าต่างธนาคารเป็นข้อมูลรายรอบครับ ให้ตรวจประกาศ/สถานะล่าสุดของรายการ ไม่ควรยึดเวลาจากรอบเก่า',{privacy:true,actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ประกาศล่าสุด',S.notices]],sources:[src('ประกาศทางการ',S.notices)]});
+
     // Verified historical/current-rule guard from official cooperative evidence.
     // Never apply a dated threshold outside its verified effective window.
     if(/(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม).*(?:เงินเหลือ|รายได้คงเหลือ|กู้สามัญ)|(?:เงินเหลือ|รายได้คงเหลือ).*(?:หลักเกณฑ์เดิม|ก่อน.*30.*มิถุนายน|ก่อน.*1.*กรกฎาคม)/i.test(q)){
@@ -2249,6 +2267,17 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function answer(input){
     const q=norm(input),check=freshnessStatus(q);
     if(!check.allowed)return F.lock(check,sourceRegistry);
+
+    // High-priority real-member routing. These are operational/account questions,
+    // so route before generic loan classification and never infer a live outcome.
+    if(/รอบันทึกข้อมูล/.test(q)&&/(?:ประชุม|รอบนี้|ทันรอบ)/.test(q))
+      return res('live_schedule','สถานะเข้ารอบประชุมเป็นข้อมูลรายรอบครับ ให้ตรวจสถานะล่าสุดในระบบสมาชิกหรือกับเจ้าหน้าที่ ไม่ใช้ข้อความจากรอบเก่าฟันธง',{privacy:true,actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ประกาศล่าสุด',S.notices],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices)]});
+    if(/(?:เช็ค|เช็ก|ตรวจ|ดู).*(?:ติดค้ำ|ค้ำประกันใคร|ค้ำใคร)/.test(q))
+      return res('member_self_service','ข้อมูลว่าปัจจุบันสมาชิกค้ำประกันใครอยู่เป็นข้อมูลเฉพาะบัญชีครับ ให้ตรวจในระบบสมาชิกก่อน หากรายการไม่ตรงให้เจ้าหน้าที่เงินกู้ตรวจสัญญาจริง',{privacy:true,actions:[['ตรวจข้อมูลในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('เว็บไซต์สหกรณ์',S.home)]});
+    if(/ผู้ค้ำ.*(?:เสียชีวิต|ถึงแก่กรรม)/.test(q))
+      return res('loan_change_guarantor','กรณีผู้ค้ำเสียชีวิต ต้องให้สหกรณ์ตรวจสัญญาและสถานะผู้ค้ำจริงก่อนดำเนินการเปลี่ยนผู้ค้ำครับ ระบบไม่เดาจำนวนผู้ค้ำใหม่',{decision:'PROCEDURE_INFORMATION',actions:[['แบบ/หลักเกณฑ์เงินกู้สามัญ',S.ordinaryLoanForms],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์และแบบเงินกู้สามัญ',S.ordinaryLoanForms)]});
+    if(/(?:ปิดยอด|ปิดหนี้).*ฉุกเฉิน.*(?:ยังหัก|หัก.*ฎีกา|หัก.*เงินเดือน)/.test(q))
+      return res('payment','หากปิดยอดแล้วแต่ต้นสังกัดยังหักเงิน ให้ตรวจยอดจริงในระบบสมาชิกและแจ้งหลักฐานการหักแก่สหกรณ์เพื่อกระทบยอดครับ ไม่สรุปเองว่าเป็นยอดเกินจนกว่าสหกรณ์ตรวจรายการ',{privacy:true,actions:[['ตรวจยอดในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['วิธีชำระ/ติดต่อ',S.payment],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ช่องทางชำระเงินทางการ',S.payment)]});
     // Historical free text never falls through into hard-coded current branches.
     if(check.historical){
       if(/หลักเกณฑ์เดิมก่อน 30 มิถุนายน/.test(q))return answerLegacy(q);

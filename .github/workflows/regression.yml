@@ -40,6 +40,8 @@ jobs:
           }
           for(const d of c.domains) if(!d.status) throw new Error('domain without evidence status: '+d.id);
           NODE
+      - name: OpenChat real-member gold regression
+        run: node tests/openchat-gold-regression.mjs
       - name: Validate all 69 real legacy LINE questions
         run: node tests/validate-legacy-line-69.cjs
       - name: Validate legacy LINE acceptance contract
