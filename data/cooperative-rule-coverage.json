@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0",
-  "verifiedAt": "2026-10-05",
+  "verifiedAt": "2026-10-07",
   "policy": {
     "authority": "Official cooperative bylaws/regulations/announcements and primary documents only",
     "legacyAnswers": "NEVER_AUTHORITY",
@@ -25,7 +25,11 @@
     {
       "id": "memberDeposits",
       "name": "เงินฝากสมาชิก",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "VERIFIED_PROCEDURE_CURRENT_CHECK_REQUIRED",
+      "primarySources": [
+        "https://www.dlasavingcoop.com/show.php?No=807",
+        "https://www.dlasavingcoop.com/show.php?No=3993"
+      ]
     },
     {
       "id": "cashManagement",
@@ -50,7 +54,10 @@
     {
       "id": "specialLoan",
       "name": "เงินกู้พิเศษ",
-      "status": "PARTIAL_VERIFIED"
+      "status": "VERIFIED_CURRENT_INDEX",
+      "primarySources": [
+        "https://www.dlasavingcoop.com/show.php?No=2385"
+      ]
     },
     {
       "id": "debtRestructuring",
@@ -60,7 +67,10 @@
     {
       "id": "debtCompromise",
       "name": "ประนอมหนี้",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "PRIMARY_REGULATION_INDEXED",
+      "primarySources": [
+        "https://www.dlasavingcoop.com/show.php?Category=procedure"
+      ]
     },
     {
       "id": "procurement",
@@ -185,7 +195,10 @@
     {
       "id": "membership",
       "name": "สมัคร/กลับเข้าเป็นสมาชิก",
-      "status": "PARTIAL_VERIFIED"
+      "status": "VERIFIED_FORMS_AND_PROCEDURE",
+      "primarySources": [
+        "https://www.dlasavingcoop.com/show.php?No=772"
+      ]
     },
     {
       "id": "funeralAssociation",
@@ -209,7 +222,13 @@
     {
       "id": "forms",
       "name": "แบบฟอร์ม/เอกสาร",
-      "status": "SOURCE_ROUTING"
+      "status": "VERIFIED_DIRECT_ROUTING",
+      "primarySources": [
+        "https://www.dlasavingcoop.com/show.php?No=772",
+        "https://www.dlasavingcoop.com/show.php?No=2385",
+        "https://www.dlasavingcoop.com/show.php?No=775",
+        "https://www.dlasavingcoop.com/show.php?No=807"
+      ]
     },
     {
       "id": "notices",
@@ -233,6 +252,30 @@
     "funeralAssociationBylaws": {
       "status": "PRIMARY_BYLAWS_FOUND_2567_REQUIRES_AMENDMENT_CHECK",
       "source": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view?usp=drivesdk"
+    }
+  },
+  "serviceCoverageAudit": {
+    "auditedAt": "2026-10-07",
+    "principle": "Natural-language gateway; official evidence before rights/rates/eligibility; every unresolved case must have a next action.",
+    "services": {
+      "membership": "PASS",
+      "shares": "PASS",
+      "deposits": "PASS",
+      "emergencyLoan": "PASS",
+      "ordinaryLoan": "PASS",
+      "specialLoan": "PASS",
+      "guarantor": "PASS",
+      "welfare": "PASS",
+      "funeralAssociation": "PARTIAL",
+      "debtCompromise": "PARTIAL",
+      "payments": "PASS",
+      "forms": "PASS",
+      "notices": "PASS",
+      "memberTransactions": "PASS"
+    },
+    "blocked": {
+      "funeralAssociation": "Current bylaws/forms are indexed but amendment extraction/version chain is not fully encoded.",
+      "debtCompromise": "Primary regulation is discoverable but member-facing eligibility/decision rules are not fully extracted."
     }
   }
 }
