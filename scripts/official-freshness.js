@@ -73,7 +73,17 @@
     if(/พักผ่อน/.test(doc.title||'')&&!/พักผ่อน/.test(text))return [];
     return scope;
   }
-  function pendingFor(registry,ds,date,text=''){return (registry.documents||[]).filter(d=>d.status==='PENDING'&&d.mayAffectRules===true&&documentScope(d,text).some(x=>ds.includes(x))&&(!d.effectiveDate||!date||d.effectiveDate<=date));}
+  function removedArchiveHasCurrentEvidence(registry,doc,ds,date){
+    if(doc.pendingReason!=='PRIMARY_LINK_REMOVED'||!date)return false;
+    const versions=(registry.ruleVersions||[]).filter(v=>v.documentId===doc.id);
+    const archived=versions.length?versions.every(v=>v.effectiveTo&&v.effectiveTo<date):doc.removedNonGoverningBaseline===true;
+    if(!archived)return false;
+    return documentScope(doc).filter(x=>ds.includes(x)).every(domain=>(registry.ruleVersions||[]).some(v=>{
+      const current=registry.documents.find(d=>d.id===v.documentId);
+      return v.domain===domain&&v.status==='CURRENT'&&v.effectiveFrom<=date&&(!v.effectiveTo||date<=v.effectiveTo)&&v.review?.primaryVerified===true&&current?.status==='CURRENT'&&current.contentHash&&primary(current);
+    }));
+  }
+  function pendingFor(registry,ds,date,text=''){return (registry.documents||[]).filter(d=>d.status==='PENDING'&&d.mayAffectRules===true&&documentScope(d,text).some(x=>ds.includes(x))&&(!d.effectiveDate||!date||d.effectiveDate<=date)&&!removedArchiveHasCurrentEvidence(registry,d,ds,date));}
   function gate(registry,text,{now=new Date(),personal=false}={}){
     const ds=queryDomains(text),time=asOf(text,now);
     if(personal||!ds.length||/^(?:เบอร์โทร|ติดต่อ|รายชื่อเจ้าหน้าที่)/.test(text))return {allowed:true,domains:ds,...time};
@@ -102,10 +112,13 @@
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
       if(d.status!=='PENDING'||!d.mayAffectRules||!primary(d))continue;
       const known=next.documents.find(x=>x.id===d.id);
+      // A missing inventory-only link is not a new rule. Trust the reviewed baseline,
+      // never a marker supplied by the asynchronous monitor itself.
+      const baselineOnly=(base.nonGoverningBaselineDocumentIds||[]).includes(d.id)||known?.removedNonGoverningBaseline===true||known?.status==='PENDING'&&known.mayAffectRules===false&&known.pendingReason==='BASELINE_INVENTORY_NOT_RULE_PROMOTION';
       // Ignore resolved locks if the bundled reviewed document has the very same bytes/link fingerprint.
       if(known&&known.status!=='PENDING'&&known.contentHash===d.contentHash&&known.fingerprint===d.fingerprint&&d.pendingReason!=='PRIMARY_LINK_REMOVED')continue;
-      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason});
-      else next.documents.push({...d,affects:all.filter(x=>(d.affects||[]).includes(x))});
+      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,removedNonGoverningBaseline:baselineOnly});
+      else next.documents.push({...d,affects:all.filter(x=>(d.affects||[]).includes(x)),removedNonGoverningBaseline:baselineOnly});
     }
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
     return next;

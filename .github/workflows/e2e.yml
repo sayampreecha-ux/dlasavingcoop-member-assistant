@@ -29,3 +29,4 @@ jobs:
           MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
           MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-freshness-smoke.mjs
           node scripts/browser-live-journey-smoke.mjs
+          node scripts/browser-answer-first-smoke.mjs
