@@ -20,7 +20,10 @@ jobs:
       - name: Run every release regression suite
         run: node scripts/verify-release.mjs
       - name: Install browser test runtime
-        run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
+        timeout-minutes: 5
+        run: |
+          sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/apt-mirrors.txt
+          npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Real browser Pilot regression on mobile and desktop
         run: |
           MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
