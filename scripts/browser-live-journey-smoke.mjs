@@ -21,7 +21,7 @@ try{for(const width of [390,1365]){
   assert.ok(await page.locator('#out .actions a,#out .follow button').count(),'no practical next step');pass++;
  }
  // Exact menu controls must work as well as equivalent typed questions.
- for(const [q,expect]of [['เงินกู้มีกี่แบบ',/ประเภท/],['สวัสดิการทั้งหมด',/สวัสดิการ/],['แบบฟอร์มทั้งหมด',/แบบ/],['ยอดหนี้ของผมเหลือเท่าไร',/สมาชิก/]]){
+ for(const [q,expect]of [['เงินกู้มีกี่แบบ',/ประเภท/],['สวัสดิการมีกี่แบบ',/สวัสดิการ/],['แบบฟอร์มทั้งหมด',/แบบ/],['ยอดหนี้ของผมเหลือเท่าไร',/สมาชิก/]]){
   await page.locator('#homeBtn').click();await page.locator('[data-q="'+q+'"]').click();await page.locator('#out .body').waitFor();assert.match(await read(),expect);pass++;
  }
  // Typed follow-up, not just a chip click.
