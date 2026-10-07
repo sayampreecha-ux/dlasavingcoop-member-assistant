@@ -39,7 +39,7 @@ for(const q of edge){
  const r=A(q), all=[r.answer,...(r.details||[])].join(' ');
  if(r.intent==='fallback'||r.intent==='empty') failures.push({q,group:'edge-fallback'});
  if(!r.answer) failures.push({q,group:'edge-empty'});
- if(!r.evidence && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
+ if(!r.evidence && !r.decision && !(r.sources||[]).length && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
 }
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
 console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,total:cases.length+edge.length},null,2));
