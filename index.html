@@ -2268,6 +2268,18 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const q=norm(input),check=freshnessStatus(q);
     if(!check.allowed)return F.lock(check,sourceRegistry);
 
+    // Mass-audit routes: preserve evidence boundaries for real member phrasing.
+    if(/(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต).*(?:ฉุกเฉิน|กู้ ฉ|กู้ฉ)|(?:ฉุกเฉิน|กู้ ฉ|กู้ฉ).*(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต)/.test(q))
+      return res('loan_compound_reasoning','การมีเงินกู้พัฒนาคุณภาพชีวิตร่วมกับเงินกู้ฉุกเฉินต้องตรวจหลักเกณฑ์ของทั้งสองผลิตภัณฑ์และสถานะสัญญาจริงก่อนครับ ระบบไม่สรุปจากเงินเดือนคงเหลือเพียงอย่างเดียวว่าต้องปิดหรือไม่ต้องปิดสัญญาเดิม',{decision:'COMPOUND_RULE_CHECK',actions:[['ตรวจหลักเกณฑ์เงินกู้',S.procedure],['ตรวจข้อมูลในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
+    if(/(?:ผลการอนุมัติ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง).*(?:พัฒนาคุณภาพชีวิต|เงินกู้)|(?:พัฒนาคุณภาพชีวิต|เงินกู้).*(?:ผลการอนุมัติ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง)/.test(q))
+      return res('status_center','ผลอนุมัติเป็นข้อมูลสถานะรายคำขอครับ ให้ตรวจสถานะล่าสุดในระบบสมาชิกหรือกับเจ้าหน้าที่ ระบบนี้ไม่เดาผลอนุมัติแทนสหกรณ์',{privacy:true,decision:'LIVE_STATUS_REQUIRED',actions:[['ตรวจสถานะในระบบสมาชิก','https://member.dlasavingcoop.com/coop/'],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('เว็บไซต์สหกรณ์',S.home)]});
+    if(/(?:สวัสดิการ).*(?:โอนวันไหน|โอนเมื่อไหร่|เงินเข้าเมื่อไหร่|เงินเข้าวันไหน)/.test(q))
+      return res('live_schedule','วันโอนสวัสดิการเป็นข้อมูลรายรอบครับ ให้ตรวจประกาศล่าสุดหรือสถานะกับเจ้าหน้าที่ ระบบไม่ใช้กำหนดการรอบเก่าฟันธงวันเงินเข้า',{decision:'LIVE_SCHEDULE_REQUIRED',actions:[['ประกาศล่าสุด',S.notices],['ติดต่อเจ้าหน้าที่','#staff-directory']],sources:[src('ประกาศทางการ',S.notices)]});
+    if(/(?:สนใจ|อยาก|ต้องการ).*(?:กู้|เงินกู้).*(?:แนะนำ|โครงการ|แบบไหน)|(?:แนะนำ).*(?:เงินกู้|โครงการกู้)/.test(q))
+      return res('loan_product_guide','เลือกประเภทเงินกู้ควรเริ่มจากวัตถุประสงค์ วงเงินที่ต้องการ สถานะสมาชิก ภาระหนี้ และหลักประกันครับ ระบบจะไม่ชี้ว่าผลิตภัณฑ์ใดผ่านแน่นอนจากข้อมูลที่ยังไม่ครบ',{decision:'GUIDED_INTAKE',actions:[['ดูประเภทและหลักเกณฑ์เงินกู้',S.procedure],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
+    if(/เครดิตบูโร/.test(q)&&/(?:ฉบับจริง|ไปรษณีย์|อีเมล|แอป|แนบ|เอกสาร)/.test(q))
+      return res('personal_handoff','รูปแบบรายงานเครดิตบูโรที่ใช้ประกอบคำขอต้องยึดเงื่อนไขเอกสารของสหกรณ์ในรอบปัจจุบันครับ ระบบจะไม่ถือว่าไฟล์จากแอป อีเมล หรือเอกสารทางไปรษณีย์ใช้แทนกันได้จนกว่าจะตรวจข้อกำหนดล่าสุด',{decision:'DOCUMENT_FORMAT_VERIFY',actions:[['ตรวจแบบและหลักเกณฑ์ล่าสุด',S.procedure],['ติดต่อเจ้าหน้าที่เงินกู้','#staff-directory']],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
+
     // High-priority real-member routing. These are operational/account questions,
     // so route before generic loan classification and never infer a live outcome.
     if(/(?:หนังสือรับรอง|หนังสือยืนยัน).*(?:ยอดหนี้|หนี้คงเหลือ)|(?:ยอดหนี้|หนี้คงเหลือ).*(?:หนังสือรับรอง|หนังสือยืนยัน)/.test(q))
