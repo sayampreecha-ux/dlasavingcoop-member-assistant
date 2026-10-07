@@ -28,8 +28,8 @@ jobs:
         run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Browser release gate
         run: |
-          node scripts/browser-pilot-smoke.mjs
-          node scripts/browser-freshness-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-freshness-smoke.mjs
           node scripts/browser-live-journey-smoke.mjs
       - name: Stage public Pilot files
         run: |
@@ -47,6 +47,6 @@ jobs:
         env:
           MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
         run: |
-          node scripts/browser-pilot-smoke.mjs
-          node scripts/browser-freshness-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-freshness-smoke.mjs
           node scripts/browser-live-journey-smoke.mjs

@@ -23,6 +23,6 @@ jobs:
         run: npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Real browser Pilot regression on mobile and desktop
         run: |
-          node scripts/browser-pilot-smoke.mjs
-          node scripts/browser-freshness-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
+          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-freshness-smoke.mjs
           node scripts/browser-live-journey-smoke.mjs

@@ -268,8 +268,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   }
   function lock(result,registry){
     const pending=result.documents?.[0],title=pending?.title||'แหล่งทางการ';
-    const url=pending?.officialIndexUrl||result.sources?.[0]?.url||registry.monitors[0].url;
-    return {intent:'freshness_evidence_lock',answer:result.reason==='PENDING_DOCUMENT'?'พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้':'ยังยืนยันกฎที่มีผลในช่วงเวลาที่ถามไม่ได้ครับ กรุณาตรวจหลักเกณฑ์ทางการหรือให้เจ้าหน้าที่ตรวจฉบับที่ใช้กับกรณีนี้',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารทางการ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact']],sources:[{title,url}],freshness:result};
+    const url=pending?.originalUrl||pending?.officialIndexUrl||result.sources?.[0]?.url||registry.monitors[0].url;
+    const message=result.reason==='PENDING_DOCUMENT'?'พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้':'ยังยืนยันกฎที่มีผลในช่วงเวลาที่ถามไม่ได้ครับ กรุณาตรวจหลักเกณฑ์ทางการหรือให้เจ้าหน้าที่ตรวจฉบับที่ใช้กับกรณีนี้';
+    return {intent:'freshness_evidence_lock',answer:message+' ต้องการตรวจประเภทคำขอและประเด็นใดครับ? ระบุเรื่องเพิ่มเติมเพื่อให้เจ้าหน้าที่ตรวจฉบับและข้อที่ตรงกรณี โดยไม่ส่งรหัสผ่าน OTP หรือ PIN',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารต้นฉบับ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact'],...(pending?.officialIndexUrl&&pending.officialIndexUrl!==url?[['หน้าที่เผยแพร่ต้นฉบับ',pending.officialIndexUrl]]:[])],sources:[{title,url}],freshness:result};
   }
   // A monitor snapshot can only add locks/check timestamps; it cannot supply answer values or promote rules.
   function mergeMonitor(base,snapshot){
