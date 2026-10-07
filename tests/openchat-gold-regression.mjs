@@ -54,6 +54,32 @@ for(const [q] of round2){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ/.test(all))
    failures.push({q,group:'round2-no-boundary'});
 }
+
+const round3=[
+ ['กู้สามัญแล้วต้องทำประกันอะไร และค่างวดที่หักก่อนวันโอนจะคืนเมื่อไร'],
+ ['สัญญาเดิมครบงวดเดือนนี้ แต่สหกรณ์ยังไม่ตัดยอด จะถือว่าครบงวดหรือยัง'],
+ ['เกษียณแล้วแต่ยังค้ำประกันสมาชิกอยู่ จะลาออกจากสมาชิกได้ไหม'],
+ ['เอกสารเพิ่มหุ้นถึงสหกรณ์แล้ว อยากรู้ว่าตอนนี้ดำเนินการถึงขั้นตอนไหน'],
+ ['กู้สามัญเดิมอยู่ ถ้าจะกู้เพื่อการศึกษาเพิ่ม ต้องดูวงเงินรวมอย่างไร'],
+ ['ปรับโครงสร้างหนี้แล้ว ตอนนี้อยากกู้ฉุกเฉิน ต้องตรวจเงื่อนไขอะไรบ้าง'],
+ ['หักชำระหน้าฎีกาแล้ว แต่ยอดหนี้ในระบบยังไม่ลด ต้องตรวจสอบอย่างไร'],
+ ['ผู้ค้ำของฉันเกษียณมาหลายปีแล้ว แต่ยังติดค้ำในระบบ ต้องดำเนินการอย่างไร'],
+ ['ยื่นเอกสารภายในวันสุดท้ายของเกณฑ์เดิม แต่ตรวจเอกสารหลังจากนั้น ใช้เกณฑ์ใด'],
+ ['เอกสารครบแล้ว ถ้าไปยื่นกู้ฉุกเฉินที่สหกรณ์ จะได้รับเงินวันเดียวกันแน่นอนไหม'],
+ ['หุ้นไม่ถึงเกณฑ์ ถ้ามีเงินฝากอยู่ สามารถนำมารวมพิจารณาหลักประกันได้หรือไม่'],
+ ['เงินเดือนคงเหลือประมาณห้าพันบาท ระบบควรบอกได้เลยไหมว่ากู้ผ่าน'],
+ ['สมัครฌาปนกิจแล้วแต่ยังรออนุมัติ จะตรวจสถานะจากที่ไหน'],
+ ['ขอเปลี่ยนผู้รับผลประโยชน์ ต้องใช้เอกสารอะไรและไปต่อที่ช่องทางใด'],
+ ['เงินปันผลกับเงินเฉลี่ยคืนต่างกันอย่างไร และจะตรวจยอดของตัวเองที่ไหน']
+];
+for(const [q] of round3){
+ const r=A(q), all=[r.answer,...(r.details||[]),...(r.followups||[])].join(' ');
+ if(r.intent==='fallback'||r.intent==='empty') failures.push({q,group:'round3-fallback'});
+ if(!r.answer) failures.push({q,group:'round3-empty'});
+ if(/ได้รับอนุมัติแล้ว|เงินจะเข้าแน่นอน|ผ่านแน่นอน|กู้ผ่านแน่นอน/.test(all)) failures.push({q,group:'round3-unsafe-certainty'});
+ if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ|ระบบสมาชิก/.test(all))
+   failures.push({q,group:'round3-no-boundary'});
+}
 const edge=[
  'ครบ 12 งวดพอดีวันเปลี่ยนหลักเกณฑ์ ยื่นกู้สามัญใหม่ได้ไหม',
  'เอกสารผ่านแต่รอเอกสารผู้ค้ำ จะทันรอบโอนไหม',
@@ -67,4 +93,4 @@ for(const q of edge){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
 }
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
-console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,total:cases.length+round2.length+edge.length},null,2));
+console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,round3:round3.length,total:cases.length+round2.length+round3.length+edge.length},null,2));
