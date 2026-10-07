@@ -473,6 +473,42 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   const src=(title,url,note='')=>({title,url,note});
   function res(intent,answer,opt={}){
+    const clarificationPrompts={
+      status_center:'ต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ',
+      live_schedule:'หมายถึงรอบดำเนินการของบริการใดครับ?',
+      contact:'ต้องการติดต่อเรื่องใดครับ เพื่อเลือกงานรับผิดชอบให้ตรงเรื่อง?',
+      province_contact:'ต้องการติดต่อเรื่องใดและจังหวัดใดครับ?',
+      official_contact_request:'ต้องการช่องทางสำหรับส่งเอกสารหรือสอบถามเรื่องใดครับ?',
+      notices:'ต้องการประกาศเรื่องใดและรอบใดครับ?',
+      current_notice_review:'ต้องการผลหรือประกาศเรื่องใดและรอบใดครับ?',
+      service_availability:'กรุณาระบุบริการและวันที่ต้องการตรวจสอบครับ',
+      personal_handoff:'ต้องการให้เจ้าหน้าที่ตรวจเรื่องใดครับ? ระบุประเภทงานโดยไม่ส่งข้อมูลเข้าสู่ระบบ',
+      debt_help:'หมายถึงโครงการช่วยเหลือหรือสัญญาประเภทใดครับ?',
+      deposit_add:'หมายถึงบัญชีเงินฝากประเภทใด และเป็นเงินฝากปกติหรือเงินฝากที่ใช้เป็นหลักประกันครับ?',
+      scholarship:'ต้องการสอบถามเรื่องสวัสดิการการศึกษาบุตรหรือเงินกู้เพื่อการศึกษาครับ?',
+      retirement:'ต้องการถามเงินกู้ประเภทใด หรือเรื่องหุ้นหลังเกษียณครับ?',
+      deposit:'ต้องการตรวจรายการฝาก ถอน หรือสถานะยอดเงินเรื่องใดครับ?',
+      deposit_open:'ต้องการเปิดบัญชีประเภทใด หรือติดตามเอกสารบัญชีที่เปิดแล้วครับ?',
+      deposit_withdraw:'หมายถึงเงินฝากประเภทใดและส่วนใดใช้เป็นหลักประกันครับ?',
+      deposit_holiday_review:'กรุณาระบุประเภทบัญชีและช่องทางรับฝากที่ต้องการตรวจครับ',
+      deposit_collateral_release:'ต้องการตรวจเงินฝากส่วนที่ผูกหลักประกันหรือส่วนที่ไม่ได้ผูกครับ?',
+      loan_living_balance:'หมายถึงเงินกู้ประเภทใดครับ เพื่อใช้เกณฑ์รายได้ให้ตรงสัญญา?',
+      loan_close:'ต้องการขอยอดปิด วิธีชำระ หรือติดตามรายการปิดของเงินกู้ประเภทใดครับ?',
+      member_associate:'ต้องการสมัครสมทบหรือสอบถามสิทธิในบริการเรื่องใดครับ?',
+      org_rights:'กรุณาระบุเรื่องและรอบประกาศที่ต้องการตรวจครับ',
+      guarantor_center:'ต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?',
+      transfer:'หมายถึงย้ายต้นสังกัดหรือโอนสมาชิกระหว่างสหกรณ์ครับ?',
+      loan_all:'ต้องการเงินกู้ประเภทใด หรือมีวัตถุประสงค์อะไรครับ?',
+      share_purchase:'ต้องการตรวจประกาศซื้อหุ้นเพิ่มของรอบใดครับ?',
+      funeral:'ต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?',
+      loan_purpose_review:'กรุณาระบุวัตถุประสงค์และประเภทผลิตภัณฑ์ที่ต้องการตรวจครับ',
+      loan_special_quality:'ต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?',
+      loan_emergency:'ต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?',
+      loan_change_guarantor:'ต้องการเปลี่ยนผู้ค้ำของเงินกู้ประเภทใดครับ?',
+      loan_product_guide:'กรุณาระบุประเภทเงินกู้หรือวัตถุประสงค์ที่ต้องการครับ',
+      membership_other_cooperative_review:'ต้องการสมัครสมาชิกหรือยื่นกู้ประเภทใดครับ?'
+    };
+    if(clarificationPrompts[intent])answer+='\n\n'+clarificationPrompts[intent];
     const details=[...(opt.details||[])];
     const actions=[...(opt.actions||[])];
     const sources=[...(opt.sources||[])];
@@ -665,7 +701,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
 
   function norm(s=''){
-    let q=String(s).toLowerCase().trim().replace(/(?:^|\s)@[^\s]+/g,' ').replace(/\[(?:mention|member_id|phone|national_id)\]/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ').trim();
+    let q=String(s).replace(/\u0e4d([\u0e48-\u0e4b]?)\u0e32/g,'$1\u0e33').toLowerCase().trim().replace(/(?:^|\s)@[^\s]+/g,' ').replace(/\[(?:mention|member_id|phone|national_id|member_[a-z]+)\]|<(?:mention|id|phone|url)>/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ').trim();
     const fixes=[
       [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],[/กู(?=สามัญ|ฉุกเฉิน|เงิน)/g,'กู้'],
       [/กู้\s*ฉฉ/g,'กู้ฉุกเฉิน'],[/กู้\s*พัฒนาชีวิต/g,'กู้พัฒนาคุณภาพชีวิต'],[/รีไฟแนน(?:ซ์)?\s*บ้าน/g,'ไถ่ถอนจำนองบ้าน'],
@@ -1241,7 +1277,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/ศาสนา|อุปสมบท|บวช/.test(q))return 'religion';
     if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/.test(q)&&!/ทุน/.test(q))return 'graduation';
     if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/.test(q))return 'gratuity';
-    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/.test(q))return 'memberDeath';
+    if(/สมาชิก.*(?:เสียชีวิต|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/.test(q))return 'memberDeath';
     if(/(?:พ่อ|แม่|บิดา|มารดา|คู่สมรส|สามี|ภรรยา|บุตร|ลูก).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/.test(q))return 'familyDeath';
     if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/.test(q)&&!/กู้|เงินกู้/.test(q))return 'disaster';
     return null;
@@ -1661,7 +1697,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(compoundFirst) return compoundFirst;
 
     // Rule Master 4.0: current rules effective 1 Oct 2569.
-    if(/(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ).*(?:สามัญ|กู้)|(?:สามัญ|กู้).*(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ)/i.test(q)){
+    if(loanProduct(q)==='ordinaryLoanCurrent'&&/(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ).*(?:สามัญ|กู้)|(?:สามัญ|กู้).*(?:รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ)/i.test(q)){
       return res('ordinary_current_remaining_income','หลักเกณฑ์กู้สามัญปัจจุบันกำหนดว่า หลังหักชำระค่าหุ้นและหนี้เงินกู้ทุกประเภทแล้ว ต้องมีรายได้คงเหลือไม่น้อยกว่าร้อยละ 15 ของเงินได้รายเดือน และต้องไม่น้อยกว่า 6,000 บาทต่อเดือนตลอดอายุสัญญา',{answerClass:ANSWER_CLASS.RULE,status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',details:['ยังต้องตรวจเงื่อนไขอื่นร่วมด้วย เช่น อายุสมาชิก การส่งหุ้น ภาระหนี้ ประวัติค้างชำระ วงเงิน และหลักประกัน/ผู้ค้ำตามช่วงวงเงิน'],sources:[src('หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569',S.loanGeneralAnnouncement2569)]});
     }
     if(/(?:พัฒนาคุณภาพชีวิต|คุณภาพชีวิต).*(?:วงเงิน|ได้เท่าไร|กี่บาท|หลักประกัน|อสังหา|ผ่อน|กี่งวด|อายุ|รายได้คงเหลือ|เงินเหลือ)/i.test(q)){
@@ -1979,7 +2015,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return welfareStatic('religion');
     if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return welfareStatic('graduation');
     if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/i.test(q)) return welfareStatic('gratuity');
-    if(/สมาชิก.*(?:เสีย|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return welfareStatic('memberDeath');
+    if(/สมาชิก.*(?:เสียชีวิต|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/i.test(q)) return welfareStatic('memberDeath');
     if(/สวัสดิการ.*กี่|สวัสดิการ.*มีอะไร|มีสวัสดิการ|สวัสดิการทั้งหมด/i.test(q)) return res('welfare_all',`สวัสดิการสมาชิกที่ตรวจยืนยันจากหน้าทางการมี 8 ประเภท:\n${KB.welfare.types.map((x,i)=>`${i+1}. ${x}`).join('\n')}`,{
       details:['ขั้นตอนใช้งาน: 1) เลือกประเภทสิทธิ 2) เปิดหลักเกณฑ์/แบบคำขอ 3) ตรวจคุณสมบัติและกำหนดยื่น 4) เตรียมหลักฐานตามแบบ 5) ยื่นต่อสหกรณ์ 6) ติดตามผลการพิจารณา','จำนวนเงิน/กำหนดเวลาอาจต่างกันแต่ละประเภท ให้ยึดหลักเกณฑ์ล่าสุดในหน้าทางการ','ฌาปนกิจสงเคราะห์เป็นงานของสมาคมฌาปนกิจ แยกจากสวัสดิการ 8 ประเภทนี้'],
       actions:[['❤️ เปิดแบบ/หลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['⚱️ เปิดเมนูฌาปนกิจใน AI','#ask:ฌาปนกิจสงเคราะห์']],sources:[src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms),src('ระเบียบสวัสดิการสมาชิก',S.welfareRule)],followups:['เพิ่งคลอดลูก ขอแบบอะไร','ทุนเรียนลูกมีอะไรบ้าง','บ้านน้ำท่วม ขอเงินสงเคราะห์อย่างไร','ไฟไหม้บ้าน ขอสวัสดิการได้ไหม','แม่เสียได้สวัสดิการไหม','ฌาปนกิจสมัครอย่างไร']
@@ -2286,7 +2322,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     else if(/วงเงิน|สูงสุด/.test(q)&&R.maxAmountBaht)text='วงเงินสูงสุด '+R.maxAmountBaht.toLocaleString('th-TH')+' บาท';
     else if(/รายได้คงเหลือ|เงินเดือนเหลือ|เงินเหลือ/.test(q)&&R.remainingIncomeMinBaht)text='รายได้คงเหลืออย่างน้อย '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท'+(R.remainingIncomeMinPercent?' และอย่างน้อย '+R.remainingIncomeMinPercent+'%':'');
     else return F.lock({...check,reason:'HISTORICAL_EXTRACTION_MISSING'},sourceRegistry);
-    return {intent:'historical_rule',answer:'ณ '+check.date+' '+text+' ตามฉบับที่มีผลในเวลานั้นครับ',status:'หลักเกณฑ์ตามวันที่ถาม',decision:'HISTORICAL_RULE',domain:product,evidenceState:v.status,details:['ใช้ฉบับมีผล '+v.effectiveFrom+' ถึง '+(v.effectiveTo||'ปัจจุบัน'),'ไม่ใช้ตัดสินคำขอในช่วงเวลาอื่น'],actions:[['ต้นฉบับทางการ',doc.originalUrl]],sources:[{title:doc.title,url:doc.originalUrl}],ruleVersion:v.id};
+    return {intent:'historical_rule',answer:'ณ '+check.date+' '+text+' ตามฉบับที่มีผลในเวลานั้นครับ หากถามการดำเนินการปัจจุบัน ต้องตรวจหลักเกณฑ์ล่าสุดก่อน ไม่ใช้วันที่ในข้อความเก่ายืนยันกฎปัจจุบัน',status:'หลักเกณฑ์ตามวันที่ถาม',decision:'HISTORICAL_RULE',domain:product,evidenceState:v.status,details:['ใช้ฉบับมีผล '+v.effectiveFrom+' ถึง '+(v.effectiveTo||'ปัจจุบัน'),'ไม่ใช้ตัดสินคำขอในช่วงเวลาอื่น'],actions:[['ต้นฉบับทางการ',doc.originalUrl]],sources:[{title:doc.title,url:doc.originalUrl}],ruleVersion:v.id};
   }
   // Recover missing operational context only after established routes have failed.
   // Never infer ledger values, transfer dates, or a release of pledged collateral.
@@ -2334,7 +2370,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       privacy:true,decision:'LIVE_LEDGER_REQUIRED',actions:[['ตรวจรายการของตนเอง',S.memberPortal],['ติดตามรายการกับเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)]});
     const operational=/(?:เอกสาร.*(?:ถึง|ลงรับ|ผ่าน|ตรวจ|ลำดับ|ได้รับ)|เช็ค.*(?:จัดส่ง|ส่งมา|ถึง)|(?:ลำดับ|สถานะ).*เอกสาร|สถานะ|คิว|รอตรวจ|รอบันทึก|อนุมัติ|เงินเข้า|โอนเงิน|เข้าประชุม|รอบเดือน|ตัดชำระ|ตัดยอด|ยอด.*ระบบ|ผล.*ยื่นกู้|ช่วงพิจารณา|ทันรอบ|(?:ได้|ทัน)รอบนี้|พิจารณา.*วันไหน|ยื่นกู้.*(?:ทราบ|ผ่าน)|(?:ฝาก|ชำระ).*(?:ปรับยอด|ยอด.*ไม่|ไม่.*ยอด))/.test(q);
     if(inquiry&&operational)return res('status_center','คำถามนี้ต้องตรวจรายการหรือรอบดำเนินการล่าสุดครับ AI ไม่ทราบว่าเอกสารถึงแล้ว ผ่านอนุมัติแล้ว หรือเงินจะเข้าวันใด ให้ตรวจระบบสมาชิกก่อน และติดต่อเจ้าหน้าที่สหกรณ์หากไม่พบรายการหรือข้อมูลไม่ตรง',{
-      privacy:true,decision:'LIVE_STATUS_REQUIRED',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่ทางการ',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)],details:['ใช้ข้อมูลบัญชีเฉพาะในระบบทางการ ไม่ส่งรหัสผ่าน PIN หรือ OTP ให้ AI']});
+      privacy:true,decision:'LIVE_STATUS_REQUIRED',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่ทางการ',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)],details:['ห้ามเปิดเผยข้อมูลเข้าสู่ระบบในแชทนี้ ให้เข้าสู่ระบบสมาชิกทางการด้วยตนเองเท่านั้น']});
     if(inquiry&&/(?:ได้\s*เงิน|ได้รับเงิน(?:กู้)?|เงิน.*(?:จะได้|ได้เมื่อ|ได้วัน|ได้ตอนไหน)|โอนก่อน|โอน.*บ่าย|โอน.*เย็น|โอน.*(?:บัญชี|ภายใน|วันไหน|เมื่อ|คืน))/.test(q))return res('live_schedule','วันและเวลาที่ได้รับเงินต้องตรวจรอบโอนและรายการจริงครับ AI ไม่ทราบเวลาเงินเข้าบัญชีของสมาชิก ให้ตรวจระบบสมาชิกและประกาศรอบปัจจุบัน หากไม่พบรายการให้ติดต่อเจ้าหน้าที่',{
       privacy:true,decision:'LIVE_SCHEDULE_REQUIRED',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ประกาศรอบปัจจุบัน',S.notices],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
     if(inquiry&&/(?:เปิดทำการ|เปิด.*ปกติ|สหกรณ์.*(?:เปิด|หยุด)|เว็บไซต์|เวปไซ[ดต]|เว็บ.*(?:เข้า|ล่ม|ใช้))/.test(q))return res('service_availability','เวลาเปิดทำการและเหตุขัดข้องเป็นข้อมูลปัจจุบันครับ AI ยังไม่ยืนยันว่าบริการเปิดหรือเว็บไซต์ใช้งานได้ในเวลาที่ถาม ให้ดูประกาศล่าสุดหรือโทรยืนยันกับสหกรณ์ก่อนเดินทาง หากเว็บไซต์เข้าไม่ได้ใช้ช่องทางติดต่อทางการ',{
@@ -2378,12 +2414,26 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(inquiry&&/สมาชิก/.test(q)&&/สมัคร/.test(q))return answerLegacy('สมัครสมาชิก');
     if(inquiry&&/วันที่\s*\d|กำหนด|วันทำการ/.test(q)&&/เสาร์|อาทิต(?:ย์)?|วันหยุด|เลื่อนวันทำการ/.test(q))return res('deadline_need_topic','เป็นกำหนดยื่นเอกสาร ชำระเงิน หรือวันเปิดทำการครับ? ต้องทราบเรื่องก่อนตรวจข้อกำหนดวันหยุด ระบบยังไม่ยืนยันว่าต้องเลื่อนก่อนหรือหลัง ให้ระบุประเภทกำหนดแล้วเปิดประกาศที่เกี่ยวข้อง หรือให้เจ้าหน้าที่ผู้รับเรื่องยืนยันก่อนถึงกำหนด',{
       decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_DEADLINE_TOPIC_AND_RULE',requiredFact:'deadlineTopic',actions:[['ประกาศปัจจุบัน',S.notices],['ยืนยันกับเจ้าหน้าที่',S.contact]],sources:[src('ประกาศทางการ',S.notices)]});
+    // A missing topic is an intake step, not a guessed rule or a dead-end menu.
+    // Keep opaque unsupported input on the original fallback path.
+    const knownTopic=/กู้|สินเชื่อ|หนี้|ค้ำ|หุ้น|สมาชิก|สหกรณ์|บัญชี|ฝาก|ชำระ|เอกสาร|สวัสดิการ|ฌาปนกิจ|ประกัน|ประกาศ|หลักเกณฑ์|ติดต่อ|เบอร์|โทร|ไลน์|แอด|สถานะ|อนุมัติ|ประชุม/.test(q);
+    if(knownTopic||(/[\u0e00-\u0e7f]/.test(q)&&(memberInquiry(q)||!/[a-z]{4,}/i.test(q)))){
+      if(/เบอร์|โทร|ติดต่อ|แอด/.test(q))return res('contact_need_topic','ต้องการติดต่อสหกรณ์เรื่องใดครับ? ใช้ช่องทางจากหน้าติดต่อทางการ และอย่าใช้เบอร์ส่วนตัวที่ส่งต่อในแชท',{decision:'NEED_INFO',requiredFact:'serviceTopic',followups:['เงินกู้','สวัสดิการ','เงินฝาก','ทะเบียนสมาชิก'],actions:[['ช่องทางติดต่อทางการ',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+      if(/กู้|สินเชื่อ|วงเงิน|ดอกเบี้ย|งวด/.test(q)&&!loanProduct(q))return res('loan_product_clarification','หมายถึงเงินกู้ประเภทใดครับ? ยังไม่ยืนยันสิทธิ วงเงิน หรือเงื่อนไขจากข้อความที่ส่งต่อหรือยอดเงินเพียงอย่างเดียว',{decision:'NEED_INFO',requiredFact:'loanProduct',followups:['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ'],actions:[['ประเภทและหลักเกณฑ์เงินกู้',S.procedure]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
+      return res('member_topic_clarification','ต้องการให้ช่วยตรวจสอบเรื่องใดครับ? ข้อความนี้ยังไม่พอระบุคำถามหรือบริการ จึงยังไม่ยืนยันข้อมูล สิทธิ หรือสถานะใด ให้ระบุเรื่องและสิ่งที่ต้องการทราบ โดยไม่ส่งข้อมูลเข้าสู่ระบบหรือข้อมูลบัญชีส่วนตัว ไม่ต้องไปค้นเอกสารเอง',{decision:'NEED_INFO',requiredFact:'serviceTopic',followups:['เป็นเรื่องเงินกู้','เป็นเรื่องสวัสดิการ','เป็นเรื่องหุ้น/สมาชิก','เป็นเรื่องเงินฝาก/ชำระเงิน','ฌาปนกิจ','ประกัน','ติดต่อเจ้าหน้าที่'],actions:[['ติดต่อทางการเมื่อยังระบุเรื่องไม่ได้',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    }
     return r;
   }
 
   function answer(input){
     const q=norm(input),check=freshnessStatus(q);
     if(!check.allowed)return F.lock(check,sourceRegistry);
+    // Suggestions and partner searches are not statements of an existing guarantee load.
+    if(/ค้ำ/.test(q)&&/หา(?:เพื่อน|คน|ผู้).*ค้ำ|แลกค้ำ|ยินดีค้ำกัน|ทบทวน|อยากให้|ขอให้.*(?:พิจารณา|ปรับ)|ในชุด/.test(q)&&!/เปลี่ยน|ผู้ค้ำใหม่|เสียชีวิต|ถึงแก่กรรม/.test(q))return res('guarantee_context_review','ต้องการหาผู้ค้ำ เสนอปรับหลักเกณฑ์ หรือสอบถามภาระค้ำที่มีอยู่ครับ? AI ไม่จับคู่ผู้ค้ำและไม่ถือจำนวนคนในข้อความนี้เป็นภาระค้ำจริง ให้ระบุประเภทเงินกู้และประเด็นที่ต้องการตรวจ ก่อนใช้หลักเกณฑ์กับกรณีของสมาชิก',{decision:'NEED_INFO',requiredFact:'guaranteeConcern',followups:['หลักเกณฑ์ผู้ค้ำ','ตรวจว่าฉันค้ำใครอยู่','ติดต่อเจ้าหน้าที่'],actions:[['ตรวจข้อมูลของตนเอง',S.memberPortal],['ยืนยันกับเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/ผู้รับโอนประโยชน์/.test(q)&&/(?:สแกน|ส่ง).*(?:ช่องทาง|ไลน์|ไลค์|อีเมล)/.test(q))return res('beneficiary_submission_review','ต้องการส่งแบบผู้รับโอนประโยชน์ผ่านช่องทางใดครับ? AI ยังไม่ยืนยันว่าภาพสแกนหรือแชทนี้ใช้แทนเอกสารต้นฉบับได้ ต้องตรวจช่องทางรับและรูปแบบเอกสารกับงานทะเบียนก่อนส่ง',{decision:'EVIDENCE_LOCK',requiredFact:'submissionChannel',actions:[['ยืนยันช่องทางรับกับงานทะเบียน',S.contact],['แบบสมาชิกทางการ',S.memberForms]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/อยากให้|ขอให้|เสนอ.*(?:โครงการ|หลักเกณฑ์)/.test(q)&&/โครงการ|หลักเกณฑ์|กู้|สวัสดิการ/.test(q))return res('policy_proposal_review','หมายถึงเสนอปรับนโยบายหรือสอบถามโครงการที่มีผลอยู่ครับ? ข้อเสนอไม่ใช่หลักเกณฑ์ที่อนุมัติแล้ว จึงยังไม่ยืนยันสิทธิ วงเงิน หรือเงื่อนไข ให้ระบุเรื่องที่จะเสนอหรือตรวจประกาศของโครงการที่ต้องการ',{decision:'EVIDENCE_LOCK',requiredFact:'proposalTopic',actions:[['ส่งข้อเสนอให้ช่องทางทางการ',S.contact],['ตรวจประกาศที่มีผล',S.notices]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/(?:ภัยพิบัติ|ประสบภัย).*พายุ|พายุ.*(?:ภัยพิบัติ|ประสบภัย)/.test(q)&&!/ไฟไหม้|น้ำท่วม|ที่อยู่อาศัย|บ้าน|บาดเจ็บ|สูญเสียอวัยวะ|ทุพพลภาพ/.test(q))return res('disaster_need_damage','เกิดความเสียหายต่อที่อยู่อาศัยหรือมีผู้บาดเจ็บครับ และต้องการสวัสดิการหรือเงินกู้ช่วยเหลือ? ยังไม่ยืนยันสิทธิหรือวงเงินจากคำว่าพายุเพียงอย่างเดียว ให้ระบุประเภทความเสียหายเพื่อเลือกหลักเกณฑ์ที่ตรงกรณี',{decision:'EVIDENCE_LOCK',requiredFact:'disasterDamageKind',followups:['สวัสดิการสาธารณภัย','เงินกู้ช่วยเหลือสาธารณภัย'],actions:[['ยืนยันประเภทความช่วยเหลือกับสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(/(?:รวมหนี้|รวม.*หนี้)/.test(q)&&/หลัก(?:ทรัพย์|ประกัน).*ติด.*ธนาคาร/.test(q)&&!/(?:พัฒนาคุณภาพชีวิต|ไถ่ถอนจำนอง|กู้สามัญ|กู้เคหะ)/.test(q))return res('refinance_product_clarification','ต้องการสอบถามกู้พัฒนาคุณภาพชีวิตหรือไถ่ถอนจำนองครับ? หลักทรัพย์ที่ติดภาระธนาคารยังใช้สรุปสิทธิหรือวงเงินไม่ได้ ต้องเลือกประเภทเงินกู้และตรวจภาระจำนองจริงก่อน',{decision:'NEED_INFO',requiredFact:'loanProduct',followups:['กู้พัฒนาคุณภาพชีวิต','กู้ไถ่ถอนจำนอง'],actions:[['ประเภทและหลักเกณฑ์เงินกู้',S.procedure],['ตรวจหลักประกันกับเจ้าหน้าที่',S.contact]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)]});
     if(/หนังสือ.*(?:ไม่ได้เป็นสมาชิก|ไม่เป็นสมาชิก)/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
     if(/ฌาปนกิจ/.test(q)&&/(?:รหัส|หมายเลข|เลข(?:ที่)?)\s*สมาชิก/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
     if(/กู้/.test(q)&&/บัตรประชาชน|บัตรข้าราชการ/.test(q)&&/ด้านหลัง|ต้องเปลี่ยนบัตร/.test(q)&&memberInquiry(q))return recoverMemberRoute(q,{intent:'fallback'});
@@ -2476,7 +2526,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         'ถ้าคำว่า “คำขอเปลี่ยนแปลง” หมายถึงเปลี่ยนผู้ค้ำประกัน ให้ใช้แบบเปลี่ยนผู้ค้ำประกันแทน และติดต่อเจ้าหน้าที่เงินกู้'
       ],actions:[['📄 แบบแจ้งความประสงค์เปลี่ยนแปลงข้อมูลสมาชิก',R.source],['☎️ งานทะเบียน 083-929-2739','tel:0839292739'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],sources:[src('แบบแจ้งความประสงค์เปลี่ยนแปลงข้อมูลสมาชิก',R.source)]});
     }
-    if(/(?:เกษียณ|บำนาญ)/.test(q)&&/ค้ำ/.test(q)){
+    if(/(?:เกษียณ|บำนาญ)/.test(q)&&/ค้ำ/.test(q)&&!/ถอน.*หุ้น|หุ้น.*ถอน|ติดต่อ.*(?:งาน|ฝ่าย|กลุ่ม)/.test(q)){
       const v=F.versionAt(sourceRegistry,'ordinaryLoanCurrent',check.date),doc=sourceRegistry.documents.find(d=>d.id===v?.documentId);
       return {intent:'retired_guarantor_current',answer:'ได้ครับ การเกษียณอายุราชการเพียงอย่างเดียวไม่ได้ตัดสิทธิการเป็นผู้ค้ำเงินกู้สามัญ หากยังเป็นสมาชิกสหกรณ์และผ่านคุณสมบัติผู้ค้ำตามประกาศปัจจุบัน โดยยังต้องตรวจภาระค้ำเดิมและเงื่อนไขของวงเงินกู้ก่อนอนุมัติ',status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',decision:'ELIGIBLE_CONDITION',evidenceState:'PRIMARY_VERIFIED',details:['ผู้ค้ำต้องเป็นสมาชิกสหกรณ์ที่ไม่ใช่คู่สมรสของผู้กู้ และชำระค่าหุ้นต่อเนื่องมาแล้วไม่น้อยกว่า 6 เดือน','เงื่อนไขผ่านการทดลองราชการใช้กับผู้ค้ำที่ยังเป็นข้าราชการ และเงื่อนไขทำงานไม่น้อยกว่า 3 ปีใช้กับลูกจ้างประจำ','ยังต้องตรวจภาระค้ำเดิมและคุณสมบัติอื่นตามประเภท/วงเงินกู้ก่อนอนุมัติ'],actions:[['หลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569',doc?.originalUrl||S.procedure],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src(doc?.title||'หลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569',doc?.originalUrl||S.procedure)]};
     }
