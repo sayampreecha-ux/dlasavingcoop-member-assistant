@@ -22,7 +22,7 @@
     if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม/.test(text)&&/กู้/.test(text))add('educationLoan');
-    if(/ภัยพิบัติ|น้ำท่วม/.test(text)&&/กู้/.test(text))add('disasterLoan');
+    if((/ภัยพิบัติ/.test(text)||/น้ำท่วม|ไฟไหม้/.test(text)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))&&/กู้/.test(text))add('disasterLoan');
     if(/รวมหนี้|คุณภาพชีวิต/.test(text))add('qualityOfLife');
     if(/เคหะ|กู้บ้าน|ซื้อบ้าน|ปลูกบ้าน|สร้างบ้าน/.test(text))add('specialHousing');
     if(/ไถ่ถอน|จำนอง|รีไฟแนนซ์บ้าน/.test(text))add('redeemMortgage');
@@ -48,7 +48,7 @@
     // Relative debt/payment history is not an instruction to apply a historical rule.
     const current=now.toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'});
     if(/ตอนนี้|ปัจจุบัน|วันนี้/.test(text))return {date:current,historical:false};
-    if(!/(?:^|\s)ณ(?:\s|วันที่)|เมื่อวันที่|ย้อนหลัง|กฎ.*ก่อน|หลักเกณฑ์เดิม|ก่อนวันที่|ใช้.*(?:ปี|เดือน)|ในวันที่/.test(text))return {date:current,historical:false};
+    if(!/(?:^|\s)ณ(?:\s|วันที่)|(?:^|\s)วันที่\s|เมื่อวันที่|ย้อนหลัง|กฎ.*ก่อน|หลักเกณฑ์เดิม|ก่อนวันที่|ใช้.*(?:ปี|เดือน)|ในวันที่/.test(text))return {date:current,historical:false};
     let m=text.match(/(20\d{2})-(\d{2})-(\d{2})/),date=m&&iso(m[1],m[2],m[3]);
     if(!date){m=text.match(/(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);if(m)date=iso(m[3],months[m[2]],m[1]);}
     if(!date){m=text.match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);if(m)date=iso(m[3],m[2],m[1]);}

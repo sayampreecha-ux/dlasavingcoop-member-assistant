@@ -2841,43 +2841,57 @@
     },
     {
       "id": "doc-2b74a1ba4639975aaeb1",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง คุณสมบัติผู้ขอกู้ เงื่อนไข และวิธีการให้เงินกู้สามัญ เพื่อการศึกษาสมาชิก แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/1h_AhLqYbkI0Gfzsy5pIHuXtFRLVl7TM5/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": null,
       "amendment": null,
       "affects": [
-        "educationLoan"
+        "educationLoan",
+        "guarantor"
       ],
-      "status": "PENDING",
+      "status": "CURRENT",
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "d65d5d2047dc0ec7ebd8431bcf999dd70199c2f39f8711c85b20b64405bc2ddd",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": null,
+      "contentHash": "c1e619041cc0400384f63bc0e6e105e39a5d3ceeb618ea196fed840a799c92ff",
+      "lastContentCheck": "2026-10-07T23:12:00Z",
+      "review": {
+        "basis": "Full four-page primary announcement visually reviewed; clauses 3–8; signed 11 September 2569, effective 1 October 2569. Prior 2567 announcement and 2568 amendment repealed under clause 3. No earlier values inferred. Form checklist read separately for documentary requirements.",
+        "reviewedAt": "2026-10-07T23:12:00Z"
+      }
     },
     {
       "id": "doc-1f7a9387ebb04f2f81f1",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง คุณสมบัติผู้ขอกู้ เงื่อนไข และวิธีการให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิก กรณีได้รับความเสียหายจากภัยพิบัติ แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/18zwMfC-yCHLmANcYSSRPbmAOka4_IOKh/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": null,
       "amendment": null,
       "affects": [
-        "disasterLoan"
+        "disasterLoan",
+        "guarantor"
       ],
-      "status": "PENDING",
+      "status": "CURRENT",
       "lastCheckedAt": "2026-10-06T01:39:19.895Z",
       "mayAffectRules": false,
       "fingerprint": "17177b8f8eb4986bd6f9ad20cdc02f75b67653d49566f3cd54265e8fcd352858",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "pendingReason": null,
+      "contentHash": "53bf5da4ebfa59508229b37f0b6098fa431bfd606a9dd5a2e59b2f9690b7a8b8",
+      "lastContentCheck": "2026-10-07T23:12:00Z",
+      "review": {
+        "basis": "Full four-page primary announcement visually reviewed; clauses 3–8; signed 11 September 2569, effective 1 October 2569. Prior 2567 announcement and 2568 amendment repealed under clause 3. No earlier values inferred. Form checklist read separately for documentary requirements.",
+        "reviewedAt": "2026-10-07T23:12:00Z"
+      }
     },
     {
       "id": "doc-8158348139edda052c52",
@@ -5153,6 +5167,126 @@
       "review": {
         "primaryVerified": false,
         "reason": "SPECIFIC_SCOPE_NOT_VERIFIED"
+      }
+    },
+    {
+      "id": "education@2026-10-01",
+      "ruleId": "education",
+      "documentId": "doc-2b74a1ba4639975aaeb1",
+      "domain": "educationLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "source": "https://drive.google.com/file/d/1h_AhLqYbkI0Gfzsy5pIHuXtFRLVl7TM5/view",
+        "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว พ.ศ.2569",
+        "primaryEvidenceVerified": true,
+        "membershipMinMonths": 6,
+        "sharePaymentMinInstallments": 6,
+        "maxAmountBaht": 200000,
+        "maxTermInstallments": 60,
+        "maxAgeAtEnd": 75,
+        "maxTotalOrdinaryDebtBaht": 2000000,
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "noArrearsInstallments": 12,
+        "memberWelfareFuneralAssociationRequired": true,
+        "noDebtAsBorrowerWithOtherCoop": true,
+        "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+        "salaryDeductionOrIndividualAgreementRequired": true,
+        "guarantorBands": [
+          {
+            "max": 200000,
+            "minGuarantors": 1
+          }
+        ],
+        "guarantorSharePaymentMinMonths": 6,
+        "guarantorMaxConcurrentBorrowers": 3,
+        "guarantorNotSpouse": true,
+        "realEstateMaxLtvPercent": 90,
+        "purposeText": "ค่าใช้จ่ายการศึกษาที่จ่ายจริงของสมาชิก คู่สมรส บุตร หรือบุตรบุญธรรม ตั้งแต่อนุบาลถึงปริญญาเอก",
+        "lifeInsuranceRequired": true,
+        "repeatEducationMinInstallments": 6,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+          "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+          "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+          "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+          "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+          "หนังสือรับรองจากสถานศึกษา",
+          "หลักฐานค่าใช้จ่ายการศึกษาและหลักฐานเข้ารับการศึกษา",
+          "เอกสารผู้เรียน/บุตรตามรายการในแบบ"
+        ],
+        "formUrl": "https://drive.google.com/file/d/1cK6zUQSPdT-3NT7bJ3WXO_MWP_ruzXLi/view"
+      },
+      "review": {
+        "primaryVerified": true,
+        "verifiedAt": "2026-10-07T23:12:00Z",
+        "basis": "Visual review of all 4 pages: clauses 2–8; full 2569 replacement, not amendment-only; signed 11 September 2569"
+      }
+    },
+    {
+      "id": "disaster@2026-10-01",
+      "ruleId": "disaster",
+      "documentId": "doc-1f7a9387ebb04f2f81f1",
+      "domain": "disasterLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "source": "https://drive.google.com/file/d/18zwMfC-yCHLmANcYSSRPbmAOka4_IOKh/view",
+        "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ พ.ศ.2569",
+        "primaryEvidenceVerified": true,
+        "membershipMinMonths": 6,
+        "sharePaymentMinInstallments": 6,
+        "maxAmountBaht": 300000,
+        "maxTermInstallments": 120,
+        "maxAgeAtEnd": 75,
+        "maxTotalOrdinaryDebtBaht": 2000000,
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "noArrearsInstallments": 12,
+        "memberWelfareFuneralAssociationRequired": true,
+        "noDebtAsBorrowerWithOtherCoop": true,
+        "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+        "salaryDeductionOrIndividualAgreementRequired": true,
+        "guarantorBands": [
+          {
+            "max": 300000,
+            "minGuarantors": 1
+          }
+        ],
+        "guarantorSharePaymentMinMonths": 6,
+        "guarantorMaxConcurrentBorrowers": 3,
+        "guarantorNotSpouse": true,
+        "realEstateMaxLtvPercent": 90,
+        "purposeText": "ซ่อมแซม ปรับปรุง หรือซื้อทดแทนบ้านหรือทรัพย์สินที่เสียหายจากภัยพิบัติของสมาชิก คู่สมรส บิดา หรือมารดา",
+        "lifeInsuranceRequired": true,
+        "applicationDeadlineDaysAfterDisaster": 180,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+          "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+          "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+          "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+          "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+          "สำเนาทะเบียนบ้านที่เสียหายแสดงความเกี่ยวข้องกับสมาชิก บิดา มารดา หรือคู่สมรส",
+          "หนังสือรับรองผู้ประสบภัยจากหน่วยงานราชการในท้องที่ (แบบ ปภ.)",
+          "ภาพถ่ายความเสียหาย"
+        ],
+        "formUrl": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view"
+      },
+      "review": {
+        "primaryVerified": true,
+        "verifiedAt": "2026-10-07T23:12:00Z",
+        "basis": "Visual review of all 4 pages: clauses 2–8; full 2569 replacement, not amendment-only; signed 11 September 2569"
       }
     }
   ],
