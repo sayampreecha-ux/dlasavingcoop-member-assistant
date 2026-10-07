@@ -183,3 +183,8 @@ Full local release verification passed **15 suites, none skipped**. Product cove
 ## Safe continuation
 
 Recover the original private manifest identifying every row's class, then establish independent per-case semantic expectations. Keep all member source material and per-record results private. Run `scripts/run-private-mass-gate.mjs` with private `--corpus`, `--manifest`, and `--out` files. Inspect remaining real failures, add safe representatives, fix general causes, and rerun all release gates. Only after canonical Mass Acceptance and CI pass may this PR merge and follow the existing gh-pages deployment and Production browser acceptance process.
+
+
+## Latest main synchronization
+
+PR #78 was synchronized onto main `b34c1cd3ec0dd6fb33008ac2850055a7575c497e` without publishing private corpus data. Release gates remain unchanged pending CI and canonical acceptance evidence.
