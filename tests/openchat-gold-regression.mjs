@@ -29,6 +29,31 @@ for(const [q,expected] of cases){
     /ได้รับอนุมัติแล้ว|เงินจะเข้าแน่นอน|ผ่านแน่นอน/.test(all))
    failures.push({q,group:'unsafe-certainty',answer:r.answer});
 }
+const round2=[
+ ['กู้เพื่อการศึกษาอยู่ ถ้าจะกู้สามัญเพิ่มต้องหักกลบสัญญาเดิมไหม',null],
+ ['ส่งพัฒนาคุณภาพชีวิตครบแล้ว แต่ยอดงวดยังไม่ขึ้นในระบบ จะยื่นฉุกเฉินได้เลยไหม',null],
+ ['เงินเดือนเหลือหลังหักประมาณห้าพัน จะกู้เพิ่มได้ไหม',null],
+ ['หุ้นยังไม่ถึงเกณฑ์ ใช้เงินฝากมารวมเป็นหลักประกันได้ไหม',null],
+ ['เคยปรับโครงสร้างหนี้ ตอนนี้อยากกู้ฉุกเฉิน ต้องรอกี่งวด',null],
+ ['กู้โดยใช้หุ้นค้ำ ต้องมีผู้ค้ำอีกไหม',null],
+ ['ขอลาออกจากสมาชิกแล้ว แต่ยังมีภาระค้ำประกันคนอื่นอยู่ ลาออกได้เลยไหม',null],
+ ['เปลี่ยนผู้รับผลประโยชน์ต้องใช้เอกสารอะไร และทำออนไลน์ได้ไหม',null],
+ ['เกษียณแล้ว สิทธิสมาชิกกับเงินกู้เดิมต้องทำอะไรต่อ',null],
+ ['ผู้กู้เสียชีวิต สหกรณ์หักจากประกัน หุ้น หรือฌาปนกิจก่อน',null],
+ ['เงินปันผลกับเงินเฉลี่ยคืนคิดจากอะไรเหมือนกันไหม',null],
+ ['หักเงินเดือนชำระแล้ว แต่ยอดในระบบสมาชิกยังไม่ลด ต้องทำอย่างไร',null],
+ ['เอกสารกู้ถึงสหกรณ์แล้ว อยากรู้ว่าตอนนี้อยู่ขั้นตอนไหน',null],
+ ['ยื่นกู้วันนี้ จะเข้าประชุมและได้เงินวันไหน',null],
+ ['ประกาศหลักเกณฑ์กู้มีฉบับใหม่ ต้องใช้ฉบับไหนกับคำขอที่ยื่นไปแล้ว',null]
+];
+for(const [q] of round2){
+ const r=A(q), all=[r.answer,...(r.details||[]),...(r.followups||[])].join(' ');
+ if(r.intent==='fallback'||r.intent==='empty') failures.push({q,group:'round2-fallback'});
+ if(!r.answer) failures.push({q,group:'round2-empty'});
+ if(/ได้รับอนุมัติแล้ว|เงินจะเข้าแน่นอน|ผ่านแน่นอน/.test(all)) failures.push({q,group:'round2-unsafe-certainty'});
+ if(!r.evidence && !r.decision && !(r.sources||[]).length && !(r.actions||[]).length && !/ตรวจ|เจ้าหน้าที่|ข้อมูล|หลักเกณฑ์|ระเบียบ/.test(all))
+   failures.push({q,group:'round2-no-boundary'});
+}
 const edge=[
  'ครบ 12 งวดพอดีวันเปลี่ยนหลักเกณฑ์ ยื่นกู้สามัญใหม่ได้ไหม',
  'เอกสารผ่านแต่รอเอกสารผู้ค้ำ จะทันรอบโอนไหม',
@@ -42,4 +67,4 @@ for(const q of edge){
  if(!r.evidence && !r.decision && !(r.sources||[]).length && !/ตรวจสอบ|เจ้าหน้าที่|ข้อมูล/.test(all)) failures.push({q,group:'edge-no-boundary'});
 }
 if(failures.length){console.error(JSON.stringify({ok:false,source:'OpenChat รวมพลังฅนท้องถิ่น',failures},null,2));process.exit(1);}
-console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,total:cases.length+edge.length},null,2));
+console.log(JSON.stringify({ok:true,source:'OpenChat รวมพลังฅนท้องถิ่น',cases:cases.length,edge:edge.length,round2:round2.length,total:cases.length+round2.length+edge.length},null,2));
