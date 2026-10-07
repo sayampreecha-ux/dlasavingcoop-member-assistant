@@ -33,7 +33,7 @@
         "deposits",
         "guarantor"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "e307d5df700e542e5cb1dba1e28a874e18909f40bf08e61e66066c172a83d09d",
       "etag": null,
       "lastModified": null,
@@ -122,7 +122,7 @@
         "dividendPatronage",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "56abb0735de6ea90d1d98371038a43811aa2cb18568e44cfc8688a9583eedc50",
       "etag": null,
       "lastModified": null,
@@ -180,7 +180,7 @@
         "guarantor",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "7d3367d02186a27143c65cfd25d03a22bbcb676486e4404c6ff64cb13ddeab46",
       "etag": null,
       "lastModified": null,
@@ -219,7 +219,7 @@
       "domains": [
         "emergencyLoan"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "4ed5c6fb1f0b2a1c16e1a9f796ad893dc7a844ef19995a9b0b1461ed65e79078",
       "etag": null,
       "lastModified": null,
@@ -239,7 +239,7 @@
         "specialHousing",
         "redeemMortgage"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "21da183aa675343046ea1e69d8c9216c86a49e8473b3277155fb4380b1fb6fc1",
       "etag": null,
       "lastModified": null,
@@ -268,7 +268,7 @@
         "shares",
         "resignation"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "9d0d84fc872893a3ad9c59df0ae9ac031435ce0f9edd93eae8361b6ac0469531",
       "etag": null,
       "lastModified": null,
@@ -298,7 +298,7 @@
       "domains": [
         "welfare"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "87b9c5eb757342489d377e87e8df83038c56a864ac54e3faddcab3b5ada686e4",
       "etag": null,
       "lastModified": null,
@@ -329,7 +329,7 @@
       "domains": [
         "deposits"
       ],
-      "lastSuccessfulCheck": "2026-10-07T22:58:58.642Z",
+      "lastSuccessfulCheck": "2026-10-07T23:27:38.571Z",
       "fingerprint": "0b3613d2d2e4af99456844da9a37581da1357ec8657f3bb058084bb05279b47b",
       "etag": null,
       "lastModified": null,
@@ -360,7 +360,7 @@
       "affects": [
         "ordinaryLoan"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:33:29.384829Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -387,7 +387,7 @@
       "affects": [
         "qualityOfLife"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -416,7 +416,7 @@
       "affects": [
         "welfare"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -445,7 +445,7 @@
       "affects": [
         "welfare"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:53:18.800Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -496,7 +496,7 @@
       "affects": [
         "specialHousing"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:33:29.384829Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -554,7 +554,7 @@
       "affects": [
         "redeemMortgage"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:33:29.384829Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -581,7 +581,7 @@
       "affects": [
         "emergencyLoan"
       ],
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:33:29.384829Z",
       "status": "CURRENT",
       "mayAffectRules": false,
@@ -674,7 +674,7 @@
       "status": "CURRENT",
       "mayAffectRules": false,
       "contentHash": "d81e6388c3609c0a36ebc5984c031cf3c6b3c210db6888ec3a734ac8be502a18",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "lastContentCheck": "2026-10-06T01:33:29.384829Z",
       "review": {
         "primaryVerified": true,
@@ -706,7 +706,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "f359f6cf6b569af5c964a37cc971b800faa14b237d4a9ae71776bc033c46a596",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -733,7 +733,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "1d64d62c400bc1ca5645c7973e7ae4aea030bcca7325fa9a5d123bb0eb17dc5f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -760,7 +760,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "b0b6ed79eebbb760b58611d020ebb99722464916c60b7d603acb52c08fb8f1b6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -785,7 +785,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5350865585746e76d8b0b2405d4faae59afac5bf178520f49f2b5fb4ac9dd3b0",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -810,7 +810,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "99f16c2e5077c57c8c2a5803318a77de5d41394efba5d6dfa81b44c4d2aa3ac1",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -835,7 +835,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "11875a9ca269672adadf516c3350061d094099976681469263f03c8cea2156d4",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -860,7 +860,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d5439eaf1b549745165623fa9c27a5444ebfb7dc8e55f35caede1528a63457d4",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -885,7 +885,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ae705ef96856f943a8b2a4af508465f98561530404ed1338fa14c03072b9592c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -910,7 +910,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5b286673f5df95d19312b5b4b483f6ab1e9597e742429a876e05a479202cfadd",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -933,7 +933,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6762e32757409518190f79b2ace6220e080c59aa8d80e9e2c02281936f97896c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -958,7 +958,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "bae0d9e3186cf27485054a5cdb407c9cac556a682c37714fb6f9d58edf91d5fd",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -983,7 +983,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "adab562a0349f33f014d99a2fed552fdd37b6775664a956a985fa224cc7dac91",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1008,7 +1008,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2a388d7ca85e037ec33d0f60e890f967c8b3af22fd8ebf6567f51251fc182352",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1033,7 +1033,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ac7b9c2e7c277d73f24b573b6111bef4d5f801f3dc6e39d6bcfe9bdaf328aec3",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1058,7 +1058,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "670b0617858ff7e6cd79cbe73ecde2667ebd12bafb21114bd6f618c8455f1727",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1083,7 +1083,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "26bfeab83f933b90c55e83ec596c7fcf6f6048ef53d435bfc00597c238c3cc32",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1108,7 +1108,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "57678be6b8d871c8c5becd97a73df59dc7d2271b77e1433f55669dc8d559c71e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1133,7 +1133,7 @@
         "ordinaryLoan"
       ],
       "status": "SUPERSEDED",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "875705e4bd39455626c1675934d4b4ead6a0f960b2617e314fb4960d42424b47",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1161,7 +1161,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5a19eeb3bc4f99a282798ba6f092fd0f9da2e174f7120e114235ea7cdbddf7b5",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1186,7 +1186,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "98fa5dcf9dce5165ae742771002b1d5f9871cb88aa73755230d24c87d9ed35f4",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1211,7 +1211,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0228a2dde55a67df3f157388cba1f378c8e0a22e56b7c98bc4f32da4e4fefa69",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1236,7 +1236,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8aecc8f1b068a90a1af01077375ee42f6ba932edf293a0f887219492e42130cc",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1259,7 +1259,7 @@
         "emergencyLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8a7fc2fda5f79dc9b5e586595bb15fcdd0c9b604553f8c9bb3f1027df9bfd9ee",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1284,7 +1284,7 @@
         "emergencyLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "bf5659425b71b44bf05e0304e0d5d4177bf196d8655fd6ee693f6d66b14e04c5",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1311,7 +1311,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d31d7fab3121921948bccec40539c153d7404abfc9b1089b2c66ce4bbfb70b1e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1338,7 +1338,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "71b65b588d49ac680fbc0849d21aa307881fdd5c86d295b160630c158232921b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1365,7 +1365,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "039b3a6cf8655bd5b4c2e98f349b404ac7c739deee93753f721cd37a8e66d06d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1388,7 +1388,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a965dea572aebe19687e940f442eeece1b97e19dc9a0bf2bd00bf44aa95dfaaf",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1411,7 +1411,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "36f3fd08aebdfdc270a337f868ac4001d22303e4401370215dbf88da305c49f2",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1436,7 +1436,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "b49f366184f0db5a52e26d3bdf6da3cfb0ed2c35093e4815310c16b7e182addb",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1461,7 +1461,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ea2a22371b5c902df37ea96fc7dc6832322ed93c345534f7f00a176253ba4c49",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1486,7 +1486,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "df6bd3c20f1cadd741ef4d9b8f3b2c6c8eb12cf82adf53e1ad9da054332af50b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1513,7 +1513,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8096b3612277340e556e881ac884a3f8e5acf5426497c0b8104705c78b0f9323",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1540,7 +1540,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "db0ae1b2932df12508174ee88a24ec33800c3eff67c25e9dda5222e405049076",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1565,14 +1565,14 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2e4d5d569dd6885a9fa6b5a106b0222c3a96f70319fbbfad0a974a5fa42cf36f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "procedure": "2e4d5d569dd6885a9fa6b5a106b0222c3a96f70319fbbfad0a974a5fa42cf36f"
       },
-      "contentError": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-PTB07i/headers --output /tmp/official-sync-PTB07i/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "contentError": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-lBWvP6/headers --output /tmp/official-sync-lBWvP6/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "id": "doc-daa391c226945e4a77e7",
@@ -1589,7 +1589,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0cc4e4834f4928db2fb9f6d6c34476e6085774639d028ad1451645d412acf1e1",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1615,7 +1615,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6983f7bfa58e3cfa09ef75a42e806f5b148be510b7bff3bfbb7fd26c68f1cab1",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1638,7 +1638,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "75cf2b38ea0bb4144c1da4ba824b5daf5fcaa4dae4ff7ce7ad816fe1fa733eb1",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1661,7 +1661,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "58dd10a8c461e243f6f6e5412824772925d3a79f160acb7ade4fa34cdeb9cb7f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1684,7 +1684,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d0652ce0768c7e2bc24340cd1d74fca9b513b1e4baf05a8e0139c589f98ea5c6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1707,7 +1707,7 @@
       "amendment": 3,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8273a356dcdd345666280eb2c6e1d01d0341527f34db75fa391466b2964936a8",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1730,7 +1730,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "bc23bf73f331ea740e9098d5a17b8a0e8945a8052e7e863f3b43b1d380dc1603",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1753,7 +1753,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "bf64325afd07f57ee3ef9e666c002799233ad305858c500dd0cb216d16b43621",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1776,7 +1776,7 @@
       "amendment": 3,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6a7fcd136689878a881e8407058e5c890600034d7175e8818be1ef48263922d3",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1799,7 +1799,7 @@
       "amendment": 4,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e42808aec8d836cf0c8272e5358bfc3fd98f55772130c29c2ba7943fc7c321c9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1822,7 +1822,7 @@
       "amendment": 4,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "07d3aacd9c29e595a0ebd7276426f144632360346fd7e0b2f50977bddb92f178",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1845,7 +1845,7 @@
       "amendment": 5,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a080dc20cef28d2ced8fb134b8d552907c7d8b6524aceace0d5396071abca0c9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1868,7 +1868,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d3ad834e6854c66f47e32a80717f23eddebd540a8e01cedca465eb064fde670f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1891,7 +1891,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e9c8e602307fc5782990af868fcb0d357bf82f162ef432ba6d19765b274aade7",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1914,7 +1914,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "37e4a3c100958128eaee9f4dcab4bc855bc74c080dad091257b6ae6c3d300f29",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1937,14 +1937,14 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "43d140a3ba1f53c38ebf8b761de68a5edae94adce33f4cff4a1b9950a54b639a",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "procedure": "43d140a3ba1f53c38ebf8b761de68a5edae94adce33f4cff4a1b9950a54b639a"
       },
-      "contentError": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-dgto67/headers --output /tmp/official-sync-dgto67/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "contentError": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-XcNN5A/headers --output /tmp/official-sync-XcNN5A/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "id": "doc-8f5db96571073adbb7e6",
@@ -1959,7 +1959,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c35855cc2e60392558d34c42358e8b0e4119d18292451c5ba6c4381986d2ee9f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1982,7 +1982,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "f4ae922489f83231e92f62dfeabe1910f46c9147c41d8063e4af40924bceefa6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -1990,9 +1990,7 @@
         "procedure": "f4ae922489f83231e92f62dfeabe1910f46c9147c41d8063e4af40924bceefa6"
       },
       "contentHash": "18aa7491b18c864bef9accdbb7183592a399247a8388ce14681853fbbc99b184",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-9726fbabd5b757a4b048",
@@ -2007,7 +2005,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8873407c02a80e9d7f68e9fe052a207a9b2a4cd8d8c8e7828253fa76faead170",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2015,9 +2013,7 @@
         "procedure": "8873407c02a80e9d7f68e9fe052a207a9b2a4cd8d8c8e7828253fa76faead170"
       },
       "contentHash": "38197f9029bc755d2a410584980d43a91f847b11c532ca8dcc8f102b1d0ded43",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-af207a7320545099f775",
@@ -2032,7 +2028,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6239d7152624fb10f5b4589cfdcbd3301e6efed6cca75d36c897b3e2c2c303a6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2040,9 +2036,7 @@
         "procedure": "6239d7152624fb10f5b4589cfdcbd3301e6efed6cca75d36c897b3e2c2c303a6"
       },
       "contentHash": "09b6657983e3f92ec187636c343dddbcf7a4c60113c0316286a54df98854e9e1",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-0a7ac871ba8bdd04c2ea",
@@ -2057,7 +2051,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "41da85dd2247f9299e916019baa6eba8b2b3d4aa8e632881d9334b971e40c606",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2065,9 +2059,7 @@
         "procedure": "41da85dd2247f9299e916019baa6eba8b2b3d4aa8e632881d9334b971e40c606"
       },
       "contentHash": "7d4b6913614e18a9db6e7a31d128d7e349dcf36d85ce1a97ce256f45610cd6ec",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-459263fae29684b900f6",
@@ -2082,7 +2074,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "cb76bcb07bc997609f1a51dd6cfff36f4ec68a19d33e5c37ab78fd0d033b5a35",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2090,9 +2082,7 @@
         "procedure": "cb76bcb07bc997609f1a51dd6cfff36f4ec68a19d33e5c37ab78fd0d033b5a35"
       },
       "contentHash": "45ef53a7e39af45030bc6757ae0b40c1a136be4aaf6d6930ee2bfa28071158a6",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-bc5fd17109ac26793134",
@@ -2107,7 +2097,7 @@
       "amendment": 2,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "72b1d6472eba5d45749b18b4bfa040e35a9c2a06dc5b11a961369e3631fbb242",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2115,9 +2105,7 @@
         "procedure": "72b1d6472eba5d45749b18b4bfa040e35a9c2a06dc5b11a961369e3631fbb242"
       },
       "contentHash": "e5d016659d29be491f56cb8672326888a336f77d13aa320f8073430fd72acf51",
-      "etag": null,
-      "lastContentCheck": "2026-10-07T22:58:58.642Z",
-      "contentError": null
+      "lastContentCheck": "2026-10-07T22:58:58.642Z"
     },
     {
       "id": "doc-4f97c7a24809618342a1",
@@ -2132,13 +2120,17 @@
       "amendment": 3,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "58b1a1d9cdd2a54897f7d1fbd158d76ad8f992d319ca5d42c61e5a87dbb66e91",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "procedure": "58b1a1d9cdd2a54897f7d1fbd158d76ad8f992d319ca5d42c61e5a87dbb66e91"
-      }
+      },
+      "contentHash": "b678a8d87514179bc568a943259006b474adcc34633f667c92a7eb18dc655184",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-24c6c3870cd865bad84c",
@@ -2153,13 +2145,17 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "deaa6f24c1b3fdf42758f272ed31298b713c790d1b2786cfab80f21976d8d40e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "procedure": "deaa6f24c1b3fdf42758f272ed31298b713c790d1b2786cfab80f21976d8d40e"
-      }
+      },
+      "contentHash": "e3e17e116c930a44743227afb2fb91d79d95955e4a1f599608652f9832f8514f",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-5d2df1fc58bb3f2e540c",
@@ -2174,13 +2170,17 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5147f5825106b672420be96a16cb3d2a015d23263db3944cd663b459cad5d314",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "procedure": "5147f5825106b672420be96a16cb3d2a015d23263db3944cd663b459cad5d314"
-      }
+      },
+      "contentHash": "adabd38daf984eae86db03a185c40ed9438bb4aa30be6aa5066118e2567a70fa",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-148c8f2d831c6b48e33f",
@@ -2198,7 +2198,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "79dc50f2b5c94b64eacc698174a2e68e226c5abc04dae5ca899aa87a17868475",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2222,7 +2222,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d472537e5e565b6c362e4e0b373bb467c27a8cf9b2a1151f59a27f27249fc079",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2243,7 +2243,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "b48bc774a726fa6d127a9e1e03206a2fcd246e977cd3e5bc37493de4a70a2be6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2266,7 +2266,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5670d0660cbd72040b6b7a2f0ffca10ee154b8ea073fd14e2cc1ea1b672381a9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2290,7 +2290,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5023ad1e1582ae1daf0160504f2537be37ab695f804e4f6cc9fbbb949d056348",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2311,7 +2311,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2f3ae9f1ab375bbdeb4f6dfe37fbc133fdd7b56889f78d6f23477debd1e58215",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2332,7 +2332,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2a853f0ba2d55faf1da30cce1c2fef90958964838ea9bb6d90a96357f651d65c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2355,7 +2355,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2f43d3949778be0d550a6eb26b058530669beab73ffebcf954aa96554f6d23d9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2380,7 +2380,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a7794a7f8d355276235f7690aea2fa026a2757cf7be601d6e611024064d40aef",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2401,7 +2401,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c9375d03b807cf5c3ebe91ca132d43d71350ebdd1a55ddd960e1e7f13833f61c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2425,7 +2425,7 @@
         "dividendPatronage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "57d28e28741100e6850f237f2e03401b2cf6339be00806a65ac45220dc2f151e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2446,7 +2446,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e7618f064c955e5be16b6f3e9becea39d4f0472601745286e22c72ecb6afc413",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2470,7 +2470,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "67ba7c21047e21fba4f6a5c43aac2c0616991c5d94ee4ef25ee7332c5a93eeec",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2493,7 +2493,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8d1a8b967b75c38ad77c02ea06e667455c57bee35d4fe198f828595722d03e2a",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2514,7 +2514,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c48480504c6bee40f0c3bb5f26edbc44028170aa1f085eff9e30cbe5d3b1e29d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2535,7 +2535,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5b0651d6ad2ba6a468f5c919108cd432705ebd1ce57323d0c9752158e843a713",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2559,7 +2559,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8786fa4ad1674ba0b364270a52160d382c29ff4fe937973ab40567572dca792b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2582,7 +2582,7 @@
         "qualityOfLife"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5f14d2a6f5a461fa3f3ffe9dd0a1a0d2cee121467d6b5ea05f6a9d1628810235",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2605,7 +2605,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c1a0718fb8c2e26a9acc478eac6d52b26945d4c55da16d644465069587b12ece",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2626,7 +2626,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a402b994fd5323d4159df785175650c3f615e38d19ec3ebed3c3f1c9f232e88e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2647,7 +2647,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "f53356ecfe7ee3f6914b4697c4d50142eacdd3926d2d6edf4d5ed6824bdb3f1e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2668,7 +2668,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d8118303c55ac122ea72a83936b76f615370a3e16e8a7c92e21a89227be2f8bf",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2692,7 +2692,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6757c57b08c7ffaaa6c21da7c8fed693a25520087a9c84be4e35280f92359c31",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2713,7 +2713,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "657b9b110130ff237b10dcbd30da7876b7cc50d25ea1f116549254594efb3b3d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2737,7 +2737,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "3005e933afb00ebbbf881be938c7597f090451ce6077316de5e20dd002f9e8d8",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2758,7 +2758,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e79487fe5b4f4cd952e8ffe245e86a9601a395ac4e3c587e4c6f91bceded4f47",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2779,7 +2779,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5fa0f15a9451fbc8f75894cb6a3590edfed4c89a0a98631d7c8c9d66a93df3ae",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2803,7 +2803,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0836aa6dcfb50056dc914d959f044e8cb7309fa8ab4cba2924823672b588c0b0",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2824,7 +2824,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8c8c38c7ec680ef91e8836a0bd2d0d7ac062e73594fa216c26270df454f1ec91",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2847,7 +2847,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d2e5b4c48b472cd98a3569cff77fd7fda13b817c3cda9b8018dfbcf7d58978cf",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2874,7 +2874,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5658f4764aa80108c4b111409eb0fe6a2960fc8e003dd9c44fc71dfd4bcfbb6f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2895,7 +2895,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4204178e2f87ca6f369d4b34d673e45633cc59c0d0353ad5cf9cc56d762135a2",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2916,7 +2916,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "7a5a00b30f35bb697fe4ef9af92c0020dd6819eb4a565b4e30d86ed1f323d7a9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2940,7 +2940,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c611e67c3658bbc2109f1f440a9fec902f860f2c01fe59f9a189ef587ef8bcca",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2961,7 +2961,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d2d98121f156b96bdf59eebbdd0b6f4a6219363a349831b869b8b6fa09e749db",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -2982,7 +2982,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "eaf023355a741c35db984e73daa0c17fb33b881e73a0d7b7be1674dc206f17f0",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3005,7 +3005,7 @@
         "qualityOfLife"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "842ffa28e3bf401877590d4c18e2178f17e552de07bad167f9ac709b1a989c28",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3026,7 +3026,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "3a1ca6449e9ac588cff21bb1be74ad0657eb7523e69760c5269f616d59f527fe",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3047,7 +3047,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ced7b7d1c32862312f77e7163ba3379f4fffe2ea7af9b970a95c1786fa01578e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3071,7 +3071,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "527006acb4cf6a9389cb026beb5f66ca670c1e21f28597d2d4575eb73051518b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3092,7 +3092,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "b595c3e09d900a6e6ed3de13313bdf9f25c5019d040c0540182c44cb41dc9a22",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3115,7 +3115,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4afd816ccd207e392cdcb77660cafb953e1da820b55b27b6efbaac77d1a7e20c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3138,7 +3138,7 @@
         "educationLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5301f30eb5228aa1264c4ec94f81b9730718bb2618eea51ba62c62b0c8596c34",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3162,7 +3162,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ab44901edb9c1bce08650986bf4aedd2c7570cf87e1c3748943784dcc32248f9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3185,7 +3185,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5796ace73c942a810d31429b6d8a9653550b47851803114d5c804a3fa11f36a9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3208,7 +3208,7 @@
         "disasterLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e1e3b249e1aac88caab382a867cad7b98886de0dfb022416d5f599ecdb46d3f9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3232,7 +3232,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4cf62a2f21c7bcd825906eda7e8d2d69993970caaa0d772e82bc122dd01970b0",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3255,13 +3255,17 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "061f8d6c05cc14651dbeeee474532069dfd806b18971d7f36de592f8d8e6aecd",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "ordinary": "061f8d6c05cc14651dbeeee474532069dfd806b18971d7f36de592f8d8e6aecd"
-      }
+      },
+      "contentHash": "3d80be1dff1129ab6c27f907c2a7a95d7e4b874a16b6c5f5474b948b5b018f41",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-c4ec70e384c890ae62c7",
@@ -3280,13 +3284,17 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "465bc3895202f51a5421baa82a832741b3246b802f8569dfa0f2556618020114",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "ordinary": "465bc3895202f51a5421baa82a832741b3246b802f8569dfa0f2556618020114"
-      }
+      },
+      "contentHash": "b696723bb3485404448cbe2648fb0d33ed2abbfd9f299b8414dec7f747a661e5",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-2103ba4da2cf1f68a64c",
@@ -3304,56 +3312,74 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "ac3e952844cf75c638e7f3616d59c75f8415fe4e992d7b87f60cfc49bcdae251",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
       "indexFingerprints": {
         "ordinary": "ac3e952844cf75c638e7f3616d59c75f8415fe4e992d7b87f60cfc49bcdae251"
-      }
+      },
+      "contentHash": "7c8e57e3534282dfae302277ff54adb65dcfd3e933552bb8bded2ce4c49228d8",
+      "etag": null,
+      "lastContentCheck": "2026-10-07T23:27:38.571Z",
+      "contentError": null
     },
     {
       "id": "doc-2b74a1ba4639975aaeb1",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง คุณสมบัติผู้ขอกู้ เงื่อนไข และวิธีการให้เงินกู้สามัญ เพื่อการศึกษาสมาชิก แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/1h_AhLqYbkI0Gfzsy5pIHuXtFRLVl7TM5/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": null,
       "amendment": null,
       "affects": [
-        "educationLoan"
+        "educationLoan",
+        "guarantor"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d65d5d2047dc0ec7ebd8431bcf999dd70199c2f39f8711c85b20b64405bc2ddd",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "pendingReason": null,
+      "contentHash": "c1e619041cc0400384f63bc0e6e105e39a5d3ceeb618ea196fed840a799c92ff",
+      "lastContentCheck": "2026-10-07T23:12:00Z",
+      "review": {
+        "basis": "Full four-page primary announcement visually reviewed; clauses 3–8; signed 11 September 2569, effective 1 October 2569. Prior 2567 announcement and 2568 amendment repealed under clause 3. No earlier values inferred. Form checklist read separately for documentary requirements.",
+        "reviewedAt": "2026-10-07T23:12:00Z"
+      },
       "indexFingerprints": {
         "ordinary": "d65d5d2047dc0ec7ebd8431bcf999dd70199c2f39f8711c85b20b64405bc2ddd"
       }
     },
     {
       "id": "doc-1f7a9387ebb04f2f81f1",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง คุณสมบัติผู้ขอกู้ เงื่อนไข และวิธีการให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิก กรณีได้รับความเสียหายจากภัยพิบัติ แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/18zwMfC-yCHLmANcYSSRPbmAOka4_IOKh/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": null,
       "amendment": null,
       "affects": [
-        "disasterLoan"
+        "disasterLoan",
+        "guarantor"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "17177b8f8eb4986bd6f9ad20cdc02f75b67653d49566f3cd54265e8fcd352858",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
+      "pendingReason": null,
+      "contentHash": "53bf5da4ebfa59508229b37f0b6098fa431bfd606a9dd5a2e59b2f9690b7a8b8",
+      "lastContentCheck": "2026-10-07T23:12:00Z",
+      "review": {
+        "basis": "Full four-page primary announcement visually reviewed; clauses 3–8; signed 11 September 2569, effective 1 October 2569. Prior 2567 announcement and 2568 amendment repealed under clause 3. No earlier values inferred. Form checklist read separately for documentary requirements.",
+        "reviewedAt": "2026-10-07T23:12:00Z"
+      },
       "indexFingerprints": {
         "ordinary": "17177b8f8eb4986bd6f9ad20cdc02f75b67653d49566f3cd54265e8fcd352858"
       }
@@ -3378,7 +3404,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "fc6889410842aafdc9809628b366166d21e5145224ebc703a0f640cb40b05461",
       "pendingReason": "SAME_PRIMARY_URL_LINK_LABEL_DIFFERS_BETWEEN_INDEXES",
@@ -3407,7 +3433,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "36fc4af1aaee1e8772d34a97dad25fd72e842e25ad26ff6ee0540db5a34a63d9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3431,7 +3457,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6092cf421e153cdfb4dfcd7d672ead8371bb43a789ba534e96455e7a8ca5c0d2",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3454,7 +3480,7 @@
         "disasterLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "98464426258abc6990e086bc67a9172de84adffbfdc72dfc7ac2e71196d40e9e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3477,7 +3503,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "35be07daba50232c78d282d4613dd458a672eaa63c83899d98a0962bf53aa41e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3500,7 +3526,7 @@
         "educationLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d5da96bbbcba2ac1426af299754be8a1d64fd78b3cee815760a2a882ba02b4fe",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3525,7 +3551,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "fbcc173667edb137a872f48d287491b251668ce0920f4195e2d66c8cb4e3e8cd",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3548,7 +3574,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "9de3aeee74815a67536188105c023cc75661dd056697273611a786bf087d0e98",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3572,7 +3598,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8fc66f50d761073974f1eee0d76d31c03a3eed72974499f141f9d52ac0fe339b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3595,7 +3621,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "07e6470f199e7f9fdb4723bdf53639d5de6e54f1cd6b32a2ac78e0ab854a150e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3619,7 +3645,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6cb6b93706253f9b22dc6690fdabcd39e8f187923b443ddd0a8b095c952e663e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3640,7 +3666,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "dbc9e891bff98e66efa9b19c9a158fc5a472d13e3bb283c9f3c9f10952bd8f68",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3663,7 +3689,7 @@
         "emergencyLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2ed2fc991b4b59b662b0b44052cab496250471c8c225829550085ea7f769e86e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3734,7 +3760,7 @@
         "emergencyLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8c4cb540641dedff2507afe6cf541296b20315742a37728d93e6000b0f6cc33f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3757,7 +3783,7 @@
         "specialHousing"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "03f85ef5a8c77915c57e527c9354bbb8e8a8f2a6910be671f7146f987597417e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3780,7 +3806,7 @@
         "specialHousing"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "3d1153944ee982a40299bf5fc525b756780008706eba918052edfe8061558ea7",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3851,7 +3877,7 @@
         "specialHousing"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "459d9d7b5efea8170c5c354ec5b80c4bf696b04f2e7426e780250ca00199f85b",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3872,7 +3898,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c560f7fa6f9ba2c7ae319b407b8d31788e2a15a61bed0fc794ee9e46c0d9e7ae",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3893,7 +3919,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "83365b8af0703ca8aff83ea10f55e4e212c07cbdf918cab9e950e8602faa58f3",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3916,7 +3942,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a43bc452277c69fefc56fbce68a8f7fb397ec7a597ea686cc2d7ab3bfb5f1f70",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -3987,7 +4013,7 @@
         "redeemMortgage"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0b22725866f32b1986503f82fec0809e692d75b34e73461ddb6395c7425fefbb",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4010,7 +4036,7 @@
         "qualityOfLife"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8ba0cfcde6a86200c441ebabe9174c7c8bfc7785548be5c8f9a5350c6dfe478f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4084,7 +4110,7 @@
         "guarantor"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5816c0da1af64405fed826f5d54e4a9b215b89090616a1f9cd0755a4e266d652",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4158,7 +4184,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "1e6140b9828d58a389a0f2e7c16e95b0c445242152ffd09ce4f61ea8b756bdda",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4182,7 +4208,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "97b1c8eabd7ff7022e5c56565bf87ca2975761d9edb72f7981da78743f45705f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4205,7 +4231,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "b3fc99504a69af3edc91d200a633f9d82c3b62824b97531a9dc312d2c39488f8",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4228,7 +4254,7 @@
         "membership"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0d47f9995d40c397cea628083bfbd4109efeabc5bd804c127aed28a2a0db2404",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4251,7 +4277,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "cd1544a171c1b49e1e58e3d2f83352851f63101e87381b03253637756fcd4551",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4272,7 +4298,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0c44a65da359b5f25a55a0313d9d44110b6161a28d2f3ed08c1199fefe717f6d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4295,7 +4321,7 @@
         "resignation"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e15f2c22d3ec8232a4df29f0a6dba5ed91ea4cb5d78235b672348bba77492ee9",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4316,7 +4342,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "800364f1f501a672b1de413867f63e3de3fec250fad2e5d98e59917dbf918f40",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4339,7 +4365,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4ac3e05f9da3f635507bed5adbe6a2a06dc325d63fc69da451636d0e07282995",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4362,7 +4388,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "8f6f8fb1009b73638fe4b2d1f5499011fa38e770c026bc2c679cfd7b083a77cd",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4406,7 +4432,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "2929b1fc5df8012dc673494c4e74dcb5260a94af0f0622814f366c7a018b631d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4427,7 +4453,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "e346342fd87ad0cd07106c4f73b8a31060f2727210f2b34121c4a317463e3232",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4448,7 +4474,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "1b320c3646c7afeb9e9eab544a898509fd3a5db24d0b134df6094bc713a3bd4c",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4471,7 +4497,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4c76f5b3d0a6643a0580e2c6994d7a535e29bcedd2f8ef98c2cf20af6c6b8f46",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4494,7 +4520,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "4d92c6653e3a817f48e432ced685f94016155d9f26891e2ec6a0c1c13110262d",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4517,7 +4543,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "aeb0de01008ab98fae0845c076389e612013c6a767e804cc04f1faf828e3f2aa",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4540,7 +4566,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "5883e05d5479f2e4807dfb64b68e53fa5c6cc0cfa11c62f0ebe2a61aab8f653e",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4563,7 +4589,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "0d785efeb478fdd3ba6c90252b173956b79ee911b23e7bd3e872499ac0ac6e26",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4586,7 +4612,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "9ac8983cd73c12f09e963f24d66fc59817201256026e1a2bda636161c0506577",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4609,7 +4635,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "47fd2db1d36fbf615cc65e3e9e70e29bc086406768ccc7091523547ca9f23dde",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4630,7 +4656,7 @@
       "amendment": null,
       "affects": [],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c3d8cbfa2bef196ae12009d9f8a7b928ca17fab7047a8c90dc1be86475ff04f2",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4653,7 +4679,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "6d2cb100919c4d633b3872a867e8a404b9425f340252209c5108870b41c05c88",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4676,7 +4702,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "414d93dd1122655b07c05db8ecc1528b2c57b946eff4f0c20de98a6cd9d72f1a",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4699,7 +4725,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a276f570427445efe09b639882eade500666effa97d2c3fa14f3ad05b1a8f321",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4722,7 +4748,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "fbf2989f1ab3940bb44b986e17c4ae3c69f2eaca2810532303861f141481aeb6",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4745,7 +4771,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "423cfb4c43b42ca40141993c3f7e0d8410e01eef172497bed2571ce9a72b4c82",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4768,7 +4794,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "73f32d2755577f414ee1d9c8151385e50e60658af5f1aa3748cf3170e63f585f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4791,7 +4817,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "bdc1fd14ddfedb06195d369ea01bf84b109e4ac0a24364e7bbc9bf1103096f36",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4814,7 +4840,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "852c6b43634b83999c6b2d2415fd2d63ef24fea4a1b5aa45d27cf0181c8190e0",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4837,7 +4863,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "d388b5cc82b78b4d46646812e1dc78631931ad0d054d4836547f8cff228bae99",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4861,7 +4887,7 @@
         "interest"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "62dc0f142f19568e4e821a057b81584d5112c39ebc0c9a3abe623e06e73f5a8a",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4884,7 +4910,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "a330759e814894ce82b375b261231436e963f08762a555c3c9f78e495d5420f1",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4907,7 +4933,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "7eac32da7af9f22de8956d1b486e02082ce8fcac4e74e7a544b09591be1dc510",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4930,7 +4956,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "78390ed981697fc00fbc88aab1eb629fe6a5aec0c0045f5b7e880635b6661a0f",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4953,7 +4979,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "def81e0f4cb6501b31bcd4aa762cdf5f41f3e354e9fde625afdeb7ec21136344",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4976,7 +5002,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "303fd04f8e779d7d5a0930d5aa9ff336a0da825618c43433ce7d5e80151a9ffb",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -4999,7 +5025,7 @@
         "deposits"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "c7890a5bb7f7c5098f677d517e99919ada82a192209474cf01be8599ee315e32",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION",
@@ -5023,7 +5049,7 @@
         "welfare"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": true,
       "fingerprint": "6546dcc2a2d36e4c71b0987667347090435ccd96236d1913f0fc2b95833e102a",
       "indexFingerprints": {
@@ -5047,7 +5073,7 @@
         "ordinaryLoan"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": true,
       "fingerprint": "0abb765524c7af12faa05e8b52dd6a9849c245dc700b1abaac26d4c7ff3eea32",
       "indexFingerprints": {
@@ -5071,7 +5097,7 @@
         "shares"
       ],
       "status": "PENDING",
-      "lastCheckedAt": "2026-10-07T22:58:58.642Z",
+      "lastCheckedAt": "2026-10-07T23:27:38.571Z",
       "mayAffectRules": false,
       "fingerprint": "aa778f778036ae742cafe5a14a9262da1c8627d9a26ac0eefbb2032148b304a2",
       "indexFingerprints": {
@@ -5929,7 +5955,127 @@
         "primaryVerified": false,
         "reason": "SPECIFIC_SCOPE_NOT_VERIFIED"
       }
+    },
+    {
+      "id": "education@2026-10-01",
+      "ruleId": "education",
+      "documentId": "doc-2b74a1ba4639975aaeb1",
+      "domain": "educationLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "source": "https://drive.google.com/file/d/1h_AhLqYbkI0Gfzsy5pIHuXtFRLVl7TM5/view",
+        "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว พ.ศ.2569",
+        "primaryEvidenceVerified": true,
+        "membershipMinMonths": 6,
+        "sharePaymentMinInstallments": 6,
+        "maxAmountBaht": 200000,
+        "maxTermInstallments": 60,
+        "maxAgeAtEnd": 75,
+        "maxTotalOrdinaryDebtBaht": 2000000,
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "noArrearsInstallments": 12,
+        "memberWelfareFuneralAssociationRequired": true,
+        "noDebtAsBorrowerWithOtherCoop": true,
+        "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+        "salaryDeductionOrIndividualAgreementRequired": true,
+        "guarantorBands": [
+          {
+            "max": 200000,
+            "minGuarantors": 1
+          }
+        ],
+        "guarantorSharePaymentMinMonths": 6,
+        "guarantorMaxConcurrentBorrowers": 3,
+        "guarantorNotSpouse": true,
+        "realEstateMaxLtvPercent": 90,
+        "purposeText": "ค่าใช้จ่ายการศึกษาที่จ่ายจริงของสมาชิก คู่สมรส บุตร หรือบุตรบุญธรรม ตั้งแต่อนุบาลถึงปริญญาเอก",
+        "lifeInsuranceRequired": true,
+        "repeatEducationMinInstallments": 6,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+          "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+          "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+          "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+          "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+          "หนังสือรับรองจากสถานศึกษา",
+          "หลักฐานค่าใช้จ่ายการศึกษาและหลักฐานเข้ารับการศึกษา",
+          "เอกสารผู้เรียน/บุตรตามรายการในแบบ"
+        ],
+        "formUrl": "https://drive.google.com/file/d/1cK6zUQSPdT-3NT7bJ3WXO_MWP_ruzXLi/view"
+      },
+      "review": {
+        "primaryVerified": true,
+        "verifiedAt": "2026-10-07T23:12:00Z",
+        "basis": "Visual review of all 4 pages: clauses 2–8; full 2569 replacement, not amendment-only; signed 11 September 2569"
+      }
+    },
+    {
+      "id": "disaster@2026-10-01",
+      "ruleId": "disaster",
+      "documentId": "doc-1f7a9387ebb04f2f81f1",
+      "domain": "disasterLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "source": "https://drive.google.com/file/d/18zwMfC-yCHLmANcYSSRPbmAOka4_IOKh/view",
+        "primaryEvidenceTitle": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ พ.ศ.2569",
+        "primaryEvidenceVerified": true,
+        "membershipMinMonths": 6,
+        "sharePaymentMinInstallments": 6,
+        "maxAmountBaht": 300000,
+        "maxTermInstallments": 120,
+        "maxAgeAtEnd": 75,
+        "maxTotalOrdinaryDebtBaht": 2000000,
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "noArrearsInstallments": 12,
+        "memberWelfareFuneralAssociationRequired": true,
+        "noDebtAsBorrowerWithOtherCoop": true,
+        "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+        "salaryDeductionOrIndividualAgreementRequired": true,
+        "guarantorBands": [
+          {
+            "max": 300000,
+            "minGuarantors": 1
+          }
+        ],
+        "guarantorSharePaymentMinMonths": 6,
+        "guarantorMaxConcurrentBorrowers": 3,
+        "guarantorNotSpouse": true,
+        "realEstateMaxLtvPercent": 90,
+        "purposeText": "ซ่อมแซม ปรับปรุง หรือซื้อทดแทนบ้านหรือทรัพย์สินที่เสียหายจากภัยพิบัติของสมาชิก คู่สมรส บิดา หรือมารดา",
+        "lifeInsuranceRequired": true,
+        "applicationDeadlineDaysAfterDisaster": 180,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "หนังสือขอกู้ สัญญากู้ และสัญญาค้ำหรือเอกสารหลักประกัน",
+          "หนังสือยินยอมและเอกสารประกอบตามแบบ",
+          "รายการเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือนที่รับรองแล้ว",
+          "สำเนาบัตรและทะเบียนบ้านผู้กู้/ผู้ค้ำ รวมเอกสารคู่สมรสตามสถานภาพ",
+          "สำเนาหน้าบัญชีและเอกสารอื่นตามรายการในแบบ",
+          "สำเนาทะเบียนบ้านที่เสียหายแสดงความเกี่ยวข้องกับสมาชิก บิดา มารดา หรือคู่สมรส",
+          "หนังสือรับรองผู้ประสบภัยจากหน่วยงานราชการในท้องที่ (แบบ ปภ.)",
+          "ภาพถ่ายความเสียหาย"
+        ],
+        "formUrl": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view"
+      },
+      "review": {
+        "primaryVerified": true,
+        "verifiedAt": "2026-10-07T23:12:00Z",
+        "basis": "Visual review of all 4 pages: clauses 2–8; full 2569 replacement, not amendment-only; signed 11 September 2569"
+      }
     }
   ],
-  "lastSyncAt": "2026-10-07T22:58:58.642Z"
+  "lastSyncAt": "2026-10-07T23:27:38.571Z"
 }
