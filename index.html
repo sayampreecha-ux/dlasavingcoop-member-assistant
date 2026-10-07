@@ -202,7 +202,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม/.test(text)&&/กู้/.test(text))add('educationLoan');
-    if(/ภัยพิบัติ|น้ำท่วม|ไฟไหม้/.test(text)&&/กู้/.test(text))add('disasterLoan');
+    if((/ภัยพิบัติ/.test(text)||/น้ำท่วม|ไฟไหม้/.test(text)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))&&/กู้/.test(text))add('disasterLoan');
     if(/รวมหนี้|คุณภาพชีวิต/.test(text))add('qualityOfLife');
     if(/เคหะ|กู้บ้าน|ซื้อบ้าน|ปลูกบ้าน|สร้างบ้าน/.test(text))add('specialHousing');
     if(/ไถ่ถอน|จำนอง|รีไฟแนนซ์บ้าน/.test(text))add('redeemMortgage');
@@ -1559,7 +1559,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/เคหะ|กู้บ้าน|ซื้อบ้าน|สร้างบ้าน|กู้ปลูกบ้าน|กู้ปลูกสร้าง/.test(q))return 'specialHousingCurrent';
     if(/ฉุกเฉิน/.test(q))return 'emergencyLoanCurrent';
     if(/การศึกษา|กู้เรียน/.test(q))return 'education';
-    if(/กู้.*(?:ภัยพิบัติ|พิบัติ|น้ำท่วม|ไฟไหม้)/.test(q))return 'disaster';
+    if(/กู้.*(?:ภัยพิบัติ|พิบัติ)/.test(q)||/กู้.*(?:น้ำท่วม|ไฟไหม้)/.test(q)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(q))return 'disaster';
     if(/สามัญ/.test(q))return 'ordinaryLoanCurrent';
     return null;
   }

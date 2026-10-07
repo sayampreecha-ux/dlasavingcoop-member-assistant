@@ -25,6 +25,7 @@ export const educationDisasterCases=[
 ];
 if(process.argv[1]===new URL(import.meta.url).pathname){
  const app=loadMemberEngine();let pass=0;
+ const fireInsurance=app.answer('กู้สามัญประกันไฟไหม้กี่ปี');assert.equal(fireInsurance.domain,'ordinaryLoanCurrent');assert.ok(!app.freshnessStatus('กู้สามัญประกันไฟไหม้กี่ปี').domains.includes('disasterLoan'));pass++;
  for(const [q,...checks]of educationDisasterCases){const r=app.answer(q);assert.equal(r.decision,'RULE_INFORMATION',q);for(const check of checks)assert.match(r.answer,check,q);assert.ok(r.sources.length);assert.doesNotMatch(r.answer,/undefined|NaN|กู้ได้แน่นอน/);pass++;}
  for(const key of ['education','disaster']){
   const prefix=key==='education'?'กู้เพื่อการศึกษา':'กู้ภัยพิบัติ';
