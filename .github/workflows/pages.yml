@@ -1,4 +1,5 @@
 name: Deploy GitHub Pages
+# Re-run full release and production verification without changing test criteria.
 on:
   push:
     branches: [main]
