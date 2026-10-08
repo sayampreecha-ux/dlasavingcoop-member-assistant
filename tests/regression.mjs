@@ -204,6 +204,20 @@ for(const q of ['ขอแบบฟอร์มกู้สามัญ','ขอ
  if(r.decision==='EVIDENCE_LOCK' && !(r.actions||[]).some(a=>/แบบฟอร์ม|เอกสาร/.test(a[0]))) throw new Error('locked-form-route: '+q);
 }
 
+// Official-source special deposit answer simulation: no fabricated current interest rate.
+for(const [q,expected] of [
+  ['ฝากพิเศษ','500 บาท'],
+  ['เปิดบัญชีฝากพิเศษขั้นต่ำกี่บาท','500 บาท'],
+  ['ฝากพิเศษดอกเบี้ยกี่เปอร์เซ็นต์','3.25%'],
+  ['ฝากพิเศษถอนเงินได้ไหม','คำขอถอน'],
+  ['ฝากพิเศษยอดของผมเหลือเท่าไร','ยืนยันตัวตน']
+]){
+ const r=globalThis.COOP_APP.answer(q);
+ if(!String(r.answer||'').includes(expected))throw new Error('special-deposit-answer '+q+': '+r.answer);
+}
+const depositRate=globalThis.COOP_APP.answer('ฝากพิเศษดอกเบี้ยเท่าไร');
+if(!/ยังไม่ได้ยืนยัน/.test(depositRate.answer))throw new Error('special-deposit-rate-freshness');
+
 console.log(JSON.stringify({
   ok:true,
   version:globalThis.COOP_KB.version,
