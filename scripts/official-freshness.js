@@ -19,7 +19,7 @@
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
     if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
-    if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
+    if(/สวัสดิการ|คลอดบุตร|คลอดลูก|สมรส|แต่งงาน|เรียนจบ|แม่เสีย|พ่อเสีย|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(text)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม|ค่าเล่าเรียน/.test(text)&&/กู้/.test(text))add('educationLoan');
@@ -48,6 +48,8 @@
   function asOf(text,now=new Date()){
     // Relative debt/payment history is not an instruction to apply a historical rule.
     const current=now.toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'});
+    const ruleYear=text.match(/(?:กฎ|ระเบียบ|หลักเกณฑ์|ประกาศ)[^\n]{0,30}ปี\s*(\d{4})/);
+    if(ruleYear){const y=+ruleYear[1]>2400?+ruleYear[1]-543:+ruleYear[1];if(y>+current.slice(0,4))return {date:null,historical:true};}
     if(/ตอนนี้|ปัจจุบัน|วันนี้/.test(text))return {date:current,historical:false};
     if(!/(?:^|\s)ณ(?:\s|วันที่)|(?:^|\s)วันที่\s|เมื่อวันที่|ย้อนหลัง|กฎ.*ก่อน|หลักเกณฑ์เดิม|ก่อนวันที่|ใช้.*(?:ปี|เดือน)|ในวันที่/.test(text))return {date:current,historical:false};
     let m=text.match(/(20\d{2})-(\d{2})-(\d{2})/),date=m&&iso(m[1],m[2],m[3]);
