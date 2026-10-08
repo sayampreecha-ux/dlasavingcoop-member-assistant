@@ -192,6 +192,11 @@ for (const q of ['เปิดบัญชีเงินฝากออมท�
 // Mobile answer UI must not expose internal evidence classification tokens.
 if(!html.includes("s.textContent='📚 ดูหลักฐานประกอบ'")) throw new Error('mobile-evidence-label: technical status exposed');
 
+
+// Evidence-lock answers must not ask members to restate a topic already supplied.
+const lockAnswer=globalThis.COOP_APP.answer('หลักเกณฑ์กู้สามัญล่าสุดเปลี่ยนหรือยัง');
+if(lockAnswer.decision==='EVIDENCE_LOCK' && /ต้องการตรวจประเภทคำขอและประเด็นใด/.test(lockAnswer.answer)) throw new Error('evidence-lock repeats member question');
+
 console.log(JSON.stringify({
   ok:true,
   version:globalThis.COOP_KB.version,
