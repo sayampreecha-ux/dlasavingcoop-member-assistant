@@ -199,7 +199,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
     if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
-    if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
+    if(/สวัสดิการ|คลอดบุตร|คลอดลูก|สมรส|แต่งงาน|เรียนจบ|สำเร็จการศึกษา|จบการศึกษา|แม่เสีย|พ่อเสีย|ทุนการศึกษา|สงเคราะห์|ศาสนกิจ|อุปสมบท|บวช|(?:สมาชิก|บุคคลในครอบครัว).*(?:เสียชีวิต|ถึงแก่กรรม)/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(text)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม|ค่าเล่าเรียน/.test(text)&&/กู้/.test(text))add('educationLoan');
@@ -228,6 +228,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   function asOf(text,now=new Date()){
     // Relative debt/payment history is not an instruction to apply a historical rule.
     const current=now.toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'});
+    const ruleYear=text.match(/(?:กฎ|ระเบียบ|หลักเกณฑ์|ประกาศ)[^\n]{0,30}ปี\s*(\d{4})/);
+    if(ruleYear){const y=+ruleYear[1]>2400?+ruleYear[1]-543:+ruleYear[1];if(y>+current.slice(0,4))return {date:null,historical:true};}
     if(/ตอนนี้|ปัจจุบัน|วันนี้/.test(text))return {date:current,historical:false};
     if(!/(?:^|\s)ณ(?:\s|วันที่)|(?:^|\s)วันที่\s|เมื่อวันที่|ย้อนหลัง|กฎ.*ก่อน|หลักเกณฑ์เดิม|ก่อนวันที่|ใช้.*(?:ปี|เดือน)|ในวันที่/.test(text))return {date:current,historical:false};
     let m=text.match(/(20\d{2})-(\d{2})-(\d{2})/),date=m&&iso(m[1],m[2],m[3]);
@@ -739,6 +741,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function norm(s=''){
     let q=String(s).replace(/\u0e4d([\u0e48-\u0e4b]?)\u0e32/g,'$1\u0e33').toLowerCase().trim().replace(/(?:^|\s)@[^\s]+/g,' ').replace(/\[(?:mention|member_id|phone|national_id|member_[a-z]+)\]|<(?:mention|id|phone|url)>/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ').trim();
     const fixes=[
+      [/สามัน|สามัณ/g,'สามัญ'],[/ฉุกเฉีน|ฉุกเฉิญ/g,'ฉุกเฉิน'],
+      [/กู้เรียน/g,'กู้เพื่อการศึกษา'],[/ทำไง|ทำยังงัย|ทำยังงาย/g,'ทำอย่างไร'],
+      [/เริ่ม(?:ยังไง|อย่างไร)/g,'ขั้นตอน'],[/เอกสารไร/g,'เอกสารอะไร'],
+      [/ผ่อนนานแค่ไหน/g,'ผ่อนได้กี่งวด'],
       [/เงินกู(?!้)/g,'เงินกู้'],[/กุ้/g,'กู้'],[/กู้้/g,'กู้'],[/กู(?=สามัญ|ฉุกเฉิน|เงิน)/g,'กู้'],
       [/กู้\s*ฉฉ/g,'กู้ฉุกเฉิน'],[/กู้\s*พัฒนาชีวิต/g,'กู้พัฒนาคุณภาพชีวิต'],[/รีไฟแนน(?:ซ์)?\s*บ้าน/g,'ไถ่ถอนจำนองบ้าน'],
       [/สมาชิด|สามาชิก|สมาขิก/g,'สมาชิก'],[/สมัค(?=สมาชิก)/g,'สมัคร'],[/ทุนเรือนหุ่น/g,'ทุนเรือนหุ้น'],
@@ -759,6 +765,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     fixes.forEach(([re,to])=>q=q.replace(re,to));
     // Preserve an eligibility question when a duration precedes an unnamed product.
     if(/สมาชิก/.test(q)&&/เดือน|ปี/.test(q))q=q.replace(/กู้อะไรได้บ้าง|กู้โครงการ(?:ฯ)?ไหน(?:กับสหกรณ์)?ได้บ้าง/g,'กู้ได้ไหม');
+    if(/กู้|ฉุกเฉิน|น้ำท่วม|สวัสดิการ|คลอด|แต่งงาน|สมรส|เรียนจบ|เสียชีวิต|ถึงแก่กรรม|แม่เสีย|พ่อเสีย/.test(q)&&!/หลักประกัน|ใช้อะไรค้ำ|ใช้ไรค้ำ/.test(q))q=q.replace(/(?:ต้อง)?เตรียม(?:อะไร|ไร)(?:บ้าง)?|(?:ต้อง)?ใช้(?:อะไร|ไร)บ้าง/g,'ต้องใช้เอกสารอะไร');
     return q;
   }
   function personal(q){
@@ -1320,7 +1327,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/.test(q)&&!/ทุน/.test(q))return 'graduation';
     if(/บำเหน็จสมาชิก|สวัสดิการบำเหน็จ/.test(q))return 'gratuity';
     if(/สมาชิก.*(?:เสียชีวิต|ถึงแก่กรรม)|(?:เสียชีวิต|ถึงแก่กรรม).*สมาชิก/.test(q))return 'memberDeath';
-    if(/(?:พ่อ|แม่|บิดา|มารดา|คู่สมรส|สามี|ภรรยา|บุตร|ลูก).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/.test(q))return 'familyDeath';
+    if(/(?:พ่อ|แม่|บิดา|มารดา|คู่สมรส|สามี|ภรรยา|บุตร|ลูก|บุคคลในครอบครัว).*(?:เสีย|ถึงแก่กรรม)|งานศพ|ค่าทำศพ/.test(q))return 'familyDeath';
     if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/.test(q)&&!/กู้|เงินกู้/.test(q))return 'disaster';
     return null;
   }
@@ -1559,7 +1566,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/รวมหนี้|คุณภาพชีวิต/.test(q))return 'qualityOfLifeCurrent';
     if(/ไถ่ถอน.*(?:บ้าน|จำนอง)|จำนอง.*ไถ่ถอน/.test(q))return 'redeemMortgageCurrent';
     if(/ฉุกเฉิน/.test(q))return 'emergencyLoanCurrent';
-    if(/การศึกษา|กู้เรียน/.test(q)||/กู้/.test(q)&&/ค่าเทอม|ค่าเล่าเรียน/.test(q))return 'education';
+    if((/การศึกษา|กู้เรียน/.test(q)&&!/สวัสดิการ|ทุนการศึกษา|สำเร็จการศึกษา|จบการศึกษา/.test(q))||/กู้/.test(q)&&/ค่าเทอม|ค่าเล่าเรียน/.test(q))return 'education';
     // An incident may precede the loan request. Preserve explicitly named products
     // and insurance inquiries; home damage alone must not select housing credit.
     if(/กู้/.test(q)&&/ภัยพิบัติ|พิบัติ|น้ำท่วม|ไฟไหม้/.test(q)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์|เคหะ/.test(q))return 'disaster';
@@ -1570,21 +1577,52 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   // Reviewed public checklists supplement current rule summaries. They never
   // establish eligibility, current balances, approval or a disbursement date.
+  // BEGIN GENERATED SERVICE EVIDENCE
+  const SERVICE_EVIDENCE={"schemaVersion":"1.0","reviewedAt":"2026-10-08T09:11:31Z","policy":"Public blank-form checklists only. These do not establish eligibility or replace versioned rules. No member records are included.","documents":{"welfareGeneral":{"url":"https://drive.google.com/file/d/1V7w5-fm4l_V6HqySnbixhLI6NL5Y9k34/view?usp=sharing","page":2,"sha256":"000b16f51f6bfbb53f4f78ff60b3d913381544d15d0fe5422f82d14ce6734ae2"},"welfareMemberDeath":{"url":"https://drive.google.com/file/d/1FvMFuryM2huiZ9mzbICnWi6K0Il6SvJn/view?usp=sharing","page":1,"sha256":"227018e3a964eb3e3ea90f5b38aee111cbd1af106290aa14d7ec5efb70ba2337"},"qualityLoan":{"url":"https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing","page":1,"sha256":"ffa7c08b93c65da8ad8c17bf564fde4936154b762f7fb5e0298bae1139a30a96"},"housingLoan":{"url":"https://drive.google.com/file/d/1KgHOea6BKduE4zNFx6NNlW7iRjZzqOee/view?usp=sharing","page":1,"section":"Purchase of land with building; not approval of every purpose appearing in an older form","sha256":"de2920f9791e2122fa03f7409fb1c94c7690bf056b5a2ed8cf5fad6b26e3841b"},"redeemLoan":{"url":"https://drive.google.com/file/d/1E-VSAXKzmiQYO_tLF0AfBwptqu944Ojh/view?usp=sharing","page":1,"sha256":"666925c889806b1c2e33c3c853fbd2d6c438aa2a7f1e20fbe28f5fcb04cd4d88"}},"services":{"childbirth":{"documentId":"welfareGeneral","ruleId":"welfareChildbirth","items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส","สำเนาสูติบัตรบุตร","สำเนาทะเบียนสมรสหน้าและหลัง","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก"]},"marriage":{"documentId":"welfareGeneral","ruleId":"welfareMarriage","items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส","สำเนาทะเบียนสมรสหน้าและหลัง","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก"]},"religion":{"documentId":"welfareGeneral","ruleId":"welfareReligion","items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิก","หนังสืออนุญาตลาอุปสมบท/บวชชีจากต้นสังกัด หรือหนังสือรับรองการปฏิบัติศาสนกิจตามกรณี เช่น หนังสือรับรองจากหัวหน้าคณะผู้แทนฮัจย์ทางการของประเทศไทย","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก"]},"graduation":{"documentId":"welfareGeneral","ruleId":"welfareGraduation","items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิก","หนังสือรับรองสำเร็จการศึกษาของระดับที่ขอ","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก"]},"familyDeath":{"documentId":"welfareGeneral","ruleId":"welfareFamilyDeath","items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับผู้เสียชีวิต","สำเนามรณบัตร","สำเนาทะเบียนสมรสหน้าและหลัง กรณีคู่สมรสเสียชีวิต หรือสูติบัตรกรณีบุตรเสียชีวิต","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก"]},"memberDeath":{"documentId":"welfareMemberDeath","ruleId":"welfareMemberDeath","copies":2,"items":["สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกและ/หรือผู้รับโอนประโยชน์ตามแบบ","สำเนามรณบัตรสมาชิก","ทะเบียนสมรสหน้าและหลังกรณีผู้รับโอนประโยชน์เป็นคู่สมรส หรือสูติบัตรกรณีเป็นบุตร","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของผู้รับโอนประโยชน์"]},"qualityOfLifeCurrent":{"documentId":"qualityLoan","items":["หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้พัฒนาคุณภาพชีวิต","หนังสือยินยอมหักเงินชำระหนี้ ติดตามทวงถามหนี้ ทำนิติกรรม และเก็บใช้เปิดเผยข้อมูล","สำเนาเอกสารสิทธิอสังหาริมทรัพย์ รูปถ่ายสีพร้อมรับรอง และแผนที่ตั้งหลักประกัน","รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมเจ้าหน้าที่เบิกจ่ายรับรอง และรายงานเครดิตบูโร","หนังสือรับรองหนี้จากสถาบันอื่น สัญญากู้เดิม และสัญญาจำนอง","รายงานประเมินราคาบ้านและที่ดิน โดยต้องตรวจบริษัทที่สหกรณ์ยอมรับตามกฎปัจจุบัน","สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. และเอกสารหย่า/เปลี่ยนชื่อถ้ามี"]},"specialHousingCurrent":{"documentId":"housingLoan","items":["คำขอกู้เคหะ ข้อมูลเบื้องต้น และหนังสือยินยอมทำนิติกรรม หักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูล","บัตรประชาชน บัตรข้าราชการ ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ","สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. และหนังสือรับรองหนี้ตามรายการในแบบ","แผนที่ เอกสารสิทธิที่ดิน และรูปถ่ายหลักประกันที่รับรองว่าเป็นสถานที่จริง","รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมรับรอง และรายงานเครดิตบูโร","รายงานประเมินบ้านและที่ดิน โดยตรวจผู้ประเมินที่สหกรณ์ยอมรับตามกฎปัจจุบัน","สัญญาจะซื้อจะขายกรณีซื้อที่ดินพร้อมสิ่งปลูกสร้าง และเอกสารอื่นตามสถานภาพ"]},"redeemMortgageCurrent":{"documentId":"redeemLoan","items":["หนังสือรับรองจากหน่วยงาน คำขอกู้ สัญญากู้ และข้อมูลเบื้องต้นเงินกู้ไถ่ถอนจำนอง","หนังสือยินยอมทำนิติกรรม หักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูล","หนังสือรับรองหนี้จากสถาบันการเงินเดิม สัญญากู้เดิม สัญญาจำนอง และใบเสร็จงวดสุดท้ายย้อนหลัง 3 เดือน","บัตรประชาชน บัตรข้าราชการหน้า-หลัง ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ","เอกสารสิทธิที่ดิน หลักฐานกรรมสิทธิ์อาคาร แผนที่และภาพสีบ้าน/ที่ดินพร้อมรับรอง","รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมรับรอง รายงานเครดิตบูโร และหน้าบัญชีกรุงไทยหรือ ธกส.","เอกสารหย่า/เปลี่ยนชื่อและเอกสารอื่นถ้ามี"]}}};
+  // END GENERATED SERVICE EVIDENCE
+  function reviewedServiceAnswer(q,check){
+    const product=loanProduct(q),kind=!product&&!/ฌาปนกิจ/.test(q)?welfareKindFromQuestion(q):null;
+    const service=SERVICE_EVIDENCE.services[product||kind];
+    if(!service||personal(q)||/ได้ไหม|ได้มั้ย|ใช่ไหม|ใช่มั้ย|มีสิทธิ|ผ่านไหม|ครบ.*งวด|กู้เพิ่ม|กู้ซ้ำ|กู้เดิม|ปิดกู้|ส่ง.*(?:ทางไหน|ที่ไหน|ไปรษณีย์|เมล)|อีเมล/.test(q))return null;
+    const documents=/เอกสาร|หลักฐาน/.test(q),procedure=/ทำอย่างไร|ทำยังไง|ขั้นตอน|ยื่น.*(?:อย่างไร|ยังไง)|ขอ.*ยังไง/.test(q);
+    if(!documents&&!procedure)return null;
+    const doc=SERVICE_EVIDENCE.documents[service.documentId],date=F.asOf(q),age=Date.now()-new Date(SERVICE_EVIDENCE.reviewedAt).getTime();
+    if(date.historical||age>(sourceRegistry.policy.maxPrimaryAgeHours||336)*3600000)return res('service_checklist_evidence_lock','แบบคำร้องมีแหล่งทางการครับ แต่รายการเอกสารที่ระบบถอดไว้ยังไม่ยืนยันสำหรับวันที่ถามหรือพ้นรอบตรวจ จึงไม่ใช้รายการเดิมฟันธง ให้ตรวจแบบต้นฉบับตรงเรื่องกับเจ้าหน้าที่',{decision:'EVIDENCE_LOCK',actions:[['แบบต้นฉบับตรงเรื่อง',doc.url],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('แบบคำร้องทางการ',doc.url)]});
+    const ruleId=service.ruleId||product,R=F.versionAt(sourceRegistry,ruleId,check.date)?.values||KB.ruleAuthority.rules[ruleId];if(!R)return null;
+    const label=product?({qualityOfLifeCurrent:'กู้พัฒนาคุณภาพชีวิต',specialHousingCurrent:'กู้เคหะ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง'})[product]:WELFARE_FLOWS[kind].title;
+    const bases={birth_notification_date:'วันที่แจ้งเกิด',marriage_registration_date:'วันที่จดทะเบียนสมรส',end_of_religious_practice:'วันที่เสร็จศาสนกิจ',university_completion_certification_date:'วันที่มหาวิทยาลัยออกหนังสือรับรองสำเร็จการศึกษา',death_date:'วันที่ถึงแก่กรรม'};
+    const deadline=R.claimDeadlineDays?'ยื่นภายใน '+R.claimDeadlineDays+' วันนับแต่'+(bases[R.deadlineFrom]||'วันที่ตามหลักเกณฑ์'):'ตรวจระยะยื่นและเงื่อนไขของคำขอในกฎปัจจุบัน';
+    const checklist=service.items.map((x,i)=>(i+1)+'. '+x).join('\n');
+    const summary=procedure&&product?verifiedLoanInquiry(label+' สรุป')?.answer:null;
+    const body=procedure?(summary?summary+'\n\n':'')+'ขั้นตอนขอ'+label+'\n1. ตรวจคุณสมบัติและข้อมูลจริงตามหลักเกณฑ์ปัจจุบัน\n2. กรอกคำร้องตรงประเภทและเตรียมเอกสารด้านล่าง\n3. ลงนามและรับรองสำเนาตามแบบ ส่งให้สหกรณ์ตรวจความครบถ้วน\n4. '+deadline+' แล้วติดตามผลกับเจ้าหน้าที่ ไม่ถือว่าการยื่นเป็นผลอนุมัติ\n\nรายการเอกสาร:\n'+checklist:'เอกสาร'+label+'ตามแบบคำร้องทางการ:\n'+checklist+'\n'+deadline;
+    return res(product?({qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem'})[product]:WELFARE_FLOWS[kind].intent,body+'\n'+(service.copies?'จัดเอกสาร '+service.copies+' ชุดตามแบบ ':'')+'รายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท',{domain:product||'welfare',decision:'PROCEDURE_INFORMATION',answerClass:ANSWER_CLASS.RULE,details:['รายการในแบบไม่ใช่หลักฐานยืนยันสิทธิหรือการอนุมัติ; หากวัตถุประสงค์ในแบบเก่าไม่ตรงกฎปัจจุบัน ให้ใช้กฎปัจจุบัน'],actions:[['แบบคำร้องตรงเรื่อง',doc.url],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src(R.primaryEvidenceTitle||'หลักเกณฑ์ปัจจุบัน',R.source),src('แบบคำร้องและรายการเอกสาร หน้า '+doc.page,doc.url)]});
+  }
+  function loanConcernComposition(q,check){
+    const product=loanProduct(q);if(!product||personal(q)||/\d|ได้ไหม|ได้มั้ย|ผ่านไหม|มีสิทธิ|เพิ่ม|ซ้ำ|เดิม|คำนวณ|ต่างกัน|เปรียบเทียบ/.test(q))return null;
+    const explicitProducts=[/สามัญ/,/ฉุกเฉิน/,/การศึกษา|ค่าเทอม/,/ภัยพิบัติ|น้ำท่วม/,/รวมหนี้|คุณภาพชีวิต/,/เคหะ|กู้บ้าน|กู้ซื้อบ้าน|กู้สร้างบ้าน/,/ไถ่ถอน|จำนอง/].filter(re=>re.test(q));if(explicitProducts.length>1)return null;
+    const specs=[['documents',/เอกสาร|หลักฐาน/,'ต้องใช้เอกสารอะไร'],['amount',/วงเงิน|ได้(?:สูงสุด)?เท่า(?:ไหร่|ไร)|กี่บาท/,'วงเงินสูงสุดเท่าไร'],['term',/ผ่อน|กี่งวด|ส่งกี่เดือน/,'ผ่อนได้กี่งวด'],['interest',/ดอกเบี้ย|ดอก.*เท่า/,'ดอกเบี้ยเท่าไร']];
+    const concerns=specs.filter(([,re])=>re.test(q));if(concerns.length<2)return null;
+    const name=({ordinaryLoanCurrent:'กู้สามัญ',emergencyLoanCurrent:'กู้ฉุกเฉิน',education:'กู้เพื่อการศึกษา',disaster:'กู้ภัยพิบัติ',qualityOfLifeCurrent:'กู้พัฒนาคุณภาพชีวิต',specialHousingCurrent:'กู้เคหะ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง'})[product];
+    const parts=concerns.map(([, ,suffix])=>{const input=name+' '+suffix;return reviewedServiceAnswer(input,check)||evidenceAnswerQuality(input)||verifiedLoanInquiry(input);});
+    if(parts.some(x=>!x||x.privacy||/LOCK|NEED/.test(x.decision||'')))return null;
+    return res('loan_multiple_concerns',parts.map(x=>x.answer).join('\n\n'),{domain:product,decision:'RULE_INFORMATION',answerClass:ANSWER_CLASS.RULE,actions:parts.flatMap(x=>x.actions),sources:parts.flatMap(x=>x.sources),details:['คำตอบเป็นหลักเกณฑ์ทั่วไป ไม่ใช่วงเงินหรือผลอนุมัติเฉพาะบุคคล']});
+  }
   function evidenceAnswerQuality(q){
     const welfare=/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(q)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(q);
-    if(welfare&&/เอกสาร|หลักฐาน|ทำยังไง|ทำอย่างไร|ขั้นตอน|ยื่น.*(?:ยังไง|อย่างไร)|ทะเบียนบ้าน|คนละบ้าน|คนละหลัง|บ้านเช่า|คู่สมรส/.test(q)){
+    if(welfare&&/เอกสาร|หลักฐาน|ทำยังไง|ทำอย่างไร|ขั้นตอน|(?:ยื่น|ขอ).*(?:ยังไง|อย่างไร)|ทะเบียนบ้าน|คนละบ้าน|คนละหลัง|บ้านเช่า|คู่สมรส/.test(q)){
       const form='https://drive.google.com/file/d/1ga3GCbUKLmvpyy0baegKgWcKiIgjIkFs/view?usp=sharing';
       const criteria='https://drive.google.com/file/d/1Awki_okvVEN24KEsRlfG6SD_eVUBasUC/view?usp=drivesdk';
       const docs=['สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่ของรัฐและทะเบียนบ้านสมาชิก','หนังสือรับรองจากต้นสังกัด','รายการและภาพถ่ายทรัพย์สินเสียหาย พร้อมประเมินราคาความเสียหาย','หลักฐานกรรมสิทธิ์หรือสิทธิครอบครองทรัพย์สินที่เสียหาย','สำเนาหน้าบัญชีธนาคารกรุงไทยหรือ ธกส. ของสมาชิก','สำเนาประกาศพื้นที่ประสบภัยของจังหวัด อำเภอ หรือ อปท.','หลักฐานเฉพาะเหตุ เช่น บันทึกประจำวันและรายงานสอบสวนกรณีอัคคีภัย/อุบัติเหตุ ใบรับรองแพทย์กรณีอุบัติเหตุ และหลักฐานอื่นถ้ามี'];
       let body,decision='RULE_INFORMATION',details=[];
       if(/เอกสาร|หลักฐาน/.test(q))body='เอกสารขอสวัสดิการผู้ประสบภัยตามแบบคำร้องทางการ ได้แก่\n'+docs.map((x,i)=>(i+1)+'. '+x).join('\n')+'\nกรอกคำร้องและแบบสำรวจทรัพย์สินเสียหาย รับรองสำเนาให้ครบ ยื่นภายใน 120 วันนับแต่วันที่พ้นภัย ไม่ส่งเอกสารส่วนบุคคลในแชท';
-      else if(/ทำยังไง|ทำอย่างไร|ขั้นตอน|ยื่น.*(?:ยังไง|อย่างไร)/.test(q))body='ขอสวัสดิการผู้ประสบภัยตามขั้นตอนนี้ครับ\n1. ตรวจการส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือนและไม่มีหุ้น/หนี้ค้างตามหลักเกณฑ์\n2. บันทึกรายการความเสียหาย ถ่ายภาพและประเมินราคา พร้อมรวบรวมหลักฐานกรรมสิทธิ์หรือสิทธิครอบครองและประกาศพื้นที่ประสบภัย\n3. กรอกคำร้องและแบบสำรวจทรัพย์สิน ให้ผู้สำรวจและผู้รับรองลงนามตามแบบ\n4. แนบเอกสารรับรองจากต้นสังกัด สำเนาบัตร ทะเบียนบ้าน และหน้าบัญชีกรุงไทยหรือ ธกส. พร้อมรับรองสำเนา\n5. ยื่นคำร้องต่อสหกรณ์ภายใน 120 วันนับแต่วันที่พ้นภัย แล้วติดตามผลตรวจเอกสารกับเจ้าหน้าที่สวัสดิการ ไม่ถือว่าการยื่นเป็นผลอนุมัติ';
+      else if(/ทำยังไง|ทำอย่างไร|ขั้นตอน|(?:ยื่น|ขอ).*(?:ยังไง|อย่างไร)/.test(q))body='ขอสวัสดิการผู้ประสบภัยตามขั้นตอนนี้ครับ\n1. ตรวจการส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือนและไม่มีหุ้น/หนี้ค้างตามหลักเกณฑ์\n2. บันทึกรายการความเสียหาย ถ่ายภาพและประเมินราคา พร้อมรวบรวมหลักฐานกรรมสิทธิ์หรือสิทธิครอบครองและประกาศพื้นที่ประสบภัย\n3. กรอกคำร้องและแบบสำรวจทรัพย์สิน ให้ผู้สำรวจและผู้รับรองลงนามตามแบบ\n4. แนบเอกสารรับรองจากต้นสังกัด สำเนาบัตร ทะเบียนบ้าน และหน้าบัญชีกรุงไทยหรือ ธกส. พร้อมรับรองสำเนา\n5. ยื่นคำร้องต่อสหกรณ์ภายใน 120 วันนับแต่วันที่พ้นภัย แล้วติดตามผลตรวจเอกสารกับเจ้าหน้าที่สวัสดิการ ไม่ถือว่าการยื่นเป็นผลอนุมัติ';
       else {decision='NEED_MEMBER_DATA';body='ทะเบียนบ้านเลขที่เดียวกันเพียงอย่างเดียว ยังสรุปสิทธิไม่ได้ครับ ต้องดูบ้านหรือทรัพย์สินที่เสียหายจริง หลักเกณฑ์ที่สหกรณ์เผยแพร่กำหนดให้เป็นที่อยู่อาศัยประจำของสมาชิก โดยสมาชิกมีกรรมสิทธิ์หรือสิทธิครอบครอง และไม่รวมบ้านเช่า หากผู้ขอเป็นคู่สมรสกันและทรัพย์สินเสียหายเป็นรายการเดียวกัน ให้ได้รับความช่วยเหลือเพียงรายเดียว\nกรณีอยู่คนละหลัง ให้เตรียมหลักฐานการอยู่อาศัยและกรรมสิทธิ์/สิทธิครอบครองของหลังที่เสียหายจริงให้เจ้าหน้าที่ตรวจ รวมทั้งเงื่อนไขสมาชิกและเอกสารทั้งหมด จึงยังไม่ยืนยันผลอนุมัติจากทะเบียนบ้านหรืออายุสมาชิกอย่างเดียว';details=['กรณีบ้านเป็นของคู่สมรส ต้องให้เจ้าหน้าที่ตรวจหลักฐานสิทธิครอบครองและคำร้องเฉพาะราย ไม่สรุปแทนว่าได้หรือไม่ได้','ตอบจากหลักเกณฑ์และแบบคำร้องที่สหกรณ์เผยแพร่ ไม่ใช้ข้อความสนทนารายบุคคลเป็นระเบียบ'];}
       return res('welfare_disaster',body,{domain:'welfare',decision,answerClass:ANSWER_CLASS.RULE,evidenceState:'PRIMARY_VERIFIED_CURRENT',details,...(decision==='NEED_MEMBER_DATA'?{flowId:'disaster_property_review',requiredFact:'residence',facts:{},followups:['อาศัยอยู่จริง','ไม่ได้อาศัยอยู่จริง']}:{}),sources:[src('หลักเกณฑ์สวัสดิการผู้ประสบภัยที่สหกรณ์เผยแพร่',criteria),src('คำร้องและรายการเอกสารผู้ประสบภัย',form)],actions:[['แบบคำร้องตรงเรื่อง',form],['ติดต่อเจ้าหน้าที่สวัสดิการ','#staff-directory']],followups:decision==='NEED_MEMBER_DATA'?['อาศัยอยู่จริง','ไม่ได้อาศัยอยู่จริง']:['สวัสดิการน้ำท่วมต้องใช้เอกสารอะไร','ขอสวัสดิการน้ำท่วมต้องทำยังไง']});
     }
     const product=loanProduct(q),names={ordinaryLoanCurrent:'กู้สามัญ',emergencyLoanCurrent:'กู้ฉุกเฉิน',education:'กู้เพื่อการศึกษา',disaster:'กู้ภัยพิบัติ',qualityOfLifeCurrent:'กู้พัฒนาคุณภาพชีวิต',specialHousingCurrent:'กู้เคหะ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง'};
     if(/ต่างกัน|เปรียบเทียบ/.test(q)&&/กู้/.test(q)){
-      const selected=Object.keys(names).filter(k=>loanProduct(names[k])===k&&q.includes(names[k].replace(/^กู้/,'')));
+      const aliases={ordinaryLoanCurrent:/สามัญ/,emergencyLoanCurrent:/ฉุกเฉิน/,education:/การศึกษา|ค่าเทอม/,disaster:/ภัยพิบัติ|น้ำท่วม/,qualityOfLifeCurrent:/รวมหนี้|คุณภาพชีวิต/,specialHousingCurrent:/เคหะ|กู้บ้าน|กู้ซื้อบ้าน|กู้สร้างบ้าน|กู้ปลูกบ้าน/,redeemMortgageCurrent:/ไถ่ถอน|จำนอง/};
+      const selected=Object.keys(names).filter(k=>aliases[k].test(q));
       if(selected.length>=2){const parts=selected.map(k=>verifiedLoanInquiry(names[k]+' สรุป'));if(parts.every(x=>x?.decision==='RULE_INFORMATION'))return res('loan_comparison',parts.map((x,i)=>names[selected[i]]+'\n'+x.answer).join('\n\n'),{decision:'RULE_INFORMATION',answerClass:ANSWER_CLASS.RULE,sources:parts.flatMap(x=>x.sources),actions:parts.flatMap(x=>x.actions),details:['เปรียบเทียบหลักเกณฑ์ทั่วไป ไม่ใช่การเลือกวงเงินหรือผลอนุมัติของสมาชิกเฉพาะราย']});}
     }
     if(!product||personal(q))return null;
@@ -1611,7 +1649,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
 
   function verifiedLoanInquiry(q){
-    if(personal(q)&&questionDomain(q)==='shares')return null;
+    if(questionDomain(q)==='shares'&&!loanProduct(q)&&!/กู้|ค้ำ/.test(q))return null;
     const product=loanProduct(q);
     const productCount=[/สามัญ/.test(q)&&!/การศึกษา/.test(q),/ฉุกเฉิน/.test(q),/รวมหนี้|คุณภาพชีวิต/.test(q),/เคหะ|กู้บ้าน/.test(q)].filter(Boolean).length;
     if(productCount>1&&!/(?:รวมหนี้.*กู้ฉุกเฉิน|เคยกู้สามัญหรือพิเศษแล้วกู้ฉุกเฉิน|ปรับโครงสร้างหนี้แล้วกู้ฉุกเฉิน)/.test(q))return null;
@@ -1914,6 +1952,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     });
 
     if(/ติดตามผล|สถานะเอกสาร|เอกสารถึง|ลงรับ|ตัดรอบ|เอกสารไม่ครบ|ผลอนุมัติ|อนุมัติ.*(?:เมื่อไหร่|วันไหน)|เงิน.*เข้า.*เมื่อไหร่|เลขทะเบียนสมาชิก|เลขสมาชิกสหกรณ์/i.test(q) && !/ฌาปนกิจ/i.test(q)) return res('status_center','เรื่องติดตามผลต้องแยกว่าเป็น “ข้อมูลประกาศสาธารณะ” หรือ “สถานะเฉพาะสมาชิก” ครับ ระบบจะไม่เดาผลเฉพาะบุคคล',{
+      decision:'VERIFY_LIVE_STATUS',
       details:[
         'ตรวจได้จากข่าว/ประกาศล่าสุด เช่น ผลอนุมัติเงินกู้ ผลสวัสดิการ ผลสมัครสมาชิก ผลลาออก หรือประกาศเอกสารไม่ครบ',
         'ถ้าเป็นสถานะของตัวเองและหน้าเว็บไม่แสดงข้อมูลที่ยืนยันได้ ให้ติดต่อเจ้าหน้าที่ของงานนั้นโดยตรง',
@@ -2389,6 +2428,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function contextualize(q,previousTopic){
     q=norm(q);
     if(!previousTopic) return q;
+    if(previousTopic.startsWith('welfare:')&&!questionDomain(q)&&!welfareKindFromQuestion(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำอย่างไร|ทำยังไง/.test(q))return WELFARE_FLOWS[previousTopic.slice(8)].title+' '+q;
     if(previousTopic==='welfareDisaster'&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำยังไง|ทำอย่างไร/.test(q))return 'สวัสดิการน้ำท่วม '+q;
     if(previousTopic==='resignation' && /^(?:แล้ว)?(?:ถ้า)?(?:มี)?(?:ภาระ|หนี้|ค้ำ|คนค้ำ|ผู้ค้ำ)(?:ล่ะ|ละ|ครับ|คะ|ไหม|มั้ย)?$/i.test(q)) return 'ผมมีหนี้และค้ำคนอื่นอยู่ ลาออกได้ไหม';
     if(previousTopic==='dividend' && /^(?:แล้ว)?(?:ออก|จ่าย|ได้)(?:เมื่อไร|เดือนไหน|วันไหน|ตอนไหน)(?:ครับ|คะ)?$/i.test(q)) return 'ปันผลปี 2569 ออกเมื่อไร';
@@ -2397,6 +2437,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function topicOf(q,r){
     if(r?.intent==='welfare_disaster')return 'welfareDisaster';
+    const welfareKind=Object.keys(WELFARE_FLOWS).find(k=>WELFARE_FLOWS[k].intent===r?.intent);if(welfareKind)return 'welfare:'+welfareKind;
     if(r?.intent==='resignation'||/ลาออก|พ้นสมาชิกภาพ/.test(q)) return 'resignation';
     if(/^dividend/.test(r?.intent||'')||/ปันผล|เฉลี่ยคืน/.test(q)) return 'dividend';
     if(loanProduct(q))return loanProduct(q);
@@ -2429,7 +2470,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       result={...prior,answer:message,facts,requiredFact,decision:requiredFact?'NEED_INFO':'NEED_MEMBER_DATA',followups:requiredFact==='residence'?['อาศัยอยู่จริง','ไม่ได้อาศัยอยู่จริง']:requiredFact==='ownership'?['บ้านของตนเอง','บ้านของคู่สมรส','บ้านเช่า']:['สวัสดิการน้ำท่วมต้องใช้เอกสารอะไร','ขอสวัสดิการน้ำท่วมต้องทำยังไง']};
       query=state.question;return {result,state:{...state,result},query};
     }
-    if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice){
+    if(prior?.requiredFact==='educationPurpose'&&choice){
+      query=raw+' '+state.question;result=answer(query);
+    }else if(prior?.requiredFact==='grossMonthlyIncome'&&/^\d[\d,]*(?:\s*บาท)?$/.test(raw)){
+      query='ส่งหุ้น เงินเดือน '+raw+' เท่าไร';result=answer(query);
+    }else if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice){
       query=prior.intent==='loan_all'||/เลือก|ไม่รู้|^(?:เป็นเรื่อง)?เงินกู้$/.test(state.question||'')?raw:raw+' '+state.question;result=answer(query);
     }else if(prior?.requiredFact==='transferKind'&&choice){
       query=raw;result=answer(query);
@@ -2577,6 +2622,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   // These responses navigate only; none evaluates a right, numeric rule or member outcome.
   function serviceNavigation(q){
+    if(/ค่าเทอม|ค่าเล่าเรียน/.test(q)&&/ขอเงิน|ช่วย|เบิก/.test(q)&&!/กู้|ทุน|สวัสดิการ/.test(q))return res('education_purpose_clarification','หมายถึงเงินกู้เพื่อการศึกษา หรือสวัสดิการทุนการศึกษาบุตรครับ? เป็นคนละประเภท จึงขอแยกก่อนเพื่อไม่ตอบสิทธิหรือเอกสารผิดเรื่อง',{decision:'NEED_INFO',requiredFact:'educationPurpose',followups:['กู้เพื่อการศึกษา','สวัสดิการทุนการศึกษาบุตร']});
     if(/ประกันชีวิต|ประกันอัคคีภัย|เวนคืน|กรมธรรม์|ประกัน.*เงินกู้/.test(q)&&!/ค้ำประกัน/.test(q)&&(!loanProduct(q)||/คืนเงิน|เวนคืน/.test(q)))return res('insurance','ต้องตรวจประเภทประกันและสัญญาที่เกี่ยวข้องก่อนครับ หากต้องการคืนเงินหรือเวนคืน ให้เจ้าหน้าที่ตรวจกรมธรรม์และสิทธิของกรณีจริง AI ยังยืนยันสิทธิคืนเงิน ยอดคืน หรือวันรับเงินไม่ได้',{decision:'SAFE_HANDOFF',details:['เปิดประกาศประกันที่เกี่ยวข้อง แล้วแจ้งประเภทประกันและเรื่องที่ต้องการตรวจแก่เจ้าหน้าที่','ไม่ส่งรหัสผ่าน OTP หรือ PIN ในแชท'],actions:[['ประกาศประกันทางการ',S.notices],['ติดต่อเรื่องประกัน',S.contact],['ตรวจข้อมูลของตนเอง',S.memberPortal]],sources:[src('ช่องทางติดต่อทางการ',S.contact),src('ประกาศทางการ',S.notices)]});
     if(/(?:โอน|ฝาก).*ยอด.*(?:ไม่ขึ้น|ยังไม่)/.test(q))return res('deposit_transaction_handoff','เป็นรายการฝากบัญชีประเภทใด และโอนผ่านช่องทางใดครับ? ยอดรายการฝากต้องตรวจจากบัญชีสมาชิกจริง เปิดระบบสมาชิกตรวจรายการล่าสุด เก็บหลักฐานการโอน และติดต่อฝ่ายเงินฝากให้ตรวจการรับและบันทึกรายการ AI ไม่ยืนยันว่าเงินเข้าหรือคาดเดาเวลาปรับยอด',{decision:'SAFE_HANDOFF',actions:[['ตรวจรายการในระบบสมาชิก',S.memberPortal],['ติดต่อฝ่ายเงินฝาก',S.contact]],sources:[src('ระบบสมาชิก',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)]});
     if(/รหัสผ่าน|password|otp|pin/i.test(q))return res('personal_handoff','อย่าส่งรหัสผ่าน OTP หรือ PIN ให้ AI หรือในแชทครับ AI ตรวจบัญชีหรือรับรองผลอนุมัติให้ไม่ได้ หากลืมรหัสผ่าน ให้เปิดระบบสมาชิกเพื่อตรวจช่องทางกู้คืนที่ระบบแสดง หากยังเข้าไม่ได้ ให้ติดต่อสหกรณ์ผ่านหน้าติดต่อทางการ',{decision:'SAFE_HANDOFF',privacy:true,actions:[['เปิดระบบสมาชิก',S.memberPortal],['ติดต่อสหกรณ์',S.contact]],sources:[src('ระบบสมาชิก',S.memberPortal),src('ช่องทางติดต่อทางการ',S.contact)]});
@@ -2611,6 +2657,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return locked;
     }
     // Suggestions and partner searches are not statements of an existing guarantee load.
+    if(questionDomain(q)==='shares'&&!loanProduct(q)&&!personal(q)&&/รายเดือน|เดือนละ/.test(q)&&/เท่าไร|เท่าไหร่|กี่/.test(q)&&!/\d/.test(q))return res('share_monthly_income_clarification','อัตราหุ้นรายเดือนขึ้นกับช่วงเงินได้รายเดือนครับ ขอทราบเงินได้รายเดือนเป็นจำนวนบาทเพื่อเทียบช่วงที่มีหลักฐาน ไม่ต้องส่งเลขสมาชิก สลิป หรือข้อมูลระบุตัวบุคคล',{domain:'shares',decision:'NEED_INFO',requiredFact:'grossMonthlyIncome',actions:[['ตรวจหุ้นของตนเอง',S.memberPortal]],sources:[directRuleSource('sharesClause7Current')]});
     if(/ค้ำ/.test(q)&&/หา(?:เพื่อน|คน|ผู้).*ค้ำ|แลกค้ำ|ยินดีค้ำกัน|ทบทวน|อยากให้|ขอให้.*(?:พิจารณา|ปรับ)|ในชุด/.test(q)&&!/เปลี่ยน|ผู้ค้ำใหม่|เสียชีวิต|ถึงแก่กรรม/.test(q))return res('guarantee_context_review','ต้องการหาผู้ค้ำ เสนอปรับหลักเกณฑ์ หรือสอบถามภาระค้ำที่มีอยู่ครับ? AI ไม่จับคู่ผู้ค้ำและไม่ถือจำนวนคนในข้อความนี้เป็นภาระค้ำจริง ให้ระบุประเภทเงินกู้และประเด็นที่ต้องการตรวจ ก่อนใช้หลักเกณฑ์กับกรณีของสมาชิก',{decision:'NEED_INFO',requiredFact:'guaranteeConcern',followups:['หลักเกณฑ์ผู้ค้ำ','ตรวจว่าฉันค้ำใครอยู่','ติดต่อเจ้าหน้าที่'],actions:[['ตรวจข้อมูลของตนเอง',S.memberPortal],['ยืนยันกับเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
     if(/ผู้รับโอนประโยชน์/.test(q)&&/(?:สแกน|ส่ง).*(?:ช่องทาง|ไลน์|ไลค์|อีเมล)/.test(q))return res('beneficiary_submission_review','ต้องการส่งแบบผู้รับโอนประโยชน์ผ่านช่องทางใดครับ? AI ยังไม่ยืนยันว่าภาพสแกนหรือแชทนี้ใช้แทนเอกสารต้นฉบับได้ ต้องตรวจช่องทางรับและรูปแบบเอกสารกับงานทะเบียนก่อนส่ง',{decision:'EVIDENCE_LOCK',requiredFact:'submissionChannel',actions:[['ยืนยันช่องทางรับกับงานทะเบียน',S.contact],['แบบสมาชิกทางการ',S.memberForms]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
     if(/อยากให้|ขอให้|เสนอ.*(?:โครงการ|หลักเกณฑ์)/.test(q)&&/โครงการ|หลักเกณฑ์|กู้|สวัสดิการ/.test(q))return res('policy_proposal_review','หมายถึงเสนอปรับนโยบายหรือสอบถามโครงการที่มีผลอยู่ครับ? ข้อเสนอไม่ใช่หลักเกณฑ์ที่อนุมัติแล้ว จึงยังไม่ยืนยันสิทธิ วงเงิน หรือเงื่อนไข ให้ระบุเรื่องที่จะเสนอหรือตรวจประกาศของโครงการที่ต้องการ',{decision:'EVIDENCE_LOCK',requiredFact:'proposalTopic',actions:[['ส่งข้อเสนอให้ช่องทางทางการ',S.contact],['ตรวจประกาศที่มีผล',S.notices]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
@@ -2719,7 +2766,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const saved={};
     try{
       for(const [dom,id]of Object.entries(ruleIds)){if(!check.domains.includes(dom))continue;const v=F.versionAt(sourceRegistry,id,check.date);if(v){saved[id]=KB.ruleAuthority.rules[id];KB.ruleAuthority.rules[id]=v.values;}}
-      const r=recoverMemberRoute(q,multiDomainAnswer(q)||evidenceAnswerQuality(q)||answerLegacy(q));r.freshness={checkedAt:sourceRegistry.lastSyncAt,asOf:check.date,status:'CURRENT_GATE_PASSED'};return r;
+      const r=recoverMemberRoute(q,multiDomainAnswer(q)||loanConcernComposition(q,check)||reviewedServiceAnswer(q,check)||evidenceAnswerQuality(q)||answerLegacy(q));r.freshness={checkedAt:sourceRegistry.lastSyncAt,asOf:check.date,status:'CURRENT_GATE_PASSED'};return r;
     }finally{for(const [id,value]of Object.entries(saved))KB.ruleAuthority.rules[id]=value;}
   }
   function applySourceMonitor(snapshot){sourceRegistry=F.mergeMonitor(sourceRegistry,snapshot);return {pending:sourceRegistry.documents.filter(d=>d.status==='PENDING'&&d.mayAffectRules).length,lastSyncAt:sourceRegistry.lastSyncAt};}
@@ -2733,7 +2780,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.7.0-evidence-answers';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.8.0-member-language';
 function render(r){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);if(r.followups?.length){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d)}const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';det.open=r.decision==='PROCEDURE_INFORMATION';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐาน ('+(r.evidence||'OFFICIAL')+')';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';if(x.sourceState)a.dataset.sourceState=x.sourceState;det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 let previousTopic='';
