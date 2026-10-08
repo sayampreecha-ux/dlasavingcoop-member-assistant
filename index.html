@@ -2418,7 +2418,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const facts={...(prior.facts||{})};
       if(prior.requiredFact==='residence'){
         if(/ไม่ได้|ไม่พัก|ไม่อยู่|ไม่ได้พัก/.test(raw))facts.residence=false;
-        else if(/อาศัย.*จริง|พัก.*จริง|อยู่.*จริง|ใช่/.test(raw))facts.residence=true;
+        else if(/อาศัย.*(?:จริง|จิง)|พัก.*(?:จริง|จิง)|อยู่.*(?:จริง|จิง)|ใช่/.test(raw))facts.residence=true;
       }else if(prior.requiredFact==='ownership'){
         if(/เช่า/.test(raw))facts.ownership='rented';
         else if(/ของตนเอง|ของตัวเอง|ของผม|ของฉัน|กรรมสิทธิ์|สิทธิครอบครอง/.test(raw))facts.ownership='member';

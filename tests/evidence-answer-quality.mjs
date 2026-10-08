@@ -24,5 +24,6 @@ let turn=app.conversationTurn(qualityCases[0][0]);turn=app.conversationTurn('พ
 turn=app.conversationTurn('บ้านของตนเอง',turn.state,{continuation:true});assert.match(turn.result.answer,/ยังไม่ถือเป็นผลอนุมัติ/);assert.equal(turn.result.facts.ownership,'member');assert.equal(turn.result.facts.residence,true);assert.equal(turn.result.requiredFact,null);pass++;
 let docTurn=app.conversationTurn('ต้องใช้เอกสารอะไร',turn.state,{continuation:true});assert.match(docTurn.result.answer,/ประกาศพื้นที่ประสบภัย/);assert.notEqual(docTurn.result.requiredFact,'residence');pass++;
 let switched=app.conversationTurn('กู้สามัญวงเงินเท่าไร',turn.state,{continuation:true});assert.match(switched.result.answer,/2,000,000 บาท/);assert.notEqual(switched.result.intent,'welfare_disaster');pass++;
+let typoStart=app.conversationTurn(qualityCases[0][0]);let typoReply=app.conversationTurn('พักจิง',typoStart.state,{continuation:true});assert.equal(typoReply.result.facts.residence,true);assert.equal(typoReply.result.requiredFact,'ownership');pass++;
 for(const q of ['ยอดหนี้ของผมเท่าไร','กู้ฉุกเฉิน ณ วันที่ 1 กันยายน 2569 ต้องใช้เอกสารอะไร','ขอสวัสดิการใหม่ตามระเบียบปี 2570 ได้เท่าไร']){const r=app.answer(q);assert.ok(r.privacy||/EVIDENCE|LOCK|MEMBER/.test(r.decision||'')||/ยืนยัน|ข้อมูล/.test(r.answer));pass++;}
 console.log('EVIDENCE ANSWER QUALITY:',pass,'PASS / 0 FAIL');
