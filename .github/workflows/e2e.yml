@@ -34,3 +34,4 @@ jobs:
           node scripts/browser-realistic-member-smoke.mjs
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
+          node scripts/browser-special-deposit-smoke.mjs
