@@ -32,3 +32,4 @@ jobs:
           node scripts/browser-answer-first-smoke.mjs
           node scripts/browser-education-disaster-smoke.mjs
           node scripts/browser-realistic-member-smoke.mjs
+          node scripts/browser-evidence-quality-smoke.mjs

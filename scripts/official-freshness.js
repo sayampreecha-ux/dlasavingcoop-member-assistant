@@ -20,6 +20,7 @@
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
     if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
     if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
+    if(/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(text)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
     if(/การศึกษา|ค่าเทอม|ค่าเล่าเรียน/.test(text)&&/กู้/.test(text))add('educationLoan');
     if((/ภัยพิบัติ/.test(text)||/น้ำท่วม|ไฟไหม้/.test(text)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))&&/กู้/.test(text))add('disasterLoan');
