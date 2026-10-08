@@ -197,6 +197,13 @@ if(!html.includes("s.textContent='📚 ดูหลักฐานประก�
 const lockAnswer=globalThis.COOP_APP.answer('หลักเกณฑ์กู้สามัญล่าสุดเปลี่ยนหรือยัง');
 if(lockAnswer.decision==='EVIDENCE_LOCK' && /ต้องการตรวจประเภทคำขอและประเด็นใด/.test(lockAnswer.answer)) throw new Error('evidence-lock repeats member question');
 
+
+// A request for a form must lead with the relevant official form, even if rule freshness is locked.
+for(const q of ['ขอแบบฟอร์มกู้สามัญ','ขอแบบฟอร์มสวัสดิการน้ำท่วม']){
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.decision==='EVIDENCE_LOCK' && !(r.actions||[]).some(a=>/แบบฟอร์ม|เอกสาร/.test(a[0]))) throw new Error('locked-form-route: '+q);
+}
+
 console.log(JSON.stringify({
   ok:true,
   version:globalThis.COOP_KB.version,
