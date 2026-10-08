@@ -1,0 +1,247 @@
+{
+  "schema_version": "1.0",
+  "updated": "2026-10-08",
+  "purpose": "Reference evidence for share KB review; not automatically treated as production answers",
+  "source_documents": [
+    {
+      "id": "REGULATION",
+      "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+      "pages": 4
+    },
+    {
+      "id": "FORM",
+      "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view",
+      "pages": 1
+    }
+  ],
+  "rates": [
+    {
+      "id": "SH-RATE-1",
+      "income_min": null,
+      "income_max": 14999,
+      "shares_per_month": 50,
+      "baht_per_month": 500,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 1"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-2",
+      "income_min": 15001,
+      "income_max": 20000,
+      "shares_per_month": 70,
+      "baht_per_month": 700,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 2"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-3",
+      "income_min": 20001,
+      "income_max": 25000,
+      "shares_per_month": 90,
+      "baht_per_month": 900,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 3"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-4",
+      "income_min": 25001,
+      "income_max": 30000,
+      "shares_per_month": 110,
+      "baht_per_month": 1100,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 4"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-5",
+      "income_min": 30001,
+      "income_max": 35000,
+      "shares_per_month": 130,
+      "baht_per_month": 1300,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 5"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-6",
+      "income_min": 35001,
+      "income_max": 40000,
+      "shares_per_month": 150,
+      "baht_per_month": 1500,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 6"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-7",
+      "income_min": 40001,
+      "income_max": 45000,
+      "shares_per_month": 170,
+      "baht_per_month": 1700,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 7"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-8",
+      "income_min": 45001,
+      "income_max": 50000,
+      "shares_per_month": 190,
+      "baht_per_month": 1900,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 8"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-RATE-9",
+      "income_min": 50001,
+      "income_max": null,
+      "shares_per_month": 210,
+      "baht_per_month": 2100,
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "ประกาศข้อ 2 ตารางแถว 9"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    }
+  ],
+  "rules": [
+    {
+      "id": "SH-001",
+      "category": "effective",
+      "answer": "ประกาศ/ระเบียบที่ตรวจมีผลตั้งแต่ 1 ตุลาคม 2569",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 1,
+        "clause": "ข้อ 2"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-006",
+      "category": "increase",
+      "answer": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราตารางได้ ภายใต้เพดานหนึ่งหมื่นหุ้นและความเห็นชอบของคณะกรรมการ",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 1,
+        "clause": "ข้อ 3"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-007",
+      "category": "decrease",
+      "answer": "ขอลดการส่งค่าหุ้นรายเดือนได้เมื่อไม่ต่ำกว่าอัตราที่กำหนด และชำระมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ต้องได้รับความเห็นชอบ",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 2,
+        "clause": "ข้อ 3"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-008",
+      "category": "delegation",
+      "answer": "คณะกรรมการอาจมอบอำนาจให้ผู้จัดการพิจารณาเพิ่มหรือลดค่าหุ้นแทนได้ แต่ยังไม่ยืนยันว่ามอบแล้ว",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 2,
+        "clause": "ข้อ 3"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-009",
+      "category": "purchase",
+      "answer": "เปิดซื้อหุ้นเพิ่มเป็นครั้งคราวได้เมื่อคณะกรรมการจัดทำประกาศ ต้องตรวจประกาศรายรอบ",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 2,
+        "clause": "ข้อ 3"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    },
+    {
+      "id": "SH-012",
+      "category": "income",
+      "answer": "เงินได้รายเดือนรวมเงินเดือน ค่าจ้างประจำ เงินประจำตำแหน่ง เงินอื่นที่จ่ายควบและบำนาญตามที่ประกาศระบุ ไม่รวมเงินสวัสดิการ",
+      "source": {
+        "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view",
+        "page": 3,
+        "clause": "หมายเหตุใต้ตาราง"
+      },
+      "status": "DOCUMENT_VERIFIED"
+    }
+  ],
+  "form": {
+    "title": "คำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+    "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view",
+    "page": 1,
+    "fields": [
+      "ชื่อและนามสกุล",
+      "เลขทะเบียนสมาชิก",
+      "ตำแหน่ง",
+      "สังกัด",
+      "จังหวัด",
+      "โทรศัพท์",
+      "รายได้รายเดือน",
+      "ค่าหุ้นเดิม",
+      "ค่าหุ้นใหม่",
+      "เดือน/ปีที่ประสงค์เริ่ม",
+      "ลายมือชื่อ"
+    ],
+    "status": "DOCUMENT_VERIFIED"
+  },
+  "decision_locks": [
+    {
+      "id": "GAP-15000",
+      "reason": "ตารางมีช่องว่างที่รายได้ 15,000 บาทพอดี",
+      "response": "ต้องให้สหกรณ์ยืนยันอัตรา"
+    },
+    {
+      "id": "GAP-CAP",
+      "reason": "แบบฟอร์มระบุไม่เกิน 50,000 บาท เทียบกับระเบียบไม่เกิน 10,000 หุ้น; ไม่สมควรสรุปว่าเป็นเพดานเดียวกัน",
+      "response": "ไม่ยืนยันเพดานเงินจนกว่าจะตรวจหลักเกณฑ์และอำนาจ"
+    },
+    {
+      "id": "GAP-PROCESS",
+      "reason": "สองไฟล์ไม่ยืนยันช่องทางยื่น ระยะเวลาพิจารณา วันเริ่มมีผล หรือเอกสารแนบอื่น",
+      "response": "ติดต่อสหกรณ์ตรวจยืนยัน"
+    },
+    {
+      "id": "GAP-DELEGATION",
+      "reason": "ยังไม่มีหลักฐานมอบอำนาจจริงให้ผู้จัดการ",
+      "response": "ไม่อ้างว่าผู้จัดการอนุมัติได้แล้ว"
+    }
+  ],
+  "privacy": "No individual member assessment without authenticated member data",
+  "deployment": "REVIEW_ONLY"
+}
