@@ -10,7 +10,7 @@ try{for(const width of [390,1365]){
  const body=()=>page.locator('#out .body').textContent();
  for(const [q,...patterns]of qualityCases){await page.locator('#homeBtn').click();await page.locator('#q').fill(q);await page.locator('#q').press('Enter');await page.locator('#out .body').waitFor();for(const p of patterns)assert.match(await body(),p,q+' '+width);pass++;}
  await page.locator('#homeBtn').click();await page.locator('#q').fill(qualityCases[0][0]);await page.locator('#q').press('Enter');await page.locator('#out .body').waitFor();
- for(const [q,p]of [['พักจริง',/อาศัยอยู่จริง/],['บ้านของตนเอง',/ยังไม่ถือเป็นผลอนุมัติ/]]){await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill(q);await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await body(),p);assert.ok(await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).isVisible());pass++;}
+ for(const [q,p]of [['พักจริง',/อาศัยอยู่จริง/],['บ้านของตนเอง',/ยังไม่ถือเป็นผลอนุมัติ/],['ต้องใช้เอกสารอะไร',/ประกาศพื้นที่ประสบภัย/],['กู้สามัญวงเงินเท่าไร',/2,000,000 บาท/]]){await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill(q);await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await body(),p);assert.ok(await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).isVisible());pass++;}
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER EVIDENCE ANSWER QUALITY:',pass,'PASS / 0 FAIL on mobile and desktop');}
 finally{await browser.close();if(server)await new Promise(r=>server.close(r));}

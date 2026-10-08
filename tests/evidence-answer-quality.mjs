@@ -22,5 +22,7 @@ const app=loadMemberEngine();let pass=0;
 for(const [q,...patterns]of qualityCases){const r=app.answer(q);for(const p of patterns)assert.match(r.answer,p,q);assert.ok(r.sources.length,q);assert.doesNotMatch(r.answer,/ให้เปิดประกาศ.*เลือกแบบ/);pass++;}
 let turn=app.conversationTurn(qualityCases[0][0]);turn=app.conversationTurn('พักจริง',turn.state,{continuation:true});assert.match(turn.result.answer,/อาศัยอยู่จริง/);assert.equal(turn.result.requiredFact,'ownership');assert.equal(turn.result.facts.residence,true);pass++;
 turn=app.conversationTurn('บ้านของตนเอง',turn.state,{continuation:true});assert.match(turn.result.answer,/ยังไม่ถือเป็นผลอนุมัติ/);assert.equal(turn.result.facts.ownership,'member');assert.equal(turn.result.facts.residence,true);assert.equal(turn.result.requiredFact,null);pass++;
+let docTurn=app.conversationTurn('ต้องใช้เอกสารอะไร',turn.state,{continuation:true});assert.match(docTurn.result.answer,/ประกาศพื้นที่ประสบภัย/);assert.notEqual(docTurn.result.requiredFact,'residence');pass++;
+let switched=app.conversationTurn('กู้สามัญวงเงินเท่าไร',turn.state,{continuation:true});assert.match(switched.result.answer,/2,000,000 บาท/);assert.notEqual(switched.result.intent,'welfare_disaster');pass++;
 for(const q of ['ยอดหนี้ของผมเท่าไร','กู้ฉุกเฉิน ณ วันที่ 1 กันยายน 2569 ต้องใช้เอกสารอะไร','ขอสวัสดิการใหม่ตามระเบียบปี 2570 ได้เท่าไร']){const r=app.answer(q);assert.ok(r.privacy||/EVIDENCE|LOCK|MEMBER/.test(r.decision||'')||/ยืนยัน|ข้อมูล/.test(r.answer));pass++;}
 console.log('EVIDENCE ANSWER QUALITY:',pass,'PASS / 0 FAIL');

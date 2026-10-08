@@ -2389,12 +2389,14 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function contextualize(q,previousTopic){
     q=norm(q);
     if(!previousTopic) return q;
+    if(previousTopic==='welfareDisaster'&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำยังไง|ทำอย่างไร/.test(q))return 'สวัสดิการน้ำท่วม '+q;
     if(previousTopic==='resignation' && /^(?:แล้ว)?(?:ถ้า)?(?:มี)?(?:ภาระ|หนี้|ค้ำ|คนค้ำ|ผู้ค้ำ)(?:ล่ะ|ละ|ครับ|คะ|ไหม|มั้ย)?$/i.test(q)) return 'ผมมีหนี้และค้ำคนอื่นอยู่ ลาออกได้ไหม';
     if(previousTopic==='dividend' && /^(?:แล้ว)?(?:ออก|จ่าย|ได้)(?:เมื่อไร|เดือนไหน|วันไหน|ตอนไหน)(?:ครับ|คะ)?$/i.test(q)) return 'ปันผลปี 2569 ออกเมื่อไร';
     if(KB.ruleAuthority.rules[previousTopic]&&!loanProduct(q)&&(!questionDomain(q)||questionDomain(q)==='loan'||/ค้ำ|หลักประกัน/.test(q)||(questionDomain(q)==='shares'&&!personal(q))))return ({ordinaryLoanCurrent:'กู้สามัญ ',emergencyLoanCurrent:'กู้ฉุกเฉิน ',qualityOfLifeCurrent:'กู้รวมหนี้ ',specialHousingCurrent:'กู้เคหะ ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง ',education:'กู้เพื่อการศึกษา ',disaster:'กู้ภัยพิบัติ '})[previousTopic]+q;
     return q;
   }
   function topicOf(q,r){
+    if(r?.intent==='welfare_disaster')return 'welfareDisaster';
     if(r?.intent==='resignation'||/ลาออก|พ้นสมาชิกภาพ/.test(q)) return 'resignation';
     if(/^dividend/.test(r?.intent||'')||/ปันผล|เฉลี่ยคืน/.test(q)) return 'dividend';
     if(loanProduct(q))return loanProduct(q);
@@ -2412,7 +2414,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const guardQuery=prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
     const guard=freshnessStatus(guardQuery);
     if(!guard.allowed){result=answer(guardQuery);return {result,state:{...state,result,question:guardQuery},query:guardQuery};}
-    if(prior?.flowId==='disaster_property_review'&&(options.continuation||choice)){
+    if(prior?.flowId==='disaster_property_review'&&(choice||(!newQuestion&&!questionDomain(raw)))){
       const facts={...(prior.facts||{})};
       if(prior.requiredFact==='residence'){
         if(/ไม่ได้|ไม่พัก|ไม่อยู่|ไม่ได้พัก/.test(raw))facts.residence=false;
