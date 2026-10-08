@@ -2661,6 +2661,14 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    const navigation=serviceNavigation(q);if(navigation)return navigation;
+    const check=freshnessStatus(q);
+    if(!check.allowed&&/ค้ำ/.test(q)&&!loanProduct(q))return res('guarantor_product_clarification','เป็นผู้ค้ำของเงินกู้ประเภทใดครับ? ต้องแยกประเภทก่อนตรวจคุณสมบัติผู้ค้ำและผลของการเกษียณ ขณะนี้หลักฐานยังไม่ผ่านการยืนยัน จึงล็อกคำตอบเชิงสิทธิไว้ก่อน ไม่ใช้หลักเกณฑ์เงินกู้คนละประเภทแทนกัน',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เคหะ','กู้พัฒนาคุณภาพชีวิต'],actions:[['ตรวจประเภทสัญญาของตนเอง',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
+    if(!check.allowed){const locked=F.lock(check,sourceRegistry),product=loanProduct(q);
+      const url=product?({ordinaryLoanCurrent:S.ordinaryLoanForms,emergencyLoanCurrent:S.emergencyLoan,qualityOfLifeCurrent:S.specialLoanForms,specialHousingCurrent:S.specialLoanForms,redeemMortgageCurrent:S.specialLoanForms,education:S.educationLoan,disaster:S.disasterLoan})[product]:/สวัสดิการ|น้ำท่วม|ไฟไหม้/.test(q)?S.welfareForms:null;
+      if(url)locked.actions.push(['แบบและเอกสารของเรื่องนี้',url]);
+      return locked;
+    }
     // Exact monthly share minimum from 2569 announcement; no inference at 15,000.
     if((q.includes('เงินเดือน')||q.includes('เงินได้')||q.includes('รายได้'))&&(q.includes('หุ้น')||q.includes('ค่าหุ้น'))){
       const income=q.match(/(?:เงินเดือน|เงินได้|รายได้)[^0-9]{0,12}([0-9][0-9,]*)/);
@@ -2672,14 +2680,6 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         if(!hit)return res('share_change_rate','กรณีเงินได้รายเดือน 15,000 บาทพอดี ตารางประกาศยังมีช่องว่าง จึงต้องตรวจยืนยันอัตรากับสหกรณ์ก่อนครับ',{decision:'EVIDENCE_LOCK',actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
         return res('share_change_rate','เงินได้รายเดือน '+n.toLocaleString('th-TH')+' บาท มีอัตราส่งหุ้นตามตาราง '+hit[2].toLocaleString('th-TH')+' บาทต่อเดือน หรือ '+(hit[2]/10)+' หุ้นครับ',{actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
       }
-    }
-    const navigation=serviceNavigation(q);if(navigation)return navigation;
-    const check=freshnessStatus(q);
-    if(!check.allowed&&/ค้ำ/.test(q)&&!loanProduct(q))return res('guarantor_product_clarification','เป็นผู้ค้ำของเงินกู้ประเภทใดครับ? ต้องแยกประเภทก่อนตรวจคุณสมบัติผู้ค้ำและผลของการเกษียณ ขณะนี้หลักฐานยังไม่ผ่านการยืนยัน จึงล็อกคำตอบเชิงสิทธิไว้ก่อน ไม่ใช้หลักเกณฑ์เงินกู้คนละประเภทแทนกัน',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เคหะ','กู้พัฒนาคุณภาพชีวิต'],actions:[['ตรวจประเภทสัญญาของตนเอง',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
-    if(!check.allowed){const locked=F.lock(check,sourceRegistry),product=loanProduct(q);
-      const url=product?({ordinaryLoanCurrent:S.ordinaryLoanForms,emergencyLoanCurrent:S.emergencyLoan,qualityOfLifeCurrent:S.specialLoanForms,specialHousingCurrent:S.specialLoanForms,redeemMortgageCurrent:S.specialLoanForms,education:S.educationLoan,disaster:S.disasterLoan})[product]:/สวัสดิการ|น้ำท่วม|ไฟไหม้/.test(q)?S.welfareForms:null;
-      if(url)locked.actions.push(['แบบและเอกสารของเรื่องนี้',url]);
-      return locked;
     }
     // Suggestions and partner searches are not statements of an existing guarantee load.
     if(questionDomain(q)==='shares'&&!loanProduct(q)&&!personal(q)&&/รายเดือน|เดือนละ/.test(q)&&/เท่าไร|เท่าไหร่|กี่/.test(q)&&!/\d/.test(q))return res('share_monthly_income_clarification','อัตราหุ้นรายเดือนขึ้นกับช่วงเงินได้รายเดือนครับ ขอทราบเงินได้รายเดือนเป็นจำนวนบาทเพื่อเทียบช่วงที่มีหลักฐาน ไม่ต้องส่งเลขสมาชิก สลิป หรือข้อมูลระบุตัวบุคคล',{domain:'shares',decision:'NEED_INFO',requiredFact:'grossMonthlyIncome',actions:[['ตรวจหุ้นของตนเอง',S.memberPortal]],sources:[directRuleSource('sharesClause7Current')]});
