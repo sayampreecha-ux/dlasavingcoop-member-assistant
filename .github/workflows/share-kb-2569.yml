@@ -1,0 +1,21 @@
+name: Share KB 2569 and baseline regression
+on:
+  push:
+    branches:
+      - kb/share-rules-2569-evidence
+  pull_request:
+    paths:
+      - index.html
+      - data/share-rules-2569.review.json
+      - tests/share-rules-2569.mjs
+      - tests/regression.mjs
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node tests/share-rules-2569.mjs
+      - run: node tests/regression.mjs
