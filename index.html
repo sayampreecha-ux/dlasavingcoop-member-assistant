@@ -2660,7 +2660,20 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     return null;
   }
   function answer(input){
-    const q=norm(input),navigation=serviceNavigation(q);if(navigation)return navigation;
+    const q=norm(input);
+    // Exact monthly share minimum from 2569 announcement; no inference at 15,000.
+    if((q.includes('เงินเดือน')||q.includes('เงินได้')||q.includes('รายได้'))&&(q.includes('หุ้น')||q.includes('ค่าหุ้น'))){
+      const income=q.match(/(?:เงินเดือน|เงินได้|รายได้)[^0-9]{0,12}([0-9][0-9,]*)/);
+      const source='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
+      if(income){
+        const n=Number(income[1].replaceAll(',',''));
+        const rates=[[0,14999,500],[15001,20000,700],[20001,25000,900],[25001,30000,1100],[30001,35000,1300],[35001,40000,1500],[40001,45000,1700],[45001,50000,1900],[50001,Infinity,2100]];
+        const hit=rates.find(x=>n>=x[0]&&n<=x[1]);
+        if(!hit)return res('share_change_rate','กรณีเงินได้รายเดือน 15,000 บาทพอดี ตารางประกาศยังมีช่องว่าง จึงต้องตรวจยืนยันอัตรากับสหกรณ์ก่อนครับ',{decision:'EVIDENCE_LOCK',actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
+        return res('share_change_rate','เงินได้รายเดือน '+n.toLocaleString('th-TH')+' บาท มีอัตราส่งหุ้นตามตาราง '+hit[2].toLocaleString('th-TH')+' บาทต่อเดือน หรือ '+(hit[2]/10)+' หุ้นครับ',{actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
+      }
+    }
+    const navigation=serviceNavigation(q);if(navigation)return navigation;
     const check=freshnessStatus(q);
     if(!check.allowed&&/ค้ำ/.test(q)&&!loanProduct(q))return res('guarantor_product_clarification','เป็นผู้ค้ำของเงินกู้ประเภทใดครับ? ต้องแยกประเภทก่อนตรวจคุณสมบัติผู้ค้ำและผลของการเกษียณ ขณะนี้หลักฐานยังไม่ผ่านการยืนยัน จึงล็อกคำตอบเชิงสิทธิไว้ก่อน ไม่ใช้หลักเกณฑ์เงินกู้คนละประเภทแทนกัน',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เคหะ','กู้พัฒนาคุณภาพชีวิต'],actions:[['ตรวจประเภทสัญญาของตนเอง',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
     if(!check.allowed){const locked=F.lock(check,sourceRegistry),product=loanProduct(q);
