@@ -2659,8 +2659,22 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     return null;
   }
+  function verifiedSpecialDeposit(q){
+    if(!/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q))return null;
+    const official='https://dlasavingcoop.com/show.php?No=2959';
+    const notice='https://www.dlasavingcoop.com/show.php?No=3964';
+    const actions=[['ขั้นตอนและแบบเปิดบัญชีเงินฝากพิเศษ',official],['ประกาศอัตราดอกเบี้ยที่เผยแพร่',notice]];
+    const sources=[src('ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ',official),src('ประกาศอัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ พ.ศ. 2565',notice)];
+    if(/ยอด|คงเหลือ|บัญชีของฉัน|ของผม|ของดิฉัน|ของเรา/.test(q))return res('deposit_private','ยอดเงินฝากของสมาชิกแต่ละรายต้องตรวจผ่านระบบสมาชิกที่ยืนยันตัวตนครับ ไม่สามารถดูยอดจากแชตนี้ได้',{decision:'SAFE_HANDOFF',actions:[['ตรวจข้อมูลสมาชิก',S.memberPortal]],sources});
+    if(/ดอกเบี้ย|อัตรา|เปอร์เซ็นต์|%/.test(q))return res('deposit_special_interest','ประกาศทางการที่ตรวจพบระบุอัตราเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี (ประกาศปี 2565) แต่ยังไม่ได้ยืนยันว่ามีประกาศใหม่เปลี่ยนอัตราหรือไม่ จึงไม่ยืนยันว่าเป็นอัตราปัจจุบันครับ',{decision:'EVIDENCE_LOCK',actions,sources});
+    if(/เปิด|ขั้นต่ำ|เริ่มต้น|กี่บาท/.test(q))return res('deposit_special_open','ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษบนเว็บไซต์สหกรณ์ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท กรอกคำขอและแบบผู้รับโอนประโยชน์ จากนั้นชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT โดยใช้รหัสชำระ 7196 และส่งเอกสารตามขั้นตอนทางการครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
+    if(/ฝากเพิ่ม|วิธีฝาก|ฝากเงิน|นำฝาก/.test(q))return res('deposit_special_add','การฝากเงินออมทรัพย์พิเศษใช้ช่องทางรับชำระที่สหกรณ์กำหนด เช่น แบบชำระเงินฝากพิเศษรหัส 7196 หรือ Krungthai NEXT ตามขั้นตอนทางการ กรุณาตรวจเลขบัญชีอ้างอิงให้ตรงกับบัญชีของตนก่อนยืนยันรายการครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
+    if(/ถอน|ปิดบัญชี|หลักประกัน|ค้ำ/.test(q))return res('deposit_special_withdraw','เงินฝากออมทรัพย์พิเศษสามารถยื่นคำขอถอนหรือปิดบัญชีได้โดยใช้แบบของสหกรณ์ แต่ต้องตรวจเงื่อนไขบัญชีและเงินที่ติดหลักประกันก่อน จึงยังยืนยันจำนวนครั้งถอนหรือค่าธรรมเนียมไม่ได้ครับ',{decision:'PROCEDURE_INFORMATION',actions:[['แบบถอนหรือปิดบัญชี',S.depositForms],...actions],sources});
+    return res('deposit_special','เงินฝากออมทรัพย์พิเศษเป็นบัญชีเงินฝากของสหกรณ์ ขั้นตอนทางการระบุเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และมีแบบฟอร์มสำหรับฝาก ถอน และปิดบัญชี ส่วนอัตราดอกเบี้ยต้องตรวจประกาศที่ยังมีผลใช้บังคับก่อนครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
+  }
   function answer(input){
     const q=norm(input);
+    const depositAnswer=verifiedSpecialDeposit(q);if(depositAnswer)return depositAnswer;
     const navigation=serviceNavigation(q);if(navigation)return navigation;
     const check=freshnessStatus(q);
     if(!check.allowed&&/ค้ำ/.test(q)&&!loanProduct(q))return res('guarantor_product_clarification','เป็นผู้ค้ำของเงินกู้ประเภทใดครับ? ต้องแยกประเภทก่อนตรวจคุณสมบัติผู้ค้ำและผลของการเกษียณ ขณะนี้หลักฐานยังไม่ผ่านการยืนยัน จึงล็อกคำตอบเชิงสิทธิไว้ก่อน ไม่ใช้หลักเกณฑ์เงินกู้คนละประเภทแทนกัน',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้เคหะ','กู้พัฒนาคุณภาพชีวิต'],actions:[['ตรวจประเภทสัญญาของตนเอง',S.memberPortal],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
