@@ -5,7 +5,7 @@ const registry=JSON.parse(fs.readFileSync(new URL('../data/official-source-regis
 // so archived discoveries do not become current answer sources and mobile HTML stays small.
 const needed=new Set(registry.ruleVersions.map(v=>v.documentId));
 registry.nonGoverningBaselineDocumentIds=registry.documents.filter(d=>d.status==='PENDING'&&d.mayAffectRules===false&&d.pendingReason==='BASELINE_INVENTORY_NOT_RULE_PROMOTION').map(d=>d.id);
-registry.documents=registry.documents.filter(d=>needed.has(d.id)||d.status==='PENDING'&&d.mayAffectRules);
+registry.documents=registry.documents.filter(d=>needed.has(d.id)||d.status==='PENDING'&&d.mayAffectRules||d.metadataReview?.primaryBytesVerified);
 const code=fs.readFileSync(new URL('./official-freshness.js',import.meta.url),'utf8');
 const start='// BEGIN GENERATED OFFICIAL FRESHNESS',end='// END GENERATED OFFICIAL FRESHNESS';
 const block=start+'\n'+code+'\nglobalThis.OFFICIAL_SOURCE_REGISTRY='+JSON.stringify(registry).replace(/</g,'\\u003c')+';\n'+end;

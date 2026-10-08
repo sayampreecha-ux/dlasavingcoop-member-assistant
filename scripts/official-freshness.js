@@ -67,6 +67,7 @@
   }
   function documentScope(doc,text=''){
     const declared=doc.affects||[];
+    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
     const requested=domains(text).filter(x=>loanDomains.includes(x));
@@ -74,6 +75,10 @@
     if(requested.length===1&&titled.length&&!titled.includes(requested[0]))scope=scope.filter(x=>x!=='guarantor');
     // A named specialised loan does not govern every ordinary-loan inquiry.
     if(/พักผ่อน/.test(doc.title||'')&&!/พักผ่อน/.test(text))return [];
+    if(/เพื่อปรับโครงสร้างหนี้/.test(doc.title||'')&&(!/กู้[^\n]{0,25}(?:ปรับโครงสร้างหนี้|รีไฟแนนซ์|refinance)/i.test(text)||/เคยปรับ|ปรับโครงสร้างหนี้(?:แล้ว|มา)|หลัง(?:จาก)?ปรับ/.test(text)))return [];
+    if(/ไม่เกินทุนเรือนหุ้น/.test(doc.title||'')&&!/ไม่เกิน.*(?:หุ้น|เงินฝาก)|กู้(?:เท่า|ตาม)หุ้น|กู้หุ้น/.test(text))return [];
+    if(/ชำระหนี้สหกรณ์ในฐานะผู้ค้ำ/.test(doc.title||'')&&!/ชำระ.*(?:ฐานะผู้ค้ำ|แทนผู้กู้)|ผู้ค้ำ.*(?:ชำระ|ถูกเรียก|จ่ายแทน)/.test(text))return [];
+    if(/อัตราดอกเบี้ยเงินกู้/.test(doc.title||''))return declared.filter(x=>x==='interest');
     return scope;
   }
   function removedArchiveHasCurrentEvidence(registry,doc,ds,date){
@@ -83,7 +88,8 @@
     if(!archived)return false;
     return documentScope(doc).filter(x=>ds.includes(x)).every(domain=>(registry.ruleVersions||[]).some(v=>{
       const current=registry.documents.find(d=>d.id===v.documentId);
-      return v.domain===domain&&v.status==='CURRENT'&&v.effectiveFrom<=date&&(!v.effectiveTo||date<=v.effectiveTo)&&v.review?.primaryVerified===true&&current?.status==='CURRENT'&&current.contentHash&&primary(current);
+      const covered=v.domain===domain||domain==='guarantor'&&doc.removedNonGoverningBaseline===true&&documentScope(doc).includes(v.domain)&&ds.includes(v.domain)&&/Loan|qualityOfLife|specialHousing|redeemMortgage/.test(v.domain);
+      return covered&&v.status==='CURRENT'&&v.effectiveFrom<=date&&(!v.effectiveTo||date<=v.effectiveTo)&&v.review?.primaryVerified===true&&current?.status==='CURRENT'&&current.contentHash&&primary(current);
     }));
   }
   function pendingFor(registry,ds,date,text=''){return (registry.documents||[]).filter(d=>d.status==='PENDING'&&d.mayAffectRules===true&&documentScope(d,text).some(x=>ds.includes(x))&&(!d.effectiveDate||!date||d.effectiveDate<=date)&&!removedArchiveHasCurrentEvidence(registry,d,ds,date));}
@@ -115,11 +121,14 @@
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
       if(d.status!=='PENDING'||!d.mayAffectRules||!primary(d))continue;
       const known=next.documents.find(x=>x.id===d.id);
+      // Human-reviewed form classification is bound to exact bytes and label.
+      // New bytes or an unreviewed label must still lock for review.
+      if(known?.metadataReview?.documentRole==='APPLICATION_FORM'&&known.metadataReview.primaryBytesVerified&&known.contentHash===d.contentHash&&known.metadataReview.reviewedLinkFingerprints.includes(d.fingerprint)&&d.pendingReason==='OFFICIAL_LINK_METADATA_CHANGED')continue;
       // A missing inventory-only link is not a new rule. Trust the reviewed baseline,
       // never a marker supplied by the asynchronous monitor itself.
       const baselineOnly=(base.nonGoverningBaselineDocumentIds||[]).includes(d.id)||known?.removedNonGoverningBaseline===true||known?.status==='PENDING'&&known.mayAffectRules===false&&known.pendingReason==='BASELINE_INVENTORY_NOT_RULE_PROMOTION';
       // Ignore resolved locks if the bundled reviewed document has the very same bytes/link fingerprint.
-      if(known&&known.status!=='PENDING'&&known.contentHash===d.contentHash&&known.fingerprint===d.fingerprint&&d.pendingReason!=='PRIMARY_LINK_REMOVED')continue;
+      if(known&&known.status!=='PENDING'&&known.contentHash===d.contentHash&&(known.fingerprint===d.fingerprint||known.metadataReview?.primaryBytesVerified&&known.metadataReview.reviewedLinkFingerprints.includes(d.fingerprint))&&d.pendingReason!=='PRIMARY_LINK_REMOVED')continue;
       if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,removedNonGoverningBaseline:baselineOnly});
       else next.documents.push({...d,affects:all.filter(x=>(d.affects||[]).includes(x)),removedNonGoverningBaseline:baselineOnly});
     }
