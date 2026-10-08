@@ -40,6 +40,7 @@ jobs:
           node scripts/browser-realistic-member-smoke.mjs
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
+          node scripts/browser-special-deposit-authority.mjs
       - name: Stage public Pilot files
         run: |
           mkdir -p _site/data
@@ -64,3 +65,4 @@ jobs:
           node scripts/browser-realistic-member-smoke.mjs
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
+          node scripts/browser-special-deposit-authority.mjs
