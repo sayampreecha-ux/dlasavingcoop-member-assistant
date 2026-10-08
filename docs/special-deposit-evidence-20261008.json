@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-10-08",
+  "product": "MEMBER_SPECIAL_SAVINGS",
+  "sources": [
+    {
+      "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view",
+      "sha256": "8f0264fef3d3ef751c000703fcb6767815655b319de707f548c04736fcad4e36",
+      "role": "REGULATION",
+      "review": "VISUAL_ALL_6_PAGES",
+      "clauses": {
+        "13": "Opening and each additional deposit minimum 500 THB; remaining balance minimum 500 THB except closure; second and subsequent monthly withdrawal fee 1%, minimum 100 THB",
+        "24": "Withdrawals over 100000 THB require advance notice per announcement; notice duration not verified"
+      }
+    },
+    {
+      "url": "https://drive.google.com/file/d/1-_JHv4AqbwzE2PyPjZJbN8zzdnYpH5MR/view",
+      "sha256": "8b82b77540fc4a523fb88d42ac1b921cad1802a80ef8cbc6a1d736b6e9b7ef75",
+      "role": "AMENDMENT",
+      "review": "VISUAL_FULL_PAGE",
+      "clauses": {
+        "14": "Daily balance interest, compounded each month end; balance below 500 THB earns no interest"
+      }
+    },
+    {
+      "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view",
+      "role": "RATE_ANNOUNCEMENT",
+      "published": "2022-11-29",
+      "effectiveFrom": "2022-12-01",
+      "ratePercentPerYear": 3.25,
+      "currentRateStatus": "REPLACEMENT_NOT_CONFIRMED_KEEP_EVIDENCE_LOCK"
+    },
+    {
+      "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view",
+      "role": "WITHDRAW_CLOSE_FORM",
+      "modifiedAt": "2026-07-07T09:17:12.894Z",
+      "review": "CONNECTOR_FULL_TEXT",
+      "conditions": [
+        "Closure sends original green passbook by post",
+        "Transfer on next working day according to form; individual timing requires acknowledgement",
+        "Closure interest until day before transfer",
+        "Second monthly withdrawal and closure fee 1%, minimum 100 THB"
+      ]
+    },
+    {
+      "url": "https://dlasavingcoop.com/show.php?No=3993",
+      "role": "OPENING_PROCEDURE"
+    },
+    {
+      "url": "https://dlasavingcoop.com/show.php?No=4554",
+      "role": "ADDITIONAL_DEPOSIT_PROCEDURE"
+    }
+  ],
+  "privacy": "Member-specific balance/status requires official authenticated portal; never echo credentials",
+  "limitations": [
+    "Do not infer current rate solely from 2022 announcement",
+    "Do not treat association deposit regulation as member special-savings regulation",
+    "Original 3378 labelled corpus is unavailable; 5205 contract corpus is a separate gate"
+  ]
+}

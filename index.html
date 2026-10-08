@@ -198,7 +198,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   function domains(text=''){
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
-    if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
+    if(/เงินฝาก|รับฝาก|ออมทรัพย์|ฝากพิเศษ/.test(text))add('deposits');
     if(/สวัสดิการ|คลอดบุตร|คลอดลูก|สมรส|แต่งงาน|เรียนจบ|สำเร็จการศึกษา|จบการศึกษา|แม่เสีย|พ่อเสีย|ทุนการศึกษา|สงเคราะห์|ศาสนกิจ|อุปสมบท|บวช|(?:สมาชิก|บุคคลในครอบครัว).*(?:เสียชีวิต|ถึงแก่กรรม)/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(text)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
@@ -247,7 +247,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
   }
   function documentScope(doc,text=''){
     const declared=doc.affects||[];
-    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก/.test(text))return [];
+    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
     const requested=domains(text).filter(x=>loanDomains.includes(x));
@@ -289,7 +289,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const pending=result.documents?.[0],title=pending?.title||'แหล่งทางการ';
     const url=pending?.originalUrl||pending?.officialIndexUrl||result.sources?.[0]?.url||registry.monitors[0].url;
     const message=result.reason==='PENDING_DOCUMENT'?'พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้':'ยังยืนยันกฎที่มีผลในช่วงเวลาที่ถามไม่ได้ครับ กรุณาตรวจหลักเกณฑ์ทางการหรือให้เจ้าหน้าที่ตรวจฉบับที่ใช้กับกรณีนี้';
-    return {intent:'freshness_evidence_lock',answer:message+' เปิดเอกสารต้นฉบับที่เกี่ยวข้องด้านล่างเพื่อตรวจข้อที่เปลี่ยนแปลงได้ทันที หากเป็นสิทธิหรือผลเฉพาะสมาชิก ให้ตรวจผ่านระบบสมาชิกหรือเจ้าหน้าที่ โดยไม่ส่งรหัสผ่าน OTP หรือ PIN',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารต้นฉบับ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact'],...(pending?.officialIndexUrl&&pending.officialIndexUrl!==url?[['หน้าที่เผยแพร่ต้นฉบับ',pending.officialIndexUrl]]:[])],sources:[{title,url}],freshness:result};
+    return {intent:'freshness_evidence_lock',answer:message+' ต้องการตรวจประเภทคำขอและประเด็นใดครับ? ระบุเรื่องเพิ่มเติมเพื่อให้เจ้าหน้าที่ตรวจฉบับและข้อที่ตรงกรณี โดยไม่ส่งรหัสผ่าน OTP หรือ PIN',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารต้นฉบับ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact'],...(pending?.officialIndexUrl&&pending.officialIndexUrl!==url?[['หน้าที่เผยแพร่ต้นฉบับ',pending.officialIndexUrl]]:[])],sources:[{title,url}],freshness:result};
   }
   // A monitor snapshot can only add locks/check timestamps; it cannot supply answer values or promote rules.
   function mergeMonitor(base,snapshot){
@@ -382,7 +382,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       ordinaryLoanContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
       emergencyLoanContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
       registrationContact:'https://www.dlasavingcoop.com/show.php?Category=contact',
-      depositGuide:'https://dlasavingcoop.com/show.php?No=2959'
+      depositGuide:'https://dlasavingcoop.com/show.php?No=3993'
     },
     sourceRegistry:{
       verifiedAt:'4 ต.ค. 2569',
@@ -2442,12 +2442,14 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(!previousTopic) return q;
     if(previousTopic.startsWith('welfare:')&&!questionDomain(q)&&!welfareKindFromQuestion(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำอย่างไร|ทำยังไง/.test(q))return WELFARE_FLOWS[previousTopic.slice(8)].title+' '+q;
     if(previousTopic==='welfareDisaster'&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำยังไง|ทำอย่างไร/.test(q))return 'สวัสดิการน้ำท่วม '+q;
+    if(previousTopic==='depositSpecial'&&!loanProduct(q)&&(!questionDomain(q)||questionDomain(q)==='deposit')&&!/สมาคม|ฌาปนกิจ|ประจำ|ออมทรัพย์ธรรมดา/.test(q))return 'ฝากพิเศษ '+q;
     if(previousTopic==='resignation' && /^(?:แล้ว)?(?:ถ้า)?(?:มี)?(?:ภาระ|หนี้|ค้ำ|คนค้ำ|ผู้ค้ำ)(?:ล่ะ|ละ|ครับ|คะ|ไหม|มั้ย)?$/i.test(q)) return 'ผมมีหนี้และค้ำคนอื่นอยู่ ลาออกได้ไหม';
     if(previousTopic==='dividend' && /^(?:แล้ว)?(?:ออก|จ่าย|ได้)(?:เมื่อไร|เดือนไหน|วันไหน|ตอนไหน)(?:ครับ|คะ)?$/i.test(q)) return 'ปันผลปี 2569 ออกเมื่อไร';
     if(KB.ruleAuthority.rules[previousTopic]&&!loanProduct(q)&&(!questionDomain(q)||questionDomain(q)==='loan'||/ค้ำ|หลักประกัน/.test(q)||(questionDomain(q)==='shares'&&!personal(q))))return ({ordinaryLoanCurrent:'กู้สามัญ ',emergencyLoanCurrent:'กู้ฉุกเฉิน ',qualityOfLifeCurrent:'กู้รวมหนี้ ',specialHousingCurrent:'กู้เคหะ ',redeemMortgageCurrent:'กู้ไถ่ถอนจำนอง ',education:'กู้เพื่อการศึกษา ',disaster:'กู้ภัยพิบัติ '})[previousTopic]+q;
     return q;
   }
   function topicOf(q,r){
+    if(/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q)&&/^deposit/.test(r?.intent||''))return 'depositSpecial';
     if(r?.intent==='welfare_disaster')return 'welfareDisaster';
     const welfareKind=Object.keys(WELFARE_FLOWS).find(k=>WELFARE_FLOWS[k].intent===r?.intent);if(welfareKind)return 'welfare:'+welfareKind;
     if(r?.intent==='resignation'||/ลาออก|พ้นสมาชิกภาพ/.test(q)) return 'resignation';
@@ -2660,17 +2662,32 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     return null;
   }
   function verifiedSpecialDeposit(q){
-    if(!/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q))return null;
-    const official='https://dlasavingcoop.com/show.php?No=2959';
-    const notice='https://www.dlasavingcoop.com/show.php?No=3964';
+    if(!/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q)||/สมาคม|ฌาปนกิจ/.test(q))return null;
+    const official='https://dlasavingcoop.com/show.php?No=3993',guide=S.depositForms;
+    const notice='https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view';
+    const withdraw='https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view';
+    const add='https://dlasavingcoop.com/show.php?No=4554';
     const actions=[['ขั้นตอนและแบบเปิดบัญชีเงินฝากพิเศษ',official],['ประกาศอัตราดอกเบี้ยที่เผยแพร่',notice]];
-    const sources=[src('ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ',official),src('ประกาศอัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ พ.ศ. 2565',notice)];
-    if(/ยอด|คงเหลือ|บัญชีของฉัน|ของผม|ของดิฉัน|ของเรา/.test(q))return res('deposit_private','ยอดเงินฝากของสมาชิกแต่ละรายต้องตรวจผ่านระบบสมาชิกที่ยืนยันตัวตนครับ ไม่สามารถดูยอดจากแชตนี้ได้',{decision:'SAFE_HANDOFF',actions:[['ตรวจข้อมูลสมาชิก',S.memberPortal]],sources});
-    if(/ดอกเบี้ย|อัตรา|เปอร์เซ็นต์|%/.test(q))return res('deposit_special_interest','ประกาศทางการที่ตรวจพบระบุอัตราเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี (ประกาศปี 2565) แต่ยังไม่ได้ยืนยันว่ามีประกาศใหม่เปลี่ยนอัตราหรือไม่ จึงไม่ยืนยันว่าเป็นอัตราปัจจุบันครับ',{decision:'EVIDENCE_LOCK',actions,sources});
-    if(/เปิด|ขั้นต่ำ|เริ่มต้น|กี่บาท/.test(q))return res('deposit_special_open','ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษบนเว็บไซต์สหกรณ์ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท กรอกคำขอและแบบผู้รับโอนประโยชน์ จากนั้นชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT โดยใช้รหัสชำระ 7196 และส่งเอกสารตามขั้นตอนทางการครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
-    if(/ฝากเพิ่ม|วิธีฝาก|ฝากเงิน|นำฝาก/.test(q))return res('deposit_special_add','การฝากเงินออมทรัพย์พิเศษใช้ช่องทางรับชำระที่สหกรณ์กำหนด เช่น แบบชำระเงินฝากพิเศษรหัส 7196 หรือ Krungthai NEXT ตามขั้นตอนทางการ กรุณาตรวจเลขบัญชีอ้างอิงให้ตรงกับบัญชีของตนก่อนยืนยันรายการครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
-    if(/ถอน|ปิดบัญชี|หลักประกัน|ค้ำ/.test(q))return res('deposit_special_withdraw','เงินฝากออมทรัพย์พิเศษสามารถยื่นคำขอถอนหรือปิดบัญชีได้โดยใช้แบบของสหกรณ์ แต่ต้องตรวจเงื่อนไขบัญชีและเงินที่ติดหลักประกันก่อน จึงยังยืนยันจำนวนครั้งถอนหรือค่าธรรมเนียมไม่ได้ครับ',{decision:'PROCEDURE_INFORMATION',actions:[['แบบถอนหรือปิดบัญชี',S.depositForms],...actions],sources});
-    return res('deposit_special','เงินฝากออมทรัพย์พิเศษเป็นบัญชีเงินฝากของสหกรณ์ ขั้นตอนทางการระบุเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และมีแบบฟอร์มสำหรับฝาก ถอน และปิดบัญชี ส่วนอัตราดอกเบี้ยต้องตรวจประกาศที่ยังมีผลใช้บังคับก่อนครับ',{decision:'PROCEDURE_INFORMATION',actions,sources});
+    const regulation='https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view',amendment='https://drive.google.com/file/d/1-_JHv4AqbwzE2PyPjZJbN8zzdnYpH5MR/view';
+    const sources=[src('ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13',regulation),src('ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ',official),src('ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565',notice)];
+    if(/\b\d{13}\b|OTP|รหัสผ่าน|password|PIN|เลขบัญชี|เลขสมาชิก/i.test(q)&&/\d{6,}|OTP|รหัสผ่าน|password|PIN/i.test(q)||/(?:ยอด|เงินเหลือ|คงเหลือ|ดอกเบี้ยที่ได้).*(?:ของผม|ของฉัน|ของดิฉัน|ของเรา|เท่าไร|เท่าไหร่)|(?:ของผม|ของฉัน|ของดิฉัน).*(?:ยอด|เงินเหลือ|คงเหลือ)|บัญชีของ(?:ผม|ฉัน|ดิฉัน)/.test(q)){
+      const r=memberSelfService(q);r.answer='ยอดเงินฝากและรายการเฉพาะสมาชิกต้องยืนยันตัวตนผ่านระบบสมาชิกทางการครับ ไม่สามารถตรวจจากแชตนี้ได้ และไม่ต้องส่งรหัสผ่าน PIN OTP หรือเลขบัตรประชาชนให้ AI';return r;
+    }
+    // Collateral clearance is a distinct decision; the product procedure never grants it.
+    if(/ค้ำ|หลักประกัน|จำนำสิทธิ|กู้ไม่ผ่าน/.test(q)&&/ถอน|ปลด|คืน|เปลี่ยน|ปิดบัญชี/.test(q))return res('deposit_collateral_release','เงินฝากที่ใช้เป็นหลักประกันต้องตรวจเงื่อนไขสัญญาและการปลดหลักประกันก่อนครับ การเปลี่ยนหลักประกันหรือซื้อหุ้นเพิ่มยังไม่ยืนยันว่าส่วนที่ผูกไว้ถูกปลดแล้ว ให้เจ้าหน้าที่เงินฝากและเงินกู้ตรวจรายการจริงก่อนดำเนินการ',{privacy:true,decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_COLLATERAL_RELEASE_RULE',actions:[['ตรวจบัญชีในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่เงินฝากและเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)],details:['อย่าใช้เงื่อนไขจำนวนผู้ค้ำบุคคลมาตัดสินการถอนหลักประกันเงินฝาก']});
+    if(/สถานะ|ยอด.*(?:โชว์|แสดง)|(?:กี่วัน|นานไหม|นานมั้ย|เมื่อไร|เมื่อไหร่|ตอนไหน).*(?:ขึ้น|เข้า|บันทึก)|(?:ขึ้น|เข้า|บันทึก).*(?:กี่วัน|เมื่อไร|เมื่อไหร่)/.test(q))return memberSelfService(q);
+    if(/กู้|ซื้อหุ้น|ร้อยละ\s*10|10\s*%/.test(q))return res('deposit_loan_review','การฝากเงินเพื่อใช้ประกอบคำขอกู้หรือซื้อหุ้นต้องตรวจประเภทเงินกู้ เงื่อนไขหลักประกัน และสถานะรายการครับ ไม่สรุปว่าฝากครบจำนวนแล้วกู้ผ่านหรือถอนเงินได้ ให้เจ้าหน้าที่ตรวจหลักเกณฑ์และสัญญาที่ตรงกรณี',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',followups:['กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','เงินฝากที่ใช้เป็นหลักประกัน'],actions:[['หลักเกณฑ์เงินกู้',S.procedure],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
+    if(/เสาร์|อาทิตย์|วันหยุด|ตอนเย็น|นอกเวลา|ทุก.*เดือน|ตลอด/.test(q))return res('deposit_special_schedule','ขั้นตอนที่เผยแพร่ระบุช่องทางฝากเพิ่ม แต่ยังไม่ได้ยืนยันเวลารับรายการ วันหยุด หรือข้อจำกัดการฝากซ้ำครับ การทำรายการผ่านแอปกับวันที่สหกรณ์บันทึกยอดอาจต่างกัน ต้องให้เจ้าหน้าที่เงินฝากยืนยันก่อน',{decision:'EVIDENCE_LOCK',actions:[['ขั้นตอนฝากเพิ่ม',add],['ติดต่อเจ้าหน้าที่เงินฝาก',S.contact]],sources:[src('ขั้นตอนฝากเงินออมทรัพย์พิเศษ',add)]});
+    const closing=/(?:^|[^เ])ปิดบัญชี/.test(q);
+    const check=freshnessStatus(q);
+    if(!check.allowed)return F.lock(check,sourceRegistry);
+    if(check.historical)return F.lock({...check,reason:'HISTORICAL_DEPOSIT_RULE_NOT_CONFIRMED'},sourceRegistry);
+    const delivery=['ยื่นเอกสารตามช่องทางในแบบทางการ: อีเมล dla.deposit01@gmail.com หรือไปรษณีย์ตามที่อยู่สหกรณ์','เวลารับเอกสารที่เผยแพร่ 8.30–15.00 น.; ตรวจข้อความตอบรับเพื่อทราบวันที่ดำเนินการจริง','ไม่ส่งเอกสารบัญชีหรือสำเนาบัตรในแชตนี้; เก็บรหัสผ่าน PIN และ OTP เป็นความลับ'];
+    if(closing||/ถอน|ค่าธรรมเนียม/.test(q))return res(closing?'deposit_special_close':'deposit_special_withdraw',closing?'การปิดบัญชีเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชี ส่งเอกสารทางไปรษณีย์พร้อมสมุดบัญชีเล่มสีเขียว ตามแบบที่สหกรณ์เผยแพร่ครับ ดอกเบี้ยคิดถึงวันก่อนวันทำรายการโอน ต้องตรวจเงินที่ผูกหลักประกันก่อน':'การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน',{decision:'PROCEDURE_INFORMATION',details:['ระเบียบ พ.ศ. 2566 ข้อ 13: หลังถอนต้องคงเหลืออย่างน้อย 500 บาท เว้นแต่ถอนปิดบัญชี; ข้อ 24 การถอนเกิน 100,000 บาทต้องแจ้งล่วงหน้าตามประกาศ ต้องยืนยันระยะเวลากับเจ้าหน้าที่','เอกสาร: คำขอ สำเนาบัตรประชาชนหรือบัตรข้าราชการ สำเนาบัญชีกรุงไทยของสมาชิก และสมุดบัญชีเงินฝาก รับรองสำเนาถูกต้อง','แบบระบุโอนเข้าบัญชีกรุงไทยของสมาชิกในวันทำการถัดไป; ต้องตรวจข้อความตอบรับ ไม่ยืนยันวันเงินเข้ารายบุคคล','ค่าธรรมเนียมการถอนตั้งแต่ครั้งที่ 2 ในเดือนเดียวกัน: 1% ขั้นต่ำ 100 บาท รวมการถอนปิดบัญชีด้วย',...delivery],actions:[['แบบคำขอถอน/ปิดบัญชีต้นฉบับ',withdraw],['หลักเกณฑ์และช่องทางเงินฝาก',guide],['ติดต่อเจ้าหน้าที่เงินฝาก',S.contact]],sources:[src('ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24',regulation),src('แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่',withdraw),src('หน้าเงินฝากทางการ',guide)]});
+    if(/ฝากเพิ่ม|วิธีฝาก|ฝากเงิน|นำฝาก/.test(q)&&!/เปิดบัญชี|เปิด.*บัญชี/.test(q))return res('deposit_special_add','เงินฝากออมทรัพย์พิเศษฝากเพิ่มแต่ละครั้งขั้นต่ำ 500 บาทตามระเบียบข้อ 13 ครับ ทำผ่าน Krungthai NEXT หรือเคาน์เตอร์กรุงไทยตามแบบชำระเงินฝากพิเศษรหัส 7196 ครับ ใช้เลขบัญชีเงินฝากของตนให้ถูกต้อง รหัสบัญชี 0000011 เป็นขั้นตอนเปิดบัญชีครั้งแรก ไม่ใช้แทนเลขบัญชีเดิมทุกครั้ง',{decision:'PROCEDURE_INFORMATION',followups:['ฝากพิเศษเปิดบัญชี','ฝากพิเศษถอนเงิน','ฝากพิเศษวันหยุด'],details:['Krungthai NEXT: เลือกจ่ายบิล ค้นหารหัส 7196 กรอกทะเบียนสมาชิกและเลขบัญชีเงินฝากของตน ตรวจจำนวนและข้อมูลก่อนยืนยัน เก็บหลักฐานรายการ','ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13: ฝากเพิ่มแต่ละครั้งไม่น้อยกว่า 500 บาท; เปิดบัญชีขั้นต่ำ 500 บาท; คงเหลือไม่น้อยกว่า 500 บาท เว้นแต่ปิดบัญชี','เวลาบันทึกรายการจริงต้องตรวจผ่านระบบสมาชิกหรือเจ้าหน้าที่'],actions:[['ขั้นตอนฝากเพิ่ม',add],['แบบชำระเงินฝากพิเศษ 7196','https://drive.google.com/file/d/1-UnLXkjkVPDFt-XZmsOE0LOmiV7rRE5p/view'],['ติดต่อเงินฝาก',S.contact]],sources:[src('ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13',regulation),src('ขั้นตอนฝากเงินออมทรัพย์พิเศษ',add)]});
+    if(/ดอกเบี้ย|อัตรา|เปอร์เซ็นต์|%/.test(q))return res('deposit_special_interest','ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565 ระบุอัตราเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี แต่ยังไม่ได้ยืนยันว่ามีประกาศใหม่เปลี่ยนอัตราหรือไม่ จึงไม่ยืนยันว่าเป็นอัตราปัจจุบันครับ',{decision:'EVIDENCE_LOCK',details:['ฉบับแก้ไขที่ 2 พ.ศ. 2566 ข้อ 14: คำนวณดอกเบี้ยจากยอดคงเหลือแต่ละวันและทบต้นทุกสิ้นเดือน; ยอดคงเหลือต่ำกว่า 500 บาทไม่คิดดอกเบี้ย','อัตราเป็นไปตามประกาศที่ใช้ในขณะนั้น ไม่ใช้อัตราย้อนหลังรับรองอัตราปัจจุบัน'],actions,sources:[...sources,src('ระเบียบรับฝากเงิน ฉบับแก้ไขที่ 2 พ.ศ. 2566 ข้อ 14',amendment)]});
+    if(/เปิด|ขั้นต่ำ|เริ่มต้น|กี่บาท/.test(q))return res('deposit_open','ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 แล้วส่งเอกสารตามขั้นตอนทางการ',{suppressClarification:true,decision:'PROCEDURE_INFORMATION',details:['แนบสำเนาบัตรสมาชิกและผู้รับโอนประโยชน์ สำเนาบัญชีกรุงไทยของสมาชิก และหลักฐานชำระเงินตามขั้นตอน','Krungthai NEXT: จ่ายบิล 7196 ระบุทะเบียนสมาชิก 6 หลัก; เปิดบัญชีครั้งแรกกรอกบัญชีเงินฝาก 0000011',...delivery],actions,sources});
+    return res('deposit_special','เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล',{decision:'PROCEDURE_INFORMATION',followups:['เปิดบัญชีฝากพิเศษ','ฝากพิเศษฝากเพิ่ม','ฝากพิเศษถอนเงิน','ฝากพิเศษปิดบัญชี','ฝากพิเศษดอกเบี้ย'],actions,sources});
   }
   function answer(input){
     const q=norm(input);
