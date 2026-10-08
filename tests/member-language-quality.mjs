@@ -43,4 +43,7 @@ for(const q of ['ยอดหนี้ของผมเท่าไร','กู
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const expired=loadMemberEngine(html.replace(/(const SERVICE_EVIDENCE=\{[^\n]*?"reviewedAt":)"[^"]+"/,'$1"2000-01-01T00:00:00Z"'));
 assert.equal(expired.answer('คลอดลูกต้องใช้เอกสารอะไร').decision,'EVIDENCE_LOCK');pass++;
+const stale=loadMemberEngine(html.replace(/"lastSuccessfulCheck":"[^"]+"/g,'"lastSuccessfulCheck":"2000-01-01T00:00:00Z"'));
+for(const q of ['บวชต้องใช้เอกสารอะไร','สมาชิกเสียชีวิตต้องใช้เอกสารอะไร','เรียนจบต้องใช้เอกสารอะไร']){const r=stale.answer(q);assert.match(r.decision,/LOCK/);assert.doesNotMatch(r.answer,/สูติบัตร|มรณบัตร|120 วัน/);pass++;}
+assert.match(app.answer('บ้านโดนน้ำท่วม ขอเงินช่วยเหลือยังไง').answer,/แบบสำรวจ/);pass++;
 console.log('MEMBER LANGUAGE QUALITY:',pass,'PASS / 0 FAIL');
