@@ -20,3 +20,5 @@ Additional-deposit questions matched opening minimum; closure/withdrawal lacked 
 - Private inputs and per-record outputs excluded from repository.
 
 Browser CI, deployment and production checks must still succeed before release is declared complete.
+
+CI uncovered a domain-scope error: the new association-deposit regulation blocked individual special savings. Read the signed primary PDF linked from the procedure index: clause 3 defines depositor as a funeral association. Narrow only this entity-specific scope; keep association, ambiguous deposit and new member-deposit rule locks. Canonical registry remains the sole source of ruleVersions; repair stale monitor snapshot references without promoting documents. Added 11 scope checks.
