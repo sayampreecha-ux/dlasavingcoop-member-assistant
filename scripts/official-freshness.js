@@ -21,7 +21,7 @@
     if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
     if(/สวัสดิการ|คลอดบุตร|สมรส|ทุนการศึกษา|สงเคราะห์/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
-    if(/การศึกษา|ค่าเทอม/.test(text)&&/กู้/.test(text))add('educationLoan');
+    if(/การศึกษา|ค่าเทอม|ค่าเล่าเรียน/.test(text)&&/กู้/.test(text))add('educationLoan');
     if((/ภัยพิบัติ/.test(text)||/น้ำท่วม|ไฟไหม้/.test(text)&&!/ประกัน(?:อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))&&/กู้/.test(text))add('disasterLoan');
     if(/รวมหนี้|คุณภาพชีวิต/.test(text))add('qualityOfLife');
     if(/เคหะ|กู้บ้าน|ซื้อบ้าน|ปลูกบ้าน|สร้างบ้าน/.test(text))add('specialHousing');
