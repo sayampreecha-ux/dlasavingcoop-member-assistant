@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {loadMemberEngine} from './helpers/load-member-engine.mjs';
 export const depositCases=[
+ ['ฝากพิเศษยอดคงเหลือขั้นต่ำเท่าไร','deposit_special_balance_rule',/500 บาท/,/เว้นแต่ถอนปิดบัญชี/],
  ['เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง','deposit_open',/500 บาท/],
  ['เปิดบัญชีฝากพิเศษขั้นต่ำกี่บาท','deposit_open',/500 บาท/],
  ['ฝากพิเศษฝากเพิ่มขั้นต่ำเท่าไหร่','deposit_special_add',/ฝากเพิ่มแต่ละครั้งไม่น้อยกว่า 500 บาท/],
