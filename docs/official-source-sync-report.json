@@ -1,17 +1,17 @@
 {
-  "checkedAt": "2026-10-08T09:58:56.221Z",
-  "processed": 2,
+  "checkedAt": "2026-10-08T14:58:40.871Z",
+  "processed": 0,
   "unchanged": 8,
   "changes": [],
   "impactedDomains": [],
   "errors": [
     {
       "document": "doc-20120cec8048c1252046",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-yr1Al7/headers --output /tmp/official-sync-yr1Al7/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-gX2EJW/headers --output /tmp/official-sync-gX2EJW/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "document": "doc-070bc1813f9f44f6a0a8",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-ufAJys/headers --output /tmp/official-sync-ufAJys/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-bAwaQY/headers --output /tmp/official-sync-bAwaQY/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "document": "doc-ae58b7e1deb33c8a092f",
@@ -27,6 +27,14 @@
     },
     {
       "document": "doc-787ca12f33b15dda3b93",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "document": "doc-b9424edb5f684b8e006a",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "document": "doc-fc2538abe94c6ec5bcad",
       "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
     }
   ],
