@@ -22,3 +22,11 @@ assert.equal(app.answer(depositCases.at(-1)[0]).intent,'deposit_collateral_relea
 assert.equal(app.answer(depositCases[4][0]).decision,'EVIDENCE_LOCK');
 assert.match(app.answer(depositCases[0][0]).intent,/deposit_open/);
 console.log('SPECIAL DEPOSIT AUTHORITY: 12 questions + 7 authority/privacy/routing assertions PASS');
+
+// Reproduce the live monitor's association-deposit discovery. It does not govern a member savings account.
+const monitored=loadMemberEngine(),snapshot=monitored.getSourceRegistry();
+snapshot.documents.push({id:'association-deposit-scope-fixture',title:'ระเบียบว่าด้วยการรับฝากเงินจากสมาคมฌาปนกิจสงเคราะห์ พ.ศ. 2569',type:'REGULATION',originalUrl:'https://drive.google.com/file/d/1p2B8nBrWoLELvfaorf3QX9ku3kzYQTrF/view',officialIndexUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',linkVerified:true,status:'PENDING',mayAffectRules:true,affects:['deposits','welfare'],pendingReason:'NEW_OFFICIAL_DOCUMENT'});
+monitored.applySourceMonitor(snapshot);
+for(const [q,...patterns]of depositCases){const r=monitored.answer(q);for(const p of patterns)assert.match(r.answer,p,'live monitor scope: '+q);}
+assert.equal(monitored.freshnessStatus('เงินฝากจากสมาคมฌาปนกิจ').allowed,false);
+console.log('SPECIAL DEPOSIT MONITOR SCOPE: member savings remains usable; association deposit remains locked PASS');
