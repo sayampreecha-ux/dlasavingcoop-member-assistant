@@ -31,3 +31,4 @@ jobs:
           node scripts/browser-live-journey-smoke.mjs
           node scripts/browser-answer-first-smoke.mjs
           node scripts/browser-education-disaster-smoke.mjs
+          node scripts/browser-realistic-member-smoke.mjs
