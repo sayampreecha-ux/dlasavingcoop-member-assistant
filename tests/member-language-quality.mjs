@@ -46,4 +46,9 @@ assert.equal(expired.answer('คลอดลูกต้องใช้เอก
 const stale=loadMemberEngine(html.replace(/"lastSuccessfulCheck":"[^"]+"/g,'"lastSuccessfulCheck":"2000-01-01T00:00:00Z"'));
 for(const q of ['บวชต้องใช้เอกสารอะไร','สมาชิกเสียชีวิตต้องใช้เอกสารอะไร','เรียนจบต้องใช้เอกสารอะไร']){const r=stale.answer(q);assert.match(r.decision,/LOCK/);assert.doesNotMatch(r.answer,/สูติบัตร|มรณบัตร|120 วัน/);pass++;}
 assert.match(app.answer('บ้านโดนน้ำท่วม ขอเงินช่วยเหลือยังไง').answer,/แบบสำรวจ/);pass++;
+const pending=loadMemberEngine(),snapshot=pending.getSourceRegistry();
+snapshot.documents.push({id:'synthetic-pending-guarantor',title:'ระเบียบเงินกู้และผู้ค้ำประกันฉบับแก้ไขเพิ่มเติม',affects:['ordinaryLoan','emergencyLoan','qualityOfLife','specialHousing','redeemMortgage','guarantor'],type:'REGULATION',status:'PENDING',mayAffectRules:true,originalUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',officialIndexUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',linkVerified:true,pendingReason:'NEW_OFFICIAL_DOCUMENT'});
+pending.applySourceMonitor(snapshot);
+assert.equal(pending.freshnessStatus('ผู้ค้ำเกษียณแล้วค้ำต่อได้ไหม').allowed,false);
+assert.equal(pending.answer('ผู้ค้ำเกษียณแล้วค้ำต่อได้ไหม').decision,'EVIDENCE_LOCK');pass++;
 console.log('MEMBER LANGUAGE QUALITY:',pass,'PASS / 0 FAIL');
