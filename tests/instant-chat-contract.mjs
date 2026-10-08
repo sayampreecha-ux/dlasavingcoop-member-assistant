@@ -1,0 +1,11 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(html,/4\.8\.1-instant-answer-hotfix/);
+assert.doesNotMatch(html,/await refreshOfficialMonitor\(\)/);
+assert.doesNotMatch(html,/q\.disabled=true/);
+assert.match(html,/document\.querySelectorAll\('\[data-q\]'\)/);
+assert.match(html,/document\.getElementById\('form'\)\.onsubmit/);
+assert.match(html,/COOP_APP\.conversationTurn\(value/);
+const scripts=[...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map(m=>m[1]);
+assert.equal(scripts.length,3);scripts.forEach(s=>new Function(s));
+console.log('Instant chat and buttons source contract PASS');
