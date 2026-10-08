@@ -1,17 +1,43 @@
 {
-  "checkedAt": "2026-10-08T00:33:36.138Z",
-  "processed": 6,
-  "unchanged": 8,
-  "changes": [],
-  "impactedDomains": [],
+  "checkedAt": "2026-10-08T09:36:03.821Z",
+  "processed": 9,
+  "unchanged": 5,
+  "changes": [
+    "doc-55fac737853ad4083086",
+    "doc-0f097a05fbccc2dd861c",
+    "doc-3ed7cc53e63f3184571a",
+    "doc-c4ec70e384c890ae62c7",
+    "doc-2103ba4da2cf1f68a64c",
+    "doc-5c893b2d819d747e4a6c",
+    "doc-2b74a1ba4639975aaeb1",
+    "doc-1f7a9387ebb04f2f81f1",
+    "doc-8158348139edda052c52",
+    "doc-a7669146208dee2b7265",
+    "doc-6eec34aa5d2384904844",
+    "doc-a493dd8c564e0aa1cf77",
+    "doc-c58ca7ed07fd0cdff56c"
+  ],
+  "impactedDomains": [
+    "ordinaryLoan",
+    "qualityOfLife",
+    "specialHousing",
+    "redeemMortgage",
+    "shares",
+    "deposits",
+    "guarantor",
+    "educationLoan",
+    "disasterLoan",
+    "interest",
+    "emergencyLoan"
+  ],
   "errors": [
     {
       "document": "doc-20120cec8048c1252046",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-yjSgqI/headers --output /tmp/official-sync-yjSgqI/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-BzS5Gr/headers --output /tmp/official-sync-BzS5Gr/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "document": "doc-070bc1813f9f44f6a0a8",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-vEdaFm/headers --output /tmp/official-sync-vEdaFm/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-cbW6lm/headers --output /tmp/official-sync-cbW6lm/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
     }
   ],
   "policy": "Detection never promotes or rewrites Rule Master"
