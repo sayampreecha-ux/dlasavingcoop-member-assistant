@@ -188,6 +188,10 @@ for (const q of ['เปิดบัญชีเงินฝากออมท�
   if(!(r.sources||[]).some(s=>/^https?:/.test(s.url||''))) throw new Error('member-gateway-official-evidence: '+q);
 }
 
+
+// Mobile answer UI must not expose internal evidence classification tokens.
+if(!html.includes("s.textContent='📚 ดูหลักฐานประกอบ'")) throw new Error('mobile-evidence-label: technical status exposed');
+
 console.log(JSON.stringify({
   ok:true,
   version:globalThis.COOP_KB.version,
