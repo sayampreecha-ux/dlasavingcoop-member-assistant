@@ -2669,18 +2669,6 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       if(url)locked.actions.push(['แบบและเอกสารของเรื่องนี้',url]);
       return locked;
     }
-    // Exact monthly share minimum from 2569 announcement; no inference at 15,000.
-    if((q.includes('เงินเดือน')||q.includes('เงินได้')||q.includes('รายได้'))&&(q.includes('หุ้น')||q.includes('ค่าหุ้น'))){
-      const income=q.match(/(?:เงินเดือน|เงินได้|รายได้)[^0-9]{0,12}([0-9][0-9,]*)/);
-      const source='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
-      if(income){
-        const n=Number(income[1].replaceAll(',',''));
-        const rates=[[0,14999,500],[15001,20000,700],[20001,25000,900],[25001,30000,1100],[30001,35000,1300],[35001,40000,1500],[40001,45000,1700],[45001,50000,1900],[50001,Infinity,2100]];
-        const hit=rates.find(x=>n>=x[0]&&n<=x[1]);
-        if(!hit)return res('share_change_rate','กรณีเงินได้รายเดือน 15,000 บาทพอดี ตารางประกาศยังมีช่องว่าง จึงต้องตรวจยืนยันอัตรากับสหกรณ์ก่อนครับ',{decision:'EVIDENCE_LOCK',actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
-        return res('share_change_rate','เงินได้รายเดือน '+n.toLocaleString('th-TH')+' บาท มีอัตราส่งหุ้นตามตาราง '+hit[2].toLocaleString('th-TH')+' บาทต่อเดือน หรือ '+(hit[2]/10)+' หุ้นครับ',{actions:[['📘 เปิดประกาศหุ้น พ.ศ. 2569',source]],sources:[src('ประกาศหุ้น 2569',source)]});
-      }
-    }
     // Suggestions and partner searches are not statements of an existing guarantee load.
     if(questionDomain(q)==='shares'&&!loanProduct(q)&&!personal(q)&&/รายเดือน|เดือนละ/.test(q)&&/เท่าไร|เท่าไหร่|กี่/.test(q)&&!/\d/.test(q))return res('share_monthly_income_clarification','อัตราหุ้นรายเดือนขึ้นกับช่วงเงินได้รายเดือนครับ ขอทราบเงินได้รายเดือนเป็นจำนวนบาทเพื่อเทียบช่วงที่มีหลักฐาน ไม่ต้องส่งเลขสมาชิก สลิป หรือข้อมูลระบุตัวบุคคล',{domain:'shares',decision:'NEED_INFO',requiredFact:'grossMonthlyIncome',actions:[['ตรวจหุ้นของตนเอง',S.memberPortal]],sources:[directRuleSource('sharesClause7Current')]});
     if(/ค้ำ/.test(q)&&/หา(?:เพื่อน|คน|ผู้).*ค้ำ|แลกค้ำ|ยินดีค้ำกัน|ทบทวน|อยากให้|ขอให้.*(?:พิจารณา|ปรับ)|ในชุด/.test(q)&&!/เปลี่ยน|ผู้ค้ำใหม่|เสียชีวิต|ถึงแก่กรรม/.test(q))return res('guarantee_context_review','ต้องการหาผู้ค้ำ เสนอปรับหลักเกณฑ์ หรือสอบถามภาระค้ำที่มีอยู่ครับ? AI ไม่จับคู่ผู้ค้ำและไม่ถือจำนวนคนในข้อความนี้เป็นภาระค้ำจริง ให้ระบุประเภทเงินกู้และประเด็นที่ต้องการตรวจ ก่อนใช้หลักเกณฑ์กับกรณีของสมาชิก',{decision:'NEED_INFO',requiredFact:'guaranteeConcern',followups:['หลักเกณฑ์ผู้ค้ำ','ตรวจว่าฉันค้ำใครอยู่','ติดต่อเจ้าหน้าที่'],actions:[['ตรวจข้อมูลของตนเอง',S.memberPortal],['ยืนยันกับเจ้าหน้าที่',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
