@@ -33,7 +33,7 @@
         "deposits",
         "guarantor"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "a5099309a1d092063c5f4ddab249ed0ba00165841ace03005f5531c1970b0ed2",
       "etag": null,
       "lastModified": null,
@@ -121,7 +121,7 @@
         "dividendPatronage",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "dedb9075f1fa3d04229bbc0e99529f9e684afe9730e5f3646faeeb5e176166df",
       "etag": null,
       "lastModified": null,
@@ -179,7 +179,7 @@
         "guarantor",
         "interest"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "9781cd3d29c74a60251aaa2d93837291213f8411c4fced8a2645d294d474b2fe",
       "etag": null,
       "lastModified": null,
@@ -217,7 +217,7 @@
       "domains": [
         "emergencyLoan"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "b31caa9e8582467ab048e49de5119be4f3064573ec75fe0a29e205590057688e",
       "etag": null,
       "lastModified": null,
@@ -240,7 +240,7 @@
         "specialHousing",
         "redeemMortgage"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "aa071587f63881ced4eb2c3df17ab3fb15c3918a198318cc22aef923b2bb3b97",
       "etag": null,
       "lastModified": null,
@@ -279,7 +279,7 @@
         "shares",
         "resignation"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "159ab6a2ab52d556abdeedc3cb2143b6f65b599a3ea335dde860de8b3d3400c9",
       "etag": null,
       "lastModified": null,
@@ -309,7 +309,7 @@
       "domains": [
         "welfare"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "87b9c5eb757342489d377e87e8df83038c56a864ac54e3faddcab3b5ada686e4",
       "etag": null,
       "lastModified": null,
@@ -340,7 +340,7 @@
       "domains": [
         "deposits"
       ],
-      "lastSuccessfulCheck": "2026-10-06T01:53:18.800Z",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "0b3613d2d2e4af99456844da9a37581da1357ec8657f3bb058084bb05279b47b",
       "etag": null,
       "lastModified": null,
@@ -5390,5 +5390,5 @@
       }
     }
   ],
-  "lastSyncAt": "2026-10-06T01:53:18.800Z"
+  "lastSyncAt": "2026-10-09T00:35:49.849Z"
 }

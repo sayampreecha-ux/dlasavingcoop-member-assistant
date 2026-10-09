@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-10-09T00:35:49.849Z",
+  "source": "https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/blob/official-source-monitor/docs/official-source-sync-report.json",
+  "monitorSource": "https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/blob/official-source-monitor/data/official-source-monitor.json",
+  "scope": "Index freshness only. Rule Master, reviewed document bytes and rule effective dates are unchanged. Pending detections remain in the fallback monitor and are merged by the existing runtime gate.",
+  "checks": [
+    {
+      "id": "procedure",
+      "url": "https://www.dlasavingcoop.com/show.php?Category=procedure",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "notices",
+      "url": "https://www.dlasavingcoop.com/list.php?Category=notice",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "ordinary",
+      "url": "https://www.dlasavingcoop.com/show.php?No=774",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "emergency",
+      "url": "https://www.dlasavingcoop.com/show.php?No=773",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "special",
+      "url": "https://www.dlasavingcoop.com/show.php?No=2385",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "member",
+      "url": "https://www.dlasavingcoop.com/show.php?No=772",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "welfare",
+      "url": "https://www.dlasavingcoop.com/show.php?No=775",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    },
+    {
+      "id": "deposits",
+      "url": "https://www.dlasavingcoop.com/show.php?No=807",
+      "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
+      "lastError": null
+    }
+  ],
+  "attachmentErrors": [
+    {
+      "id": "doc-20120cec8048c1252046",
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-NX3zqG/headers --output /tmp/official-sync-NX3zqG/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
+    },
+    {
+      "id": "doc-070bc1813f9f44f6a0a8",
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-Ob5KzA/headers --output /tmp/official-sync-Ob5KzA/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
+    },
+    {
+      "id": "doc-ae58b7e1deb33c8a092f",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "id": "doc-292aec9754a67cfe66a3",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "id": "doc-b34482b0b36c4d291e88",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "id": "doc-787ca12f33b15dda3b93",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "id": "doc-b9424edb5f684b8e006a",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "id": "doc-fc2538abe94c6ec5bcad",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    }
+  ],
+  "noAutomaticRulePromotion": true
+}
