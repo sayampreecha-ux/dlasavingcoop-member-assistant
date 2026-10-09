@@ -59,6 +59,8 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 .sources summary{cursor:pointer;font-weight:800;color:#586c63;padding:10px 12px;background:#f7faf8}
 .sources a{display:block;margin:0;padding:8px 12px;color:#276044;overflow-wrap:anywhere;border-top:1px solid #edf1ee}
 .follow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+#out:has(.deposit-navigation){scroll-margin-top:100px}
+.deposit-navigation .chip{min-height:44px;cursor:pointer}
 .contactbox{position:fixed;left:10px;right:10px;bottom:10px;max-width:736px;margin:auto;background:#fff;border:1px solid #eadfc4;border-radius:20px;padding:15px;box-shadow:0 18px 50px #10281e30;z-index:30;max-height:calc(100vh - 20px);overflow:auto}
 .contacthead{display:flex;justify-content:space-between;align-items:center}.close{border:0;background:#fff2df;border-radius:10px;width:38px;height:38px;font-size:20px;color:#a85c13}
 .clinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.clinks a,.clinks button{min-height:48px;border:0;border-radius:12px;padding:10px;font:inherit;font-weight:800;text-decoration:none;display:flex;align-items:center;justify-content:center;text-align:center}
@@ -2835,6 +2837,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }finally{for(const [id,value]of Object.entries(saved))KB.ruleAuthority.rules[id]=value;}
   }
   // Navigation selects a subject only; every destination still runs the evidence gate.
+  function depositEntry(input){
+    if(norm(input)!=='เงินฝาก')return null;
+    return {intent:'deposit_menu',status:'เลือกประเภทเงินฝาก',decision:'NAVIGATION_ONLY',answer:'ต้องการทำรายการเงินฝากประเภทใดครับ? เลือกปุ่มด้านล่างได้เลย',actions:[],sources:[],details:[]};
+  }
   function depositNavigation(input,result={}){
     const q=norm(input);
     if(!/เงินฝาก|ออมทรัพย์|ฝากพิเศษ|ฝากเพิ่ม|ถอนฝาก|เปิดบัญชี|ปิดบัญชี/.test(q)&&!/^deposit/.test(result.intent||''))return null;
@@ -2850,12 +2856,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const scope=/ordinary/.test(id)?'กู้สามัญ':/emergency/.test(id)?'กู้ฉุกเฉิน':/quality/.test(id)?'กู้รวมหนี้':/housing/.test(id)?'กู้เคหะ':/redeem/.test(id)?'กู้ไถ่ถอนจำนอง':/education/.test(id)?'กู้เพื่อการศึกษา':/welfare/.test(id)?'สวัสดิการ':/guarantor/.test(id)?'ผู้ค้ำเงินกู้':'';
     return scope+(/eligibility/.test(id)?'ได้ไหม ':' ')+q;
   }
-  return {answer,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
+  return {answer,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.8.2-deposit-navigation';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.8.3-deposit-entry';
 function render(r,input=''){out.replaceChildren();out.classList.remove('hidden');const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';out.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-bottom:6px';out.append(ver);const b=document.createElement('div');b.className='badge';b.textContent=r.status;out.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;out.append(body);const depositMenu=COOP_APP.depositNavigation(input,r);if(depositMenu){const nav=document.createElement('nav');nav.className='deposit-navigation';nav.setAttribute('aria-label',depositMenu.title);const title=document.createElement('p');title.style.fontWeight='800';title.textContent=depositMenu.title;nav.append(title);const choices=document.createElement('div');choices.className='follow';depositMenu.items.forEach(([label,query])=>{const bt=document.createElement('button');bt.type='button';bt.className='chip';bt.textContent=label;bt.onclick=()=>{if(query==='#deposit-contact'){box.classList.remove('hidden');box.scrollTop=0;return;}conversationState=null;previousTopic='';ask(query)};choices.append(bt)});nav.append(choices);out.append(nav)}if(r.followups?.length&&!depositMenu){const d=document.createElement('div');d.className='follow';r.followups.forEach(x=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>ask(x,{continuation:true});d.append(bt)});out.append(d)}const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};out.append(f);if(r.actions?.length){const d=document.createElement('div');d.className='actions';r.actions.forEach(([t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}d.append(a)});out.append(d)}if(r.details?.length){const det=document.createElement('details');det.className='more';det.open=r.decision==='PROCEDURE_INFORMATION';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);out.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐานประกอบ';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';if(x.sourceState)a.dataset.sourceState=x.sourceState;det.append(a)});out.append(det)}out.scrollIntoView({behavior:'smooth',block:'start'})}
 let conversationState=null;
 let previousTopic='';
@@ -2888,12 +2894,15 @@ async function ask(text,{continuation=false}={}){
     // Do not block a member's question on the remote source-monitor endpoint.
     // Runtime freshness and evidence gates remain enforced from the last verified snapshot.
     refreshOfficialMonitor().catch(()=>{});
-    const turn=COOP_APP.conversationTurn(value,conversationState||{topic:previousTopic},{continuation});
+    // A category screen contains no rule claim. Selected questions still use the unchanged engine.
+    const entry=COOP_APP.depositEntry(value);
+    const turn=entry?{result:entry,state:{topic:'',question:value,result:entry}}:COOP_APP.conversationTurn(value,conversationState||{topic:previousTopic},{continuation});
     const result=turn.result;
     if(!result) throw new Error('EMPTY_ANSWER');
     previousTopic=turn.state.topic;
     conversationState=turn.state;
     render(result,value);
+    if(entry)out.querySelector('.follow-input')?.remove();
   }catch(err){
     conversationState=null;
     render({status:'ตอบอัตโนมัติไม่ได้',answer:'ระบบไม่ควรเงียบครับ กรุณาติดต่อเจ้าหน้าที่เพื่อให้ได้คำตอบที่ถูกต้อง',details:['ระบบพบข้อผิดพลาดในการประมวลผลคำถามนี้และจะไม่เดาคำตอบ'],actions:[['☎️ รายชื่อเจ้าหน้าที่','#staff-directory'],['☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638']],sources:[]});
