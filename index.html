@@ -2911,7 +2911,7 @@ function updateReadingTopics(source){
     const label=original.textContent.trim();
     if([...buttons.children].some(b=>b.textContent.trim()===label))return;
     const button=document.createElement('button');
-    button.type='button';button.className='chip';button.textContent=label;
+    button.type='button';button.className='chip';button.textContent=label;button.setAttribute('role','link');button.setAttribute('aria-label','อ่านต่อ: '+label);
     button.onclick=()=>original.click();
     buttons.append(button);
   });
