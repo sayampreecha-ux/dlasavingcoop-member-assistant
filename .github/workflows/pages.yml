@@ -1,4 +1,5 @@
 name: Deploy GitHub Pages
+# Re-run full release and production verification without changing test criteria.
 on:
   push:
     branches: [main]
@@ -40,8 +41,10 @@ jobs:
           node scripts/browser-realistic-member-smoke.mjs
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
-          node scripts/browser-special-deposit-authority.mjs
           node scripts/browser-special-deposit-smoke.mjs
+          node scripts/browser-special-deposit-acceptance-smoke.mjs
+          node scripts/browser-special-deposit-authority.mjs
+          node scripts/browser-special-deposit-mass-smoke.mjs
       - name: Stage public Pilot files
         run: |
           mkdir -p _site/data
@@ -66,5 +69,7 @@ jobs:
           node scripts/browser-realistic-member-smoke.mjs
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
-          node scripts/browser-special-deposit-authority.mjs
           node scripts/browser-special-deposit-smoke.mjs
+          node scripts/browser-special-deposit-acceptance-smoke.mjs
+          node scripts/browser-special-deposit-authority.mjs
+          node scripts/browser-special-deposit-mass-smoke.mjs

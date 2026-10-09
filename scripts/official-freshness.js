@@ -18,7 +18,7 @@
   function domains(text=''){
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
-    if(/เงินฝาก|รับฝาก/.test(text))add('deposits');
+    if(/เงินฝาก|รับฝาก|ออมทรัพย์|ฝากพิเศษ|สมาคม.*ฝากเงิน/.test(text))add('deposits');
     if(/สวัสดิการ|คลอดบุตร|คลอดลูก|สมรส|แต่งงาน|เรียนจบ|สำเร็จการศึกษา|จบการศึกษา|แม่เสีย|พ่อเสีย|ทุนการศึกษา|สงเคราะห์|ศาสนกิจ|อุปสมบท|บวช|(?:สมาชิก|บุคคลในครอบครัว).*(?:เสียชีวิต|ถึงแก่กรรม)/.test(text)&&!/ฌาปนกิจ/.test(text))add('welfare');
     if(/น้ำท่วม|อุทกภัย|ภัยพิบัติ|สาธารณภัย|ไฟไหม้/.test(text)&&!/กู้|ประกัน(?:ภัย|อัคคีภัย|ไฟไหม้)|กรมธรรม์/.test(text))add('welfare');
     if(/ฉุกเฉิน/.test(text))add('emergencyLoan');
@@ -67,7 +67,7 @@
   }
   function documentScope(doc,text=''){
     const declared=doc.affects||[];
-    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ/.test(text))return [];
+    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
     const requested=domains(text).filter(x=>loanDomains.includes(x));
