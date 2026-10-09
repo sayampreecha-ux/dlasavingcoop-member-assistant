@@ -39,3 +39,4 @@ jobs:
           node scripts/browser-special-deposit-authority.mjs
           node scripts/browser-special-deposit-mass-smoke.mjs
           node scripts/browser-deposit-navigation-smoke.mjs
+          node scripts/browser-deposit-entry-smoke.mjs
