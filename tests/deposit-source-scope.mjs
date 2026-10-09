@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import F from '../scripts/official-freshness.js';
+const r=JSON.parse(fs.readFileSync(new URL('../data/official-source-registry.json',import.meta.url),'utf8'));
+const d={id:'association-scope-fixture',title:'ระเบียบว่าด้วยการรับฝากเงินจากสมาคมฌาปนกิจสงเคราะห์ พ.ศ. 2569',status:'PENDING',mayAffectRules:true,affects:['deposits','welfare']};
+r.documents.push(d);
+const now=new Date(r.lastSyncAt);
+assert.equal(F.pendingFor(r,['deposits'],'2026-10-08','เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง').some(x=>x.id===d.id),false);
+assert.equal(F.pendingFor(r,['deposits'],'2026-10-08','สมาคมฌาปนกิจฝากเงินได้ไหม').some(x=>x.id===d.id),true);
+const member={...d,id:'member-deposit-fixture',title:'ระเบียบว่าด้วยการรับฝากเงินจากสมาชิก ฉบับแก้ไข'};
+r.documents.push(member);
+assert.equal(F.pendingFor(r,['deposits'],'2026-10-08','เปิดบัญชีเงินฝากออมทรัพย์พิเศษยังไง').some(x=>x.id===member.id),true);
+console.log('DEPOSIT SOURCE SCOPE: association and member amendment isolation PASS');

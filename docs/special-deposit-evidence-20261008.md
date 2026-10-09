@@ -13,7 +13,7 @@ One scanned page visually read. Replaces clause 14: daily balance calculation, i
 Rate notice: https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view
 Announced 29 November 2565, effective 1 December 2565: 3.25% annual, maximum 50 million THB per member. No claim that an exhaustive current-rate/supersession check is complete; current-rate answer remains EVIDENCE_LOCK.
 
-Procedures: official website No=2959 (opening), No=4554 (additional deposits), and form https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view (withdrawal/closure). Closure requires green passbook by postal submission; actual transaction date follows cooperative receipt confirmation.
+Procedures: official website No=3993 (opening), No=4554 (additional deposits), and form https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view (withdrawal/closure). Closure requires green passbook by postal submission; actual transaction date follows cooperative receipt confirmation.
 
 Root causes fixed: generated registry mismatch; special-deposit routing shadowed collateral route; Thai เปิด contains ปิด and was treated as closure; generic balance condition mistaken for private balance; additional deposits incorrectly routed as opening; pending association depositor regulation over-scoped to member special savings.
 

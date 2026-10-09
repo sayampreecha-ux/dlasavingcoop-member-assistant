@@ -35,3 +35,6 @@ jobs:
           node scripts/browser-evidence-quality-smoke.mjs
           node scripts/browser-member-language-smoke.mjs
           node scripts/browser-special-deposit-smoke.mjs
+          node scripts/browser-special-deposit-acceptance-smoke.mjs
+          node scripts/browser-special-deposit-authority.mjs
+          node scripts/browser-special-deposit-mass-smoke.mjs
