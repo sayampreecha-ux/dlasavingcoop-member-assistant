@@ -218,6 +218,13 @@ for(const [q,expected] of [
 const depositRate=globalThis.COOP_APP.answer('ฝากพิเศษดอกเบี้ยเท่าไร');
 if(!/ยังไม่ได้ยืนยัน/.test(depositRate.answer))throw new Error('special-deposit-rate-freshness');
 
+// Membership wording variants must route consistently without swallowing ordinary share purchases.
+for(const q of ['เป็นสมาชิกสหกรณ์หลายแห่งได้ไหม','เป็นสมาชิกหลายสหกรณ์ได้ไหม','ถือหุ้นหลายสหกรณ์ได้ไหม']) {
+ const r=globalThis.COOP_APP.answer(q);
+ if(r.intent!=='membership_other_cooperative_review'||r.decision!=='EVIDENCE_LOCK')throw new Error('multiple-coop-variant '+q+' -> '+r.intent);
+}
+if(globalThis.COOP_APP.answer('ซื้อหุ้นเพิ่มอีก 100 หุ้นในสหกรณ์').intent!=='share_purchase')throw new Error('multiple-coop-false-positive: share purchase');
+
 // Duplicate savings-cooperative membership: answer first, transfer action, evidence lock.
 for(const q of ['เป็นสมาชิกสหกรณ์อื่นอยู่สมัคร สอ.อปท. ได้ไหม','เป็นสมาชิกสองสหกรณ์ได้ไหม','ซื้อหุ้นสองสหกรณ์ได้ไหม','สมาชิกซ้ำสหกรณ์อื่น']) {
  const r=globalThis.COOP_APP.answer(q);
