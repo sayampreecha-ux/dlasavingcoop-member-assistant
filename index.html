@@ -2950,7 +2950,28 @@ async function ask(text,{continuation=false}={}){
     // Runtime freshness and evidence gates remain enforced from the last verified snapshot.
     refreshOfficialMonitor().catch(()=>{});
     // A category screen contains no rule claim. Selected questions still use the unchanged engine.
-    const entry=COOP_APP.depositEntry(value)||COOP_APP.paymentEntry(value);
+    const trackingTopics=[
+      ['ติดตามเอกสาร','ติดตามเอกสาร: ตรวจสอบว่าสหกรณ์ได้รับเอกสารแล้วหรือไม่ โดยเตรียมประเภทคำขอ วันที่ส่ง และช่องทางส่งไว้แจ้งเจ้าหน้าที่ หากมีเลขรับเอกสารให้ใช้อ้างอิง ระบบนี้ยังไม่เชื่อมทะเบียนรับเอกสาร จึงไม่สามารถยืนยันสถานะรายบุคคลได้'],
+      ['ติดตามผลอนุมัติ','ติดตามผลอนุมัติ: เปิดประกาศผลของสหกรณ์และตรวจรอบประกาศให้ตรงกับประเภทคำขอ หากไม่พบชื่อหรือรายการ อย่าสรุปว่าไม่ผ่าน ให้สอบถามเจ้าหน้าที่ผู้รับผิดชอบเพื่อยืนยันผลเฉพาะราย'],
+      ['ติดตามรายการชำระ','ติดตามรายการชำระ: ตรวจหลักฐานโอนหรือใบเสร็จ วันที่ จำนวนเงิน และช่องทางชำระ หากยังไม่ปรากฏรายการให้ติดต่อฝ่ายที่รับชำระเพื่อกระทบยอด ระบบนี้ไม่สามารถอ่านบัญชีหรือยืนยันยอดรับชำระของสมาชิกได้'],
+      ['ติดตามรอบดำเนินการ','ติดตามรอบดำเนินการ: ตรวจวันตัดรอบหรือวันประกาศจากข่าวทางการฉบับล่าสุดของเรื่องนั้น ไม่ใช้กำหนดการเก่ามายืนยันรอบปัจจุบัน หากไม่พบกำหนดการให้สอบถามเจ้าหน้าที่']
+    ];
+    const trackingMenu=/^(ติดตามผล|ติดตามผลและสถานะเอกสาร|สถานะเอกสาร)$/i.test(value);
+    const trackingChoice=trackingTopics.find(([label])=>label===value);
+    const trackingResult=trackingMenu?{
+      status:'คำแนะนำการติดตามผล',
+      answer:'เลือกเรื่องที่ต้องการติดตามจากปุ่มด้านล่างได้ทันทีครับ\\nระบบแสดงขั้นตอนตรวจสอบและช่องทางดำเนินการ แต่ยังไม่เชื่อมข้อมูลสถานะรายบุคคล จึงไม่สามารถแจ้งผลอนุมัติหรือสถานะเอกสารเฉพาะสมาชิกได้',
+      followups:trackingTopics.map(x=>x[0]),
+      actions:[['📣 ดูประกาศสหกรณ์','https://www.dlasavingcoop.com/'],['☎️ รายชื่อเจ้าหน้าที่','#staff-directory']],
+      details:['ไม่ต้องกรอกเลขบัตรประชาชน เลขบัญชี หรือข้อมูลส่วนบุคคลในช่องแชต']
+    }:trackingChoice?{
+      status:'ขั้นตอนติดตามผล',
+      answer:trackingChoice[1],
+      followups:trackingTopics.map(x=>x[0]).filter(x=>x!==value),
+      actions:[['📣 ตรวจประกาศทางการ','https://www.dlasavingcoop.com/'],['☎️ ติดต่อเจ้าหน้าที่','#staff-directory']],
+      details:['หากเป็นสถานะเฉพาะสมาชิก ต้องให้เจ้าหน้าที่ตรวจสอบจากระบบงานจริง']
+    }:null;
+    const entry=trackingResult||COOP_APP.depositEntry(value)||COOP_APP.paymentEntry(value);
     const turn=entry?{result:entry,state:{topic:'',question:value,result:entry}}:COOP_APP.conversationTurn(value,conversationState||{topic:previousTopic},{continuation});
     const result=turn.result;
     if(!result) throw new Error('EMPTY_ANSWER');
