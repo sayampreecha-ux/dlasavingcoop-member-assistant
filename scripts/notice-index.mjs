@@ -81,8 +81,8 @@ export function officialSourceUrl(value) {
   try {
     const url = new URL(value);
     if (url.protocol !== 'https:' || !OFFICIAL.test(url.hostname)) return null;
-    if (/^\\/(?:show|list)\\.php$/i.test(url.pathname) &&
-      ((url.pathname.toLowerCase() === '/show.php' && (/^\\d+$/.test(url.searchParams.get('No') || '') || /^[a-z]+$/i.test(url.searchParams.get('Category') || ''))) ||
+    if (/^\/(?:show|list)\.php$/i.test(url.pathname) &&
+      ((url.pathname.toLowerCase() === '/show.php' && (/^\d+$/.test(url.searchParams.get('No') || '') || /^[a-z]+$/i.test(url.searchParams.get('Category') || ''))) ||
       (url.pathname.toLowerCase() === '/list.php' && /^[a-z]+$/i.test(url.searchParams.get('Category') || '')))) return url.href;
     return null;
   } catch { return null; }
