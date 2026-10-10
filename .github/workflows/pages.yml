@@ -1,5 +1,5 @@
 name: Deploy GitHub Pages
-# Re-run full release and production verification without changing test criteria.
+# Run the unchanged release, browser and live production verification gates after the loan routing fix.
 on:
   push:
     branches: [main]
