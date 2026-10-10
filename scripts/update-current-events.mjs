@@ -285,7 +285,7 @@ if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
 
 let candidates=unique(found)
   .sort((a,b)=>b.score-a.score)
-  .slice(0,10);
+  .slice(0,60);
 
 const enriched=[];
 for(const item of candidates) enriched.push(await enrich(item));
@@ -352,7 +352,8 @@ const output={
     selection:'actionable member news only',
     expiry:'explicit deadlines/event dates expire automatically'
   },
-  events:top
+  events:top,
+  trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
 };
 
 await fs.mkdir(new URL('../data/',import.meta.url),{recursive:true});
