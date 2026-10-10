@@ -3,5 +3,8 @@ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.match(html,/const isApproval=\/\^\(\?:ติดตามผลอนุมัติ\|ผลอนุมัติ\)/);
 assert.match(html,/isMemberApproval\?/);assert.match(html,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
 assert.match(html,/arr\.findIndex\(x=>x\.directSourceUrl===e\.directSourceUrl\)===i/);
-assert.match(html,/4\.9\.0-all-menu-notice-search/);
+assert.match(html,/4\.9\.2-document-tracking/);
 console.log('Approval announcement title gate and deduplication present');
+
+assert.match(html,/เอกสารหุ้น','เอกสารเงินฝาก','เอกสารโอนย้าย','เอกสารยืนยันยอด/);
+assert.match(html,/const isDocument=\/\^เอกสาร/);
