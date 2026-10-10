@@ -2709,6 +2709,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // Pilot hotfix: distinguish multiple-cooperative membership from share contributions.
+    // Never infer a legal prohibition or permission from the share-rate announcement.
+    if(/(?:สหกรณ์|สอ\\.?อปท|สออปท)/.test(q) && /(?:สอง|2|หลาย|อีก|ซ้ำ|พร้อมกัน|มากกว่า|ที่เดียว|แห่งเดียว)/.test(q) && /(?:สมาชิก|สมัคร|หุ้น|ถือหุ้น|ซื้อหุ้น)/.test(q)){
+      return res('multiple_coop_membership','การเป็นสมาชิกหรือถือหุ้นในสหกรณ์มากกว่าหนึ่งแห่ง ต้องตรวจข้อบังคับสมาชิกภาพของสหกรณ์แต่ละแห่งก่อนครับ ประกาศอัตราถือหุ้นรายเดือนไม่ใช่หลักฐานยืนยันว่าเป็นสมาชิกได้หลายแห่งหรือห้ามเป็นสมาชิกซ้ำ ขณะนี้ยังไม่ยืนยันข้อบังคับที่ใช้บังคับ จึงยังตอบว่าได้หรือไม่ได้ไม่ได้ กรุณาติดต่อฝ่ายทะเบียนสมาชิกเพื่อให้ตรวจคุณสมบัติตามข้อบังคับฉบับปัจจุบัน',{decision:'UNVERIFIED',details:['ตรวจข้อบังคับว่าด้วยคุณสมบัติสมาชิกและข้อห้ามสมาชิกภาพซ้ำ','แยกข้อจำกัดการเป็นสมาชิกออกจากหลักเกณฑ์ซื้อหุ้นหรือส่งหุ้นรายเดือน']});
+    }
     if(ownDepositBalanceQuery(q))return memberSelfService(q);
     if(/ถอน/.test(q)&&/(?:เงินฝาก|ออมทรัพย์)/.test(q)&&/(?:กู้|หลักประกัน|ค้ำ|จำนำสิทธิ|รออนุมัติ)/.test(q))return res('deposit_collateral_release','การถอนเงินฝากที่เกี่ยวกับคำขอกู้ต้องตรวจว่าส่วนใดถูกผูกเป็นหลักประกันและได้รับการปลดแล้วหรือไม่ครับ ระบบยังไม่ยืนยันสิทธิถอน การยื่นกู้ไม่ผ่านหรือซื้อหุ้นเพิ่มยังใช้ยืนยันสิทธิถอนไม่ได้ ให้เจ้าหน้าที่เงินฝากและเงินกู้ตรวจบัญชี สัญญา และหลักเกณฑ์ปัจจุบันก่อน',{
       privacy:true,decision:'EVIDENCE_LOCK',evidenceState:'NEEDS_COLLATERAL_RELEASE_RULE',actions:[['ตรวจบัญชีในระบบสมาชิก',S.memberPortal],['ติดต่อเจ้าหน้าที่เงินฝากและเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
