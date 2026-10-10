@@ -2532,7 +2532,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const operationalOnly=/(?:สถานะ|ผลอนุมัติ|อนุมัติ.*หรือยัง|ผ่าน.*หรือยัง|เงิน.*(?:เข้า|โอน).*(?:เมื่อไร|เมื่อไหร่|วันไหน|ช่วงไหน|หรือยัง)|เอกสาร.*(?:ถึง|ลงรับ|รอตรวจ|ได้รับ|ไม่ผ่าน)|คิว|รอบประชุม|ตัดรอบ|หัก.*(?:เงินเดือน|ชำระ).*(?:ไม่ลด|ไม่ขึ้น|ไม่ตัด|ยังไม่)|(?:โอน|ฝาก).*ยอด.*(?:ไม่ขึ้น|ยังไม่)|(?:เช็ค|เช็ก|ตรวจ|ดู).*(?:ยอด|หุ้น|หนี้|เงินฝาก|ค้ำประกันใคร|ค้ำใคร))/.test(q);
     const check=F.gate(sourceRegistry,q,{now,personal:privateOnly||operationalOnly});
     if(!check.allowed||privateOnly||operationalOnly)return check;
-    for(const dom of check.domains){const id=ruleIds[dom];if(!id)continue;const v=F.versionAt(sourceRegistry,id,check.date);if(!check.historical&&(!v||v.status!=='CURRENT'))return {...check,allowed:false,reason:'NO_CURRENT_RULE'};}
+    const requestedProduct=loanProduct(q);
+    // An unspecified loan question must not require every loan product to have a current rule.
+    // Explicit product questions still require a verified current rule for that product.
+    if(requestedProduct&&!check.historical){const v=F.versionAt(sourceRegistry,requestedProduct,check.date);if(!v||v.status!=='CURRENT')return {...check,allowed:false,reason:'NO_CURRENT_RULE'};}
+    for(const dom of check.domains){if(ruleIds[dom]&&requestedProduct&&ruleIds[dom]!==requestedProduct)continue; if(!ruleIds[dom]||!requestedProduct)continue; }
     return check;
   }
   function datedRuleAnswer(q,check){
