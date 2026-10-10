@@ -2536,7 +2536,6 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // An unspecified loan question must not require every loan product to have a current rule.
     // Explicit product questions still require a verified current rule for that product.
     if(requestedProduct&&!check.historical){const v=F.versionAt(sourceRegistry,requestedProduct,check.date);if(!v||v.status!=='CURRENT')return {...check,allowed:false,reason:'NO_CURRENT_RULE'};}
-    for(const dom of check.domains){if(ruleIds[dom]&&requestedProduct&&ruleIds[dom]!==requestedProduct)continue; if(!ruleIds[dom]||!requestedProduct)continue; }
     return check;
   }
   function datedRuleAnswer(q,check){
