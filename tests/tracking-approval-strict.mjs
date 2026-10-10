@@ -3,5 +3,5 @@ const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
 assert.match(html,/const isApproval=\/\^\(\?:ติดตามผลอนุมัติ\|ผลอนุมัติ\)/);
 assert.match(html,/isMemberApproval\?/);assert.match(html,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
 assert.match(html,/arr\.findIndex\(x=>x\.directSourceUrl===e\.directSourceUrl\)===i/);
-assert.match(html,/4\.8\.9-member-approval-evidence/);
+assert.match(html,/4\.9\.0-all-menu-notice-search/);
 console.log('Approval announcement title gate and deduplication present');
