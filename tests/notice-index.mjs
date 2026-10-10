@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {findNotices,officialDirectUrl} from '../scripts/notice-index.mjs';
+assert.equal(officialDirectUrl('https://evil.example/show.php?No=12'),null);
+assert.equal(officialDirectUrl('https://www.dlasavingcoop.com/list.php?Category=notice'),null);
+const good={contentKind:'NEWS',rulePromotion:false,title:'ประกาศผลอนุมัติเงินกู้',summary:'',directSourceUrl:'https://www.dlasavingcoop.com/show.php?No=123',sourceState:'DIRECT_VERIFIED'};
+assert.equal(findNotices([good],'loan').length,1);
+assert.equal(findNotices([{...good,sourceState:'DIRECT_SOURCE_PENDING'}],'loan').length,0);
+assert.equal(findNotices([{...good,expiresAt:'2020-01-01T00:00:00Z'}],'loan').length,0);
+assert.equal(findNotices([good],'funeral').length,0);
+console.log('Notice index checks passed');
