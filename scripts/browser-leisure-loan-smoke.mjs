@@ -43,7 +43,7 @@ try{
     await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('ต้องมีผู้ค้ำไหม');
     await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
     assert.match(await page.locator('#out .body').textContent(),/ผู้ค้ำ 1 คน/);pass++;
-    assert.match(await ask('กู้ฉุกเฉินผ่อนได้กี่งวด'),/12 งวด/);pass++;
+    assert.match(await ask('กู้ฉุกเฉินผ่อนได้กี่งวด'),/15 งวด/);pass++;
     assert.match(await ask('กู้สามัญผ่อนได้กี่งวด'),/240 งวด/);pass++;
     assert.deepEqual(errors,[]);
     if(process.env.LEISURE_SCREENSHOT_DIR){fs.mkdirSync(process.env.LEISURE_SCREENSHOT_DIR,{recursive:true});await ask('กู้พักผ่อน');await page.locator('#out details.more').evaluate(e=>e.open=true);await page.screenshot({path:path.join(process.env.LEISURE_SCREENSHOT_DIR,'leisure-'+width+'.png'),fullPage:true});}
