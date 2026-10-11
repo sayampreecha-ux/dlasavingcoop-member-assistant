@@ -1,0 +1,6 @@
+import assert from 'node:assert/strict';import {loadMemberEngine} from './helpers/load-member-engine.mjs';
+const app=loadMemberEngine();
+const choices=[['สวัสดิการเพื่อการคลอดบุตร','welfare_childbirth'],['สวัสดิการเพื่อการสมรส','welfare_marriage'],['สวัสดิการเพื่อการศาสนา','welfare_religion'],['สวัสดิการเพื่อการสำเร็จการศึกษา','welfare_graduation'],['สวัสดิการบำเหน็จสมาชิก','welfare_gratuity'],['เงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม','welfare_member_death'],['เงินสงเคราะห์กรณีบุคคลในครอบครัวถึงแก่กรรม','welfare_family_death'],['เงินสงเคราะห์กรณีผู้ประสบภัย','welfare_disaster'],['ทุนการศึกษาบุตร','scholarship']];
+for(const q of ['สวัสดิการมีกี่แบบ','สวัสดิการ']){const t=app.conversationTurn(q);assert.deepEqual(Array.from(t.result.followups),choices.map(x=>x[0]));assert.ok(!t.result.actions.some(x=>/ฌาปนกิจ/.test(x[0])));for(const [label,intent]of choices){const r=app.conversationTurn(label,t.state,{continuation:true}).result;assert.equal(r.intent,intent,label);assert.ok(r.answer.length>80);assert.ok(r.actions.length);}}
+assert.ok(/^funeral/.test(app.answer('ฌาปนกิจสมัครอย่างไร').intent));
+console.log('WELFARE COMPLETE MENU: 9 choices through both entries PASS; separate funeral route retained');

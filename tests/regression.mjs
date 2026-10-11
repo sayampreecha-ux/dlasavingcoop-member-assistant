@@ -104,7 +104,9 @@ for(const q of homeQueries){
   if(!html.includes('data-q="ติดตามผลและสถานะเอกสาร"')) failures.push({group:'status-home'});
   const welfare=globalThis.COOP_APP.answer('สวัสดิการมีกี่แบบ');
   const wf=welfare.actions?.find(x=>x[1]==='#ask:ฌาปนกิจสงเคราะห์');
-  if(!wf) failures.push({group:'welfare-funeral-internal',actions:welfare.actions});
+  if(wf||(welfare.followups||[]).some(x=>/ฌาปนกิจ/.test(x))) failures.push({group:'funeral-excluded-from-welfare-menu',actions:welfare.actions});
+  if(welfare.followups?.length!==9||!welfare.followups.includes('ทุนการศึกษาบุตร')) failures.push({group:'welfare-eight-plus-scholarship',choices:welfare.followups});
+  if(!html.includes('data-q="ฌาปนกิจสงเคราะห์"')) failures.push({group:'separate-funeral-home-menu'});
   if(!html.includes("else if(/^#ask:/.test(u))")) failures.push({group:'internal-action-renderer'});
   if(!html.includes('class="brand-logo"')) failures.push({group:'pilot-brand-logo'});
   if(!html.includes('data:image/webp;base64,')) failures.push({group:'pilot-inline-logo'});

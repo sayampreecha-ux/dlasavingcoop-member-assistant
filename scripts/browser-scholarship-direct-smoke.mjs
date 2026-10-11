@@ -6,6 +6,9 @@ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});let c
 try{for(const width of [390,1365]){
  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(process.env.MEMBER_APP_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'networkidle'});
  await page.getByRole('button',{name:'❤️ สวัสดิการ สิทธิ · แบบขอรับ · ทุนบุตร',exact:true}).click();
+ const welfareChoices=['สวัสดิการเพื่อการคลอดบุตร','สวัสดิการเพื่อการสมรส','สวัสดิการเพื่อการศาสนา','สวัสดิการเพื่อการสำเร็จการศึกษา','สวัสดิการบำเหน็จสมาชิก','เงินสงเคราะห์กรณีสมาชิกถึงแก่กรรม','เงินสงเคราะห์กรณีบุคคลในครอบครัวถึงแก่กรรม','เงินสงเคราะห์กรณีผู้ประสบภัย'];
+ assert.equal(await page.locator('#out .follow button').count(),9);assert.ok(!(await page.locator('#out .follow button').allTextContents()).some(x=>/ฌาปนกิจ/.test(x)));assert.equal(await page.locator('#out').getByRole('link',{name:'⚱️ เปิดเมนูฌาปนกิจใน AI',exact:true}).count(),0);count++;
+ for(const label of welfareChoices){await page.locator('#out').getByRole('button',{name:label,exact:true}).click();assert.match(await page.locator('#out .body').textContent(),new RegExp(label));count++;await page.getByRole('button',{name:'❤️ สวัสดิการ สิทธิ · แบบขอรับ · ทุนบุตร',exact:true}).click();}
  await page.locator('#out').getByRole('button',{name:'ทุนการศึกษาบุตร',exact:true}).click();
  const summary=await page.locator('#out .body').textContent();assert.doesNotMatch(summary,/หรือเงินกู้เพื่อการศึกษา/);assert.match(summary,/4,000 บาท/);assert.match(summary,/สมาชิกสามัญอย่างน้อย 6 เดือน/);assert.match(summary,/31 สิงหาคม 2569/);count++;
  assert.equal(await page.locator('#out').getByRole('link',{name:'📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569',exact:true}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=4887');count++;
