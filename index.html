@@ -518,6 +518,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function normalizeSourceLink(intent,label,url){
     const kind=sourceKind(url);
     if(kind==='TOPIC_INDEX'&&/^(?:📂 เปิด)?หน้าหลักเกณฑ์และแบบเงินกู้/.test(String(label||'')))return {url,sourceState:'NAVIGATION'};
+    if(kind==='TOPIC_INDEX'&&url===S.welfareForms&&label==='❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด')return {url,sourceState:'NAVIGATION'};
     if(isDirectSourceKind(kind)) return {url,sourceState:'DIRECT_VERIFIED'};
     const direct=verifiedDirectFor(intent,label,url);
     if(direct) return {url:direct,sourceState:'DIRECT_VERIFIED'};
@@ -587,6 +588,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const isPayment=intent==='payment';
 
     if(isWelfare){
+      if(intent==='welfare_all'){
+        // Keep the complete official welfare index available beside primary rule evidence.
+        for(let i=actions.length-1;i>=0;i--)if(actions[i][1]===S.welfareForms)actions.splice(i,1);
+        actions.unshift(['❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms]);
+      }
       if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ระเบียบและแบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ให้เจ้าหน้าที่ตรวจความครบถ้วน 6) ติดตามผลการพิจารณา/การจ่าย');
       addAction('📘 หลักเกณฑ์/ระเบียบสวัสดิการ',S.welfareRule);
       addAction('📄 แบบฟอร์มสวัสดิการ',S.welfareForms);

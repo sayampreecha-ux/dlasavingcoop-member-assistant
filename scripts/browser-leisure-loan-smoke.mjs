@@ -22,6 +22,13 @@ try{
     // Exercise the asynchronous real monitor. Never replace it to make a rule pass.
     await page.goto(url,{waitUntil:'networkidle'});
     const ask=async q=>{await page.locator('#homeBtn').click();await page.locator('#q').fill(q);await page.locator('#q').press('Enter');await page.locator('#out .body').waitFor();return page.locator('#out .body').textContent();};
+    for(const q of ['สวัสดิการ','สวัสดิการทั้งหมด','สวัสดิการมีกี่ประเภท']){
+      await ask(q);
+      const welfareIndex=page.locator('#out .actions a').filter({hasText:'❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด'});
+      assert.equal(await welfareIndex.count(),1,'One complete welfare index button');pass++;
+      assert.equal(await welfareIndex.getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=775','Complete welfare index must not be replaced by a single rule PDF');pass++;
+      assert.equal(await welfareIndex.getAttribute('target'),'_blank');pass++;
+    }
     await ask('เงินกู้');
     const loanIndexes=[['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้สามัญ','774'],['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้ฉุกเฉิน','773'],['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้พิเศษ','2385']];
     for(const [label,no]of loanIndexes){assert.equal(await page.locator('#out .actions a').filter({hasText:label}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No='+no);pass++;}
