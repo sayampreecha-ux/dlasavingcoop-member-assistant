@@ -858,6 +858,117 @@
         "ภาพถ่ายความเสียหาย"
       ],
       "formUrl": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view"
+    },
+    "leisureLoanCurrent": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-10-01",
+      "announcementDate": "2026-09-30",
+      "source": "https://drive.google.com/file/d/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/view",
+      "primaryEvidenceTitle": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ เพื่อการพักผ่อน พ.ศ. 2569",
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceVerifiedAt": "2026-10-11",
+      "membershipMinMonths": 12,
+      "sharePaymentMinInstallments": 12,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "incomeDebtExclusions": [
+        "revolving_credit",
+        "credit_card",
+        "cash_card"
+      ],
+      "salaryDeductionOrIndividualAgreementRequired": true,
+      "funeralAssociationRequiredExceptAssociateMembers": true,
+      "noDebtAsBorrowerWithOtherCooperatives": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "noArrearsInstallments": 12,
+      "amountBasis": "tour_company_invoice_within_committee_budget",
+      "maxAmountBaht": 300000,
+      "maxTermInstallments": 36,
+      "maxAgeAtEnd": 75,
+      "tourReceiptDueDaysAfterReturn": 30,
+      "missingReceiptChangesToOrdinaryLoan": true,
+      "collateralOptions": [
+        "member_guarantor",
+        "coop_deposit"
+      ],
+      "minGuarantors": 1,
+      "guarantorNotSpouse": true,
+      "guarantorSharePaymentMinInstallments": 6,
+      "civilServantGuarantorMustPassProbation": true,
+      "coopStaffGuarantorMinServiceYears": 1,
+      "guarantorReplacementDeadlineDays": 180,
+      "collateralWaiverDiscretionary": true,
+      "collateralWaiverCases": [
+        "shares_exceed_existing_debt_and_requested_amount",
+        "requested_amount_at_most_90_percent_of_unencumbered_shares",
+        "requested_amount_at_most_60000"
+      ],
+      "shareCollateralWaiverMaxPercent": 90,
+      "smallLoanCollateralWaiverMaxBaht": 60000,
+      "interestRatePercent": null,
+      "patronageRefund": null,
+      "interestEvidenceState": "NEEDS_PRODUCT_SPECIFIC_RATE_CONFIRMATION",
+      "projectEndDate": null,
+      "projectEndDateEvidence": "NOT_SPECIFIED_IN_CURRENT_ANNOUNCEMENT",
+      "formUrl": "https://drive.google.com/file/d/1qC30WEF9YTq1oo-M0r8sySLg2J2uNoIL/view?usp=sharing",
+      "formEvidenceState": "LEGACY_FORM_TERM_CONFLICT_NEEDS_CONFIRMATION",
+      "formChecklistBasis": "Public official form checklist, not confirmation of a current application form",
+      "requiredDocuments": [
+        "คำขอและสัญญากู้เพื่อการพักผ่อน",
+        "หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้",
+        "หนังสือยินยอมให้เก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล",
+        "สำเนาบัตรประชาชน บัตรข้าราชการ (หน้า-หลัง) และทะเบียนบ้านผู้กู้ จำนวน 1 ชุด",
+        "สำเนาหน้าสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. ของผู้กู้",
+        "เอกสารเปลี่ยนชื่อหรือนามสกุล/สถานภาพถ้ามี จำนวน 1 ชุด",
+        "หลักฐานการเดินทาง หนังสือเรียกเก็บเงินหรือใบเสร็จบริษัทนำเที่ยวและโปรแกรมนำเที่ยว"
+      ],
+      "submissionChannels": [
+        "in_person",
+        "post",
+        "mobile_application",
+        "web_application",
+        "other_coop_defined_channel"
+      ],
+      "deliveryAddress": "งานเงินกู้สามัญ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ที่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120",
+      "approvalAuthorities": [
+        {
+          "maxAmountBaht": 60000,
+          "authority": "manager"
+        },
+        {
+          "maxAmountBaht": 100000,
+          "authority": "chairperson"
+        },
+        {
+          "aboveAmountBaht": 100000,
+          "authority": "loan_subcommittee"
+        }
+      ],
+      "primarySha256": "9a3d752a24f829e7b414ddc5e7082ba11492a6e4c0eaccc7493a3908b6861632",
+      "clauseEvidence": {
+        "dates": [
+          2,
+          3
+        ],
+        "eligibility": [
+          4
+        ],
+        "terms": [
+          5
+        ],
+        "collateral": [
+          6
+        ],
+        "interest": [
+          7
+        ],
+        "submission": [
+          8
+        ],
+        "approval": [
+          9
+        ]
+      }
     }
   },
   "decisionCoverage": {

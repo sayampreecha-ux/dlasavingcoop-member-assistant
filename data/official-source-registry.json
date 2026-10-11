@@ -4416,6 +4416,58 @@
       "mayAffectRules": false,
       "fingerprint": "c7890a5bb7f7c5098f677d517e99919ada82a192209474cf01be8599ee315e32",
       "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+    },
+    {
+      "id": "doc-5c893b2d819d747e4a6c",
+      "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ เพื่อการพักผ่อน พ.ศ. 2569",
+      "type": "CRITERIA",
+      "originalUrl": "https://drive.google.com/file/d/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/view",
+      "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
+      "linkVerified": true,
+      "announcementDate": "2026-09-30",
+      "effectiveDate": "2026-10-01",
+      "version": "2569",
+      "amendment": null,
+      "affects": [
+        "ordinaryLoan"
+      ],
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-11T11:59:39.283594Z",
+      "lastContentCheck": "2026-10-11T11:59:39.283594Z",
+      "mayAffectRules": false,
+      "contentHash": "9a3d752a24f829e7b414ddc5e7082ba11492a6e4c0eaccc7493a3908b6861632",
+      "fingerprint": "964e7424beccb4cd2b9712eb718ae8708ed3b6a48850e654eda30611d1bd7254",
+      "indexFingerprints": {
+        "ordinary": "964e7424beccb4cd2b9712eb718ae8708ed3b6a48850e654eda30611d1bd7254"
+      },
+      "metadataReview": {
+        "reviewedAt": "2026-10-11T11:59:39.283594Z",
+        "primaryBytesVerified": true,
+        "documentRole": "REVIEWED_LEISURE_RULE",
+        "reviewedLinkFingerprints": [
+          "964e7424beccb4cd2b9712eb718ae8708ed3b6a48850e654eda30611d1bd7254"
+        ],
+        "basis": "Read complete official 30 September announcement, effective 1 October; exact PDF SHA256 retained. Current interest and legacy application-form conflict remain unresolved."
+      }
+    },
+    {
+      "id": "doc-55fac737853ad4083086",
+      "title": "หลักเกณฑ์สหกรณ์ฯ เพื่อการพักผ่อน: ลิงก์เดิมถูกแทนด้วยประกาศ 30 กันยายน 2569",
+      "type": "AMENDMENT",
+      "originalUrl": "https://drive.google.com/file/d/1GIh-ym0N1GbfPfr8ojRpzB-pGBD2vVhV/view",
+      "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
+      "linkVerified": true,
+      "affects": [
+        "ordinaryLoan"
+      ],
+      "status": "PENDING",
+      "mayAffectRules": false,
+      "removedNonGoverningBaseline": true,
+      "review": {
+        "reviewedAt": "2026-10-11T11:59:39.283594Z",
+        "basis": "Read removed Drive link: same announcement title, 30 September date, 1 October effect and clauses 1-11. Retired discovery link; use currently indexed original."
+      },
+      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
     }
   ],
   "ruleVersions": [
@@ -5387,6 +5439,131 @@
         "primaryVerified": true,
         "verifiedAt": "2026-10-07T23:12:00Z",
         "basis": "Visual review of all 4 pages: clauses 2–8; full 2569 replacement, not amendment-only; signed 11 September 2569"
+      }
+    },
+    {
+      "id": "leisureLoanCurrent@2026-10-01",
+      "ruleId": "leisureLoanCurrent",
+      "documentId": "doc-5c893b2d819d747e4a6c",
+      "domain": "ordinaryLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-30",
+        "source": "https://drive.google.com/file/d/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/view",
+        "primaryEvidenceTitle": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ เพื่อการพักผ่อน พ.ศ. 2569",
+        "primaryEvidenceVerified": true,
+        "primaryEvidenceVerifiedAt": "2026-10-11",
+        "membershipMinMonths": 12,
+        "sharePaymentMinInstallments": 12,
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "incomeDebtExclusions": [
+          "revolving_credit",
+          "credit_card",
+          "cash_card"
+        ],
+        "salaryDeductionOrIndividualAgreementRequired": true,
+        "funeralAssociationRequiredExceptAssociateMembers": true,
+        "noDebtAsBorrowerWithOtherCooperatives": true,
+        "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+        "noArrearsInstallments": 12,
+        "amountBasis": "tour_company_invoice_within_committee_budget",
+        "maxAmountBaht": 300000,
+        "maxTermInstallments": 36,
+        "maxAgeAtEnd": 75,
+        "tourReceiptDueDaysAfterReturn": 30,
+        "missingReceiptChangesToOrdinaryLoan": true,
+        "collateralOptions": [
+          "member_guarantor",
+          "coop_deposit"
+        ],
+        "minGuarantors": 1,
+        "guarantorNotSpouse": true,
+        "guarantorSharePaymentMinInstallments": 6,
+        "civilServantGuarantorMustPassProbation": true,
+        "coopStaffGuarantorMinServiceYears": 1,
+        "guarantorReplacementDeadlineDays": 180,
+        "collateralWaiverDiscretionary": true,
+        "collateralWaiverCases": [
+          "shares_exceed_existing_debt_and_requested_amount",
+          "requested_amount_at_most_90_percent_of_unencumbered_shares",
+          "requested_amount_at_most_60000"
+        ],
+        "shareCollateralWaiverMaxPercent": 90,
+        "smallLoanCollateralWaiverMaxBaht": 60000,
+        "interestRatePercent": null,
+        "patronageRefund": null,
+        "interestEvidenceState": "NEEDS_PRODUCT_SPECIFIC_RATE_CONFIRMATION",
+        "projectEndDate": null,
+        "projectEndDateEvidence": "NOT_SPECIFIED_IN_CURRENT_ANNOUNCEMENT",
+        "formUrl": "https://drive.google.com/file/d/1qC30WEF9YTq1oo-M0r8sySLg2J2uNoIL/view?usp=sharing",
+        "formEvidenceState": "LEGACY_FORM_TERM_CONFLICT_NEEDS_CONFIRMATION",
+        "formChecklistBasis": "Public official form checklist, not confirmation of a current application form",
+        "requiredDocuments": [
+          "คำขอและสัญญากู้เพื่อการพักผ่อน",
+          "หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้",
+          "หนังสือยินยอมให้เก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล",
+          "สำเนาบัตรประชาชน บัตรข้าราชการ (หน้า-หลัง) และทะเบียนบ้านผู้กู้ จำนวน 1 ชุด",
+          "สำเนาหน้าสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. ของผู้กู้",
+          "เอกสารเปลี่ยนชื่อหรือนามสกุล/สถานภาพถ้ามี จำนวน 1 ชุด",
+          "หลักฐานการเดินทาง หนังสือเรียกเก็บเงินหรือใบเสร็จบริษัทนำเที่ยวและโปรแกรมนำเที่ยว"
+        ],
+        "submissionChannels": [
+          "in_person",
+          "post",
+          "mobile_application",
+          "web_application",
+          "other_coop_defined_channel"
+        ],
+        "deliveryAddress": "งานเงินกู้สามัญ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ที่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120",
+        "approvalAuthorities": [
+          {
+            "maxAmountBaht": 60000,
+            "authority": "manager"
+          },
+          {
+            "maxAmountBaht": 100000,
+            "authority": "chairperson"
+          },
+          {
+            "aboveAmountBaht": 100000,
+            "authority": "loan_subcommittee"
+          }
+        ],
+        "primarySha256": "9a3d752a24f829e7b414ddc5e7082ba11492a6e4c0eaccc7493a3908b6861632",
+        "clauseEvidence": {
+          "dates": [
+            2,
+            3
+          ],
+          "eligibility": [
+            4
+          ],
+          "terms": [
+            5
+          ],
+          "collateral": [
+            6
+          ],
+          "interest": [
+            7
+          ],
+          "submission": [
+            8
+          ],
+          "approval": [
+            9
+          ]
+        }
+      },
+      "review": {
+        "primaryVerified": true,
+        "verifiedAt": "2026-10-11T11:59:39.283594Z",
+        "basis": "Original PDF clauses 2-9. No product-specific interest rate inferred; application checklist explicitly legacy."
       }
     }
   ],
