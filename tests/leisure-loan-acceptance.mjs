@@ -17,6 +17,9 @@ for (const query of queries) {
   const output = JSON.stringify(result);
   assert.match(output, /พักผ่อน/, 'Must identify official leisure-loan product: ' + query);
   assert.ok(output.includes('dlasavingcoop.com/show.php?No=774') || output.includes('www.dlasavingcoop.com/show.php?No=774'), 'Must link to official source page: ' + query);
+  assert.match(output, /100,000/, 'Shows historical loan limit: ' + query);
+  assert.match(output, /4\.25%/, 'Shows historical interest rate: ' + query);
+  assert.match(output, /1 กันยายน 2569/, 'Discloses old program end date: ' + query);
   assert.doesNotMatch(output, /undefined|NaN/, 'No invalid answer values: ' + query);
 }
 console.log('LEISURE LOAN: 8 member questions PASS');
