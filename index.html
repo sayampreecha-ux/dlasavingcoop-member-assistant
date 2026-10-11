@@ -539,7 +539,6 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       personal_handoff:'ต้องการให้เจ้าหน้าที่ตรวจเรื่องใดครับ? ระบุประเภทงานโดยไม่ส่งข้อมูลเข้าสู่ระบบ',
       debt_help:'หมายถึงโครงการช่วยเหลือหรือสัญญาประเภทใดครับ?',
       deposit_add:'หมายถึงบัญชีเงินฝากประเภทใด และเป็นเงินฝากปกติหรือเงินฝากที่ใช้เป็นหลักประกันครับ?',
-      scholarship:'ต้องการสอบถามเรื่องสวัสดิการการศึกษาบุตรหรือเงินกู้เพื่อการศึกษาครับ?',
       retirement:'ต้องการถามเงินกู้ประเภทใด หรือเรื่องหุ้นหลังเกษียณครับ?',
       deposit:'ต้องการตรวจรายการฝาก ถอน หรือสถานะยอดเงินเรื่องใดครับ?',
       deposit_open:'ต้องการเปิดบัญชีประเภทใด หรือติดตามเอกสารบัญชีที่เปิดแล้วครับ?',
@@ -594,10 +593,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         actions.unshift(['❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms]);
       }
       if(!hasSteps()) details.push('ขั้นตอน: 1) เปิดหลักเกณฑ์/ระเบียบและแบบคำขอ 2) ตรวจคุณสมบัติและกำหนดยื่น 3) เตรียมหลักฐานตามแบบ 4) ยื่นต่อสหกรณ์ 5) ให้เจ้าหน้าที่ตรวจความครบถ้วน 6) ติดตามผลการพิจารณา/การจ่าย');
-      addAction('📘 หลักเกณฑ์/ระเบียบสวัสดิการ',S.welfareRule);
-      addAction('📄 แบบฟอร์มสวัสดิการ',S.welfareForms);
-      addSource('ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก',S.welfareRule);
-      addSource('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms);
+      if(intent!=='scholarship'){
+        addAction('📘 หลักเกณฑ์/ระเบียบสวัสดิการ',S.welfareRule);
+        addAction('📄 แบบฟอร์มสวัสดิการ',S.welfareForms);
+        addSource('ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก',S.welfareRule);
+        addSource('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms);
+      }
       addAction('☎️ งานสวัสดิการ 081-515-7253','tel:0815157253');
       addAction('☎️ รายชื่อเจ้าหน้าที่','#staff-directory');
       if(!hasFinish()) details.push('จบกระบวนการเมื่อ: สหกรณ์แจ้งผลการพิจารณา และสมาชิกได้รับสิทธิ/เงินหรือได้รับแจ้งเหตุที่ไม่ผ่านตามหลักเกณฑ์แล้ว');
@@ -2220,7 +2221,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
     if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/i.test(q) && !/กู้|เงินกู้/i.test(q)) return welfareStatic('disaster'); /* legacy welfare_disaster details removed */     if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return welfareStatic('childbirth');
     if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|มหาลัย|มหาวิทยาลัย|หมดเขต.*ทุน|ทุน.*หมดเขต/i.test(q)) return res('scholarship',`มีโครงการทุนส่งเสริมการศึกษาของบุตรสมาชิก โดยระดับที่ระบบตรวจไว้คือ: ${KB.welfare.scholarshipLevels.join(' / ')}`,{
-      details:['ช่วงเวลารับสมัครและจำนวนทุนเป็นประกาศประจำปี ให้เปิดประกาศล่าสุดก่อนยื่น'],actions:[['ดูประกาศทุน/ประกาศล่าสุด',S.notices],['ดูแบบสวัสดิการ',S.welfareForms]],sources:[src('ประกาศทางการ สอ.อปท.',S.notices),src('สวัสดิการ-แบบฟอร์มและหลักเกณฑ์',S.welfareForms)]
+      details:['ช่วงเวลารับสมัคร จำนวนทุน คุณสมบัติ และเอกสารที่ใช้ ให้ยึดประกาศทุนส่งเสริมการศึกษาบุตรปีที่ยื่น ไม่ใช้ผลอนุมัติปี 2567 หรือ 2568 แทนประกาศรับสมัครปี 2569','ระบบยืนยันลิงก์ประกาศเฉพาะเรื่องแล้ว แต่ยังไม่ยืนยันว่าขณะนี้เปิดรับสมัครหรือผู้ถามได้รับสิทธิ'],actions:[['📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569','https://www.dlasavingcoop.com/show.php?No=4887'],['📘 ประกาศหลักเกณฑ์และเงื่อนไขทุนการศึกษาบุตร (PDF)','https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing']],sources:[src('ประกาศการให้ทุนส่งเสริมการศึกษาของบุตรสมาชิก ประจำปี 2569','https://www.dlasavingcoop.com/show.php?No=4887'),src('ประกาศหลักเกณฑ์และเงื่อนไขการทุนการศึกษาบุตร','https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing')]
     });
     if(/สมรส|แต่งงาน/i.test(q)) return welfareStatic('marriage');
     if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return welfareStatic('religion');

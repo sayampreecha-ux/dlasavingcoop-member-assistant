@@ -44,3 +44,4 @@ jobs:
           node scripts/browser-private-deposit-balance-smoke.mjs
           node scripts/browser-member-tracking-smoke.mjs
           node scripts/browser-share-navigation-smoke.mjs
+          node scripts/browser-scholarship-direct-smoke.mjs
