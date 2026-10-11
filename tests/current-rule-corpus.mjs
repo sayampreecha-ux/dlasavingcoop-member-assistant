@@ -26,5 +26,23 @@ for(const row of corpus.records){
   pass++;
  }
 }
+// Simulated real-member questions from the cooperative LINE discussion.
+const pilotCases=[
+ {question:'กู้พัฒนาคุณภาพชีวิตแล้ว ส่งเงินต้นเพิ่ม 3 งวด จะกู้เพื่อการศึกษาได้เลยไหม',intent:'quality_life_to_education_loan_review',lock:'EVIDENCE_LOCK'},
+ {question:'เงินกู้สามัญ ผู้ค้ำประกันต้องเป็นสมาชิกประเภทสามัญหรือไม่',intent:'ordinary_guarantor_membership_type_review',lock:'EVIDENCE_LOCK'},
+ {question:'ผู้ค้ำกู้สามัญต้องเป็นสมาชิกกี่เดือน',notIntent:'ordinary_guarantor_membership_type_review'},
+ {question:'ค้ำกู้สามัญต้องเป็นสมาชิกกี่เดือน',notIntent:'ordinary_guarantor_membership_type_review'}
+];
+for(const item of pilotCases){
+ const result=app.answer(item.question);
+ assert.ok(result.answer?.length>15,'Empty member answer: '+item.question);
+ if(item.intent)assert.equal(result.intent,item.intent,'Wrong member routing: '+item.question);
+ if(item.notIntent)assert.notEqual(result.intent,item.notIntent,'Existing duration routing overridden');
+ if(item.lock)assert.equal(result.decision,item.lock,'Unsafe loan eligibility claim');
+ assert.ok(result.sources?.length,'Missing official source: '+item.question);
+}
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.ok(!html.includes('ค้นหาประกาศทางการและเปิดอ่าน (ทุกเมนู)'),'Removed clutter panel returned');
+console.log('LINE PILOT SIMULATION: 4 member questions + clean UI assertions PASS');
 assert.equal(corpus.records.length,69);assert.equal(pass,306);assert.ok(numeric>=20,'Numeric expectations must actually execute');
 console.log('CURRENT RULE CORPUS:',pass,'patterns PASS,',numeric,'numeric contracts from CURRENT versions; 69 permanent records retained');
