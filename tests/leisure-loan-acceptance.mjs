@@ -16,7 +16,7 @@ for (const query of queries) {
   const result = app.answer(query);
   const output = JSON.stringify(result);
   assert.match(output, /พักผ่อน/, 'Must identify official leisure-loan product: ' + query);
-  assert.match(output, /dlasavingcoop\.com\/show\.php\?No=774/, 'Must link to official source page: ' + query);
+  assert.match(output, /(?:www\\.)?dlasavingcoop\\.com\\/show\\.php\\?No=774/, 'Must link to official source page: ' + query);
   assert.doesNotMatch(output, /undefined|NaN/, 'No invalid answer values: ' + query);
 }
 console.log('LEISURE LOAN: 8 member questions PASS');
