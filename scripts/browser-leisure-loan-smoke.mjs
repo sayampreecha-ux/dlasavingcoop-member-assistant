@@ -23,12 +23,17 @@ try{
     await page.goto(url,{waitUntil:'networkidle'});
     const ask=async q=>{await page.locator('#homeBtn').click();await page.locator('#q').fill(q);await page.locator('#q').press('Enter');await page.locator('#out .body').waitFor();return page.locator('#out .body').textContent();};
     await ask('เงินกู้');
+    const loanIndexes=[['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้สามัญ','774'],['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้ฉุกเฉิน','773'],['📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้พิเศษ','2385']];
+    for(const [label,no]of loanIndexes){assert.equal(await page.locator('#out .actions a').filter({hasText:label}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No='+no);pass++;}
+    assert.equal(await page.locator('#out .actions a[href*="Category=procedure"]').count(),0,'Loan menu must not link to the bylaw index');pass++;
     const menu=page.locator('#out .follow.loan-product-menu');
     assert.deepEqual(await menu.locator('button').allTextContents(),['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ','กู้เพื่อการศึกษา','กู้เพื่อการพักผ่อน','กู้ภัยพิบัติ','กู้ไถ่ถอนจำนอง']);pass++;
     assert.equal(await menu.evaluate(e=>{const b=e.getBoundingClientRect();return [...e.querySelectorAll('button')].every(x=>x.getBoundingClientRect().bottom<=b.bottom+1)&&getComputedStyle(e).position==='static'&&getComputedStyle(e).maxHeight==='none';}),true,'All loan choices displayed without inner scrolling or clipping');pass++;
     await menu.getByRole('button',{name:'กู้เพื่อการพักผ่อน',exact:true}).click();
     assert.match(await page.locator('#out .body').textContent(),/300,000 บาท.*36 งวด/);pass++;
     assert.match(await page.locator('#out .actions a').filter({hasText:'หลักเกณฑ์กู้พักผ่อน'}).getAttribute('href'),/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/);pass++;
+    assert.equal(await page.locator('#out .actions a').filter({hasText:'📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้พักผ่อน'}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=774');pass++;
+    assert.equal(await page.locator('#out .actions a[href*="Category=procedure"]').count(),0,'Leisure answer must not link to the bylaw index');pass++;
     for(const q of ['กู้พักผ่อน','กู้ท่องเที่ยว','ขอกู้ไปเที่ยวได้ไหม','เงินกู้สามัญเพื่อการพักผ่อน']){
       assert.match(await ask(q),/300,000 บาท.*36 งวด.*75 ปี/);pass++;
       assert.match(await page.locator('#out details.more').textContent(),/เงินได้รายเดือน.*15%.*6,000 บาท/);pass++;

@@ -517,6 +517,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function normalizeSourceLink(intent,label,url){
     const kind=sourceKind(url);
+    if(kind==='TOPIC_INDEX'&&/^(?:📂 เปิด)?หน้าหลักเกณฑ์และแบบเงินกู้/.test(String(label||'')))return {url,sourceState:'NAVIGATION'};
     if(isDirectSourceKind(kind)) return {url,sourceState:'DIRECT_VERIFIED'};
     const direct=verifiedDirectFor(intent,label,url);
     if(direct) return {url:direct,sourceState:'DIRECT_VERIFIED'};
@@ -617,6 +618,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         addAction(label,S.ordinaryLoanForms);
         addSource(label,S.ordinaryLoanForms);
         addAction('ติดต่อฝ่ายที่รับผิดชอบ',S.contact);
+      } else if(opt.domain==='leisureLoanCurrent'||intent==='loan_vacation') {
+        addAction('📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้พักผ่อน (หมวดสามัญ)',S.ordinaryLoanForms);
+        addSource('หน้าหลักเกณฑ์และแบบเงินกู้พักผ่อน (หมวดสามัญ)',S.ordinaryLoanForms);
+        addAction('ติดต่อฝ่ายที่รับผิดชอบ',S.contact);
       } else if(opt.domain==='ordinaryLoanCurrent'||opt.ruleId==='ordinaryLoanCurrent'||/ordinary/.test(intent)) {
         addAction('📢 หลักเกณฑ์เงินกู้สามัญ 2569',S.loanGeneralAnnouncement2569);
         addAction('📄 แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
@@ -624,9 +629,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         addSource('แบบฟอร์มเงินกู้สามัญ',S.ordinaryLoanForms);
         addAction('☎️ งานเงินกู้สามัญ 083-928-8638','tel:0839288638');
       } else {
-        addAction('ประเภทและหลักเกณฑ์เงินกู้ทางการ',S.procedure);
+        // Product navigation uses the actual loan indexes, never the bylaw index.
+        for(let i=actions.length-1;i>=0;i--)if(actions[i][1]===S.procedure&&/ประเภท.*เงินกู้|หลักเกณฑ์เงินกู้ทางการ/.test(actions[i][0]))actions.splice(i,1);
+        for(let i=sources.length-1;i>=0;i--)if(sources[i].url===S.procedure&&/ประเภท.*เงินกู้|หลักเกณฑ์เงินกู้ทางการ/.test(sources[i].title))sources.splice(i,1);
+        if(intent==='loan_all'){
+          for(const [title,url]of [['หน้าหลักเกณฑ์และแบบเงินกู้สามัญ',S.ordinaryLoanForms],['หน้าหลักเกณฑ์และแบบเงินกู้ฉุกเฉิน',S.emergencyLoan],['หน้าหลักเกณฑ์และแบบเงินกู้พิเศษ',S.specialLoanForms]]){
+            addAction('📂 เปิด'+title,url);addSource(title,url);
+          }
+        }else {addAction('เลือกประเภทเงินกู้','#ask:'+encodeURIComponent('เงินกู้มีกี่ประเภท'));addAction('📘 ข้อบังคับและระเบียบสหกรณ์',S.procedure);addSource('ข้อบังคับและระเบียบสหกรณ์',S.procedure);}
         addAction('ติดต่อฝ่ายที่รับผิดชอบ',S.contact);
-        addSource('ประเภทและหลักเกณฑ์เงินกู้ทางการ',S.procedure);
       }
       if(intent==='loan_close'){
         addAction('💳 วิธีการชำระเงินทางการ',S.payment);
