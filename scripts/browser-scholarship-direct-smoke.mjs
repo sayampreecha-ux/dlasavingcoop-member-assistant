@@ -6,7 +6,7 @@ const browser=await chromium.launch({headless:true,args:['--no-sandbox']});let c
 try{for(const width of [390,1365]){
  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(process.env.MEMBER_APP_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'networkidle'});
  await page.getByRole('button',{name:'❤️ สวัสดิการ สิทธิ · แบบขอรับ · ทุนบุตร',exact:true}).click();
- await page.locator('#out').getByRole('button',{name:'ทุนเรียนลูกมีอะไรบ้าง',exact:true}).click();
+ await page.locator('#out').getByRole('button',{name:'ทุนการศึกษาบุตร',exact:true}).click();
  assert.doesNotMatch(await page.locator('#out .body').textContent(),/หรือเงินกู้เพื่อการศึกษา/);count++;
  assert.equal(await page.locator('#out').getByRole('link',{name:'📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569',exact:true}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=4887');count++;
  assert.ok((await page.locator('#out').getByRole('link',{name:'📘 ประกาศหลักเกณฑ์และเงื่อนไขทุนการศึกษาบุตร (PDF)',exact:true}).getAttribute('href')).includes('1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt'));count++;
