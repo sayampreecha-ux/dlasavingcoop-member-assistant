@@ -369,7 +369,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       funeralRules:'https://www.dlasavingcoop.com/show.php?No=4401',
       staffProvince:'https://www.dlasavingcoop.com/show.php?Category=contact',
       loanGeneralAnnouncement2569:'https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing',
-      loanVacationAnnouncement:'https://drive.google.com/file/d/1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu/view?usp=sharing',
+      loanVacationAnnouncement:'https://drive.google.com/file/d/1qC30WEF9YTq1oo-M0r8sySLg2J2uNoIL/view?usp=sharing',
       loanInterestAnnouncement:'https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing',
       loanEmergencyAnnouncement:'https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing',
       loanEmergencyForm:'https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing',
@@ -2236,7 +2236,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     });
 
     if(/พักผ่อน|ท่องเที่ยว|กู้เที่ยว/i.test(q)) return res('loan_vacation','มีเงินกู้สามัญเพื่อการพักผ่อนครับ',{
-      actions:[['📢 เปิดประกาศกู้เพื่อการพักผ่อน',S.loanVacationAnnouncement],['📄 เปิดแบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898']],sources:[src('ประกาศกู้เพื่อการพักผ่อน',S.loanVacationAnnouncement),src('แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan)]
+      actions:[['📄 เปิดแบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan],['☎️ คุณเตือนจิตต์ 083-928-8638','tel:0839288638'],['☎️ คุณศุจินธร 092-391-8898','tel:0923918898']],sources:[src('แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan)]
     });
 
     if(/ปิด(?:บัญชี)?(?:เงิน)?กู้|ปิดหนี้|ชำระปิด.*กู้|ปิดยอดกู้/i.test(q)) return res('loan_close','ปิดหนี้/ปิดเงินกู้ให้เริ่มจากตรวจหลักเกณฑ์เงินกู้ แล้วขอ “ยอดชำระปิดตามวันที่จริง” จากเจ้าหน้าที่ก่อนชำระครับ',{
@@ -2716,8 +2716,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/พักผ่อน|ท่องเที่ยว|กู้เที่ยว|กู้ไปเที่ยว|ไปเที่ยว.*กู้/i.test(q) && /กู้|เงินกู้|สินเชื่อ|พักผ่อน|ท่องเที่ยว/i.test(q)) {
       return res('loan_vacation','เงินกู้สามัญเพื่อการพักผ่อน: คุณสมบัติเบื้องต้นตามประกาศโครงการเดิม คือเป็นสมาชิกและส่งค่าหุ้นต่อเนื่องไม่น้อยกว่า 12 เดือน วงเงินสูงสุด 100,000 บาท ดอกเบี้ย 4.25% ต่อปี ไม่มีเฉลี่ยคืน ผ่อนสูงสุด 12 งวด อายุเมื่อครบสัญญาไม่เกิน 75 ปี โดยต้องตรวจคุณสมบัติและหลักประกันตามประกาศฉบับเต็ม ตัวเลขนี้เป็นของโครงการเดิมที่สิ้นสุด 1 กันยายน 2569; ต้องตรวจประกาศต่ออายุโครงการเงินกู้เพื่อการพักผ่อนโดยเฉพาะก่อนยื่นคำขอ เนื่องจากหลักเกณฑ์เงินกู้สามัญทั่วไปอาจไม่ใช่หลักเกณฑ์โครงการนี้',{
         details:['คุณสมบัติตามประกาศเดิม: เป็นสมาชิกและส่งค่าหุ้นต่อเนื่องไม่น้อยกว่า 12 เดือน และต้องผ่านเงื่อนไขรายได้กับประวัติการชำระหนี้ตามประกาศ','วงเงินสูงสุด 100,000 บาท ดอกเบี้ย 4.25% ต่อปี ไม่มีเฉลี่ยคืน ผ่อนไม่เกิน 12 งวด อายุเมื่อครบสัญญาไม่เกิน 75 ปี','หลักประกัน: ตรวจสัดส่วนทุนเรือนหุ้นที่ปลอดภาระค้ำประกันตามประกาศ (ไม่ใช่หลักเกณฑ์เงินกู้สามัญทั่วไป)','เอกสารตามแบบคำขอ: (1) คำขอและสัญญากู้เพื่อการพักผ่อน (2) หนังสือยินยอมหักเงินจากต้นสังกัด (3) หนังสือยินยอมข้อมูลส่วนบุคคล (4) สำเนาบัตรประชาชนหรือบัตรข้าราชการและทะเบียนบ้าน (5) สำเนาหน้าสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. (6) เอกสารเปลี่ยนชื่อหรือสถานภาพถ้ามี (7) หลักฐานการเดินทางหรือใบเสร็จบริษัทนำเที่ยวพร้อมโปรแกรมนำเที่ยว ส่งภายใน 30 วันหลังกลับจากท่องเที่ยว','ข้อสำคัญ: ประกาศโครงการเดิมสิ้นสุด 1 กันยายน 2569 ยังไม่พบหลักฐานยืนยันการต่ออายุเงินกู้เพื่อการพักผ่อนโดยเฉพาะ ต้องตรวจประกาศล่าสุดก่อนยื่น'],
-        actions:[['📢 ประกาศเงินกู้เพื่อการพักผ่อน',S.loanVacationAnnouncement],['📄 แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan]],
-        sources:[src('ประกาศเงินกู้สามัญเพื่อการพักผ่อน',S.loanVacationAnnouncement),src('แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan)]
+        actions:[['📄 แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan]],
+        sources:[src('แบบคำขอกู้เพื่อการพักผ่อน',S.vacationLoan)]
       });
     }
     // Pilot hotfix: route duplicate savings-cooperative membership before generic member/loan routes.
