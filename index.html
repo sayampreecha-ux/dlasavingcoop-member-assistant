@@ -1377,6 +1377,34 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(!/(?:ได้ไหม|ได้มั้ย|มีสิทธิ|ขอได้|รับได้|ได้เท่าไร|ได้เท่าไหร่|กี่บาท|ช่วยเท่าไร|เท่าไหร่)/.test(q))return null;
     return welfareResponse(kind,seedWelfareFacts(kind,q));
   }
+  function scholarshipAnswer(q){
+    const original='https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing';
+    const actions=[['📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569','https://www.dlasavingcoop.com/show.php?No=4887'],['📘 ประกาศหลักเกณฑ์และแบบคำขอทุนบุตร 2569 (PDF)',original],['☎️ งานสวัสดิการ 081-515-7253','tel:0815157253']];
+    const evidence=[src('ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย',original),src('หน้าประกาศทุนบุตรปี 2569 ทางการ','https://www.dlasavingcoop.com/show.php?No=4887')];
+    const qualifications='คุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ';
+    const amounts='จำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ';
+    const limits='สมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน';
+    const documents='เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ';
+    const submission='วิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ';
+    const period='ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569';
+    const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Bangkok'});
+    const timing=today>'2026-08-31'?period+' — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา':today<'2026-08-01'?period+' — ยังไม่ถึงช่วงรับคำขอตามประกาศนี้':period+' — อยู่ในช่วงรับคำขอตามประกาศนี้';
+    const selection='พิจารณาตามคะแนนจากอายุสมาชิก ประวัติรับทุน จำนวนบุตร การร่วมธุรกิจสหกรณ์ (ฝาก/กู้/ฌาปนกิจ) และการใช้สิทธิเลือกกรรมการ หากขอเกินจำนวนทุนเรียงตามคะแนนรวม; คะแนนรวมเท่ากันเปรียบเทียบคะแนนแต่ละเกณฑ์ตามลำดับในข้อ 5.1 ไม่ได้รับทุนอัตโนมัติเพียงเพราะผ่านคุณสมบัติ';
+    const results='ประกาศกำหนดแจ้งผลภายใน 90 วันนับถัดจากวันสิ้นสุดรับคำขอ ผ่านเว็บไซต์และสื่อออนไลน์ของสหกรณ์ ระบบไม่ยืนยันผลเฉพาะรายหรือว่าประกาศผลแล้วจนกว่าจะมีหลักฐานผลปัจจุบัน';
+    let answer='ทุนการศึกษาบุตรปี 2569 — '+timing+'\n\n'+amounts+'\n\n'+qualifications+'\n\n'+limits+'\n\n'+documents+'\n\n'+submission;
+    if(/ปี\s*257\d/.test(q))return res('scholarship','ยังไม่มีประกาศทุนบุตรปีที่ถามซึ่งระบบตรวจยืนยันแล้วครับ หลักเกณฑ์ที่อ่านครบเป็นปี 2569 และประกาศข้อ 2 ใช้เฉพาะปี 2569 จึงไม่ใช้จำนวนเงินหรือเงื่อนไขนี้แทนปีใหม่',{decision:'EVIDENCE_LOCK',actions,sources:evidence});
+    if(/เอกสาร|หลักฐาน|แบบคำขอ|แบบฟอร์ม|ใบเสร็จ|หนังสือรับรอง/.test(q))answer=documents+'\n\n'+timing;
+    else if(/เคย.*(?:รับ|ได้).*ทุน|(?:2567|2568).*ได้ไหม|ได้รับ.*(?:2567|2568)|บุตรบุญธรรม|สมาชิกสมทบ|ค้าง|คุณสมบัติ|ใครขอ|ใครมีสิทธิ|ขอได้ไหม/.test(q))answer=qualifications+'\n\n'+timing+'\nยังต้องให้สหกรณ์ตรวจข้อมูลสมาชิกและผลการพิจารณาจริง ไม่ใช่การรับรองสิทธิรายบุคคล';
+    else if(/คู่สมรส|สามี|ภรรยา|กี่คน|กี่ทุน|กี่ประเภท/.test(q))answer=limits+'\n\n'+qualifications+'\n\n'+timing;
+    else if(/ผล|ประกาศ.*เมื่อ|กี่วัน/.test(q))answer=results+'\n\n'+timing;
+    else if(/คะแนน|พิจารณา|คัดเลือก/.test(q))answer=selection+'\n\n'+timing;
+    else if(/ได้เท่า|กี่บาท|จำนวนเงิน|จำนวนทุน|อัตราทุน/.test(q))answer=amounts+'\n\n'+limits+'\n\n'+timing;
+    else if(/ส่ง.*ไหน|ยื่น.*ไหน|ส่งทาง|สมัคร|ขั้นตอน|ทำอย่างไร|ทำยังไง|ยื่นอย่างไร/.test(q))answer=timing+'\n\n'+submission+'\n\n'+documents;
+    else if(/หมดเขต|กำหนด|ทันไหม|ยัง.*(?:ขอ|สมัคร|ยื่น)|รับสมัคร|วันไหน/.test(q))answer=timing+'\n\n'+results;
+    const isResult=/ผล|ประกาศ.*เมื่อ|กี่วัน/.test(q);
+    return res(isResult?'live_schedule':'scholarship',answer,{answerClass:ANSWER_CLASS.RULE,decision:isResult?'LIVE_OFFICIAL_REQUIRED':'RULE_INFORMATION',status:isResult?'กำหนดตามประกาศปี 2569 — ผลปัจจุบันยังไม่ยืนยัน':'หลักเกณฑ์ทุนบุตรปี 2569',details:[qualifications,amounts,limits,documents,submission,selection,results,'ขั้นตอน: 1) ตรวจปีและกำหนดรับคำขอ 2) ตรวจคุณสมบัติ 3) กรอกแบบและรับรองตามแบบ 4) แนบหลักฐาน 5) ส่งในกำหนด 6) ติดตามผล; หากพ้นกำหนดแล้ว ต้องมีประกาศขยายเวลาหรือประกาศปีใหม่ที่ตรวจยืนยันก่อนยื่น'],followups:['ทุนบุตรใครขอได้','ทุนบุตรได้กี่บาท','ทุนบุตรใช้เอกสารอะไร','ทุนบุตรสมัครอย่างไร','ทุนบุตรหมดเขตเมื่อไร','ทุนบุตรประกาศผลเมื่อไร'],actions,sources:evidence});
+  }
+
   function welfareStatic(kind){
     const R=RULE_MASTER.rules[WELFARE_FLOWS[kind].rule];
     const d=[];
@@ -2220,9 +2248,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
 
     if(/ประสบภัย|น้ำท่วม|อุทกภัย|ไฟไหม้|อัคคีภัย|วาตภัย|พายุ|บ้าน.*เสียหาย|ทรัพย์สิน.*เสียหาย/i.test(q) && !/กู้|เงินกู้/i.test(q)) return welfareStatic('disaster'); /* legacy welfare_disaster details removed */     if(/เงินช่วยคลอด|ค่าคลอด|คลอดลูก|คลอดบุตร|มีลูก/i.test(q)) return welfareStatic('childbirth');
-    if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|มหาลัย|มหาวิทยาลัย|หมดเขต.*ทุน|ทุน.*หมดเขต/i.test(q)) return res('scholarship',`มีโครงการทุนส่งเสริมการศึกษาของบุตรสมาชิก โดยระดับที่ระบบตรวจไว้คือ: ${KB.welfare.scholarshipLevels.join(' / ')}`,{
-      details:['ช่วงเวลารับสมัคร จำนวนทุน คุณสมบัติ และเอกสารที่ใช้ ให้ยึดประกาศทุนส่งเสริมการศึกษาบุตรปีที่ยื่น ไม่ใช้ผลอนุมัติปี 2567 หรือ 2568 แทนประกาศรับสมัครปี 2569','ระบบยืนยันลิงก์ประกาศเฉพาะเรื่องแล้ว แต่ยังไม่ยืนยันว่าขณะนี้เปิดรับสมัครหรือผู้ถามได้รับสิทธิ'],actions:[['📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569','https://www.dlasavingcoop.com/show.php?No=4887'],['📘 ประกาศหลักเกณฑ์และเงื่อนไขทุนการศึกษาบุตร (PDF)','https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing']],sources:[src('ประกาศการให้ทุนส่งเสริมการศึกษาของบุตรสมาชิก ประจำปี 2569','https://www.dlasavingcoop.com/show.php?No=4887'),src('ประกาศหลักเกณฑ์และเงื่อนไขการทุนการศึกษาบุตร','https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing')]
-    });
+    if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|มหาลัย|มหาวิทยาลัย|หมดเขต.*ทุน|ทุน.*หมดเขต/i.test(q)) return scholarshipAnswer(q);
     if(/สมรส|แต่งงาน/i.test(q)) return welfareStatic('marriage');
     if(/ศาสนา|อุปสมบท|บวช/i.test(q)) return welfareStatic('religion');
     if(/สำเร็จการศึกษา|เรียนจบ|จบการศึกษา/i.test(q)) return welfareStatic('graduation');
@@ -2470,6 +2496,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   function contextualize(q,previousTopic){
     q=norm(q);
     if(!previousTopic) return q;
+    if(previousTopic==='scholarship'&&!loanProduct(q)&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|สมัคร|คุณสมบัติ|ได้เท่า|กี่บาท|กี่ทุน|กี่คน|กี่ประเภท|ใครขอ|รับสมัคร|ยื่น|หมดเขต|ประกาศผล|คะแนน/.test(q))return 'ทุนการศึกษาบุตร '+q;
     if(previousTopic==='leisureLoanCurrent'&&!isLeisureLoan(q)&&!loanProduct(q)&&/เอกสาร|หลักฐาน|ค้ำ|หลักประกัน|วงเงิน|งวด|ดอกเบี้ย|คุณสมบัติ|เงื่อนไข|สิ้นสุด|หมดเขต|ยื่น|เฉลี่ยคืน/.test(q)&&!/สวัสดิการ|เงินฝาก|สมัครสมาชิก|ลาออก|ฌาปนกิจ|ปันผล/.test(q))return 'กู้เพื่อการพักผ่อน '+q;
     if(previousTopic.startsWith('welfare:')&&!questionDomain(q)&&!welfareKindFromQuestion(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำอย่างไร|ทำยังไง/.test(q))return WELFARE_FLOWS[previousTopic.slice(8)].title+' '+q;
     if(previousTopic==='welfareDisaster'&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|ทำยังไง|ทำอย่างไร/.test(q))return 'สวัสดิการน้ำท่วม '+q;
@@ -2480,6 +2507,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     return q;
   }
   function topicOf(q,r){
+    if(r?.intent==='scholarship'||r?.intent==='live_schedule'&&/ทุน.*(?:ลูก|บุตร)|สวัสดิการ.*การศึกษาบุตร/.test(q))return 'scholarship';
     if(r?.intent==='loan_vacation')return 'leisureLoanCurrent';
     if(/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q)&&/^deposit/.test(r?.intent||''))return 'depositSpecial';
     if(r?.intent==='welfare_disaster')return 'welfareDisaster';
@@ -2915,6 +2943,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const items=bylaw?[["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด (ฉบับที่ 1-7)", "https://drive.google.com/file/d/1UVoCHBoB4ybnJjHzgCc7aTy6aiAzRfki/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 8) พ.ศ.2561", "https://drive.google.com/file/d/14KCqpYl9Hm6_GufCFE2yKaqIysGI6hKe/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 9) พ.ศ.2562", "https://drive.google.com/file/d/15pqTcDpmqoR-nv73-vQLbrh4ucMi96E4/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 10) พ.ศ.2563", "https://drive.google.com/file/d/197gnAf-595cTpy-j4bfMiCJNmbtehzCk/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 11) พ.ศ.2564", "https://drive.google.com/file/d/1P-UO1QuZdz9Re7ZfJB9WvH6Kpri_s2KW/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์กรมส่งเสริมการปกครองท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 12) พ.ศ.2565", "https://drive.google.com/file/d/1PD_5Fq7oqotPZzUpuJIppVedOxgyGdS4/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 13) พ.ศ.2566", "https://drive.google.com/file/d/14xrgb-uEd5g0b8RKXGhRQBn83x6eUYKd/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 14) พ.ศ.2567", "https://drive.google.com/file/d/1UnazxKjVVi1gDwK1va2HA65zyuyThrQb/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 14) พ.ศ.2567 คลิกที่นี่", "https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/Lawdlas11_210664(1).pdf"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 15) พ.ศ.2567", "https://drive.google.com/file/d/1K7WvkTwMDqgv7WozT-aCfoynAbzHnAW0/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 16) พ.ศ.2568", "https://drive.google.com/file/d/1vEfYZXBA0prgRfJPpNFgIE1-KDEaq15Q/view"], ["ข้อบังคับ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด แก้ไขเพิ่มเติม (ฉบับที่ 17) พ.ศ.2569", "https://drive.google.com/file/d/1CXkCCI4KCF7EaVJN3pUZtITQHVIrIcPh/view"]]:notice?[]:[['ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569','https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view']];
       return {intent:notice?'share_notices':bylaw?'share_bylaws':'share_documents',status:'เอกสารทางการ',answer:notice?'ยังไม่มีประกาศซื้อหุ้นเพิ่มรายรอบที่ตรวจยืนยันไว้ในเมนูนี้ครับ โปรดให้งานทะเบียนยืนยันประกาศรอบปัจจุบัน':bylaw?'เปิดข้อบังคับฉบับหลักและฉบับแก้ไขเพิ่มเติมที่เกี่ยวข้องด้านล่างครับ ต้องอ่านประกอบกัน ไม่ใช้ฉบับแก้ไขฉบับเดียวแทนทั้งหมด':'เปิดระเบียบหุ้นฉบับแก้ไขที่ 3 พ.ศ. 2569 ด้านล่างครับ ฉบับนี้แก้ข้อ 7 ฐานเอกสารยังไม่มีระเบียบฉบับหลักครบ จึงยังใช้แทนระเบียบทั้งหมดไม่ได้',actions:[...items,['☎️ งานทะเบียน 083-929-2739','tel:0839292739']],sources:items.map(([title,url])=>src(title,url)),details:[],followups:['เปลี่ยนอัตราหุ้นรายเดือน','เพิ่มหุ้นรายเดือนได้ไหม','ลดหุ้นรายเดือนได้ไหม','ซื้อหุ้นเพิ่มเติม','คืนหุ้นได้กรณีใด','วิธีตรวจสอบยอดหุ้นของฉัน'],decision:'DOCUMENT_NAVIGATION',freshness:{checkedAt:sourceRegistry.lastSyncAt,asOf:check.date,status:'CURRENT_GATE_PASSED'}};
     }
+    if(/ทุน.*(?:ลูก|บุตร)|ทุนการศึกษา|ทุนเรียน|สวัสดิการ.*การศึกษาบุตร/.test(q)&&!/กู้|เงินกู้/.test(q))return scholarshipAnswer(q);
     const saved={};
     try{
       for(const [dom,id]of Object.entries(ruleIds)){if(!check.domains.includes(dom))continue;const v=F.versionAt(sourceRegistry,id,check.date);if(v){saved[id]=KB.ruleAuthority.rules[id];KB.ruleAuthority.rules[id]=v.values;}}

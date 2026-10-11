@@ -7,10 +7,12 @@ try{for(const width of [390,1365]){
  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto(process.env.MEMBER_APP_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'networkidle'});
  await page.getByRole('button',{name:'❤️ สวัสดิการ สิทธิ · แบบขอรับ · ทุนบุตร',exact:true}).click();
  await page.locator('#out').getByRole('button',{name:'ทุนการศึกษาบุตร',exact:true}).click();
- assert.doesNotMatch(await page.locator('#out .body').textContent(),/หรือเงินกู้เพื่อการศึกษา/);count++;
+ const summary=await page.locator('#out .body').textContent();assert.doesNotMatch(summary,/หรือเงินกู้เพื่อการศึกษา/);assert.match(summary,/4,000 บาท/);assert.match(summary,/สมาชิกสามัญอย่างน้อย 6 เดือน/);assert.match(summary,/31 สิงหาคม 2569/);count++;
  assert.equal(await page.locator('#out').getByRole('link',{name:'📣 ประกาศทุนการศึกษาบุตร ประจำปี 2569',exact:true}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=4887');count++;
- assert.ok((await page.locator('#out').getByRole('link',{name:'📘 ประกาศหลักเกณฑ์และเงื่อนไขทุนการศึกษาบุตร (PDF)',exact:true}).getAttribute('href')).includes('1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt'));count++;
+ assert.ok((await page.locator('#out').getByRole('link',{name:'📘 ประกาศหลักเกณฑ์และแบบคำขอทุนบุตร 2569 (PDF)',exact:true}).getAttribute('href')).includes('1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt'));count++;
  assert.equal(await page.locator('#out a[href*="Category=notice"]').count(),0);count++;
  assert.equal(await page.locator('#out a[href*="No=775"]').count(),0);count++;
+ await page.locator('#out').getByRole('button',{name:'ทุนบุตรใช้เอกสารอะไร',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/รับรองสำเนาถูกต้องทุกฉบับ/);count++;
+ await page.locator('#out').getByRole('button',{name:'ทุนบุตรได้กี่บาท',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/1,500 บาท/);count++;
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER SCHOLARSHIP DIRECT SOURCE:',count,'PASS on mobile and desktop');}finally{await browser.close();await new Promise(r=>server.close(r));}
