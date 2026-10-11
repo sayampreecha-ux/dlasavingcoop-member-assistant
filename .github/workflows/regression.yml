@@ -22,6 +22,8 @@ jobs:
           node-version: '20'
       - name: Complete release gate including 69 executable records
         run: node scripts/verify-release.mjs
+      - name: Leisure loan member acceptance (8 scenarios)
+        run: node tests/leisure-loan-acceptance.mjs
       - name: Member answer engine
         run: node tests/e2e-member-answer-engine.mjs
       - name: Real member simulation

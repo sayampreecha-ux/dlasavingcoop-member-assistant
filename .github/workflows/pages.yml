@@ -1,5 +1,5 @@
 name: Deploy GitHub Pages
-# Re-run full release and production verification without changing test criteria.
+# Run the unchanged release, browser and live production verification gates after the loan routing fix.
 on:
   push:
     branches: [main]
@@ -48,6 +48,7 @@ jobs:
           node scripts/browser-deposit-navigation-smoke.mjs
           node scripts/browser-deposit-entry-smoke.mjs
           node scripts/browser-private-deposit-balance-smoke.mjs
+          node scripts/browser-member-tracking-smoke.mjs
       - name: Stage public Pilot files
         run: |
           mkdir -p _site/data
@@ -79,3 +80,4 @@ jobs:
           node scripts/browser-deposit-navigation-smoke.mjs
           node scripts/browser-deposit-entry-smoke.mjs
           node scripts/browser-private-deposit-balance-smoke.mjs
+          node scripts/browser-member-tracking-smoke.mjs

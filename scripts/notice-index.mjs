@@ -34,3 +34,56 @@ export function findNotices(events, topic, now = Date.now()) {
   if (!Object.hasOwn(NOTICE_TOPICS, topic)) return [];
   return indexNotices(events, now).filter(item => item.topics.includes(topic));
 }
+
+
+// Search the verified official-source registry as well as the NEWS feed.
+// Registry entries are discovery links, not proof that every clause is current.
+const SOURCE_ALIASES = Object.freeze({
+  loan: /เงินกู้|กู้|พักผ่อน|ท่องเที่ยว|เคหะ|จำนอง|ฉุกเฉิน|สามัญ|loan/i,
+  welfare: /สวัสดิการ|ภัยพิบัติ|น้ำท่วม|ไฟไหม้|welfare/i,
+  membership: /สมัครสมาชิก|สมาชิก|membership/i,
+  funeral: /ฌาปนกิจ|สงเคราะห์ศพ|funeral/i,
+  shares: /หุ้น|ถือหุ้น|shares/i,
+  deposits: /ฝาก|ถอน|เงินฝาก|deposits/i
+});
+const SOURCE_DOMAINS = Object.freeze({
+  loan: /loan|mortgage|housing|guarantor/i,
+  welfare: /welfare|disaster/i,
+  membership: /membership|resignation/i,
+  funeral: /funeral|welfare/i,
+  shares: /shares/i,
+  deposits: /deposits|interest/i
+});
+export function searchOfficialSourceRegistry(registry, query) {
+  const input = String(query || '').trim();
+  if (!input || !registry || !Array.isArray(registry.monitors)) return [];
+  const topic = Object.keys(SOURCE_ALIASES).find(key => SOURCE_ALIASES[key].test(input));
+  if (!topic) return [];
+  const domainPattern = SOURCE_DOMAINS[topic];
+  const results = [];
+  const seen = new Set();
+  for (const monitor of registry.monitors) {
+    if (!Array.isArray(monitor.domains) || !monitor.domains.some(d => domainPattern.test(d))) continue;
+    const url = officialSourceUrl(monitor.url);
+    if (!url || seen.has(url)) continue;
+    seen.add(url);
+    results.push({
+      title: monitor.id || 'แหล่งเอกสารทางการ',
+      url,
+      topic,
+      sourceState: monitor.lastSuccessfulCheck && !monitor.lastError ? 'INDEXED_SOURCE' : 'CHECK_REQUIRED',
+      effectiveRuleVerified: false
+    });
+  }
+  return results;
+}
+export function officialSourceUrl(value) {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== 'https:' || !OFFICIAL.test(url.hostname)) return null;
+    if (/^\/(?:show|list)\.php$/i.test(url.pathname) &&
+      ((url.pathname.toLowerCase() === '/show.php' && (/^\d+$/.test(url.searchParams.get('No') || '') || /^[a-z]+$/i.test(url.searchParams.get('Category') || ''))) ||
+      (url.pathname.toLowerCase() === '/list.php' && /^[a-z]+$/i.test(url.searchParams.get('Category') || '')))) return url.href;
+    return null;
+  } catch { return null; }
+}
