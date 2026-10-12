@@ -2020,6 +2020,20 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // Generic personal eligibility/top-up questions require member data even when the member omits pronouns.
     if(/^(?:กู้เพิ่มได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่)|เพิ่มวงเงินได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่))$/i.test(q)) return memberSelfService(q);
 
+    // Account changes must be answered before the generic dividend and forms routes.
+    // The official 2569 notice explicitly covers changed bank account numbers;
+    // its 30 September 2569 postal deadline has passed. Do not claim LINE/email intake.
+    if(/(?:(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง).*(?:บัญชี|เลขบัญชี|ธนาคาร)|(?:บัญชี|เลขบัญชี|ธนาคาร).*(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง))/i.test(q)
+      && /ปันผล|เฉลี่ยคืน|รับเงิน|โอนเงิน/i.test(q)) return res('dividend_bank_change',
+      'เปลี่ยนบัญชีธนาคารรับเงินปันผล/เงินเฉลี่ยคืนได้โดยใช้แบบแจ้งขอรับเงินตามประกาศ สอ.อปท. ปีบัญชี 2569 ครับ กรณีเปลี่ยนจาก ธ.ก.ส. เป็นกรุงไทยให้ระบุบัญชีใหม่ในแบบแจ้ง และตรวจเอกสารที่ต้องแนบจากต้นฉบับ',
+      {answerClass:ANSWER_CLASS.KNOWLEDGE,status:'อ้างอิงประกาศปี 2569 — พ้นกำหนดรับเอกสารตามประกาศแล้ว',
+       details:['ประกาศปี 2569 ระบุผู้ที่เปลี่ยนเลขบัญชีธนาคารใหม่เป็นหนึ่งในกลุ่มที่ต้องส่งแบบแจ้งขอรับเงิน',
+       'เปิดประกาศทางการแล้วเลือก “แบบแจ้งขอรับเงินปันผลหุ้นและเฉลี่ยคืน” ที่อยู่ในประกาศโดยตรง',
+       'กำหนดส่งทางไปรษณีย์ตามประกาศคือ 30 กันยายน 2569 ซึ่งพ้นกำหนดแล้ว ต้องติดต่อสหกรณ์เพื่อสอบถามวิธียื่นหลังหมดเขต ไม่รับรองว่ายื่นผ่าน LINE หรืออีเมลได้',
+       'อย่าส่งเลขบัญชีเต็ม สำเนาบัตรประชาชน หรือข้อมูลส่วนบุคคลในช่องแชต AI'],
+       actions:[['📄 เปิดแบบแจ้งขอรับเงินในประกาศปี 2569',S.dividendNotice2569],['☎️ ติดต่อเจ้าหน้าที่เพื่อยืนยันการยื่นหลังหมดเขต',S.contact]],
+       sources:[src('ประกาศจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ปีบัญชี 2569',S.dividendNotice2569)]});
+
     if(personal(q)){
       // Account values/status are self-service first. Cases asking WHY a guarantor/decision failed were already routed to staff above.
       if(/(?:ยอดหนี้|หนี้คงเหลือ|ยอดหุ้น|หุ้น|เช็คหุ้น|ตรวจหุ้น|ยอดเงินฝาก|เงินฝาก|วงเงินคงเหลือ|ปันผล|เฉลี่ยคืน|อนุมัติหรือยัง|สถานะ(?:กู้|เงินกู้|คำขอ)|ผลอนุมัติ)/i.test(q)) return memberSelfService(q);
