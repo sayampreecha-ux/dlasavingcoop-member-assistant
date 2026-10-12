@@ -38,7 +38,7 @@ try {
  locked.applySourceMonitor(pending);
  assert.equal(locked.answer('กู้สามัญใหม่ต้องหักกลบกู้เคหะด้วยไหม').decision,'EVIDENCE_LOCK');
  assert.equal(locked.answer('กู้สามัญปรับโครงสร้างหนี้ต้องส่งกี่งวดก่อนกู้สามัญใหม่').decision,'EVIDENCE_LOCK');
- globalThis.Date=class extends RealDate { constructor(...a){super(...(a.length?a:['2026-10-20T12:00:00Z']));} static now(){return new RealDate('2026-10-20T12:00:00Z').getTime();} };
+ globalThis.Date=class extends RealDate { constructor(...a){super(...(a.length?a:['2026-11-20T12:00:00Z']));} static now(){return new RealDate('2026-11-20T12:00:00Z').getTime();} };
  assert.equal(loadMemberEngine().answer('กู้เคหะชำระต้นดอกแบบไหน').decision,'EVIDENCE_LOCK');
  console.log('LOAN PRIMARY AUDIT: repayment, guarantors, insurance, offset, version parity and stale lock PASS');
 } finally {globalThis.Date=RealDate;}
