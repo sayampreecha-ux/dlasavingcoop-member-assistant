@@ -9,6 +9,10 @@ try{for(const width of [390,1365]){
  await page.locator('#out').getByRole('button',{name:'เพิ่มหุ้นรายเดือนได้ไหม',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/5,000 หุ้น/);count++;
  await page.locator('#out').getByRole('button',{name:'ลดหุ้นรายเดือนได้ไหม',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/6 เดือน/);count++;
  assert.ok(await page.locator('#readingHistory .body').count()>=2);count++;
+ await page.locator('#out').getByRole('button',{name:'เปลี่ยนอัตราหุ้นรายเดือน',exact:true}).click();assert.match(await page.locator('#out .body').textContent(),/1 ตุลาคม 2569/);count++;
+ await page.locator('#out').getByRole('button',{name:'ซื้อหุ้นเพิ่มเติม',exact:true}).click();assert.ok(await page.locator('#out a[href*="1PHYOgJQ"]').count()>0);assert.match(await page.locator('#out .body').textContent(),/ยังยืนยันไม่ได้/);count++;
+ await page.locator('#out').getByRole('button',{name:'คืนหุ้นได้กรณีใด',exact:true}).click();assert.ok(await page.locator('#out a[href*="1UVoCHBo"]').count()>0);assert.match(await page.locator('#out').textContent(),/หลักฐานบางส่วน/);count++;
+ await page.locator('#q').fill('ซื้อหุ้นเพิ่มรายเดือน');await page.locator('#q').press('Enter');assert.match(await page.locator('#out .body').textContent(),/5,000 หุ้นต่อเดือน/);count++;
  await page.locator('#out').getByRole('link',{name:'📗 ข้อบังคับสหกรณ์',exact:true}).click();assert.ok(await page.locator('#out a[href*="1CXkCCI4"]').count()>0);assert.equal(await page.locator('#out a[href*="1035C9"]').count(),0);count++;
  await page.locator('#out').getByRole('button',{name:'วิธีตรวจสอบยอดหุ้นของฉัน',exact:true}).click();assert.ok(await page.locator('#out a[href*="member.dlasavingcoop"]').count()>0);count++;
  assert.deepEqual(errors,[]);await page.close();
