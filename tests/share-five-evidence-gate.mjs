@@ -27,7 +27,7 @@ for(const q of ['เปลี่ยนอัตราหุ้นรายเด
 for(const q of ['ซื้อหุ้นเพิ่มเติม','ซื้อหุ้นเพิ่ม','ซื้อหุ้นพิเศษ','ซื้อหุ้นเป็นครั้งคราว']){
  const r=app.answer(q);assert.equal(r.intent,'share_purchase',q);assert.equal(r.decision,'EVIDENCE_LOCK');
  assert.ok(r.sources.some(x=>x.url===purchase));assert.ok(r.actions.some(x=>x[1]===purchase));
- assert.ok(r.details.some(x=>/31 กรกฎาคม 2569/.test(x)));assert.ok(r.evidenceLocks.includes('current_purchase_window'));
+ assert.match(r.answer,/ปิดรับแล้ว/);assert.equal(r.availability.state,'CLOSED');assert.equal(r.availability.provenance,'USER_REPORTED');assert.equal(r.availability.officiallyVerified,false);assert.ok(!/ต้องการตรวจประกาศ.*รอบใด/.test(r.answer));assert.ok(r.details.some(x=>/31 กรกฎาคม 2569/.test(x)));assert.ok(r.evidenceLocks.includes('current_purchase_window'));
  assert.ok(!r.sources.some(x=>x.url===form),'monthly form must not prove a one-off purchase');count++;
 }
 for(const q of ['คืนทุนเรือนหุ้น','ถอนทุนเรือนหุ้น','คืนหุ้นได้กรณีใด','มีหนี้ถอนหุ้นได้ไหม']){
