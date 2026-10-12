@@ -3241,28 +3241,28 @@
       ],
       "legacy_answer": "กรณีเคยปรับโครงสร้างหนี้ ต้องชำระหนี้ติดต่อกันไม่น้อยกว่า 12 งวดขึ้นไป",
       "domain": "loan_ordinary_related",
-      "verification_status": "NEEDS_PRIMARY_EVIDENCE",
+      "verification_status": "VERIFIED_PRIMARY",
       "expected_behavior": {
         "domain": "ordinaryLoanCurrent",
         "main_answer_must_include": [
-          "ยังไม่ได้ยืนยัน"
+          "24 งวด"
         ],
         "all_patterns": "Nonempty, correct domain, no superseded rule, exact official route or minimum clarification. Every variant is executed.",
         "no_legacy_authority": true,
         "human_last": true
       },
       "expected_source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing",
-      "notes": "Original patterns and legacy answer preserved verbatim; unqualified historical prompts must not select superseded rules. Some rows contain questions requiring different facets; all variants must still resolve in the same product domain. Row 48 lacks a product, so verify minimum clarification then continue with ordinary loan context.",
+      "notes": "Original patterns and legacy answer preserved verbatim; unqualified historical prompts must not select superseded rules. Some rows contain questions requiring different facets; all variants must still resolve in the same product domain. Row 48 lacks a product, so verify minimum clarification then continue with ordinary loan context. Reviewed 2569 ordinary criteria clause 5 (5): 24 installments for restructured ordinary borrowers requesting ordinary credit; legacy 12 remains verbatim for historical audit only, never authority.",
       "expected_rule": "ordinaryLoanCurrent",
       "pattern_assertions": [
         [
-          "ยังไม่ได้ยืนยัน"
+          "24 งวด"
         ],
         [
-          "ยังไม่ได้ยืนยัน"
+          "24 งวด"
         ],
         [
-          "ยังไม่ได้ยืนยัน"
+          "24 งวด"
         ]
       ]
     },

@@ -194,7 +194,6 @@
         "coop_deposit"
       ],
       "realEstateCollateralMaxPercentOfAppraisal": 90,
-      "employeeGuarantorMinServiceYears": 3,
       "guarantorReplacementDeadlineDays": 180,
       "loanDisbursementChannels": [
         "in_person",
@@ -204,7 +203,12 @@
         "other_coop_defined_channel"
       ],
       "version": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
-      "evidenceState": "PRIMARY_VERIFIED_ENCODED"
+      "evidenceState": "PRIMARY_VERIFIED_ENCODED",
+      "restructuredOrdinaryMinInstallments": 24,
+      "guarantorSharePaymentMinMonths": 6,
+      "guarantorMustNotBeSpouse": true,
+      "governmentOfficialGuarantorMustPassProbation": true,
+      "cooperativeStaffGuarantorMinServiceYears": 3
     },
     "qualityOfLifeCurrent": {
       "status": "VERIFIED_PRIMARY",
@@ -231,7 +235,6 @@
       "primaryEvidenceVerifiedAt": "2026-10-05",
       "primaryEvidenceTitle": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
       "announcementDate": "2026-09-11",
-      "salaryDeductionRequired": true,
       "memberWelfareFuneralAssociationRequired": true,
       "noSeriousDisciplinaryOrBankruptcyProceeding": true,
       "collateralOwnershipDocument": [
@@ -244,7 +247,10 @@
       "buildingFireInsuranceMinContinuousYears": 3,
       "disbursement": "monthly_equal_principal_plus_interest_except_first_or_last_installment",
       "version": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
-      "evidenceState": "PRIMARY_VERIFIED_ENCODED"
+      "evidenceState": "PRIMARY_VERIFIED_ENCODED",
+      "lifeInsuranceRequired": true,
+      "lifeInsuranceBeneficiary": "cooperative",
+      "salaryDeductionOrIndividualAgreementRequired": true
     },
     "welfareCommon": {
       "status": "VERIFIED",
@@ -471,7 +477,6 @@
       "creditBureauRequired": true,
       "lifeInsuranceRequired": true,
       "lifeInsuranceBeneficiary": "cooperative",
-      "deathBeforeContractEnd": "coop_returns_remaining_insurance_premium_to_borrower_or_heirs",
       "earlyClosureWithin5YearsPenaltyPercentOfRemainingPrincipal": 3,
       "buildingCollateralFireInsuranceRequired": true,
       "buildingFireInsuranceMinContinuousYears": 3,
@@ -494,7 +499,7 @@
       "noBorrowerDebtWithOtherCooperatives": true,
       "noSeriousDisciplinaryOrBankruptcyProceeding": true,
       "noArrearsInstallments": 12,
-      "disbursement": "monthly_equal_principal_plus_interest_except_first_or_last_installment",
+      "disbursement": "monthly_equal_total_principal_and_interest_except_first_or_last_installment",
       "supersedes": [
         "specialHousingCurrentAmendment3History"
       ],
@@ -507,7 +512,8 @@
         "construction": "5(9)",
         "supersession": "3",
         "effectiveDate": "2"
-      }
+      },
+      "earlyDebtClosureRemainingInsurancePremiumReturned": true
     },
     "specialRedeemMortgageCurrent": {
       "status": "VERIFIED_PRIMARY",
@@ -584,7 +590,6 @@
       "lifeInsuranceRequired": true,
       "lifeInsuranceBeneficiary": "cooperative",
       "borrowerPaysMortgageRegistrationCosts": true,
-      "buildingFireInsuranceRequired": true,
       "buildingFireInsuranceMinContinuousYears": 3,
       "primaryEvidenceVerified": true,
       "version": "full_2569",
@@ -607,7 +612,8 @@
       ],
       "originalMortgagePaidMinYears": 3,
       "noMissedOriginalMortgageInstallment": true,
-      "maxAmountCappedByOutstandingMortgage": true
+      "maxAmountCappedByOutstandingMortgage": true,
+      "buildingCollateralFireInsuranceRequired": true
     },
     "emergencyLoanCurrent": {
       "status": "VERIFIED_PRIMARY",
