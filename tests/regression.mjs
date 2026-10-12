@@ -40,6 +40,16 @@ const cases=[
  ['นี่คือคำถามที่ไม่มีในระบบ xyzabc','fallback']
 ];
 
+// Bank-change journey regression: must be an answer, not a generic notice or direct-form claim.
+for(const q of ['เปลี่ยนบัญชีรับปันผล','เปลี่ยนจาก ธ.ก.ส. เป็นกรุงไทยรับเงินเฉลี่ยคืน','แก้ไขเลขบัญชีรับเงินปันผล']){
+  const r=globalThis.COOP_APP.answer(q);
+  if(r.intent!=='dividend_bank_change'||!String(r.answer||'').includes('30 กันยายน 2569')||
+     !(r.actions||[]).some(x=>String(x[1]).includes('No=4916'))||
+     !(r.details||[]).some(x=>String(x).includes('ห้ามพิมพ์เลขบัญชีเต็ม'))){
+    throw new Error('dividend bank change regression: '+q);
+  }
+}
+
 const workflow=new Set([
  'share_all','share_change_rate','share_purchase','share_refund','balance_confirmation','beneficiary',
  'member_associate','member_restore','member_change_info','debt_help',
