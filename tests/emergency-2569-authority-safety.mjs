@@ -28,3 +28,15 @@ for(const c of cases){
  reviewed++;
 }
 console.log('Emergency 2569 clauses 9-11 non-binding smoke:',reviewed,'/',cases.length,'passed; substantive authority wording NOT VERIFIED');
+
+const substantive=[
+ {clause:9,question:'เงินกู้ฉุกเฉินขอยกเว้นหลักเกณฑ์ได้ไหม ใครมีอำนาจอนุมัติ',required:[/คณะกรรมการ/,/(?:2\\s*\\/\\s*3|สองในสาม|2\\s*ใน\\s*3|สองส่วนสาม|สองใน 3)/]},
+ {clause:10,question:'เงินกู้ฉุกเฉินเดิมที่ถูกต้องตามหลักเกณฑ์เก่า ถูกยกเลิกย้อนหลังทั้งหมดหรือไม่',required:[/(?:เดิม|ก่อน)/,/(?:ชอบ|ถูกต้อง|ไม่.*ย้อนหลัง|ยัง.*ผล)/]},
+ {clause:11,question:'มีข้อพิพาทเรื่องการใช้ประกาศเงินกู้ฉุกเฉิน ใครมีอำนาจวินิจฉัย',required:[/ประธานกรรมการ/,/วินิจฉัย/]}
+];
+for(const c of substantive){
+ const response=app.answer(c.question);
+ const missing=c.required.filter(re=>!re.test(response.answer));
+ assert.equal(missing.length,0,'Clause '+c.clause+' lacks substantive authority content; intent='+response.intent+'; missing='+missing.map(String).join(','));
+}
+console.log('Emergency 2569 substantive authority clauses 9-11:',substantive.length,'/',substantive.length,'passed');
