@@ -3059,12 +3059,19 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const scope=/ordinary/.test(id)?'กู้สามัญ':/emergency/.test(id)?'กู้ฉุกเฉิน':/quality/.test(id)?'กู้รวมหนี้':/housing/.test(id)?'กู้เคหะ':/redeem/.test(id)?'กู้ไถ่ถอนจำนอง':/education/.test(id)?'กู้เพื่อการศึกษา':/welfare/.test(id)?'สวัสดิการ':/guarantor/.test(id)?'ผู้ค้ำเงินกู้':'';
     return scope+(/eligibility/.test(id)?'ได้ไหม ':' ')+q;
   }
-  return {answer,paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
+  return {answer:(input)=>{
+    const r=answer(input);
+    if(!r||!/^share_/.test(r.intent||'')||!Array.isArray(r.actions))return r;
+    const all=[...r.actions,...(r.extraActions||[])], seen=new Set(), unique=[];
+    for(const item of all){const key=item[1];if(seen.has(key))continue;seen.add(key);unique.push(item);}
+    const primary=unique.filter(([label])=>/แบบ|ประกาศ|งานทะเบียน/.test(label)&&!/ระเบียบ|ข้อบังคับ|รายชื่อเจ้าหน้าที่/.test(label)).slice(0,3);
+    return {...r,actions:primary,extraActions:unique.filter(item=>!primary.includes(item))};
+  },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.9.4-share-engine-capped';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.9.5-share-final-answer-gate';
 
 // Persistent reading topics: keep the latest set of sibling questions available
 // while answer cards accumulate below. This does not alter rule/evidence logic.
