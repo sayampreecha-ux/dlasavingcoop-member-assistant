@@ -3075,7 +3075,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
 </script>
 <script>
-const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');const UI_RELEASE='4.9.5-share-final-answer-gate';
+const q=document.getElementById('q'),out=document.getElementById('out'),box=document.getElementById('contactBox');// Release lineage: 4.9.1-member-approval-filter introduced the member-approval notice filter;
+// keep its behavior in subsequent releases while UI_RELEASE identifies the current bundle.
+const UI_RELEASE='4.9.5-share-final-answer-gate';
 
 // Persistent reading topics: keep the latest set of sibling questions available
 // while answer cards accumulate below. This does not alter rule/evidence logic.
