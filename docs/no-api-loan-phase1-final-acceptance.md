@@ -191,3 +191,22 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - [E2E run 38478027614](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38478027614): **PASS**; job `115573474693` actual browser log confirms mobile 390px and desktop 1365px, each 69/69 records and 306 source patterns; loan, deposit, share, scholarship, tracking, navigation, evidence and answer quality smoke PASS. Workflow executes 19 browser scripts.
 - **Contextual privacy audit (supplemental, not a full leak-proof certification):** reviewed all 69 corpus record objects without publishing their raw content. Pattern checks found row 45 email references (8 occurrences, concentrated in official-contact/expected-answer fields) and row 65 address-like references (4 occurrences in legacy-answer contact context); no ID, mobile or account-number matches by these checks. Whether all source emails are exclusively cooperative public addresses and whether generated responses could leak indirect member identifiers requires deeper contextual source/response review. Therefore **contextual privacy NOT VERIFIED** even though automated structural privacy PASS.
 - **Decision: NO-GO / HOLD** pending full contextual privacy assurance and approval. CI on the tested HEAD is PASS; a documentation-only commit for this report is not the tested HEAD and may start new workflows. Do not conflate them. No merge or deployment.
+
+
+## Final acceptance evidence — tested HEAD 294ffebaeb7b158dacfd1accb1e5d8710378fc96 (2026-10-14)
+
+**Decision for the tested source HEAD: READY FOR APPROVAL — not permission to merge or deploy.** This is an evidence report of the exact tested commit; this documentation update will create a later commit, which requires its own CI verification before any merge.
+
+| Gate | Evidence | Result |
+| --- | --- | --- |
+| Regression | [run 38479565043](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38479565043), job 115578544003 | PASS: 52 suites, none skipped |
+| Synthetic privacy | Same regression job; `tests/privacy-adversarial-10.mjs` executes `COOP_APP.answer` | PASS: 10/10 synthetic cases |
+| Share KB | [run 38479565056](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38479565056) | PASS |
+| E2E browser | [run 38479565068](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38479565068), job 115578544375 | PASS: 19 browser scripts, mobile 390px and desktop 1365px, 69/69 records, 306 source patterns |
+| Corpus structural privacy | Regression release gate | PASS: 69 records, 966 fields, 59 loan records, 258 loan patterns; historical legacy text remains non-authoritative |
+| Row 45 | B.E. 2569 emergency loan announcement, clause 8, page 2; repository source PDF SHA-256 `15b72b5357333ef95e9a5f259f7b5effefb40b8369ccfe374346bfe202f72a08` | VERIFIED: submission email corresponds to official application channel, not a member's private email |
+| Row 65 | Cooperative official contact-page mailing address and historical corpus address context | VERIFIED: organizational mailing address, not a member residence |
+
+Privacy test coverage includes synthetic balance/account, another member's loan, contact/address, guarantor, debt history, staff impersonation, repeated questioning, corpus extraction, misspelling, and prompt injection. These checks assert no synthetic secret reflection, no invented authentication/approval, and an official source or route; they are not a guarantee against all possible privacy attacks. No assertion was removed or weakened to obtain a passing result.
+
+**Human approval is still required. PR remains Draft. Merge: NO. Deploy: NO. Production URL unchanged.** Re-check CI against the documentation commit HEAD before final merge authorization.
