@@ -81,3 +81,11 @@ Requirements:
 - This is a pattern scan, **not a complete privacy certification**; unstructured names, indirect identifiers and historical text require manual review. Do not publish raw LINE exports.
 - Potential defect to resolve before production promotion: record 45 expects a Gmail address in legacy acceptance assertions; independently verify the cooperative's current official submission channel, then replace stale contact-dependent assertions and add a regression test. Do not assume a historical email address is current or a private member email.
 - No runtime source or historic corpus modified in this audit because evidence of the correct current channel is still pending. Do not weaken existing tests to conceal the issue.
+
+## Official-source recheck and E2E — 13 Oct 2026
+- Official emergency-loan page `https://www.dlasavingcoop.com/show.php?No=773` lists application forms and the **B.E.2569 emergency-loan criteria** in addition to earlier B.E.2568 amendments. This newer source requires version reconciliation before treating older extracted numeric criteria as current.
+- Official regulations index `https://dlasavingcoop.com/show.php?Category=procedure` lists the emergency-loan regulation amendment No.2 B.E.2569.
+- The official emergency-loan landing page did **not independently confirm the historical Gmail submission address** in corpus record 45. Keep `EMAIL_CHANNEL_UNVERIFIED`; do not silently promote legacy address to a verified instruction.
+- CI: `ba12455` E2E [38416205853](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416205853) **success**; `4826506` Regression [38416478435](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416478435) **success**; `4826506` E2E [38416478492](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416478492) still in progress at review time.
+- Regression executes the 69-record corpus (59 loan records, 10 non-loan), including their question patterns, via `scripts/verify-release.mjs`. It is not a manual field-by-field certification of all 2026 source criteria.
+- **Release lock:** new B.E.2569 emergency criteria and submission-email authority must be checked from primary document content before any production answer change. Do not alter acceptance assertions merely to make the run green.
