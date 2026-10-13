@@ -303,7 +303,7 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     const pending=result.documents?.[0],title=pending?.title||'แหล่งทางการ';
     const url=pending?.originalUrl||pending?.officialIndexUrl||result.sources?.[0]?.url||registry.monitors[0].url;
     const message=result.reason==='PENDING_DOCUMENT'?'พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ จึงยังใช้ตัวเลขหรือเงื่อนไขเดิมฟันธงไม่ได้':'ยังยืนยันกฎที่มีผลในช่วงเวลาที่ถามไม่ได้ครับ กรุณาตรวจหลักเกณฑ์ทางการหรือให้เจ้าหน้าที่ตรวจฉบับที่ใช้กับกรณีนี้';
-    return {intent:'freshness_evidence_lock',answer:message+' ต้องการตรวจประเภทคำขอและประเด็นใดครับ? ระบุเรื่องเพิ่มเติมเพื่อให้เจ้าหน้าที่ตรวจฉบับและข้อที่ตรงกรณี โดยไม่ส่งรหัสผ่าน OTP หรือ PIN',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารต้นฉบับ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact'],...(pending?.officialIndexUrl&&pending.officialIndexUrl!==url?[['หน้าที่เผยแพร่ต้นฉบับ',pending.officialIndexUrl]]:[])],sources:[{title,url}],freshness:result};
+    return {intent:'freshness_evidence_lock',answer:message+' โปรดตรวจวันที่มีผลและข้อที่เกี่ยวข้องจากเอกสารต้นฉบับ หรือให้เจ้าหน้าที่ตรวจหลักเกณฑ์สำหรับคำถามนี้ โดยไม่ส่งรหัสผ่าน OTP หรือ PIN',status:'ต้องยืนยันหลักฐาน',decision:'EVIDENCE_LOCK',evidenceState:result.reason,answerClass:'CURRENT_RULE',details:[title,'ตรวจวันที่มีผลและข้อที่แก้ไขก่อนประเมินสิทธิสมาชิก'],actions:[['ตรวจเอกสารต้นฉบับ',url],['ติดต่อเจ้าหน้าที่','https://www.dlasavingcoop.com/show.php?Category=contact'],...(pending?.officialIndexUrl&&pending.officialIndexUrl!==url?[['หน้าที่เผยแพร่ต้นฉบับ',pending.officialIndexUrl]]:[])],sources:[{title,url}],freshness:result};
   }
   // A monitor snapshot can only add locks/check timestamps; it cannot supply answer values or promote rules.
   function mergeMonitor(base,snapshot){
@@ -2020,18 +2020,18 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // Generic personal eligibility/top-up questions require member data even when the member omits pronouns.
     if(/^(?:กู้เพิ่มได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่)|เพิ่มวงเงินได้(?:ไหม|มั้ย|เท่าไร|เท่าไหร่))$/i.test(q)) return memberSelfService(q);
 
-    // Account changes must be answered before the generic dividend and forms routes.
-    // The official 2569 notice explicitly covers changed bank account numbers;
-    // its 30 September 2569 postal deadline has passed. Do not claim LINE/email intake.
-    if(/(?:(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง).*(?:บัญชี|เลขบัญชี|ธนาคาร)|(?:บัญชี|เลขบัญชี|ธนาคาร).*(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง))/i.test(q)
+    // Bank-account changes: answer first, distinguish the notice from the attachment.
+    // Past the published postal deadline, direct members to staff rather than promising acceptance.
+    if((/(?:(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง).*(?:บัญชี|เลขบัญชี|ธนาคาร)|(?:บัญชี|เลขบัญชี|ธนาคาร).*(?:เปลี่ยน|แก้ไข|ย้าย|สลับ|แจ้ง))/i.test(q)
+      || /เปลี่ยนจาก\s*ธ\.?ก\.?ส\.?\s*เป็น\s*กรุงไทย/i.test(q))
       && /ปันผล|เฉลี่ยคืน|รับเงิน|โอนเงิน/i.test(q)) return res('dividend_bank_change',
-      'เปลี่ยนบัญชีธนาคารรับเงินปันผล/เงินเฉลี่ยคืนได้โดยใช้แบบแจ้งขอรับเงินตามประกาศ สอ.อปท. ปีบัญชี 2569 ครับ กรณีเปลี่ยนจาก ธ.ก.ส. เป็นกรุงไทยให้ระบุบัญชีใหม่ในแบบแจ้ง และตรวจเอกสารที่ต้องแนบจากต้นฉบับ',
-      {answerClass:ANSWER_CLASS.KNOWLEDGE,status:'อ้างอิงประกาศปี 2569 — พ้นกำหนดรับเอกสารตามประกาศแล้ว',
-       details:['ประกาศปี 2569 ระบุผู้ที่เปลี่ยนเลขบัญชีธนาคารใหม่เป็นหนึ่งในกลุ่มที่ต้องส่งแบบแจ้งขอรับเงิน',
-       'เปิดประกาศทางการแล้วเลือก “แบบแจ้งขอรับเงินปันผลหุ้นและเฉลี่ยคืน” ที่อยู่ในประกาศโดยตรง',
-       'กำหนดส่งทางไปรษณีย์ตามประกาศคือ 30 กันยายน 2569 ซึ่งพ้นกำหนดแล้ว ต้องติดต่อสหกรณ์เพื่อสอบถามวิธียื่นหลังหมดเขต ไม่รับรองว่ายื่นผ่าน LINE หรืออีเมลได้',
-       'อย่าส่งเลขบัญชีเต็ม สำเนาบัตรประชาชน หรือข้อมูลส่วนบุคคลในช่องแชต AI'],
-       actions:[['📄 เปิดแบบแจ้งขอรับเงินในประกาศปี 2569',S.dividendNotice2569],['☎️ ติดต่อเจ้าหน้าที่เพื่อยืนยันการยื่นหลังหมดเขต',S.contact]],
+      'เปลี่ยนบัญชีรับเงินปันผลหรือเงินเฉลี่ยคืน: ใช้แบบแจ้งขอรับเงินตามประกาศ สอ.อปท. ปีบัญชี 2569 ระบุบัญชีใหม่และแนบเอกสารตามแบบครับ แต่กำหนดส่งทางไปรษณีย์ 30 กันยายน 2569 ผ่านแล้ว จึงต้องติดต่อสหกรณ์ก่อนยื่น',
+      {answerClass:ANSWER_CLASS.KNOWLEDGE,status:'ประกาศปีบัญชี 2569 — พ้นกำหนดส่งเอกสารแล้ว',
+       details:['1) เปิดประกาศทางการเลขที่ 4916 แล้วค้นหาเอกสารแนบ “แบบแจ้งขอรับเงินปันผลหุ้นและเฉลี่ยคืน”',
+       '2) กรอกบัญชีใหม่และตรวจรายการหลักฐานที่กำหนดในแบบต้นฉบับ ก่อนลงนาม',
+       '3) เนื่องจากพ้นกำหนดส่ง 30 กันยายน 2569 แล้ว ให้สอบถามเจ้าหน้าที่ก่อนว่ายังรับเอกสารหรือมีช่องทางยื่นใดที่อนุญาต โดยไม่รับรองว่าส่งผ่าน LINE หรืออีเมลได้',
+       'เพื่อความปลอดภัย ห้ามพิมพ์เลขบัญชีเต็ม เลขบัตรประชาชน หรือแนบเอกสารส่วนบุคคลในช่องแชตนี้'],
+       actions:[['📄 เปิดประกาศเลขที่ 4916 เพื่อดูแบบฟอร์มแนบ',S.dividendNotice2569],['☎️ สอบถามการยื่นหลังหมดเขต',S.contact]],
        sources:[src('ประกาศจ่ายเงินปันผลหุ้นและเงินเฉลี่ยคืน ปีบัญชี 2569',S.dividendNotice2569)]});
 
     if(personal(q)){
