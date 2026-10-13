@@ -66,3 +66,12 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Existing source PDF and row 45 email: repository Rule Master agrees internally with corpus, but the primary PDF remains unreadable as extracted text in the available connector. **Official clause/email verification NOT VERIFIED.**
 - Automated privacy gate PASS on previously completed head; contextual indirect-identifier audit is incomplete. No new confirmed privacy leak from the examined excerpts.
 - **No test assertion reduced, no Answer Engine code modified, no merge/deploy. Release HOLD.**
+
+## CI completed on d318872 — evidence update
+- Regression [38418059079](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38418059079): **SUCCESS**, exact head `d318872`.
+- E2E [38418059213](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38418059213): **SUCCESS**, exact head `d318872`. The GitHub Jobs API confirms `Run every release regression suite`, `Install browser test runtime`, and `Real browser Pilot regression on mobile and desktop` **all SUCCESS**. The browser step in `.github/workflows/e2e.yml` sequentially runs 17 smoke scripts; no timeout/failure is evidenced for this head.
+- Corpus: `data/legacy-line-69-corpus.json` has 69 rows, 59 loan rows, 258 loan question patterns, and 14 fields per row. Privacy regression passed. Contextual flags for rows 1, 56, 65 were examined: generic debt-consolidation eligibility, guarantor qualifications, and the cooperative's mailing address. No member-specific PII was established in these excerpts; this is not a comprehensive semantic privacy certification.
+- Row 45 (`ส่งเอกสารกู้ฉุกเฉินอย่างไร`) has `verification_status=MATCH_CURRENT_RULE` and references the 2569 primary PDF. Its historical email equals the Rule Master `submissionEmail`, but **independent source text verification remains NOT VERIFIED**.
+- Connected Google Drive verified source PDF metadata, title and 577,692-byte size, but returned empty extracted text. The binary GitHub read failed UTF-8 decode. No defensible line-by-line clause comparison or independent PDF SHA-256 confirmation could be completed with those reads.
+- **CI gate for `d318872`: PASS. Official-document clause/email gate: NOT VERIFIED. Contextual privacy gate: PARTIAL / NOT VERIFIED. Overall release: HOLD.**
+- No confirmed runtime root cause requiring code modification; no assertion weakening, no merge, no deploy.
