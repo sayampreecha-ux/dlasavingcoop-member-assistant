@@ -41,3 +41,12 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Row 45 contains a historical submission email in the legacy answer and expected assertions; it matches `rules.emergencyLoanCurrent.submissionEmail`, but the original PDF email clause has **not** been independently extracted and verified.
 - The original 577,692-byte PDF was identified in connected Drive, but its text read returned empty. The GitHub binary-file read failed due to binary UTF-8 decoding; local raw.githubusercontent.com download failed network resolution. Thus a clause-by-clause independent comparison and byte SHA verification **remain blocked**; do not label them PASS.
 - No reproducible Answer Engine defect was established from completed CI. No production code changed. Privacy and official-source locks remain open.
+
+## Acceptance update — commit 83b3517
+- Regression [38417559093](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417559093) completed **success** on `83b3517`. Existing LINE 69 runtime and newly added corpus privacy gate were included by the regression test discovery script.
+- E2E [38417559707](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417559707) was **in progress** at time checked. Do not mark latest head fully accepted.
+- Earlier E2E [38417015854](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417015854) for `0ded546` completed **success**, but this is not a substitute for final-head E2E.
+- The official B.E.2569 PDF metadata was verified on connected Google Drive; direct text extraction returned empty, GitHub binary-file read failed UTF-8 decode, and raw GitHub download failed DNS resolution. **Clause-by-clause comparison, source email confirmation, and independent SHA-256 verification remain NOT VERIFIED.**
+- Contextual privacy heuristics flagged rows 1, 56, 65 for review; the inspected excerpts are generic eligibility, guarantor and cooperative address language. This does not certify absence of indirect personal identifiers.
+- No reproducible runtime defect emerged from completed tests; no Answer Engine modification or weakened test assertions.
+- **Release decision: HOLD / DRAFT. Merge NO; Deploy NO.**
