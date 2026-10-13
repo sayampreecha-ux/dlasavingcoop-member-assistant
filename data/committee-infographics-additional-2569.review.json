@@ -129,6 +129,22 @@
       },
       "official_page_candidate": "https://www.dlasavingcoop.com/show.php?No=807",
       "caution": "ตรวจอัตราปัจจุบันก่อนตอบ"
+    },
+    {
+      "id": "disaster_member_welfare",
+      "category": "welfare",
+      "title": "สวัสดิการสงเคราะห์สมาชิกกรณีประสบภัย",
+      "image_terms": {
+        "damage_compensation_percent": 10,
+        "minimum_baht": 1000,
+        "normal_maximum_baht": 5000,
+        "high_damage_threshold_baht": 500000,
+        "discretionary_maximum_baht": 50000,
+        "accident_disability_maximum_baht": 5000,
+        "duplicate_member_and_associate_claim": "one claim per shared damaged property"
+      },
+      "caution": "UNVERIFIED: ตรวจระเบียบและประกาศฉบับเต็ม โดยเฉพาะเงื่อนไขการอนุมัติกรณีพิเศษและอุบัติเหตุ",
+      "source_type": "user_supplied_committee_group_infographic"
     }
   ],
   "rules": {
