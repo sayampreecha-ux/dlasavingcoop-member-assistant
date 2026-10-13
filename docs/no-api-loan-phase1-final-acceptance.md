@@ -75,3 +75,10 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Connected Google Drive verified source PDF metadata, title and 577,692-byte size, but returned empty extracted text. The binary GitHub read failed UTF-8 decode. No defensible line-by-line clause comparison or independent PDF SHA-256 confirmation could be completed with those reads.
 - **CI gate for `d318872`: PASS. Official-document clause/email gate: NOT VERIFIED. Contextual privacy gate: PARTIAL / NOT VERIFIED. Overall release: HOLD.**
 - No confirmed runtime root cause requiring code modification; no assertion weakening, no merge, no deploy.
+
+## Detailed browser job log review (run 38418059213)
+- Inspected actual job `115367684562` log, not merely GitHub conclusion. `RELEASE GATE: 50 suites passed; none skipped`.
+- Browser log reports `BROWSER 390px: 69/69 records, 306 source patterns ... PASS` and `BROWSER 1365px: 69/69 records, 306 source patterns ... PASS`; loan subset remains 59 records / 258 patterns. Other browser checks include leisure loan 90 PASS / 0 FAIL, live journey 62 PASS / 0 FAIL, answer-first 30 PASS / 0 FAIL, education/disaster 40 PASS / 0 FAIL, realistic member 50 PASS / 0 FAIL, and share navigation 18 PASS.
+- **Correction:** `.github/workflows/e2e.yml` actually lists **18 browser scripts**, not 17 as earlier narrative said. The logged shell command and successful completion confirm the full 18-script step. Correct the count in future reports; do not edit tests or workflow just to align narrative.
+- GitHub Actions on `f65ce06`: Regression [38418985890](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38418985890) SUCCESS; E2E [38418985898](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38418985898) IN PROGRESS at check.
+- No confirmed runtime root cause; current outstanding gates are independently readable primary PDF clause/email and manual contextual privacy review. **HOLD**.
