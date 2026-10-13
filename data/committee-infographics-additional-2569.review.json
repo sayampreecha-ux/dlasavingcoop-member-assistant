@@ -1,0 +1,141 @@
+{
+  "schema_version": "1.0",
+  "review_status": "UNVERIFIED",
+  "publishable": false,
+  "source": {
+    "type": "committee_group_shared_infographics_and_line_screenshots",
+    "received_date": "2026-10-13",
+    "primary_source_verified": false
+  },
+  "entries": [
+    {
+      "id": "education",
+      "category": "loan",
+      "title": "เงินกู้สามัญเพื่อการศึกษาสมาชิกและครอบครัว",
+      "image_terms": {
+        "max_baht": 200000,
+        "max_installments": 60,
+        "aggregate_ordinary_debt_cap_baht": 2000000
+      },
+      "caution": "คุณสมบัติและหลักประกันรอประกาศต้นฉบับ"
+    },
+    {
+      "id": "ordinary",
+      "category": "loan",
+      "title": "เงินกู้สามัญทั่วไป",
+      "image_terms": {
+        "max_baht": 2000000,
+        "max_installments": 240,
+        "interest_percent_annual": 7.5,
+        "effective_date": "2026-10-01"
+      },
+      "caution": "ตรวจยืนยันอัตราดอกเบี้ยและช่วงเวลามีผล"
+    },
+    {
+      "id": "emergency",
+      "category": "loan",
+      "title": "เงินกู้เพื่อเหตุฉุกเฉิน",
+      "image_terms": {
+        "interest_percent_annual": 7.5
+      },
+      "caution": "วงเงินและเงื่อนไขในภาพแชตอ่านได้ไม่ครบ"
+    },
+    {
+      "id": "special_housing",
+      "category": "loan",
+      "title": "เงินกู้พิเศษเพื่อการเคหะ",
+      "image_terms": {
+        "max_installments": 360
+      },
+      "caution": "แยกจากเงินกู้สามัญและตรวจหลักเกณฑ์ต้นฉบับ",
+      "official_page_candidate": "https://www.dlasavingcoop.com/show.php?No=2385"
+    },
+    {
+      "id": "quality_of_life",
+      "category": "loan",
+      "title": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+      "image_terms": {
+        "max_installments": 360
+      },
+      "caution": "เงื่อนไขจากภาพขนาดเล็กต้องตรวจต้นฉบับ"
+    },
+    {
+      "id": "travel",
+      "category": "loan",
+      "title": "เงินกู้สามัญเพื่อการพักผ่อน",
+      "image_terms": {
+        "max_baht": 300000,
+        "max_installments": 36,
+        "interest_percent_annual": 4.25,
+        "minimum_membership_months": 12
+      },
+      "caution": "อัตราดอกเบี้ยและวงเงินต้องตรวจประกาศ"
+    },
+    {
+      "id": "share_rates",
+      "category": "share",
+      "title": "อัตราถือหุ้นรายเดือน",
+      "image_terms": {
+        "effective_date": "2026-10-01",
+        "income_bands_baht": [
+          0,
+          15000,
+          20000,
+          25000,
+          30000,
+          35000,
+          40000,
+          45000,
+          50000
+        ],
+        "monthly_shares": [
+          50,
+          70,
+          90,
+          110,
+          130,
+          150,
+          170,
+          190,
+          210
+        ],
+        "baht_per_share": 10
+      },
+      "caution": "ตรวจช่วงรายได้และข้อยกเว้นก่อนใช้คำนวณ"
+    },
+    {
+      "id": "education_welfare_timeline",
+      "category": "welfare",
+      "title": "กำหนดการทุนส่งเสริมการศึกษาบุตรสมาชิก 2569",
+      "image_terms": {
+        "application_period": "2026-08-01/2026-08-31",
+        "recording_period": "2026-10-01/2026-10-31",
+        "expected_payment": "2026-12"
+      },
+      "caution": "กำหนดการ ไม่ใช่สิทธิที่อนุมัติแล้ว"
+    },
+    {
+      "id": "loan_approval_timeline",
+      "category": "service",
+      "title": "รอบพิจารณาและจ่ายเงินกู้",
+      "caution": "รอบเวลาในภาพอาจเปลี่ยนแปลงตามประกาศ"
+    },
+    {
+      "id": "special_savings",
+      "category": "deposit",
+      "title": "เงินฝากออมทรัพย์พิเศษ",
+      "image_terms": {
+        "interest_percent_annual": 3.25
+      },
+      "official_page_candidate": "https://www.dlasavingcoop.com/show.php?No=807",
+      "caution": "ตรวจอัตราปัจจุบันก่อนตอบ"
+    }
+  ],
+  "rules": {
+    "do_not_publish_without_primary_source": true,
+    "do_not_modify_existing_answers": true,
+    "requires_reviewer_approval": true,
+    "require_regression_tests": true,
+    "never_expose_member_personal_data": true
+  }
+}
