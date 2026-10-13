@@ -57,3 +57,12 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Original PDF byte retrieval still unavailable via container due DNS failure for raw.githubusercontent.com; connected Drive text extraction returned empty. Clause-by-clause and email verification remain **NOT VERIFIED**. Do not silently treat repository metadata as primary document content.
 - Privacy automatic gate passed on the current tested head; contextual checks previously identified generic cooperative language in rows 1, 56 and 65. Full manual semantic privacy review remains **NOT VERIFIED**.
 - No reproducible Answer Engine defect from finished checks. No runtime change. **Release HOLD; PR Draft; no Merge or Deploy.**
+
+## Root-cause triage — 550a5d7
+- GitHub PR API confirms #135 is **open, draft**, head `550a5d784657638d9604fbcec78dc182d853a3ae`.
+- Regression [38417731043](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417731043) on `4429126` **PASS**.
+- E2E [38417731047](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417731047) on `4429126` **IN PROGRESS**, at step `Real browser Pilot regression on mobile and desktop`, started 2026-10-13 14:57:38 UTC. Earlier E2E [38417559707](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417559707) likewise remained in progress in that step. Neither is a confirmed timeout or failed assertion at review time.
+- `.github/workflows/e2e.yml` has `timeout-minutes: 15` and executes **17 sequential browser smoke scripts** in one step after release regression and browser install. This explains why one step can take substantial time; it does not establish a defect. **Root cause of pending E2E: NOT VERIFIED**, no log/artifact proving a failure.
+- Existing source PDF and row 45 email: repository Rule Master agrees internally with corpus, but the primary PDF remains unreadable as extracted text in the available connector. **Official clause/email verification NOT VERIFIED.**
+- Automated privacy gate PASS on previously completed head; contextual indirect-identifier audit is incomplete. No new confirmed privacy leak from the examined excerpts.
+- **No test assertion reduced, no Answer Engine code modified, no merge/deploy. Release HOLD.**
