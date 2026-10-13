@@ -2834,6 +2834,16 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // Emergency-loan 2569 clauses 9-11: verified governance boundaries, not individual approval.
+    if(/(?:ฉุกเฉิน|เงินกู้เพื่อเหตุฉุกเฉิน)/.test(q)&&/(?:ยกเว้นหลักเกณฑ์|ข้อยกเว้น|อนุมัติข้อยกเว้น|ยกเว้น.*อนุมัติ)/.test(q)){
+      return res('loan_emergency_authority_exception','ตามประกาศหลักเกณฑ์เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569 ข้อ 9 การยกเว้นหลักเกณฑ์เป็นอำนาจของคณะกรรมการดำเนินการ โดยต้องมีมติไม่น้อยกว่า 2 ใน 3 ของกรรมการที่มาประชุม ไม่ใช่สิทธิได้รับยกเว้นโดยอัตโนมัติ และ AI ไม่สามารถอนุมัติแทนคณะกรรมการได้ หากต้องการขอยกเว้นให้ติดต่อสหกรณ์เพื่อเสนอเรื่องตามกระบวนการ',{decision:'PROCEDURE_INFORMATION',sources:[directRuleSource('emergencyLoanCurrent')],actions:[['ตรวจประกาศเงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['ติดต่อสหกรณ์',S.contact]]});
+    }
+    if(/(?:ฉุกเฉิน|เงินกู้เพื่อเหตุฉุกเฉิน)/.test(q)&&/(?:ย้อนหลัง|เกณฑ์เก่า|หลักเกณฑ์เก่า|สัญญาเดิม.*ยกเลิก)/.test(q)){
+      return res('loan_emergency_transitional_rule','ตามประกาศหลักเกณฑ์เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569 ข้อ 10 การให้เงินกู้เดิมที่ดำเนินการโดยชอบด้วยหลักเกณฑ์ที่ใช้บังคับในขณะนั้น ให้ถือว่าเป็นการดำเนินการที่ชอบตามประกาศนี้ จึงไม่ใช่การยกเลิกสัญญาเดิมย้อนหลังทั้งหมด ทั้งนี้ผลของสัญญาเฉพาะรายต้องให้สหกรณ์ตรวจสอบ ไม่ใช่คำวินิจฉัยของ AI',{decision:'PROCEDURE_INFORMATION',sources:[directRuleSource('emergencyLoanCurrent')],actions:[['ตรวจประกาศเงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['ติดต่อสหกรณ์',S.contact]]});
+    }
+    if(/(?:ฉุกเฉิน|เงินกู้เพื่อเหตุฉุกเฉิน)/.test(q)&&/(?:ข้อพิพาท|วินิจฉัย|ข้อขัดข้อง|ปัญหาการใช้ประกาศ)/.test(q)){
+      return res('loan_emergency_chair_authority','ตามประกาศหลักเกณฑ์เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569 ข้อ 11 ให้ประธานกรรมการเป็นผู้มีอำนาจวินิจฉัยปัญหาเกี่ยวกับการปฏิบัติตามประกาศนี้ AI ให้ข้อมูลเบื้องต้นเท่านั้น ไม่สามารถวินิจฉัยข้อพิพาทแทนประธานกรรมการหรือให้คำวินิจฉัยที่มีผลผูกพันได้ โปรดติดต่อสหกรณ์เพื่อเสนอเรื่องตามขั้นตอน',{decision:'PROCEDURE_INFORMATION',sources:[directRuleSource('emergencyLoanCurrent')],actions:[['ตรวจประกาศเงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['ติดต่อสหกรณ์',S.contact]]});
+    }
     // Specific leisure-loan product must be routed before generic loan answers.
     if(isLeisureLoan(q))return leisureLoanAnswer(q);
     // Pilot hotfix: route duplicate savings-cooperative membership before generic member/loan routes.

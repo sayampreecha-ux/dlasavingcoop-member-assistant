@@ -24,6 +24,8 @@ jobs:
         run: node scripts/verify-release.mjs
       - name: Leisure loan current rules, follow-ups and monitor safety
         run: node tests/leisure-loan-acceptance.mjs
+      - name: Synthetic privacy adversarial 10 cases
+        run: node tests/privacy-adversarial-10.mjs
       - name: Member answer engine
         run: node tests/e2e-member-answer-engine.mjs
       - name: Real member simulation
