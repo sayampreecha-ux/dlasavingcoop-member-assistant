@@ -3070,7 +3070,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const contact=unique.find(([,url])=>/^tel:|#staff-directory/.test(url));
     const bylawsLink=unique.find(([label])=>label==='📗 ข้อบังคับสหกรณ์');
     const primary=r.intent==='share_bylaws'?unique.filter(([label])=>/ฉบับที่ 17/.test(label)).slice(0,1):r.intent==='share_purchase'&&contact?[...eligible.filter(item=>item!==contact).slice(0,2),contact]:eligible.slice(0,3);
-    if(r.intent==='share_change_rate'&&bylawsLink&&!primary.includes(bylawsLink)){const authority=unique.find(([,url])=>url.includes('177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf'))||unique.find(([label,url])=>/ระเบียบหุ้น/.test(label)&&/^https?:/.test(url));primary.splice(0,primary.length,...[authority?['📜 ระเบียบหุ้นทางการ',authority[1]]:null,bylawsLink,contact].filter(Boolean));}
+    if(r.intent==='share_change_rate'){
+      const authority=unique.find(([,url])=>url.includes('177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf'))||unique.find(([label,url])=>/ระเบียบหุ้น/.test(label)&&/^https?:/.test(url));
+      primary.splice(0,primary.length,...[authority?['📜 ระเบียบหุ้นทางการ',authority[1]]:null,bylawsLink,contact].filter(Boolean));
+    }
     return {...r,actions:primary,extraActions:unique.filter(item=>!primary.includes(item))};
   },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
