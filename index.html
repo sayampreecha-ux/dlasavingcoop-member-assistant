@@ -3068,7 +3068,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     for(const item of all){const key=item[1];if(seen.has(key))continue;seen.add(key);unique.push(item);}
     const eligible=unique.filter(([label])=>/แบบ|ประกาศ|งานทะเบียน/.test(label)&&!/ระเบียบ|ข้อบังคับ|รายชื่อเจ้าหน้าที่/.test(label));
     const contact=unique.find(([,url])=>/^tel:|#staff-directory/.test(url));
+    const bylawsLink=unique.find(([label])=>label==='📗 ข้อบังคับสหกรณ์');
     const primary=r.intent==='share_bylaws'?unique.filter(([label])=>/ฉบับที่ 17/.test(label)).slice(0,1):r.intent==='share_purchase'&&contact?[...eligible.filter(item=>item!==contact).slice(0,2),contact]:eligible.slice(0,3);
+    if(r.intent==='share_change_rate'&&bylawsLink&&!primary.includes(bylawsLink)){primary.splice(Math.min(2,primary.length),0,bylawsLink);primary.length=Math.min(primary.length,3);}
     return {...r,actions:primary,extraActions:unique.filter(item=>!primary.includes(item))};
   },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
