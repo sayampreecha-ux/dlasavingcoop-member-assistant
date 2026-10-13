@@ -50,3 +50,10 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Contextual privacy heuristics flagged rows 1, 56, 65 for review; the inspected excerpts are generic eligibility, guarantor and cooperative address language. This does not certify absence of indirect personal identifiers.
 - No reproducible runtime defect emerged from completed tests; no Answer Engine modification or weakened test assertions.
 - **Release decision: HOLD / DRAFT. Merge NO; Deploy NO.**
+
+## Latest CI inspection — 4429126
+- Regression [38417731043](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417731043) on `44291265` completed **success**.
+- E2E [38417731047](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417731047) remained **in_progress**; the job was actively executing step `Real browser Pilot regression on mobile and desktop`. Prior E2E runs [38417559707](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417559707) and [38417396879](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417396879) were also still executing the same step. This is not a confirmed test failure. The earlier `0aa1dd0` E2E [38417187059](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417187059) completed successfully.
+- Original PDF byte retrieval still unavailable via container due DNS failure for raw.githubusercontent.com; connected Drive text extraction returned empty. Clause-by-clause and email verification remain **NOT VERIFIED**. Do not silently treat repository metadata as primary document content.
+- Privacy automatic gate passed on the current tested head; contextual checks previously identified generic cooperative language in rows 1, 56 and 65. Full manual semantic privacy review remains **NOT VERIFIED**.
+- No reproducible Answer Engine defect from finished checks. No runtime change. **Release HOLD; PR Draft; no Merge or Deploy.**
