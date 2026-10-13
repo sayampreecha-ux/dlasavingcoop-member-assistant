@@ -44,3 +44,23 @@ Requirements:
 - Open PRs observed: #35, #41, #58, #66, #97, #113, #129, #134.
 - Recent CI included an E2E Member Answer Engine failure on the head of #134. This must be investigated; other passing checks do not override a failure.
 - Existing `docs/loan-primary-audit-2569-fixes.md` describes five loan source PDFs and identifies unresolved rate/form issues. Treat its historical audit as evidence to revalidate, not an automatic live approval.
+
+## Follow-up audit: existing loan PRs and corpus
+- PR #35 modifies `.github/workflows/regression.yml` and `data/cooperative-rule-coverage.json`: promotes official-index version metadata for multiple domains and five loan subtypes. This is **version evidence, not automatic proof of each numeric loan criterion**.
+- PR #41 modifies `data/official-rule-master.json`, `tests/e2e-member-answer-engine.mjs`, and `tests/legacy-line-69-acceptance.json`. It adds emergency-loan criteria metadata and an assertion; the PR itself records that full 69-row runtime corpus execution remains pending. Recheck effective original documents before promoting rules.
+- The existing `tests/member-real-questions.mjs` already contains questions on repeated education/emergency loans, guarantor capacity, mixed loans, income remaining, personal status and official schedules. Reuse these tests; do not add a parallel router.
+- A Library search found historical LINE chat exports and a processed member-question quality review file. **No raw messages have been copied into GitHub or disclosed in this document.** Corpus extraction, deduplication and de-identification are **not yet executed**.
+- An attempted local `git clone` for running Node tests failed because the execution container could not resolve `github.com`. This is an environment/network failure, **not a test PASS or product FAIL**. GitHub-hosted CI must be used for verified execution.
+- The repository README explicitly freezes new runtime features during Pilot. Therefore this PR remains documentation-only until a pilot exception or post-pilot change window is approved.
+
+## Follow-up release evidence state
+| Check | State |
+| --- | --- |
+| PR #35 and #41 diff review | Reviewed (metadata/diff only) |
+| Existing LINE-related tests | Identified; not executed |
+| Raw LINE anonymization | Not executed; no raw data committed |
+| Loan runtime change | Not started |
+| Node regression in local container | BLOCKED: GitHub DNS resolution |
+| GitHub CI for this PR head | Not yet verified |
+| Browser E2E for this PR head | Not yet verified |
+| Merge / deploy | BLOCKED |
