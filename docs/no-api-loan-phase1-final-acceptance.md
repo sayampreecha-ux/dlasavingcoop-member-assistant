@@ -1,0 +1,36 @@
+# PR #135 — Phase 1 Acceptance Report (provisional, 2026-10-13)
+
+**Decision: NOT APPROVED FOR MERGE OR DEPLOY.** This report distinguishes CI execution from independent primary-source and privacy review.
+
+## GitHub Actions evidence
+| Head commit | Workflow | Run | Verified status |
+| --- | --- | --- | --- |
+| `a6a8a548` | Regression | [38417153083](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417153083) | PASS |
+| `0aa1dd0b` | Regression | [38417187088](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417187088) | PASS |
+| `0aa1dd0b` | E2E Member Answer Engine | [38417187059](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417187059) | IN PROGRESS at check |
+| `4826506c` | E2E Member Answer Engine | [38416478492](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416478492) | PASS (earlier head) |
+
+The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests/*.mjs` and `tests/*.cjs`. Its passing result covers `tests/legacy-line-69-runtime.mjs`, `tests/no-api-loan-phase1.mjs` and `tests/no-api-loan-corpus-privacy.mjs` on the named head. This does **not** mean the latest head has passed E2E.
+
+## Corpus and privacy
+- Existing `data/legacy-line-69-corpus.json`: 69 records, 14 top-level fields each; 59 loan records, 258 loan question patterns.
+- Automated direct-identifier checks cover formatted citizen IDs, phone numbers, bank account numbers, LINE IDs and email addresses. Only row 45's submission email matched; the value matches the current Rule Master field. No raw LINE chat export was added.
+- **Residual privacy risk:** unstructured names, workplace identifiers, unique personal financial circumstances and indirect re-identification are not fully detected by regular expressions. Human review required before publishing any derived corpus externally.
+- Existing historical `legacy_answer` text remains `NEVER_AUTHORITY`; it must never override current official criteria.
+
+## Primary-source comparison
+- Repository `data/official-rule-master.json` says `emergencyLoanCurrent` is B.E.2569, effective 2026-10-01, source `https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view`, local evidence `docs/evidence/emergency-current-2569.pdf` with recorded SHA-256 `15b72b5357333ef95e9a5f259f7b5effefb40b8369ccfe374346bfe202f72a08`.
+- Connected Google Drive metadata confirms this document exists as a **577,692-byte PDF**, title `11.ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน.pdf`, modified 2026-09-21. Text fetch returned **no extracted text**, so individual clauses and the submission email **cannot be independently verified** from this read.
+- **Source gate: NOT VERIFIED.** Rule Master and row 45 agree with each other, but internal agreement is not independent verification of the original PDF's text or its effective version. Do not promote that email or new numerical rules based on this check alone.
+
+## Code and remediation
+- Added `tests/no-api-loan-phase1.mjs` (5 deterministic loan answer cases) and `tests/no-api-loan-corpus-privacy.mjs` (69-record structural/direct-identifier gate). Both are covered by the successful Regression workflow on `0aa1dd0b`.
+- No Answer Engine change was made because CI did not demonstrate a reproducible runtime defect. Do not manufacture a code change or weaken assertions to force a PASS.
+
+## Outstanding release gates
+1. Complete E2E on the **final** PR head, inspect failure logs/artifacts if any.
+2. Extract and manually compare official PDF clauses and submission email against Rule Master; verify original SHA-256 if possible.
+3. Perform manual contextual privacy audit of the corpus.
+4. Re-run all CI on final head after any corrections, obtain human release approval.
+
+**Merge: NO. Deploy: NO. Production unchanged.**
