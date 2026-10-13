@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0",
+  "status": "UNVERIFIED",
+  "publishable": false,
+  "source": {
+    "type": "committee_group_shared_infographics",
+    "count": 6,
+    "received_date": "2026-10-13",
+    "authority": "secondary_not_official_announcement"
+  },
+  "loan_types": [
+    {
+      "id": "ordinary",
+      "name": "เงินกู้สามัญทั่วไป",
+      "max_baht": 2000000,
+      "max_installments": 240
+    },
+    {
+      "id": "guarantor_assistance",
+      "name": "เงินกู้สามัญช่วยเหลือสมาชิกกรณีชำระหนี้ฐานะผู้ค้ำประกัน",
+      "max_baht": 2000000,
+      "max_installments": 240
+    },
+    {
+      "id": "disaster",
+      "name": "เงินกู้สามัญช่วยเหลือผู้ประสบภัยพิบัติ",
+      "max_baht": 300000,
+      "max_installments": 120
+    },
+    {
+      "id": "restructure",
+      "name": "เงินกู้สามัญเพื่อปรับโครงสร้างหนี้",
+      "max_baht": null,
+      "max_installments": 240
+    },
+    {
+      "id": "share_capital",
+      "name": "เงินกู้สามัญไม่เกินทุนเรือนหุ้น",
+      "max_share_capital_percent": 90,
+      "max_installments": 240
+    },
+    {
+      "id": "education",
+      "name": "เงินกู้สามัญเพื่อการศึกษาสมาชิกและครอบครัว",
+      "max_baht": 200000,
+      "max_installments": 60
+    }
+  ],
+  "required_verification": [
+    "ประกาศต้นฉบับและวันที่มีผล",
+    "คุณสมบัติผู้กู้",
+    "หลักประกัน",
+    "อัตราดอกเบี้ย",
+    "วงเงินและระยะเวลาผ่อน",
+    "ข้อยกเว้นและเงื่อนไขหนี้เดิม"
+  ],
+  "usage_policy": "Review-only dataset. Do not surface numerical terms as verified member-facing answers until official primary-source confirmation and reviewer approval."
+}
