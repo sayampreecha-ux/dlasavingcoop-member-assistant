@@ -148,3 +148,11 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 - Before fix: `a93fa40` Regression [38475502171](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38475502171) and E2E [38475502138](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38475502138) FAIL with clause-9 missing board authority and 2/3 vote. After narrow routing fix, substantive and safety assertions pass without weakening.
 - Privacy automated **PASS** for all 69 records / 966 fields and 258 loan patterns; this is a structural privacy scan and cannot certify every contextual indirect identifier. Independent complete human semantic privacy audit **NOT VERIFIED**.
 - **Final Acceptance: NO-GO / HOLD** pending completed HEAD E2E and independent acceptance approval. No Merge / Deploy.
+
+## Final release gate follow-up — HEAD 8e07ce9
+- GitHub PR #135 verified OPEN/DRAFT, HEAD `8e07ce918d0bfe00f7edad2ffea596f2b8202f65` at inspection.
+- Regression [38477033865](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38477033865) **SUCCESS**. Actual job `115570154783` log: 51/51 suites, none skipped; clauses 9–11 six nonbinding safety cases PASS and three substantive authority cases PASS; current-rule corpus 306 patterns PASS and 28 numeric contracts; privacy structural scan 69 records / 966 fields / 59 loan records / 258 loan patterns PASS; eight official-email references are expected public-source data.
+- Share KB baseline [38477033985](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38477033985) **SUCCESS**.
+- E2E [38477033914](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38477033914) **IN PROGRESS** at inspection; job `115570154924`. Attempt to fetch live job logs returned GitHub 404 BlobNotFound; **browser tests NOT VERIFIED** until completed run and job logs are accessible. E2E workflow defines 19 browser smoke scripts including mobile/desktop tests, but no success claim for this run.
+- Automated privacy PASS is not an exhaustive contextual manual audit of indirect identifiers; contextual full-review **NOT VERIFIED**. No raw member information reproduced in this report.
+- **NO-GO / HOLD**: do not Merge/Deploy without completed E2E, verified browser smoke and separate approval.
