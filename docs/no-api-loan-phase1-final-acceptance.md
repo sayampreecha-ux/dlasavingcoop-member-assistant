@@ -34,3 +34,10 @@ The Regression workflow runs `scripts/verify-release.mjs`, which runs all `tests
 4. Re-run all CI on final head after any corrections, obtain human release approval.
 
 **Merge: NO. Deploy: NO. Production unchanged.**
+
+## Follow-up audit on 5ae953c
+- Checked exact GitHub Actions runs [Regression 38417396828](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417396828) and [E2E 38417396879](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38417396879): **both IN PROGRESS** at the time checked; no PASS or FAIL yet.
+- Added a second contextual heuristic scan over **all 69 rows and all 14 fields** for Thai honorific/name patterns, member IDs, residential address markers and first-person financial disclosures. Five field-level matches across rows **1, 56, 65** were inspected: rows 1/56 discuss generic eligibility and guarantor terms; row 65 contains the cooperative's published postal address. No confirmed member-specific identifier in these reviewed excerpts. This does **not** establish that all indirect identifiers are absent.
+- Row 45 contains a historical submission email in the legacy answer and expected assertions; it matches `rules.emergencyLoanCurrent.submissionEmail`, but the original PDF email clause has **not** been independently extracted and verified.
+- The original 577,692-byte PDF was identified in connected Drive, but its text read returned empty. The GitHub binary-file read failed due to binary UTF-8 decoding; local raw.githubusercontent.com download failed network resolution. Thus a clause-by-clause independent comparison and byte SHA verification **remain blocked**; do not label them PASS.
+- No reproducible Answer Engine defect was established from completed CI. No production code changed. Privacy and official-source locks remain open.
