@@ -73,3 +73,11 @@ Requirements:
 - Legacy answer text can contain outdated monetary/eligibility rules; `legacy_answer_policy=NEVER_AUTHORITY` must remain enforced.
 - New five-case regression passed via CI. This is not a claim that all LINE-derived cases or a live browser were individually audited in this turn.
 - No Answer Engine modification was warranted by the passing targeted checks. Keep Draft until browser E2E and primary evidence review.
+
+## Follow-up: all-field corpus scan and full runtime gate
+- GitHub Actions Regression [38416205750](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416205750) completed successfully for `ba12455`; this runs `scripts/verify-release.mjs`, including `tests/legacy-line-69-runtime.mjs`. The runtime suite asserts all 69 records and every stored question pattern, but **does not independently prove every real-world rule is current**.
+- At review time E2E runs [38416055804](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416055804) and [38416205853](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416205853) remained in progress; no E2E PASS claim.
+- All 14 keys of each of the 69 corpus records were scanned for formatted Thai citizen IDs, mobile phone numbers, email addresses, bank account numbers and LINE IDs. Only record **45** matched: a Gmail-format address in `legacy_answer`, `expected_behavior` and `pattern_assertions`. No email address is reproduced in this audit. The context describes an emergency-loan document submission channel, but **official ownership/current validity is not verified**.
+- This is a pattern scan, **not a complete privacy certification**; unstructured names, indirect identifiers and historical text require manual review. Do not publish raw LINE exports.
+- Potential defect to resolve before production promotion: record 45 expects a Gmail address in legacy acceptance assertions; independently verify the cooperative's current official submission channel, then replace stale contact-dependent assertions and add a regression test. Do not assume a historical email address is current or a private member email.
+- No runtime source or historic corpus modified in this audit because evidence of the correct current channel is still pending. Do not weaken existing tests to conceal the issue.
