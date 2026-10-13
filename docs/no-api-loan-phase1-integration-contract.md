@@ -64,3 +64,12 @@ Requirements:
 | GitHub CI for this PR head | Not yet verified |
 | Browser E2E for this PR head | Not yet verified |
 | Merge / deploy | BLOCKED |
+
+## CI and privacy review — commit 9be3d48
+- GitHub Actions Regression run [38416055935](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416055935) completed **success** for commit `9be3d48`; this workflow runs `scripts/verify-release.mjs`, which enumerates all `tests/*.mjs` and `tests/*.cjs`, including new `tests/no-api-loan-phase1.mjs`.
+- E2E run [38416055804](https://github.com/sayampreecha-ux/dlasavingcoop-member-assistant/actions/runs/38416055804) was **in_progress** at the time of this review. No E2E PASS claim.
+- Existing `data/legacy-line-69-corpus.json` contains **69** records, with intent distribution: debt consolidation 17, housing 15, emergency 11, ordinary-related 16, membership 8, contact 1, greeting 1. This corpus is **already committed on main**; do not claim this phase imported or anonymized it.
+- Preliminary automated PII keyword/number scan flagged **6 records** (IDs 18, 20, 34, 35, 63, 65), but manual inspection of their question/legacy-answer excerpts showed **generic topics** such as cooperative phone contact, bank transfer, and cooperative mailing address, not demonstrated private member identifiers. A keyword hit is not evidence of a leak. **Full field-by-field privacy audit still pending.**
+- Legacy answer text can contain outdated monetary/eligibility rules; `legacy_answer_policy=NEVER_AUTHORITY` must remain enforced.
+- New five-case regression passed via CI. This is not a claim that all LINE-derived cases or a live browser were individually audited in this turn.
+- No Answer Engine modification was warranted by the passing targeted checks. Keep Draft until browser E2E and primary evidence review.
