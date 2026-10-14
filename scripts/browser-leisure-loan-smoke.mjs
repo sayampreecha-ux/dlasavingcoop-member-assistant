@@ -62,6 +62,17 @@ try{
     assert.equal(hitTargets.length,8,'Hit-target inspection must include all loan choices');pass++;
     // Offscreen choices are validated by Playwright click scrolling; do not falsely call them obstructed.
     assert.ok(hitTargets.filter(t=>t.viewportVisible).every(t=>t.hitTarget),'Onscreen loan choice centers must not be intercepted');pass++;
+    // Verify actual pointer hit targets, not only bounding boxes. Scroll each button into view.
+    for(const button of await menu.locator('button').all()){
+      await button.scrollIntoViewIfNeeded();
+      const hit=await button.evaluate(el=>{
+        const r=el.getBoundingClientRect(),x=(r.left+r.right)/2,y=(r.top+r.bottom)/2;
+        const top=document.elementFromPoint(x,y);
+        return {label:el.textContent.trim(),hit:top===el||el.contains(top),topTag:top?.tagName||null,topClass:top?.className||null};
+      });
+      console.log('LOAN_NAV_HIT_TARGET',JSON.stringify({width,...hit}));
+      assert.ok(hit.hit,'Loan choice center must not be intercepted: '+hit.label);pass++;
+    }
     await menu.getByRole('button',{name:'กู้เพื่อการพักผ่อน',exact:true}).click();
     const leisureBody=await page.locator('#out .body').textContent();
     if(!/300,000 บาท.*36 งวด/.test(leisureBody)){
