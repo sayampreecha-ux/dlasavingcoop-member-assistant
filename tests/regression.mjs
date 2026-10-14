@@ -258,3 +258,6 @@ console.log(JSON.stringify({
   transactionCases:transactionCases.length,
   homepageButtons:homeQueries.length
 },null,2));
+
+// Loan amendment 2569 boundaries and privacy are part of the required regression gate.
+await import('./loan-amendments-2569.mjs');
