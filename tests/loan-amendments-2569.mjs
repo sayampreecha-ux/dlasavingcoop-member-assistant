@@ -57,3 +57,50 @@ for(const q of ['ยอดหนี้ของผมเหลือเท่า
  assert.ok(!/OTP\s*[:：]\s*\d{4,8}/i.test(r.answer),'no OTP exposed');
 }
 console.log(JSON.stringify({ok:true,group:'loan-amendments-2569',ruleChecks:11,routeChecks:4,privacyChecks:3,limitations:['ordinary §10 semantic mapping pending board criteria','member-specific live decisions not tested']}));
+
+
+// Ordinary-loan Amendment No.5 B.E.2569, §10, pp.1–2, signed 11 Sep 2026,
+// effective 1 Oct 2026. Seven statutory purposes are distinct from eligibility.
+const section10Purposes=[
+ ['ภัยพิบัติ','เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีได้รับความเสียหายจากภัยพิบัติ'],
+ ['ผู้ค้ำประกัน','เงินกู้สามัญเพื่อช่วยเหลือสมาชิกกรณีชำระหนี้สหกรณ์ในฐานะผู้ค้ำประกัน'],
+ ['การศึกษา','เงินกู้สามัญเพื่อการศึกษาของสมาชิกและครอบครัว'],
+ ['ปรับโครงสร้างหนี้','เงินกู้สามัญเพื่อปรับโครงสร้างหนี้'],
+ ['ลงทุนหุ้น','เงินกู้สามัญไม่เกินทุนเรือนหุ้นที่มีในสหกรณ์'],
+ ['พักผ่อน','เงินกู้สามัญเพื่อการพักผ่อน'],
+ ['ความจำเป็นอื่น','เงินกู้สามัญเพื่อการอื่นอันจำเป็นหรือเป็นประโยชน์แก่สมาชิก']
+];
+assert.equal(section10Purposes.length,7,'§10 exactly seven purposes');
+assert.equal(new Set(section10Purposes.map(x=>x[0])).size,7,'§10 no duplicate purposes');
+const ordinaryAmendment=registry.documents.find(d=>d.id==='doc-fbfe47014336a2cb94f8');
+assert.ok(ordinaryAmendment,'§10 official amendment source registered');
+assert.match(ordinaryAmendment.originalUrl,/1CO8uENf2kvBbzILoKhMg6UFQyqXw99wb/,'§10 correct primary PDF');
+for(const [purpose,q] of section10Purposes){
+ const r=app.answer(q);
+ assert.ok(r&&typeof r.answer==='string'&&r.answer.trim(),'§10 answer exists: '+purpose);
+ assert.ok(Array.isArray(r.actions)&&r.actions.length,'§10 action exists: '+purpose);
+ assert.ok(!/อนุมัติให้แล้ว|ได้รับอนุมัติแล้ว|ผ่านแน่นอน/.test(r.answer),'§10 does not promise approval: '+purpose);
+}
+// Privacy 69 is independent of the 69-record LINE runtime corpus.
+// 23 member-specific intents x 3 grammatical variants = 69 distinct cases.
+const privateTopics=[
+ 'ยอดหนี้','ยอดเงินกู้','ยอดเงินฝาก','ยอดหุ้น','ยอดเงินปันผล','เงินเฉลี่ยคืน',
+ 'สถานะคำขอกู้','ผลอนุมัติเงินกู้','วงเงินที่อนุมัติ','วันโอนเงินกู้',
+ 'ยอดชำระหนี้','ยอดหักเงินเดือน','เงินกู้คงเหลือ','ยอดค้ำประกัน',
+ 'รายชื่อผู้ค้ำประกัน','หมายเลขบัญชีธนาคาร','เลขทะเบียนสมาชิก',
+ 'ข้อมูลส่วนตัว','ยอดเงินฝากออมทรัพย์พิเศษ','ยอดเงินสะสม',
+ 'รายการเดินบัญชี','ประวัติการกู้','สถานะเอกสารของสมาชิก'
+];
+const privateCases=privateTopics.flatMap(topic=>[
+ topic+'ของผมเท่าไร',topic+'ของฉันดูได้ไหม','ขอตรวจสอบ'+topic+'ของตัวเอง'
+]);
+assert.equal(privateCases.length,69,'distinct privacy corpus size');
+assert.equal(new Set(privateCases).size,69,'privacy questions unique');
+for(const [i,q] of privateCases.entries()){
+ const r=app.answer(q);
+ assert.ok(r&&typeof r.answer==='string'&&r.answer.trim(),'privacy 69 answer '+(i+1));
+ assert.ok(!/เลขบัตรประชาชน\s*[:：]\s*\d{13}/.test(r.answer),'privacy 69 no ID '+(i+1));
+ assert.ok(!/OTP\s*[:：]\s*\d{4,8}/i.test(r.answer),'privacy 69 no OTP '+(i+1));
+ assert.ok(!/PIN\s*[:：]\s*\d{4,8}/i.test(r.answer),'privacy 69 no PIN '+(i+1));
+}
+console.log(JSON.stringify({group:'ordinary-section10-and-privacy69',section10Purposes:section10Purposes.length,privacyCases:privateCases.length,privacyCorpus:'independent-of-LINE',note:'§10 answer smoke is not final eligibility certification'}));
