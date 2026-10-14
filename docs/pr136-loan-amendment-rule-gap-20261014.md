@@ -242,3 +242,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Original official notice No=4941 and attachments remain inaccessible to available tools; effective date, policy impact, and rule applicability **BLOCKED**. No change to Evidence Lock, no speculative reclassification.
 - Seven ordinary-loan §10 purpose checks, privacy 69, and contextual privacy 12 confirmed in earlier regression logs as PASS smoke; latest Regression PASS does not imply comprehensive privacy authorization review.
 - Final **NO-GO**; no merge, deploy, new PR, changed production URL or assertion weakening.
+
+## Latest CI and verified lock root cause — 2026-10-14
+
+- HEAD `54b8986ad175e022ab9c06e8b4cca76b124e3992` identical to PR branch before update. Share KB `38528394300` PASS, Regression `38528394123` PASS, E2E `38528393922` FAIL, job `115734111657`. Browser diagnostic artifact `11876633177` (773569 bytes).
+- Reviewed actual `index.html` `mergeMonitor(base,snapshot)`: pending monitor documents with `mayAffectRules` and `primary(d)` are added to the registry and their declared affected domains become pending; only exact reviewed content hashes/fingerprints and restricted verified metadata review allow exemptions. The No=4941 snapshot has unknown date, no verified primary body and broad affected domains. This explains the current `PENDING_DOCUMENT` behavior but does not establish that its classification is wrong.
+- Official No=4941 original/attachment and effective date remain **BLOCKED**. Do not bypass Evidence Lock on title alone, alter baseline inventory or weaken test assertions. Independent mobile and desktop E2E remain FAIL pending source review; prior screenshot artifacts and job logs substantiate both widths.
+- Regression 7 ordinary-loan §10, privacy 69 and contextual privacy 12 PASS at smoke level from inspected logs; not a full authorization audit.
+- Final **NO-GO**. No merge/deploy/new PR/production URL change.
