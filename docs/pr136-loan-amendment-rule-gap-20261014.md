@@ -107,3 +107,13 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - First rerun on diagnostic commit: Share KB run `38515527741` PASS, Regression run `38515527763` PASS, E2E run `38515527767` IN_PROGRESS at last inspection. E2E job `115693349208`; logs not yet available during execution. Do not claim root cause confirmed before reading the diagnostic.
 - **Seven-purpose ordinary §10** remains BLOCKED pending clause-specific member-answer checks. **Privacy 69** remains NOT VERIFIED as a distinct corpus; LINE runtime 69 is not a substitute.
 - **NO-GO.** No merge/deploy.
+
+## Confirmed welfare browser root cause and scoped fix — 2026-10-14
+
+- Diagnostic E2E run `38515527767`, job `115693349208`, failed. `WELFARE_INDEX_DIAGNOSTIC` captured **question** `สวัสดิการทั้งหมด`, **viewport** 390px, and actual answer: `พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ ...`. Actions were `ดูเอกสารและแบบฟอร์มเรื่องที่ถาม` → `https://www.dlasavingcoop.com/show.php?No=775`, `ตรวจเอกสารต้นฉบับ` → `https://www.dlasavingcoop.com/show.php?No=4941`, `ติดต่อเจ้าหน้าที่`, and `หน้าที่เผยแพร่ต้นฉบับ`; followups empty.
+- **Confirmed root cause:** `freshnessStatus(q)` returned a pending-document Evidence Lock before `answerLegacy(q)` could emit `welfare_all`. The locked answer did retain the official welfare index URL but changed its button label, violating the browser action contract. This was **not** evidence of an erroneous eligibility answer; Evidence Lock is correct and must stay active.
+- **Fix** `a82a0563fdce4052d19412b110d341b9539079f5` updates only the locked welfare-overview navigation action for the three generic questions. It preserves the lock, original document, contact actions and unverified-number suppression. All prior E2E assertions are unchanged.
+- Fix-commit CI started: Share KB `38515818521` SUCCESS; Regression `38515818621` IN_PROGRESS; E2E `38515818537` IN_PROGRESS at last check. No final E2E PASS claimed yet.
+- **Ordinary loan §10:** seven purposes not yet each verified against user-visible answers and subordinate board criteria: BLOCKED.
+- **Privacy 69:** distinct 69-case privacy test and artifacts still NOT VERIFIED. Real LINE 69 records cannot substitute.
+- **Release decision:** NO-GO until all required gates and clause-specific acceptance pass. No merge or deploy.
