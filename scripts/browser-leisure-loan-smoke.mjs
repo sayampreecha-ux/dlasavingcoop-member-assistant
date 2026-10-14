@@ -53,6 +53,15 @@ try{
     console.log('LOAN_NAV_GEOMETRY',JSON.stringify({width,...navigationGeometry}));
     assert.equal(navigationGeometry.buttons.length,8,'All eight loan choices must be present for geometry test');pass++;
     assert.ok(navigationGeometry.buttons.every(b=>b.bottom<=navigationGeometry.menu.bottom+1&&b.top>=navigationGeometry.menu.top-1),'Loan choices must remain inside menu geometry');pass++;
+    const hitTargets=await menu.locator('button').evaluateAll(buttons=>buttons.map(button=>{
+      const r=button.getBoundingClientRect();const x=(r.left+r.right)/2,y=(r.top+r.bottom)/2;
+      const before=document.elementFromPoint(x,y);
+      return {name:button.textContent.trim(),viewportVisible:y>=0&&y<=innerHeight,hitTarget:before===button||button.contains(before)};
+    }));
+    console.log('LOAN_NAV_HIT_TARGET',JSON.stringify({width,hitTargets}));
+    assert.equal(hitTargets.length,8,'Hit-target inspection must include all loan choices');pass++;
+    // Offscreen choices are validated by Playwright click scrolling; do not falsely call them obstructed.
+    assert.ok(hitTargets.filter(t=>t.viewportVisible).every(t=>t.hitTarget),'Onscreen loan choice centers must not be intercepted');pass++;
     await menu.getByRole('button',{name:'กู้เพื่อการพักผ่อน',exact:true}).click();
     const leisureBody=await page.locator('#out .body').textContent();
     if(!/300,000 บาท.*36 งวด/.test(leisureBody)){
