@@ -298,3 +298,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Official No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` inaccessible via available web reader on this verification. No primary body, attachments, issue/effective dates, or impact confirmation. Retain Evidence Lock and BLOCKED; do not infer policy impact from indexed title.
 - §10 seven purpose cases, Privacy 69 and contextual Privacy 12 remain PASS at regression-smoke scope only. No test assertions weakened; no policy code change, new PR, merge, deploy or URL change.
 - **Final NO-GO** until source authority review and browser release gate are both resolved.
+
+## No=4941 source verification and latest CI — 2026-10-14
+
+- Starting HEAD `594e85a8fb26d1e10178b252cefade5bbd483b11`; PR #136 OPEN, NOT MERGED.
+- Latest CI: Share KB `38530995434` PASS; Regression `38530995463` PASS; E2E `38530995806` FAIL, job `115742583634`, screenshot artifact `11878316018` (780132 bytes).
+- Browser job log has 24 button hit-target observations with `hit:true`; independent mobile 390px, desktop 1365px and mandatory mobile smoke all exit 1 due to unchanged leisure-loan amount/term assertion while the response is `PENDING_DOCUMENT`.
+- Public official site index `https://dlasavingcoop.com/index.php` displays title `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`. The primary No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` remains inaccessible to the web reader. Independent official historical special-loan PDFs (e.g. `https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/FromHome01_20210122.pdf`) reference appraisal companies for secured home loans, suggesting a *possible* category association, not evidence of No=4941's actual provisions, date, attachments, or its effect on leisure loans. Do not reclassify or unlock on this inference.
+- Original notice body, attachments, announcement/effective dates and scope remain BLOCKED. Preserve Evidence Lock, no policy-code change or assertion relaxation. Ordinary loan §10 seven purposes, Privacy 69 and contextual Privacy 12 remain PASS at regression smoke scope.
+- Final **NO-GO**. No new PR, merge, deploy or production URL change.
