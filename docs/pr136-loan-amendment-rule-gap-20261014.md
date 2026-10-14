@@ -117,3 +117,13 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - **Ordinary loan §10:** seven purposes not yet each verified against user-visible answers and subordinate board criteria: BLOCKED.
 - **Privacy 69:** distinct 69-case privacy test and artifacts still NOT VERIFIED. Real LINE 69 records cannot substitute.
 - **Release decision:** NO-GO until all required gates and clause-specific acceptance pass. No merge or deploy.
+
+## E2E verification after welfare-index fix — 2026-10-14
+
+- HEAD `36a1a2d8bdc703b0acdc8b9cdfba71a4dd45d43d` was identical to the PR branch when checked.
+- CI on this HEAD: Regression `38515866073` **PASS**, Share KB `38515866062` **PASS**, E2E `38515866066` **FAIL**. The preceding fix-commit E2E `38515818537`, job `115694251507`, also **FAIL**. Neither E2E run exposed downloadable artifacts through the GitHub connector.
+- Job `115694251507` browser log shows the previously failing welfare-index assertions no longer fail; execution proceeds to `scripts/browser-leisure-loan-smoke.mjs:45`, where a leisure-loan answer is expected to match `/300,000 บาท.*36 งวด/` but the actual browser answer is the official **PENDING_DOCUMENT Evidence Lock**: `พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไขเรื่องนี้ กำลังยืนยันผลกระทบครับ ...`. This is a real mismatch between numeric-answer E2E expectations and current evidence-governance behavior, not evidence that the verified numeric rule should be blindly enabled. Do not weaken the assertion or bypass the lock.
+- The three welfare overview questions were executed at 390px before the later failure; no earlier welfare assertion error occurred. This supports their smoke-check success for the mobile stage only, **not** completion of desktop 1365px or all remaining browser scripts.
+- The official source registry still enforces `noAutomaticRulePromotion: true`. Before any code change, identify the exact pending document, its affected domain and authoritative effective date, and decide whether the correct behavior is a lock or a verified rule answer. Without that evidence the leisure issue is **BLOCKED**.
+- Ordinary loan §10 seven-purpose user-visible clause-to-intent mapping: **NOT TESTED**; a generic 4-route check is not equivalent. Privacy 69: **NOT TESTED** as a distinct 69-case corpus; prior LINE 69/69 is a different corpus. No invented pass counts.
+- **GO/NO-GO: NO-GO**. No merge/deploy or production URL changes.
