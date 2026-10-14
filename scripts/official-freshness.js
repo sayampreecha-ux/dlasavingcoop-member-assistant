@@ -67,6 +67,10 @@
   }
   function documentScope(doc,text=''){
     const declared=doc.affects||[];
+    // Administrative selection results are discovery records, not evidence that
+    // every member rule changed. Preserve PENDING; explicit rule/conflict links win.
+    if(/ผลการ(?:คัดเลือก|จัดซื้อ|จัดจ้าง|ประกวดราคา).*บริษัท/.test(doc.title||'')&&!(doc.affectedRuleIds||[]).length&&!(doc.conflictsWithDocumentIds||[]).length&&!/แก้ไข.*(?:ระเบียบ|หลักเกณฑ์)|เปลี่ยน.*(?:สิทธิ|เงื่อนไข)/.test(doc.title||''))return [];
+
     if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
