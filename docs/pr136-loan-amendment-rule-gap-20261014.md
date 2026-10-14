@@ -181,3 +181,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Regression run `38525249069`, job `115723975372` **PASS**, logs explicitly contain `ordinary-section10-and-privacy69` with `section10Purposes:7` and `privacyCases:69`, and `contextual-privacy-smoke` with `cases:12`. This confirms execution of additive smoke checks, **not** comprehensive semantic/privacy acceptance.
 - Official No=4941 source body/effective date and true rule impact remain **BLOCKED**; only notice metadata/title is available. Keep Evidence Lock active. No unjustified E2E test change, no merge/deploy.
 - **GO/NO-GO: NO-GO**. Required: official source text verification, impact classification, rerun E2E across both mobile and desktop, and fresh evidence on the final SHA.
+
+## Official No.4941 retrieval and latest CI verification — 2026-10-14
+
+- HEAD `00ff17933404f387a11170a1ef49de1747890f7e` was identical to PR branch before report update.
+- Share KB `38525555805` **PASS**, Regression `38525555827` **PASS**, E2E `38525555873` **FAIL** (job `115724955464`, artifacts **none**). Browser script still fails at mobile width 390 on unchanged `/300,000 บาท.*36 งวด/` expectation because the monitor's No.4941 record triggers `PENDING_DOCUMENT`. Desktop flow does not complete.
+- Official notice index/homepage independently displays the title `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`. Attempts to retrieve `https://www.dlasavingcoop.com/show.php?No=4941` with web source returned inaccessible, and direct HTTP from available container failed DNS resolution. No verified body, effective date, attachment or policy impact. **BLOCKED: cannot certify this notice as non-governing or change Evidence Lock.**
+- Existing regression logs previously confirmed §10 seven-purpose smoke, independent privacy 69, and contextual privacy 12. Their PASS status does not establish complete semantic mapping, secure authorization or production E2E.
+- GO/NO-GO: **NO-GO**. Preserve all assertions and current Evidence Lock; no merge, deploy, production URL change or new PR.
