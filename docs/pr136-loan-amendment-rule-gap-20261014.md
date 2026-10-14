@@ -189,3 +189,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Official notice index/homepage independently displays the title `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`. Attempts to retrieve `https://www.dlasavingcoop.com/show.php?No=4941` with web source returned inaccessible, and direct HTTP from available container failed DNS resolution. No verified body, effective date, attachment or policy impact. **BLOCKED: cannot certify this notice as non-governing or change Evidence Lock.**
 - Existing regression logs previously confirmed §10 seven-purpose smoke, independent privacy 69, and contextual privacy 12. Their PASS status does not establish complete semantic mapping, secure authorization or production E2E.
 - GO/NO-GO: **NO-GO**. Preserve all assertions and current Evidence Lock; no merge, deploy, production URL change or new PR.
+
+## Latest verification and independent viewport feasibility — 2026-10-14
+
+- HEAD `4476e7ff06c4edbe4f800182cd20f2bccf61085f` identical to PR branch before update. Share KB `38525724410` **PASS**, Regression `38525724404` **PASS**, E2E `38525724370` **FAIL**, job `115725474148`; no E2E artifacts.
+- Reviewed `scripts/browser-leisure-loan-smoke.mjs`: it loops sequentially over `[390,1365]` and the first mobile assertion `/300,000 บาท.*36 งวด/` throws before desktop starts. Independent desktop execution is **not supported by this script without a new additive runner or parameter**; no desktop PASS is claimed. Original assertion retained.
+- No.4941: index metadata title indicates selection of property valuation company, but original notice body/attachments, date of effect, and any loan rule impact remain unverified. **BLOCKED**. Do not infer non-governing status from title alone, suppress monitor record, or remove Evidence Lock.
+- Seven §10, 69 privacy and 12 contextual privacy cases passed in previously inspected regression job `115723975372`; the current Regression workflow also passed, but this is not a full semantic or access-control audit.
+- Final **NO-GO** pending original evidence and browser mobile/desktop verification. No merge, deploy, production URL change or assertion reduction.
