@@ -42,7 +42,12 @@ try{
     assert.deepEqual(await menu.locator('button').allTextContents(),['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ','กู้เพื่อการศึกษา','กู้เพื่อการพักผ่อน','กู้ภัยพิบัติ','กู้ไถ่ถอนจำนอง']);pass++;
     assert.equal(await menu.evaluate(e=>{const b=e.getBoundingClientRect();return [...e.querySelectorAll('button')].every(x=>x.getBoundingClientRect().bottom<=b.bottom+1)&&getComputedStyle(e).position==='static'&&getComputedStyle(e).maxHeight==='none';}),true,'All loan choices displayed without inner scrolling or clipping');pass++;
     await menu.getByRole('button',{name:'กู้เพื่อการพักผ่อน',exact:true}).click();
-    assert.match(await page.locator('#out .body').textContent(),/300,000 บาท.*36 งวด/);pass++;
+    const leisureBody=await page.locator('#out .body').textContent();
+    if(!/300,000 บาท.*36 งวด/.test(leisureBody)){
+      const diagnostic=await page.evaluate(()=>({body:document.querySelector('#out .body')?.innerText||'',details:document.querySelector('#out details.more')?.innerText||'',actions:[...document.querySelectorAll('#out .actions a')].map(a=>({text:a.textContent?.trim(),href:a.getAttribute('href')})),monitor:globalThis.COOP_APP?.freshnessStatus?.('กู้สามัญเพื่อการพักผ่อน')||null}));
+      console.error('LEISURE_EVIDENCE_DIAGNOSTIC',JSON.stringify({question:'กู้เพื่อการพักผ่อน',width,...diagnostic}));
+    }
+    assert.match(leisureBody,/300,000 บาท.*36 งวด/);pass++;
     assert.match(await page.locator('#out .actions a').filter({hasText:'หลักเกณฑ์กู้พักผ่อน'}).getAttribute('href'),/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/);pass++;
     assert.equal(await page.locator('#out .actions a').filter({hasText:'📂 เปิดหน้าหลักเกณฑ์และแบบเงินกู้พักผ่อน'}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=774');pass++;
     assert.equal(await page.locator('#out .actions a[href*="Category=procedure"]').count(),0,'Leisure answer must not link to the bylaw index');pass++;
