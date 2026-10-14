@@ -233,3 +233,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Official No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` again inaccessible from available web reader. Original text, attachments, effective date, and actual loan-rule effect **BLOCKED**. No authority to bypass Evidence Lock or alter policy.
 - Seven ordinary-loan §10 purposes, privacy 69 and contextual privacy 12 were previously confirmed in regression log as smoke tests. Current Regression PASS; no new claim of comprehensive authorization/security testing.
 - Final **NO-GO**. No merge/deploy/new PR, assertion reduction or production URL change.
+
+## Fresh artifact visual inspection and CI — 2026-10-14
+
+- Confirmed HEAD `09303d92728561f6cde2219056fbcff9376a77d9` identical to branch before this update. Share KB `38527396292` PASS, Regression `38527396230` PASS, E2E `38527396193` FAIL.
+- Downloaded screenshot artifact `11875903828` from Run `38527249647` and inspected actual PNGs: `leisure-failure-390.png` 362585 bytes and `leisure-failure-1365.png` 437023 bytes. Both show a response warning about potentially changing official documents rather than verified amount/term; eight loan-purpose choices remain visible. Neither screenshot proves all interactions/viewport assertions.
+- Job `115730403628` confirms mobile and desktop independent diagnostics each exit 1, with unchanged original release-gating browser step also failing. This is a reproducible evidence-lock disagreement, not a PASS.
+- Original official notice No=4941 and attachments remain inaccessible to available tools; effective date, policy impact, and rule applicability **BLOCKED**. No change to Evidence Lock, no speculative reclassification.
+- Seven ordinary-loan §10 purpose checks, privacy 69, and contextual privacy 12 confirmed in earlier regression logs as PASS smoke; latest Regression PASS does not imply comprehensive privacy authorization review.
+- Final **NO-GO**; no merge, deploy, new PR, changed production URL or assertion weakening.
