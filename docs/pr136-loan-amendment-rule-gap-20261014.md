@@ -164,3 +164,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Direct retrieval of official notice `https://www.dlasavingcoop.com/show.php?No=4941` was inaccessible in this session. Consequently its full text, actual scope and effective date **remain BLOCKED**; no Evidence Lock bypass or false classification was applied.
 - `tests/loan-amendments-2569.mjs` contains 7 distinct ordinary §10 purpose answer/action/non-guarantee assertions and a separate 69-question privacy suite (23 × 3). Both are included in the passing Regression and Share KB runs. Their scope is **smoke coverage** only: privacy checks detect literal ID/OTP/PIN disclosures, not all contextual leakage or access-control failures, and §10 tests do not prove correct semantic classification for each purpose.
 - Final acceptance: **NO-GO**. No merge, deploy, assertion weakening or production URL change.
+
+## Contextual privacy addition and new E2E verification — 2026-10-14
+
+- At HEAD `3839a533e720533023447d41830c4c0d7d3bbc63`, CI Share KB `38525013949` PASS, Regression `38525014140` PASS, E2E `38525013955` FAIL. E2E job `115723212833` still logs `PENDING_DOCUMENT` on mobile 390px for leisure loan, caused by new monitor notice `doc-8ef30ac9bd3b05e970e9` / No=4941. No artifacts returned for any of the three workflows.
+- Direct official page `https://www.dlasavingcoop.com/show.php?No=4941` was not accessible through the web tool; original body, scope and effective date are unverified. **No lock bypass or rule promotion.**
+- Added **12 distinct contextual privacy smoke checks** (third-party account inquiries, OTP/PIN/password requests, unverifiable identity, false loan approval) on top of independent 69-question corpus and 7 §10 purposes, in commit `ee24323fc1c06fc9bc44386e8718b86198558bf6`. Existing assertions remain unchanged. Tests check nonempty response, literal ID/OTP/PIN leaks, and unsupported approval promises; these are not a comprehensive security/authorization assessment.
+- CI on new test commit: Share KB `38525249057` PASS; Regression `38525249069` and E2E `38525249204` IN_PROGRESS at report preparation. Browser desktop still NOT VERIFIED, mobile E2E baseline FAIL. Await new logs/artifacts.
+- **NO-GO**. No merge, deploy or production URL change.
