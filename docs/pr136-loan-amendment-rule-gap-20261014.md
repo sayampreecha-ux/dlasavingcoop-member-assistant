@@ -223,3 +223,13 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Attempt to retrieve official original `https://www.dlasavingcoop.com/show.php?No=4941` again returned inaccessible. Original content, attachments, effective date and actual effect on loan rules remain **BLOCKED**; no justified Evidence Lock change.
 - Prior regression logs prove 7 ordinary §10 purposes, 69 privacy and 12 contextual privacy smoke checks were executed and passed; not a comprehensive semantic or access-control audit.
 - Final **NO-GO**. No assertion reductions, merge, deploy, new PR or production URL changes.
+
+## CI rerun and No.4941 source recheck — 2026-10-14
+
+- Confirmed baseline HEAD `ad108a6ab1a7ee2ddf9b001c3369bc29a16c483e` identical to PR branch before report update.
+- CI: Share KB `38527249622` PASS; Regression `38527249614` PASS; E2E `38527249647` FAIL, job `115730403628`.
+- Independent Playwright 390px and 1365px each exit code 1 at leisure-loan answer due to `PENDING_DOCUMENT` for No=4941. Original mandatory browser suite also fails; no original assertion modified. The two diagnostic steps report success only because they are configured `continue-on-error` for collection.
+- New screenshot artifact `11875903828` `leisure-independent-browser-diagnostics`, 779470 bytes. Prior screenshot artifact `11875808123` independently reviewed and showed same Evidence Lock response.
+- Official No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` again inaccessible from available web reader. Original text, attachments, effective date, and actual loan-rule effect **BLOCKED**. No authority to bypass Evidence Lock or alter policy.
+- Seven ordinary-loan §10 purposes, privacy 69 and contextual privacy 12 were previously confirmed in regression log as smoke tests. Current Regression PASS; no new claim of comprehensive authorization/security testing.
+- Final **NO-GO**. No merge/deploy/new PR, assertion reduction or production URL change.
