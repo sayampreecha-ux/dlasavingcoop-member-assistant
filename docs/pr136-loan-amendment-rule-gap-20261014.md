@@ -258,3 +258,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Job `115734111657` confirms independent mobile 390px and desktop 1365px process exit 1, plus original mandatory browser step exit 1. No assertions altered.
 - No=4941 original body, attachments, issue/effective date, and loan-rule effect still unverified/BLOCKED; Evidence Lock unchanged. Regression covers §10 seven purposes, privacy 69, contextual privacy 12 at smoke level; not comprehensive privacy certification.
 - Final **NO-GO**; no merge, deploy, new PR or production URL change.
+
+## Dedicated menu geometry assertions — 2026-10-14
+
+- Baseline `4be135bd7e0867a9344d1c6e170af3a2db8ba52e` identical to PR branch. Share KB `38528731925` PASS, Regression `38528731919` PASS, E2E `38528731956` FAIL.
+- Inspected CSS: `.reading-current .follow` uses `position:sticky;bottom:8px;max-height:155px;overflow:auto`. Screenshot alone cannot prove the sticky element blocks an interactive loan choice; do not claim a UI defect without geometry/interception evidence.
+- Commit `5f278d31c4425693787716437de4a90012b5f816` adds `LOAN_NAV_GEOMETRY` output and two extra assertions for 8 visible loan menu button rectangles within their menu bounding box, for both independent viewport runs. Original assertions remain unchanged, and Evidence Lock unchanged. This geometry test is not yet a click-interception test; a separate hit-target assertion may be needed if overlap is confirmed.
+- New CI on code HEAD: E2E `38528935333` IN_PROGRESS, Regression `38528935367` IN_PROGRESS, Share KB `38528935331` IN_PROGRESS at writing.
+- Original No=4941, attachments, dates and impact remain BLOCKED. §10 seven purposes, privacy 69, contextual privacy 12 last verified smoke PASS, not full certification. Final **NO-GO**. No merge/deploy/new PR/production URL change.
