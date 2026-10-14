@@ -197,3 +197,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - No.4941: index metadata title indicates selection of property valuation company, but original notice body/attachments, date of effect, and any loan rule impact remain unverified. **BLOCKED**. Do not infer non-governing status from title alone, suppress monitor record, or remove Evidence Lock.
 - Seven §10, 69 privacy and 12 contextual privacy cases passed in previously inspected regression job `115723975372`; the current Regression workflow also passed, but this is not a full semantic or access-control audit.
 - Final **NO-GO** pending original evidence and browser mobile/desktop verification. No merge, deploy, production URL change or assertion reduction.
+
+## Independent mobile/desktop E2E instrumentation — 2026-10-14
+
+- Baseline HEAD `1d54613f1531f1d2f392bfd61932eb59d16390d0` identical to branch. Share KB `38526609617` PASS, Regression `38526609604` PASS, E2E `38526609607` FAIL. Existing original notice No=4941 content/effective date remains BLOCKED; Evidence Lock unchanged.
+- Commit `7ca45e28af0c58a436f9873649c319e461e7b22d` adds optional `LEISURE_VIEWPORT_WIDTH` (390 or 1365) to the original Playwright script, retaining all original assertions. Failed leisure response now captures `leisure-failure-<width>.png` when `LEISURE_SCREENSHOT_DIR` is set.
+- Commit `cfce6334a9ca8f14adeecae687f156b5615cc2b5` adds two independent diagnostic steps to E2E workflow, plus always-upload artifact. These diagnostic steps use `continue-on-error` **only to collect both failure records**; the original unchanged blocking browser step still runs and fails when its assertions fail. Diagnostic failures must never be represented as PASS.
+- New CI on code HEAD: Share KB `38526796240` PASS; Regression `38526796176` IN_PROGRESS; E2E `38526796246` IN_PROGRESS at document update. Independent browser outcomes and artifact IDs are **NOT YET VERIFIED**.
+- Final **NO-GO**, no merge/deploy/new PR/production URL change.
