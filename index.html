@@ -2867,7 +2867,13 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(!check.allowed){const locked=F.lock(check,sourceRegistry),product=loanProduct(q);
       const url=product?({ordinaryLoanCurrent:S.ordinaryLoanForms,emergencyLoanCurrent:S.emergencyLoan,qualityOfLifeCurrent:S.specialLoanForms,specialHousingCurrent:S.specialLoanForms,redeemMortgageCurrent:S.specialLoanForms,education:S.educationLoan,disaster:S.disasterLoan})[product]:/สวัสดิการ|น้ำท่วม|ไฟไหม้/.test(q)?S.welfareForms:null;
       if(url){
-        locked.actions.unshift(['ดูเอกสารและแบบฟอร์มเรื่องที่ถาม',url]);
+        // Evidence Lock must remain active, but a verified topic index is safe navigation.
+        // Preserve the welfare overview action contract without stating unverified eligibility.
+        if(!product&&/^(?:สวัสดิการ|สวัสดิการทั้งหมด|สวัสดิการมีกี่ประเภท)$/.test(q)){
+          locked.actions.unshift(['❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด',S.welfareForms]);
+        }else{
+          locked.actions.unshift(['ดูเอกสารและแบบฟอร์มเรื่องที่ถาม',url]);
+        }
         if(/แบบฟอร์ม|ใช้เอกสารอะไร|เอกสารอะไร|ต้องเตรียมอะไร|ขอแบบ|ดาวน์โหลด/.test(q)){
           locked.answer='เรื่องเอกสารและแบบฟอร์ม: เปิดเอกสารทางการของเรื่องนี้ได้จากปุ่มแรกด้านล่างครับ แต่ยังต้องตรวจว่าเป็นฉบับล่าสุดก่อนยื่นจริง';
           locked.details=['ใช้แบบฟอร์มและรายการเอกสารจากต้นฉบับทางการเท่านั้น','หากมีประกาศแก้ไขใหม่ ต้องตรวจวันที่มีผลก่อนยื่น',...(locked.details||[])];
