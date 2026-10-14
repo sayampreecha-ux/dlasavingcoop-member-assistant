@@ -79,3 +79,23 @@ Before this assertion failure, the full release log showed `Real LINE runtime: {
 **Ordinary loan §10:** Four answer-route checks in the new test do not prove all seven legally defined purposes. Full clause-to-intent coverage remains BLOCKED pending individual assertions and evidence mapping. **Privacy:** 69 real LINE runtime records passed before the test setup failure, but complete privacy-specific 69-case coverage is not established by that count alone.
 
 **Release decision:** NO-GO until all workflows complete successfully and the substantive coverage gaps are resolved. No merge or deploy.
+
+## Latest HEAD CI verification — 2026-10-14
+
+Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identical, ahead 0).
+
+| Workflow | Run ID | Job ID | Final result |
+|---|---:|---:|---|
+| Regression | 38514512542 | 115690167968 | PASS |
+| Share KB 2569 and baseline regression | 38514512664 | 115690168392 | PASS |
+| E2E Member Answer Engine | 38514512522 | 115690167896 | **FAIL** |
+
+**E2E failure from job log:** `scripts/browser-leisure-loan-smoke.mjs:28` throws `AssertionError: One complete welfare index button` (`actual:0, expected:1`) for the welfare index action labelled `❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด`. This occurs during the first browser-smoke stage, before the remainder of browser scripts can run. No downloadable workflow artifacts were returned for these three runs.
+
+**Code evidence:** `index.html` still contains the welfare-index action injection for `intent==='welfare_all'` and `S.welfareForms`. The browser output nevertheless has zero matching buttons. This establishes a real behavior mismatch, but **not yet** whether the root cause is intent classification, an evidence lock, asynchronous freshness, or action rendering. Do not change the UI/router or relax the assertion until actual browser response and selected intent are captured.
+
+**Ordinary amendment §10 seven purposes:** Still **BLOCKED** for full semantic acceptance. Existing route checks are not seven clause-specific assertions; no fabricated clause-to-intent mapping has been added. Preserve the PDF's seven purposes and require purpose-by-purpose actual answer tests after source and board criteria mapping.
+
+**Privacy 69:** The `Real LINE runtime: PASS 69` result seen in previous release logs is a **69-record LINE corpus**, not a separately demonstrated 69-case privacy test suite. Three additive PII/OTP assertions in `tests/loan-amendments-2569.mjs` are not equivalent to Privacy 69. **NOT VERIFIED** pending distinct privacy corpus identification, 69/69 execution and logs.
+
+**Decision: NO-GO.** Two of three latest workflows passed; one failed. No merge, deploy, test removal or assertion weakening.
