@@ -391,3 +391,41 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Regression log confirms original leisure acceptance assertions pass: `LEISURE LOAN: 12 questions, 5 follow-ups, provenance, date/privacy and 6 monitor cases PASS`. Thus 4.25% publicity wording fix did not reduce tests. Regression also logged independent `ordinary-section10-and-privacy69` suite: seven §10 purposes, 69 privacy cases, and `contextual-privacy-smoke` 12 cases. These are **smoke/structural tests, not individual eligibility adjudication or a full privacy audit**. LINE runtime 69 PASS / 0 FAIL is a distinct corpus.
 - E2E log confirms both 390px and 1365px leisure browser tests fail at `/300,000 บาท.*36 งวด/`, because the asynchronously fetched `official-source-monitor` snapshot injects `doc-8ef30ac9bd3b05e970e9` (No=4941, titled `ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`) as `PENDING`, `mayAffectRules:true`, broad `affects` including `ordinaryLoan`; runtime reports `reason:PENDING_DOCUMENT`. It is not a 4.25% wording regression.
 - Original full No=4941 content, attachments and effective scope remain unverified in this run. No authority to declare it irrelevant based on index title, narrow its domains speculatively, or bypass Evidence Lock. Accordingly no further code changes; Final **NO-GO**, no merge/deploy/new PR, no test reductions.
+
+
+## Final release blocker disposition — 2026-10-15 (HEAD 13006405)
+
+### Verified CI evidence (no new commit before this evidence note)
+
+| Gate | Run | Job | Result |
+|---|---|---|---|
+| Regression | 38564202593 | 115852625072 | PASS |
+| Share KB 2569 baseline | 38564202557 | 115852655680 | PASS |
+| E2E Member Answer Engine | 38564202273 | 115852623833 | PASS |
+
+E2E installation, independent leisure diagnostics on 390px and 1365px, and all browser acceptance suites succeeded. Browser artifact 11892514878 (`leisure-independent-browser-diagnostics`). Logs record browser aggregate 19 suites / 0 failures, real-member semantic simulation 85 / 0 failures, §10 seven-purpose smoke, independent privacy 69-case corpus and contextual privacy 12-case smoke. These assertions are not an individual-member eligibility certification or full privacy audit.
+
+### Clause-to-rule-to-answer trace (bounded to evidence in repository)
+
+| Primary amendment clause | Source registry ID | Effective | Rule / KB contract checked | Member-facing route and test | Disposition |
+|---|---|---|---|---|---|
+| Ordinary 5/2569 §8 | doc-fbfe47014336a2cb94f8 | 2026-10-01 | ordinaryLoanCurrent: membershipMinMonths=6, sharePaymentMinInstallments=6, maxAmountBaht=2000000 | ordinaryLoan; tests/loan-amendments-2569.mjs | PASS for repository assertions; delegated board eligibility criteria NOT VERIFIED |
+| Ordinary 5/2569 §10 | doc-fbfe47014336a2cb94f8 | 2026-10-01 | seven purposes: disaster, guarantor liability, education, debt restructuring, shares, leisure, other necessity | app.answer for seven Thai purpose prompts; tests/loan-amendments-2569.mjs | PASS for answer/action/no fabricated approval smoke; exact clause-to-intent equivalence NOT VERIFIED |
+| Emergency 2/2569 §8 | doc-f63c6860836344db8a78 | 2026-10-01 | emergencyLoanCurrent: membershipMinMonths=3, sharePaymentMinInstallments=3; historical effectiveTo=2026-09-30 | emergencyLoan; tests/loan-amendments-2569.mjs | PASS for repository assertions; delegated board criteria NOT VERIFIED |
+| Special 3/2569 §9 | doc-89e8283abdd6fffa6356 | 2026-10-01 | specialHousingCurrent product max=3000000, maxTotalCoopDebtBaht=5000000; qualityOfLifeCurrent product max=5000000 | specialHousing and qualityOfLife; tests/loan-amendments-2569.mjs | PASS for separate product boundaries; comprehensive §9 applicability/delegated criteria NOT VERIFIED |
+
+The registry records all three amendments CURRENT and `mayAffectRules:false` with `review.primaryVerified:true`, but explicitly limits this to metadata and says board criteria remain separate. No evidence in this review authorizes additional numerical promotion or member-specific approval. Legacy mismatched-year ordinary-loan record `doc-4510c4fa1d9e18f4bfb9` remains PENDING. No review of notice 4941 was undertaken.
+
+### Merge safety
+
+GitHub compare main...PR: DIVERGED, ahead 70 / behind 2, merge base `99ed620b4f551e73ba8e982d8beda83d6eb19b8c`, PR mergeable=true (draft). Eleven changed files; `data/current-events.json` is NOT among them. Its blob SHA on main is `1681e4bba264ae9e6742b20c54a58a7a44dc831d`, while on PR head it is `17ee0f37494088359e585631faa9e06990e60938`. **Do not deploy the PR branch directly:** it contains an older/different events snapshot. A normal merge of this PR diff should preserve the unchanged main-side file, but verify resulting merge commit and compare blob SHA before any deploy. Branch protection and the exact synthetic merge tree were NOT VERIFIED. Do not force push, reset main or copy PR's events file.
+
+### Release checklist and rollback
+
+1. Recheck HEAD, all required checks, mergeability, protections and branch divergence immediately before any owner-approved merge.
+2. Resolve or formally scope any legal evidence gaps affecting member-facing binding eligibility/numeric answers; retain safe Evidence Locks for unverified rules.
+3. Confirm merged `data/current-events.json` blob SHA equals the current main version and no unintended changes appear in final merge diff.
+4. On separately authorized release, deploy exclusively to the existing GitHub Pages production URL and run mobile/desktop navigation, loans, savings, shares, welfare, privacy and freshness smoke tests with logs/screenshots.
+5. If P0 or evidence regression appears, halt rollout; restore the last verified production commit via normal reviewed rollback (no force push) and rerun smoke tests.
+
+**Disposition:** CI/functional smoke PASS. Legal clause-to-answer/delegated-board acceptance BLOCKED, synthetic merge and branch protection NOT VERIFIED. NO-GO for automatic merge/deploy; owner approval alone must not bypass any unresolved binding-rule safety gate. No merge/deploy was authorized.
