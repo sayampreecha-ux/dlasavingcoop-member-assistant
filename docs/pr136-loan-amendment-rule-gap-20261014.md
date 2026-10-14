@@ -289,3 +289,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - `LEISURE_EVIDENCE_DIAGNOSTIC` remains `PENDING_DOCUMENT` in both viewports; original mandatory leisure amount/term assertion still fails. No=4941 original content, attachments, announcement/effective dates, and rule impact not verified. Maintain Evidence Lock and BLOCKED.
 - CI on previous documentation HEAD `1dfb91705c9218f1132725ba208f3e3d386f75c5`: Share KB `38529223940` PASS, Regression `38529224074` PASS, E2E `38529223904` was IN_PROGRESS when checked. Ordinary loan §10 seven purpose checks, Privacy 69 and contextual Privacy 12 are regression smoke tests; do not infer full privacy certification.
 - Final **NO-GO**. No new PR, merge, deploy, weakened assertions or changed production URL.
+
+## Latest PR #136 release-gate verification — 2026-10-14
+
+- PR #136 is OPEN, NOT MERGED; starting HEAD `aff455e50898390e1cef8aae8f95b5e002f72c16`.
+- Latest CI on starting HEAD: Regression `38529398077` PASS, Share KB `38529398062` PASS, E2E `38529398084` FAIL. E2E job `115737346973`; artifact `11876784626` (780132 bytes).
+- E2E job logs: 24 per-button `LOAN_NAV_HIT_TARGET` results across independent 390px, 1365px and mandatory 390px runs; every result `hit:true`. No supported CSS hit-target defect. All three browser runs exit 1 on unchanged leisure-loan assertion because the response says pending official document, not the asserted amount/term.
+- Official No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` inaccessible via available web reader on this verification. No primary body, attachments, issue/effective dates, or impact confirmation. Retain Evidence Lock and BLOCKED; do not infer policy impact from indexed title.
+- §10 seven purpose cases, Privacy 69 and contextual Privacy 12 remain PASS at regression-smoke scope only. No test assertions weakened; no policy code change, new PR, merge, deploy or URL change.
+- **Final NO-GO** until source authority review and browser release gate are both resolved.
