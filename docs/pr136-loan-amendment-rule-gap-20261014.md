@@ -307,3 +307,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Public official site index `https://dlasavingcoop.com/index.php` displays title `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`. The primary No=4941 page `https://www.dlasavingcoop.com/show.php?No=4941` remains inaccessible to the web reader. Independent official historical special-loan PDFs (e.g. `https://www.dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/FromHome01_20210122.pdf`) reference appraisal companies for secured home loans, suggesting a *possible* category association, not evidence of No=4941's actual provisions, date, attachments, or its effect on leisure loans. Do not reclassify or unlock on this inference.
 - Original notice body, attachments, announcement/effective dates and scope remain BLOCKED. Preserve Evidence Lock, no policy-code change or assertion relaxation. Ordinary loan §10 seven purposes, Privacy 69 and contextual Privacy 12 remain PASS at regression smoke scope.
 - Final **NO-GO**. No new PR, merge, deploy or production URL change.
+
+## Current CI and primary-source recheck — 2026-10-14
+
+- Starting PR HEAD `088d1c9a4427cd9a26d98a688ac139105218e7c7`, OPEN and NOT MERGED.
+- CI on this SHA: Share KB `38534971999` PASS, Regression `38534972108` PASS, E2E `38534972036` FAIL. E2E job `115755528861`, screenshot artifact `11879947410` (780132 bytes).
+- Job logs: all 24 `LOAN_NAV_HIT_TARGET` observations report `hit:true`; independent Mobile 390px, Desktop 1365px and mandatory Mobile E2E fail on unchanged leisure-loan answer assertion while official-document gate is pending.
+- Official homepage `https://dlasavingcoop.com/index.php` currently indexes `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`; official No=4941 full-text `https://www.dlasavingcoop.com/show.php?No=4941` was attempted again but web reader returned inaccessible. Original body, attachments, announcement/effective dates and actual loan-rule impact **NOT VERIFIED / BLOCKED**. No Evidence Lock bypass or assumption from title.
+- Regression PASS is evidence of suite execution; seven §10 purposes, Privacy 69 and contextual 12 are smoke coverage, not exhaustive certification. No verified source change or code root cause warrants altering policy or CSS.
+- Final **NO-GO**. No weakened assertions, new PR, merge, deploy or production URL change.
