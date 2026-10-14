@@ -105,7 +105,11 @@ try{
     await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('ต้องมีผู้ค้ำไหม');
     await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
     assert.match(await page.locator('#out .body').textContent(),/ผู้ค้ำ 1 คน/);pass++;
-    assert.match(await ask('กู้ฉุกเฉินผ่อนได้กี่งวด'),/15 งวด/);pass++;
+    console.log('LEISURE_PRODUCT_ACCEPTANCE',JSON.stringify({width,passed:pass,scope:'leisure answers, synonyms, collateral, documents, followups; before other-product isolation'}));
+    if(process.env.LEISURE_SCREENSHOT_DIR){fs.mkdirSync(process.env.LEISURE_SCREENSHOT_DIR,{recursive:true});await ask('กู้พักผ่อน');await page.locator('#out details.more').evaluate(e=>e.open=true);await page.screenshot({path:path.join(process.env.LEISURE_SCREENSHOT_DIR,'leisure-product-'+width+'.png'),fullPage:true});}
+    const emergency=await ask('กู้ฉุกเฉินผ่อนได้กี่งวด');
+    if(!/15 งวด/.test(emergency))console.error('OTHER_PRODUCT_GATE',JSON.stringify(await page.evaluate(()=>globalThis.COOP_APP.freshnessStatus('กู้ฉุกเฉินผ่อนได้กี่งวด'))));
+    assert.match(emergency,/15 งวด/);pass++;
     assert.match(await ask('กู้สามัญผ่อนได้กี่งวด'),/240 งวด/);pass++;
     assert.deepEqual(errors,[]);
     if(process.env.LEISURE_SCREENSHOT_DIR){fs.mkdirSync(process.env.LEISURE_SCREENSHOT_DIR,{recursive:true});await ask('กู้พักผ่อน');await page.locator('#out details.more').evaluate(e=>e.open=true);await page.screenshot({path:path.join(process.env.LEISURE_SCREENSHOT_DIR,'leisure-'+width+'.png'),fullPage:true});}

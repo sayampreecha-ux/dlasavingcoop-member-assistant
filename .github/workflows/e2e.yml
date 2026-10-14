@@ -43,23 +43,5 @@ jobs:
           path: browser-diagnostics/
           if-no-files-found: warn
       - name: Real browser Pilot regression on mobile and desktop
-        run: |
-          node scripts/browser-leisure-loan-smoke.mjs
-          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-pilot-smoke.mjs
-          MEMBER_MONITOR_FIXTURE=data/official-source-registry.json node scripts/browser-freshness-smoke.mjs
-          node scripts/browser-live-journey-smoke.mjs
-          node scripts/browser-answer-first-smoke.mjs
-          node scripts/browser-education-disaster-smoke.mjs
-          node scripts/browser-realistic-member-smoke.mjs
-          node scripts/browser-evidence-quality-smoke.mjs
-          node scripts/browser-member-language-smoke.mjs
-          node scripts/browser-special-deposit-smoke.mjs
-          node scripts/browser-special-deposit-acceptance-smoke.mjs
-          node scripts/browser-special-deposit-authority.mjs
-          node scripts/browser-special-deposit-mass-smoke.mjs
-          node scripts/browser-deposit-navigation-smoke.mjs
-          node scripts/browser-deposit-entry-smoke.mjs
-          node scripts/browser-private-deposit-balance-smoke.mjs
-          node scripts/browser-member-tracking-smoke.mjs
-          node scripts/browser-share-navigation-smoke.mjs
-          node scripts/browser-scholarship-direct-smoke.mjs
+        if: success() || failure()
+        run: node scripts/browser-all-acceptance.mjs
