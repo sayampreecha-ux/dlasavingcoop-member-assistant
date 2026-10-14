@@ -59,3 +59,23 @@ Read `index.html` (510,008 UTF-8 characters), `tests/regression.mjs` (18,646 cha
 - **Not a complete legal acceptance:** seven ordinary purposes under §10, exact delegation to board criteria, member-specific entitlement, and browser E2E still need dedicated proof. Privacy checks here are additive, not a replacement for the full 69-case corpus.
 - **GitHub Actions on test commit, at last check:** Regression `38514269113` IN_PROGRESS; Share KB 2569 and baseline regression `38514269073` IN_PROGRESS; E2E Member Answer Engine `38514269058` IN_PROGRESS. Do not report PASS until each completes successfully and its logs/artifacts are inspected.
 - **Release decision: NO-GO.** No merge/deploy performed.
+
+## CI root-cause investigation and corrective action — 2026-10-14
+
+**Failure evidence for HEAD `ea960ee0d070328dc74de0cd11a01efbd10cb058`:**
+
+| Workflow | Run | Result | Job |
+|---|---:|---|---:|
+| Share KB 2569 and baseline regression | 38514300095 | FAIL | 115689525918 |
+| E2E Member Answer Engine | 38514300071 | FAIL | 115689526023 |
+| Regression | 38514300104 | FAIL | 115689525995 |
+
+All three job logs show `AssertionError: versioned authority available` at `tests/loan-amendments-2569.mjs:15`. The new test incorrectly expected `globalThis.COOP_KB.ruleAuthority.ruleVersions`; the existing generated app embeds `ruleVersions` at `globalThis.OFFICIAL_SOURCE_REGISTRY.ruleVersions`. **Fix commit `f7f90c26de1d65266124af2c4bd4e57643822186`** changes only the test's authority-registry access and retains all numeric/privacy assertions. No product rule was changed.
+
+Before this assertion failure, the full release log showed `Real LINE runtime: { PASS: 69, PARTIAL: 0, FAIL: 0 }` and `CURRENT RULE CORPUS: 306 patterns PASS`. These component results **do not** override the overall FAIL status of those runs.
+
+**Rerun evidence for fix commit (initial check):** Share KB run 38514470418 SUCCESS; Regression run 38514470393 IN_PROGRESS; E2E run 38514470548 IN_PROGRESS. No artifacts were returned for the three failed workflow runs. Re-check results and any artifacts before acceptance.
+
+**Ordinary loan §10:** Four answer-route checks in the new test do not prove all seven legally defined purposes. Full clause-to-intent coverage remains BLOCKED pending individual assertions and evidence mapping. **Privacy:** 69 real LINE runtime records passed before the test setup failure, but complete privacy-specific 69-case coverage is not established by that count alone.
+
+**Release decision:** NO-GO until all workflows complete successfully and the substantive coverage gaps are resolved. No merge or deploy.
