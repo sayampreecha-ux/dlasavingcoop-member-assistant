@@ -50,3 +50,12 @@ Read `index.html` (510,008 UTF-8 characters), `tests/regression.mjs` (18,646 cha
 - `index.html` has numerous references to loan amounts and durations. Their presence is not evidence that every user-facing answer is accurate. The full clause-to-output trace remains BLOCKED pending targeted runtime tests.
 
 **Remediation priority:** (1) source-clause and delegated-criteria verification, (2) add regression boundary assertions without weakening existing ones, (3) compare actual member answers in browser, (4) only then change any contradicted rule or source-registry classification with tests. No numeric rule auto-promotion.
+
+## Acceptance update — 2026-10-14, regression added
+
+- **Test commit:** `4980a789e97c3ce465ac0da4b6df96d2d3a97a73`.
+- Added `tests/loan-amendments-2569.mjs` and required invocation in `tests/regression.mjs` (existing assertions retained).
+- Added checks for current ordinary loan 6 months / 6 share installments / THB 2,000,000; emergency 3 months / 3 installments; special housing THB 3,000,000 product limit versus THB 5,000,000 total-debt limit; quality-of-life THB 5,000,000 product ceiling; 2026-10-01 effective-date boundary; legacy emergency supersession; answer action presence; basic PII/OTP non-disclosure.
+- **Not a complete legal acceptance:** seven ordinary purposes under §10, exact delegation to board criteria, member-specific entitlement, and browser E2E still need dedicated proof. Privacy checks here are additive, not a replacement for the full 69-case corpus.
+- **GitHub Actions on test commit, at last check:** Regression `38514269113` IN_PROGRESS; Share KB 2569 and baseline regression `38514269073` IN_PROGRESS; E2E Member Answer Engine `38514269058` IN_PROGRESS. Do not report PASS until each completes successfully and its logs/artifacts are inspected.
+- **Release decision: NO-GO.** No merge/deploy performed.
