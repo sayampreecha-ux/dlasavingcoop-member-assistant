@@ -99,3 +99,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 **Privacy 69:** The `Real LINE runtime: PASS 69` result seen in previous release logs is a **69-record LINE corpus**, not a separately demonstrated 69-case privacy test suite. Three additive PII/OTP assertions in `tests/loan-amendments-2569.mjs` are not equivalent to Privacy 69. **NOT VERIFIED** pending distinct privacy corpus identification, 69/69 execution and logs.
 
 **Decision: NO-GO.** Two of three latest workflows passed; one failed. No merge, deploy, test removal or assertion weakening.
+
+## Browser diagnostic instrumentation — 2026-10-14
+
+- Baseline HEAD `45c7838f352e1fdaadb5554300fdd757a18ea71d`: E2E still failed in the welfare-index assertion. Existing source inspection confirms `res('welfare_all',...)` and action injection exist in `index.html`, but not that the browser executed that path.
+- Diagnostic commit `b45e1f91afc61e52f861be6a96db7c16de05a998` instruments `scripts/browser-leisure-loan-smoke.mjs` to print `WELFARE_INDEX_DIAGNOSTIC` with question, viewport, actual rendered answer, action labels/hrefs and follow-ups *only if* the existing assertion fails. The assertion and all prior expectations remain unchanged.
+- First rerun on diagnostic commit: Share KB run `38515527741` PASS, Regression run `38515527763` PASS, E2E run `38515527767` IN_PROGRESS at last inspection. E2E job `115693349208`; logs not yet available during execution. Do not claim root cause confirmed before reading the diagnostic.
+- **Seven-purpose ordinary §10** remains BLOCKED pending clause-specific member-answer checks. **Privacy 69** remains NOT VERIFIED as a distinct corpus; LINE runtime 69 is not a substitute.
+- **NO-GO.** No merge/deploy.
