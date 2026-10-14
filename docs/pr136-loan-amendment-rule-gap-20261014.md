@@ -127,3 +127,13 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - The official source registry still enforces `noAutomaticRulePromotion: true`. Before any code change, identify the exact pending document, its affected domain and authoritative effective date, and decide whether the correct behavior is a lock or a verified rule answer. Without that evidence the leisure issue is **BLOCKED**.
 - Ordinary loan §10 seven-purpose user-visible clause-to-intent mapping: **NOT TESTED**; a generic 4-route check is not equivalent. Privacy 69: **NOT TESTED** as a distinct 69-case corpus; prior LINE 69/69 is a different corpus. No invented pass counts.
 - **GO/NO-GO: NO-GO**. No merge/deploy or production URL changes.
+
+## Pending-document leisure investigation — 2026-10-14
+
+- Baseline `dcf541a22085cdc9ac6ce40f5e1df8fa45f302bd`: Regression run `38516309284` PASS; Share KB run `38516309321` PASS; E2E run `38516309287` FAIL (job `115695785511`). No downloadable artifacts returned for that E2E run.
+- Source registry inspection found numerous `PENDING` ordinary-loan documents with `mayAffectRules:false` and `pendingReason:BASELINE_INVENTORY_NOT_RULE_PROMOTION`; these **cannot by themselves trigger** `pendingFor()`, which filters for `mayAffectRules===true`. Therefore do not attribute the observed leisure `PENDING_DOCUMENT` lock to those metadata-only records without runtime evidence.
+- Source `OFFICIAL_FRESHNESS.gate()` applies `pendingFor()` to the merged runtime registry; `freshnessStatus()` normalizes leisure queries to the ordinary-loan domain. The specific blocking document and authoritative effective date remain **UNVERIFIED** until runtime diagnostic reveals the actual merged snapshot.
+- Diagnostic commit `06a39b953cad92269469475b6cf5263ad3935b7c` captures `LEISURE_EVIDENCE_DIAGNOSTIC` with actual browser answer, actions, details, viewport and any exposed freshness status, while retaining the exact `300,000 บาท.*36 งวด` assertion and all existing tests. Its initial CI: E2E `38516577590` IN_PROGRESS, Share KB `38516577648` PASS, Regression `38516577727` IN_PROGRESS at last check.
+- The 2569 leisure loan registry version is tagged verified primary and effective 2026-10-01, but that does not authorize overriding a live pending-document lock without resolving source/version scope.
+- **Ordinary §10:** 7 purpose-specific tests not yet executed; **BLOCKED** pending primary PDF and mapping. **Privacy 69:** distinct suite not executed; **NOT TESTED** (LINE 69 is separate). Browser desktop and other scripts cannot be declared passed after the early leisure failure.
+- **NO-GO**. No test reduction, no automatic rule promotion, no merge/deploy.
