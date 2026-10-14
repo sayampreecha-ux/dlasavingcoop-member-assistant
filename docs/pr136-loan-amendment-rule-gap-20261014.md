@@ -281,3 +281,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Commit `8484fb855f2c3e20d0ec9414ddddb586893d0ecf` adds eight separate pointer-center hit-target assertions per viewport, after scrolling each button into view, without modifying or disabling any existing assertion. CI triggered by code change; results pending at documentation update.
 - `LEISURE_EVIDENCE_DIAGNOSTIC` remains `PENDING_DOCUMENT` for No=4941 with `announcementDate:null` and `effectiveDate:null`; both viewport processes exit 1 on unchanged original leisure answer assertion. No verified original notice or attachments, so keep Evidence Lock and BLOCKED.
 - §10 seven purposes, privacy 69 and contextual privacy 12 remain regression smoke checks; prior Regression PASS. Final **NO-GO**. No merge/deploy/new PR/URL change.
+
+## Hit-target E2E result — 2026-10-14
+
+- Baseline `1dfb91705c9218f1132725ba208f3e3d386f75c5` matches branch. E2E run `38529199104` FAIL, job `115736697440`, screenshot artifact `11876898851` (780132 bytes); release gating failure persists. Regression `38529199093` and Share KB `38529199121` PASS.
+- Job logs explicitly report `LOAN_NAV_HIT_TARGET` with `hit:true`, `topTag:BUTTON`, `topClass:chip` for each of the eight buttons at 390px and 1365px after scrolling into view (16/16 PASS). Before scrolling, all buttons are below the visible viewport; that is normal page scrolling, not clipping. No demonstrated sticky interception; no CSS change warranted.
+- `LEISURE_EVIDENCE_DIAGNOSTIC` remains `PENDING_DOCUMENT` in both viewports; original mandatory leisure amount/term assertion still fails. No=4941 original content, attachments, announcement/effective dates, and rule impact not verified. Maintain Evidence Lock and BLOCKED.
+- CI on previous documentation HEAD `1dfb91705c9218f1132725ba208f3e3d386f75c5`: Share KB `38529223940` PASS, Regression `38529224074` PASS, E2E `38529223904` was IN_PROGRESS when checked. Ordinary loan §10 seven purpose checks, Privacy 69 and contextual Privacy 12 are regression smoke tests; do not infer full privacy certification.
+- Final **NO-GO**. No new PR, merge, deploy, weakened assertions or changed production URL.
