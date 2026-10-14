@@ -1,17 +1,32 @@
 {
-  "checkedAt": "2026-10-13T19:21:27.288Z",
-  "processed": 0,
-  "unchanged": 8,
-  "changes": [],
-  "impactedDomains": [],
+  "checkedAt": "2026-10-14T05:02:40.883Z",
+  "processed": 2,
+  "unchanged": 6,
+  "changes": [
+    "doc-8ef30ac9bd3b05e970e9"
+  ],
+  "impactedDomains": [
+    "shares",
+    "membership",
+    "resignation",
+    "ordinaryLoan",
+    "emergencyLoan",
+    "qualityOfLife",
+    "specialHousing",
+    "redeemMortgage",
+    "welfare",
+    "deposits",
+    "dividendPatronage",
+    "interest"
+  ],
   "errors": [
     {
       "document": "doc-20120cec8048c1252046",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-wTi5mR/headers --output /tmp/official-sync-wTi5mR/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-7mm179/headers --output /tmp/official-sync-7mm179/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1hcVCP8NcKw8c-hWvQQFdFxzVrBGcanNN&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "document": "doc-070bc1813f9f44f6a0a8",
-      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-IPpIxr/headers --output /tmp/official-sync-IPpIxr/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
+      "error": "Command failed: curl --silent --show-error --max-time 25 --max-filesize 12582912 --dump-header /tmp/official-sync-upbyos/headers --output /tmp/official-sync-upbyos/body --header user-agent: DLASavingCoop-Official-Sync/1.0 --url https://drive.usercontent.google.com/download?id=1qDA2FylIDxUQk3d4whSrMDWvq0rpN-Nf&export=download\ncurl: (63) Maximum file size exceeded\n"
     },
     {
       "document": "doc-ae58b7e1deb33c8a092f",
