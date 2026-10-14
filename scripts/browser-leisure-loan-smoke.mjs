@@ -43,6 +43,16 @@ try{
     const menu=page.locator('#out .follow.loan-product-menu');
     assert.deepEqual(await menu.locator('button').allTextContents(),['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ','กู้เพื่อการศึกษา','กู้เพื่อการพักผ่อน','กู้ภัยพิบัติ','กู้ไถ่ถอนจำนอง']);pass++;
     assert.equal(await menu.evaluate(e=>{const b=e.getBoundingClientRect();return [...e.querySelectorAll('button')].every(x=>x.getBoundingClientRect().bottom<=b.bottom+1)&&getComputedStyle(e).position==='static'&&getComputedStyle(e).maxHeight==='none';}),true,'All loan choices displayed without inner scrolling or clipping');pass++;
+    // Separate viewport geometry evidence: do not change the original loan assertions.
+    const navigationGeometry=await page.evaluate(()=>{
+      const menu=document.querySelector('#out .follow.loan-product-menu');
+      const buttons=[...menu.querySelectorAll('button')];
+      const rect=x=>{const r=x.getBoundingClientRect();return {top:r.top,bottom:r.bottom,left:r.left,right:r.right};};
+      return {menu:rect(menu),buttons:buttons.map(b=>({name:b.textContent.trim(),...rect(b)})),sticky:[...document.querySelectorAll('.reading-current .follow')].filter(x=>getComputedStyle(x).position==='sticky').map(x=>({className:x.className,...rect(x)}))};
+    });
+    console.log('LOAN_NAV_GEOMETRY',JSON.stringify({width,...navigationGeometry}));
+    assert.equal(navigationGeometry.buttons.length,8,'All eight loan choices must be present for geometry test');pass++;
+    assert.ok(navigationGeometry.buttons.every(b=>b.bottom<=navigationGeometry.menu.bottom+1&&b.top>=navigationGeometry.menu.top-1),'Loan choices must remain inside menu geometry');pass++;
     await menu.getByRole('button',{name:'กู้เพื่อการพักผ่อน',exact:true}).click();
     const leisureBody=await page.locator('#out .body').textContent();
     if(!/300,000 บาท.*36 งวด/.test(leisureBody)){
