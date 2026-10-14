@@ -72,7 +72,8 @@ const section10Purposes=[
 ];
 assert.equal(section10Purposes.length,7,'§10 exactly seven purposes');
 assert.equal(new Set(section10Purposes.map(x=>x[0])).size,7,'§10 no duplicate purposes');
-const ordinaryAmendment=registry.documents.find(d=>d.id==='doc-fbfe47014336a2cb94f8');
+const sourceManifest=JSON.parse(fs.readFileSync(new URL('../data/official-source-registry.json',import.meta.url),'utf8'));
+const ordinaryAmendment=sourceManifest.documents.find(d=>d.id==='doc-fbfe47014336a2cb94f8');
 assert.ok(ordinaryAmendment,'§10 official amendment source registered');
 assert.match(ordinaryAmendment.originalUrl,/1CO8uENf2kvBbzILoKhMg6UFQyqXw99wb/,'§10 correct primary PDF');
 for(const [purpose,q] of section10Purposes){
