@@ -24,6 +24,25 @@ jobs:
         run: |
           sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/apt-mirrors.txt
           npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
+      - name: Independent leisure browser diagnostic - mobile 390px
+        continue-on-error: true
+        env:
+          LEISURE_VIEWPORT_WIDTH: '390'
+          LEISURE_SCREENSHOT_DIR: browser-diagnostics
+        run: node scripts/browser-leisure-loan-smoke.mjs
+      - name: Independent leisure browser diagnostic - desktop 1365px
+        continue-on-error: true
+        env:
+          LEISURE_VIEWPORT_WIDTH: '1365'
+          LEISURE_SCREENSHOT_DIR: browser-diagnostics
+        run: node scripts/browser-leisure-loan-smoke.mjs
+      - name: Upload independent browser diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: leisure-independent-browser-diagnostics
+          path: browser-diagnostics/
+          if-no-files-found: warn
       - name: Real browser Pilot regression on mobile and desktop
         run: |
           node scripts/browser-leisure-loan-smoke.mjs
