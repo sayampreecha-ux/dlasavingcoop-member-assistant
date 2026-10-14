@@ -172,3 +172,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Added **12 distinct contextual privacy smoke checks** (third-party account inquiries, OTP/PIN/password requests, unverifiable identity, false loan approval) on top of independent 69-question corpus and 7 §10 purposes, in commit `ee24323fc1c06fc9bc44386e8718b86198558bf6`. Existing assertions remain unchanged. Tests check nonempty response, literal ID/OTP/PIN leaks, and unsupported approval promises; these are not a comprehensive security/authorization assessment.
 - CI on new test commit: Share KB `38525249057` PASS; Regression `38525249069` and E2E `38525249204` IN_PROGRESS at report preparation. Browser desktop still NOT VERIFIED, mobile E2E baseline FAIL. Await new logs/artifacts.
 - **NO-GO**. No merge, deploy or production URL change.
+
+## Follow-up CI evidence — 2026-10-14
+
+- Confirmed HEAD `400cec3cecf66de4f7801cb936eaf169e65ce77b` identical to PR branch before this report.
+- On this HEAD: Share KB `38525310114` **PASS**; Regression `38525310132` **PASS**; E2E `38525310059` **FAIL**.
+- Specifically requested previous run `38525249204` **FAIL**, job `115723974551`, no artifacts. Same evidence-lock mismatch at 390px, `scripts/browser-leisure-loan-smoke.mjs:50`. No desktop completion evidence.
+- Regression run `38525249069`, job `115723975372` **PASS**, logs explicitly contain `ordinary-section10-and-privacy69` with `section10Purposes:7` and `privacyCases:69`, and `contextual-privacy-smoke` with `cases:12`. This confirms execution of additive smoke checks, **not** comprehensive semantic/privacy acceptance.
+- Official No=4941 source body/effective date and true rule impact remain **BLOCKED**; only notice metadata/title is available. Keep Evidence Lock active. No unjustified E2E test change, no merge/deploy.
+- **GO/NO-GO: NO-GO**. Required: official source text verification, impact classification, rerun E2E across both mobile and desktop, and fresh evidence on the final SHA.
