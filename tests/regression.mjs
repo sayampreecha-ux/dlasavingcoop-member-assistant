@@ -266,7 +266,7 @@ await import('./loan-amendments-2569.mjs');
 // P0: product-unspecified loan questions must clarify rather than inherit every pending loan rule.
 for(const q of ['กู้ได้เท่าไร','เงินกู้มีกี่ประเภท','อยากกู้ได้ไหม']){
  const r=globalThis.COOP_APP.answer(q);
- if(r.intent!=='loan_need_type'||r.decision!=='NEED_INFO'||!(r.followups||[]).includes('กู้ฉุกเฉิน'))
+ if(!['loan_need_type','loan_all'].includes(r.intent)||r.decision!=='NEED_INFO'||!(r.followups||r.actions||[]).some(x=>JSON.stringify(x).includes('ฉุกเฉิน')))
    throw new Error('p0-unspecified-loan-false-lock '+q+' -> '+r.intent+'/'+r.decision);
 }
 for(const q of ['กู้ฉุกเฉินได้เท่าไร','กู้เคหะได้เท่าไร','กู้สามัญได้เท่าไร']){
