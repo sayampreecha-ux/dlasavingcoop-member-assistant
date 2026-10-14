@@ -11,11 +11,12 @@ new Function(scripts[1])();
 new Function(scripts[2]);
 
 const kb=globalThis.COOP_KB;
+const registry=globalThis.OFFICIAL_SOURCE_REGISTRY;
 const app=globalThis.COOP_APP;
-assert.ok(kb?.ruleAuthority?.ruleVersions,'versioned authority available');
+assert.ok(Array.isArray(registry?.ruleVersions),'versioned official source registry available');
 assert.equal(typeof app?.answer,'function','member answer gateway available');
 const current=id=>{
- const all=kb.ruleAuthority.ruleVersions.filter(v=>v.ruleId===id&&v.status==='CURRENT'&&v.effectiveFrom==='2026-10-01');
+ const all=registry.ruleVersions.filter(v=>v.ruleId===id&&v.status==='CURRENT'&&v.effectiveFrom==='2026-10-01');
  assert.equal(all.length,1,'one current rule for '+id);
  return all[0];
 };
@@ -38,7 +39,7 @@ for(const v of [ordinary,emergency,housing,quality]){
  assert.equal(v.effectiveFrom,'2026-10-01','effective date '+v.ruleId);
 }
 // Historical supersession boundary must not be silently promoted to current.
-const historical=kb.ruleAuthority.ruleVersions.filter(v=>v.ruleId==='emergencyLoanCurrent'&&v.status==='SUPERSEDED');
+const historical=registry.ruleVersions.filter(v=>v.ruleId==='emergencyLoanCurrent'&&v.status==='SUPERSEDED');
 assert.ok(historical.some(v=>v.effectiveTo==='2026-09-30'),'historical emergency boundary preserved');
 
 // Amendment §10: do not invent purposes. This gate checks routing only;
