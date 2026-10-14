@@ -250,3 +250,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Official No=4941 original/attachment and effective date remain **BLOCKED**. Do not bypass Evidence Lock on title alone, alter baseline inventory or weaken test assertions. Independent mobile and desktop E2E remain FAIL pending source review; prior screenshot artifacts and job logs substantiate both widths.
 - Regression 7 ordinary-loan §10, privacy 69 and contextual privacy 12 PASS at smoke level from inspected logs; not a full authorization audit.
 - Final **NO-GO**. No merge/deploy/new PR/production URL change.
+
+## Visual comparison and CI on HEAD fa1ccf54 — 2026-10-14
+
+- Baseline `fa1ccf54bf32d5c4c65f85e107f8944bb336b667` matches branch before documentation update. Share KB `38528545249` PASS; Regression `38528545201` PASS; E2E `38528545187` FAIL.
+- Downloaded artifact `11876633177` (773569 bytes) and inspected `leisure-failure-390.png` (360402 bytes) and `leisure-failure-1365.png` (434160 bytes). Both show the same `PENDING_DOCUMENT` warning instead of the asserted 300,000 baht / 36 installments. The eight purpose choices and follow-up buttons are visible. Mobile stacks choices in two columns; Desktop has a fixed-width centered layout and more horizontal space. This is not a width-specific answer failure. Desktop screenshot also shows a sticky bottom navigation overlapping part of the category tiles, a separate potential layout issue that requires a dedicated assertion before claiming a defect or fix.
+- Job `115734111657` confirms independent mobile 390px and desktop 1365px process exit 1, plus original mandatory browser step exit 1. No assertions altered.
+- No=4941 original body, attachments, issue/effective date, and loan-rule effect still unverified/BLOCKED; Evidence Lock unchanged. Regression covers §10 seven purposes, privacy 69, contextual privacy 12 at smoke level; not comprehensive privacy certification.
+- Final **NO-GO**; no merge, deploy, new PR or production URL change.
