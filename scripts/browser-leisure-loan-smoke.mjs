@@ -25,7 +25,12 @@ try{
     for(const q of ['สวัสดิการ','สวัสดิการทั้งหมด','สวัสดิการมีกี่ประเภท']){
       await ask(q);
       const welfareIndex=page.locator('#out .actions a').filter({hasText:'❤️ เปิดระเบียบและหลักเกณฑ์สวัสดิการทั้งหมด'});
-      assert.equal(await welfareIndex.count(),1,'One complete welfare index button');pass++;
+      const welfareCount=await welfareIndex.count();
+      if(welfareCount!==1){
+        const diagnostic=await page.evaluate(()=>({body:document.querySelector('#out .body')?.innerText||'',actions:[...document.querySelectorAll('#out .actions a')].map(a=>({text:a.textContent?.trim(),href:a.getAttribute('href')})),followups:[...document.querySelectorAll('#out .follow button')].map(b=>b.textContent?.trim())}));
+        console.error('WELFARE_INDEX_DIAGNOSTIC',JSON.stringify({question:q,width,...diagnostic}));
+      }
+      assert.equal(welfareCount,1,'One complete welfare index button');pass++;
       assert.equal(await welfareIndex.getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No=775','Complete welfare index must not be replaced by a single rule PDF');pass++;
       assert.equal(await welfareIndex.getAttribute('target'),'_blank');pass++;
     }
