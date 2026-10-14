@@ -376,3 +376,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Runtime monitor failure source: E2E `38537558423`, job `115764049043`, injects `doc-8ef30ac9bd3b05e970e9` No=4941 as `PENDING` with `mayAffectRules:true` and broad domains; mobile 390px and desktop 1365px both show `PENDING_DOCUMENT`. Original notice scope unverified, so **no speculative monitor scope narrowing** was made.
 - New commit CI runs at inspection: E2E `38538106752` QUEUED; Regression `38538106835` QUEUED; Share KB `38538106825` QUEUED. **NOT TESTED** until these complete; do not call them PASS. Privacy 69+12 and seven §10 purposes remain only previously established smoke coverage, not fresh results.
 - Final **NO-GO**, pending CI completion and original No=4941 scope verification. No assertion reductions, merge, deploy, new PR or production URL changes.
+
+## CI regression root-cause fix — 2026-10-14
+
+- Starting SHA `96815aa1d21d2da16bf006cd0a6a4e20623fc422`. At that SHA: Share KB `38538147328` PASS, Regression `38538147334` FAIL (job `115766000952`), E2E `38538147332` FAIL (job `115766000687`). Earlier code SHA: Share KB `38538106825` PASS, Regression `38538106835` FAIL (job `115765864689`), E2E `38538106752` FAIL (job `115765863632`). Artifact list for these runs empty at inspection; do not invent artifact IDs.
+- Regression job log locates failure `tests/leisure-loan-acceptance.mjs:30:54`: original unmodified assertion `/ยังไม่ยืนยันอัตราเฉพาะเงินกู้พักผ่อน/` stopped matching the newly reworded 4.25% publicity answer. The user-facing caveat was semantically retained but the required exact phrase was lost. This is a confirmed source-text regression, independent of monitor.
+- Fixed in code commit `c90b391120f5d417c9be872c9f3f55b0318c656d` by restoring the explicit phrase `ยังไม่ยืนยันอัตราเฉพาะเงินกู้พักผ่อน` while keeping 4.25% clearly labelled publicity and not a binding contractual rate. No assertion edits.
+- Separate browser failure remains dynamically injected No=4941 as PENDING, broad `affects`; original primary scope still unverified, so no speculative monitor suppression or Evidence Lock bypass.
+- At documentation time, new code commit CI not yet reported by GitHub; **NOT TESTED** after fix. Final **NO-GO**, no merge/deploy/new PR.
