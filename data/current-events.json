@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-14T04:43:25.638Z",
-  "lastCheckedAt": "2026-10-14T04:43:25.638Z",
+  "generatedAt": "2026-10-14T11:41:52.989Z",
+  "lastCheckedAt": "2026-10-14T11:41:52.989Z",
   "mode": "official-auto",
   "sourceHealth": {
     "homepage": "ok",
@@ -700,26 +700,6 @@
     {
       "contentKind": "NEWS",
       "rulePromotion": false,
-      "id": "official-4931",
-      "title": "แจ้งผลอนุมัติเงินกู้เพื่อพัฒนาคุณภาพชีวิต ระยะที่ 2 ครั้งที่ 4",
-      "summary": "เปิดดูรายละเอียดจากประกาศทางการ",
-      "status": "notice",
-      "statusLabel": "ประกาศใหม่",
-      "priority": 68,
-      "url": "https://www.dlasavingcoop.com/show.php?No=4931",
-      "ask": "ข่าวและประกาศล่าสุด",
-      "source": "homepage",
-      "publishedAt": null,
-      "eventDate": null,
-      "expiresAt": null,
-      "discoveryUrl": "https://www.dlasavingcoop.com/",
-      "directSourceUrl": "https://www.dlasavingcoop.com/show.php?No=4931",
-      "sourceState": "DIRECT_VERIFIED",
-      "sourceLabel": "ต้นฉบับทางการ"
-    },
-    {
-      "contentKind": "NEWS",
-      "rulePromotion": false,
       "id": "official-4241",
       "title": "ผลการอนุมัติสมาชิกสมาคมฌาปนกิจสงเคราะห์",
       "summary": "เปิดตรวจผลจากประกาศทางการ",
@@ -954,6 +934,26 @@
       "expiresAt": null,
       "discoveryUrl": "https://www.dlasavingcoop.com/list.php?Category=notice",
       "directSourceUrl": "https://www.dlasavingcoop.com/show.php?No=4792",
+      "sourceState": "DIRECT_VERIFIED",
+      "sourceLabel": "ต้นฉบับทางการ"
+    },
+    {
+      "contentKind": "NEWS",
+      "rulePromotion": false,
+      "id": "official-4786",
+      "title": "ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์ (ไม่เคยเป็นสมาชิก) ประจำเดือนมีนาคม 2569",
+      "summary": "เปิดตรวจผลจากประกาศทางการ",
+      "status": "result",
+      "statusLabel": "ติดตามผล",
+      "priority": 68,
+      "url": "https://www.dlasavingcoop.com/show.php?No=4786",
+      "ask": "ติดตามผลและสถานะเอกสาร",
+      "source": "official-notice",
+      "publishedAt": "2026-03-24T03:00:59.000Z",
+      "eventDate": null,
+      "expiresAt": null,
+      "discoveryUrl": "https://www.dlasavingcoop.com/list.php?Category=notice",
+      "directSourceUrl": "https://www.dlasavingcoop.com/show.php?No=4786",
       "sourceState": "DIRECT_VERIFIED",
       "sourceLabel": "ต้นฉบับทางการ"
     }
