@@ -429,3 +429,24 @@ GitHub compare main...PR: DIVERGED, ahead 70 / behind 2, merge base `99ed620b4f5
 5. If P0 or evidence regression appears, halt rollout; restore the last verified production commit via normal reviewed rollback (no force push) and rerun smoke tests.
 
 **Disposition:** CI/functional smoke PASS. Legal clause-to-answer/delegated-board acceptance BLOCKED, synthetic merge and branch protection NOT VERIFIED. NO-GO for automatic merge/deploy; owner approval alone must not bypass any unresolved binding-rule safety gate. No merge/deploy was authorized.
+
+
+## Owner-approved public-infographic evidence exception — 2026-10-15
+
+The project owner explicitly authorizes the cooperative's publicly published infographic images supplied in the project conversation as an **exceptional supporting source** for PR #136. Evidence class: `OWNER_APPROVED_PUBLICATION_EVIDENCE`; **not** `PRIMARY_PDF_VERIFIED`, and not proof of an individual member's eligibility. Image provenance, canonical post URLs, publication dates and supersession status have not independently been verified in this review. No blanket removal of Evidence Lock is authorized.
+
+The supplied images describe these *separate* ordinary-loan products and advertised terms, to be cross-checked against governing rules before enabling binding answers:
+
+| Image-described product | Advertised terms | Acceptance boundary |
+|---|---|---|
+| General ordinary loan, 2569 | up to THB 2,000,000; up to 240 installments; age up to 75; 7.50% stated with effective date 2026-10-01; 6 months membership and 6 paid share installments; guarantor tiers by amount | Promotional evidence only for uncorroborated interest rate, income, share and guarantor conditions; do not imply automatic approval |
+| Education-purpose ordinary loan | up to THB 200,000; up to 60 installments; aggregate ordinary debt up to THB 2,000,000 | Keep distinct from general ordinary-loan installment limit |
+| Disaster-purpose ordinary loan | up to THB 300,000; apply within 180 days of incident; up to 120 installments; aggregate ordinary debt up to THB 2,000,000 | Not the same as disaster welfare benefit |
+| Guarantor-liability ordinary loan | up to THB 2,000,000; up to 240 installments | Conditions and guarantor liability require separate evidence |
+| Debt-restructuring ordinary loan | up to 240 installments | Loan amount and case eligibility not established by infographic alone |
+| Ordinary loan secured by share capital | up to 90% of eligible share capital; up to 240 installments | Verify exclusions and applicable security rules |
+| Disaster welfare benefit (not a loan) | 10% of verified loss, normally capped at THB 5,000; minimum THB 1,000 where calculated lower; exceptional loss over THB 500,000 may be considered by board up to THB 50,000 | Keep in welfare route; no promise of discretionary board approval |
+
+**Specific regression scenarios required before release:** distinguish education 60 vs general 240 installments, disaster loan 300k/120 installments vs welfare 10%/5k, aggregate loan cap vs per-product cap, 7.50% effective-date claim vs latest verified interest notice, member-specific approval refusal, no cross-product contamination, and safe fallback for unclear or contradictory images. The duplicated education and guarantor infographics are not independent corroboration. No image is treated as a signed board resolution.
+
+**Decision:** This owner exception resolves the *source-type acceptance question* for using the images as supplemental evidence. It does not establish official-publication provenance or promote unverified numeric terms into authoritative rules. Existing CI results predate this evidence entry; new test execution is required for any later code change. Preserve draft PR and no-merge/no-deploy hold pending scoped acceptance and merge-safety verification.
