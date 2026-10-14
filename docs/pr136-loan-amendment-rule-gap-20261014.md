@@ -205,3 +205,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Commit `cfce6334a9ca8f14adeecae687f156b5615cc2b5` adds two independent diagnostic steps to E2E workflow, plus always-upload artifact. These diagnostic steps use `continue-on-error` **only to collect both failure records**; the original unchanged blocking browser step still runs and fails when its assertions fail. Diagnostic failures must never be represented as PASS.
 - New CI on code HEAD: Share KB `38526796240` PASS; Regression `38526796176` IN_PROGRESS; E2E `38526796246` IN_PROGRESS at document update. Independent browser outcomes and artifact IDs are **NOT YET VERIFIED**.
 - Final **NO-GO**, no merge/deploy/new PR/production URL change.
+
+## Independent browser E2E results verified — 2026-10-14
+
+- Requested Run `38526796246` job `115728946999` **FAIL**. Independently executed Mobile 390px and Desktop 1365px both exit **1** at the unchanged `/300,000 บาท.*36 งวด/` assertion; both display the same `PENDING_DOCUMENT` Evidence Lock caused by unreviewed notice No=4941. This proves the desktop failure independently, not merely a skipped desktop run.
+- Diagnostic steps display GitHub step conclusion `success` only because `continue-on-error: true` is used for evidence collection. Their process logs show **exit code 1**, and the original mandatory browser step also fails. Never interpret diagnostic-step success as test success.
+- GitHub screenshot artifact `11875808123`, `leisure-independent-browser-diagnostics`, 772665 bytes, uploaded successfully. Screenshots were generated for failed mobile and desktop viewports.
+- CI at HEAD `7fe9663551d43461ff6b0b3154299b229f596dd3`: Share KB `38526853568` PASS, Regression `38526853572` PASS, E2E `38526853548` IN_PROGRESS at last check. Original source body, attachments, effective date and loan-rule impact of No=4941 remain **BLOCKED**; Evidence Lock untouched.
+- Seven §10 purposes, privacy 69, contextual privacy 12: verified earlier regression logs; this is smoke coverage, not final semantic/authorization certification.
+- **NO-GO**. No merge/deploy/new PR, no assertion weakening or production URL change.
