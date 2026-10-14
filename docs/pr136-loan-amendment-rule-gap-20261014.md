@@ -316,3 +316,11 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - Official homepage `https://dlasavingcoop.com/index.php` currently indexes `[ประกาศ] ผลการคัดเลือกบริษัทประเมินหลักทรัพย์`; official No=4941 full-text `https://www.dlasavingcoop.com/show.php?No=4941` was attempted again but web reader returned inaccessible. Original body, attachments, announcement/effective dates and actual loan-rule impact **NOT VERIFIED / BLOCKED**. No Evidence Lock bypass or assumption from title.
 - Regression PASS is evidence of suite execution; seven §10 purposes, Privacy 69 and contextual 12 are smoke coverage, not exhaustive certification. No verified source change or code root cause warrants altering policy or CSS.
 - Final **NO-GO**. No weakened assertions, new PR, merge, deploy or production URL change.
+
+## New official leisure-loan source discovery — 2026-10-14
+
+- Starting PR HEAD `a090879aabaf61861a61c63b3b38b7562f697eba`. CI Regression `38535309741` PASS; Share KB `38535309797` PASS; E2E `38535309909` FAIL.
+- Official cooperative page `https://dlasavingcoop.com/show.php?No=774` directly lists three leisure-loan resources: (1) official summary image `https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/holiday.png`; (2) `ประกาศหลักเกณฑ์เงินกู้สามัญเพื่อการพักผ่อน พ.ศ. 2568` at `https://drive.google.com/file/d/1VrfsYKIYmdc21p2nGSMtz0oBYkdd0dSu/view?usp=sharing`; and (3) leisure-loan application at `https://drive.google.com/file/d/1qC30WEF9YTq1oo-M0r8sySLg2J2uNoIL/view?usp=sharing`.
+- These are authoritative **source locators**, not verified contents. Web reader could not retrieve the image/PDF bodies; Facebook official page could not be read. Amount, term, qualification, issue/effective date and any 2569 amendment interaction remain NOT VERIFIED. Do not unlock or overwrite rules from a document title alone.
+- Distinguish the leisure-specific 2568 announcement from No=4941 (indexed as appraiser-company selection). No=4941 full text/attachments still unverified; do not assume it has or lacks any loan-rule impact.
+- **BLOCKED / NO-GO** pending primary content access and re-running unchanged E2E assertions. No code/policy change, weakened tests, new PR, merge, deploy or production URL change.
