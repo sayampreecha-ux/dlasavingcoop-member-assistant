@@ -101,7 +101,7 @@
     const leisure=/พักผ่อน|ท่องเที่ยว|กู้เที่ยว|กู้ไปเที่ยว|ไปเที่ยว.*กู้/i.test(text);
     const evidence=leisure&&versionAt(registry,'leisureLoanCurrent',time.date);
     const source=evidence&&(registry.documents||[]).find(d=>d.id===evidence.documentId);
-    const scoped=evidence?.values?.status==='VERIFIED_PRIMARY'&&source?.status==='CURRENT';
+    const scoped=evidence?.values?.status==='VERIFIED_PRIMARY'&&source?.status==='CURRENT'&&ds.every(x=>['ordinaryLoan','guarantor','interest','shares','deposits','membership','dividendPatronage'].includes(x));
     const relevant=d=>!scoped||d.id===source.id||canonical(d.originalUrl||'')===canonical(source.originalUrl||'')||/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(d.conflictsWithDocumentIds||[]).includes(source.id);
     const conflicts=(registry.documents||[]).filter(d=>leisure&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
     if(conflicts.length)return {allowed:false,reason:'CONFLICTING_DOCUMENT',documents:conflicts,domains:ds,...time};
@@ -127,7 +127,7 @@
     for(const d of snapshot.documents){
       const reviewed=next.documents.find(x=>x.id===d.id);
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
-      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(d.conflictsWithDocumentIds||[]).includes('doc-5c893b2d819d747e4a6c'))){
+      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(base.ruleVersions||[]).some(v=>v.ruleId==='leisureLoanCurrent'&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
         if(reviewed)Object.assign(reviewed,{status:'CONFLICT',mayAffectRules:true,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds});
         else next.documents.push({...d,mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x))});
         continue;
@@ -142,7 +142,7 @@
       const baselineOnly=(base.nonGoverningBaselineDocumentIds||[]).includes(d.id)||known?.removedNonGoverningBaseline===true||known?.status==='PENDING'&&known.mayAffectRules===false&&known.pendingReason==='BASELINE_INVENTORY_NOT_RULE_PROMOTION';
       // Ignore resolved locks if the bundled reviewed document has the very same bytes/link fingerprint.
       if(known&&known.status!=='PENDING'&&known.contentHash===d.contentHash&&(known.fingerprint===d.fingerprint||known.metadataReview?.primaryBytesVerified&&known.metadataReview.reviewedLinkFingerprints.includes(d.fingerprint))&&d.pendingReason!=='PRIMARY_LINK_REMOVED')continue;
-      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,removedNonGoverningBaseline:baselineOnly});
+      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds,removedNonGoverningBaseline:baselineOnly});
       else next.documents.push({...d,affects:all.filter(x=>(d.affects||[]).includes(x)),removedNonGoverningBaseline:baselineOnly});
     }
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
