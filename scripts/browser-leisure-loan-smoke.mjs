@@ -16,7 +16,9 @@ if(!url){
 }
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});let pass=0;
 try{
-  for(const width of [390,1365]){
+  const viewports=process.env.LEISURE_VIEWPORT_WIDTH ? [Number(process.env.LEISURE_VIEWPORT_WIDTH)] : [390,1365];
+  assert.ok(viewports.every(w=>[390,1365].includes(w)),'Only supported mobile/desktop viewport widths');
+  for(const width of viewports){
     const page=await browser.newPage({viewport:{width,height:900}}),errors=[];
     page.on('pageerror',e=>errors.push(String(e)));
     // Exercise the asynchronous real monitor. Never replace it to make a rule pass.
@@ -46,6 +48,7 @@ try{
     if(!/300,000 บาท.*36 งวด/.test(leisureBody)){
       const diagnostic=await page.evaluate(()=>({body:document.querySelector('#out .body')?.innerText||'',details:document.querySelector('#out details.more')?.innerText||'',actions:[...document.querySelectorAll('#out .actions a')].map(a=>({text:a.textContent?.trim(),href:a.getAttribute('href')})),monitor:globalThis.COOP_APP?.freshnessStatus?.('กู้สามัญเพื่อการพักผ่อน')||null}));
       console.error('LEISURE_EVIDENCE_DIAGNOSTIC',JSON.stringify({question:'กู้เพื่อการพักผ่อน',width,...diagnostic}));
+      if(process.env.LEISURE_SCREENSHOT_DIR){fs.mkdirSync(process.env.LEISURE_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.LEISURE_SCREENSHOT_DIR,'leisure-failure-'+width+'.png'),fullPage:true});}
     }
     assert.match(leisureBody,/300,000 บาท.*36 งวด/);pass++;
     assert.match(await page.locator('#out .actions a').filter({hasText:'หลักเกณฑ์กู้พักผ่อน'}).getAttribute('href'),/1PlpK5Cprkz3NV5ey23Ix60Uo10F7IlFS/);pass++;
@@ -78,5 +81,5 @@ try{
     if(process.env.LEISURE_SCREENSHOT_DIR){fs.mkdirSync(process.env.LEISURE_SCREENSHOT_DIR,{recursive:true});await ask('กู้พักผ่อน');await page.locator('#out details.more').evaluate(e=>e.open=true);await page.screenshot({path:path.join(process.env.LEISURE_SCREENSHOT_DIR,'leisure-'+width+'.png'),fullPage:true});}
     await page.close();
   }
-  console.log('BROWSER LEISURE LOAN:',pass,'PASS / 0 FAIL on mobile and desktop; current rules, direct PDF, form/rate caveats, follow-ups and legacy isolation');
+  console.log('BROWSER LEISURE LOAN:',pass,'PASS / 0 FAIL on requested viewport(s); current rules, direct PDF, form/rate caveats, follow-ups and legacy isolation');
 }finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
