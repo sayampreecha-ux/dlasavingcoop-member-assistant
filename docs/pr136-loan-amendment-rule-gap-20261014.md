@@ -214,3 +214,12 @@ Verified branch HEAD `076db423c0cac37a7f283cf79f0e687bc336424d` (compare: identi
 - CI at HEAD `7fe9663551d43461ff6b0b3154299b229f596dd3`: Share KB `38526853568` PASS, Regression `38526853572` PASS, E2E `38526853548` IN_PROGRESS at last check. Original source body, attachments, effective date and loan-rule impact of No=4941 remain **BLOCKED**; Evidence Lock untouched.
 - Seven §10 purposes, privacy 69, contextual privacy 12: verified earlier regression logs; this is smoke coverage, not final semantic/authorization certification.
 - **NO-GO**. No merge/deploy/new PR, no assertion weakening or production URL change.
+
+## Screenshot artifact inspection and latest CI — 2026-10-14
+
+- Verified HEAD `0bf83a5ce827633392ec6c46fed84e749867cb84` identical to PR branch before update. Share KB `38526991497` PASS; Regression `38526991564` PASS; E2E `38526991309` FAIL.
+- Downloaded and opened artifact `11875808123` (ZIP 772665 bytes): two actual screenshots `leisure-failure-390.png` (360307 bytes) and `leisure-failure-1365.png` (434160 bytes). Both show the leisure-loan selection and an Evidence Lock response rather than loan amount/term. Screenshots show no obvious clipping of the eight loan choices, but screenshots alone are insufficient for all responsive UI assertions.
+- Job `115728946999` logs confirm both independent browser widths fail original amount/term assertion with exit code 1; the diagnostic steps' reported success only reflects `continue-on-error`. Original mandatory E2E fails.
+- Attempt to retrieve official original `https://www.dlasavingcoop.com/show.php?No=4941` again returned inaccessible. Original content, attachments, effective date and actual effect on loan rules remain **BLOCKED**; no justified Evidence Lock change.
+- Prior regression logs prove 7 ordinary §10 purposes, 69 privacy and 12 contextual privacy smoke checks were executed and passed; not a comprehensive semantic or access-control audit.
+- Final **NO-GO**. No assertion reductions, merge, deploy, new PR or production URL changes.
