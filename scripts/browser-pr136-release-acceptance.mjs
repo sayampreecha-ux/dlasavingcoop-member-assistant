@@ -8,6 +8,11 @@ import {createRequire} from 'node:module';
 const {chromium}=createRequire(import.meta.url)('playwright');
 const root=process.cwd(), output=path.join(root,'pr136-browser-evidence');fs.mkdirSync(output,{recursive:true});
 const cases=[
+ // Exact questions reported by the owner; these must be answered, not blanket evidence-locked.
+ ['owner-leisure-amount','เงินกู้สามัญเพื่อพักผ่อน กู้ได้เท่าไร',[/300,000 บาท/],/ต้องยืนยันหลักฐาน|กำลังยืนยันผลกระทบ|ยังยืนยันกฎที่มีผล/],
+ ['owner-emergency-membership','เงินกู้ฉุกเฉินต้องเป็นสมาชิกกี่เดือน',[/3 เดือน/],/ต้องยืนยันหลักฐาน|กำลังยืนยันผลกระทบ|ยังยืนยันกฎที่มีผล/],
+ ['owner-share-rule','หุ้นสหกรณ์ส่งได้สูงสุดเดือนละเท่าไร',[/5,000 บาท/],/ต้องยืนยันหลักฐาน|กำลังยืนยันผลกระทบ|ยังยืนยันกฎที่มีผล/],
+ ['owner-welfare-childbirth','สวัสดิการคลอดบุตรได้เท่าไร',[/1,000 บาท/],/ต้องยืนยันหลักฐาน|กำลังยืนยันผลกระทบ|ยังยืนยันกฎที่มีผล/],
  ['ordinary','กู้สามัญ',[/2,000,000 บาท/,/240 งวด/,/2026-10-01/,/ไม่ถือว่า/]],
  ['emergency','กู้ฉุกเฉิน',[/30,000 บาท/,/60,000 บาท/,/15 งวด/,/2026-10-01/]],
  ['special','กู้เคหะต้องทำอย่างไร',[/3,000,000 บาท/,/5,000,000 บาท/,/360 งวด/]],
