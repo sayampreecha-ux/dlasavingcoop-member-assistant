@@ -2916,7 +2916,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const check=freshnessStatus(q);
       if(!check.allowed)return F.lock(check,sourceRegistry);
       if(v?.status==='CURRENT'&&v.values?.maxMonthlyShares){
-        return res('share_monthly_ceiling','ตามหลักเกณฑ์ข้อ 7 ส่งค่าหุ้นรายเดือนได้สูงสุด '+v.values.maxMonthlyShares.toLocaleString('th-TH')+' บาทครับ ทั้งนี้อัตราที่ต้องส่งตามช่วงเงินได้รายเดือนยังต้องตรวจประกาศตารางอัตราที่เกี่ยวข้องก่อนประเมินรายบุคคล',{domain:'shares',decision:'VERIFIED_RULE',sources:[src('ระเบียบหุ้น ข้อ 7',v.values.source||S.shareForms)],actions:[['ตรวจระเบียบหุ้น',S.shareForms]]});
+        return res('share_monthly_ceiling','ตามหลักเกณฑ์ข้อ 7 ส่งค่าหุ้นรายเดือนได้สูงสุด '+v.values.maxMonthlyShares.toLocaleString('th-TH')+' บาทครับ ทั้งนี้อัตราที่ต้องส่งตามช่วงเงินได้รายเดือนยังต้องตรวจประกาศตารางอัตราที่เกี่ยวข้องก่อนประเมินรายบุคคล',{domain:'shares',decision:'VERIFIED_RULE',sources:[src('ระเบียบหุ้น ข้อ 7',v.values.source||S.shareForms)],actions:[['ตรวจระเบียบหุ้น',v.values.source||'https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing']]});
       }
     }
     if(/สวัสดิการ/.test(q)&&/คลอดบุตร|คลอดลูก|เงินช่วยคลอด/.test(q)&&/เท่าไร|เท่าไหร่|กี่บาท|จำนวนเงิน/.test(q)&&!personal(q)){
