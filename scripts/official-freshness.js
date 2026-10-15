@@ -9,11 +9,18 @@
   const all=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shares','deposits','welfare','membership','resignation','guarantor','dividendPatronage','interest'];
   function officialPage(url){try{const u=new URL(url);return u.protocol==='https:'&&/^(www\.)?dlasavingcoop\.com$/.test(u.hostname)&&!/(?:board|forum)/i.test(u.pathname);}catch{return false;}}
   function canonical(url){try{const u=new URL(url);u.hash='';u.protocol='https:';if(/^(www\.)?dlasavingcoop\.com$/.test(u.hostname))u.hostname='www.dlasavingcoop.com';const id=u.pathname.match(/\/file\/d\/([^/]+)/);if(u.hostname==='drive.google.com'&&id)return 'https://drive.google.com/file/d/'+id[1]+'/view';u.searchParams.sort();return u.toString();}catch{return '';}}
+  // Official publication is evidence regardless of file format; legal authority is a separate question.
+  function officialPublication(doc){
+    if(!doc)return false;
+    if(officialPage(doc.originalUrl))return true;
+    try{const u=new URL(doc.originalUrl);return u.protocol==='https:'&&u.hostname==='drive.google.com'&&officialPage(doc.officialIndexUrl)&&doc.linkVerified===true;}catch{return false;}
+  }
   function primary(doc){
     if(!doc||!['BYLAW','REGULATION','AMENDMENT','ANNOUNCEMENT','CRITERIA','OFFICIAL_DOCUMENT'].includes(doc.type))return false;
+    // An official infographic/news item is valid publication evidence, but cannot silently
+    // become a binding rule version without separate document classification and review.
     if(/infographic|ประชาสัมพันธ์|สรุป/i.test(doc.title||''))return false;
-    if(officialPage(doc.originalUrl))return !/infographic|ประชาสัมพันธ์|สรุป/.test(doc.title||'');
-    try{const u=new URL(doc.originalUrl);return u.protocol==='https:'&&u.hostname==='drive.google.com'&&officialPage(doc.officialIndexUrl)&&doc.linkVerified===true;}catch{return false;}
+    return officialPublication(doc);
   }
   function domains(text=''){
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
@@ -67,6 +74,10 @@
   }
   function documentScope(doc,text=''){
     const declared=doc.affects||[];
+    // Administrative selection results are discovery records, not evidence that
+    // every member rule changed. Preserve PENDING; explicit rule/conflict links win.
+    if(/ผลการ(?:คัดเลือก|จัดซื้อ|จัดจ้าง|ประกวดราคา).*บริษัท/.test(doc.title||'')&&!(doc.affectedRuleIds||[]).length&&!(doc.conflictsWithDocumentIds||[]).length&&!/แก้ไข.*(?:ระเบียบ|หลักเกณฑ์)|เปลี่ยน.*(?:สิทธิ|เงื่อนไข)/.test(doc.title||''))return [];
+
     if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan'];
@@ -97,7 +108,15 @@
     const ds=queryDomains(text),time=asOf(text,now);
     if(personal||!ds.length||/^(?:เบอร์โทร|ติดต่อ|รายชื่อเจ้าหน้าที่)/.test(text))return {allowed:true,domains:ds,...time};
     if(time.date&&time.date>asOf('ตอนนี้',now).date)return {allowed:false,reason:'FUTURE_RULE_NOT_CONFIRMED',documents:[],domains:ds,...time};
-    const pending=pendingFor(registry,ds,time.date,text);
+    // A verified product source is not superseded by an unscoped discovery.
+    const leisure=/พักผ่อน|ท่องเที่ยว|กู้เที่ยว|กู้ไปเที่ยว|ไปเที่ยว.*กู้/i.test(text);
+    const evidence=leisure&&versionAt(registry,'leisureLoanCurrent',time.date);
+    const source=evidence&&(registry.documents||[]).find(d=>d.id===evidence.documentId);
+    const scoped=evidence?.values?.status==='VERIFIED_PRIMARY'&&source?.status==='CURRENT'&&ds.every(x=>['ordinaryLoan','guarantor','interest','shares','deposits','membership','dividendPatronage'].includes(x));
+    const relevant=d=>!scoped||d.id===source.id||canonical(d.originalUrl||'')===canonical(source.originalUrl||'')||/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(d.conflictsWithDocumentIds||[]).includes(source.id);
+    const conflicts=(registry.documents||[]).filter(d=>leisure&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
+    if(conflicts.length)return {allowed:false,reason:'CONFLICTING_DOCUMENT',documents:conflicts,domains:ds,...time};
+    const pending=pendingFor(registry,ds,time.date,text).filter(relevant);
     if(pending.length)return {allowed:false,reason:'PENDING_DOCUMENT',documents:pending,domains:ds,...time};
     const stale=(registry.monitors||[]).filter(m=>m.domains.some(x=>ds.includes(x))&&(!m.lastSuccessfulCheck||now-new Date(m.lastSuccessfulCheck)>(registry.policy.maxIndexAgeHours||72)*3600000||new Date(m.lastSuccessfulCheck)>now));
     if(stale.length)return {allowed:false,reason:'STALE_SOURCE',documents:[],sources:stale,domains:ds,...time};
@@ -119,6 +138,11 @@
     for(const d of snapshot.documents){
       const reviewed=next.documents.find(x=>x.id===d.id);
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
+      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(base.ruleVersions||[]).some(v=>v.ruleId==='leisureLoanCurrent'&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
+        if(reviewed)Object.assign(reviewed,{status:'CONFLICT',mayAffectRules:true,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds});
+        else next.documents.push({...d,mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x))});
+        continue;
+      }
       if(d.status!=='PENDING'||!d.mayAffectRules||!primary(d))continue;
       const known=next.documents.find(x=>x.id===d.id);
       // Human-reviewed form classification is bound to exact bytes and label.
@@ -129,11 +153,11 @@
       const baselineOnly=(base.nonGoverningBaselineDocumentIds||[]).includes(d.id)||known?.removedNonGoverningBaseline===true||known?.status==='PENDING'&&known.mayAffectRules===false&&known.pendingReason==='BASELINE_INVENTORY_NOT_RULE_PROMOTION';
       // Ignore resolved locks if the bundled reviewed document has the very same bytes/link fingerprint.
       if(known&&known.status!=='PENDING'&&known.contentHash===d.contentHash&&(known.fingerprint===d.fingerprint||known.metadataReview?.primaryBytesVerified&&known.metadataReview.reviewedLinkFingerprints.includes(d.fingerprint))&&d.pendingReason!=='PRIMARY_LINK_REMOVED')continue;
-      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,removedNonGoverningBaseline:baselineOnly});
+      if(known)Object.assign(known,{status:'PENDING',mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x)),pendingReason:d.pendingReason,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds,removedNonGoverningBaseline:baselineOnly});
       else next.documents.push({...d,affects:all.filter(x=>(d.affects||[]).includes(x)),removedNonGoverningBaseline:baselineOnly});
     }
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
     return next;
   }
-  return {clone,all,officialPage,canonical,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
+  return {clone,all,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
 });

@@ -1239,14 +1239,14 @@
       "originalUrl": "https://drive.google.com/file/d/1CO8uENf2kvBbzILoKhMg6UFQyqXw99wb/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?Category=procedure",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": "2569",
       "amendment": 5,
       "affects": [
         "ordinaryLoan"
       ],
-      "status": "PENDING",
+      "status": "CURRENT",
       "lastCheckedAt": "2026-10-09T00:35:49.849Z",
       "mayAffectRules": false,
       "fingerprint": "0228a2dde55a67df3f157388cba1f378c8e0a22e56b7c98bc4f32da4e4fefa69",
@@ -1255,7 +1255,12 @@
         "procedure": "0228a2dde55a67df3f157388cba1f378c8e0a22e56b7c98bc4f32da4e4fefa69"
       },
       "contentHash": "e91923e3bf4006173911383df9891cdc7cd88285ff22fd02691ee1d85dfb9c64",
-      "lastContentCheck": "2026-10-06T18:28:17.231Z"
+      "lastContentCheck": "2026-10-06T18:28:17.231Z",
+      "review": {
+        "primaryVerified": true,
+        "basis": "Primary PDF amendment dated 2026-09-11, effective 2026-10-01; metadata only.",
+        "limitation": "Board criteria remain separate; no product rule changes."
+      }
     },
     {
       "id": "doc-4510c4fa1d9e18f4bfb9",
@@ -1312,14 +1317,14 @@
       "originalUrl": "https://drive.google.com/file/d/1DeH0vI9PR6NHPMMlh3X62HOH-twlA0KR/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?Category=procedure",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": "2569",
       "amendment": 2,
       "affects": [
         "emergencyLoan"
       ],
-      "status": "PENDING",
+      "status": "CURRENT",
       "lastCheckedAt": "2026-10-09T00:35:49.849Z",
       "mayAffectRules": false,
       "fingerprint": "bf5659425b71b44bf05e0304e0d5d4177bf196d8655fd6ee693f6d66b14e04c5",
@@ -1328,7 +1333,12 @@
         "procedure": "bf5659425b71b44bf05e0304e0d5d4177bf196d8655fd6ee693f6d66b14e04c5"
       },
       "contentHash": "d2d9bac66fcfa7016f56e090bad92f9e38920946b43f9ec4db6a7231acf9f9b3",
-      "lastContentCheck": "2026-10-06T18:28:17.231Z"
+      "lastContentCheck": "2026-10-06T18:28:17.231Z",
+      "review": {
+        "primaryVerified": true,
+        "basis": "Primary PDF amendment dated 2026-09-11, effective 2026-10-01; metadata only.",
+        "limitation": "Board criteria remain separate; no product rule changes."
+      }
     },
     {
       "id": "doc-65eb80d177b648e52bc5",
@@ -1391,8 +1401,8 @@
       "originalUrl": "https://drive.google.com/file/d/1QePe3oTJto46Dru4j4Je-gE_CUjsDUgd/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?Category=procedure",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
       "version": "2569",
       "amendment": 3,
       "affects": [
@@ -1400,7 +1410,7 @@
         "specialHousing",
         "redeemMortgage"
       ],
-      "status": "PENDING",
+      "status": "CURRENT",
       "lastCheckedAt": "2026-10-09T00:35:49.849Z",
       "mayAffectRules": false,
       "fingerprint": "039b3a6cf8655bd5b4c2e98f349b404ac7c739deee93753f721cd37a8e66d06d",
@@ -1409,7 +1419,12 @@
         "procedure": "039b3a6cf8655bd5b4c2e98f349b404ac7c739deee93753f721cd37a8e66d06d"
       },
       "contentHash": "979b3bc1e8e1b491658710f832ab8716f3d58efcaaa000c065e9dab011ac3aa2",
-      "lastContentCheck": "2026-10-06T18:28:17.231Z"
+      "lastContentCheck": "2026-10-06T18:28:17.231Z",
+      "review": {
+        "primaryVerified": true,
+        "basis": "Primary PDF amendment dated 2026-09-11, effective 2026-10-01; metadata only.",
+        "limitation": "Board criteria remain separate; no product rule changes."
+      }
     },
     {
       "id": "doc-af4acf0aa479fd94a5fa",
