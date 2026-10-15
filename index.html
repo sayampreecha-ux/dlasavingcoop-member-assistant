@@ -2909,6 +2909,24 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       }
       return locked;
     }
+    // Give a verified public rule fact before collecting private eligibility details.
+    // These questions ask for a published ceiling/benefit, not a personal assessment.
+    if(/หุ้น|ทุนเรือนหุ้น/.test(q)&&/สูงสุด|ไม่เกิน|เพดาน/.test(q)&&/เดือนละ|รายเดือน|ต่อเดือน/.test(q)&&!personal(q)){
+      const v=F.versionAt(sourceRegistry,'sharesClause7',F.asOf(q,new Date()).date);
+      const check=freshnessStatus(q);
+      if(!check.allowed)return F.lock(check,sourceRegistry);
+      if(v?.status==='CURRENT'&&v.values?.maxMonthlyShares){
+        return res('share_monthly_ceiling','ตามหลักเกณฑ์ข้อ 7 ส่งค่าหุ้นรายเดือนได้สูงสุด '+v.values.maxMonthlyShares.toLocaleString('th-TH')+' บาทครับ ทั้งนี้อัตราที่ต้องส่งตามช่วงเงินได้รายเดือนยังต้องตรวจประกาศตารางอัตราที่เกี่ยวข้องก่อนประเมินรายบุคคล',{domain:'shares',decision:'VERIFIED_RULE',sources:[src('ระเบียบหุ้น ข้อ 7',v.values.source||S.shareForms)],actions:[['ตรวจระเบียบหุ้น',S.shareForms]]});
+      }
+    }
+    if(/สวัสดิการ/.test(q)&&/คลอดบุตร|คลอดลูก|เงินช่วยคลอด/.test(q)&&/เท่าไร|เท่าไหร่|กี่บาท|จำนวนเงิน/.test(q)&&!personal(q)){
+      const check=freshnessStatus(q);
+      if(!check.allowed)return F.lock(check,sourceRegistry);
+      const v=F.versionAt(sourceRegistry,'welfareChildbirth',check.date);
+      if(v?.status==='CURRENT'&&v.values?.amountBahtPerChild){
+        return res('welfare_childbirth_amount','สวัสดิการคลอดบุตรตามหลักเกณฑ์ที่ยืนยันแล้ว '+v.values.amountBahtPerChild.toLocaleString('th-TH')+' บาทต่อบุตรหนึ่งคน สำหรับสมาชิกสามัญและสมาชิกสมทบที่เข้าเงื่อนไข โดยให้สิทธิไม่เกิน '+v.values.maxChildren+' คน และต้องตรวจคุณสมบัติและระยะเวลายื่นคำขอก่อนอนุมัติจริง',{domain:'welfare',decision:'VERIFIED_RULE',sources:[src('ระเบียบสวัสดิการคลอดบุตร',v.values.source||S.welfareForms)],actions:[['ตรวจระเบียบสวัสดิการ',S.welfareForms]]});
+      }
+    }
     // Suggestions and partner searches are not statements of an existing guarantee load.
     if(questionDomain(q)==='shares'&&!loanProduct(q)&&!personal(q)&&/รายเดือน|เดือนละ/.test(q)&&/เท่าไร|เท่าไหร่|กี่/.test(q)&&!/\d/.test(q))return res('share_monthly_income_clarification','อัตราหุ้นรายเดือนขึ้นกับช่วงเงินได้รายเดือนครับ ขอทราบเงินได้รายเดือนเป็นจำนวนบาทเพื่อเทียบช่วงที่มีหลักฐาน ไม่ต้องส่งเลขสมาชิก สลิป หรือข้อมูลระบุตัวบุคคล',{domain:'shares',decision:'NEED_INFO',requiredFact:'grossMonthlyIncome',actions:[['ตรวจหุ้นของตนเอง',S.memberPortal]],sources:[directRuleSource('sharesClause7Current')]});
     if(/ผู้รับโอนประโยชน์/.test(q)&&/(?:สแกน|ส่ง).*(?:ช่องทาง|ไลน์|ไลค์|อีเมล)/.test(q))return res('beneficiary_submission_review','ต้องการส่งแบบผู้รับโอนประโยชน์ผ่านช่องทางใดครับ? AI ยังไม่ยืนยันว่าภาพสแกนหรือแชทนี้ใช้แทนเอกสารต้นฉบับได้ ต้องตรวจช่องทางรับและรูปแบบเอกสารกับงานทะเบียนก่อนส่ง',{decision:'EVIDENCE_LOCK',requiredFact:'submissionChannel',actions:[['ยืนยันช่องทางรับกับงานทะเบียน',S.contact],['แบบสมาชิกทางการ',S.memberForms]],sources:[src('ช่องทางติดต่อทางการ',S.contact)]});
