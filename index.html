@@ -806,7 +806,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const normalizedSources=sources.map(x=>{
       const n=normalizeSourceLink(intent,x.title,x.url);
       const pending=n.sourceState==='DIRECT_SOURCE_PENDING';
-      return {...x,url:n.url,sourceState:n.sourceState,note:x.note||(pending?'หน้ารวมทางการ — ต้นฉบับเฉพาะเรื่องกำลังตรวจยืนยัน':'')};
+      return {...x,title:(typeof x.title==='string'&&x.title.trim())?x.title:'เอกสารหลักเกณฑ์ทางการ',url:n.url,sourceState:n.sourceState,note:x.note||(pending?'หน้ารวมทางการ — ต้นฉบับเฉพาะเรื่องกำลังตรวจยืนยัน':'')};
     });
     return {intent,domain:opt.domain||(opt.ruleId==='emergency_repeat'?'emergencyLoanCurrent':opt.ruleId==='ordinary_repeat'?'ordinaryLoanCurrent':opt.ruleId==='education_repeat'?'education':null),concern:opt.concern||null,evidenceState:opt.evidenceState||null,missingFacts:opt.requiredFact?[opt.requiredFact]:[],answer,details,actions:sharePrimary,extraActions:shareExtra,sources:normalizedSources,followups:opt.followups||[],status,privacy:!!opt.privacy,evidence,confidence,answerClass:opt.answerClass||null,ruleId:opt.ruleId||null,flowId:opt.flowId||null,facts:opt.facts||null,requiredFact:opt.requiredFact||null,decision:opt.decision||(opt.requiredFact?'NEED_INFO':null)};
   }
