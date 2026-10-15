@@ -9,11 +9,18 @@
   const all=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shares','deposits','welfare','membership','resignation','guarantor','dividendPatronage','interest'];
   function officialPage(url){try{const u=new URL(url);return u.protocol==='https:'&&/^(www\.)?dlasavingcoop\.com$/.test(u.hostname)&&!/(?:board|forum)/i.test(u.pathname);}catch{return false;}}
   function canonical(url){try{const u=new URL(url);u.hash='';u.protocol='https:';if(/^(www\.)?dlasavingcoop\.com$/.test(u.hostname))u.hostname='www.dlasavingcoop.com';const id=u.pathname.match(/\/file\/d\/([^/]+)/);if(u.hostname==='drive.google.com'&&id)return 'https://drive.google.com/file/d/'+id[1]+'/view';u.searchParams.sort();return u.toString();}catch{return '';}}
+  // Official publication is evidence regardless of file format; legal authority is a separate question.
+  function officialPublication(doc){
+    if(!doc)return false;
+    if(officialPage(doc.originalUrl))return true;
+    try{const u=new URL(doc.originalUrl);return u.protocol==='https:'&&u.hostname==='drive.google.com'&&officialPage(doc.officialIndexUrl)&&doc.linkVerified===true;}catch{return false;}
+  }
   function primary(doc){
     if(!doc||!['BYLAW','REGULATION','AMENDMENT','ANNOUNCEMENT','CRITERIA','OFFICIAL_DOCUMENT'].includes(doc.type))return false;
+    // An official infographic/news item is valid publication evidence, but cannot silently
+    // become a binding rule version without separate document classification and review.
     if(/infographic|ประชาสัมพันธ์|สรุป/i.test(doc.title||''))return false;
-    if(officialPage(doc.originalUrl))return !/infographic|ประชาสัมพันธ์|สรุป/.test(doc.title||'');
-    try{const u=new URL(doc.originalUrl);return u.protocol==='https:'&&u.hostname==='drive.google.com'&&officialPage(doc.officialIndexUrl)&&doc.linkVerified===true;}catch{return false;}
+    return officialPublication(doc);
   }
   function domains(text=''){
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
@@ -152,5 +159,5 @@
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
     return next;
   }
-  return {clone,all,officialPage,canonical,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
+  return {clone,all,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
 });
