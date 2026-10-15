@@ -31,3 +31,17 @@ Before code change, `git merge-tree --write-tree origin/main HEAD` succeeded wit
 - After release, test loan navigation, welfare, privacy and Desktop/Mobile. On P0 failure stop rollout and restore the last verified deployment through normal reviewed rollback. No force push, no replacement of Main events with the PR snapshot.
 
 Disposition at this commit: browser/changed-HEAD CI PENDING. No merge/deploy, no Ready claim.
+
+## CI closure evidence — 2026-10-15 (verified on b18a2a153814879367ba634a0c3b5e2822340464)
+- Regression run 38662780550: SUCCESS.
+- Share KB 2569 run 38662780532: SUCCESS.
+- E2E Member Answer Engine run 38662780536, job 116187693001: SUCCESS.
+- Release gate 54 suites passed, none skipped; PR136 physical browser acceptance 34 total, 0 failed (390px and 1365px). Prior guarantor wording failures resolved in index.html; Evidence Lock remains in place.
+- Browser evidence artifact 11940190107 (sha256 ec13aa807dc5680ad1d77fa3bece9d9e2c5902e2099ccf7d9401f4d41500728e); independent leisure diagnostics artifact 11939581852 (sha256 8179b1a3459057be135ef254c24ebb91ebd811e3c020e3f4e3c338a18a6bb2bb).
+- GitHub connector reports PR mergeable=true, draft=true, reviews=[]; these do NOT establish branch policy requirements. Branch Protection / Rulesets / Required Checks policy remains NOT VERIFIED in this connector session.
+- Current Main data/current-events.json blob 1681e4bba264ae9e6742b20c54a58a7a44dc831d; PR branch blob 17ee0f37494088359e585631faa9e06990e60938; file absent from PR changed paths. Standard three-way merge must preserve Main's blob. Final synthetic merge after latest commit NOT TESTED.
+- Source metadata remains separate from binding financial rule verification; pending source items remain subject to Evidence Lock. External PDF page-by-page independent revalidation and production smoke remain NOT TESTED in this execution.
+- Final disposition: FUNCTIONAL CI PASS; RELEASE NO-GO pending branch policy verification, final merge-safety verification, source/acceptance review and separate owner authorization. No merge or deployment.
+
+### Rollback controls for separately approved release
+Record Main SHA, last successful Pages deployment ID, deployed commit and current-events blob before merging. Deploy from approved Main only; smoke-test loan categories, welfare, privacy and mobile/desktop. On P0, halt rollout and restore last-known-good via reviewed procedure without force push or overwriting current-events.
