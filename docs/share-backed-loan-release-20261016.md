@@ -30,3 +30,7 @@ Local Chromium runtime installation failed because the downloaded browser archiv
 - If a postdeploy critical regression appears, stop further rollout and restore the last verified Pages artifact/deployment using the existing normal reviewed rollback process. Do not erase newer events or unrelated Main work.
 
 Current disposition at authoring: local unit/contract PASS; browser CI and release pending. Do not present this draft evidence record as deployed acceptance.
+
+## First CI correction
+
+At `ec65986aa5eac59c0e3f0716f3ce5afc21d10765`, Regression 38884326083 and Share KB 38884326187 passed. E2E 38884326790 passed the original 42-case PR136 acceptance and 18/19 browser suites. The remaining Pilot test used an ambiguous `details.more summary` locator after a separate extra-links panel became visible; it now requires exactly one summary with the intended details label. New share-backed browser acceptance was 34/36: both failures were historical questions with a correct evidence lock but a generic source-index link. The handler now supplies the current signed notice as evidence of its effective-date boundary, explicitly not as authority for the prior period. Added assertions retain the historical lock and prohibit current financial values in that historical answer. All original scenarios remain; exact-head CI must rerun before merge.

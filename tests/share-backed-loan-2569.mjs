@@ -57,7 +57,7 @@ for(const [q,re]of [
  ['กู้หุ้นต้องมีผู้ค้ำกี่คน',/ไม่สรุปว่าไม่ต้องมีผู้ค้ำ/],
  ['กู้หุ้นคำนวณค่างวดเดือนละเท่าไร',/ยังไม่แสดงค่างวด/]
 ])check('boundary '+q,()=>{const r=app.answer(q);assert.equal(r.domain,'shareBackedLoanCurrent');assert.match(r.answer,re);assert.doesNotMatch(r.answer,/กู้ได้แน่นอน|อนุมัติแล้ว|undefined|NaN/);});
-check('historical lock and effective boundary',()=>{assert.equal(app.answer('กู้หุ้น วันที่ 30 กันยายน 2569 วงเงินเท่าไร').decision,'EVIDENCE_LOCK');assert.match(app.answer('กู้หุ้น วันที่ 1 ตุลาคม 2569 วงเงินเท่าไร').answer,/90%/);assert.equal(app.answer('กู้หุ้น วันที่ 1 ตุลาคม 2570 วงเงินเท่าไร').decision,'EVIDENCE_LOCK');});
+check('historical lock and effective boundary',()=>{assert.equal(app.answer('กู้หุ้น วันที่ 30 กันยายน 2569 วงเงินเท่าไร').decision,'EVIDENCE_LOCK');const historical=app.answer('กู้หุ้น วันที่ 30 กันยายน 2569 วงเงินเท่าไร');assert.ok(historical.sources.some(s=>s.url.includes(source)));assert.match(historical.answer,/ไม่ใช้ฉบับนี้ยืนยันเงื่อนไขก่อนวันมีผล/);assert.doesNotMatch(historical.answer,/90%|7\.50%|2,000,000/);assert.match(app.answer('กู้หุ้น วันที่ 1 ตุลาคม 2569 วงเงินเท่าไร').answer,/90%/);assert.equal(app.answer('กู้หุ้น วันที่ 1 ตุลาคม 2570 วงเงินเท่าไร').decision,'EVIDENCE_LOCK');});
 check('privacy',()=>{for(const q of ['กู้หุ้นของผมอนุมัติหรือยัง','กู้หุ้น OTP 123456','กู้หุ้นตรวจยอดหุ้นของผม']){const r=app.answer(q);assert.ok(r.privacy);assert.equal(r.decision,'SAFE_HANDOFF');assert.doesNotMatch(r.answer,/123456|อนุมัติแล้ว/);}});
 for(const change of ['bytes','label','conflict','removed'])check('criteria monitor '+change,()=>{
  const a=loadMemberEngine(),snap=a.getSourceRegistry(),d=snap.documents.find(d=>d.originalUrl.includes(source));

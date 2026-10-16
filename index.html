@@ -1680,7 +1680,16 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(/รหัสผ่าน|password|otp|pin|ยอดหุ้นของ|ยอดหนี้ของ|สถานะ|อนุมัติหรือยัง|ผ่านหรือยัง|อนุมัติให้|กู้ให้/i.test(q))return res('personal_handoff','AI ไม่ตรวจยอดหุ้น ยอดหนี้ หรือผลอนุมัติรายบุคคลครับ เปิดระบบสมาชิกหรือติดต่อสหกรณ์เพื่อตรวจข้อมูลจริง ไม่ส่งรหัสผ่าน PIN หรือ OTP ในแชท',{privacy:true,decision:'SAFE_HANDOFF',actions:[['ระบบสมาชิก',S.memberPortal],['ติดต่อสหกรณ์',S.contact]],sources:[src('ระบบสมาชิกทางการ',S.memberPortal)]});
     if(!check.allowed)return F.lock(check,sourceRegistry);
     const version=F.versionAt(sourceRegistry,id,check.date),R=version?.values;
-    if(!R||R.status!=='VERIFIED_PRIMARY')return F.lock({...check,reason:'HISTORICAL_EVIDENCE_MISSING'},sourceRegistry);
+    if(!R||R.status!=='VERIFIED_PRIMARY'){
+      const locked=F.lock({...check,reason:'HISTORICAL_EVIDENCE_MISSING'},sourceRegistry);
+      const current=KB.ruleAuthority.rules[id];
+      if(check.historical&&check.date&&check.date<current.effectiveFrom){
+        locked.answer+=' ประกาศกู้ทุนเรือนหุ้นฉบับที่ตรวจยืนยันมีผลตั้งแต่ '+current.effectiveFrom+' จึงไม่ใช้ฉบับนี้ยืนยันเงื่อนไขก่อนวันมีผล ต้องตรวจฉบับเดิมและบทเฉพาะกาลตามวันที่ดำเนินการจริง';
+        locked.actions.unshift(['ประกาศกู้ทุนเรือนหุ้น 2569 — ตรวจวันมีผล ไม่ใช้แทนฉบับเดิม',current.source]);
+        locked.sources.unshift(src(current.primaryEvidenceTitle+' — หลักฐานวันมีผลของฉบับปัจจุบัน',current.source,'ไม่ใช่หลักเกณฑ์ที่ยืนยันสำหรับช่วงก่อนวันมีผล'));
+      }
+      return locked;
+    }
     const n=x=>Number(x).toLocaleString('th-TH');
     const eligibility=[
       'เป็นสมาชิกติดต่อกันไม่น้อยกว่า '+R.membershipMinMonths+' เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า '+R.sharePaymentMinInstallments+' งวดนับถึงวันยื่นคำขอกู้',
