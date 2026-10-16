@@ -41,7 +41,7 @@ Legacy checklist differences preserved: restructuring salary evidence1month; gua
 
 ## New verification and release gates
 
-`tests/debt-specific-loans-2569.mjs`: aliases, menu, context, numeric source contracts, exact source/version parity, criteria/form/rate changes, conflicts, removed links, historical boundary, privacy and unrelated controls. Existing assertions remain intact.
+`tests/debt-specific-loans-2569.mjs`: aliases, menu, context, numeric source contracts, exact source/version parity, criteria/form/rate changes, conflicts, removed links, historical boundary, privacy and unrelated controls. Existing assertions remain intact. The existing loan-menu browser contract retains its original nine-item order assertion and additionally checks the two appended debt products and all eleven hit targets.
 
 `browser-debt-specific-loans-smoke.mjs`: actual typed input and buttons at390/1365px, links, reading history, answer geometry, exact screenshot phrase, unchanged controls; local slow/failed/changed monitor fixtures labelled separately. Integrated additively in PR CI and pre/post-deployment Pages gates. Existing browser suites retained.
 
