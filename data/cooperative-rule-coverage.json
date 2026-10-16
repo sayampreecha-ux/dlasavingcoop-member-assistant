@@ -62,7 +62,12 @@
     {
       "id": "debtRestructuring",
       "name": "ปรับโครงสร้างหนี้",
-      "status": "SOURCE_INDEXED_NEEDS_EXTRACTION"
+      "status": "VERIFIED_CORE",
+      "rule": "debtRestructuringLoanCurrent",
+      "primarySources": [
+        "https://drive.google.com/file/d/1M2ofeoulfojGqyi254wOWE-F-5wpSSNm/view"
+      ],
+      "verifiedAt": "2026-10-16"
     },
     {
       "id": "debtCompromise",
@@ -234,6 +239,16 @@
       "id": "notices",
       "name": "ประกาศ/ผลอนุมัติ/ข่าว",
       "status": "FRESH_NOTICE_REQUIRED"
+    },
+    {
+      "id": "guarantorDebtLoan",
+      "name": "เงินกู้ในฐานะผู้ค้ำประกัน",
+      "status": "VERIFIED_CORE",
+      "rule": "guarantorDebtLoanCurrent",
+      "primarySources": [
+        "https://drive.google.com/file/d/1q61Ub_I6AafeRXs0t65_3oVyh28N5r0K/view"
+      ],
+      "verifiedAt": "2026-10-16"
     }
   ],
   "evidenceExpansion": {
