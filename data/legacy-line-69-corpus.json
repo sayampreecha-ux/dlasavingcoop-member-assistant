@@ -3286,28 +3286,35 @@
       ],
       "legacy_answer": "กู้สามัญกรณีใช้หุ้นค้ำประกัน กู้ได้ไม่เกินร้อยละ 90 ของหุ้นที่มีอยู่",
       "domain": "loan_ordinary_related",
-      "verification_status": "NEEDS_PRIMARY_EVIDENCE",
+      "verification_status": "MATCH_CURRENT_RULE",
       "expected_behavior": {
-        "domain": "ordinaryLoanCurrent",
+        "domain": "shareBackedLoanCurrent",
         "main_answer_must_include": [
-          "หลักเกณฑ์เฉพาะ"
+          "90%",
+          "ทุนเรือนหุ้น"
         ],
         "all_patterns": "Nonempty, correct domain, no superseded rule, exact official route or minimum clarification. Every variant is executed.",
         "no_legacy_authority": true,
         "human_last": true
       },
-      "expected_source": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing",
-      "notes": "Original patterns and legacy answer preserved verbatim; unqualified historical prompts must not select superseded rules. Some rows contain questions requiring different facets; all variants must still resolve in the same product domain. Row 48 lacks a product, so verify minimum clarification then continue with ordinary loan context.",
-      "expected_rule": "ordinaryLoanCurrent",
+      "expected_source": "https://drive.google.com/file/d/1347L0hE1IddgM1ab6oheXQPgKpUTMasa/view",
+      "notes": "Original patterns and legacy answer preserved verbatim; unqualified historical prompts must not select superseded rules. Some rows contain questions requiring different facets; all variants must still resolve in the same product domain. Row 48 lacks a product, so verify minimum clarification then continue with ordinary loan context. Reviewed signed criteria 2569 on 2026-10-16: updated only current source/domain and assertions; all original questions/legacy answer retained.",
+      "expected_rule": "shareBackedLoanCurrent",
       "pattern_assertions": [
         [
-          "หลักเกณฑ์เฉพาะ"
+          "90%",
+          "ทุนเรือนหุ้น",
+          "ไม่ใช่ผลอนุมัติรายบุคคล"
         ],
         [
-          "หลักเกณฑ์เฉพาะ"
+          "90%",
+          "ทุนเรือนหุ้น",
+          "ไม่ใช่ผลอนุมัติรายบุคคล"
         ],
         [
-          "หลักเกณฑ์เฉพาะ"
+          "90%",
+          "ทุนเรือนหุ้น",
+          "ไม่ใช่ผลอนุมัติรายบุคคล"
         ]
       ]
     },

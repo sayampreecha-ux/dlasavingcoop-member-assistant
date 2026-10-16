@@ -975,6 +975,153 @@
           9
         ]
       }
+    },
+    "shareBackedLoanCurrent": {
+      "status": "VERIFIED_PRIMARY",
+      "effectiveFrom": "2026-10-01",
+      "announcementDate": "2026-09-11",
+      "source": "https://drive.google.com/file/d/1347L0hE1IddgM1ab6oheXQPgKpUTMasa/view",
+      "primaryEvidenceTitle": "ประกาศหลักเกณฑ์การให้เงินกู้สามัญไม่เกินทุนเรือนหุ้นที่มีในสหกรณ์ พ.ศ.2569",
+      "primaryEvidenceVerified": true,
+      "primaryEvidenceVerifiedAt": "2026-10-16",
+      "primarySha256": "b696723bb3485404448cbe2648fb0d33ed2abbfd9f299b8414dec7f747a661e5",
+      "membershipMinMonths": 6,
+      "sharePaymentMinInstallments": 6,
+      "noExistingCoopLoansExceptEmergency": true,
+      "remainingIncomeMinPercent": 15,
+      "remainingIncomeMinBaht": 6000,
+      "incomeDebtExclusions": [
+        "revolving_credit",
+        "credit_card",
+        "cash_card"
+      ],
+      "salaryDeductionOrIndividualAgreementRequired": true,
+      "funeralAssociationRequired": true,
+      "noDebtAsBorrowerWithOtherCooperatives": true,
+      "noSeriousDisciplinaryOrBankruptcyProceeding": true,
+      "maxSharePercent": 90,
+      "amountBasis": "accumulated_coop_share_capital_only",
+      "maxTermInstallments": 240,
+      "maxAgeAtEnd": 75,
+      "depositInAmountBasis": false,
+      "depositEvidenceState": "NOT_ESTABLISHED_BY_2569_CRITERIA",
+      "guarantorCount": null,
+      "guarantorEvidenceState": "NOT_SPECIFIED_IN_CRITERIA",
+      "interestRatePercent": 7.5,
+      "interestSource": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view",
+      "interestEffectiveFrom": "2024-11-11",
+      "interestDocumentId": "doc-8158348139edda052c52",
+      "interestEvidence": {
+        "page": 1,
+        "clause": "2.6(5)",
+        "primarySha256": "6ad92e49fbd4e5a52a5cf09f495e239b95736f9d9cb727e5b5633b27ebca027a",
+        "basis": "Both signed pages reviewed; exact share/deposit-backed category, not the general ordinary-loan rate. Still linked on official ordinary-loan index 2026-10-16."
+      },
+      "formUrl": "https://drive.google.com/file/d/1b9-zInSX-azm1lQPQnqJK5Es5eYmBaxe/view",
+      "formDocumentId": "doc-5b80e49f5d21619df5ca",
+      "formSha256": "d080274581cb530c281a303ae30e036cfd83d107d87da1485a834c31a8497301",
+      "formEvidenceState": "OFFICIAL_LINKED_LEGACY_CHECKLIST_NOT_CURRENT_FINANCIAL_TERMS",
+      "requiredDocuments": [
+        "หนังสือรับรองจากหน่วยงาน",
+        "หนังสือขอกู้และหนังสือสัญญาเงินกู้ตามแบบที่สหกรณ์กำหนด",
+        "หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ของผู้กู้และผู้ค้ำตามรายการในแบบ โดยยังไม่ยืนยันว่าต้องมีผู้ค้ำกี่คน",
+        "หนังสือยินยอมให้ติดตามทวงถามหนี้ และหนังสือยินยอมให้เก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล",
+        "รายละเอียดการจ่ายเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับ–รายจ่าย ให้ ผอ.กองคลัง หัวหน้ากองคลัง ปลัดฯ หรือนายกฯ รับรอง ตามที่ใช้กับคำขอจริง",
+        "สำเนาบัตรประชาชน บัตรข้าราชการหน้า–หลัง และทะเบียนบ้านผู้กู้ จำนวน 1 ชุด",
+        "สำเนาทะเบียนสมรส บัตรประชาชนและทะเบียนบ้านคู่สมรสผู้กู้ จำนวน 1 ชุด ตามสถานภาพ",
+        "สำเนาหน้าสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. ของผู้กู้",
+        "เอกสารหย่า เปลี่ยนชื่อหรือนามสกุล และเอกสารอื่นถ้ามี จำนวน 1 ชุด"
+      ],
+      "conditionalLegacyFormDocuments": [
+        "สัญญาจำนำสิทธิตามตราสารการฝากเงิน กรณีใช้เงินฝากร่วมตามแบบเดิม: ต้องให้สหกรณ์ยืนยันหลักเกณฑ์ปัจจุบันก่อน ไม่ใช่หลักฐานว่าใช้เงินฝากเพิ่มวงเงินได้"
+      ],
+      "submissionChannels": [
+        "in_person",
+        "post",
+        "mobile_application",
+        "web_application",
+        "other_coop_defined_channel"
+      ],
+      "deliveryAddress": "งานเงินกู้ สหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ที่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120",
+      "allApplicationDocumentsMustBeCertified": true,
+      "falseDocumentConsequences": "ยกเลิกคำขอหรือสัญญาตามกรณี ไม่มีสิทธิยื่นคำขอกู้ทุกประเภทอีก และอาจดำเนินคดีอาญา/แจ้งผู้บังคับบัญชา",
+      "exceptionBoardVoteFraction": "2/3",
+      "exceptionBoardDenominator": "all_existing_directors",
+      "supersededNotices": [
+        "2024-11-01",
+        "2025-11-17"
+      ],
+      "transitionalRule": "การดำเนินการตามหลักเกณฑ์เดิมก่อนประกาศนี้มีผล ให้ถือว่าได้ปฏิบัติตามประกาศนี้ตามข้อ 9 ไม่ใช้ตัดสินเงื่อนไขสัญญารายบุคคลย้อนหลัง",
+      "clauseEvidence": {
+        "dates": {
+          "pages": [
+            1,
+            3
+          ],
+          "clauses": [
+            2
+          ]
+        },
+        "supersession": {
+          "pages": [
+            1,
+            2
+          ],
+          "clauses": [
+            3,
+            9
+          ]
+        },
+        "eligibility": {
+          "pages": [
+            1,
+            2
+          ],
+          "clauses": [
+            4
+          ]
+        },
+        "terms": {
+          "pages": [
+            2
+          ],
+          "clauses": [
+            5
+          ]
+        },
+        "interest": {
+          "pages": [
+            2
+          ],
+          "clauses": [
+            6
+          ]
+        },
+        "submission": {
+          "pages": [
+            2
+          ],
+          "clauses": [
+            7
+          ]
+        },
+        "exceptions": {
+          "pages": [
+            2
+          ],
+          "clauses": [
+            8
+          ]
+        },
+        "interpretation": {
+          "pages": [
+            3
+          ],
+          "clauses": [
+            10
+          ]
+        }
+      }
     }
   },
   "decisionCoverage": {
@@ -1030,9 +1177,16 @@
         "source": "https://www.dlasavingcoop.com/show.php?No=774"
       },
       "shareDepositBacked": {
-        "status": "SOURCE_PRESENT_NEEDS_RULE_EXTRACTION",
-        "decisionMode": "SOURCE_GUIDED_HANDOFF",
-        "source": "https://www.dlasavingcoop.com/show.php?No=774"
+        "status": "VERIFIED_CORE",
+        "decisionMode": "RULE_INFORMATION_WITH_SCOPED_LOCKS",
+        "source": "https://drive.google.com/file/d/1347L0hE1IddgM1ab6oheXQPgKpUTMasa/view",
+        "rule": "shareBackedLoanCurrent",
+        "limitations": [
+          "individual_approval",
+          "deposit_basis",
+          "guarantor_count",
+          "current_form_compatibility"
+        ]
       },
       "debtConsolidation": {
         "status": "VERIFIED_CORE",

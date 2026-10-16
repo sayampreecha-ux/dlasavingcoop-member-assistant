@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {loadMemberEngine} from './helpers/load-member-engine.mjs';
+import F from '../scripts/official-freshness.js';
 export function runLegacy69(app=loadMemberEngine()){
  const corpus=JSON.parse(fs.readFileSync(new URL('../data/legacy-line-69-corpus.json',import.meta.url),'utf8'));
  assert.equal(corpus.records.length,69);
@@ -14,7 +15,7 @@ export function runLegacy69(app=loadMemberEngine()){
     let r=app.answer(q);
     assert.ok(r?.answer?.trim(),'empty response');
     // Unscoped variants retain the product from the member's conversation.
-    const hasProduct=/รวมหนี้|คุณภาพชีวิต|เคหะ|กู้บ้าน|กู้ปลูกบ้าน|กู้ปลูกสร้าง|ฉุกเฉิน|สามัญ|การศึกษา|กู้เรียน|ภัยพิบัติ|กู้พิบัติ/.test(q);
+    const hasProduct=F.isShareBackedLoan(q)||/รวมหนี้|คุณภาพชีวิต|เคหะ|กู้บ้าน|กู้ปลูกบ้าน|กู้ปลูกสร้าง|ฉุกเฉิน|สามัญ|การศึกษา|กู้เรียน|ภัยพิบัติ|กู้พิบัติ/.test(q);
     if(row.expected_rule&&!hasProduct){
      const contextual=app.contextualize(q,row.expected_rule);
      assert.notEqual(contextual,q,'product follow-up context lost');
