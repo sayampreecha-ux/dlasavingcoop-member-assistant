@@ -14,6 +14,7 @@ try{for(const width of [390,1365]){
  if(await page.locator('#out details[data-share-followups]').count())await page.locator('#out details[data-share-followups] summary').click();await page.locator('#out').getByRole('button',{name:'คืนหุ้นได้กรณีใด',exact:true}).click();assert.ok(await page.locator('#out a[href*="1UVoCHBo"]').count()>0);assert.match(await page.locator('#out').textContent(),/หลักฐานบางส่วน/);count++;
  await page.locator('#q').fill('ซื้อหุ้นเพิ่มรายเดือน');await page.locator('#q').press('Enter');assert.match(await page.locator('#out .body').textContent(),/5,000 หุ้นต่อเดือน/);count++;
  await page.locator('#out').getByRole('link',{name:'📗 ข้อบังคับสหกรณ์',exact:true}).click();assert.ok(await page.locator('#out a[href*="1CXkCCI4"]').count()>0);assert.equal(await page.locator('#out a[href*="1035C9"]').count(),0);count++;
+ if(await page.locator('#out details[data-share-followups]').count())await page.locator('#out details[data-share-followups] summary').click();
  await page.locator('#out').getByRole('button',{name:'วิธีตรวจสอบยอดหุ้นของฉัน',exact:true}).click();assert.ok(await page.locator('#out a[href*="member.dlasavingcoop"]').count()>0);count++;
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER SHARE NAVIGATION:',count,'PASS on mobile and desktop');}finally{await browser.close();await new Promise(r=>server.close(r));}
