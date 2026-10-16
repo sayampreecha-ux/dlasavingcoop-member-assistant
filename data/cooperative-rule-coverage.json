@@ -246,8 +246,15 @@
       "source": "https://drive.google.com/file/d/1YXj7yWsr7ZQC2MlL0Dt7qMaJO_vCY0kb/view?usp=drivesdk"
     },
     "shareDepositBackedLoan": {
-      "status": "PRIMARY_CRITERIA_FOUND_VERSION_2567_REQUIRES_CURRENT_VERSION_CHECK",
-      "source": "https://drive.google.com/file/d/19ra7Xhzut0Hn734mQSuJT9_6jQYmRC-2/view?usp=drivesdk"
+      "status": "PRIMARY_CRITERIA_VERIFIED_2569",
+      "source": "https://drive.google.com/file/d/1347L0hE1IddgM1ab6oheXQPgKpUTMasa/view",
+      "rule": "shareBackedLoanCurrent",
+      "effectiveFrom": "2026-10-01",
+      "limitations": [
+        "deposit_basis_not_established",
+        "guarantor_count_not_specified",
+        "legacy_form_compatibility_requires_coop_confirmation"
+      ]
     },
     "funeralAssociationBylaws": {
       "status": "PRIMARY_BYLAWS_FOUND_2567_REQUIRES_AMENDMENT_CHECK",

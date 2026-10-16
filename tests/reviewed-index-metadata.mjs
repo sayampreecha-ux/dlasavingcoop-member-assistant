@@ -11,7 +11,8 @@ app.applySourceMonitor(snapshot);
 // Redemption is 3 million under the reviewed current rule, not the quality-of-life cap.
 for(const [q,p]of [['กู้สามัญวงเงินเท่าไร',/2,000,000/],['กู้ฉุกเฉินผ่อนกี่งวด',/15 งวด/],['กู้เพื่อการศึกษาวงเงินเท่าไร',/200,000/],['กู้ภัยพิบัติผ่อนกี่งวด',/120 งวด/],['กู้เคหะวงเงินเท่าไร',/3,000,000/],['กู้รวมหนี้วงเงินเท่าไร',/5,000,000/],['กู้ไถ่ถอนจำนองวงเงินเท่าไร',/3,000,000/],['กู้ฉุกเฉินดอกเบี้ยเท่าไร',/7.50%/]]){assert.match(app.answer(q).answer,p,q);pass++;}
 for(const [role,mutation,q]of [['UNCHANGED_REVIEWED_RULE','bytes','กู้สามัญวงเงินเท่าไร'],['UNCHANGED_REVIEWED_RULE','label','กู้สามัญวงเงินเท่าไร'],['APPLICATION_FORM','bytes','กู้เคหะต้องใช้เอกสารอะไร'],['APPLICATION_FORM','label','กู้เคหะต้องใช้เอกสารอะไร']]){
- const a=loadMemberEngine(),s=a.getSourceRegistry(),d=s.documents.find(d=>d.metadataReview?.documentRole===role);
+ const a=loadMemberEngine(),s=a.getSourceRegistry(),d=s.documents.find(d=>d.metadataReview?.documentRole===role&&(d.affects||[]).some(x=>F.queryDomains(q).includes(x)));
+ assert.ok(d,'Relevant reviewed '+role+' for '+q);
  d.status='PENDING';d.mayAffectRules=true;d.pendingReason='OFFICIAL_LINK_METADATA_CHANGED';
  if(mutation==='bytes')d.contentHash='synthetic-new-unreviewed-bytes';else d.fingerprint='synthetic-new-unreviewed-label';
  a.applySourceMonitor(s);assert.equal(a.answer(q).decision,'EVIDENCE_LOCK');pass++;
