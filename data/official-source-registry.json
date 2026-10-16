@@ -177,7 +177,9 @@
         "educationLoan",
         "disasterLoan",
         "guarantor",
-        "interest"
+        "interest",
+        "debtRestructuringLoan",
+        "guarantorDebtLoan"
       ],
       "lastSuccessfulCheck": "2026-10-09T00:35:49.849Z",
       "fingerprint": "9781cd3d29c74a60251aaa2d93837291213f8411c4fced8a2645d294d474b2fe",
@@ -2838,23 +2840,37 @@
     },
     {
       "id": "doc-3ed7cc53e63f3184571a",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง คุณสมบัติผู้ขอกู้ เงื่อนไข และวิธีการให้เงินกู้สามัญ เพื่อปรับโครงสร้างหนี้ แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญ เพื่อปรับโครงสร้างหนี้ พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/1M2ofeoulfojGqyi254wOWE-F-5wpSSNm/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
-      "version": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
+      "version": "2569",
       "amendment": null,
       "affects": [
-        "ordinaryLoan"
+        "debtRestructuringLoan"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-06T01:39:19.895Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-16T11:50:00Z",
       "mayAffectRules": false,
-      "fingerprint": "061f8d6c05cc14651dbeeee474532069dfd806b18971d7f36de592f8d8e6aecd",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "fingerprint": "a10ffcc8248c50c72faf09d0f3823424e37e4236bc3db109ef1fe1fb3a90126a",
+      "affectedRuleIds": [
+        "debtRestructuringLoanCurrent"
+      ],
+      "contentHash": "3d80be1dff1129ab6c27f907c2a7a95d7e4b874a16b6c5f5474b948b5b018f41",
+      "lastContentCheck": "2026-10-16T11:50:00Z",
+      "metadataReview": {
+        "documentRole": "CURRENT_LOAN_CRITERIA",
+        "primaryBytesVerified": true,
+        "reviewedAt": "2026-10-16",
+        "reviewedLinkFingerprints": [
+          "061f8d6c05cc14651dbeeee474532069dfd806b18971d7f36de592f8d8e6aecd",
+          "a10ffcc8248c50c72faf09d0f3823424e37e4236bc3db109ef1fe1fb3a90126a"
+        ],
+        "basis": "Signed criteria all 4 pages visually reviewed; official-linked legacy application checklist page 1 reviewed separately; no financial terms inferred from form."
+      }
     },
     {
       "id": "doc-c4ec70e384c890ae62c7",
@@ -2896,24 +2912,37 @@
     },
     {
       "id": "doc-2103ba4da2cf1f68a64c",
-      "title": "หลักเกณฑ์สหกรณ์ฯ เรื่อง เงื่อนไข และวิธีการให้เงินกู้สามัญ กรณีชำระหนี้สหกรณ์ในฐานะผู้ค้ำประกัน แก้ไขเพิ่มเติม พ.ศ . 2569",
-      "type": "AMENDMENT",
+      "title": "หลักเกณฑ์การให้เงินกู้สามัญเพื่อช่วยเหลือสมาชิก กรณีชำระหนี้สหกรณ์ในฐานะผู้ค้ำประกัน พ.ศ.2569",
+      "type": "CRITERIA",
       "originalUrl": "https://drive.google.com/file/d/1q61Ub_I6AafeRXs0t65_3oVyh28N5r0K/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
-      "announcementDate": null,
-      "effectiveDate": null,
-      "version": null,
+      "announcementDate": "2026-09-11",
+      "effectiveDate": "2026-10-01",
+      "version": "2569",
       "amendment": null,
       "affects": [
-        "ordinaryLoan",
-        "guarantor"
+        "guarantorDebtLoan"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-06T01:39:19.895Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-16T11:50:00Z",
       "mayAffectRules": false,
-      "fingerprint": "ac3e952844cf75c638e7f3616d59c75f8415fe4e992d7b87f60cfc49bcdae251",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "fingerprint": "2dee971b0a0d0e48f9b9bd0b5bc0345b9b185e72a82bb776195ffe298664eb3a",
+      "affectedRuleIds": [
+        "guarantorDebtLoanCurrent"
+      ],
+      "contentHash": "7c8e57e3534282dfae302277ff54adb65dcfd3e933552bb8bded2ce4c49228d8",
+      "lastContentCheck": "2026-10-16T11:50:00Z",
+      "metadataReview": {
+        "documentRole": "CURRENT_LOAN_CRITERIA",
+        "primaryBytesVerified": true,
+        "reviewedAt": "2026-10-16",
+        "reviewedLinkFingerprints": [
+          "ac3e952844cf75c638e7f3616d59c75f8415fe4e992d7b87f60cfc49bcdae251",
+          "2dee971b0a0d0e48f9b9bd0b5bc0345b9b185e72a82bb776195ffe298664eb3a"
+        ],
+        "basis": "Signed criteria all 4 pages visually reviewed; official-linked legacy application checklist page 1 reviewed separately; no financial terms inferred from form."
+      }
     },
     {
       "id": "doc-2b74a1ba4639975aaeb1",
@@ -3059,7 +3088,7 @@
     {
       "id": "doc-60aa0e2f4a3ac1b0ce8d",
       "title": "คำขอกู้เงินสามัญเพื่อชำระหนี้สหกรณ์ในฐานะผู้ค้ำประกัน",
-      "type": "NEWS",
+      "type": "OFFICIAL_DOCUMENT",
       "originalUrl": "https://drive.google.com/file/d/1ZjfxQntcenz5DfpWSd4owcM6zOwEHfW8/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
@@ -3068,14 +3097,26 @@
       "version": null,
       "amendment": null,
       "affects": [
-        "ordinaryLoan",
-        "guarantor"
+        "guarantorDebtLoan"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-06T01:39:19.895Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-16T11:50:00Z",
       "mayAffectRules": false,
       "fingerprint": "6092cf421e153cdfb4dfcd7d672ead8371bb43a789ba534e96455e7a8ca5c0d2",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "affectedRuleIds": [
+        "guarantorDebtLoanCurrent"
+      ],
+      "contentHash": "12a351bca0142f611b6e2ea666277bd255fd627b51fb44abc627a9f8eeb6aa6b",
+      "lastContentCheck": "2026-10-16T11:50:00Z",
+      "metadataReview": {
+        "documentRole": "APPLICATION_FORM",
+        "primaryBytesVerified": true,
+        "reviewedAt": "2026-10-16",
+        "reviewedLinkFingerprints": [
+          "6092cf421e153cdfb4dfcd7d672ead8371bb43a789ba534e96455e7a8ca5c0d2"
+        ],
+        "basis": "Signed criteria all 4 pages visually reviewed; official-linked legacy application checklist page 1 reviewed separately; no financial terms inferred from form."
+      }
     },
     {
       "id": "doc-309064b5ff9812e9cc40",
@@ -3099,8 +3140,8 @@
     },
     {
       "id": "doc-6749fb5f49dc69d12745",
-      "title": "คำขอกู้เงินสามัญปรับโครงสร้างหนี้ (Refinance)",
-      "type": "NEWS",
+      "title": "คำขอกู้เงินสามัญปรับโครงสร้างหนี้",
+      "type": "OFFICIAL_DOCUMENT",
       "originalUrl": "https://drive.google.com/file/d/1cxhpuEP_Tfa4dNp0kwVPOSrr5KoAV-dY/view",
       "officialIndexUrl": "https://www.dlasavingcoop.com/show.php?No=774",
       "linkVerified": true,
@@ -3109,13 +3150,27 @@
       "version": null,
       "amendment": null,
       "affects": [
-        "ordinaryLoan"
+        "debtRestructuringLoan"
       ],
-      "status": "PENDING",
-      "lastCheckedAt": "2026-10-06T01:39:19.895Z",
+      "status": "CURRENT",
+      "lastCheckedAt": "2026-10-16T11:50:00Z",
       "mayAffectRules": false,
-      "fingerprint": "35be07daba50232c78d282d4613dd458a672eaa63c83899d98a0962bf53aa41e",
-      "pendingReason": "BASELINE_INVENTORY_NOT_RULE_PROMOTION"
+      "fingerprint": "fda696325463b89a749e7dcd4f3364d4fcc4eac18ba1d59b97f6d1567a521c36",
+      "affectedRuleIds": [
+        "debtRestructuringLoanCurrent"
+      ],
+      "contentHash": "be97469743ec29f4e9eeee1b015cc045d55f0e036794c571e25428bf512023a6",
+      "lastContentCheck": "2026-10-16T11:50:00Z",
+      "metadataReview": {
+        "documentRole": "APPLICATION_FORM",
+        "primaryBytesVerified": true,
+        "reviewedAt": "2026-10-16",
+        "reviewedLinkFingerprints": [
+          "35be07daba50232c78d282d4613dd458a672eaa63c83899d98a0962bf53aa41e",
+          "fda696325463b89a749e7dcd4f3364d4fcc4eac18ba1d59b97f6d1567a521c36"
+        ],
+        "basis": "Signed criteria all 4 pages visually reviewed; official-linked legacy application checklist page 1 reviewed separately; no financial terms inferred from form."
+      }
     },
     {
       "id": "doc-ee9fa051316b28caaf25",
@@ -5768,6 +5823,276 @@
         "primaryVerified": true,
         "verifiedAt": "2026-10-16T09:45:00Z",
         "basis": "Signed criteria pages 1-3, clauses 1-10. Interest separately verified in exact category; legacy application checklist is reference only."
+      }
+    },
+    {
+      "id": "debtRestructuringLoanCurrent@2026-10-01",
+      "ruleId": "debtRestructuringLoanCurrent",
+      "documentId": "doc-3ed7cc53e63f3184571a",
+      "domain": "debtRestructuringLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "primaryEvidenceVerified": true,
+        "primaryEvidenceVerifiedAt": "2026-10-16",
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "maxTermInstallments": 240,
+        "maxAgeAtEnd": 75,
+        "funeralAssociationRequired": true,
+        "interestDocumentId": "doc-8158348139edda052c52",
+        "interestSource": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view",
+        "interestEffectiveFrom": "2024-11-11",
+        "interestSha256": "6ad92e49fbd4e5a52a5cf09f495e239b95736f9d9cb727e5b5633b27ebca027a",
+        "formEvidenceState": "OFFICIAL_LINKED_LEGACY_CHECKLIST_NOT_CURRENT_FINANCIAL_TERMS",
+        "source": "https://drive.google.com/file/d/1M2ofeoulfojGqyi254wOWE-F-5wpSSNm/view",
+        "primaryEvidenceTitle": "กู้ปรับโครงสร้างหนี้ พ.ศ.2569",
+        "primarySha256": "3d80be1dff1129ab6c27f907c2a7a95d7e4b874a16b6c5f5474b948b5b018f41",
+        "formUrl": "https://drive.google.com/file/d/1cxhpuEP_Tfa4dNp0kwVPOSrr5KoAV-dY/view",
+        "formDocumentId": "doc-6749fb5f49dc69d12745",
+        "formSha256": "be97469743ec29f4e9eeee1b015cc045d55f0e036794c571e25428bf512023a6",
+        "label": "กู้ปรับโครงสร้างหนี้",
+        "interestRatePercent": 7.5,
+        "interestClause": "2.6(4)",
+        "interestPatronageRefund": true,
+        "membershipMinMonths": null,
+        "sharePaymentMinInstallments": null,
+        "ordinaryPaidMinInstallments": 6,
+        "repeatRestructuringMinInstallments": 12,
+        "maxCombinedOrdinaryDebt": null,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "คำขอกู้และหนังสือสัญญาเงินกู้เฉพาะประเภท",
+          "สัญญาค้ำประกัน หรือสำเนาเอกสารหลักทรัพย์ตามที่ใช้จริง",
+          "หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ",
+          "หนังสือยินยอมติดตามทวงถามหนี้",
+          "สัญญาจำนำสิทธิในตราสารฝากเงิน กรณีใช้เงินฝากออมทรัพย์พิเศษเป็นหลักประกัน",
+          "สำเนาบัตรประชาชน บัตรข้าราชการหน้า–หลัง และทะเบียนบ้านผู้กู้และผู้ค้ำ ฝ่ายละ 1 ชุด",
+          "ทะเบียนสมรส บัตรประชาชนและทะเบียนบ้านคู่สมรสผู้กู้/ผู้ค้ำ ตามสถานภาพ ฝ่ายละ 1 ชุด",
+          "สำเนาหน้าสมุดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "หนังสือยินยอมเก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล",
+          "ใบหย่า เปลี่ยนชื่อหรือนามสกุล และเอกสารอื่นถ้ามี 1 ชุด",
+          "รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 1 เดือน แยกรายรับ–รายจ่าย ให้ ผอ.กองคลัง หัวหน้ากองคลัง ปลัดฯ หรือนายกฯ รับรอง"
+        ],
+        "sections": {
+          "eligibility": "ข้อ 4 ต้องมีหนี้จำนวนมากเกินความสามารถชำระจากเงินได้รายเดือนตามปกติ และชำระเงินกู้สามัญมาแล้วไม่น้อยกว่า 6 งวด หากปรับโครงสร้างหนี้ครั้งที่ 2 เป็นต้นไป ต้องชำระเงินกู้ปรับโครงสร้างหนี้มาแล้วไม่น้อยกว่า 12 งวดนับแต่ทำสัญญาครั้งก่อน\nหลังชำระค่าหุ้นและหนี้เงินกู้ทุกประเภท ไม่ว่าเป็นหนี้ของสหกรณ์หรือสถาบันการเงินอื่น ยกเว้นสินเชื่อหมุนเวียน สินเชื่อบัตรเครดิต และสินเชื่อบัตรกดเงินสด ต้องมีเงินได้รายเดือนคงเหลือไม่น้อยกว่า 15% และไม่น้อยกว่า 6,000 บาทต่อเดือนตลอดอายุสัญญา\nชำระค่าหุ้นและหนี้โดยหักเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา) หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี และต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์สมาชิกสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น\nไม่อยู่ระหว่างถูกดำเนินการทางวินัยอย่างร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลาย",
+          "amount": "ข้อ 5(1) วงเงินต้องไม่เกินต้นเงิน ดอกเบี้ย ค่าใช้จ่ายดำเนินคดี และเงินประกันชีวิตตามมูลหนี้คงเหลือทุกสัญญาที่ค้างชำระรวมกันกับสหกรณ์ ไม่กำหนดเพดาน 2 ล้านบาทแทนสูตรมูลหนี้นี้",
+          "term": "ผ่อนชำระไม่เกิน 240 งวด และต้องสิ้นสุดภายในอายุไม่เกิน 75 ปีบริบูรณ์ ตรวจทั้งสองเกณฑ์ร่วมกัน",
+          "insurance": "ต้องทำประกันชีวิตกับบริษัทที่สหกรณ์กำหนดตามจำนวนเงินกู้ตลอดอายุสัญญา ให้สหกรณ์เป็นผู้รับผลประโยชน์และนำส่งเบี้ยรายปีจนหนี้ระงับ หากใช้อสังหาริมทรัพย์ปลอดจำนองรายอื่นเต็มจำนวนเงินกู้ อาจขอชำระเบี้ยรายปีโดยหักจากเงินกู้ครั้งแรกและปันผล/เฉลี่ยคืนปีถัดไป หากไม่พอต้องชำระเพิ่ม; สัญญาที่หักกลบหนี้เดิมหรือปิดก่อนกำหนดและหักเบี้ยตลอดอายุสัญญา สหกรณ์จะเวนคืนเบี้ยที่เหลือแก่ผู้กู้หรือทายาทตามข้อ 5 ไม่เดาเบี้ยหรือยอดคืน",
+          "collateral": "เลือกหลักประกันอย่างหนึ่งหรือหลายอย่างรวมกันตามข้อ 6: บุคคลค้ำประกัน / อสังหาริมทรัพย์ปลอดจำนองรายอื่นเต็มจำนวนเงินกู้ / หลักทรัพย์ภาครัฐตามรายการในประกาศ / เงินฝากในสหกรณ์ หากใช้บุคคลค้ำ ต้องเป็นสมาชิกที่ไม่ใช่คู่สมรสผู้กู้และชำระหุ้นติดต่อกันไม่น้อยกว่า 6 เดือน: วงเงินไม่เกิน 500,000 บาท อย่างน้อย 1 คน; เกิน 500,000 แต่ไม่เกิน 1,000,000 บาท อย่างน้อย 2 คน; เกิน 1,000,000 บาท อย่างน้อย 3 คน สมาชิกหนึ่งคนค้ำผู้กู้ทุกประเภทรวมในเวลาเดียวกันเกิน 3 คนไม่ได้ ข้าราชการผู้ค้ำต้องผ่านทดลองราชการแล้ว ส่วนเจ้าหน้าที่สหกรณ์ต้องได้รับบรรจุแต่งตั้งไม่น้อยกว่า 3 ปี หากผู้ค้ำพ้นสมาชิกหรือไม่เหมาะสมตามคณะกรรมการ หรือภายหลังเป็นคู่สมรสผู้กู้ ต้องจัดผู้ค้ำแทนภายใน 180 วันตามต้นฉบับ\nสำหรับปรับโครงสร้างหนี้ วงเงินเกิน 2,000,000 บาทขึ้นไป ยังคงกำหนดผู้ค้ำอย่างน้อย 3 คน (ข้อ 6(1)(ง)); อสังหาริมทรัพย์ใช้มูลค่าไม่เกิน 90% ของราคาประเมิน",
+          "procedure": "ข้อ 8 ยื่นคำขอตามแบบพร้อมหลักฐาน ด้วยตนเอง ณ สำนักงานสหกรณ์ ทางไปรษณีย์ถึง “งานเงินกู้สามัญ” 111/1 หมู่ที่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือผ่าน Mobile Application / Web Application ของสหกรณ์ หรือสถานที่ที่สหกรณ์กำหนด ผู้กู้ต้องรับรองคำขอและเอกสารทุกฉบับ หากรับรองเท็จหรือปลอมแปลง สหกรณ์จะยกเลิกคำขอหรือสัญญาตามกรณี ไม่มีสิทธิยื่นกู้ทุกประเภทอีก และอาจดำเนินคดีอาญา/แจ้งผู้บังคับบัญชา ไม่ส่งเอกสารส่วนบุคคลในแชต",
+          "governance": "ลงวันที่ 11 กันยายน 2569 มีผล 1 ตุลาคม 2569 (ข้อ 2) ข้อ 10 ให้การที่ดำเนินการตามฉบับเดิมก่อนวันมีผลถือว่าปฏิบัติตามประกาศนี้ ไม่ใช่การอนุมัติย้อนหลังรายบุคคล ข้อ 9 คณะกรรมการอาจยกเว้นเมื่อมีเหตุจำเป็นด้วยมติไม่น้อยกว่า 2 ใน 3 ของกรรมการทั้งหมดเท่าที่มีอยู่ ไม่ใช่สิทธิอัตโนมัติ ข้อ 11 ให้ประธานกรรมการวินิจฉัยปัญหาการปฏิบัติตามประกาศ\nข้อ 3 ยกเลิกฉบับลงวันที่ 17 กรกฎาคม 2567 และฉบับแก้ไขลงวันที่ 17 พฤศจิกายน 2568; บทเฉพาะกาลข้อ 10 อยู่หน้า 3",
+          "interest": "ข้อ 7 ให้ดอกเบี้ยเป็นไปตามประกาศสหกรณ์ ประกาศอัตราที่หน้าทางการยังเชื่อมอยู่ หน้า 1 ข้อ 2.6(4) ระบุ 7.50% ต่อปี มีเฉลี่ยคืน มีผล 11 พฤศจิกายน 2567 ตรวจอัตราที่ใช้กับสัญญาจริงก่อนทำรายการ ไม่รับรองอัตราคงที่ตลอดสัญญา",
+          "documents": "รายการเตรียมเอกสารจากแบบเดิมที่หน้าทางการยังเชื่อมอยู่ หน้า 1 (ตรวจรายการที่ใช้จริงกับสหกรณ์ก่อนยื่น ไม่ใช้แบบเก่าแทนกฎการเงิน พ.ศ.2569):\n1. หนังสือรับรองจากหน่วยงาน\n2. คำขอกู้และหนังสือสัญญาเงินกู้เฉพาะประเภท\n3. สัญญาค้ำประกัน หรือสำเนาเอกสารหลักทรัพย์ตามที่ใช้จริง\n4. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ\n5. หนังสือยินยอมติดตามทวงถามหนี้\n6. สัญญาจำนำสิทธิในตราสารฝากเงิน กรณีใช้เงินฝากออมทรัพย์พิเศษเป็นหลักประกัน\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า–หลัง และทะเบียนบ้านผู้กู้และผู้ค้ำ ฝ่ายละ 1 ชุด\n8. ทะเบียนสมรส บัตรประชาชนและทะเบียนบ้านคู่สมรสผู้กู้/ผู้ค้ำ ตามสถานภาพ ฝ่ายละ 1 ชุด\n9. สำเนาหน้าสมุดบัญชีเงินฝากออมทรัพย์พิเศษ\n10. หนังสือยินยอมเก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล\n11. ใบหย่า เปลี่ยนชื่อหรือนามสกุล และเอกสารอื่นถ้ามี 1 ชุด\n12. รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 1 เดือน แยกรายรับ–รายจ่าย ให้ ผอ.กองคลัง หัวหน้ากองคลัง ปลัดฯ หรือนายกฯ รับรอง\nสำเนาต้องชัดเจน บัตรประชาชนไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชต"
+        },
+        "clauseEvidence": {
+          "eligibility": {
+            "pages": [
+              1,
+              2
+            ],
+            "clauses": [
+              4
+            ]
+          },
+          "amountAndTerm": {
+            "pages": [
+              2
+            ],
+            "clauses": [
+              5
+            ]
+          },
+          "collateral": {
+            "pages": [
+              2,
+              3
+            ],
+            "clauses": [
+              6
+            ]
+          },
+          "submission": {
+            "pages": [
+              3
+            ],
+            "clauses": [
+              8
+            ]
+          },
+          "dates": {
+            "pages": [
+              1,
+              4
+            ],
+            "clauses": [
+              2
+            ]
+          },
+          "governance": {
+            "pages": [
+              3,
+              4
+            ],
+            "clauses": [
+              3,
+              9,
+              10,
+              11
+            ]
+          }
+        }
+      },
+      "review": {
+        "primaryVerified": true,
+        "reviewedAt": "2026-10-16",
+        "sha256": "3d80be1dff1129ab6c27f907c2a7a95d7e4b874a16b6c5f5474b948b5b018f41",
+        "pages": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    },
+    {
+      "id": "guarantorDebtLoanCurrent@2026-10-01",
+      "ruleId": "guarantorDebtLoanCurrent",
+      "documentId": "doc-2103ba4da2cf1f68a64c",
+      "domain": "guarantorDebtLoan",
+      "status": "CURRENT",
+      "effectiveFrom": "2026-10-01",
+      "effectiveTo": null,
+      "values": {
+        "status": "VERIFIED_PRIMARY",
+        "effectiveFrom": "2026-10-01",
+        "announcementDate": "2026-09-11",
+        "primaryEvidenceVerified": true,
+        "primaryEvidenceVerifiedAt": "2026-10-16",
+        "remainingIncomeMinPercent": 15,
+        "remainingIncomeMinBaht": 6000,
+        "maxTermInstallments": 240,
+        "maxAgeAtEnd": 75,
+        "funeralAssociationRequired": true,
+        "interestDocumentId": "doc-8158348139edda052c52",
+        "interestSource": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view",
+        "interestEffectiveFrom": "2024-11-11",
+        "interestSha256": "6ad92e49fbd4e5a52a5cf09f495e239b95736f9d9cb727e5b5633b27ebca027a",
+        "formEvidenceState": "OFFICIAL_LINKED_LEGACY_CHECKLIST_NOT_CURRENT_FINANCIAL_TERMS",
+        "source": "https://drive.google.com/file/d/1q61Ub_I6AafeRXs0t65_3oVyh28N5r0K/view",
+        "primaryEvidenceTitle": "กู้ในฐานะผู้ค้ำประกัน พ.ศ.2569",
+        "primarySha256": "7c8e57e3534282dfae302277ff54adb65dcfd3e933552bb8bded2ce4c49228d8",
+        "formUrl": "https://drive.google.com/file/d/1ZjfxQntcenz5DfpWSd4owcM6zOwEHfW8/view",
+        "formDocumentId": "doc-60aa0e2f4a3ac1b0ce8d",
+        "formSha256": "12a351bca0142f611b6e2ea666277bd255fd627b51fb44abc627a9f8eeb6aa6b",
+        "label": "กู้ในฐานะผู้ค้ำประกัน",
+        "interestRatePercent": 2.0,
+        "interestClause": "2.6(2)",
+        "interestPatronageRefund": false,
+        "membershipMinMonths": 6,
+        "sharePaymentMinInstallments": 6,
+        "ordinaryPaidMinInstallments": null,
+        "repeatRestructuringMinInstallments": null,
+        "maxCombinedOrdinaryDebt": 2000000,
+        "requiredDocuments": [
+          "หนังสือรับรองจากหน่วยงาน",
+          "คำขอกู้และหนังสือสัญญาเงินกู้เฉพาะประเภท",
+          "สัญญาค้ำประกัน หรือสำเนาเอกสารหลักทรัพย์ตามที่ใช้จริง",
+          "หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ",
+          "หนังสือยินยอมติดตามทวงถามหนี้",
+          "สัญญาจำนำสิทธิในตราสารฝากเงิน กรณีใช้เงินฝากออมทรัพย์พิเศษเป็นหลักประกัน",
+          "สำเนาบัตรประชาชน บัตรข้าราชการหน้า–หลัง และทะเบียนบ้านผู้กู้และผู้ค้ำ ฝ่ายละ 1 ชุด",
+          "ทะเบียนสมรส บัตรประชาชนและทะเบียนบ้านคู่สมรสผู้กู้/ผู้ค้ำ ตามสถานภาพ ฝ่ายละ 1 ชุด",
+          "สำเนาหน้าสมุดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "หนังสือยินยอมเก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล",
+          "ใบหย่า เปลี่ยนชื่อหรือนามสกุล และเอกสารอื่นถ้ามี 1 ชุด",
+          "รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับ–รายจ่าย ให้ ผอ.กองคลัง หัวหน้ากองคลัง ปลัดฯ หรือนายกฯ รับรอง",
+          "หนังสือรับสภาพหนี้",
+          "หลักฐานกรณีผู้กู้เดิมถูกให้ออกจากงานประจำหรือถึงแก่กรรม 1 ชุด ตามรายการในแบบ โดยกรณีอื่นตามประกาศให้สหกรณ์ยืนยันเอกสารเพิ่มเติม"
+        ],
+        "sections": {
+          "eligibility": "ข้อ 4 ต้องเป็นสมาชิกติดต่อกันไม่น้อยกว่า 6 เดือน และส่งหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวดนับถึงวันยื่นคำขอ\nหลังชำระค่าหุ้นและหนี้เงินกู้ทุกประเภท ไม่ว่าเป็นหนี้ของสหกรณ์หรือสถาบันการเงินอื่น ยกเว้นสินเชื่อหมุนเวียน สินเชื่อบัตรเครดิต และสินเชื่อบัตรกดเงินสด ต้องมีเงินได้รายเดือนคงเหลือไม่น้อยกว่า 15% และไม่น้อยกว่า 6,000 บาทต่อเดือนตลอดอายุสัญญา\nชำระค่าหุ้นและหนี้โดยหักเงินได้รายเดือน ณ ที่จ่าย (หักหน้าฎีกา) หรือวิธีอื่นที่ตกลงกับสหกรณ์เป็นรายกรณี และต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์สมาชิกสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น\nผู้กู้ต้องรับชำระหนี้แทนผู้กู้ของสหกรณ์ที่ถึงแก่กรรม ถูกให้ออกจากราชการหรืองานประจำ ถูกศาลสั่งพิทักษ์ทรัพย์เด็ดขาด หรือถูกพิพากษาถึงที่สุดให้ล้มละลาย และไม่สามารถชำระหนี้ตามสัญญา ไม่ใช่สินเชื่อสำหรับผู้ที่เป็นผู้ค้ำทุกรายโดยอัตโนมัติ",
+          "amount": "ข้อ 5(1) กู้ได้สูงสุดตามวงเงินที่สมาชิกต้องรับผิดในฐานะผู้ค้ำ แต่เมื่อรวมกับหนี้เงินกู้สามัญประเภทอื่นที่สมาชิกทำสัญญากับสหกรณ์แล้วต้องไม่เกิน 2,000,000 บาท ไม่ใช่เพิ่มอีก 2 ล้านบาท และยังต้องตรวจหนี้ที่รับผิดจริง",
+          "term": "ผ่อนชำระไม่เกิน 240 งวด และต้องสิ้นสุดภายในอายุไม่เกิน 75 ปีบริบูรณ์ ตรวจทั้งสองเกณฑ์ร่วมกัน",
+          "insurance": "ต้องทำประกันชีวิตกับบริษัทที่สหกรณ์กำหนดตามจำนวนเงินกู้ตลอดอายุสัญญา ให้สหกรณ์เป็นผู้รับผลประโยชน์และนำส่งเบี้ยรายปีจนหนี้ระงับ หากใช้อสังหาริมทรัพย์ปลอดจำนองรายอื่นเต็มจำนวนเงินกู้ อาจขอชำระเบี้ยรายปีโดยหักจากเงินกู้ครั้งแรกและปันผล/เฉลี่ยคืนปีถัดไป หากไม่พอต้องชำระเพิ่ม; สัญญาที่หักกลบหนี้เดิมหรือปิดก่อนกำหนดและหักเบี้ยตลอดอายุสัญญา สหกรณ์จะเวนคืนเบี้ยที่เหลือแก่ผู้กู้หรือทายาทตามข้อ 5 ไม่เดาเบี้ยหรือยอดคืน",
+          "collateral": "เลือกหลักประกันอย่างหนึ่งหรือหลายอย่างรวมกันตามข้อ 6: บุคคลค้ำประกัน / อสังหาริมทรัพย์ปลอดจำนองรายอื่นเต็มจำนวนเงินกู้ / หลักทรัพย์ภาครัฐตามรายการในประกาศ / เงินฝากในสหกรณ์ หากใช้บุคคลค้ำ ต้องเป็นสมาชิกที่ไม่ใช่คู่สมรสผู้กู้และชำระหุ้นติดต่อกันไม่น้อยกว่า 6 เดือน: วงเงินไม่เกิน 500,000 บาท อย่างน้อย 1 คน; เกิน 500,000 แต่ไม่เกิน 1,000,000 บาท อย่างน้อย 2 คน; เกิน 1,000,000 บาท อย่างน้อย 3 คน สมาชิกหนึ่งคนค้ำผู้กู้ทุกประเภทรวมในเวลาเดียวกันเกิน 3 คนไม่ได้ ข้าราชการผู้ค้ำต้องผ่านทดลองราชการแล้ว ส่วนเจ้าหน้าที่สหกรณ์ต้องได้รับบรรจุแต่งตั้งไม่น้อยกว่า 3 ปี หากผู้ค้ำพ้นสมาชิกหรือไม่เหมาะสมตามคณะกรรมการ หรือภายหลังเป็นคู่สมรสผู้กู้ ต้องจัดผู้ค้ำแทนภายใน 180 วันตามต้นฉบับ\nอสังหาริมทรัพย์ใช้มูลค่าไม่เกิน 90% ของราคาประเมิน หรือไม่เกินมูลค่าที่กรมบังคับคดีประกาศขายทอดตลาดครั้งหลังสุด ตามข้อ 6(2)",
+          "procedure": "ข้อ 8 ยื่นคำขอตามแบบพร้อมหลักฐาน ด้วยตนเอง ณ สำนักงานสหกรณ์ ทางไปรษณีย์ถึง “งานเงินกู้สามัญ” 111/1 หมู่ที่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือผ่าน Mobile Application / Web Application ของสหกรณ์ หรือสถานที่ที่สหกรณ์กำหนด ผู้กู้ต้องรับรองคำขอและเอกสารทุกฉบับ หากรับรองเท็จหรือปลอมแปลง สหกรณ์จะยกเลิกคำขอหรือสัญญาตามกรณี ไม่มีสิทธิยื่นกู้ทุกประเภทอีก และอาจดำเนินคดีอาญา/แจ้งผู้บังคับบัญชา ไม่ส่งเอกสารส่วนบุคคลในแชต",
+          "governance": "ลงวันที่ 11 กันยายน 2569 มีผล 1 ตุลาคม 2569 (ข้อ 2) ข้อ 10 ให้การที่ดำเนินการตามฉบับเดิมก่อนวันมีผลถือว่าปฏิบัติตามประกาศนี้ ไม่ใช่การอนุมัติย้อนหลังรายบุคคล ข้อ 9 คณะกรรมการอาจยกเว้นเมื่อมีเหตุจำเป็นด้วยมติไม่น้อยกว่า 2 ใน 3 ของกรรมการทั้งหมดเท่าที่มีอยู่ ไม่ใช่สิทธิอัตโนมัติ ข้อ 11 ให้ประธานกรรมการวินิจฉัยปัญหาการปฏิบัติตามประกาศ\nข้อ 3 ยกเลิกฉบับลงวันที่ 1 พฤศจิกายน 2567 และฉบับแก้ไขลงวันที่ 17 พฤศจิกายน 2568; บทเฉพาะกาลข้อ 10 อยู่หน้า 4",
+          "interest": "ข้อ 7 ให้ดอกเบี้ยเป็นไปตามประกาศสหกรณ์ ประกาศอัตราที่หน้าทางการยังเชื่อมอยู่ หน้า 1 ข้อ 2.6(2) ระบุ 2.00% ต่อปี ไม่มีเฉลี่ยคืน มีผล 11 พฤศจิกายน 2567 ตรวจอัตราที่ใช้กับสัญญาจริงก่อนทำรายการ ไม่รับรองอัตราคงที่ตลอดสัญญา",
+          "documents": "รายการเตรียมเอกสารจากแบบเดิมที่หน้าทางการยังเชื่อมอยู่ หน้า 1 (ตรวจรายการที่ใช้จริงกับสหกรณ์ก่อนยื่น ไม่ใช้แบบเก่าแทนกฎการเงิน พ.ศ.2569):\n1. หนังสือรับรองจากหน่วยงาน\n2. คำขอกู้และหนังสือสัญญาเงินกู้เฉพาะประเภท\n3. สัญญาค้ำประกัน หรือสำเนาเอกสารหลักทรัพย์ตามที่ใช้จริง\n4. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ\n5. หนังสือยินยอมติดตามทวงถามหนี้\n6. สัญญาจำนำสิทธิในตราสารฝากเงิน กรณีใช้เงินฝากออมทรัพย์พิเศษเป็นหลักประกัน\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า–หลัง และทะเบียนบ้านผู้กู้และผู้ค้ำ ฝ่ายละ 1 ชุด\n8. ทะเบียนสมรส บัตรประชาชนและทะเบียนบ้านคู่สมรสผู้กู้/ผู้ค้ำ ตามสถานภาพ ฝ่ายละ 1 ชุด\n9. สำเนาหน้าสมุดบัญชีเงินฝากออมทรัพย์พิเศษ\n10. หนังสือยินยอมเก็บ ใช้ เปิดเผยข้อมูลส่วนบุคคล\n11. ใบหย่า เปลี่ยนชื่อหรือนามสกุล และเอกสารอื่นถ้ามี 1 ชุด\n12. รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับ–รายจ่าย ให้ ผอ.กองคลัง หัวหน้ากองคลัง ปลัดฯ หรือนายกฯ รับรอง\n13. หนังสือรับสภาพหนี้\n14. หลักฐานกรณีผู้กู้เดิมถูกให้ออกจากงานประจำหรือถึงแก่กรรม 1 ชุด ตามรายการในแบบ โดยกรณีอื่นตามประกาศให้สหกรณ์ยืนยันเอกสารเพิ่มเติม\nสำเนาต้องชัดเจน บัตรประชาชนไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชต"
+        },
+        "clauseEvidence": {
+          "eligibility": {
+            "pages": [
+              1,
+              2
+            ],
+            "clauses": [
+              4
+            ]
+          },
+          "amountAndTerm": {
+            "pages": [
+              2
+            ],
+            "clauses": [
+              5
+            ]
+          },
+          "collateral": {
+            "pages": [
+              2,
+              3
+            ],
+            "clauses": [
+              6
+            ]
+          },
+          "submission": {
+            "pages": [
+              3
+            ],
+            "clauses": [
+              8
+            ]
+          },
+          "dates": {
+            "pages": [
+              1,
+              4
+            ],
+            "clauses": [
+              2
+            ]
+          },
+          "governance": {
+            "pages": [
+              3,
+              4
+            ],
+            "clauses": [
+              3,
+              9,
+              10,
+              11
+            ]
+          }
+        }
+      },
+      "review": {
+        "primaryVerified": true,
+        "reviewedAt": "2026-10-16",
+        "sha256": "7c8e57e3534282dfae302277ff54adb65dcfd3e933552bb8bded2ce4c49228d8",
+        "pages": [
+          1,
+          2,
+          3,
+          4
+        ]
       }
     }
   ],

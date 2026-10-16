@@ -6,11 +6,18 @@
   'use strict';
   const clone=x=>JSON.parse(JSON.stringify(x));
   const special=['qualityOfLife','specialHousing','redeemMortgage'];
-  const all=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shareBackedLoan','shares','deposits','welfare','membership','resignation','guarantor','dividendPatronage','interest'];
+  const debtRules={debtRestructuringLoanCurrent:'debtRestructuringLoan',guarantorDebtLoanCurrent:'guarantorDebtLoan'};
+  const all=[...Object.values(debtRules),'ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shareBackedLoan','shares','deposits','welfare','membership','resignation','guarantor','dividendPatronage','interest'];
   function isShareBackedLoan(text=''){
     if(/ไม่เกินทุนเรือนหุ้น|กู้(?:เงิน)?(?:สามัญ)?(?:เท่า|ตาม)?(?:ทุนเรือน)?หุ้น/.test(text))return true;
     if(/ฉุกเฉิน|พักผ่อน|ท่องเที่ยว|เคหะ|กู้บ้าน|ไถ่ถอน|คุณภาพชีวิต|รวมหนี้|ภัยพิบัติ|การศึกษา/.test(text))return false;
     return /กู้[^\n]{0,15}โดยใช้(?:ทุนเรือน)?หุ้น|กู้[^\n]{0,15}ใช้(?:ทุนเรือน)?หุ้น(?:ตัวเอง|ค้ำ|เป็นหลักประกัน)|สามัญ[^\n]{0,15}ใช้หลักประกัน[^\n]{0,15}(?:ทุนเรือน)?หุ้น/.test(text);
+  }
+  // Distinguish debt-aid products from ordinary guarantor and historical debt questions.
+  function debtLoanProduct(text=''){
+    if(/กู้[^\n]{0,60}(?:ในฐานะ|ฐานะ)ผู้ค้ำ|กู้[^\n]{0,35}ชำระหนี้[^\n]{0,25}ผู้ค้ำ|ชำระหนี้แทน(?:ผู้กู้|ลูกหนี้)|ผู้ค้ำ[^\n]{0,30}(?:ถูกเรียกชำระ|จ่ายแทน)/.test(text))return 'guarantorDebtLoanCurrent';
+    if(/ปรับโครงสร้างหนี้/.test(text)&&!/เคยปรับ|ปรับโครงสร้างหนี้(?:แล้ว|มา)|หลัง(?:จาก)?ปรับ|ก่อนกู้สามัญใหม่|กู้สามัญใหม่|ประนีประนอม|ประนอมหนี้/.test(text))return 'debtRestructuringLoanCurrent';
+    return null;
   }
   function officialPage(url){try{const u=new URL(url);return u.protocol==='https:'&&/^(www\.)?dlasavingcoop\.com$/.test(u.hostname)&&!/(?:board|forum)/i.test(u.pathname);}catch{return false;}}
   function canonical(url){try{const u=new URL(url);u.hash='';u.protocol='https:';if(/^(www\.)?dlasavingcoop\.com$/.test(u.hostname))u.hostname='www.dlasavingcoop.com';const id=u.pathname.match(/\/file\/d\/([^/]+)/);if(u.hostname==='drive.google.com'&&id)return 'https://drive.google.com/file/d/'+id[1]+'/view';u.searchParams.sort();return u.toString();}catch{return '';}}
@@ -28,6 +35,7 @@
     return officialPublication(doc);
   }
   function domains(text=''){
+    const debtProduct=debtLoanProduct(text);if(debtProduct)return [debtRules[debtProduct],...(/ดอกเบี้ย/.test(text)?['interest']:[])];
     if(isShareBackedLoan(text))return ['shareBackedLoan',...(/ดอกเบี้ย/.test(text)?['interest']:[])];
     const d=[];const add=x=>{if(!d.includes(x))d.push(x);};
     if(/หุ้น|ทุนเรือน/.test(text))add('shares');
@@ -79,7 +87,11 @@
     return valid[0];
   }
   function documentScope(doc,text=''){
-    const declared=[...new Set([...(doc.affects||[]),...((doc.affectedRuleIds||[]).includes('shareBackedLoanCurrent')?['shareBackedLoan']:[])])];
+    const declared=[...new Set([...(doc.affects||[]),...(doc.affectedRuleIds||[]).map(x=>debtRules[x]).filter(Boolean),...((doc.affectedRuleIds||[]).includes('shareBackedLoanCurrent')?['shareBackedLoan']:[])])];
+    const titledDebt=debtLoanProduct(doc.title||'');if(titledDebt)declared.push(debtRules[titledDebt]);
+    const debtProduct=debtLoanProduct(text),debtDomain=debtRules[debtProduct];
+    if(debtProduct&&doc.metadataReview?.documentRole==='APPLICATION_FORM'&&declared.includes(debtDomain)&&!/เอกสาร|หลักฐาน|แบบ|ยื่น|ขั้นตอน/.test(text))return [];
+    if(debtProduct&&(doc.affectedRuleIds||[]).includes(debtProduct))return declared;
     if(doc.metadataReview?.documentRole==='APPLICATION_FORM'&&declared.includes('shareBackedLoan')&&!/เอกสาร|หลักฐาน|แบบ|ยื่น|ขั้นตอน/.test(text))return [];
     if(isShareBackedLoan(text)&&/ไม่เกินทุนเรือนหุ้น/.test(doc.title||''))return [...new Set([...declared,'shareBackedLoan'])];
     // Administrative selection results are discovery records, not evidence that
@@ -122,7 +134,7 @@
     const source=evidence&&(registry.documents||[]).find(d=>d.id===evidence.documentId);
     const scoped=evidence?.values?.status==='VERIFIED_PRIMARY'&&source?.status==='CURRENT'&&ds.every(x=>['ordinaryLoan','guarantor','interest','shares','deposits','membership','dividendPatronage'].includes(x));
     const relevant=d=>!scoped||d.id===source.id||canonical(d.originalUrl||'')===canonical(source.originalUrl||'')||/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(d.conflictsWithDocumentIds||[]).includes(source.id);
-    const conflicts=(registry.documents||[]).filter(d=>(leisure||isShareBackedLoan(text))&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
+    const conflicts=(registry.documents||[]).filter(d=>(leisure||isShareBackedLoan(text)||debtLoanProduct(text))&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
     if(conflicts.length)return {allowed:false,reason:'CONFLICTING_DOCUMENT',documents:conflicts,domains:ds,...time};
     const pending=pendingFor(registry,ds,time.date,text).filter(relevant);
     if(pending.length)return {allowed:false,reason:'PENDING_DOCUMENT',documents:pending,domains:ds,...time};
@@ -146,7 +158,7 @@
     for(const d of snapshot.documents){
       const reviewed=next.documents.find(x=>x.id===d.id);
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
-      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว|ไม่เกินทุนเรือนหุ้น/.test(d.title||'')||(d.affectedRuleIds||[]).some(x=>['leisureLoanCurrent','shareBackedLoanCurrent'].includes(x))||(base.ruleVersions||[]).some(v=>['leisureLoanCurrent','shareBackedLoanCurrent'].includes(v.ruleId)&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
+      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว|ไม่เกินทุนเรือนหุ้น|เพื่อปรับโครงสร้างหนี้|ชำระหนี้สหกรณ์ในฐานะผู้ค้ำ/.test(d.title||'')||(d.affectedRuleIds||[]).some(x=>['leisureLoanCurrent','shareBackedLoanCurrent',...Object.keys(debtRules)].includes(x))||(base.ruleVersions||[]).some(v=>['leisureLoanCurrent','shareBackedLoanCurrent',...Object.keys(debtRules)].includes(v.ruleId)&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
         if(reviewed)Object.assign(reviewed,{status:'CONFLICT',mayAffectRules:true,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds});
         else next.documents.push({...d,mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x))});
         continue;
@@ -167,5 +179,5 @@
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
     return next;
   }
-  return {clone,all,isShareBackedLoan,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
+  return {clone,all,isShareBackedLoan,debtLoanProduct,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
 });

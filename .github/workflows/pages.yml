@@ -33,6 +33,7 @@ jobs:
           npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Browser release gate
         run: |
+          node scripts/browser-debt-specific-loans-smoke.mjs
           node scripts/browser-share-backed-loan-smoke.mjs
           node scripts/browser-share-navigation-smoke.mjs
           node scripts/browser-leisure-loan-smoke.mjs
@@ -68,6 +69,7 @@ jobs:
         env:
           MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
         run: |
+          node scripts/browser-debt-specific-loans-smoke.mjs
           node scripts/browser-share-backed-loan-smoke.mjs
           node scripts/browser-share-navigation-smoke.mjs
           node scripts/browser-leisure-loan-smoke.mjs
@@ -94,4 +96,12 @@ jobs:
         with:
           name: share-backed-loan-release-evidence
           path: share-loan-browser-evidence/
+          if-no-files-found: warn
+
+      - name: Upload debt-specific loan release and production evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debt-specific-loan-release-evidence
+          path: debt-loan-browser-evidence/
           if-no-files-found: warn
