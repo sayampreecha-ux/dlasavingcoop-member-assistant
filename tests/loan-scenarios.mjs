@@ -21,4 +21,17 @@ for(const name of existing.filter(x=>x!=='พัฒนาคุณภาพช�
 for(const left of ['สามัญ','เคหะ','ไถ่ถอนจำนอง','เพื่อการศึกษา','ภัยพิบัติ'])for(const right of ['สามัญ','เคหะ','ไถ่ถอนจำนอง','เพื่อการศึกษา','ภัยพิบัติ'])if(left!==right)check('unverified contract pair '+left+' -> '+right,()=>{const r=app.answer('กู้'+left+'ส่งแล้ว3งวด ขอกู้'+right+'ได้ไหม');assert.equal(r.decision,'EVIDENCE_LOCK');assert.match(r.answer,/ถือสัญญาร่วม/);});
 check('changed primary cannot use cached numeric rule',()=>{const a=loadMemberEngine();const snapshot=JSON.parse(JSON.stringify(a.getSourceRegistry()));for(const d of snapshot.documents)if((d.originalUrl||'').includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p'))Object.assign(d,{status:'PENDING',mayAffectRules:true,pendingReason:'PRIMARY_DOCUMENT_BYTES_CHANGED',contentHash:'synthetic-new-unreviewed'});a.applySourceMonitor(snapshot);const r=a.answer(exact);assert.equal(r.decision,'EVIDENCE_LOCK');assert.doesNotMatch(r.answer,/อีก 2 งวด/);});
 for(const [q,re] of [['กู้ฉุกเฉินวงเงินเท่าไร',/60,000/],['กู้สามัญวงเงินเท่าไร',/2,000,000/],['กู้ฉุกเฉินใหม่ส่งแล้ว2งวดได้ไหม',/3 งวด/],['กู้สามัญใหม่ส่งแล้ว3งวดได้ไหม',/12 งวด/],['กู้ในฐานะผู้ค้ำประกันดอกเบี้ยเท่าไร',/2\.00/],['กู้พัฒนาคุณภาพชีวิตต้องใช้เอกสารอะไร',/เอกสาร|คำขอ/]])check('unchanged '+q,()=>assert.match(all(app.answer(q)),re));
+const products=['สามัญ','ฉุกเฉิน',...existing.filter(x=>x!=='สามัญ')];
+for(const left of products)for(const right of products)if(left!==right)check('complete directional pair '+left+' -> '+right,()=>{
+ const r=app.answer('กู้'+left+'ส่งแล้ว1งวด ขอกู้'+right+'ได้ไหม');
+ assert.notEqual(r.intent,'fallback');assert.ok(r.sources.length,'missing evidence '+left+' -> '+right);
+ assert.doesNotMatch(r.answer,/ต้องการถามคุณสมบัติ เอกสาร หรือสถานะ|เป็นเงินกู้ประเภทไหน/);
+ if(right==='ฉุกเฉิน'||left==='พัฒนาคุณภาพชีวิต')assert.equal(r.decision,'NOT_YET_ELIGIBLE');
+ else if(right==='พัฒนาคุณภาพชีวิต'){assert.equal(r.decision,'RULE_INFORMATION');assert.match(r.answer,/หักกลบ.*ทุกประเภท/);}
+ else if(left==='ปรับโครงสร้างหนี้'&&right==='สามัญ')assert.match(all(r),/24 งวด/);
+ else {assert.equal(r.decision,'EVIDENCE_LOCK');assert.match(r.answer,/ถือสัญญาร่วม/);}
+});
+for(const facts of ['เงินเหลือ1000บาท','สมาชิกมา1เดือน','ส่งหุ้นแล้ว1งวด'])check('target checks extra fact '+facts,()=>{const r=app.answer('กู้สามัญส่งแล้ว3งวด '+facts+' ขอกู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');});
+check('quality target never applies source ordinary repeat threshold',()=>{const r=app.answer('กู้สามัญส่งแล้ว1งวด ขอกู้พัฒนาคุณภาพชีวิตได้ไหม');assert.equal(r.decision,'RULE_INFORMATION');assert.doesNotMatch(r.answer,/ต้องส่ง.*12 งวด|ยังไม่ผ่าน/);});
+check('conflicting current primary blocks numeric answer',()=>{const a=loadMemberEngine(),snapshot=a.getSourceRegistry();const d=snapshot.documents.find(d=>(d.originalUrl||'').includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p'));Object.assign(d,{status:'CONFLICT',mayAffectRules:true,contentHash:'conflicting-bytes'});a.applySourceMonitor(snapshot);assert.equal(a.answer(exact).decision,'EVIDENCE_LOCK');});
 console.log('LOAN SCENARIOS: '+count+' behavioral checks PASS; thresholds independently grounded in emergency clauses 4(5), 5(4)');

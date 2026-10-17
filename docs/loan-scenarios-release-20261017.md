@@ -22,10 +22,10 @@ Expected exact answer: not yet eligible under the installment condition; paid on
 
 ## Validation
 
-Local `node scripts/verify-release.mjs`: 57 suites PASS, none skipped, including 166 additional scenario checks. Existing assertions retained. Coverage includes 0/1/2/3/4 payments, twelve-payment restructuring boundaries, reversed sentence order, eleven existing loan labels, multiple contracts, correction, missing facts, pending primary bytes, unknown pairs and unchanged services.
+Local `node scripts/verify-release.mjs`: 57 suites PASS, none skipped, including 303 additional scenario checks. Existing assertions retained. Coverage includes 0/1/2/3/4 payments, twelve-payment restructuring boundaries, reversed sentence order, eleven existing loan labels and all 132 directional pairs among twelve labels, multiple contracts, correction, missing facts, pending primary bytes, unknown pairs and unchanged services.
 
 Cloud Browser baseline: FAIL, exact user wording reproduced.
-New browser script: 28 UI cases, mobile 390px and desktop 1365px; wired into PR E2E and Pages before/after deployment. CI/runtime/Production results must be read from their actual completed runs before release signoff. Local browser launch unavailable because the installed Playwright browser executable is missing; no local browser PASS claimed.
+New browser script: 32 UI cases, mobile 390px and desktop 1365px; wired into PR E2E and Pages before/after deployment. CI/runtime/Production results must be read from their actual completed runs before release signoff. Local browser launch unavailable because the installed Playwright browser executable is missing; no local browser PASS claimed.
 
 ## Boundaries
 
