@@ -84,3 +84,14 @@ await check('oversized declared official download rejected before buffering',asy
  const url='https://drive.google.com/uc?export=download&id=fixture';
  await assert.rejects(()=>fetchResource(url,{fetcher:async()=>new Response('%PDF-small',{headers:{'content-length':String(MAX_OFFICIAL_BYTES+1)}})}),/Source exceeds byte budget/);
 });
+
+await check('removed primary link records unverified successor without promoting authority',async()=>{
+ const r=fresh(),old={...newdoc,id:'old-primary',status:'CURRENT',mayAffectRules:true,affects:['shares'],originalUrl:'https://drive.google.com/file/d/old-primary/view',linkVerified:true};
+ r.documents=[old];r.monitors=[{id:'fixture',url:registry.monitors[0].url,documentIds:[old.id],fingerprint:'old-listing',lastSuccessfulCheck:now.toISOString()}];
+ const result=await sync(r,{fetcher:async()=>new Response(fixture),now:now.toISOString(),maxDocumentChecks:0});
+ const changed=result.registry.documents.find(d=>d.id===old.id);
+ assert.equal(changed.status,'PENDING');
+ assert.equal(changed.pendingReason,'PRIMARY_LINK_REPLACEMENT_UNVERIFIED');
+ assert.equal(changed.replacementCandidates[0].verifiedEquivalent,false);
+ assert.equal(result.registry.ruleVersions.length,registry.ruleVersions.length);
+});
