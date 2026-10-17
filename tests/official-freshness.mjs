@@ -75,3 +75,12 @@ await check('official PDF download still rejects files above bounded 32 MiB budg
  const bytes=new Uint8Array(MAX_OFFICIAL_BYTES+1);bytes.set([37,80,68,70,45]);
  await assert.rejects(()=>fetchResource(registry.monitors[0].url,{fetcher:async()=>new Response(bytes)}),/Source exceeds byte budget/);
 });
+
+await check('Drive HTML/login rejected before accepting PDF evidence',async()=>{
+ const url='https://drive.google.com/uc?export=download&id=fixture';
+ await assert.rejects(()=>fetchResource(url,{fetcher:async()=>new Response('<html>login</html>',{headers:{'content-type':'text/html'}})}),/HTML\/login/);
+});
+await check('oversized declared official download rejected before buffering',async()=>{
+ const url='https://drive.google.com/uc?export=download&id=fixture';
+ await assert.rejects(()=>fetchResource(url,{fetcher:async()=>new Response('%PDF-small',{headers:{'content-length':String(MAX_OFFICIAL_BYTES+1)}})}),/Source exceeds byte budget/);
+});
