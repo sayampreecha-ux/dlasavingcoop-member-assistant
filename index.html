@@ -847,7 +847,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       [/พัฒนาคุณภาพ(?!ชีวิต)/g,'พัฒนาคุณภาพชีวิต'],[/ฉฉ\.?(?=ได้|ไหม|มั้ย|ส่ง|กู้|อยู่|$)/g,'ฉุกเฉิน'],[/([๐-๙])/g,c=>String('๐๑๒๓๔๕๖๗๘๙'.indexOf(c))],[/กู้\s*ฉฉ/g,'กู้ฉุกเฉิน'],[/กู้\s*พัฒนาชีวิต/g,'กู้พัฒนาคุณภาพชีวิต'],[/รีไฟแนน(?:ซ์)?\s*บ้าน/g,'ไถ่ถอนจำนองบ้าน'],
       [/สมาชิด|สามาชิก|สมาขิก/g,'สมาชิก'],[/สมัค(?=สมาชิก)/g,'สมัคร'],[/ทุนเรือนหุ่น/g,'ทุนเรือนหุ้น'],
       [/(ใช้|ขอ)แบบ(?=อะไร|ไหน|ใด)/g,'$1แบบฟอร์ม'],[/แบบขอกู้/g,'แบบฟอร์มเงินกู้'],
-      [/หรือ\s+ไม่/g,'หรือไม่'],[/หรือ\s+ยัง/g,'หรือยัง'],
+      [/ได้(?:ป่าว|เปล่า)/g,'ได้ไหม'],[/หรือ\s+ไม่/g,'หรือไม่'],[/หรือ\s+ยัง/g,'หรือยัง'],
       [/ฉฉ(?=[\s.ฯ]|$)/g,'ฉุกเฉิน'],[/เฟส\s*(?:แรก|หนึ่ง)/g,'เฟส 1'],[/เฟส\s*สอง/g,'เฟส 2'],
       [/สมนชิก/g,'สมาชิก'],[/เอสาร/g,'เอกสาร'],[/ณาปกิจ/g,'ฌาปนกิจ'],[/อุทรณ์/g,'อุทธรณ์'],
       [/แสดงความเห็น/g,'แสดงความคิดเห็น'],[/หลักเกณ(?=นี้|นั้น|เก่า|ใหม่|$)/g,'หลักเกณฑ์'],
@@ -861,6 +861,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       [/หนุ้|หุ้น|หุน(?=รายเดือน|เพิ่ม|สหกรณ์)/g,'หุ้น'],[/ยืนยันยออด|ยืนย้นยอด/g,'ยืนยันยอด'],[/ผุ้ค้ำ|ผู้คำประกัน/g,'ผู้ค้ำประกัน'],[/สมัครสมาชิก\s*ส\.?ฌ\.?/g,'สมัครฌาปนกิจ'],[/ส\.?ฌ\.?/g,'ฌาปนกิจ']
     ];
     fixes.forEach(([re,to])=>q=q.replace(re,to));
+    // Lexical numbers keep their unit: a month is never silently a paid installment.
+    q=q.replace(/หนึ่ง\s*(งวด|เดือน)/g,'1 $1').replace(/(งวด|เดือน)\s*เดียว/g,'1 $1');
     // Preserve an eligibility question when a duration precedes an unnamed product.
     if(/สมาชิก/.test(q)&&/เดือน|ปี/.test(q))q=q.replace(/กู้อะไรได้บ้าง|กู้โครงการ(?:ฯ)?ไหน(?:กับสหกรณ์)?ได้บ้าง/g,'กู้ได้ไหม');
     if(/กู้|ฉุกเฉิน|น้ำท่วม|สวัสดิการ|คลอด|แต่งงาน|สมรส|เรียนจบ|เสียชีวิต|ถึงแก่กรรม|แม่เสีย|พ่อเสีย/.test(q)&&!/หลักประกัน|ใช้อะไรค้ำ|ใช้ไรค้ำ/.test(q))q=q.replace(/(?:ต้อง)?เตรียม(?:อะไร|ไร)(?:บ้าง)?|(?:ต้อง)?ใช้(?:อะไร|ไร)บ้าง/g,'ต้องใช้เอกสารอะไร');
@@ -1555,6 +1557,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const wrap=(answer,opt={})=>{
       const r=res('loan_compound_reasoning',answer,{domain:target.id,answerClass:ANSWER_CLASS.RULE,suppressClarification:true,sources,...opt});
       r.scenario={target:target.id,existing:existing.map(x=>x.id)};
+      if(opt.flowId==='loan_scenario')Object.assign(r,{ambiguousPayments:opt.ambiguousPayments||{},extraFacts:opt.extraFacts||{},scenarioArrears:!!opt.scenarioArrears});
       return r;
     };
     // Existing quality-of-life contracts permit only the explicitly listed other products.
@@ -1581,25 +1584,27 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     if(!E?.primaryEvidenceVerified||!E.evidenceClauses?.otherLoans)return wrap('ยังยืนยันเงื่อนไขกู้ฉุกเฉินเพิ่มไม่ได้ครับ ต้องตรวจหลักเกณฑ์การมีสัญญาเงินกู้อื่นฉบับปัจจุบัน',{decision:'EVIDENCE_LOCK'});
     addSource('emergencyLoanCurrent',E.evidenceClauses.otherLoans);
+    if(existing.some(x=>x.id==='debtRestructuringLoanCurrent'))sources.find(x=>x.url===E.source).note='ข้อ 4 (5) หน้า 1; ข้อ 5 (4) หน้า 2; มีผล '+E.effectiveFrom;
     if(existing.some(x=>x.id==='qualityOfLifeCurrent'))addSource('qualityOfLifeCurrent');
-    const facts={},details=[],fail=[],missing=[];
+    const facts={},details=[],fail=[],missing=[],ambiguousPayments={};
     for(const old of existing){
       const clause=mentions.find(x=>x.id===old.id);
       const next=mentions.find(x=>x.pos>clause.pos&&x.id!==clause.id);
       const segment=q.slice(clause.end,next?.pos??q.length);
-      const m=segment.match(/(?:ส่ง|ชำระ|ผ่อน)(?:เงินต้น)?(?:มา|แล้ว|ครบ|ไป|ได้|อยู่|เพียง|แค่|ทั้งหมด|รวม|\s)*([0-9]+)\s*(งวด|เดือน)/);
+      const m=segment.match(/(?<!ค้าง)(?:ส่ง|ชำระ|ผ่อน)(?:เงินต้น)?(?:มา|แล้ว|ครบ|ไป|ได้|อยู่|เพียง|แค่|ทั้งหมด|รวม|\s)*([0-9]+)\s*(งวด)/);
+      const month=segment.match(/(?<!ค้าง)(?:ส่ง|ชำระ|ผ่อน)(?:เงินต้น)?(?:มา|แล้ว|ครบ|ไป|ได้|อยู่|เพียง|แค่|ทั้งหมด|รวม|\s)*([0-9]+)\s*เดือน/);
       const simple=segment.match(/^\s*([0-9]+)\s*งวด/);
-      // Months are not payment installments without an explicit payment verb.
+      // Duration in months still requires confirmation of the recorded paid installments.
       const before=q.slice(Math.max(0,clause.pos-12),clause.pos);
       const prefixPaid=/(?:ส่ง|ชำระ|ผ่อน)\s*$/.test(before)?segment.match(/(?:ครบ|แล้ว|มา|\s)*([0-9]+)\s*งวด/):null;
       const paid=/ยังไม่(?:ได้|เคย)?(?:ส่ง|ชำระ)|ไม่ได้(?:ส่ง|ชำระ)|หยุดส่ง/.test(segment)?null:m?+m[1]:simple?+simple[1]:prefixPaid?+prefixPaid[1]:null;
       const need=old.id==='debtRestructuringLoanCurrent'?E.restructuredOrdinaryMinInstallments:E.otherLoanMinInstallments;
       facts[old.id]=paid;
-      if(paid==null)missing.push(old);
+      if(paid==null){missing.push(old);if(month)ambiguousPayments[old.id]=+month[1];}
       else if(paid<need)fail.push(old.name+'ชำระแล้ว '+paid+' งวด ต้องครบอย่างน้อย '+need+' งวด จึงต้องชำระอีก '+(need-paid)+' งวด');
       details.push(old.name+': '+(paid==null?'ยังไม่ทราบจำนวนงวดที่ชำระจริง':'ชำระแล้ว '+paid+' งวด')+'; เกณฑ์อย่างน้อย '+need+' งวด');
     }
-    if(existing.length===1&&existing[0].id==='qualityOfLifeCurrent'&&facts.qualityOfLifeCurrent==null&&!/ค้าง|ผิดนัด/.test(q))return null;
+    if(existing.length===1&&existing[0].id==='qualityOfLifeCurrent'&&facts.qualityOfLifeCurrent==null&&!Object.keys(ambiguousPayments).length&&!/ค้าง|ผิดนัด/.test(q))return null;
     const arrears=/(?:ค้าง(?:ชำระ|ส่ง)?|ผิดนัด|ไม่ได้ส่ง|ไม่ได้ชำระ|หยุดส่ง)/.test(q)&&!/(?:ไม่เคย|ไม่มี|ไม่)\s*ค้าง|ไม่ผิดนัด/.test(q);
     if(arrears){fail.push('มีข้อมูลค้างชำระ ต้องผ่านข้อ 4 (8) ที่กำหนดว่าไม่ค้างค่าหุ้นและหนี้เงินกู้ทุกประเภทในช่วงย้อนหลัง '+E.noArrearsInstallments+' งวด');details.push('จำนวนงวดที่ค้างไม่ใช่จำนวนงวดที่ชำระแล้ว');}
     const extraFacts={};
@@ -1617,10 +1622,16 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     const term=q.match(/(?:ขอ)?ผ่อน\s*([0-9]+)\s*งวด/);if(term&&+term[1]>E.maxTermInstallments)fail.push('ระยะเวลาผ่อนเกิน '+E.maxTermInstallments+' งวดตามข้อ 5 (5) หน้า 2');
     details.push('เงินกู้ประเภทอื่นต้องชำระมาแล้วอย่างน้อย '+E.otherLoanMinInstallments+' งวด ตามข้อ 5 (4) หน้า 2', 'กรณีสัญญากู้สามัญปรับโครงสร้างหนี้ ใช้เกณฑ์อย่างน้อย '+E.restructuredOrdinaryMinInstallments+' งวดตามข้อ 4 (5) หน้า 1 แยกจากหนี้ประเภทอื่น', 'การส่งเงินต้นเพิ่มล่วงหน้าหรือผ่านไปหลายเดือนยังไม่ยืนยันจำนวนงวดที่สหกรณ์บันทึกชำระจริง','ข้อ 4: ต้องตรวจคุณสมบัติอื่น เช่น อายุสมาชิก การส่งหุ้น เงินได้คงเหลือ และประวัติชำระหนี้ ผลนี้ไม่ใช่ผลอนุมัติหรือการรับเงินทันที');
-    const opt={extraFacts,decision:fail.length?'NOT_YET_ELIGIBLE':missing.length?'NEED_INFO':'ELIGIBLE_CONDITION',details,facts,flowId:'loan_scenario',requiredFact:!fail.length&&missing.length?'paidInstallments':null,scenarioTarget:target.id,scenarioExisting:existing.map(x=>x.id),followups:[]};
+    const opt={extraFacts,ambiguousPayments,scenarioArrears:arrears,decision:fail.length?'NOT_YET_ELIGIBLE':missing.length?'NEED_INFO':'ELIGIBLE_CONDITION',details,facts,flowId:'loan_scenario',requiredFact:!fail.length&&missing.length?'paidInstallments':null,scenarioTarget:target.id,scenarioExisting:existing.map(x=>x.id),followups:[]};
     if(fail.length)return wrap('ยังไม่ผ่านเงื่อนไขยื่นกู้ฉุกเฉินครับ — '+fail.join('; ')+' ตามประกาศหลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569 '+(fail.some(x=>/ชำระแล้ว [0-9]+ งวด/.test(x))?'ข้อ '+(existing.some(x=>x.id==='debtRestructuringLoanCurrent')?'4 (5) หน้า 1 และ ':'')+'5 (4) หน้า 2':'ตามข้อที่ระบุข้างต้น')+' และยังต้องผ่านคุณสมบัติอื่นด้วย',opt);
-    if(missing.length)return wrap('กู้ฉุกเฉินเพิ่มได้เมื่อผ่านเงื่อนไขของสัญญาเดิมและคุณสมบัติฉุกเฉินครับ ตามข้อ 5 (4) ต้องส่งหนี้ประเภทอื่นอย่างน้อย '+E.otherLoanMinInstallments+' งวด'+(existing.some(x=>x.id==='debtRestructuringLoanCurrent')?' ส่วนกู้ปรับโครงสร้างหนี้ต้องอย่างน้อย '+E.restructuredOrdinaryMinInstallments+' งวดตามข้อ 4 (5)':'')+'\n\n'+missing[0].name+'ชำระแล้วกี่งวดครับ?',opt);
-    return wrap('ผ่านเฉพาะเงื่อนไขจำนวนงวดสำหรับยื่นกู้ฉุกเฉินครับ — ชำระครบอย่างน้อย '+E.otherLoanMinInstallments+' งวดตามเกณฑ์ทั่วไป; '+details.slice(0,existing.length).join('; ')+' ตามข้อ 5 (4) หน้า 2 ยังต้องตรวจคุณสมบัติฉุกเฉินอื่นและรอผลอนุมัติ ไม่ได้รับเงินทันทีโดยอัตโนมัติ',opt);
+    const hasRestructured=existing.some(x=>x.id==='debtRestructuringLoanCurrent');
+    const applicableClause=hasRestructured?'ข้อ 4 (5) หน้า 1 และข้อ 5 (4) หน้า 2':'ข้อ 5 (4) หน้า 2';
+    if(missing.length){
+      const old=missing[0],months=ambiguousPayments[old.id];
+      const question=months==null?old.name+'ชำระแล้วกี่งวดครับ?':'ที่ระบุว่าส่งมา '+months+' เดือน หมายถึง'+old.name+'ชำระจริงแล้ว '+months+' งวด ใช่ไหมครับ? หากไม่ใช่ ระบุจำนวนงวดที่ชำระจริงครับ';
+      return wrap('ยังสรุปว่าผ่านเงื่อนไขจำนวนงวดไม่ได้ครับ — '+details.slice(0,existing.length).join('; ')+' ตาม'+applicableClause+'\n\n'+question,opt);
+    }
+    return wrap('ผ่านเฉพาะเงื่อนไขจำนวนงวดสำหรับยื่นกู้ฉุกเฉินครับ — '+(hasRestructured?'':'ชำระครบอย่างน้อย '+E.otherLoanMinInstallments+' งวด; ')+details.slice(0,existing.length).join('; ')+' ตาม'+applicableClause+' ยังต้องตรวจคุณสมบัติฉุกเฉินอื่นและรอผลอนุมัติ ไม่ได้รับเงินทันทีโดยอัตโนมัติ',opt);
   }
 
   function compoundLoanAnswer(q){
@@ -1990,7 +2001,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const summary=verifiedLoanInquiry(names[product]+' สรุป');
       const docs=['คำขอและหนังสือเงินกู้เพื่อเหตุฉุกเฉิน','หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูลส่วนบุคคล','สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้ 1 ชุด','รายละเอียดรายรับ–รายจ่ายเดือนปัจจุบัน ให้เจ้าหน้าที่เบิกจ่ายลงนามรับรอง','หนังสือรับรองเงินเดือน 1 ชุด','สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้','เอกสารเปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี'];
       if(!summary)return null;
-      return res('loan_emergency',(/ขั้นตอน|ยื่น|ทำ(?:ยังไง|อย่างไร)/.test(q)?'เริ่มจากตรวจหลักเกณฑ์ปัจจุบันด้านล่าง แล้วกรอกแบบคำขอและหนังสือยินยอม เตรียมเอกสารตามรายการ ส่งให้สหกรณ์ตรวจและติดตามผลผ่านระบบสมาชิกหรือเจ้าหน้าที่ ไม่ยืนยันวันโอนหรือผลอนุมัติล่วงหน้า\n':'')+'เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n'+docs.map((x,i)=>(i+1)+'. '+x).join('\n')+'\nสำเนาต้องชัดเจน บัตรไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชท',{domain:product,decision:'PROCEDURE_INFORMATION',answerClass:ANSWER_CLASS.RULE,details:[summary.answer],sources:[...summary.sources,src('แบบตรวจสอบเอกสารเงินกู้ฉุกเฉิน หน้า 1',form)],actions:[['แบบคำขอฉุกเฉิน',form],['ระบบสมาชิก',S.memberPortal]]});
+      return res('loan_emergency',(/ขั้นตอน|ยื่น|ทำ(?:ยังไง|อย่างไร)/.test(q)?'เริ่มจากตรวจหลักเกณฑ์ปัจจุบันด้านล่าง แล้วกรอกแบบคำขอและหนังสือยินยอม เตรียมเอกสารตามรายการ ส่งให้สหกรณ์ตรวจและติดตามผลผ่านระบบสมาชิกหรือเจ้าหน้าที่ ไม่ยืนยันวันโอนหรือผลอนุมัติล่วงหน้า\n':'')+'เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n'+docs.map((x,i)=>(i+1)+'. '+x).join('\n')+'\nสำเนาต้องชัดเจน บัตรไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชท',{suppressClarification:true,domain:product,decision:'PROCEDURE_INFORMATION',answerClass:ANSWER_CLASS.RULE,details:[summary.answer],sources:[...summary.sources,src('แบบตรวจสอบเอกสารเงินกู้ฉุกเฉิน หน้า 1',form)],actions:[['แบบคำขอฉุกเฉิน',form],['ระบบสมาชิก',S.memberPortal]]});
     }
     if(/ทำ(?:ยังไง|อย่างไร)|ขั้นตอน|ยื่น.*(?:ยังไง|อย่างไร)/.test(q)&&!['education','disaster'].includes(product)){
       const summary=verifiedLoanInquiry(names[product]+' สรุป');if(!summary)return null;
@@ -2066,7 +2077,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const key=emergency?'emergency_cash_transfer':quality?'quality_of_life_real_estate':housing?'special_housing_tiered':ordinary?'ordinary_person_guarantee':education?'ordinary_education':disaster?'ordinary_disaster':'special_redeem_mortgage';
       const rate=rates.ratesPercentPerYear[key];
       text=Array.isArray(rate)?'อัตราดอกเบี้ยตามประกาศ: '+rate.map(x=>'งวด '+x.installments+' = '+x.rate.toFixed(2)+'% ต่อปี').join('; '):'อัตราดอกเบี้ยตามประกาศ '+rate.toFixed(2)+'% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น';
-      return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,domain:product,concern,actions:[['ประกาศอัตราดอกเบี้ย',rates.source],['หลักเกณฑ์/แบบคำขอ',index]],sources:[src('ประกาศอัตราดอกเบี้ยทางการ',rates.source)],details:['การประเมินเบื้องต้น ไม่ใช่ผลอนุมัติหรือค่างวดรายเดือน']});
+      return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,suppressClarification:emergency,domain:product,concern,actions:[['ประกาศอัตราดอกเบี้ย',rates.source],['หลักเกณฑ์/แบบคำขอ',index]],sources:[src('ประกาศอัตราดอกเบี้ยทางการ',rates.source)],details:['การประเมินเบื้องต้น ไม่ใช่ผลอนุมัติหรือค่างวดรายเดือน']});
     }
     if(!R){pending=true;}
     else if(concern==='summary'&&R.status==='VERIFIED_PRIMARY'){
@@ -2139,7 +2150,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     else if(concern==='submit')text=emergency?'ยื่นด้วยตนเอง ทางไปรษณีย์ ทางอีเมล '+R.submissionEmail+' เป็นไฟล์ PDF หรือผ่าน Mobile/Web Application ของสหกรณ์ พร้อมแบบและหลักฐานที่รับรองแล้ว':'';
     else if(concern==='purpose')text=housing?'เพื่อซื้อบ้านพร้อมที่ดินหรือสร้างที่อยู่อาศัยตามประกาศ ส่วนคอนโด/ต่อเติมต้องตรวจวัตถุประสงค์ในต้นฉบับก่อนยืนยัน':'';
     if(!text.trim()){pending=true;text='พบหลักเกณฑ์/แบบคำขอทางการของประเภทนี้ครับ แต่ประเด็น '+({membership:'อายุสมาชิก/งวดหุ้น',shares:'ทุนเรือนหุ้น',income:'รายได้คงเหลือ',purpose:'วัตถุประสงค์',restructure:'ผู้เคยปรับโครงสร้างหนี้'}[concern]||concern)+' ยังไม่ได้ยืนยันจากต้นฉบับครบ จึงไม่เติมตัวเลขจากคำตอบเก่า เปิดหลักเกณฑ์และแบบเฉพาะประเภทด้านล่างเพื่อตรวจต่อได้ทันที';}
-    return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,domain:product,concern,evidenceState:pending?'NEEDS_PRIMARY_EVIDENCE':'PRIMARY_VERIFIED_CURRENT',decision:pending?'NEED_RULE_EXTRACTION':concern==='procedure'?'PROCEDURE_INFORMATION':'RULE_INFORMATION',actions:[['หลักเกณฑ์ที่ใช้ตอบ',source],['แบบคำขอ/ตารางทางการ',R?.formUrl||index]],sources:[src(R?.primaryEvidenceTitle||'หลักเกณฑ์/แบบเฉพาะประเภท',source),...(['documents','procedure'].includes(concern)&&R?.formUrl?[src('รายการเอกสารในแบบคำขอทางการ',R.formUrl)]:[])],details:[...(quality&&concern==='summary'?['สมาชิกอย่างน้อย 3 ปีและส่งหุ้น 36 งวด สำหรับวงเงินไม่เกิน 3 ล้านบาท; 5 ปีและ60 งวด สำหรับไม่เกิน5 ล้านบาท']:[]),...(ordinary&&concern==='amount'?['เกิน 200,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือนและมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้']:[]),pending?'Evidence Lock เฉพาะประเด็นนี้ ไม่ใช่ไม่มีหลักเกณฑ์':'ใช้ฉบับมีผล '+R.effectiveFrom,'สิทธิ วงเงิน และผลอนุมัติเฉพาะบุคคลยังไม่ได้ยืนยัน ต้องตรวจข้อมูลสมาชิกจริงก่อน']});
+    return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,suppressClarification:emergency&&!pending&&concern!=='summary',domain:product,concern,evidenceState:pending?'NEEDS_PRIMARY_EVIDENCE':'PRIMARY_VERIFIED_CURRENT',decision:pending?'NEED_RULE_EXTRACTION':concern==='procedure'?'PROCEDURE_INFORMATION':'RULE_INFORMATION',actions:[['หลักเกณฑ์ที่ใช้ตอบ',source],['แบบคำขอ/ตารางทางการ',R?.formUrl||index]],sources:[src(R?.primaryEvidenceTitle||'หลักเกณฑ์/แบบเฉพาะประเภท',source),...(['documents','procedure'].includes(concern)&&R?.formUrl?[src('รายการเอกสารในแบบคำขอทางการ',R.formUrl)]:[])],details:[...(quality&&concern==='summary'?['สมาชิกอย่างน้อย 3 ปีและส่งหุ้น 36 งวด สำหรับวงเงินไม่เกิน 3 ล้านบาท; 5 ปีและ60 งวด สำหรับไม่เกิน5 ล้านบาท']:[]),...(ordinary&&concern==='amount'?['เกิน 200,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือนและมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้']:[]),pending?'Evidence Lock เฉพาะประเด็นนี้ ไม่ใช่ไม่มีหลักเกณฑ์':'ใช้ฉบับมีผล '+R.effectiveFrom,'สิทธิ วงเงิน และผลอนุมัติเฉพาะบุคคลยังไม่ได้ยืนยัน ต้องตรวจข้อมูลสมาชิกจริงก่อน']});
   }
 
   function auditedOrdinaryInquiry(q,check){
@@ -2865,15 +2876,23 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const oldNames={qualityOfLifeCurrent:'พัฒนาคุณภาพชีวิต',ordinaryLoanCurrent:'สามัญ',specialHousingCurrent:'เคหะ',redeemMortgageCurrent:'ไถ่ถอนจำนอง',education:'เพื่อการศึกษา',disaster:'ภัยพิบัติ'};
       if(oldNames[state.topic]){query='มีกู้'+oldNames[state.topic]+'อยู่ '+raw;result=answer(query);}
     }
-    if(!result&&prior?.flowId==='loan_scenario' &&(options.continuation||correction||!questionDomain(raw))&&/\d+\s*(?:งวด|เดือน)/.test(raw)){
-      const paid=raw.match(/\d+\s*(?:งวด|เดือน)/)[0];
+    if(!result&&prior?.flowId==='loan_scenario' &&(options.continuation||correction||!questionDomain(raw))&&(/\d+\s*(?:งวด|เดือน)/.test(raw)||(prior.requiredFact==='paidInstallments'&&/^(?:ใช่|ถูกต้อง|ไม่ใช่)/.test(raw)))){
+      const rawArrears=/(?:ค้าง|ผิดนัด|หยุดส่ง|ไม่ได้ส่ง|ไม่ได้ชำระ)/.test(raw)&&!/(?:ไม่เคย|ไม่มี|ไม่)\s*ค้าง|ไม่ผิดนัด/.test(raw);
+      const paid=rawArrears?null:raw.match(/\d+\s*(งวด|เดือน)/);
       const oldNames={ordinaryLoanCurrent:'สามัญ',qualityOfLifeCurrent:'พัฒนาคุณภาพชีวิต',specialHousingCurrent:'เคหะ',redeemMortgageCurrent:'ไถ่ถอนจำนอง',education:'เพื่อการศึกษา',disaster:'ภัยพิบัติ',debtRestructuringLoanCurrent:'ปรับโครงสร้างหนี้',guarantorDebtLoanCurrent:'ในฐานะผู้ค้ำประกัน',shareBackedLoanCurrent:'ไม่เกินทุนเรือนหุ้น'};
       const facts={...(prior.facts||{})};
       const explicit=Object.keys(facts).find(id=>raw.includes(oldNames[id]));
       const id=explicit||Object.keys(facts).find(id=>facts[id]==null)||Object.keys(facts)[0];
-      facts[id]=+paid.match(/\d+/)[0];
-      query=Object.entries(facts).map(([key,n])=>'กู้'+oldNames[key]+(n==null?'อยู่':'ส่งแล้ว '+n+' งวด')).join(' และ ')+' ขอกู้ฉุกเฉินได้ไหม';
-      result=answer(query);
+      const months=prior.ambiguousPayments?.[id];
+      if(!paid&&/^(?:ไม่ใช่)/.test(raw)){
+        result={...prior,answer:'รับทราบครับ '+('กู้'+oldNames[id])+'ชำระจริงแล้วกี่งวดครับ?',ambiguousPayments:{},decision:'NEED_INFO',requiredFact:'paidInstallments'};
+      }else{
+        facts[id]=rawArrears?facts[id]:paid&&paid[1]==='งวด'?+paid[0].match(/\d+/)[0]:!paid&&months!=null?months:null;
+        const duration=paid&&paid[1]==='เดือน'?+paid[0].match(/\d+/)[0]:null;
+        const extras=prior.extraFacts||{},constraints=[(rawArrears||prior.scenarioArrears)?'มีค้างชำระ':'',extras.membershipMonths!=null?'สมาชิกมา '+extras.membershipMonths+' เดือน':'',extras.sharePayments!=null?'ส่งหุ้นแล้ว '+extras.sharePayments+' งวด':'',extras.remainingIncome!=null?'เงินเหลือ '+extras.remainingIncome+' บาท':''].filter(Boolean).join(' ');
+        query=Object.entries(facts).map(([key,n])=>'กู้'+oldNames[key]+(key===id&&duration!=null?'ส่งมา '+duration+' เดือน':n==null?'อยู่':'ส่งแล้ว '+n+' งวด')).join(' และ ')+' '+constraints+' ขอกู้ฉุกเฉินได้ไหม';
+        result=answer(query);
+      }
     }else if(prior?.intent==='welfare_all'&&prior.followups?.some(x=>norm(x)===raw)){
       query=raw;result=answer(query);
     }else if(prior?.requiredFact==='educationPurpose'&&choice){
