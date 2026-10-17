@@ -3315,10 +3315,16 @@ function updateReadingTopics(source){
 function selectTrackingNotices(data,input){const isApproval=/^(?:ติดตามผลอนุมัติ|ผลอนุมัติ)/.test(input);const isMemberApproval=isApproval&&/สมัครสมาชิก|^(?:ติดตาม)?ผลอนุมัติสมาชิก$/.test(input);const type=isMemberApproval?/สมัครสมาชิก|สมาชิกใหม่|สมาชิกสหกรณ์|ได้รับความเห็นชอบให้เป็นสมาชิก/:/เงินกู้/.test(input)?/เงินกู้|สินเชื่อ|กู้/:/สวัสดิการ/.test(input)?/สวัสดิการ|ทุนบุตร|สงเคราะห์/:/สมัครสมาชิก|รอบสมาชิก/.test(input)?/สมัครสมาชิก|สมาชิกใหม่/:/ฌาปนกิจ/.test(input)?/ฌาปนกิจ|สงเคราะห์ศพ/:null;const terms=/อนุมัติ/.test(input)?/อนุมัติ|ผลพิจารณา|ผลการพิจารณา/:/รอบ/.test(input)?/รอบ|กำหนด|ตัดรอบ|วันรับ|วันส่ง|ประกาศ/:/เอกสาร/.test(input)?/เอกสาร|ยืนยันยอด|ส่งคืน|รับคำขอ/:/ชำระ/.test(input)?/ชำระ|ใบเสร็จ|นำส่ง|ยอด/:/อนุมัติ|เอกสาร|รอบ|ชำระ/;const items=[...(data.trackingNotices||[]),...(data.events||[])].filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl&&(!isApproval||(isMemberApproval?/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||''):/ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|รายชื่อ.*(?:อนุมัติ|ได้รับอนุมัติ)/.test(e.title||'')))&&(isMemberApproval||terms.test(e.title+' '+(e.summary||'')))&&(!type||type.test(e.title+' '+(e.summary||'')))&&(!e.expiresAt||new Date(e.expiresAt)>new Date())).filter((e,i,arr)=>arr.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);return items;}
 
 function renderOrdinaryLoanCalculator(current,r){
-  if(r.intent!=='loan_ordinary')return;
+  const ordinaryAssessment=r.intent==='loan_safe_calculator'&&(!r.domain||r.domain==='ordinaryLoanCurrent');
+  if(r.intent!=='loan_ordinary'&&!ordinaryAssessment)return;
   const url='https://script.google.com/macros/s/AKfycbyyX1KfFiE68C8JE4i4IYFUlVb70QSBVVuNtzASt8kgO0A0KM12yhQeOlo0h2Rmxw1K1Q/exec';
   let link=Array.from(current.querySelectorAll('a')).find(a=>a.href===url);
-  if(!link){const actions=document.createElement('div');actions.className='actions';link=document.createElement('a');link.href=url;actions.append(link);current.append(actions);}
+  if(!link){
+    link=document.createElement('a');link.href=url;
+    const choice=ordinaryAssessment&&Array.from(current.querySelectorAll('.follow button')).find(button=>button.textContent==='คำนวณกู้สามัญ');
+    if(choice){link.className=choice.className;link.style.cssText='display:flex;align-items:center;justify-content:center;white-space:normal;text-decoration:none';choice.replaceWith(link);}
+    else{const actions=document.createElement('div');actions.className='actions';actions.append(link);current.append(actions);}
+  }
   link.textContent='🧮 ทดลองคำนวณเงินกู้ (ระบบสหกรณ์)';link.target='_blank';link.rel='noopener noreferrer';
   link.style.overflowWrap='anywhere';link.dataset.ordinaryLoanCalculator='true';
   const note=document.createElement('p');note.className='hint';note.dataset.ordinaryLoanCalculatorNote='true';
