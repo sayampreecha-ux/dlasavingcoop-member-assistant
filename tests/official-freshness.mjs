@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import F from '../scripts/official-freshness.js';
-import {hash,extractLinks,ingest,sync,fetchResource} from '../scripts/sync-official-sources.mjs';
+import {hash,extractLinks,ingest,sync,fetchResource,MAX_OFFICIAL_BYTES} from '../scripts/sync-official-sources.mjs';
 import {impactedQuestions} from '../scripts/run-impacted-regression.mjs';
 import {loadMemberEngine} from './helpers/load-member-engine.mjs';
 const registry=JSON.parse(fs.readFileSync(new URL('../data/official-source-registry.json',import.meta.url),'utf8'));
@@ -64,3 +64,14 @@ await check('monitor publication succeeds twice without losing locks or changing
  } finally {fs.rmSync(root,{recursive:true,force:true});}
 });
 console.log('OFFICIAL FRESHNESS:',pass,'PASS / 0 FAIL');
+
+await check('bounded official PDF budget accepts files above old 12 MiB limit',async()=>{
+ const bytes=new Uint8Array(12*1024*1024+1);bytes.set([37,80,68,70,45]);
+ const r=await fetchResource(registry.monitors[0].url,{fetcher:async()=>new Response(bytes)});
+ assert.equal(r.bytes.length,bytes.length);
+ assert.equal(MAX_OFFICIAL_BYTES,32*1024*1024);
+});
+await check('official PDF download still rejects files above bounded 32 MiB budget',async()=>{
+ const bytes=new Uint8Array(MAX_OFFICIAL_BYTES+1);bytes.set([37,80,68,70,45]);
+ await assert.rejects(()=>fetchResource(registry.monitors[0].url,{fetcher:async()=>new Response(bytes)}),/Source exceeds byte budget/);
+});
