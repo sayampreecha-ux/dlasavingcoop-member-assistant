@@ -31,7 +31,7 @@ for(const left of products)for(const right of products)if(left!==right)check('co
  else if(left==='ปรับโครงสร้างหนี้'&&right==='สามัญ')assert.match(all(r),/24 งวด/);
  else {assert.equal(r.decision,'EVIDENCE_LOCK');assert.match(r.answer,/ถือสัญญาร่วม/);}
 });
-for(const facts of ['เงินเหลือ1000บาท','สมาชิกมา1เดือน','ส่งหุ้นแล้ว1งวด'])check('target checks extra fact '+facts,()=>{const r=app.answer('กู้สามัญส่งแล้ว3งวด '+facts+' ขอกู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');});
+for(const facts of ['เงินเหลือ1000บาท','สมาชิกมา1เดือน','ส่งหุ้นแล้ว1งวด'])check('target checks extra fact '+facts,()=>{const r=app.answer('กู้สามัญส่งแล้ว3งวด '+facts+' ขอกู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,/ข้อ 4/);});
 check('quality target never applies source ordinary repeat threshold',()=>{const r=app.answer('กู้สามัญส่งแล้ว1งวด ขอกู้พัฒนาคุณภาพชีวิตได้ไหม');assert.equal(r.decision,'RULE_INFORMATION');assert.doesNotMatch(r.answer,/ต้องส่ง.*12 งวด|ยังไม่ผ่าน/);});
 check('conflicting current primary blocks numeric answer',()=>{const a=loadMemberEngine(),snapshot=a.getSourceRegistry();const d=snapshot.documents.find(d=>(d.originalUrl||'').includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p'));Object.assign(d,{status:'CONFLICT',mayAffectRules:true,contentHash:'conflicting-bytes'});a.applySourceMonitor(snapshot);assert.equal(a.answer(exact).decision,'EVIDENCE_LOCK');});
 console.log('LOAN SCENARIOS: '+count+' behavioral checks PASS; thresholds independently grounded in emergency clauses 4(5), 5(4)');
