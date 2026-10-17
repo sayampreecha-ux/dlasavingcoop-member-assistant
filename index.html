@@ -1607,8 +1607,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     numericFact('membershipMonths',/สมาชิก(?:มา|แล้ว|ครบ|\s)*([0-9]+)\s*เดือน/,E.membershipMinMonths,'อายุสมาชิก (เดือน)','4 (1) หน้า 1');
     numericFact('sharePayments',/(?:ส่งหุ้น|ค่าหุ้น)(?:มา|แล้ว|ครบ|\s)*([0-9]+)\s*งวด/,E.sharePaymentMinInstallments,'การส่งหุ้น (งวด)','4 (2) หน้า 1');
     numericFact('remainingIncome',/(?:เงิน(?:เดือน)?(?:ได้)?(?:รายเดือน)?คงเหลือ|เงินเหลือ|เงินเดือนเหลือ)(?:สุทธิ|\s)*([0-9,]+)\s*บาท/,E.remainingIncomeMinBaht,'เงินได้คงเหลือ (บาท)','4 (3) หน้า 1');
+    if(E.noBorrowerDebtWithOtherCooperatives&&/(?:มีหนี้|เป็นหนี้|กู้).{0,35}สหกรณ์อื่น/.test(q)&&!/ไม่มีหนี้.{0,20}สหกรณ์อื่น|ไม่ได้กู้.{0,20}สหกรณ์อื่น/.test(q))fail.push('มีหนี้ในฐานะผู้กู้กับสหกรณ์อื่น ไม่ผ่านข้อ 4 (6) หน้า 2');
+    if(E.noSeriousDisciplinaryOrBankruptcyProceeding&&/(?:ถูก|อยู่ระหว่าง).{0,25}(?:วินัยอย่างร้ายแรง|พิทักษ์ทรัพย์|ล้มละลาย)/.test(q))fail.push('มีข้อมูลการดำเนินการทางวินัยอย่างร้ายแรงหรือคดีล้มละลาย ต้องตรวจข้อ 4 (7) หน้า 2');
     const request=q.match(/(?:ขอ|วงเงิน)(?:กู้)?ฉุกเฉิน(?:เพิ่ม)?\s*([0-9,]+)\s*บาท/);
-    if(request&&Number(request[1].replace(/,/g,''))>E.maxAmountBaht)fail.push('วงเงินที่ขอเกินเพดาน '+E.maxAmountBaht.toLocaleString('th-TH')+' บาทตามข้อ 5 (1)-(2) หน้า 2');
+    if(request){
+      const salary=q.match(/เงินเดือน\s*([0-9,]+)\s*บาท/),bands=E.amountBands.filter(b=>extraFacts.membershipMonths!=null&&extraFacts.membershipMonths>=b.membershipMinMonths);
+      const cap=Math.min(bands.length?Math.max(...bands.map(b=>b.maxAmountBaht)):E.maxAmountBaht,salary?Number(salary[1].replace(/,/g,''))*E.salaryMultiplier:Infinity);
+      if(Number(request[1].replace(/,/g,''))>cap)fail.push('วงเงินที่ขอเกินเพดานตามข้อมูลที่ระบุ '+cap.toLocaleString('th-TH')+' บาทตามข้อ 5 (1)-(2) หน้า 2');
+    }
+    const term=q.match(/(?:ขอ)?ผ่อน\s*([0-9]+)\s*งวด/);if(term&&+term[1]>E.maxTermInstallments)fail.push('ระยะเวลาผ่อนเกิน '+E.maxTermInstallments+' งวดตามข้อ 5 (5) หน้า 2');
     details.push('เงินกู้ประเภทอื่นต้องชำระมาแล้วอย่างน้อย '+E.otherLoanMinInstallments+' งวด ตามข้อ 5 (4) หน้า 2', 'กรณีสัญญากู้สามัญปรับโครงสร้างหนี้ ใช้เกณฑ์อย่างน้อย '+E.restructuredOrdinaryMinInstallments+' งวดตามข้อ 4 (5) หน้า 1 แยกจากหนี้ประเภทอื่น', 'การส่งเงินต้นเพิ่มล่วงหน้าหรือผ่านไปหลายเดือนยังไม่ยืนยันจำนวนงวดที่สหกรณ์บันทึกชำระจริง','ข้อ 4: ต้องตรวจคุณสมบัติอื่น เช่น อายุสมาชิก การส่งหุ้น เงินได้คงเหลือ และประวัติชำระหนี้ ผลนี้ไม่ใช่ผลอนุมัติหรือการรับเงินทันที');
     const opt={extraFacts,decision:fail.length?'NOT_YET_ELIGIBLE':missing.length?'NEED_INFO':'ELIGIBLE_CONDITION',details,facts,flowId:'loan_scenario',requiredFact:!fail.length&&missing.length?'paidInstallments':null,scenarioTarget:target.id,scenarioExisting:existing.map(x=>x.id),followups:[]};
     if(fail.length)return wrap('ยังไม่ผ่านเงื่อนไขยื่นกู้ฉุกเฉินครับ — '+fail.join('; ')+' ตามประกาศหลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569 '+(fail.some(x=>/ชำระแล้ว [0-9]+ งวด/.test(x))?'ข้อ '+(existing.some(x=>x.id==='debtRestructuringLoanCurrent')?'4 (5) หน้า 1 และ ':'')+'5 (4) หน้า 2':'ตามข้อที่ระบุข้างต้น')+' และยังต้องผ่านคุณสมบัติอื่นด้วย',opt);
@@ -2811,6 +2818,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     return q;
   }
   function topicOf(q,r){
+    if(r?.scenario?.target)return r.scenario.target;
     if(r?.intent==='scholarship'||r?.intent==='live_schedule'&&/ทุน.*(?:ลูก|บุตร)|สวัสดิการ.*การศึกษาบุตร/.test(q))return 'scholarship';
     if(r?.intent==='loan_vacation')return 'leisureLoanCurrent';
     if(/ฝากพิเศษ|ออมทรัพย์พิเศษ|เงินฝาก.*พิเศษ/.test(q)&&/^deposit/.test(r?.intent||''))return 'depositSpecial';
@@ -2848,7 +2856,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       result={...prior,answer:message,facts,requiredFact,decision:requiredFact?'NEED_INFO':'NEED_MEMBER_DATA',followups:requiredFact==='residence'?['อาศัยอยู่จริง','ไม่ได้อาศัยอยู่จริง']:requiredFact==='ownership'?['บ้านของตนเอง','บ้านของคู่สมรส','บ้านเช่า']:['สวัสดิการน้ำท่วมต้องใช้เอกสารอะไร','ขอสวัสดิการน้ำท่วมต้องทำยังไง']};
       query=state.question;return {result,state:{...state,result},query};
     }
-    if(prior?.requiredFact==='restructuredPaid'&&/\d+\s*งวด/.test(raw)){query='กู้ปรับโครงสร้างหนี้ส่งแล้ว '+raw.match(/\d+\s*งวด/)[0]+' ขอกู้สามัญได้ไหม';result=answer(query);}
+    if(prior?.scenario&&loanProduct(raw)&&/^(?:แล้ว|ถ้า|งั้น)/.test(raw)&&/ล่ะ|ละ|ได้ไหม|ได้มั้ย/.test(raw)&&loanProduct(raw)!==prior.scenario.target){
+      const names={qualityOfLifeCurrent:'พัฒนาคุณภาพชีวิต',ordinaryLoanCurrent:'สามัญ',specialHousingCurrent:'เคหะ',redeemMortgageCurrent:'ไถ่ถอนจำนอง',education:'เพื่อการศึกษา',disaster:'ภัยพิบัติ',debtRestructuringLoanCurrent:'ปรับโครงสร้างหนี้',guarantorDebtLoanCurrent:'ในฐานะผู้ค้ำประกัน',shareBackedLoanCurrent:'ไม่เกินทุนเรือนหุ้น',debtCompromiseLoanCurrent:'ประนอมหนี้',leisureLoanCurrent:'พักผ่อนท่องเที่ยว',emergencyLoanCurrent:'ฉุกเฉิน'};
+      query=prior.scenario.existing.map(id=>'กู้'+names[id]+(prior.facts?.[id]==null?'อยู่':'ส่งแล้ว '+prior.facts[id]+' งวด')).join(' และ ')+' '+raw;result=answer(query);
+    }
+    if(!result&&prior?.requiredFact==='restructuredPaid'&&/\d+\s*งวด/.test(raw)){query='กู้ปรับโครงสร้างหนี้ส่งแล้ว '+raw.match(/\d+\s*งวด/)[0]+' ขอกู้สามัญได้ไหม';result=answer(query);}
     if(!result&&!prior?.flowId&&state.topic&&loanProduct(raw)&&/^(?:แล้ว|ถ้า|งั้น)/.test(raw)&&/ล่ะ|ละ|ได้ไหม|ได้มั้ย/.test(raw)&&!/(?:ส่ง|ชำระ)\s*\d/.test(raw)&&loanProduct(raw)!==state.topic){
       const oldNames={qualityOfLifeCurrent:'พัฒนาคุณภาพชีวิต',ordinaryLoanCurrent:'สามัญ',specialHousingCurrent:'เคหะ',redeemMortgageCurrent:'ไถ่ถอนจำนอง',education:'เพื่อการศึกษา',disaster:'ภัยพิบัติ'};
       if(oldNames[state.topic]){query='มีกู้'+oldNames[state.topic]+'อยู่ '+raw;result=answer(query);}
