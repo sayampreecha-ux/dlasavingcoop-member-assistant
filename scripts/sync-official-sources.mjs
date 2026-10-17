@@ -109,7 +109,7 @@ export async function sync(registry,{fetcher=fetch,now=new Date().toISOString(),
     if(fingerprint!==monitor.fingerprint){
      if(!baseline&&monitor.documentIds&&monitor.id!=='notices'){
       const present=new Set(links.map(d=>F.canonical(d.originalUrl)));
-      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\\.google\\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){
+      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\.google\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){
        // Replacement candidates are discovery hints only: neither title similarity nor a new link proves rule equivalence.
        const sameScope=links.filter(candidate=>candidate.originalUrl!==doc.originalUrl&&candidate.mayAffectRules&&candidate.affects.some(domain=>(doc.affects||[]).includes(domain)));
        doc.replacementCandidates=sameScope.slice(0,12).map(candidate=>({url:candidate.originalUrl,title:candidate.title,officialIndexUrl:monitor.url,verifiedEquivalent:false}));
