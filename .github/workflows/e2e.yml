@@ -24,6 +24,8 @@ jobs:
         run: |
           sudo sed -i 's|http://azure.archive.ubuntu.com/ubuntu|https://archive.ubuntu.com/ubuntu|g' /etc/apt/apt-mirrors.txt
           npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
+      - name: Loan scenario acceptance on mobile and desktop
+        run: node scripts/browser-loan-scenarios-smoke.mjs
       - name: Independent leisure browser diagnostic - mobile 390px
         env:
           LEISURE_VIEWPORT_WIDTH: '390'
@@ -77,3 +79,11 @@ jobs:
           name: debt-specific-loan-browser-evidence
           path: debt-loan-browser-evidence/
           if-no-files-found: error
+
+      - name: Upload loan scenario browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: loan-scenario-browser-evidence
+          path: loan-scenario-browser-evidence/
+          if-no-files-found: warn
