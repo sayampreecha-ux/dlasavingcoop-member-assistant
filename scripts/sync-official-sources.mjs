@@ -63,6 +63,9 @@ export async function fetchResource(url,{headers={},fetcher=fetch}={}){
   if([301,302,303,307,308].includes(response.status)){target=new URL(response.headers.get('location'),target).toString();continue;}
   if(response.status===304)return {unchanged:true,response};
   if(!response.ok)throw Error('Official source HTTP '+response.status);
+  const advertisedLength=Number(response.headers.get('content-length'));if(Number.isFinite(advertisedLength)&&advertisedLength>MAX_OFFICIAL_BYTES)throw Error('Source exceeds byte budget');
+  const advertisedType=(response.headers.get('content-type')||'').toLowerCase();
+  if(/text\/html|application\/xhtml\+xml/.test(advertisedType)&&/drive\.google\.com|drive\.usercontent\.google\.com/.test(u.hostname))throw Error('Attachment is HTML/login, not verified PDF');
   const bytes=new Uint8Array(await response.arrayBuffer());if(bytes.length>MAX_OFFICIAL_BYTES)throw Error('Source exceeds byte budget');
   return {response,bytes,text:new TextDecoder().decode(bytes),hash:hash(bytes)};
  }
