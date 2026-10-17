@@ -18,6 +18,12 @@ try{for(const width of [390,1365]){
  page.on('pageerror',e=>errors.push(String(e)));
  await page.goto(process.env.MEMBER_APP_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'networkidle'});
  check(width+' home has no calculator',0,await page.locator('[data-ordinary-loan-calculator]').count());
+ check(width+' first main menu is assessment','ทดลองคำนวณเงินกู้',await page.locator('#home .grid > button').first().getAttribute('data-q'));
+ check(width+' unique homepage assessment',1,await page.locator('#home [data-q="ทดลองคำนวณเงินกู้"]').count());
+ check(width+' assessment removed from horizontal extras',0,await page.locator('#home .chips [data-q="ทดลองคำนวณเงินกู้"]').count());
+ const homeCard=await page.locator('#home .grid > button').first().boundingBox();check(width+' first assessment card fits viewport',true,homeCard.x>=0&&homeCard.x+homeCard.width<=width+1);
+ check(width+' existing main menu order retained',['หุ้นและทุนเรือนหุ้น','เงินกู้มีกี่แบบ','วิธีชำระเงินสหกรณ์','เงินฝาก','เรื่องสมาชิก','สวัสดิการมีกี่แบบ','ฌาปนกิจสงเคราะห์','ติดตามผลและสถานะเอกสาร'],await page.locator('#home .grid > button').evaluateAll(elements=>elements.slice(1).map(el=>el.getAttribute('data-q'))));
+
  await page.getByRole('button',{name:'💰 เงินกู้ ประเภท · หลักเกณฑ์ · ปิดหนี้',exact:true}).click();
  await page.locator('#out').getByRole('button',{name:'กู้สามัญ',exact:true}).click();
  const link=page.locator('#out').getByRole('link',{name:label,exact:true});
