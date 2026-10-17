@@ -134,7 +134,7 @@
     const source=evidence&&(registry.documents||[]).find(d=>d.id===evidence.documentId);
     const scoped=evidence?.values?.status==='VERIFIED_PRIMARY'&&source?.status==='CURRENT'&&ds.every(x=>['ordinaryLoan','guarantor','interest','shares','deposits','membership','dividendPatronage'].includes(x));
     const relevant=d=>!scoped||d.id===source.id||canonical(d.originalUrl||'')===canonical(source.originalUrl||'')||/พักผ่อน|ท่องเที่ยว/.test(d.title||'')||(d.affectedRuleIds||[]).includes('leisureLoanCurrent')||(d.conflictsWithDocumentIds||[]).includes(source.id);
-    const conflicts=(registry.documents||[]).filter(d=>(leisure||isShareBackedLoan(text)||debtLoanProduct(text))&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
+    const conflicts=(registry.documents||[]).filter(d=>(leisure||isShareBackedLoan(text)||debtLoanProduct(text)||ds.some(x=>['ordinaryLoan','emergencyLoan','qualityOfLife','specialHousing','redeemMortgage','educationLoan','disasterLoan'].includes(x)))&&d.status==='CONFLICT'&&relevant(d)&&documentScope(d,text).some(x=>ds.includes(x)));
     if(conflicts.length)return {allowed:false,reason:'CONFLICTING_DOCUMENT',documents:conflicts,domains:ds,...time};
     const pending=pendingFor(registry,ds,time.date,text).filter(relevant);
     if(pending.length)return {allowed:false,reason:'PENDING_DOCUMENT',documents:pending,domains:ds,...time};
@@ -158,7 +158,7 @@
     for(const d of snapshot.documents){
       const reviewed=next.documents.find(x=>x.id===d.id);
       if(reviewed?.contentHash&&reviewed.contentHash===d.contentHash&&d.lastContentCheck&&(!reviewed.lastContentCheck||d.lastContentCheck>reviewed.lastContentCheck))reviewed.lastContentCheck=d.lastContentCheck;
-      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว|ไม่เกินทุนเรือนหุ้น|เพื่อปรับโครงสร้างหนี้|ชำระหนี้สหกรณ์ในฐานะผู้ค้ำ/.test(d.title||'')||(d.affectedRuleIds||[]).some(x=>['leisureLoanCurrent','shareBackedLoanCurrent',...Object.keys(debtRules)].includes(x))||(base.ruleVersions||[]).some(v=>['leisureLoanCurrent','shareBackedLoanCurrent',...Object.keys(debtRules)].includes(v.ruleId)&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
+      if(d.status==='CONFLICT'&&primary(d)&&(/พักผ่อน|ท่องเที่ยว|ไม่เกินทุนเรือนหุ้น|เพื่อปรับโครงสร้างหนี้|ชำระหนี้สหกรณ์ในฐานะผู้ค้ำ/.test(d.title||'')||(d.affectedRuleIds||[]).some(x=>['leisureLoanCurrent','shareBackedLoanCurrent','ordinaryLoanCurrent','emergencyLoanCurrent','qualityOfLifeCurrent','specialHousingCurrent','redeemMortgageCurrent','education','disaster',...Object.keys(debtRules)].includes(x))||(base.ruleVersions||[]).some(v=>['leisureLoanCurrent','shareBackedLoanCurrent','ordinaryLoanCurrent','emergencyLoanCurrent','qualityOfLifeCurrent','specialHousingCurrent','redeemMortgageCurrent','education','disaster',...Object.keys(debtRules)].includes(v.ruleId)&&(v.documentId===d.id||(d.conflictsWithDocumentIds||[]).includes(v.documentId))))){
         if(reviewed)Object.assign(reviewed,{status:'CONFLICT',mayAffectRules:true,affectedRuleIds:d.affectedRuleIds,conflictsWithDocumentIds:d.conflictsWithDocumentIds});
         else next.documents.push({...d,mayAffectRules:true,affects:all.filter(x=>(d.affects||[]).includes(x))});
         continue;

@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {loadMemberEngine} from './helpers/load-member-engine.mjs';
+const app=loadMemberEngine(),master=JSON.parse(fs.readFileSync('data/official-rule-master.json','utf8'));
+let count=0;const check=(name,fn)=>{fn();count++;};
+const exact='กู้พัฒนาคุณภาพแล้วส่งมา1งวดสามารถกู้ฉุกเฉินได้เลยไหม';
+const all=r=>[r.answer,...(r.details||[])].join(' ');
+const existing=['พัฒนาคุณภาพชีวิต','สามัญ','เคหะ','ไถ่ถอนจำนอง','เพื่อการศึกษา','ภัยพิบัติ','ไม่เกินทุนเรือนหุ้น','ในฐานะผู้ค้ำประกัน','ปรับโครงสร้างหนี้','ประนอมหนี้','พักผ่อนท่องเที่ยว'];
+check('primary clause and immutable evidence',()=>{assert.equal(master.rules.emergencyLoanCurrent.otherLoanMinInstallments,3);assert.equal(master.rules.emergencyLoanCurrent.evidenceClauses.otherLoans,'5(4)');});
+for(const name of existing){const need=name==='ปรับโครงสร้างหนี้'?12:3;for(const n of [...new Set([0,1,2,3,4,need-1,need,need+1])])for(const reverse of [false,true])check(name+' '+n+' '+reverse,()=>{
+ const q=reverse?'ขอกู้ฉุกเฉินได้ไหม มีกู้'+name+'ส่งแล้ว '+n+' งวด':'กู้'+name+'ส่งแล้ว '+n+' งวด ขอกู้ฉุกเฉินได้ไหม';
+ const r=app.answer(q);assert.equal(r.decision,n<need?'NOT_YET_ELIGIBLE':'ELIGIBLE_CONDITION',q+' '+r.answer);assert.match(r.answer,new RegExp(need+' งวด'));assert.match(r.answer,/5\s*\(4\)/);assert.ok(r.sources.some(x=>x.url.includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p')));assert.doesNotMatch(r.answer,/ต้องการถามคุณสมบัติ|อนุมัติให้แล้ว/);
+});}
+for(const q of [exact,'กุ้พัฒนาคุณภาพส่งแล้ว๑งวดกู้ฉุกเฉิญได้ไหม','กู้พัฒนาชีวิตส่งมา1เดือนกู้ฉฉได้ไหม','ขอกู้ฉุกเฉินได้ไหม กู้พัฒนาคุณภาพชีวิตส่งมา1งวด'])check('member language '+q,()=>{const r=app.answer(q);assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,/อีก 2 งวด/);});
+for(const q of ['กู้สามัญค้าง1งวดกู้ฉุกเฉินได้ไหม','กู้สามัญไม่ได้ส่ง3งวดกู้ฉุกเฉินได้ไหม','กู้สามัญส่ง3งวดแต่ค้าง1งวดกู้ฉุกเฉินได้ไหม'])check('arrears not paid '+q,()=>{assert.notEqual(app.answer(q).decision,'ELIGIBLE_CONDITION');});
+for(const q of ['กู้สามัญมา1เดือนกู้ฉุกเฉินได้ไหม','กู้เคหะอยู่กู้ฉุกเฉินได้ไหม'])check('ask only missing payment fact '+q,()=>{const r=app.answer(q);assert.equal(r.decision,'NEED_INFO');assert.equal(r.requiredFact,'paidInstallments');assert.match(r.answer,/ชำระแล้วกี่งวด/);});
+check('corrections replace facts through either input',()=>{let t=app.conversationTurn(exact);for(const [q,d]of [['แก้เป็น3งวด','ELIGIBLE_CONDITION'],['เปลี่ยนเป็น1งวด','NOT_YET_ELIGIBLE'],['แล้วถ้าส่งครบ4งวดล่ะ','ELIGIBLE_CONDITION']]){t=app.conversationTurn(q,t.state);assert.equal(t.result.decision,d);}});
+check('multiple debt facts are checked independently',()=>{const r=app.answer('กู้สามัญส่งแล้ว4งวด และกู้เคหะส่งแล้ว1งวด กู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,/เคหะ.*อีก 2 งวด/);});
+check('missing one debt fact asks only that debt',()=>{let t=app.conversationTurn('กู้สามัญส่งแล้ว3งวด และกู้เคหะอยู่ ขอกู้ฉุกเฉินได้ไหม');assert.equal(t.result.requiredFact,'paidInstallments');assert.match(t.result.answer,/เคหะชำระแล้วกี่งวด/);t=app.conversationTurn('2 งวด',t.state);assert.equal(t.result.decision,'NOT_YET_ELIGIBLE');});
+for(const name of existing.filter(x=>x!=='พัฒนาคุณภาพชีวิต'))check('quality contract to '+name,()=>{const r=app.answer('กู้พัฒนาคุณภาพชีวิตส่งแล้ว4งวด ขอกู้'+name+'ได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,/เฉพาะเงินกู้ฉุกเฉิน/);});
+for(const left of ['สามัญ','เคหะ','ไถ่ถอนจำนอง','เพื่อการศึกษา','ภัยพิบัติ'])for(const right of ['สามัญ','เคหะ','ไถ่ถอนจำนอง','เพื่อการศึกษา','ภัยพิบัติ'])if(left!==right)check('unverified contract pair '+left+' -> '+right,()=>{const r=app.answer('กู้'+left+'ส่งแล้ว3งวด ขอกู้'+right+'ได้ไหม');assert.equal(r.decision,'EVIDENCE_LOCK');assert.match(r.answer,/ถือสัญญาร่วม/);});
+check('changed primary cannot use cached numeric rule',()=>{const a=loadMemberEngine();const snapshot=JSON.parse(JSON.stringify(a.getSourceRegistry()));for(const d of snapshot.documents)if((d.originalUrl||'').includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p'))Object.assign(d,{status:'PENDING',mayAffectRules:true,pendingReason:'PRIMARY_DOCUMENT_BYTES_CHANGED',contentHash:'synthetic-new-unreviewed'});a.applySourceMonitor(snapshot);const r=a.answer(exact);assert.equal(r.decision,'EVIDENCE_LOCK');assert.doesNotMatch(r.answer,/อีก 2 งวด/);});
+for(const [q,re] of [['กู้ฉุกเฉินวงเงินเท่าไร',/60,000/],['กู้สามัญวงเงินเท่าไร',/2,000,000/],['กู้ฉุกเฉินใหม่ส่งแล้ว2งวดได้ไหม',/3 งวด/],['กู้สามัญใหม่ส่งแล้ว3งวดได้ไหม',/12 งวด/],['กู้ในฐานะผู้ค้ำประกันดอกเบี้ยเท่าไร',/2\.00/],['กู้พัฒนาคุณภาพชีวิตต้องใช้เอกสารอะไร',/เอกสาร|คำขอ/]])check('unchanged '+q,()=>assert.match(all(app.answer(q)),re));
+const products=['สามัญ','ฉุกเฉิน',...existing.filter(x=>x!=='สามัญ')];
+for(const left of products)for(const right of products)if(left!==right)check('complete directional pair '+left+' -> '+right,()=>{
+ const r=app.answer('กู้'+left+'ส่งแล้ว1งวด ขอกู้'+right+'ได้ไหม');
+ assert.notEqual(r.intent,'fallback');assert.ok(r.sources.length,'missing evidence '+left+' -> '+right);
+ assert.doesNotMatch(r.answer,/ต้องการถามคุณสมบัติ เอกสาร หรือสถานะ|เป็นเงินกู้ประเภทไหน/);
+ if(right==='ฉุกเฉิน'||left==='พัฒนาคุณภาพชีวิต')assert.equal(r.decision,'NOT_YET_ELIGIBLE');
+ else if(right==='พัฒนาคุณภาพชีวิต'){assert.equal(r.decision,'RULE_INFORMATION');assert.match(r.answer,/หักกลบ.*ทุกประเภท/);}
+ else if(left==='ปรับโครงสร้างหนี้'&&right==='สามัญ')assert.match(all(r),/24 งวด/);
+ else {assert.equal(r.decision,'EVIDENCE_LOCK');assert.match(r.answer,/ถือสัญญาร่วม/);}
+});
+for(const facts of ['เงินเหลือ1000บาท','สมาชิกมา1เดือน','ส่งหุ้นแล้ว1งวด'])check('target checks extra fact '+facts,()=>{const r=app.answer('กู้สามัญส่งแล้ว3งวด '+facts+' ขอกู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,/ข้อ 4/);});
+check('quality target never applies source ordinary repeat threshold',()=>{const r=app.answer('กู้สามัญส่งแล้ว1งวด ขอกู้พัฒนาคุณภาพชีวิตได้ไหม');assert.equal(r.decision,'RULE_INFORMATION');assert.doesNotMatch(r.answer,/ต้องส่ง.*12 งวด|ยังไม่ผ่าน/);});
+check('conflicting current primary blocks numeric answer',()=>{const a=loadMemberEngine(),snapshot=a.getSourceRegistry();const d=snapshot.documents.find(d=>(d.originalUrl||'').includes('1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p'));Object.assign(d,{status:'CONFLICT',mayAffectRules:true,contentHash:'conflicting-bytes'});a.applySourceMonitor(snapshot);assert.equal(a.answer(exact).decision,'EVIDENCE_LOCK');});
+for(const [q,re] of [['แล้วผ่อนได้กี่งวด',/15 งวด/],['แล้วดอกเบี้ยเท่าไหร่',/ดอกเบี้ย/],['ต้องใช้เอกสารอะไร',/คำขอ|เอกสาร/]])check('follow requested product '+q,()=>{const t=app.conversationTurn(exact),next=app.conversationTurn(q,t.state);assert.equal(t.state.topic,'emergencyLoanCurrent');assert.equal(next.result.domain,'emergencyLoanCurrent');assert.match(all(next.result),re);});
+check('change requested product retains existing contract',()=>{const t=app.conversationTurn(exact),next=app.conversationTurn('แล้วกู้สามัญได้ไหม',t.state);assert.equal(next.result.decision,'NOT_YET_ELIGIBLE');assert.match(next.result.answer,/เฉพาะเงินกู้ฉุกเฉิน/);});
+for(const [facts,re]of [['มีหนี้ผู้กู้กับสหกรณ์อื่น',/4 \(6\)/],['ถูกดำเนินการวินัยอย่างร้ายแรง',/4 \(7\)/],['สมาชิก4เดือน ขอกู้ฉุกเฉิน60000บาท',/30,000/],['เงินเดือน10000บาท ขอกู้ฉุกเฉิน60000บาท',/40,000/],['ขอผ่อน20งวด',/15 งวด/]])check('additional explicit emergency condition '+facts,()=>{const r=app.answer('กู้สามัญส่งแล้ว3งวด '+facts+' ขอกู้ฉุกเฉินได้ไหม');assert.equal(r.decision,'NOT_YET_ELIGIBLE');assert.match(r.answer,re);});
+console.log('LOAN SCENARIOS: '+count+' behavioral checks PASS; thresholds independently grounded in emergency clauses 4(5), 5(4)');
