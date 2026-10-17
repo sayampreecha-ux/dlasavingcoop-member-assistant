@@ -109,7 +109,14 @@ export async function sync(registry,{fetcher=fetch,now=new Date().toISOString(),
     if(fingerprint!==monitor.fingerprint){
      if(!baseline&&monitor.documentIds&&monitor.id!=='notices'){
       const present=new Set(links.map(d=>F.canonical(d.originalUrl)));
-      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\.google\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){doc.status='PENDING';doc.mayAffectRules=true;doc.pendingReason='PRIMARY_LINK_REMOVED';changes.push(doc.id);}
+      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\\.google\\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){
+       // Replacement candidates are discovery hints only: neither title similarity nor a new link proves rule equivalence.
+       const sameScope=links.filter(candidate=>candidate.originalUrl!==doc.originalUrl&&candidate.mayAffectRules&&candidate.affects.some(domain=>(doc.affects||[]).includes(domain)));
+       doc.replacementCandidates=sameScope.slice(0,12).map(candidate=>({url:candidate.originalUrl,title:candidate.title,officialIndexUrl:monitor.url,verifiedEquivalent:false}));
+       doc.status='PENDING';doc.mayAffectRules=true;
+       doc.pendingReason=doc.replacementCandidates.length?'PRIMARY_LINK_REPLACEMENT_UNVERIFIED':'PRIMARY_LINK_REMOVED';
+       changes.push(doc.id);
+      }
      }
      changes.push(...ingest(next,monitor,links,now,{baseline}));processed++;
     }else{changes.push(...ingest(next,monitor,links,now,{baseline}));unchanged++;}
