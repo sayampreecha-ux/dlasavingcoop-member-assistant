@@ -1843,7 +1843,23 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       if(d?.status!=='CURRENT'||d.contentHash!==R.interestSha256||!d.metadataReview?.primaryBytesVerified)return F.lock({...check,reason:'INTEREST_EVIDENCE_MISSING'},sourceRegistry);
       sources.push(src('ประกาศอัตราดอกเบี้ย หน้า 1 ข้อ '+R.interestClause,R.interestSource));
     }
-    if(concern==='documents'){sources.push(src('แบบเดิมที่หน้าทางการเชื่อมอยู่ — รายการเตรียมเอกสาร หน้า 1',R.formUrl));locks.push('current_form_compatibility');}
+    if(concern==='documents'){
+      if(id==='debtRestructuringLoanCurrent'){
+        // Guidance from the officially linked 2024 form; NEVER promote that checklist to 2026 authority.
+        const all=R.requiredDocuments;
+        const general=[0,1,3,4,9,11];
+        const conditional=[2,5,6,7,8,10];
+        const format=(indices)=>indices.map(i=>(i+1)+'. '+all[i]).join('\n');
+        answer='เอกสารเตรียมยื่นกู้ปรับโครงสร้างหนี้ (อ้างอิงแบบตรวจสอบเดิมลงวันที่ 19 กรกฎาคม 2567)\n\n'
+          +'เอกสารทั่วไปจากแบบเดิม — ตรวจว่าต้องใช้จริงตามสถานภาพสมาชิก:\n'+format(general)
+          +'\n\nเอกสารเฉพาะกรณี (ไม่ใช่ทุกคนต้องใช้):\n'+format(conditional)
+          +'\n\nข้อยกเว้นในแบบเดิม: สมาชิกผู้รับบำนาญไม่ต้องมีหนังสือรับรองจากหน่วยงาน (ข้อ 1) ให้ตรวจยืนยันกับสหกรณ์ก่อนยื่นจริง'
+          +'\n\nสำคัญ: แบบเอกสารนี้ลงวันที่ปี 2567 แม้ยังมีลิงก์บนหน้าสหกรณ์ แต่ยังไม่ได้รับรองว่าเป็นแบบล่าสุดที่ใช้ยื่นตามหลักเกณฑ์ พ.ศ.2569 กรุณาตรวจสอบแบบคำขอและรายการที่สหกรณ์ใช้รับจริงก่อนส่งเอกสาร ไม่ใช้แบบเก่าเปลี่ยนกฎการเงินปี 2569'
+          +'\nสำเนาต้องชัดเจน บัตรประชาชนไม่หมดอายุ รับรองสำเนาทุกฉบับ และไม่ส่งข้อมูลส่วนบุคคลในแชต';
+      }
+      sources.push(src('แบบเดิมที่หน้าทางการเชื่อมอยู่ — รายการเตรียมเอกสาร หน้า 1',R.formUrl));
+      locks.push('current_form_compatibility');
+    }
     if(concern==='term'&&/ค่างวด|เดือนละ/.test(q)){answer+='\nยังไม่คำนวณค่างวดหรือเดาสูตรตัดชำระ ต้องยืนยันวิธีคิดตามสัญญาจริงกับสหกรณ์';locks.push('amortization_formula');}
     answer+='\n\nเป็นคำอธิบายหลักเกณฑ์ ไม่ใช่ผลอนุมัติรายบุคคล';
     const result=res(id==='debtRestructuringLoanCurrent'?'loan_debt_restructuring':'loan_guarantor_debt',answer,{suppressClarification:true,domain:id,status:'ข้อมูลจากแหล่งทางการ',decision:'RULE_INFORMATION',actions:[['ประกาศเฉพาะประเภท พ.ศ.2569',R.source],['แบบคำขอที่หน้าทางการเชื่อมอยู่ (ตรวจแบบก่อนยื่น)',R.formUrl],['ติดต่อฝ่ายเงินกู้',S.contact]],sources,details:[R.sections.eligibility,R.sections.amount,R.sections.term,R.sections.collateral,R.sections.insurance,'ขั้นตอน: '+R.sections.procedure,R.sections.governance],followups:['คุณสมบัติ','วงเงิน','ผ่อนได้กี่งวด','ดอกเบี้ยเท่าไร','ใช้เอกสารอะไร','ขั้นตอนยื่น'].map(x=>R.label+' '+x)});
