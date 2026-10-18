@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import {execFileSync} from 'node:child_process';
 import F from '../scripts/official-freshness.js';
-import {hash,extractLinks,ingest,sync,fetchResource} from '../scripts/sync-official-sources.mjs';
+import {hash,extractLinks,ingest,sync,fetchResource,MAX_OFFICIAL_BYTES} from '../scripts/sync-official-sources.mjs';
 import {impactedQuestions} from '../scripts/run-impacted-regression.mjs';
 import {loadMemberEngine} from './helpers/load-member-engine.mjs';
 const registry=JSON.parse(fs.readFileSync(new URL('../data/official-source-registry.json',import.meta.url),'utf8'));
@@ -64,3 +64,34 @@ await check('monitor publication succeeds twice without losing locks or changing
  } finally {fs.rmSync(root,{recursive:true,force:true});}
 });
 console.log('OFFICIAL FRESHNESS:',pass,'PASS / 0 FAIL');
+
+await check('bounded official PDF budget accepts files above old 12 MiB limit',async()=>{
+ const bytes=new Uint8Array(12*1024*1024+1);bytes.set([37,80,68,70,45]);
+ const r=await fetchResource(registry.monitors[0].url,{fetcher:async()=>new Response(bytes)});
+ assert.equal(r.bytes.length,bytes.length);
+ assert.equal(MAX_OFFICIAL_BYTES,32*1024*1024);
+});
+await check('official PDF download still rejects files above bounded 32 MiB budget',async()=>{
+ const bytes=new Uint8Array(MAX_OFFICIAL_BYTES+1);bytes.set([37,80,68,70,45]);
+ await assert.rejects(()=>fetchResource(registry.monitors[0].url,{fetcher:async()=>new Response(bytes)}),/Source exceeds byte budget/);
+});
+
+await check('Drive HTML/login rejected before accepting PDF evidence',async()=>{
+ const url='https://drive.google.com/uc?export=download&id=fixture';
+ await assert.rejects(()=>fetchResource(url,{fetcher:async()=>new Response('<html>login</html>',{headers:{'content-type':'text/html'}})}),/HTML\/login/);
+});
+await check('oversized declared official download rejected before buffering',async()=>{
+ const url='https://drive.google.com/uc?export=download&id=fixture';
+ await assert.rejects(()=>fetchResource(url,{fetcher:async()=>new Response('%PDF-small',{headers:{'content-length':String(MAX_OFFICIAL_BYTES+1)}})}),/Source exceeds byte budget/);
+});
+
+await check('removed primary link records unverified successor without promoting authority',async()=>{
+ const r=fresh(),old={...newdoc,id:'old-primary',status:'CURRENT',mayAffectRules:true,affects:['shares'],originalUrl:'https://drive.google.com/file/d/old-primary/view',linkVerified:true};
+ r.documents=[old];r.monitors=[{id:'fixture',url:registry.monitors[0].url,documentIds:[old.id],fingerprint:'old-listing',lastSuccessfulCheck:now.toISOString()}];
+ const result=await sync(r,{fetcher:async()=>new Response(fixture),now:now.toISOString(),maxDocumentChecks:0});
+ const changed=result.registry.documents.find(d=>d.id===old.id);
+ assert.equal(changed.status,'PENDING');
+ assert.equal(changed.pendingReason,'PRIMARY_LINK_REPLACEMENT_UNVERIFIED');
+ assert.equal(changed.replacementCandidates[0].verifiedEquivalent,false);
+ assert.equal(result.registry.ruleVersions.length,registry.ruleVersions.length);
+});

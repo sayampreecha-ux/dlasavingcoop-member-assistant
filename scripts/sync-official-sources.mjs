@@ -7,12 +7,14 @@ import os from 'node:os';
 import path from 'node:path';
 import F from './official-freshness.js';
 
+// Bounded headroom for larger official PDFs; never treat HTML/login responses as evidence.
+export const MAX_OFFICIAL_BYTES=32*1024*1024;
 export const hash=x=>crypto.createHash('sha256').update(x).digest('hex');
 // Curl honors the execution host's HTTPS proxy. CI can use native fetch; no credentials are read.
 export async function curlFetch(url,options={}){
  const dir=await fs.mkdtemp(path.join(os.tmpdir(),'official-sync-'));
  try{
-  const args=['--silent','--show-error','--max-time','25','--max-filesize','12582912','--dump-header',path.join(dir,'headers'),'--output',path.join(dir,'body')];
+  const args=['--silent','--show-error','--max-time','25','--max-filesize',String(MAX_OFFICIAL_BYTES),'--dump-header',path.join(dir,'headers'),'--output',path.join(dir,'body')];
   for(const [key,value]of Object.entries(options.headers||{}))args.push('--header',key+': '+value);
   args.push('--url',url);await promisify(execFile)('curl',args,{timeout:28000,maxBuffer:2000});
   const blocks=(await fs.readFile(path.join(dir,'headers'),'latin1')).trim().split(/\r?\n\r?\n/),last=blocks.at(-1),rows=last.split(/\r?\n/),status=+rows[0].split(' ')[1],headers=new Headers();
@@ -61,7 +63,10 @@ export async function fetchResource(url,{headers={},fetcher=fetch}={}){
   if([301,302,303,307,308].includes(response.status)){target=new URL(response.headers.get('location'),target).toString();continue;}
   if(response.status===304)return {unchanged:true,response};
   if(!response.ok)throw Error('Official source HTTP '+response.status);
-  const bytes=new Uint8Array(await response.arrayBuffer());if(bytes.length>12*1024*1024)throw Error('Source exceeds byte budget');
+  const advertisedLength=Number(response.headers.get('content-length'));if(Number.isFinite(advertisedLength)&&advertisedLength>MAX_OFFICIAL_BYTES)throw Error('Source exceeds byte budget');
+  const advertisedType=(response.headers.get('content-type')||'').toLowerCase();
+  if(/text\/html|application\/xhtml\+xml/.test(advertisedType)&&/drive\.google\.com|drive\.usercontent\.google\.com/.test(u.hostname))throw Error('Attachment is HTML/login, not verified PDF');
+  const bytes=new Uint8Array(await response.arrayBuffer());if(bytes.length>MAX_OFFICIAL_BYTES)throw Error('Source exceeds byte budget');
   return {response,bytes,text:new TextDecoder().decode(bytes),hash:hash(bytes)};
  }
  throw Error('Too many redirects');
@@ -104,7 +109,14 @@ export async function sync(registry,{fetcher=fetch,now=new Date().toISOString(),
     if(fingerprint!==monitor.fingerprint){
      if(!baseline&&monitor.documentIds&&monitor.id!=='notices'){
       const present=new Set(links.map(d=>F.canonical(d.originalUrl)));
-      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\.google\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){doc.status='PENDING';doc.mayAffectRules=true;doc.pendingReason='PRIMARY_LINK_REMOVED';changes.push(doc.id);}
+      for(const doc of next.documents.filter(d=>monitor.documentIds.includes(d.id)&&F.primary(d)&&/drive\.google\.com/.test(d.originalUrl)&&!present.has(F.canonical(d.originalUrl)))){
+       // Replacement candidates are discovery hints only: neither title similarity nor a new link proves rule equivalence.
+       const sameScope=links.filter(candidate=>candidate.originalUrl!==doc.originalUrl&&candidate.mayAffectRules&&candidate.affects.some(domain=>(doc.affects||[]).includes(domain)));
+       doc.replacementCandidates=sameScope.slice(0,12).map(candidate=>({url:candidate.originalUrl,title:candidate.title,officialIndexUrl:monitor.url,verifiedEquivalent:false}));
+       doc.status='PENDING';doc.mayAffectRules=true;
+       doc.pendingReason=doc.replacementCandidates.length?'PRIMARY_LINK_REPLACEMENT_UNVERIFIED':'PRIMARY_LINK_REMOVED';
+       changes.push(doc.id);
+      }
      }
      changes.push(...ingest(next,monitor,links,now,{baseline}));processed++;
     }else{changes.push(...ingest(next,monitor,links,now,{baseline}));unchanged++;}
