@@ -29,4 +29,26 @@ test('restructure eligibility exact debt history',()=>{const r=app.answer('ก�
 test('guarantor aid qualifying borrower events',()=>{const r=app.answer('กู้ในฐานะผู้ค้ำประกันคุณสมบัติ');for(const re of [/สมาชิกติดต่อกันไม่น้อยกว่า 6 เดือน/,/หุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 6 งวด/,/ถึงแก่กรรม/,/ถูกให้ออกจากราชการหรืองานประจำ/,/พิทักษ์ทรัพย์เด็ดขาด/,/ล้มละลาย/])assert.match(r.answer,re);});
 test('repayment history is not maximum term',()=>{assert.match(app.answer('กู้ปรับโครงสร้างหนี้ ชำระมาแล้วกี่งวดก่อนยื่น').answer,/เงินกู้สามัญมาแล้วไม่น้อยกว่า 6 งวด/);assert.match(app.answer('กู้ปรับโครงสร้างหนี้ครั้งที่ 2 ส่งแล้วกี่งวด').answer,/12 งวด/);assert.match(app.answer('กู้ในฐานะผู้ค้ำประกันต้องมีผู้ค้ำไหม').answer,/เลือกหลักประกันอย่างหนึ่งหรือหลายอย่าง/);});
 test('ordinary guarantor and prior restructure remain distinct',()=>{for(const q of ['คุณสมบัติผู้ค้ำกู้สามัญ','เปลี่ยนผู้ค้ำ','เคยปรับโครงสร้างหนี้แล้วกู้สามัญได้ไหม','ประนีประนอมหนี้','กู้พัฒนาคุณภาพชีวิต','กู้หุ้น','หุ้นรายเดือน','เงินฝากพิเศษ'])assert.ok(!products.some(p=>app.answer(q).domain===p.id),q);});
+
+for(const watched of [false,true])test('restructure legacy document guidance monitor='+watched,()=>{
+ const a=loadMemberEngine();if(watched)a.applySourceMonitor(monitor);
+ const r=a.answer('กู้ปรับโครงสร้างหนี้ ใช้เอกสารอะไร');
+ assert.equal(r.intent,'loan_debt_restructuring');
+ assert.equal(r.decision,'RULE_INFORMATION');
+ assert.match(r.answer,/เอกสารทั่วไปจากแบบเดิม/);
+ assert.match(r.answer,/เอกสารเฉพาะกรณี/);
+ assert.match(r.answer,/สมาชิกผู้รับบำนาญไม่ต้องมีหนังสือรับรองจากหน่วยงาน/);
+ assert.match(r.answer,/19 กรกฎาคม 2567/);
+ assert.match(r.answer,/ยังไม่ได้รับรองว่าเป็นแบบล่าสุดที่ใช้ยื่นตามหลักเกณฑ์ พ\.ศ\.2569/);
+ assert.match(r.answer,/ไม่ใช่ทุกคนต้องใช้/);
+ assert.match(r.answer,/ย้อนหลัง 1 เดือน/);
+ assert.match(r.answer,/ไม่ใช่ผลอนุมัติรายบุคคล/);
+ assert.ok(r.evidenceLocks.includes('current_form_compatibility'));
+ assert.ok(r.sources.some(s=>s.url.includes('1cxhpuEP_Tfa4dNp0kwVPOSrr5KoAV-dY')));
+ assert.ok(r.sources.some(s=>s.url.includes('1M2ofeoulfojGqyi254wOWE-F-5wpSSNm')));
+ const other=a.answer('กู้ในฐานะผู้ค้ำประกัน ใช้เอกสารอะไร');
+ assert.match(other.answer,/ย้อนหลัง 3 เดือน/);
+ assert.doesNotMatch(other.answer,/สมาชิกผู้รับบำนาญไม่ต้องมีหนังสือรับรองจากหน่วยงาน/);
+});
+
 console.log('DEBT SPECIFIC LOANS:',count,'cases PASS');
