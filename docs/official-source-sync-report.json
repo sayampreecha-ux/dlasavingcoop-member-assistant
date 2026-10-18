@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-18T01:54:00.673Z",
-  "processed": 2,
+  "checkedAt": "2026-10-18T04:44:28.361Z",
+  "processed": 0,
   "unchanged": 8,
   "changes": [],
   "impactedDomains": [],
@@ -27,6 +27,14 @@
     },
     {
       "document": "doc-fc2538abe94c6ec5bcad",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "document": "doc-e909a93ea5d8fd9416a9",
+      "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
+    },
+    {
+      "document": "doc-7be441d9175bba3b9789",
       "error": "Attachment is not a PDF; login/HTML cannot verify evidence"
     }
   ],
