@@ -6,10 +6,21 @@ const app=loadMemberEngine();let failed=0;
 for(const [id,question,expectedIntent] of cases){
  const r=app.answer(question),actualIntent=r?.intent||null,decision=r?.decision||null;
  const locked=actualIntent==='freshness_evidence_lock'&&decision==='EVIDENCE_LOCK'&&!!r?.evidenceState&&Array.isArray(r?.sources)&&r.sources.length>0;
- const specialized=id==='SYN-004'&&actualIntent==='loan_form_navigation'&&r.navigationOnly===true||(id==='SYN-020'&&actualIntent==='member_balance_lookup'&&r.privacy===true);
+ const specialized=(id==='SYN-004'&&actualIntent==='loan_form_navigation'&&r.navigationOnly===true&&decision==='SOURCE_GUIDED'&&(r.actions||[]).some(a=>/drive.google.com/.test(a[1]||'')))||(id==='SYN-006'&&actualIntent==='loan_disaster_eligibility'&&r.evidenceState==='PRIMARY_VERIFIED_CURRENT'&&decision==='NEED_RULE_EXTRACTION'&&/ยังไม่ยืนยันว่าได้หรือไม่ได้/.test(r.answer||'')&&(r.sources||[]).some(x=>/drive.google.com/.test(x.url||'')))||(id==='SYN-020'&&actualIntent==='member_balance_lookup'&&r.privacy===true&&decision==='LIVE_MEMBER_DATA_REQUIRED');
  const ok=!!r?.answer&&Array.isArray(r.sources)&&r.sources.length>0&&(actualIntent===expectedIntent||locked||specialized);
  if(!ok)failed++;
  console.log(JSON.stringify({id,question,expectedIntent,actualIntent,decision,evidenceState:r?.evidenceState||null,ruleVersion:r?.ruleVersion||null,sources:r?.sources||[],answer:r?.answer||null,result:ok?'PASS':'FAIL',reason:locked?'SAFE_EVIDENCE_LOCK_REQUIRES_PRIMARY_REVIEW':specialized?'VALID_SPECIALIZED_ROUTE':actualIntent===expectedIntent?'EXPECTED_ROUTE':'UNEXPECTED_ROUTE'},null,0));
 }
 console.log('SYNTHETIC_22_ACCEPTANCE',JSON.stringify({total:cases.length,passed:cases.length-failed,failed}));
+if(failed)process.exitCode=1;
+
+// Negative routing regressions: insurance remains insurance, guarantor remains guarantor.
+for(const [question,expected] of [
+ ['ขอเปลี่ยนผู้ค้ำประกันเงินกู้สามัญ','loan_change_guarantor'],
+ ['ต้องการเปลี่ยนผู้ค้ำประกัน','loan_change_guarantor'],
+ ['สอบถามประกันชีวิตเงินกู้','insurance'],
+ ['ประกันอัคคีภัยของบ้าน','insurance']
+]){
+ const result=app.answer(question);if(result.intent!==expected){failed++;console.error('NEGATIVE_ROUTING_FAIL',JSON.stringify({question,expected,actual:result.intent}));}
+}
 if(failed)process.exitCode=1;
