@@ -1681,7 +1681,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(!complex) return null;
 
     const checks=[],details=['ระบบอ่านข้อมูลทั้งหมดในประโยคก่อน แล้วตรวจหลายเงื่อนไขที่เกี่ยวข้องร่วมกัน','ไม่จำเป็นต้องเปิดเอกสารเอง ระบบตรวจส่วนที่มีหลักฐานให้ก่อนและถามเฉพาะข้อมูลที่ยังขาด'];
-    const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
+    const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน|มีผู้ค้ำ\s*[0-9]+\s*คน/.test(q);
         const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
     const add=(name,status,text)=>checks.push({name,status,text});
     if(hasOrd){
