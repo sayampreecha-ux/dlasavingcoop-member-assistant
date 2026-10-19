@@ -1794,9 +1794,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // Answer First: expose already-verified criterion results; the full evidence stays in details.
     // Derived from rule checks rather than re-implementing any eligibility thresholds.
     const concise=(entry)=>entry.text.replace(/\s*\[[A-Z_]+\]\s*$/,'').trim();
-    const keyChecks=checks.filter(x=>x.status==='FAIL').slice(0,2);
-    if(!keyChecks.length) keyChecks.push(...checks.filter(x=>x.status==='PASS').slice(0,2));
-    if(keyChecks.length<3) keyChecks.push(...checks.filter(x=>(x.status==='NEED_FACT'||x.status==='PARTIAL_PASS')&&!keyChecks.includes(x)).slice(0,3-keyChecks.length));
+    const prioritized=checks.map((x,i)=>({x,i,rank:x.status==='FAIL'?0:/ทุนเรือนหุ้นสะสมขั้นต่ำ/.test(x.name)?1:/การส่งหุ้น|ความต่อเนื่อง/.test(x.name)?2:x.status==='PASS'?3:4})).sort((a,b)=>a.rank-b.rank||a.i-b.i);
+    const keyChecks=prioritized.slice(0,3).map(v=>v.x);
     const answerFirstLines=hasOrd&&!hasQuality&&!hasEmergency?keyChecks.map(x=>(x.status==='FAIL'?'✗ ':x.status==='PASS'?'✓ ':'? ')+x.name+': '+concise(x)):[];
     if(qualityWait) details.push('ไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมากู้สามัญเพิ่มได้ขณะสัญญายังมีผล เพราะหลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน');
     if(anyFail) details.push('สรุป: มีเงื่อนไขอย่างน้อยหนึ่งข้อไม่ผ่าน จึงยังไม่ควรสรุปว่ายื่นผ่าน');
