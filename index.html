@@ -1054,8 +1054,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const add=(name,ok,text)=>{checks.push({name,ok,text});if(!ok)fail.push(name);};
     if(flowId==='ordinary_eligibility'){
       const R=RULE_MASTER.rules.ordinary_current;
-      const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
-        const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
+      
       if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=R.membershipMinMonths,facts.membershipMonths+' เดือน / ขั้นต่ำ '+R.membershipMinMonths+' เดือน');
       if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
       if(Number.isFinite(facts.shareInstallments)){
@@ -1682,6 +1681,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(!complex) return null;
 
     const checks=[],details=['ระบบอ่านข้อมูลทั้งหมดในประโยคก่อน แล้วตรวจหลายเงื่อนไขที่เกี่ยวข้องร่วมกัน','ไม่จำเป็นต้องเปิดเอกสารเอง ระบบตรวจส่วนที่มีหลักฐานให้ก่อนและถามเฉพาะข้อมูลที่ยังขาด'];
+    const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
+        const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
     const add=(name,status,text)=>checks.push({name,status,text});
     if(hasOrd){
       const R=RULE_MASTER.rules.ordinary_current;
