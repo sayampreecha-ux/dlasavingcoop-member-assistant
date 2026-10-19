@@ -1701,7 +1701,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         add('การส่งหุ้น',facts.sharePaid>=needShare?'PASS':'FAIL',facts.sharePaid+' งวด; วงเงินที่ระบุต้องส่งหุ้นอย่างน้อย '+needShare+' งวด');
       }
       if(Number.isFinite(facts.remainingIncome)){
-        const monthlyGross=(q.match(/(?:เงินได้รายเดือน|รายได้ก่อนหัก|เงินเดือนเต็ม)[^\\d]{0,12}([\\d,]+)/)||[])[1];
+        const monthlyGross=(q.match(/(?:เงินได้รายเดือน|รายได้ก่อนหัก|เงินเดือนเต็ม)[^0-9]{0,12}([0-9,]+)/)||[])[1];
         const pct=monthlyGross?facts.remainingIncome/Number(monthlyGross.replace(/,/g,''))*100:null;
         const bahtOK=facts.remainingIncome>=R.remainingIncomeMinBaht;
         add('รายได้คงเหลือขั้นต่ำ',!bahtOK||(pct!==null&&pct<R.remainingIncomeMinPercent)?'FAIL':pct===null?'NEED_FACT':'PASS',facts.remainingIncome.toLocaleString('th-TH')+' บาท; '+(pct===null?'ยังไม่ทราบเงินได้รายเดือนก่อนหักเพื่อยืนยัน 15%':'คิดเป็น '+pct.toFixed(2)+'%')+'; ต้องผ่านทั้ง '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ '+R.remainingIncomeMinPercent+'%');
