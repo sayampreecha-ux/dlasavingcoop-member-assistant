@@ -1054,6 +1054,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const add=(name,ok,text)=>{checks.push({name,ok,text});if(!ok)fail.push(name);};
     if(flowId==='ordinary_eligibility'){
       const R=RULE_MASTER.rules.ordinary_current;
+      const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
+        const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
       if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=R.membershipMinMonths,facts.membershipMonths+' เดือน / ขั้นต่ำ '+R.membershipMinMonths+' เดือน');
       if(Number.isFinite(facts.requestAmount)) add('วงเงิน',facts.requestAmount<=R.maxAmount,facts.requestAmount.toLocaleString('th-TH')+' บาท / สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
       if(Number.isFinite(facts.shareInstallments)){
@@ -1709,8 +1711,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
           const minShare=facts.requestAmount*(R.minSharePercentOver200k/100);
           add('ทุนเรือนหุ้นสะสมขั้นต่ำ',facts.shareCapital>=minShare?'PASS':facts.requestAmount<=500000?'NEED_FACT':'FAIL',facts.shareCapital.toLocaleString('th-TH')+' บาท; ต้องไม่น้อยกว่า '+R.minSharePercentOver200k+'% ของวงเงินที่ขอกู้ = '+minShare.toLocaleString('th-TH')+' บาท'+(facts.shareCapital<minShare&&facts.requestAmount<=500000?'; ขาด '+(minShare-facts.shareCapital).toLocaleString('th-TH')+' บาท; ตามข้อ 5(2) สามารถนำเงินกู้มาซื้อหุ้นให้ครบเงื่อนไขได้ แต่ต้องให้สหกรณ์ตรวจและอนุมัติ ไม่ถือว่าผ่านแล้ว':''));
         }
-        const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
-        const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
+        
         if(hasGuarantor&&Number.isFinite(facts.guarantorCount)&&personCollateral){
           const band=R.guarantorBands.find(b=>(b.min==null||facts.requestAmount>=b.min)&&(b.max==null||facts.requestAmount<=b.max));
           const need=band?.minGuarantors||3;
