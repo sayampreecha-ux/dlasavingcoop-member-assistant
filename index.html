@@ -1791,6 +1791,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return res('loan_compound_reasoning','ยังสรุปสิทธิกู้จากข้อมูลนี้ไม่ได้ครับ ต้องทราบประเภทเงินกู้ที่จะยื่นและข้อมูลสัญญาเดิมก่อนตรวจหลายเงื่อนไขร่วมกัน',{decision:'NEED_INFO',requiredFact:'loanProduct',details:[...details,'ยังไม่มีเงื่อนไขที่ตรวจยืนยันผ่านจากข้อมูลที่ให้มา จึงไม่สรุปว่าผ่าน'],sources,actions,followups:['กู้สามัญ','กู้ฉุกเฉิน','กู้พัฒนาคุณภาพชีวิต']});
     }
     const anyFail=checks.some(x=>x.status==='FAIL'), needs=checks.some(x=>x.status==='NEED_FACT'||x.status==='PARTIAL_PASS');
+    // Answer First: expose already-verified criterion results; the full evidence stays in details.
+    // Derived from rule checks rather than re-implementing any eligibility thresholds.
+    const concise=(entry)=>entry.text.replace(/\s*\[[A-Z_]+\]\s*$/,'').trim();
+    const prioritized=checks.map((x,i)=>({x,i,rank:x.status==='FAIL'?0:/ทุนเรือนหุ้นสะสมขั้นต่ำ/.test(x.name)?1:/การส่งหุ้น|ความต่อเนื่อง/.test(x.name)?2:x.status==='PASS'?3:4})).sort((a,b)=>a.rank-b.rank||a.i-b.i);
+    const keyChecks=prioritized.slice(0,3).map(v=>v.x);
+    const answerFirstLines=hasOrd&&!hasQuality&&!hasEmergency?keyChecks.map(x=>(x.status==='FAIL'?'✗ ':x.status==='PASS'?'✓ ':'? ')+x.name+': '+concise(x)):[];
     if(qualityWait) details.push('ไม่มีจำนวนงวดของสัญญาคุณภาพชีวิตที่ทำให้กลับมากู้สามัญเพิ่มได้ขณะสัญญายังมีผล เพราะหลักเกณฑ์ปัจจุบันห้ามกู้ประเภทอื่น ยกเว้นเงินกู้ฉุกเฉิน');
     if(anyFail) details.push('สรุป: มีเงื่อนไขอย่างน้อยหนึ่งข้อไม่ผ่าน จึงยังไม่ควรสรุปว่ายื่นผ่าน');
     else if(needs) details.push('สรุป: เงื่อนไขที่ให้มาตรวจได้บางส่วน แต่ยังต้องมีข้อมูลเพิ่มเพื่อฟันธงสิทธิทั้งหมด');
@@ -1810,10 +1816,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         :null;
     return res('loan_compound_reasoning',
       lineAnswer||
-      (anyFail?'จากข้อมูลที่ให้มา ยังไม่ผ่านอย่างน้อยหนึ่งเงื่อนไขครับ — ระบบตรวจหลายเงื่อนไขพร้อมกันแล้ว ดูข้อที่ไม่ผ่านด้านล่าง':
-      needs?'จากข้อมูลที่ให้มา ผ่านบางเงื่อนไขครับ แต่ยังขาดข้อมูลสำคัญ จึงยังไม่ควรฟันธงว่า “กู้ได้”':
+      (anyFail?'จากข้อมูลที่ให้มา ยังไม่ผ่านเงื่อนไขที่ตรวจได้ครับ':
+      needs?'จากข้อมูลที่ให้มา ผ่านบางเงื่อนไข แต่ยังต้องตรวจข้อมูลเพิ่มก่อนสรุปสิทธิกู้ครับ':
       qualityOffsetOnly?'ถ้าจะกู้พัฒนาคุณภาพชีวิตและมีสัญญาเงินกู้อื่นอยู่ เมื่อได้รับอนุมัติต้องยินยอมให้สหกรณ์หักกลบหนี้เงินกู้สัญญาอื่นทุกประเภท เพื่อให้เหลือเพียงสัญญานี้สัญญาเดียวครับ':
-      'จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล'),
+      'จากข้อมูลที่ให้มา เงื่อนไขที่ตรวจได้ผ่านครับ แต่ยังไม่ใช่ผลอนุมัติส่วนบุคคล')+(answerFirstLines.length?'\n'+answerFirstLines.join('\n')+'\nดูรายละเอียดและหลักฐานเพิ่มเติมได้ด้านล่าง':''),
       {domain:qualityToEmergency?'emergencyLoanCurrent':crossTypes?null:hasOrd?'ordinaryLoanCurrent':hasEmergency?'emergencyLoanCurrent':hasQuality?'qualityOfLifeCurrent':null,answerClass:ANSWER_CLASS.RULE,decision:anyFail?'NOT_YET_ELIGIBLE':needs?'NEED_INFO':'ELIGIBLE_CONDITION',status:anyFail?'ยังไม่ผ่านเงื่อนไขที่ตรวจได้':needs?'ต้องการข้อมูลเพิ่ม':'ผ่านเงื่อนไขที่ตรวจได้',details,actions,sources,flowId:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?'quality_to_emergency_flow':null,requiredFact:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?'qualityPaid':null,followups:qualityToEmergency&&needs&&!Number.isFinite(facts.qualityPaid)?['1 งวด','2 งวด','3 งวด','มากกว่า 3 งวด']:[],confidence:'Rule Master 4.0 multi-condition reasoning'});
   }
 
