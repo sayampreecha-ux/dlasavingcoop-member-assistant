@@ -3385,7 +3385,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const saved={};
     try{
       for(const [dom,id]of Object.entries(ruleIds)){if(!check.domains.includes(dom))continue;const v=F.versionAt(sourceRegistry,id,check.date);if(v){saved[id]=KB.ruleAuthority.rules[id];KB.ruleAuthority.rules[id]=v.values;}}
-      const r=recoverMemberRoute(q,auditedOrdinaryInquiry(q,check)||multiDomainAnswer(q)||( /สามัญ/.test(q)&&/(?:ขอ|กู้|วงเงิน)/.test(q)&&/(?:สมาชิก|ส่งหุ้น|หุ้นสะสม|ทุนเรือนหุ้น)/.test(q)&&/[\d]/.test(q)?compoundLoanAnswer(q):null)||loanConcernComposition(q,check)||reviewedServiceAnswer(q,check)||evidenceAnswerQuality(q)||answerLegacy(q));if(/^share_/.test(r.intent)){
+      const r=recoverMemberRoute(q,auditedOrdinaryInquiry(q,check)||multiDomainAnswer(q)||( /สามัญ/.test(q)&&/(?:ขอ|กู้|วงเงิน)/.test(q)&&/(?:ส่งหุ้น|หุ้นสะสม|ทุนเรือนหุ้น)/.test(q)&&/[\d]/.test(q)?compoundLoanAnswer(q):null)||loanConcernComposition(q,check)||reviewedServiceAnswer(q,check)||evidenceAnswerQuality(q)||answerLegacy(q));if(/^share_/.test(r.intent)){
         const regUrl='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view',formUrl='https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view';
         const navigation=[['📘 ระเบียบหุ้นฉบับแก้ไขที่ 3 พ.ศ. 2569 (PDF)',regUrl],['📘 ระเบียบหุ้นและฉบับแก้ไข','#ask:'+encodeURIComponent('ระเบียบหุ้นและฉบับแก้ไข')],['📗 ข้อบังคับสหกรณ์','#ask:'+encodeURIComponent('ข้อบังคับสหกรณ์')],['📄 แบบคำขอเปลี่ยนค่าหุ้นรายเดือน',formUrl],['📣 ประกาศเกี่ยวกับหุ้น','#ask:'+encodeURIComponent('ประกาศเกี่ยวกับหุ้น')],['☎️ งานทะเบียน 083-929-2739','tel:0839292739']];
         // Topic navigation must preserve the specific answer's evidence and links.
