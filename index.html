@@ -1684,20 +1684,34 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(hasOrd){
       const R=RULE_MASTER.rules.ordinary_current;
       if(Number.isFinite(facts.existingGuaranteedBorrowers)) add('จำนวนผู้กู้ที่สมาชิกค้ำอยู่',facts.existingGuaranteedBorrowers<R.guarantorMaxBorrowers?'PASS':'FAIL',facts.existingGuaranteedBorrowers+' คน; ผู้ค้ำ 1 คนค้ำผู้กู้พร้อมกันเกิน '+R.guarantorMaxBorrowers+' คนไม่ได้');
-      if(Number.isFinite(facts.ordinaryPaid)) add('จำนวนงวดสามัญเดิม',facts.ordinaryPaid>=R.repeatMinInstallments?'PASS':'FAIL',facts.ordinaryPaid+' งวด; เกณฑ์กู้ใหม่อย่างน้อย '+R.repeatMinInstallments+' งวด');
+      const restructuredOrdinary=/สามัญปรับโครงสร้างหนี้|ปรับโครงสร้างหนี้สามัญ/.test(q);
+      const firstOrdinary=/(?:กู้ครั้งแรก|กู้สามัญครั้งแรก|ยังไม่เคยกู้สามัญ|ไม่มีสัญญาสามัญเดิม)/.test(q);
+      const ordinaryRequired=restructuredOrdinary?24:R.repeatMinInstallments;
+      if(Number.isFinite(facts.ordinaryPaid)) add(restructuredOrdinary?'จำนวนงวดสามัญปรับโครงสร้างหนี้':'จำนวนงวดสามัญเดิม',facts.ordinaryPaid>=ordinaryRequired?'PASS':'FAIL',facts.ordinaryPaid+' งวด; เกณฑ์สำหรับสัญญาประเภทนี้อย่างน้อย '+ordinaryRequired+' งวด ตามข้อ 5(4)-(5)');
       if(Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก',facts.membershipMonths>=R.membershipMinMonths?'PASS':'FAIL',facts.membershipMonths+' เดือน; เกณฑ์อย่างน้อย '+R.membershipMinMonths+' เดือน');
       if(Number.isFinite(facts.sharePaid)){
+        const continuous=/ส่งหุ้นต่อเนื่อง|ส่งค่าหุ้นต่อเนื่อง|ส่งหุ้นทุกเดือน|ส่งค่าหุ้นทุกเดือน/.test(q);
+        const interrupted=/ส่งหุ้นไม่ต่อเนื่อง|ส่งหุ้นขาด|ขาดส่งหุ้น|หยุดส่งหุ้น|ส่งหุ้นไม่ครบต่อเนื่อง/.test(q);
+        if(interrupted) add('ความต่อเนื่องการส่งหุ้น','FAIL','มีข้อมูลว่าการส่งหุ้นไม่ต่อเนื่อง ต้องตรวจระยะเวลาส่งหุ้นต่อเนื่องก่อนยื่น');
+        else if(!continuous) add('ความต่อเนื่องการส่งหุ้น','NEED_FACT','โปรดยืนยันจำนวนเดือนที่ส่งหุ้นรายเดือนอย่างต่อเนื่อง ข้อ 5(1)-(3)');
         const needShare=Number.isFinite(facts.requestAmount)&&facts.requestAmount>200000?R.shareMinInstallmentsOver200k:R.shareMinInstallmentsBase;
         add('การส่งหุ้น',facts.sharePaid>=needShare?'PASS':'FAIL',facts.sharePaid+' งวด; วงเงินที่ระบุต้องส่งหุ้นอย่างน้อย '+needShare+' งวด');
       }
-      if(Number.isFinite(facts.remainingIncome)) add('รายได้คงเหลือขั้นต่ำ',facts.remainingIncome>=R.remainingIncomeMinBaht?'PARTIAL_PASS':'FAIL',facts.remainingIncome.toLocaleString('th-TH')+' บาท; ต้องผ่านทั้ง ≥'+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ ≥'+R.remainingIncomeMinPercent+'% ของเงินได้รายเดือน');
+      if(Number.isFinite(facts.remainingIncome)){
+        const monthlyGross=(q.match(/(?:เงินได้รายเดือน|รายได้ก่อนหัก|เงินเดือนเต็ม)[^\\d]{0,12}([\\d,]+)/)||[])[1];
+        const pct=monthlyGross?facts.remainingIncome/Number(monthlyGross.replace(/,/g,''))*100:null;
+        const bahtOK=facts.remainingIncome>=R.remainingIncomeMinBaht;
+        add('รายได้คงเหลือขั้นต่ำ',!bahtOK||(pct!==null&&pct<R.remainingIncomeMinPercent)?'FAIL':pct===null?'NEED_FACT':'PASS',facts.remainingIncome.toLocaleString('th-TH')+' บาท; '+(pct===null?'ยังไม่ทราบเงินได้รายเดือนก่อนหักเพื่อยืนยัน 15%':'คิดเป็น '+pct.toFixed(2)+'%')+'; ต้องผ่านทั้ง '+R.remainingIncomeMinBaht.toLocaleString('th-TH')+' บาท และ '+R.remainingIncomeMinPercent+'%');
+      }
       if(Number.isFinite(facts.requestAmount)){
         add('เพดานวงเงินสามัญ',facts.requestAmount<=R.maxAmount?'PASS':'FAIL',facts.requestAmount.toLocaleString('th-TH')+' บาท; สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
         if(facts.requestAmount>200000&&Number.isFinite(facts.shareCapital)){
           const minShare=facts.requestAmount*(R.minSharePercentOver200k/100);
           add('ทุนเรือนหุ้นสะสมขั้นต่ำ',facts.shareCapital>=minShare?'PASS':facts.requestAmount<=500000?'NEED_FACT':'FAIL',facts.shareCapital.toLocaleString('th-TH')+' บาท; ต้องไม่น้อยกว่า '+R.minSharePercentOver200k+'% ของวงเงินที่ขอกู้ = '+minShare.toLocaleString('th-TH')+' บาท'+(facts.shareCapital<minShare&&facts.requestAmount<=500000?'; ขาด '+(minShare-facts.shareCapital).toLocaleString('th-TH')+' บาท; ตามข้อ 5(2) สามารถนำเงินกู้มาซื้อหุ้นให้ครบเงื่อนไขได้ แต่ต้องให้สหกรณ์ตรวจและอนุมัติ ไม่ถือว่าผ่านแล้ว':''));
         }
-        if(hasGuarantor&&Number.isFinite(facts.guarantorCount)){
+        const personCollateral=/หลักประกันบุคคล|ใช้ผู้ค้ำ|ใช้บุคคลค้ำประกัน/.test(q);
+        const otherCollateral=/หลักประกัน(?:อสังหาริมทรัพย์|ที่ดิน|เงินฝาก|พันธบัตร|หลักทรัพย์รัฐบาล)|ใช้(?:ที่ดิน|เงินฝาก|อสังหาริมทรัพย์|พันธบัตร)ค้ำ/.test(q);
+        if(hasGuarantor&&Number.isFinite(facts.guarantorCount)&&personCollateral){
           const band=R.guarantorBands.find(b=>(b.min==null||facts.requestAmount>=b.min)&&(b.max==null||facts.requestAmount<=b.max));
           const need=band?.minGuarantors||3;
           add('จำนวนผู้ค้ำตามวงเงิน',facts.guarantorCount>=need?'PASS':'FAIL',facts.guarantorCount+' คน; วงเงินนี้ต้องอย่างน้อย '+need+' คน');
@@ -1709,8 +1723,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         if(!Number.isFinite(facts.sharePaid)) add('จำนวนงวดส่งหุ้น','NEED_FACT','ต้องยืนยันจำนวนงวดส่งหุ้นตามช่วงวงเงินก่อนสรุปสิทธิ');
         if(facts.requestAmount>200000&&!Number.isFinite(facts.shareCapital)) add('ทุนเรือนหุ้นสะสม','NEED_FACT','ต้องยืนยันทุนเรือนหุ้นสะสมขั้นต่ำตามสัดส่วนวงเงิน');
         if(!Number.isFinite(facts.remainingIncome)) add('รายได้หลังหักหนี้','NEED_FACT','ต้องตรวจทั้งจำนวนเงินบาทและสัดส่วนรายได้คงเหลือหลังหักหนี้และค่าหุ้น');
-        if(!Number.isFinite(facts.guarantorCount)) add('ประเภทหลักประกัน','NEED_FACT','โปรดระบุประเภทหลักประกันก่อนประเมินจำนวนผู้ค้ำ หากใช้หลักประกันอื่นต้องตรวจหลักเกณฑ์ของหลักประกันนั้น');
-        if(!Number.isFinite(facts.ordinaryPaid)) add('การกู้สามัญซ้ำ','NEED_FACT','ต้องยืนยันว่าสมาชิกมีสัญญาสามัญเดิมและจำนวนงวดชำระหรือไม่');
+        if(!personCollateral&&!otherCollateral) add('ประเภทหลักประกัน','NEED_FACT','โปรดระบุว่าจะใช้บุคคลค้ำประกัน อสังหาริมทรัพย์ หลักทรัพย์รัฐบาล หรือเงินฝากสหกรณ์ ตามข้อ 6');
+        if(personCollateral&&!Number.isFinite(facts.guarantorCount)) add('จำนวนผู้ค้ำตามวงเงิน','NEED_FACT','ใช้บุคคลค้ำประกัน ต้องทราบจำนวนผู้ค้ำก่อนเทียบเกณฑ์ข้อ 6(1)');
+        if(otherCollateral) add('หลักประกันอื่น','NEED_FACT','ต้องตรวจมูลค่าและเงื่อนไขของหลักประกันประเภทที่เลือกตามข้อ 6(2)-(4) โดยไม่ใช้เกณฑ์จำนวนผู้ค้ำอัตโนมัติ');
+        if(!Number.isFinite(facts.membershipMonths)) add('อายุสมาชิก','NEED_FACT','ต้องทราบอายุสมาชิกอย่างน้อย 6 เดือน');
+        if(!firstOrdinary&&!Number.isFinite(facts.ordinaryPaid)) add('ประเภทสัญญาสามัญเดิม','NEED_FACT','โปรดระบุว่าเป็นการกู้ครั้งแรก สามัญเดิม หรือสามัญปรับโครงสร้างหนี้ และจำนวนงวดที่ชำระแล้ว');
+        if(firstOrdinary) add('ประเภทการกู้','PASS','ผู้ใช้ระบุว่ากู้สามัญครั้งแรก จึงไม่ใช้เกณฑ์จำนวนงวดของสัญญาเดิม');
       }
       if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อนสามัญ',facts.term<=R.maxTerm?'PASS':'FAIL',facts.term+' งวด; สูงสุด '+R.maxTerm+' งวด และอายุสิ้นสุดสัญญาต้องไม่เกิน '+R.maxAge+' ปี');
       if(ordinaryNewRequest&&Number.isFinite(facts.ordinaryPaid)) add('การหักกลบสัญญาสามัญเดิม','PASS','เมื่อทำสัญญาสามัญใหม่ ต้องหักกลบเงินกู้สามัญสัญญาเดิม');
