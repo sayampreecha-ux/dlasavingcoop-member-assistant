@@ -1660,7 +1660,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       else facts.guarantorCount=+m[1];
     }
     if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
-    if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*ปี/))) facts.membershipYears=+m[1];
+    if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*ปี/))) { facts.membershipYears=+m[1]; if(!Number.isFinite(facts.membershipMonths)) facts.membershipMonths=+m[1]*12; }
     if(hasShare && (m=q.match(/(?:ส่งหุ้น|ค่าหุ้น)[^\d]{0,18}(\d+)\s*(?:งวด|เดือน)/))) facts.sharePaid=+m[1];
     if(hasShare && (m=q.match(/(?:หุ้นมี|ทุนเรือนหุ้น|หุ้นสะสม)[^\d]{0,12}([\d,.]+)\s*(ล้าน|แสน|หมื่น|พัน|บาท)?/))) facts.shareCapital=money(m[1],m[2]||'');
     if(hasIncome && (m=q.match(/(?:เงินเดือนเหลือ|เงินเหลือ|รายได้คงเหลือ)[^\d]{0,12}([\d,]+)/))) facts.remainingIncome=+m[1].replace(/,/g,'');
@@ -1705,11 +1705,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       }
       // An ordinary-loan screening with a stated amount is incomplete until all
       // material criteria are checked; never elevate partial PASS to full eligibility.
-      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.membershipMonths)){
+      if(Number.isFinite(facts.requestAmount)){
         if(!Number.isFinite(facts.sharePaid)) add('จำนวนงวดส่งหุ้น','NEED_FACT','ต้องยืนยันจำนวนงวดส่งหุ้นตามช่วงวงเงินก่อนสรุปสิทธิ');
         if(facts.requestAmount>200000&&!Number.isFinite(facts.shareCapital)) add('ทุนเรือนหุ้นสะสม','NEED_FACT','ต้องยืนยันทุนเรือนหุ้นสะสมขั้นต่ำตามสัดส่วนวงเงิน');
         if(!Number.isFinite(facts.remainingIncome)) add('รายได้หลังหักหนี้','NEED_FACT','ต้องตรวจทั้งจำนวนเงินบาทและสัดส่วนรายได้คงเหลือหลังหักหนี้และค่าหุ้น');
-        if(!Number.isFinite(facts.guarantorCount)) add('จำนวนผู้ค้ำตามวงเงิน','NEED_FACT','ต้องยืนยันจำนวนผู้ค้ำตามช่วงวงเงินที่ขอกู้');
+        if(!Number.isFinite(facts.guarantorCount)) add('ประเภทหลักประกัน','NEED_FACT','โปรดระบุประเภทหลักประกันก่อนประเมินจำนวนผู้ค้ำ หากใช้หลักประกันอื่นต้องตรวจหลักเกณฑ์ของหลักประกันนั้น');
         if(!Number.isFinite(facts.ordinaryPaid)) add('การกู้สามัญซ้ำ','NEED_FACT','ต้องยืนยันว่าสมาชิกมีสัญญาสามัญเดิมและจำนวนงวดชำระหรือไม่');
       }
       if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อนสามัญ',facts.term<=R.maxTerm?'PASS':'FAIL',facts.term+' งวด; สูงสุด '+R.maxTerm+' งวด และอายุสิ้นสุดสัญญาต้องไม่เกิน '+R.maxAge+' ปี');
