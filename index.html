@@ -1695,7 +1695,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         add('เพดานวงเงินสามัญ',facts.requestAmount<=R.maxAmount?'PASS':'FAIL',facts.requestAmount.toLocaleString('th-TH')+' บาท; สูงสุด '+R.maxAmount.toLocaleString('th-TH')+' บาท');
         if(facts.requestAmount>200000&&Number.isFinite(facts.shareCapital)){
           const minShare=facts.requestAmount*(R.minSharePercentOver200k/100);
-          add('ทุนเรือนหุ้นสะสมขั้นต่ำ',facts.shareCapital>=minShare?'PASS':'FAIL',facts.shareCapital.toLocaleString('th-TH')+' บาท; ต้องไม่น้อยกว่า '+R.minSharePercentOver200k+'% ของวงเงินที่ขอกู้ = '+minShare.toLocaleString('th-TH')+' บาท');
+          add('ทุนเรือนหุ้นสะสมขั้นต่ำ',facts.shareCapital>=minShare?'PASS':facts.requestAmount<=500000?'NEED_FACT':'FAIL',facts.shareCapital.toLocaleString('th-TH')+' บาท; ต้องไม่น้อยกว่า '+R.minSharePercentOver200k+'% ของวงเงินที่ขอกู้ = '+minShare.toLocaleString('th-TH')+' บาท'+(facts.shareCapital<minShare&&facts.requestAmount<=500000?'; ขาด '+(minShare-facts.shareCapital).toLocaleString('th-TH')+' บาท; ตามข้อ 5(2) สามารถนำเงินกู้มาซื้อหุ้นให้ครบเงื่อนไขได้ แต่ต้องให้สหกรณ์ตรวจและอนุมัติ ไม่ถือว่าผ่านแล้ว':''));
         }
         if(hasGuarantor&&Number.isFinite(facts.guarantorCount)){
           const band=R.guarantorBands.find(b=>(b.min==null||facts.requestAmount>=b.min)&&(b.max==null||facts.requestAmount<=b.max));
