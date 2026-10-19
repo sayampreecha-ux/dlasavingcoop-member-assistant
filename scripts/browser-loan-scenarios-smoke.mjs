@@ -17,6 +17,14 @@ try{for(const width of [390,1365]){
  await record(p,width,'target-followups',async row=>{await ask(exact);for(const [q,re]of [['แล้วผ่อนได้กี่งวด',/15 งวด/],['ต้องใช้เอกสารอะไร',/คำขอ|เอกสาร/]]){await p.locator('#q').fill(q);await p.locator('#q').press('Enter');row.answer=await p.locator('#out .body').innerText();assert.match(row.answer,re);assert.doesNotMatch(row.answer,/เอกสารกู้พัฒนาคุณภาพชีวิต|360 งวด/);}});
  await record(p,width,'unchanged-services',async row=>{for(const [q,re]of [['กู้สามัญวงเงินเท่าไร',/2,000,000/],['กู้ฉุกเฉินวงเงินเท่าไร',/60,000/],['ฝากพิเศษเปิดบัญชีขั้นต่ำเท่าไร',/500 บาท/],['หุ้นรายเดือนส่งได้สูงสุดเท่าไร',/5,000/],['กู้ในฐานะผู้ค้ำประกันดอกเบี้ยเท่าไร',/2\.00/]])assert.match(await ask(q),re,q);await p.locator('#homeBtn').click();assert.ok(await p.getByRole('button',{name:'🧮 ประเมินเงินกู้',exact:true}).isVisible());row.errors=errors;assert.deepEqual(errors,[]);});
 
+ // Production-facing first answer must show rule-specific facts *without expanding details*.
+ for(const [id,q,re]of [
+  ['answer-first-01','ผมเป็นสมาชิก 8 เดือน ส่งหุ้นต่อเนื่อง 8 เดือน ขอเงินกู้สามัญ 200,000 บาทได้ไหม',/8 เดือน|8 งวด/],
+  ['answer-first-02','ผมส่งหุ้นต่อเนื่อง 11 เดือน มีหุ้นสะสม 50,000 บาท ขอสามัญ 300,000 บาทได้ไหม',/11 งวด.*12 งวด/],
+  ['answer-first-03','ส่งหุ้นต่อเนื่อง 12 เดือน มีหุ้นสะสม 29,999 บาท ขอสามัญ 300,000 บาท ต้องทำอย่างไร',/29,999.*30,000|ขาด 1 บาท/],
+  ['answer-first-04','ส่งหุ้นต่อเนื่อง 12 เดือน มีหุ้นสะสม 30,000 บาท ขอสามัญ 300,000 บาท หุ้นพอไหม',/30,000/],
+  ['answer-first-05','ส่งหุ้นต่อเนื่อง 12 เดือน หุ้นสะสม 40,000 บาท ขอสามัญ 500,001 บาท ได้ไหม',/40,000|50,000/]
+ ])await record(p,width,id,async row=>{row.question=q;row.answer=await ask(q);assert.match(row.answer,re,id);assert.match(row.answer,/✓|✗|\\? /,id+' no concise status');});
  // Re-run all sixteen live-simulation turns with independently specified expectations.
  const turn=async(q,fresh)=>{if(fresh)await p.locator('#homeBtn').click();await p.locator('#q').fill(q);await p.locator('#q').press('Enter');return p.locator('#out .body').innerText();};
  const simulation=[
