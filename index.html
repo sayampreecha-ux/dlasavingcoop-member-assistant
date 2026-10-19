@@ -1703,6 +1703,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
           add('จำนวนผู้ค้ำตามวงเงิน',facts.guarantorCount>=need?'PASS':'FAIL',facts.guarantorCount+' คน; วงเงินนี้ต้องอย่างน้อย '+need+' คน');
         }
       }
+      // An ordinary-loan screening with a stated amount is incomplete until all
+      // material criteria are checked; never elevate partial PASS to full eligibility.
+      if(Number.isFinite(facts.requestAmount)&&Number.isFinite(facts.membershipMonths)){
+        if(!Number.isFinite(facts.sharePaid)) add('จำนวนงวดส่งหุ้น','NEED_FACT','ต้องยืนยันจำนวนงวดส่งหุ้นตามช่วงวงเงินก่อนสรุปสิทธิ');
+        if(facts.requestAmount>200000&&!Number.isFinite(facts.shareCapital)) add('ทุนเรือนหุ้นสะสม','NEED_FACT','ต้องยืนยันทุนเรือนหุ้นสะสมขั้นต่ำตามสัดส่วนวงเงิน');
+        if(!Number.isFinite(facts.remainingIncome)) add('รายได้หลังหักหนี้','NEED_FACT','ต้องตรวจทั้งจำนวนเงินบาทและสัดส่วนรายได้คงเหลือหลังหักหนี้และค่าหุ้น');
+        if(!Number.isFinite(facts.guarantorCount)) add('จำนวนผู้ค้ำตามวงเงิน','NEED_FACT','ต้องยืนยันจำนวนผู้ค้ำตามช่วงวงเงินที่ขอกู้');
+        if(!Number.isFinite(facts.ordinaryPaid)) add('การกู้สามัญซ้ำ','NEED_FACT','ต้องยืนยันว่าสมาชิกมีสัญญาสามัญเดิมและจำนวนงวดชำระหรือไม่');
+      }
       if(Number.isFinite(facts.term)) add('ระยะเวลาผ่อนสามัญ',facts.term<=R.maxTerm?'PASS':'FAIL',facts.term+' งวด; สูงสุด '+R.maxTerm+' งวด และอายุสิ้นสุดสัญญาต้องไม่เกิน '+R.maxAge+' ปี');
       if(ordinaryNewRequest&&Number.isFinite(facts.ordinaryPaid)) add('การหักกลบสัญญาสามัญเดิม','PASS','เมื่อทำสัญญาสามัญใหม่ ต้องหักกลบเงินกู้สามัญสัญญาเดิม');
       if(ordinaryNewRequest&&hasEmergency&&!hasQuality){
