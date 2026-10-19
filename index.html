@@ -3359,7 +3359,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const v=F.versionAt(sourceRegistry,'ordinaryLoanCurrent',check.date),doc=sourceRegistry.documents.find(d=>d.id===v?.documentId);
       return {intent:'retired_guarantor_current',answer:'ได้ครับ การเกษียณอายุราชการเพียงอย่างเดียวไม่ได้ตัดสิทธิการเป็นผู้ค้ำเงินกู้สามัญ หากยังเป็นสมาชิกสหกรณ์และผ่านคุณสมบัติผู้ค้ำตามประกาศปัจจุบัน โดยยังต้องตรวจภาระค้ำเดิมและเงื่อนไขของวงเงินกู้ก่อนอนุมัติ',status:'กฎปัจจุบัน — มีผล 1 ต.ค. 2569',decision:'ELIGIBLE_CONDITION',evidenceState:'PRIMARY_VERIFIED',details:['ผู้ค้ำต้องเป็นสมาชิกสหกรณ์ที่ไม่ใช่คู่สมรสของผู้กู้ และชำระค่าหุ้นต่อเนื่องมาแล้วไม่น้อยกว่า 6 เดือน','เงื่อนไขผ่านการทดลองราชการใช้กับผู้ค้ำที่ยังเป็นข้าราชการ และเงื่อนไขได้รับการบรรจุแต่งตั้งมาแล้วไม่น้อยกว่า 3 ปีใช้กับเจ้าหน้าที่สหกรณ์','ยังต้องตรวจภาระค้ำเดิมและคุณสมบัติอื่นตามประเภท/วงเงินกู้ก่อนอนุมัติ'],actions:[['หลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569',doc?.originalUrl||S.procedure],['ติดต่อเจ้าหน้าที่',S.contact]],sources:[src(doc?.title||'หลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569',doc?.originalUrl||S.procedure)]};
     }
-    if(/หุ้น/.test(q)&&/(?:เงินเดือน|รายได้|เงินได้).*\d/.test(q)&&/เท่า|กี่|ถือ|ส่ง/.test(q)){
+    if(/หุ้น/.test(q)&&!/(?:ขอกู้|กู้สามัญ|เงินกู้สามัญ|วงเงินกู้)/.test(q)&&/(?:เงินเดือน|รายได้|เงินได้).*\d/.test(q)&&/เท่า|กี่|ถือ|ส่ง/.test(q)){
       const v=F.versionAt(sourceRegistry,'sharesClause7',check.date),doc=sourceRegistry.documents.find(d=>d.id===v?.documentId);
       const m=q.match(/(?:เงินเดือน|รายได้|เงินได้)[^0-9]{0,12}([0-9,]+)/),salary=m?Number(m[1].replace(/,/g,'')):null;
       // Verified cooperative announcement (2569), with an explicit uncovered value at exactly 15,000.
