@@ -13,6 +13,18 @@ try{for(const width of [390,1365]){
   await page.locator('#homeBtn').click();await page.locator('#q').fill(q);await page.locator('#q').press('Enter');await page.locator('#out .body').waitFor();
   await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill(reply);await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();assert.match(await body(),p);pass++;
  }
+ // Targeted production QA: full UI input path on both viewports, including same-session follow-ups.
+ const send=async q=>{await page.locator('#q').fill(q);await page.locator('#q').press('Enter');};
+ const verify=async(pattern,tag)=>{await page.locator('#out .body').filter({hasText:pattern}).first().waitFor({timeout:10000});assert.match(await body(),pattern,tag+' '+width);pass++;};
+ for(const q of ['ค้ำให้เพื่อนหลายคนแล้ว ยังขอกู้เองได้ไหม','ค้ำอยู่หลายสัญญา จะกู้เพิ่มได้บ่']){
+  await page.locator('#homeBtn').click();await send(q);await verify(/การค้ำประกันเงินกู้ให้ผู้อื่นกับการขอกู้เงินของตนเองเป็นคนละประเด็น/,q);
+  assert.match(await body(),/ฝ่ายสินเชื่อ/);
+ }
+ await page.locator('#homeBtn').click();await send('เงินฝากออมทรัพย์พิเศษ');await send('ถอนเงินอย่างไร');await send('ใช้เอกสารอะไร');
+ await verify(/สำหรับการถอนเงินฝากออมทรัพย์พิเศษ ต้องตรวจแบบคำขอถอน/, 'special deposit withdrawal documents');
+ await page.locator('#homeBtn').click();await send('ติดตามเอกสารเงินกู้');await send('เอกสารเงินกู้สามัญ');await send('ต้องติดต่อฝ่ายไหน');
+ await verify(/ติดตามเอกสารเงินกู้สามัญที่เคยยื่นแล้ว/, 'loan tracking staff contact');
+ assert.match(await body(),/ฝ่ายสินเชื่อ/);
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}
 finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
