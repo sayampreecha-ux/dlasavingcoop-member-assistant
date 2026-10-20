@@ -66,4 +66,21 @@ const documents=app.conversationTurn('เอกสารต้องใช้อ
 if(!ordinary.result?.answer||!guarantor.result?.answer||!documents.result?.answer)throw Error('ordinary guarantor documents follow-up broken');
 console.log('Production QA targeted intent regression PASS 5/5 plus T06 conversation, deposit follow-up and T29 privacy');
 
+// Remaining Production QA: test actual conversationTurn state, not answer() alone.
+for(const q of ['ค้ำให้เพื่อนหลายคนแล้ว ยังขอกู้เองได้ไหม','ค้ำอยู่หลายสัญญา จะกู้เพิ่มได้บ่']){
+  const r=app.conversationTurn(q).result;
+  if(r.intent!=='guarantor_own_borrowing_review'||r.decision!=='EVIDENCE_LOCK'||!/กู้เอง/.test(r.answer)||!/ฝ่ายสินเชื่อ/.test(r.answer))throw Error('T11/T27 guarantor-own-loan boundary: '+JSON.stringify({q,intent:r.intent,decision:r.decision}));
+}
+const depStart=app.conversationTurn('เงินฝากออมทรัพย์พิเศษ');
+const depWithdraw=app.conversationTurn('ถอนเงินอย่างไร',depStart.state);
+const depDocs=app.conversationTurn('ใช้เอกสารอะไร',depWithdraw.state);
+if(depDocs.result.intent!=='deposit_withdraw_documents'||!/ถอนเงินฝากออมทรัพย์พิเศษ/.test(depDocs.result.answer)||!depDocs.result.actions?.length)throw Error('deposit withdrawal documents follow-up failed');
+const trackStart=app.conversationTurn('ติดตามเอกสารเงินกู้');
+const trackKind=app.conversationTurn('เอกสารเงินกู้สามัญ',trackStart.state);
+const trackContact=app.conversationTurn('ต้องติดต่อฝ่ายไหน',trackKind.state);
+if(trackContact.result.intent!=='document_tracking_contact'||!/ติดตามเอกสารเงินกู้สามัญ/.test(trackContact.result.answer)||!trackContact.result.actions?.length)throw Error('loan document tracking contact follow-up failed');
+const oldPrivacy=app.conversationTurn('ช่วยดูข้อมูลเงินกู้ของสมาชิกคนอื่น');
+if(!oldPrivacy.result?.answer||/ยอดหนี้ของสมาชิกคนอื่น\\s*[=:]\\s*\\d/.test(oldPrivacy.result.answer))throw Error('T29 disclosure regression');
+console.log('Remaining member QA conversations: T11/T27, deposit documents, tracking department and privacy assertions passed');
+
 console.log('Member language regression PASS '+cases.length+'/'+cases.length);
