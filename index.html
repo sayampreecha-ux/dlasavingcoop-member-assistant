@@ -2901,6 +2901,16 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
+    // Preserve document-tracking intent rather than converting a department question to loan application forms.
+    const trackingIntent=Boolean(state?.trackingIntent)||/ติดตามเอกสาร(?:เงินกู้)?|ตามเรื่องเอกสารเงินกู้/.test(raw);
+    if(state?.trackingIntent&&/(?:ฝ่ายไหน|ฝ่ายใด|ติดต่อใคร|ติดต่อที่ไหน)/.test(raw)){
+      const result=res('document_tracking_contact','หากต้องการติดตามเอกสารเงินกู้สามัญที่เคยยื่นแล้ว ให้ติดต่อฝ่ายสินเชื่อ/ฝ่ายเงินกู้ของสหกรณ์เพื่อตรวจการรับเอกสารและสถานะดำเนินการครับ ระบบนี้ไม่เชื่อมทะเบียนรับเอกสารและไม่ทราบผลเฉพาะราย ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต',{decision:'SAFE_HANDOFF',actions:[['ติดต่อสหกรณ์',S.contact],['ระบบสมาชิกทางการ',S.memberPortal]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,trackingIntent:true,question:raw},query:raw};
+    }
+    if(state?.topic==='depositSpecial'&&/เอกสาร|หลักฐาน/.test(raw)&&/ถอน/.test(state?.question||'')){
+      const result=res('deposit_withdraw_documents','สำหรับการถอนเงินฝากออมทรัพย์พิเศษ ต้องตรวจแบบคำขอถอนและเอกสารประกอบตามแบบของสหกรณ์ฉบับปัจจุบันครับ ยังไม่ยืนยันรายการเอกสารเฉพาะบัญชีหรือกรณีติดหลักประกันจากข้อความนี้ กรุณาเปิดแบบทางการหรือสอบถามฝ่ายเงินฝากก่อนนำส่งเอกสารส่วนตัว',{decision:'EVIDENCE_LOCK',actions:[['แบบเงินฝากทางการ',S.depositForms],['ติดต่อฝ่ายเงินฝาก',S.contact]],sources:[src('แบบและเอกสารเงินฝากทางการ',S.depositForms)]});
+      return {result,state:{...state,result,topic:'depositSpecial',question:'ฝากพิเศษ ถอนเงิน เอกสาร'},query:raw};
+    }
     let query=raw,result,lastFact=null;
     const guardQuery=prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
     const guard=freshnessStatus(guardQuery);
@@ -2969,7 +2979,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     if(!result){query=contextualize(raw,state?.topic);result=answer(query);}
     const topic=topicOf(query,result)||state?.topic||'';
-    return {result,state:{result,topic,question:query,lastFact:lastFact||result.requiredFact||state?.lastFact||null},query};
+    return {result,state:{result,topic,question:query,trackingIntent,lastFact:lastFact||result.requiredFact||state?.lastFact||null},query};
   }
   const F=globalThis.OFFICIAL_FRESHNESS;
   let sourceRegistry=F.clone(globalThis.OFFICIAL_SOURCE_REGISTRY);
@@ -3200,6 +3210,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // T11/T27: being someone else's guarantor is not the same as seeking a guarantor.
+    if(/(?:ค้ำให้|ค้ำอยู่|ค้ำประกันให้|เป็นผู้ค้ำ(?:ประกัน)?)/.test(q)&&/(?:หลายคน|หลายสัญญา|หลายราย|คนอื่น|เพื่อน|\d+\\s*(?:คน|สัญญา))/.test(q)&&/(?:กู้เอง|ขอกู้เอง|กู้เพิ่ม|ขอกู้|กู้ได้|กู้เงินเอง)/.test(q))
+      return res('guarantor_own_borrowing_review','การค้ำประกันเงินกู้ให้ผู้อื่นกับการขอกู้เงินของตนเองเป็นคนละประเด็นครับ จำนวนสัญญาที่ค้ำอยู่เพียงอย่างเดียวใช้ยืนยันหรือปฏิเสธสิทธิกู้เองไม่ได้ ต้องให้ฝ่ายสินเชื่อตรวจประเภทเงินกู้ที่จะขอ ภาระค้ำประกันและความสามารถชำระหนี้ตามหลักเกณฑ์ฉบับที่มีผล ขณะนี้ยังไม่วินิจฉัยสิทธิเฉพาะราย ขอทราบก่อนว่าต้องการกู้เงินประเภทใดครับ',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',actions:[['ตรวจหลักเกณฑ์เงินกู้ทางการ',S.procedure],['ฝ่ายสินเชื่อตรวจภาระค้ำและสิทธิ',S.contact]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)],evidenceLocks:['individual_guarantee_obligations','loan_product_rules']});
     // Production QA: scoped member intent recognition; never infer personal status or unverified transfer dates.
     if(/(?:กู้ฉุกเฉิน|เงินกู้ฉุกเฉิน)/.test(q)&&/(?:เงิน.*เข้า|โอนเงิน|ได้รับเงิน)/.test(q)&&/(?:วันไหน|เมื่อไร|เมื่อไหร่|วันนี้|กี่วัน)/.test(q))
       return res('emergency_disbursement_tracking','ยังยืนยันวันโอนเงินกู้ฉุกเฉินของท่านไม่ได้ครับ ต้องทราบผลพิจารณาและรอบจ่ายจริงจากสหกรณ์ กรุณาตรวจสถานะในระบบสมาชิกหรือติดต่อฝ่ายเงินกู้ฉุกเฉิน ไม่ส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต',{decision:'SAFE_HANDOFF',actions:[['ระบบสมาชิกทางการ',S.memberPortal],['ติดต่อฝ่ายเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
