@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Remaining QA T07 T13 T15 behavioral gate
+        run: node tests/remaining-qa-t07-t13-t15.mjs
       - name: Complete release gate including 69 executable records
         run: node scripts/verify-release.mjs
       - name: Leisure loan current rules, follow-ups and monitor safety

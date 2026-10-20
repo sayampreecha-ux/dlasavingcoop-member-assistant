@@ -2899,6 +2899,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   // Shared UI turn handler: retain the question awaiting a choice and pass fact replies raw.
   function conversationTurn(input,state={},options={}){
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
+    // A complete, expressly named share-rate task starts a new topic, not a loan follow-up.
+    // Ambiguous follow-ups remain routed through the existing conversational state.
+    if(/(?:เพิ่ม|เปลี่ยน|ปรับ)(?:ค่า)?หุ้นรายเดือน|(?:เพิ่ม|เปลี่ยน|ปรับ).*ค่าหุ้น.*(?:รายเดือน|แต่ละเดือน)/.test(raw)&&!/กู้|เงินกู้|ค้ำ/.test(raw)){
+      const result=answer(raw);
+      return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
+    }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
     // Preserve document-tracking intent rather than converting a department question to loan application forms.
@@ -3210,6 +3216,17 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // T07: compose two explicit rule concerns from the single versioned Rule Master.
+    if(/(?:กู้สามัญ|เงินกู้สามัญ)/.test(q)&&/(?:ได้เท่า(?:ไหร่|ไร)|วงเงิน|กี่บาท)/.test(q)&&/(?:ค้ำกี่คน|ค้ำ.*กี่คน|ผู้ค้ำ.*กี่คน|กี่คน.*ค้ำ)/.test(q)&&!personal(q)){
+      const check=freshnessStatus(q);
+      if(!check.allowed)return F.lock(check,sourceRegistry);
+      const R=F.versionAt(sourceRegistry,'ordinaryLoanCurrent',check.date)?.values||KB.ruleAuthority.rules.ordinaryLoanCurrent;
+      if(!R?.primaryEvidenceVerified||!R.maxAmountBaht||!Array.isArray(R.guarantorBands)||!R.guarantorBands.length)
+        return res('ordinary_loan_amount_guarantors','ยังยืนยันวงเงินและจำนวนผู้ค้ำจากหลักเกณฑ์ฉบับที่ใช้ไม่ได้ โปรดตรวจต้นฉบับกับฝ่ายสินเชื่อ',{decision:'EVIDENCE_LOCK',actions:[['หลักเกณฑ์เงินกู้สามัญ',S.procedure]],sources:[src('หลักเกณฑ์เงินกู้สามัญ',S.procedure)]});
+      const money=n=>Number(n).toLocaleString('th-TH');
+      const bands=R.guarantorBands.map(b=>'วงเงิน '+(b.min?money(b.min)+'–':'ไม่เกิน ')+(b.max?money(b.max):'ขึ้นไป')+' บาท: ผู้ค้ำอย่างน้อย '+b.minGuarantors+' คน');
+      return res('ordinary_loan_amount_guarantors','เงินกู้สามัญตามหลักเกณฑ์มีเพดานไม่เกิน '+money(R.maxAmountBaht)+' บาท (ไม่ใช่วงเงินอนุมัติเฉพาะราย) กรณีใช้บุคคลค้ำประกัน จำนวนผู้ค้ำแยกตามวงเงินดังนี้:\n'+bands.join('\n'),{domain:'ordinaryLoanCurrent',decision:'RULE_INFORMATION',details:['วงเงินที่กู้ได้จริงยังขึ้นกับคุณสมบัติ ทุนเรือนหุ้น รายได้คงเหลือ ภาระหนี้ และการพิจารณาของสหกรณ์','เกณฑ์การส่งหุ้นและทุนเรือนหุ้นสำหรับแต่ละช่วงวงเงินต้องตรวจร่วมกับประกาศฉบับที่มีผล'],actions:[['ประกาศหลักเกณฑ์เงินกู้สามัญ',R.source],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src(R.primaryEvidenceTitle||'หลักเกณฑ์เงินกู้สามัญ',R.source)]});
+    }
     // T11/T27: being someone else's guarantor is not the same as seeking a guarantor.
     if(/(?:ค้ำให้|ค้ำอยู่|ค้ำประกันให้|เป็นผู้ค้ำ(?:ประกัน)?)/.test(q)&&/(?:หลายคน|หลายสัญญา|หลายราย|คนอื่น|เพื่อน|\d+\\s*(?:คน|สัญญา))/.test(q)&&/(?:กู้เอง|ขอกู้เอง|กู้เพิ่ม|ขอกู้|กู้ได้|กู้เงินเอง)/.test(q))
       return res('guarantor_own_borrowing_review','การค้ำประกันเงินกู้ให้ผู้อื่นกับการขอกู้เงินของตนเองเป็นคนละประเด็นครับ จำนวนสัญญาที่ค้ำอยู่เพียงอย่างเดียวใช้ยืนยันหรือปฏิเสธสิทธิกู้เองไม่ได้ ต้องให้ฝ่ายสินเชื่อตรวจประเภทเงินกู้ที่จะขอ ภาระค้ำประกันและความสามารถชำระหนี้ตามหลักเกณฑ์ฉบับที่มีผล ขณะนี้ยังไม่วินิจฉัยสิทธิเฉพาะราย ขอทราบก่อนว่าต้องการกู้เงินประเภทใดครับ',{decision:'EVIDENCE_LOCK',requiredFact:'loanProduct',actions:[['ตรวจหลักเกณฑ์เงินกู้ทางการ',S.procedure],['ฝ่ายสินเชื่อตรวจภาระค้ำและสิทธิ',S.contact]],sources:[src('หลักเกณฑ์เงินกู้ทางการ',S.procedure)],evidenceLocks:['individual_guarantee_obligations','loan_product_rules']});
@@ -3447,12 +3464,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
           r.actions.unshift(['📣 ประกาศซื้อหุ้นเพิ่ม ครั้งที่ 2 (เอกสารรอบเดิม)',purchaseUrl]);
           r.sources=[src('ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7',regUrl,'หน้า 2: คณะกรรมการอาจเปิดซื้อเพิ่มเป็นครั้งคราวโดยประกาศ'),src('ประกาศเปิดให้สมาชิกซื้อหุ้นเพิ่ม ครั้งที่ 2',purchaseUrl,'ประกาศ 31 กรกฎาคม 2569; หน้า 1; ยังไม่ยืนยันช่วงเปิดรับปัจจุบัน')];
           r.details=[...(r.details||[]),'พบประกาศซื้อหุ้นเพิ่ม ครั้งที่ 2 ลงวันที่ 31 กรกฎาคม 2569 พร้อมแบบคำขอซื้อหุ้นเพิ่มและแบบแสดงตน แต่ยังขาดประกาศเดิมที่ระบุช่วงรับซื้อและการตรวจประกาศเปลี่ยนแปลงล่าสุด จึงยังไม่ยืนยันว่าวันนี้เปิดรับหรือใช้เพดานใด','แบบซื้อหุ้นเพิ่มเป็นคนละแบบกับแบบเปลี่ยนค่าหุ้นรายเดือน อย่าใช้แบบรายเดือนแทนคำขอซื้อครั้งเดียว'];
-          r.answer='การซื้อหุ้นเพิ่มเติมเป็นครั้งคราวปิดรับแล้ว ตามข้อมูลที่ได้รับ ณ 12 ตุลาคม 2569 ครับ ให้รอประกาศเปิดรับรอบใหม่ก่อนดำเนินการ ส่วนการเพิ่มค่าหุ้นรายเดือนเป็นคนละรายการ ยังยื่นคำขอได้ตามเงื่อนไขระเบียบหุ้นและต้องได้รับความเห็นชอบก่อน';
-          r.details.push('หากต้องการตรวจสอบสถานะประกาศหรือสอบถามการซื้อหุ้นเพิ่มเติม ติดต่อเจ้าหน้าที่งานทะเบียน โทร 083-929-2739 โดยยังไม่ต้องโอนเงินหรือยื่นแบบซื้อหุ้นเพิ่มของรอบเดิม');
-          r.details=['ขั้นตอนขณะปิดรับ: 1) ยังไม่ยื่นคำขอซื้อหุ้นเพิ่มครั้งเดียวหรือโอนเงินตามประกาศรอบเดิม 2) ติดตามประกาศเปิดรับรอบใหม่ 3) หากมีประกาศใหม่ ให้ตรวจช่วงเวลา คุณสมบัติ แบบคำขอ และช่องทางชำระก่อนดำเนินการ จบกระบวนการเมื่อสหกรณ์ยืนยันรับคำขอและบันทึกหุ้นตามรอบที่เปิดรับจริง','สถานะปิดรับเป็นข้อมูลที่ผู้ดูแลโครงการแจ้งเมื่อ 12 ตุลาคม 2569 ยังไม่ได้ตรวจยืนยันประกาศปิดรับต้นฉบับ จึงไม่ระบุวันที่ปิดหรือวันที่เปิดรอบใหม่','ประกาศซื้อหุ้นเพิ่ม ครั้งที่ 2 ลงวันที่ 31 กรกฎาคม 2569 และแบบคำขอที่แนบเป็นเอกสารรอบเดิม ไม่ใช่หลักฐานว่าขณะนี้เปิดรับ','การเพิ่มค่าหุ้นรายเดือนใช้แบบคำขอเปลี่ยนค่าหุ้นรายเดือน อัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือนและต้องได้รับความเห็นชอบจากคณะกรรมการ ไม่ใช่การซื้อเพิ่มครั้งเดียว'];
+          // T15: administrator report is historical context, not verified current availability.
+          r.answer='ยังยืนยันไม่ได้ว่าขณะนี้เปิดหรือปิดรับซื้อหุ้นเพิ่มเป็นครั้งคราวครับ ข้อมูลผู้ดูแลเมื่อ 12 ตุลาคม 2569 ระบุว่าปิดรับ แต่ยังไม่มีประกาศปิดรับต้นฉบับและผลตรวจประกาศล่าสุดครบถ้วน จึงต้องยืนยันรอบปัจจุบันกับสหกรณ์ก่อน อย่าโอนเงินหรือใช้แบบจากประกาศรอบเดิม';
+          r.details=['ขั้นตอนเมื่อสถานะปัจจุบันยังไม่ยืนยัน: 1) ห้ามโอนเงินตามประกาศรอบเดิม 2) ตรวจประกาศล่าสุดหรือสอบถามงานทะเบียน 3) ยื่นแบบและชำระเงินเฉพาะเมื่อมีประกาศรอบใหม่ที่ยืนยันแล้ว จบกระบวนการเมื่อสหกรณ์ตรวจรับและบันทึกรายการตามรอบที่เปิดรับจริง','ประกาศซื้อหุ้นเพิ่มครั้งที่ 2 ลงวันที่ 31 กรกฎาคม 2569 เป็นเอกสารรอบเดิม ไม่ใช่หลักฐานสถานะวันนี้','หากมีประกาศรอบใหม่ต้องตรวจวันประกาศ วันมีผล คุณสมบัติ แบบคำขอและช่องทางชำระเงินจากต้นฉบับ','การเพิ่มค่าหุ้นรายเดือนเป็นคนละรายการ ใช้แบบคำขอเปลี่ยนค่าหุ้นรายเดือนและต้องได้รับความเห็นชอบ'];
           if(!r.actions.some(([,url])=>/^tel:|#staff-directory/.test(url)))r.actions.push(['☎️ งานทะเบียน 083-929-2739','tel:0839292739']);
-          r.availability={state:'CLOSED',asOf:'2026-10-12',provenance:'USER_REPORTED',officiallyVerified:false};
-          r.decision='EVIDENCE_LOCK';r.status='ข้อมูลรายรอบ — ปิดรับ (ข้อมูลที่ได้รับ 12 ต.ค. 2569)';r.evidenceLocks=['current_purchase_window','current_purchase_limit'];
+          r.availability={state:'EVIDENCE_PENDING',asOf:'2026-10-12',provenance:'USER_REPORTED',officiallyVerified:false};
+          r.decision='EVIDENCE_LOCK';r.status='ข้อมูลรายรอบ — EVIDENCE PENDING สถานะรับซื้อหุ้นเพิ่มยังไม่ยืนยัน';r.evidenceLocks=['current_purchase_window','current_purchase_limit','current_official_closure_notice'];
         }
         if(r.intent==='share_refund'){
           const baseUrl='https://drive.google.com/file/d/1UVoCHBoB4ybnJjHzgCc7aTy6aiAzRfki/view';
