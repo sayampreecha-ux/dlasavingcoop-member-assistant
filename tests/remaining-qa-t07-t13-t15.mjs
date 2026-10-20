@@ -4,6 +4,8 @@ const app=loadMemberEngine();
 const full=t=>[t.result.answer,...(t.result.details||[])].join('\\n');
 const first=app.conversationTurn('กู้สามัญได้เท่าไหร่ ค้ำกี่คน');
 assert.equal(first.result.intent,'ordinary_loan_amount_guarantors');
+assert.equal(first.result.domain,'ordinaryLoanCurrent');
+assert.equal(app.answer(app.contextualize('วงเงินเท่านี้ต้องค้ำกี่คน','ordinaryLoanCurrent')).domain,'ordinaryLoanCurrent');
 assert.match(full(first),/2,000,000/);
 assert.match(full(first),/500,000/);
 assert.match(full(first),/ผู้ค้ำ/);
