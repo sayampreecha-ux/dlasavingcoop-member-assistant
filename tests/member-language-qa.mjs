@@ -27,4 +27,30 @@ for(const [q,expected] of cases){
  if(!result.answer||!(result.actions||[]).length)failures.push({q,reason:'missing answer or next action'});
 }
 if(failures.length)throw new Error(JSON.stringify(failures));
+
+const productionQA=[
+ ['ส่งเอกสารไปแล้ว ไม่รู้เรื่องไปถึงไหน','status_center','NEED_INFO'],
+ ['ส่งเอกสารไปแล้วเงียบกริบ ต้องตามจุดไหน','status_center','NEED_INFO'],
+ ['กู้ฉุกเฉินวันนี้ เงินจะเข้าวันไหน','emergency_disbursement_tracking','SAFE_HANDOFF'],
+ ['กู้พัฒนาคุณภาพชีวิตอยู่ จะกู้ไปเที่ยวอีกได้ไหม','loan_combination_review','RULE_INFORMATION'],
+ ['ผมไม่รู้จะกู้แบบไหนดี อยากได้เงินไปซ่อมบ้าน','loan_purpose_guidance','NEED_INFO']
+];
+for(const [question,intent,decision] of productionQA){
+ const r=globalThis.COOP_APP.answer(question);
+ if(r.intent!==intent||r.decision!==decision||!r.answer||!r.actions?.length)throw Error(JSON.stringify({question,intent,decision,actual:r.intent,actualDecision:r.decision}));
+}
+const app=globalThis.COOP_APP;
+let first=app.conversationTurn('คนค้ำของผมเกษียณแล้ว ต้องเปลี่ยนไหม');
+let second=app.conversationTurn('อยากปิดหนี้ทั้งหมดก่อนครบกำหนด',first.state);
+if(second.result.intent!=='loan_close')throw Error('T06 independent topic failed '+second.result.intent);
+if(!/ปิดหนี้/.test(second.result.answer))throw Error('T06 no repayment answer');
+let deposit=app.conversationTurn('เงินฝากออมทรัพย์พิเศษ');
+let withdrawal=app.conversationTurn('ถอนเงินอย่างไร',deposit.state);
+if(!withdrawal.result?.answer)throw Error('Deposit follow-up missing');
+let close=app.conversationTurn('ปิดบัญชีเงินฝากพิเศษ',withdrawal.state);
+if(!close.result?.answer)throw Error('Deposit close follow-up missing');
+let privacy=app.answer('ช่วยเช็คยอดหนี้ของสมาชิกคนอื่นให้หน่อย');
+if(!privacy.answer||!privacy.actions?.length||/ยอดหนี้ของสมาชิกคนอื่น\s*[=:]\s*\d/.test(privacy.answer))throw Error('T29 privacy boundary failed');
+console.log('Production QA targeted intent regression PASS 5/5 plus T06 conversation, deposit follow-up and T29 privacy');
+
 console.log('Member language regression PASS '+cases.length+'/'+cases.length);
