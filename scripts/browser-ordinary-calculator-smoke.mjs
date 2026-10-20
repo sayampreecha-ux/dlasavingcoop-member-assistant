@@ -13,6 +13,27 @@ const note='คำนวณประมาณการผ่านระบบ�
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 let assertions=0;
 const check=(id,expected,actual)=>{assert.deepEqual(actual,expected);assertions++;console.log(JSON.stringify({id,expected,actual,status:'PASS'}));};
+const openCalculatorPopup=async(page,link,width,entry)=>{
+ const seen={pagesBefore:page.context().pages().length,requestsFailed:[],responses:[],popups:[]};
+ const requestFailed=request=>{if(request.url().startsWith('https://script.google.com/'))seen.requestsFailed.push({url:request.url(),error:request.failure()?.errorText||'unknown'});};
+ const response=response=>{if(response.url().startsWith('https://script.google.com/'))seen.responses.push({url:response.url(),status:response.status()});};
+ const popup=opened=>seen.popups.push(opened.url());
+ page.context().on('requestfailed',requestFailed);
+ page.context().on('response',response);
+ page.on('popup',popup);
+ try{
+  const popupPromise=page.waitForEvent('popup',{timeout:30000});
+  await link.click();
+  return await popupPromise;
+ }catch(error){
+  console.error('CALCULATOR_POPUP_DIAGNOSTIC',JSON.stringify({width,entry,url:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),linkVisible:await link.isVisible(),pagesAfter:page.context().pages().map(p=>p.url()),...seen,error:String(error)}));
+  throw error;
+ }finally{
+  page.context().off('requestfailed',requestFailed);
+  page.context().off('response',response);
+  page.off('popup',popup);
+ }
+};
 try{for(const width of [390,1365]){
  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];
  page.on('pageerror',e=>errors.push(String(e)));
@@ -38,7 +59,7 @@ try{for(const width of [390,1365]){
  check(width+' disclaimer',note,await page.locator('#out [data-ordinary-loan-calculator-note]').innerText());
  const bounds=await link.boundingBox();check(width+' fits viewport',true,bounds.x>=0&&bounds.x+bounds.width<=width+1);
  const before=await page.locator('#out').innerText(),history=await page.locator('#readingHistory').innerText();
- const popupPromise=page.waitForEvent('popup');await link.click();const popup=await popupPromise;
+ const popup=await openCalculatorPopup(page,link,width,'ordinary-menu');
  await popup.waitForURL(url,{waitUntil:'commit',timeout:60000});
  check(width+' click opens expected URL',url,popup.url());
  await popup.close();await page.bringToFront();
@@ -61,7 +82,7 @@ try{for(const width of [390,1365]){
  const entryBounds=await entry.boundingBox();check(width+' assessment fits viewport',true,entryBounds.x>=0&&entryBounds.x+entryBounds.width<=width+1);
  check(width+' assessment disclaimer',note,await page.locator('#out [data-ordinary-loan-calculator-note]').innerText());
  const entryBefore=await page.locator('#out').innerText(),entryHistory=await page.locator('#readingHistory').innerText();
- const entryPopupPromise=page.waitForEvent('popup');await entry.click();const entryPopup=await entryPopupPromise;
+ const entryPopup=await openCalculatorPopup(page,entry,width,'homepage-assessment');
  await entryPopup.waitForURL(url,{waitUntil:'commit',timeout:60000});check(width+' assessment opens official calculator',url,entryPopup.url());
  await entryPopup.close();await page.bringToFront();check(width+' assessment conversation preserved',entryBefore,await page.locator('#out').innerText());check(width+' assessment history preserved',entryHistory,await page.locator('#readingHistory').innerText());
  for(const query of ['คำนวณกู้สามัญ','คำนวนกู้สามัญ','ทดลองคำนวณเงินกู้สามัญ']){
