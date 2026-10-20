@@ -3208,7 +3208,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return res('loan_close','หากต้องการปิดหนี้ก่อนกำหนด ให้ขอยอดปิดบัญชี ณ วันที่จะชำระและวิธีชำระจากสหกรณ์ก่อนครับ AI ไม่สามารถยืนยันยอดเฉพาะรายได้ เมื่อชำระแล้วให้ขอหลักฐานการปิดสัญญาและตรวจสถานะในระบบสมาชิก',{decision:'PROCEDURE_INFORMATION',actions:[['ตรวจข้อมูลสมาชิกด้วยตนเอง',S.memberPortal],['ติดต่อสหกรณ์',S.contact]],sources:[src('ระบบสมาชิก',S.memberPortal)]});
     if(/(?:ติดตาม|เช็ค|ตรวจสอบ|ตามเรื่อง)/.test(q)&&/(?:เอกสาร|คำขอ|เรื่องที่ส่ง|ส่งแล้ว)/.test(q))
       return res('status_center','ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์',{decision:'NEED_INFO',requiredFact:'documentTopic',actions:[['ติดต่อสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
-    if(/(?:เปลี่ยน|สลับ|ขอเปลี่ยน)/.test(q)&&/(?:ผู้ค้ำ|คนค้ำ|ผู้ค้ำประกัน)/.test(q))
+    if(/(?:เปลี่ยน|สลับ|ขอเปลี่ยน)/.test(q)&&/(?:ผู้ค้ำ|คนค้ำ|ผู้ค้ำประกัน)/.test(q)&&!/เกษียณ|เกษียร|เกษียน/.test(q))
       return res('loan_change_guarantor','การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำขอและเอกสารที่ต้องใช้',{decision:'NEED_INFO',requiredFact:'loanProduct',actions:[['หลักเกณฑ์เงินกู้',S.procedure],['ติดต่อสหกรณ์',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
     const scenario=loanScenario(q);if(scenario)return scenario;
     if(F.debtLoanProduct(q))return debtLoanAnswer(q);
