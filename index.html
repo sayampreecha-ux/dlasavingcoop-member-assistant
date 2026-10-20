@@ -2868,6 +2868,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   function contextualize(q,previousTopic){
     q=norm(q);
+    // A clearly independent repayment request must not inherit the prior guarantor/loan topic.
+    if(/(?:ปิดหนี้|ปิดยอดหนี้|ปิดสัญญา|ชำระหนี้ทั้งหมด|ชำระหนี้.*หมด|ปิดหนี้ทั้งหมด)/.test(q)&&/(?:ก่อนครบกำหนด|ก่อนกำหนด|ทั้งหมด|ทำอย่างไร|ต้องทำ)/.test(q))return q;
     if(!previousTopic) return q;
     if(previousTopic==='scholarship'&&!loanProduct(q)&&!questionDomain(q)&&/เอกสาร|หลักฐาน|ขั้นตอน|สมัคร|คุณสมบัติ|ได้เท่า|กี่บาท|กี่ทุน|กี่คน|กี่ประเภท|ใครขอ|รับสมัคร|ยื่น|หมดเขต|ประกาศผล|คะแนน/.test(q))return 'ทุนการศึกษาบุตร '+q;
     if(previousTopic==='leisureLoanCurrent'&&!isLeisureLoan(q)&&!loanProduct(q)&&/เอกสาร|หลักฐาน|ค้ำ|หลักประกัน|วงเงิน|งวด|ดอกเบี้ย|คุณสมบัติ|เงื่อนไข|สิ้นสุด|หมดเขต|ยื่น|เฉลี่ยคืน/.test(q)&&!/สวัสดิการ|เงินฝาก|สมัครสมาชิก|ลาออก|ฌาปนกิจ|ปันผล/.test(q))return 'กู้เพื่อการพักผ่อน '+q;
@@ -3198,6 +3200,20 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // Production QA: scoped member intent recognition; never infer personal status or unverified transfer dates.
+    if(/(?:กู้ฉุกเฉิน|เงินกู้ฉุกเฉิน)/.test(q)&&/(?:เงิน.*เข้า|โอนเงิน|ได้รับเงิน)/.test(q)&&/(?:วันไหน|เมื่อไร|เมื่อไหร่|วันนี้|กี่วัน)/.test(q))
+      return res('emergency_disbursement_tracking','ยังยืนยันวันโอนเงินกู้ฉุกเฉินของท่านไม่ได้ครับ ต้องทราบผลพิจารณาและรอบจ่ายจริงจากสหกรณ์ กรุณาตรวจสถานะในระบบสมาชิกหรือติดต่อฝ่ายเงินกู้ฉุกเฉิน ไม่ส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต',{decision:'SAFE_HANDOFF',actions:[['ระบบสมาชิกทางการ',S.memberPortal],['ติดต่อฝ่ายเงินกู้',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+    if(/(?:ส่ง|ยื่น)(?:เอกสาร|คำขอ)/.test(q)&&/(?:ไปแล้ว|แล้ว|ไปละ)/.test(q)&&/(?:ไม่รู้|เงียบ|ไม่ตอบ|ไม่มีข่าว|ไปถึงไหน|ถึงไหน|ตามจุดไหน|ตามที่ไหน|ยังไง|อย่างไร)/.test(q))
+      return res('status_center','ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบก่อนว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ เพื่อแนะนำฝ่ายรับผิดชอบและขั้นตอนตรวจรับเอกสาร ระบบนี้ไม่เชื่อมทะเบียนรับเอกสาร จึงไม่สามารถยืนยันสถานะเฉพาะราย ไม่ต้องส่งข้อมูลสมาชิกหรือเอกสารส่วนตัวในแชต',{decision:'NEED_INFO',requiredFact:'documentTopic',actions:[['ติดต่อสหกรณ์เพื่อตรวจรับเอกสาร',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+    if(/(?:กู้พัฒนาคุณภาพชีวิต|กู้รวมหนี้|เงินกู้พัฒนาคุณภาพชีวิต)/.test(q)&&/(?:กู้.*(?:เที่ยว|พักผ่อน|ท่องเที่ยว)|พักผ่อน.*กู้|เที่ยว.*กู้)/.test(q)&&/(?:อยู่|มีหนี้|มีสัญญา|กู้อยู่)/.test(q)){
+      const R=KB.ruleAuthority.rules.qualityOfLifeCurrent,check=freshnessStatus(q);
+      if(!check.allowed)return F.lock(check,sourceRegistry);
+      if(R?.primaryEvidenceVerified&&R.allowedOtherLoanTypesAfterApproval?.length===1&&R.allowedOtherLoanTypesAfterApproval[0]==='emergency')
+        return res('loan_combination_review','คำถามนี้ต้องตรวจเงื่อนไขหนี้เดิมด้วยครับ ตามหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต พ.ศ.2569 หลังอนุมัติเงินกู้ประเภทนี้แล้ว ระบุให้กู้ประเภทอื่นได้เฉพาะเงินกู้ฉุกเฉิน ดังนั้นเงินกู้เพื่อการพักผ่อนไม่อยู่ในข้อยกเว้นที่ระบุ แต่ยังต้องให้ฝ่ายสินเชื่อตรวจสถานะสัญญาและประกาศที่ใช้กับท่านจริง ไม่ใช่ผลวินิจฉัยสิทธิรายบุคคล',{decision:'RULE_INFORMATION',actions:[['หลักเกณฑ์พัฒนาคุณภาพชีวิต พ.ศ.2569',R.source],['ฝ่ายสินเชื่อตรวจสัญญาจริง',S.contact]],sources:[src('หลักเกณฑ์พัฒนาคุณภาพชีวิต พ.ศ.2569',R.source)],evidenceLocks:['individual_contract_review']});
+      return res('loan_combination_review','ยังยืนยันเงื่อนไขการกู้พักผ่อนควบคู่เงินกู้พัฒนาคุณภาพชีวิตไม่ได้ กรุณาให้ฝ่ายสินเชื่อตรวจประกาศฉบับที่ใช้และสัญญาปัจจุบันก่อนสรุปสิทธิ',{decision:'EVIDENCE_LOCK',actions:[['ตรวจหลักเกณฑ์ทางการ',S.procedure],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src('หลักเกณฑ์สหกรณ์',S.procedure)]});
+    }
+    if(/(?:ไม่รู้จะกู้|ไม่ทราบจะกู้|กู้แบบไหนดี|กู้ประเภทไหนดี)/.test(q)&&/(?:ซ่อมบ้าน|ซ่อมแซมบ้าน|ปรับปรุงบ้าน)/.test(q))
+      return res('loan_purpose_guidance','รับทราบวัตถุประสงค์ว่าต้องการเงินซ่อมบ้านครับ ควรเริ่มตรวจหลักเกณฑ์เงินกู้ที่เกี่ยวกับการเคหะและวัตถุประสงค์ซ่อมแซมก่อน ยังไม่ยืนยันว่าซ่อมบ้านทุกลักษณะเข้าเกณฑ์หรือได้รับอนุมัติ ขอทราบก่อนว่าบ้านที่จะซ่อมเป็นบ้านที่ท่านถือกรรมสิทธิ์เองหรือไม่ครับ',{decision:'NEED_INFO',requiredFact:'houseOwnership',actions:[['ตรวจหลักเกณฑ์เงินกู้เพื่อการเคหะ',S.loanSpecialHousingAnnouncement],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src('หลักเกณฑ์เงินกู้เพื่อการเคหะ',S.loanSpecialHousingAnnouncement)]});
     // Member-language intent guard: procedural requests are not personal balance lookups.
     // No individual eligibility or current financial rules are inferred here.
     if(/(?:พักหนี้|พักชำระหนี้|ขอพักชำระ)/.test(q)&&/(?:น้ำท่วม|อุทกภัย|ภัยพิบัติ)/.test(q))
