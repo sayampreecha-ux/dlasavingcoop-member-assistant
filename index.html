@@ -3198,6 +3198,18 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    // Member-language intent guard: procedural requests are not personal balance lookups.
+    // No individual eligibility or current financial rules are inferred here.
+    if(/(?:พักหนี้|พักชำระหนี้|ขอพักชำระ)/.test(q)&&/(?:น้ำท่วม|อุทกภัย|ภัยพิบัติ)/.test(q))
+      return res('debt_help','หากต้องการพักชำระหนี้เพราะน้ำท่วม ต้องตรวจว่ามีมาตรการหรือประกาศที่ใช้กับสัญญาของท่านหรือไม่ครับ ยังไม่ยืนยันว่ามีโครงการเปิดรับอยู่ ให้ตรวจประกาศล่าสุดและติดต่อฝ่ายสินเชื่อเพื่อสอบถามขั้นตอนหรือแบบคำขอ',{decision:'EVIDENCE_LOCK',actions:[['ตรวจประกาศล่าสุด',S.notices],['ติดต่อสหกรณ์',S.contact]],sources:[src('ประกาศสหกรณ์',S.notices)]});
+    if(/(?:โปะ|ชำระเพิ่ม|จ่ายเพิ่ม|ส่งเพิ่ม|ชำระคืน.*บางส่วน|คืนเงินต้นบางส่วน)/.test(q)&&/(?:หนี้|เงินต้น|เงินกู้|ยอดกู้)/.test(q))
+      return res('loan_close','การชำระเงินต้นบางส่วนก่อนกำหนดต้องตรวจยอดและวิธีรับชำระที่สหกรณ์กำหนดครับ ให้ติดต่อฝ่ายเงินกู้เพื่อขอยอดและวิธีชำระที่ถูกต้อง แล้วเก็บหลักฐานและตรวจยอดหลังชำระ ไม่ควรโอนเงินจากเลขบัญชีในแชตโดยไม่ยืนยันกับสหกรณ์',{decision:'PROCEDURE_INFORMATION',actions:[['ติดต่อสหกรณ์',S.contact],['ตรวจข้อมูลสมาชิกด้วยตนเอง',S.memberPortal]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+    if(/(?:ปิดยอด|ปิดหนี้|ปิดสัญญา|ชำระหมด|จ่ายหมด)/.test(q)&&/(?:หนี้|กู้|เงินต้น|ยอด)/.test(q)&&/(?:ขั้นตอน|ทำอย่างไร|ทำยังไง|ก่อนกำหนด|ต้องทำ)/.test(q))
+      return res('loan_close','หากต้องการปิดหนี้ก่อนกำหนด ให้ขอยอดปิดบัญชี ณ วันที่จะชำระและวิธีชำระจากสหกรณ์ก่อนครับ AI ไม่สามารถยืนยันยอดเฉพาะรายได้ เมื่อชำระแล้วให้ขอหลักฐานการปิดสัญญาและตรวจสถานะในระบบสมาชิก',{decision:'PROCEDURE_INFORMATION',actions:[['ตรวจข้อมูลสมาชิกด้วยตนเอง',S.memberPortal],['ติดต่อสหกรณ์',S.contact]],sources:[src('ระบบสมาชิก',S.memberPortal)]});
+    if(/(?:ติดตาม|เช็ค|ตรวจสอบ|ตามเรื่อง)/.test(q)&&/(?:เอกสาร|คำขอ|เรื่องที่ส่ง|ส่งแล้ว)/.test(q))
+      return res('status_center','ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์',{decision:'NEED_INFO',requiredFact:'documentTopic',actions:[['ติดต่อสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+    if(/(?:เปลี่ยน|สลับ|ขอเปลี่ยน)/.test(q)&&/(?:ผู้ค้ำ|คนค้ำ|ผู้ค้ำประกัน)/.test(q))
+      return res('loan_change_guarantor','การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำขอและเอกสารที่ต้องใช้',{decision:'NEED_INFO',requiredFact:'loanProduct',actions:[['หลักเกณฑ์เงินกู้',S.procedure],['ติดต่อสหกรณ์',S.contact]],sources:[src('หลักเกณฑ์ทางการ',S.procedure)]});
     const scenario=loanScenario(q);if(scenario)return scenario;
     if(F.debtLoanProduct(q))return debtLoanAnswer(q);
     // Emergency-loan 2569 clauses 9-11: verified governance boundaries, not individual approval.
