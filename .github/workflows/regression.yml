@@ -28,6 +28,8 @@ jobs:
         run: node tests/privacy-adversarial-10.mjs
       - name: Member answer engine
         run: node tests/e2e-member-answer-engine.mjs
+      - name: Remaining QA T07 T13 T15 behavioral gate
+        run: node tests/remaining-qa-t07-t13-t15.mjs
       - name: Real member simulation
         run: node tests/real-member-simulation.mjs
       - name: Validate cooperative coverage gate
