@@ -254,7 +254,11 @@ function unique(items){
   const map=new Map();
   for(const x of items){
     const key=x.url.replace(/^https:\/\/(www\.)?/,'https://');
-    if(!map.has(key)||x.score>map.get(key).score) map.set(key,x);
+    const previous=map.get(key);
+    // The homepage often omits publication timestamps; retain the dated official-list record.
+    const dated=x.publishedAt && Number.isFinite(Date.parse(x.publishedAt));
+    const previousDated=previous?.publishedAt && Number.isFinite(Date.parse(previous.publishedAt));
+    if(!previous || (dated && !previousDated) || (Boolean(dated)===Boolean(previousDated) && x.score>previous.score)) map.set(key,x);
   }
   return [...map.values()];
 }
