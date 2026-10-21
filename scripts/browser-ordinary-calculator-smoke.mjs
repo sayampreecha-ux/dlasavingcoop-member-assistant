@@ -15,40 +15,52 @@ let assertions=0;
 const check=(id,expected,actual)=>{assert.deepEqual(actual,expected);assertions++;console.log(JSON.stringify({id,expected,actual,status:'PASS'}));};
 const evidenceDir=process.env.CALCULATOR_EVIDENCE_DIR;
 const openCalculatorPopup=async(page,link,width,entry)=>{
- const seen={pagesBefore:page.context().pages().length,events:[]};
- const record=(type,detail)=>seen.events.push({at:new Date().toISOString(),type,...detail});
- const requestFailed=request=>{if(/script\\.google\\.com|googleusercontent\\.com/.test(request.url()))record('requestfailed',{url:request.url(),error:request.failure()?.errorText||'unknown'});};
- const response=response=>{if(/script\\.google\\.com|googleusercontent\\.com/.test(response.url()))record('response',{url:response.url(),status:response.status()});};
- const popup=opened=>record('page.popup',{url:opened.url()});
- const contextPage=opened=>record('context.page',{url:opened.url()});
- const navigation=frame=>record('framenavigated',{url:frame.url()});
- page.context().on('requestfailed',requestFailed);
- page.context().on('response',response);
- page.context().on('page',contextPage);
+ const ctx=page.context(),seen={pagesBefore:ctx.pages().length,events:[]},children=new Set();
+ const record=(type,detail={})=>seen.events.push({at:new Date().toISOString(),elapsedMs:Date.now()-started,type,...detail});
+ const started=Date.now();
+ const external=u=>/https:\/\/(?:script\.google\.com|[^/]*googleusercontent\.com)\//.test(u);
+ const requestFailed=request=>{if(external(request.url()))record('requestfailed',{url:request.url(),error:request.failure()?.errorText||'unknown'});};
+ const response=response=>{if(external(response.url()))record('response',{url:response.url(),status:response.status(),redirectFrom:response.request().redirectedFrom()?.url()||null});};
+ const attachChild=opened=>{
+  if(children.has(opened))return;
+  children.add(opened);
+  record('context.page',{url:opened.url(),openerKnown:!opened.isClosed()});
+  opened.on('framenavigated',frame=>{if(frame===opened.mainFrame())record('popup.framenavigated',{url:frame.url()});});
+  opened.on('requestfailed',requestFailed);
+  opened.on('response',response);
+  opened.on('close',()=>record('popup.closed'));
+ };
+ const popup=opened=>{record('page.popup',{url:opened.url()});attachChild(opened);};
+ const contextPage=opened=>attachChild(opened);
+ const navigation=frame=>{if(frame===page.mainFrame())record('origin.framenavigated',{url:frame.url()});};
+ ctx.on('requestfailed',requestFailed);
+ ctx.on('response',response);
+ ctx.on('page',contextPage);
  page.on('popup',popup);
  page.on('framenavigated',navigation);
  let traceStarted=false;
  try{
-  if(evidenceDir){await page.context().tracing.start({screenshots:true,snapshots:true,sources:false});traceStarted=true;}
+  if(evidenceDir){await ctx.tracing.start({screenshots:true,snapshots:true,sources:false});traceStarted=true;}
   record('click.start',{entry,width});
   const popupPromise=page.waitForEvent('popup',{timeout:30000});
   await link.click();
-  record('click.done',{});
+  record('click.done');
   const opened=await popupPromise;
   record('popup.received',{url:opened.url()});
   return opened;
  }catch(error){
-  const diagnostic={width,entry,pageUrl:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),rel:await link.getAttribute('rel'),linkVisible:await link.isVisible(),pagesAfter:page.context().pages().map(p=>p.url()),...seen,error:String(error)};
+  const diagnostic={width,entry,pageUrl:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),rel:await link.getAttribute('rel'),linkVisible:await link.isVisible(),pagesAfter:ctx.pages().map(p=>p.url()),...seen,error:String(error)};
   console.error('CALCULATOR_POPUP_DIAGNOSTIC',JSON.stringify(diagnostic));
-  if(evidenceDir){fs.mkdirSync(evidenceDir,{recursive:true});const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));await page.screenshot({path:prefix+'.png',fullPage:true}).catch(e=>console.error('SCREENSHOT_ERROR',String(e)));if(traceStarted){await page.context().tracing.stop({path:prefix+'.zip'}).catch(e=>console.error('TRACE_ERROR',String(e)));traceStarted=false;}}
+  if(evidenceDir){fs.mkdirSync(evidenceDir,{recursive:true});const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));await page.screenshot({path:prefix+'.png',fullPage:true}).catch(e=>console.error('SCREENSHOT_ERROR',String(e)));if(traceStarted){await ctx.tracing.stop({path:prefix+'.zip'}).catch(e=>console.error('TRACE_ERROR',String(e)));traceStarted=false;}}
   throw error;
  }finally{
-  if(traceStarted)await page.context().tracing.stop().catch(()=>{});
-  page.context().off('requestfailed',requestFailed);
-  page.context().off('response',response);
-  page.context().off('page',contextPage);
+  if(traceStarted)await ctx.tracing.stop().catch(()=>{});
+  ctx.off('requestfailed',requestFailed);
+  ctx.off('response',response);
+  ctx.off('page',contextPage);
   page.off('popup',popup);
   page.off('framenavigated',navigation);
+  for(const opened of children){opened.off('requestfailed',requestFailed);opened.off('response',response);}
  }
 };
 try{for(const width of [390,1365]){
