@@ -206,6 +206,21 @@ async function fetchFacebookGraphPosts(){
 
 function anchors(html,base,source){
   const out=[];
+  // On the official notice index, publication metadata belongs to its own table row.
+  // Match whole rows first rather than assuming the date sits within 800 chars of </a>.
+  if(source==='official-notice'){
+    const rows=html.match(/<tr\\b[^>]*>[\\s\\S]*?<\\/tr>/gi)||[];
+    for(const row of rows){
+      const link=row.match(/<a\\b[^>]*href=["']([^"']+)["'][^>]*>([\\s\\S]*?)<\\/a>/i);
+      if(!link)continue;
+      const url=resolveUrl(link[1],base),title=decode(link[2]);
+      if(!url||!directOfficialDetail(url)||title.length<6)continue;
+      const dateMatch=decode(row).match(/\\b(20\\d{2}-\\d{2}-\\d{2})\\s+(\\d{2}:\\d{2}:\\d{2})\\b/);
+      const publishedAt=dateMatch?new Date(dateMatch[1]+'T'+dateMatch[2]+'+07:00').toISOString():null;
+      out.push({id:idFrom(url,title),title,url,score:scoreTitle(title),source,publishedAt});
+    }
+    if(out.length)return out;
+  }
   const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   let m;
   while((m=re.exec(html))){
