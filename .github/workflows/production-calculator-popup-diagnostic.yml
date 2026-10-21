@@ -1,5 +1,9 @@
 name: Production calculator popup diagnostics (read-only)
 on:
+  pull_request:
+    paths:
+      - '.github/workflows/production-calculator-popup-diagnostic.yml'
+      - 'scripts/browser-ordinary-calculator-smoke.mjs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,8 +25,8 @@ jobs:
           MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
           CALCULATOR_EVIDENCE_DIR: popup-diagnostic-evidence
         run: node scripts/browser-ordinary-calculator-smoke.mjs
-      - name: Upload failure-only popup evidence
-        if: failure()
+      - name: Upload popup evidence if produced
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: production-calculator-popup-diagnostic
