@@ -13,6 +13,66 @@ const note='คำนวณประมาณการผ่านระบบ�
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 let assertions=0;
 const check=(id,expected,actual)=>{assert.deepEqual(actual,expected);assertions++;console.log(JSON.stringify({id,expected,actual,status:'PASS'}));};
+const evidenceDir=process.env.CALCULATOR_EVIDENCE_DIR;
+const openCalculatorPopup=async(page,link,width,entry)=>{
+ const ctx=page.context(),seen={pagesBefore:ctx.pages().length,events:[]},children=new Set();
+ const record=(type,detail={})=>seen.events.push({at:new Date().toISOString(),elapsedMs:Date.now()-started,type,...detail});
+ const started=Date.now();
+ const external=u=>/https:\/\/(?:script\.google\.com|[^/]*googleusercontent\.com)\//.test(u);
+ const requestFailed=request=>{if(external(request.url()))record('requestfailed',{url:request.url(),error:request.failure()?.errorText||'unknown'});};
+ const response=response=>{if(external(response.url()))record('response',{url:response.url(),status:response.status(),redirectFrom:response.request().redirectedFrom()?.url()||null});};
+ const attachChild=opened=>{
+  if(children.has(opened))return;
+  children.add(opened);
+  record('context.page',{url:opened.url(),openerKnown:!opened.isClosed()});
+  opened.on('framenavigated',frame=>{if(frame===opened.mainFrame())record('popup.framenavigated',{url:frame.url()});});
+  opened.on('requestfailed',requestFailed);
+  opened.on('response',response);
+  opened.on('close',()=>record('popup.closed'));
+ };
+ const popup=opened=>{record('page.popup',{url:opened.url()});attachChild(opened);};
+ const contextPage=opened=>attachChild(opened);
+ const navigation=frame=>{if(frame===page.mainFrame())record('origin.framenavigated',{url:frame.url()});};
+ ctx.on('requestfailed',requestFailed);
+ ctx.on('response',response);
+ ctx.on('page',contextPage);
+ page.on('popup',popup);
+ page.on('framenavigated',navigation);
+ let traceStarted=false;
+ try{
+  if(evidenceDir){await ctx.tracing.start({screenshots:true,snapshots:true,sources:false});traceStarted=true;}
+  record('click.start',{entry,width});
+  const popupPromise=page.waitForEvent('popup',{timeout:30000});
+  await link.click();
+  record('click.done');
+  const opened=await popupPromise;
+  record('popup.received',{url:opened.url()});
+  if(evidenceDir){
+   fs.mkdirSync(evidenceDir,{recursive:true});
+   const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);
+   await opened.waitForURL(url,{waitUntil:'commit',timeout:60000});
+   record('popup.url.confirmed',{url:opened.url()});
+   const diagnostic={status:'PASS',width,entry,pageUrl:page.url(),popupUrl:opened.url(),linkHref:await link.getAttribute('href'),pagesAfter:ctx.pages().map(p=>p.url()),...seen};
+   fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));
+   await page.screenshot({path:prefix+'.png',fullPage:true});
+   if(traceStarted){await ctx.tracing.stop({path:prefix+'.zip'});traceStarted=false;}
+  }
+  return opened;
+ }catch(error){
+  const diagnostic={width,entry,pageUrl:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),rel:await link.getAttribute('rel'),linkVisible:await link.isVisible(),pagesAfter:ctx.pages().map(p=>p.url()),...seen,error:String(error)};
+  console.error('CALCULATOR_POPUP_DIAGNOSTIC',JSON.stringify(diagnostic));
+  if(evidenceDir){fs.mkdirSync(evidenceDir,{recursive:true});const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));await page.screenshot({path:prefix+'.png',fullPage:true}).catch(e=>console.error('SCREENSHOT_ERROR',String(e)));if(traceStarted){await ctx.tracing.stop({path:prefix+'.zip'}).catch(e=>console.error('TRACE_ERROR',String(e)));traceStarted=false;}}
+  throw error;
+ }finally{
+  if(traceStarted)await ctx.tracing.stop().catch(()=>{});
+  ctx.off('requestfailed',requestFailed);
+  ctx.off('response',response);
+  ctx.off('page',contextPage);
+  page.off('popup',popup);
+  page.off('framenavigated',navigation);
+  for(const opened of children){opened.off('requestfailed',requestFailed);opened.off('response',response);}
+ }
+};
 try{for(const width of [390,1365]){
  const page=await browser.newPage({viewport:{width,height:900}}),errors=[];
  page.on('pageerror',e=>errors.push(String(e)));
@@ -38,7 +98,7 @@ try{for(const width of [390,1365]){
  check(width+' disclaimer',note,await page.locator('#out [data-ordinary-loan-calculator-note]').innerText());
  const bounds=await link.boundingBox();check(width+' fits viewport',true,bounds.x>=0&&bounds.x+bounds.width<=width+1);
  const before=await page.locator('#out').innerText(),history=await page.locator('#readingHistory').innerText();
- const popupPromise=page.waitForEvent('popup');await link.click();const popup=await popupPromise;
+ const popup=await openCalculatorPopup(page,link,width,'ordinary-menu');
  await popup.waitForURL(url,{waitUntil:'commit',timeout:60000});
  check(width+' click opens expected URL',url,popup.url());
  await popup.close();await page.bringToFront();
@@ -61,7 +121,7 @@ try{for(const width of [390,1365]){
  const entryBounds=await entry.boundingBox();check(width+' assessment fits viewport',true,entryBounds.x>=0&&entryBounds.x+entryBounds.width<=width+1);
  check(width+' assessment disclaimer',note,await page.locator('#out [data-ordinary-loan-calculator-note]').innerText());
  const entryBefore=await page.locator('#out').innerText(),entryHistory=await page.locator('#readingHistory').innerText();
- const entryPopupPromise=page.waitForEvent('popup');await entry.click();const entryPopup=await entryPopupPromise;
+ const entryPopup=await openCalculatorPopup(page,entry,width,'homepage-assessment');
  await entryPopup.waitForURL(url,{waitUntil:'commit',timeout:60000});check(width+' assessment opens official calculator',url,entryPopup.url());
  await entryPopup.close();await page.bringToFront();check(width+' assessment conversation preserved',entryBefore,await page.locator('#out').innerText());check(width+' assessment history preserved',entryHistory,await page.locator('#readingHistory').innerText());
  for(const query of ['คำนวณกู้สามัญ','คำนวนกู้สามัญ','ทดลองคำนวณเงินกู้สามัญ']){

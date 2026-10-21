@@ -1,0 +1,35 @@
+name: Production calculator popup diagnostics (read-only)
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/production-calculator-popup-diagnostic.yml'
+      - 'scripts/browser-ordinary-calculator-smoke.mjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  popup-diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated browser runtime
+        run: |
+          npm install --no-save --no-package-lock playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Verify current official app without writing or deploying
+        env:
+          MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
+          CALCULATOR_EVIDENCE_DIR: popup-diagnostic-evidence
+        run: node scripts/browser-ordinary-calculator-smoke.mjs
+      - name: Upload popup evidence if produced
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-calculator-popup-diagnostic
+          path: popup-diagnostic-evidence/
+          if-no-files-found: warn
+          retention-days: 7
