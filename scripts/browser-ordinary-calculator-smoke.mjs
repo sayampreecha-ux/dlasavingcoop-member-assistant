@@ -13,25 +13,42 @@ const note='คำนวณประมาณการผ่านระบบ�
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 let assertions=0;
 const check=(id,expected,actual)=>{assert.deepEqual(actual,expected);assertions++;console.log(JSON.stringify({id,expected,actual,status:'PASS'}));};
+const evidenceDir=process.env.CALCULATOR_EVIDENCE_DIR;
 const openCalculatorPopup=async(page,link,width,entry)=>{
- const seen={pagesBefore:page.context().pages().length,requestsFailed:[],responses:[],popups:[]};
- const requestFailed=request=>{if(request.url().startsWith('https://script.google.com/'))seen.requestsFailed.push({url:request.url(),error:request.failure()?.errorText||'unknown'});};
- const response=response=>{if(response.url().startsWith('https://script.google.com/'))seen.responses.push({url:response.url(),status:response.status()});};
- const popup=opened=>seen.popups.push(opened.url());
+ const seen={pagesBefore:page.context().pages().length,events:[]};
+ const record=(type,detail)=>seen.events.push({at:new Date().toISOString(),type,...detail});
+ const requestFailed=request=>{if(/script\\.google\\.com|googleusercontent\\.com/.test(request.url()))record('requestfailed',{url:request.url(),error:request.failure()?.errorText||'unknown'});};
+ const response=response=>{if(/script\\.google\\.com|googleusercontent\\.com/.test(response.url()))record('response',{url:response.url(),status:response.status()});};
+ const popup=opened=>record('page.popup',{url:opened.url()});
+ const contextPage=opened=>record('context.page',{url:opened.url()});
+ const navigation=frame=>record('framenavigated',{url:frame.url()});
  page.context().on('requestfailed',requestFailed);
  page.context().on('response',response);
+ page.context().on('page',contextPage);
  page.on('popup',popup);
+ page.on('framenavigated',navigation);
+ let traceStarted=false;
  try{
+  if(evidenceDir){await page.context().tracing.start({screenshots:true,snapshots:true,sources:false});traceStarted=true;}
+  record('click.start',{entry,width});
   const popupPromise=page.waitForEvent('popup',{timeout:30000});
   await link.click();
-  return await popupPromise;
+  record('click.done',{});
+  const opened=await popupPromise;
+  record('popup.received',{url:opened.url()});
+  return opened;
  }catch(error){
-  console.error('CALCULATOR_POPUP_DIAGNOSTIC',JSON.stringify({width,entry,url:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),linkVisible:await link.isVisible(),pagesAfter:page.context().pages().map(p=>p.url()),...seen,error:String(error)}));
+  const diagnostic={width,entry,pageUrl:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),rel:await link.getAttribute('rel'),linkVisible:await link.isVisible(),pagesAfter:page.context().pages().map(p=>p.url()),...seen,error:String(error)};
+  console.error('CALCULATOR_POPUP_DIAGNOSTIC',JSON.stringify(diagnostic));
+  if(evidenceDir){fs.mkdirSync(evidenceDir,{recursive:true});const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));await page.screenshot({path:prefix+'.png',fullPage:true}).catch(e=>console.error('SCREENSHOT_ERROR',String(e)));if(traceStarted){await page.context().tracing.stop({path:prefix+'.zip'}).catch(e=>console.error('TRACE_ERROR',String(e)));traceStarted=false;}}
   throw error;
  }finally{
+  if(traceStarted)await page.context().tracing.stop().catch(()=>{});
   page.context().off('requestfailed',requestFailed);
   page.context().off('response',response);
+  page.context().off('page',contextPage);
   page.off('popup',popup);
+  page.off('framenavigated',navigation);
  }
 };
 try{for(const width of [390,1365]){
