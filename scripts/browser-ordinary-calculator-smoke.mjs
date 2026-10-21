@@ -47,6 +47,16 @@ const openCalculatorPopup=async(page,link,width,entry)=>{
   record('click.done');
   const opened=await popupPromise;
   record('popup.received',{url:opened.url()});
+  if(evidenceDir){
+   fs.mkdirSync(evidenceDir,{recursive:true});
+   const prefix=path.join(evidenceDir,'popup-'+width+'-'+entry);
+   await opened.waitForURL(url,{waitUntil:'commit',timeout:60000});
+   record('popup.url.confirmed',{url:opened.url()});
+   const diagnostic={status:'PASS',width,entry,pageUrl:page.url(),popupUrl:opened.url(),linkHref:await link.getAttribute('href'),pagesAfter:ctx.pages().map(p=>p.url()),...seen};
+   fs.writeFileSync(prefix+'.json',JSON.stringify(diagnostic,null,2));
+   await page.screenshot({path:prefix+'.png',fullPage:true});
+   if(traceStarted){await ctx.tracing.stop({path:prefix+'.zip'});traceStarted=false;}
+  }
   return opened;
  }catch(error){
   const diagnostic={width,entry,pageUrl:page.url(),linkHref:await link.getAttribute('href'),target:await link.getAttribute('target'),rel:await link.getAttribute('rel'),linkVisible:await link.isVisible(),pagesAfter:ctx.pages().map(p=>p.url()),...seen,error:String(error)};
