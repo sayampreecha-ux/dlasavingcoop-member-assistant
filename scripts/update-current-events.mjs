@@ -213,7 +213,7 @@ function anchors(html,base,source){
     const url=resolveUrl(m[1],base);
     if(!url||title.length<6) continue;
     const score=scoreTitle(title);
-    if(score<60) continue;
+    if(score<60 && !/\/show\.php\?No=\d+/i.test(url)) continue;
     out.push({
       id:idFrom(url,title),title,url,score,source,
       publishedAt:parsePublishedNear(html,re.lastIndex)
@@ -283,20 +283,43 @@ if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
   process.exit(0);
 }
 
-let candidates=unique(found)
+const allCandidates=unique(found);
+let candidates=allCandidates
+  .filter(x=>x.score>=60)
   .sort((a,b)=>b.score-a.score)
   .slice(0,60);
+// Latest news is chronological, not ranked by importance. Never guess a publication date.
+const recentCandidates=allCandidates
+  .filter(x=>x.publishedAt && Number.isFinite(Date.parse(x.publishedAt)) &&
+    new Date(x.publishedAt)<=now &&
+    now-new Date(x.publishedAt)<=30*86400000 &&
+    /\/show\.php\?No=\d+/i.test(x.url))
+  .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt))
+  .slice(0,15);
 
 const enriched=[];
 for(const item of candidates) enriched.push(await enrich(item));
+const enrichedById=new Map(enriched.map(x=>[x.id,x]));
+const recentEnriched=[];
+for(const item of recentCandidates){
+  const record=enrichedById.get(item.id)||await enrich(item);
+  if(record.contentKind==='NEWS' && record.publishedAt &&
+     (!record.expiresAt||new Date(record.expiresAt)>now) &&
+     directOfficialDetail(record.url)) recentEnriched.push(withSourceMetadata(record));
+}
+const latestNews=recentEnriched
+  .filter(x=>x.sourceState==='DIRECT_VERIFIED')
+  .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt))
+  .slice(0,5);
 
 const active=enriched.filter(x=>{
   if(x.priority<75) return false;
   if(x.expiresAt && new Date(x.expiresAt)<=now) return false;
   if(!x.eventDate && x.publishedAt){
     const ageMs=now-new Date(x.publishedAt);
-    if(ageMs>30*24*60*60*1000) return false;
+    if(ageMs>30*24*60*60*1000 || ageMs<0) return false;
   }
+  if(!x.publishedAt && !x.eventDate) return false;
   return true;
 });
 
@@ -353,7 +376,8 @@ const output={
     expiry:'explicit deadlines/event dates expire automatically'
   },
   events:top,
-  trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
+  latestNews,
+  trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now) && x.publishedAt && Number.isFinite(Date.parse(x.publishedAt)) && now-new Date(x.publishedAt)<=30*86400000 && now>=new Date(x.publishedAt)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
 };
 
 await fs.mkdir(new URL('../data/',import.meta.url),{recursive:true});
