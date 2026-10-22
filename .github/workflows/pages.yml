@@ -58,7 +58,8 @@ jobs:
       - name: Stage public Pilot files
         run: |
           mkdir -p _site/data
-          cp index.html .nojekyll _site/
+          cp index.html guide.html .nojekyll _site/
+          test -s _site/guide.html || { echo 'ERROR: guide.html missing from Pages artifact'; exit 1; }
           cp -r assets _site/
           cp data/current-events.json data/official-rule-master.json data/official-source-registry.json data/official-source-monitor.json _site/data/
       - uses: actions/configure-pages@v5
