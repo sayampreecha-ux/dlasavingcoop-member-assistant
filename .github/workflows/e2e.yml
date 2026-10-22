@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths: ["index.html", "data/**", "tests/**", "scripts/**", ".github/workflows/e2e.yml"]
   push:
-    branches: [fix/pilot-69-executable-hardening]
+    branches: [fix/pilot-69-executable-hardening, fix/news-freshness-separation-20261021]
   workflow_dispatch:
 permissions:
   contents: read
