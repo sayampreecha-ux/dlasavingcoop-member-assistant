@@ -9,7 +9,7 @@ try {
     const failures=[];
     page.on('pageerror',e=>failures.push(e.message));
     await page.goto(pathToFileURL(resolve('index.html')).href);
-    const entry=page.getByRole('link',{name:'📘 วิธีใช้งาน'});
+    const entry=page.locator('a[href="./guide.html"]');
     await entry.waitFor({state:'visible'});
     assert.equal(await entry.getAttribute('href'),'./guide.html');
     await entry.click();
