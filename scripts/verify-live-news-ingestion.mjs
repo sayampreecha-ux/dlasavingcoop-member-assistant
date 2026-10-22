@@ -14,7 +14,7 @@ try{
  baseline.latestNews=[];
  baseline.trackingNotices=[];
  fs.writeFileSync(dataPath,JSON.stringify(baseline,null,2)+'\n');
- const run=spawnSync(process.execPath,['scripts/update-current-events.mjs'],{cwd:root,encoding:'utf8',timeout:120000});
+ const run=spawnSync(process.execPath,['scripts/update-current-events.mjs'],{cwd:root,encoding:'utf8',timeout:120000,env:{...process.env,NEWS_PIPELINE_DIAGNOSTICS:'1',NEWS_DIAGNOSTIC_IDS:'official-4944,official-4941'}});
  report.stdout=run.stdout?.slice(-3000);report.stderr=run.stderr?.slice(-3000);
  assert.equal(run.status,0,'official ingestion process failed');
  const fresh=JSON.parse(fs.readFileSync(dataPath,'utf8'));
