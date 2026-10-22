@@ -245,7 +245,10 @@ async function enrich(item){
   let expiresAt=null,eventDate=null;
   if(date){
     eventDate=date.date;
-    expiresAt=plusOneDayIso(date.date);
+    // A result announcement reports a past decision; it is not an action deadline.
+    // Explicit deadlines still expire, including deadlines in result announcements.
+    const resultAnnouncement=/ผลการอนุมัติ|ผลอนุมัติ|ผลการพิจารณา|ผลการคัดเลือก/.test(item.title);
+    if(date.kind==='deadline'||!resultAnnouncement) expiresAt=plusOneDayIso(date.date);
   }
   let summary='';
   if(/ยืนยันยอด/i.test(item.title)) summary='ตรวจสอบ → ติ๊กเลือก → ส่งคืน';
@@ -341,6 +344,12 @@ const latestNews=recentEnriched
   .filter(x=>x.sourceState==='DIRECT_VERIFIED')
   .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt))
   .slice(0,5);
+
+if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
+  const ids=new Set((process.env.NEWS_DIAGNOSTIC_IDS||'').split(',').map(x=>x.trim()).filter(Boolean));
+  const select=items=>items.filter(x=>ids.has(x.id)).map(({id,publishedAt,eventDate,expiresAt,contentKind})=>({id,publishedAt,eventDate,expiresAt,contentKind}));
+  console.log('NEWS_PIPELINE_STAGES '+JSON.stringify({recentCandidates:select(recentCandidates),enrich:select([...enriched,...recentEnriched]),latestNews:select(latestNews)}));
+}
 
 const active=enriched.filter(x=>{
   if(x.priority<75) return false;

@@ -44,12 +44,12 @@ jobs:
           name: leisure-independent-browser-diagnostics
           path: browser-diagnostics/
           if-no-files-found: warn
-      - name: Latest news browser mobile and desktop
-        if: success() || failure()
-        run: node scripts/browser-latest-news-acceptance.mjs
       - name: Verify live official news ingestion
         if: success() || failure()
         run: node scripts/verify-live-news-ingestion.mjs
+      - name: Latest news browser mobile and desktop
+        if: success() || failure()
+        run: node scripts/browser-latest-news-acceptance.mjs
       - name: Upload latest news acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4

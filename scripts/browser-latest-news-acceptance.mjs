@@ -6,10 +6,15 @@ import {createRequire} from 'node:module';
 const {chromium}=createRequire(import.meta.url)('playwright');
 const root=path.resolve(new URL('../',import.meta.url).pathname);
 const dir=path.join(root,'news-browser-evidence');
+const livePath=path.join(dir,'live-current-events.json');
+const live=JSON.parse(fs.readFileSync(livePath,'utf8'));
+const expected=live.latestNews;
+assert.ok(expected.length>0&&expected.length<=5);
+assert.ok(expected.every((x,i)=>Number.isFinite(Date.parse(x.publishedAt))&&Date.parse(x.publishedAt)<=Date.now()&&Date.now()-Date.parse(x.publishedAt)<=30*86400000&&(!x.expiresAt||Date.parse(x.expiresAt)>Date.now())&&(i===0||Date.parse(expected[i-1].publishedAt)>=Date.parse(x.publishedAt))));
 fs.mkdirSync(dir,{recursive:true});
 const server=http.createServer((req,res)=>{
  const pathname=new URL(req.url,'http://localhost').pathname;
- const file=path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
+ const file=pathname==='/data/current-events.json'?livePath:path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
  if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end();}
  try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html; charset=utf-8':file.endsWith('.json')?'application/json':'application/octet-stream');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}
 });
@@ -23,10 +28,15 @@ try{
   page.on('console',m=>{if(m.type()==='error')errors.push('console: '+m.text());});
   try{
    await page.goto('http://127.0.0.1:'+server.address().port+'/',{waitUntil:'domcontentloaded'});
-   await page.waitForFunction(()=>document.querySelectorAll('#latestOfficialNewsList a').length===5,{timeout:15000});
+   await page.waitForFunction(n=>document.querySelectorAll('#latestOfficialNewsList a').length===n,expected.length,{timeout:15000});
    const actual=await page.locator('#latestOfficialNewsList a').evaluateAll(links=>links.map(a=>({title:a.querySelector('strong')?.textContent||'',date:a.querySelector('small')?.textContent||'',href:a.href})));
-   assert.deepEqual(actual.map(x=>new URL(x.href).searchParams.get('No')),['4944','4941','4937','4936','4935']);
-   assert.equal(new Set(actual.map(x=>x.href)).size,5);
+   assert.deepEqual(actual.map(x=>x.href),expected.map(x=>x.directSourceUrl));
+   assert.equal(new Set(actual.map(x=>x.href)).size,expected.length);
+   for(let i=0;i<actual.length;i++){
+    const d=new Date(expected[i].publishedAt);
+    const day=new Intl.DateTimeFormat('th-TH',{day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Bangkok'}).format(d);
+    assert.ok(actual[i].date.includes(day),'publication date mismatch: '+actual[i].date+' / '+day);
+   }
    assert.ok(actual.every(x=>/^https:\/\/www\.dlasavingcoop\.com\/show\.php\?No=\d+$/.test(x.href)&&x.date.includes('2569')));
    assert.equal(await page.locator('#latestOfficialNews').isVisible(),true);
    assert.equal(await page.locator('#homeBtn').count(),1);
