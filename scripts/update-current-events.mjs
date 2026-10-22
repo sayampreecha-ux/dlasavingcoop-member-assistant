@@ -304,7 +304,8 @@ if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
 
 const allCandidates=unique(found);
 if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
-  const focus=found.filter(x=>/\/show\.php\?No=(?:4944|4941)(?:&|$)/.test(x.url));
+  const focusIds=new Set((process.env.NEWS_DIAGNOSTIC_IDS||'').split(',').map(x=>x.trim()).filter(Boolean));
+  const focus=found.filter(x=>focusIds.has(x.id));
   console.log('NEWS_PIPELINE_DIAGNOSTICS '+JSON.stringify({
     sources:sourceHealth,homepageAnchors:found.filter(x=>x.source==='homepage').length,
     noticeAnchors:found.filter(x=>x.source==='official-notice').length,
