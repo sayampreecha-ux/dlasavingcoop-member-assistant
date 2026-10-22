@@ -1,6 +1,13 @@
 import assert from 'node:assert/strict';
 import {loadMemberEngine} from './helpers/load-member-engine.mjs';
 const app=loadMemberEngine();
+const authorityPolicy=app?.knowledgeBase?.ruleAuthority?.policy?.rules;
+// Verify the generated in-app authority policy is not silently reverted.
+const htmlPolicy=(await import('node:fs')).readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(htmlPolicy,/เมื่อเอกสารอ้างอิงประกาศ ระเบียบ หรือหนังสือฉบับก่อน/);
+assert.match(htmlPolicy,/ฉบับต้นเรื่อง ฉบับแก้ไขเพิ่มเติม ฉบับขยายเวลา ฉบับยกเลิก และฉบับทดแทน/);
+assert.match(htmlPolicy,/ห้ามใช้ฉบับล่าสุดเพียงฉบับเดียว/);
+
 const full=t=>[t.result.answer,...(t.result.details||[])].join('\\n');
 const first=app.conversationTurn('กู้สามัญได้เท่าไหร่ ค้ำกี่คน');
 assert.equal(first.result.intent,'ordinary_loan_amount_guarantors');
