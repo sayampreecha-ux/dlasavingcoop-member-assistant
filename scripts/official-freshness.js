@@ -79,6 +79,37 @@
     if(date&&/ก่อน(?:วันที่)?\s/.test(text)){const t=new Date(date+'T00:00:00Z');t.setUTCDate(t.getUTCDate()-1);date=t.toISOString().slice(0,10);}
     return {date:date||null,historical:true};
   }
+  // Resolve the full official-document lineage without promoting discovery results to law.
+  // Explicit links only: similar titles, publication order and a higher notice number
+  // are never proof that one document legally replaces another.
+  function documentChain(registry,rootId,asOf){
+    const docs=Array.isArray(registry?.documents)?registry.documents:[];
+    const byId=new Map(docs.filter(d=>d&&d.id).map(d=>[d.id,d]));
+    const found=new Set(),missing=new Set(),queue=[rootId];
+    const kinds=['amendsDocumentIds','supersedesDocumentIds','extendsDocumentIds','cancelsDocumentIds','replacesDocumentIds','referencesDocumentIds','relatedDocumentIds','conflictsWithDocumentIds'];
+    // Reverse links are needed because later amendments usually point to the original.
+    const related=(id)=>docs.filter(d=>kinds.some(k=>Array.isArray(d[k])&&d[k].includes(id))).map(d=>d.id);
+    while(queue.length){
+      const id=queue.shift();if(found.has(id)||missing.has(id))continue;
+      const doc=byId.get(id);if(!doc){missing.add(id);continue}
+      found.add(id);
+      for(const k of kinds){for(const v of Array.isArray(doc[k])?doc[k]:[])if(typeof v==='string'&&!found.has(v))queue.push(v)}
+      for(const v of related(id))if(!found.has(v))queue.push(v);
+    }
+    const documents=[...found].map(id=>byId.get(id));
+    const issues=[];
+    if(missing.size)issues.push('MISSING_REFERENCED_DOCUMENT');
+    if(!documents.length)issues.push('ROOT_DOCUMENT_MISSING');
+    if(documents.some(d=>!primary(d)||d.review?.primaryVerified!==true))issues.push('PRIMARY_NOT_VERIFIED');
+    if(documents.some(d=>d.status==='PENDING_VERIFICATION'||d.metadataReview?.pendingReason))issues.push('PENDING_CHANGE');
+    if(documents.some(d=>(d.conflictsWithDocumentIds||[]).length))issues.push('CONFLICTING_DOCUMENTS');
+    if(!asOf||!/^\\d{4}-\\d{2}-\\d{2}$/.test(asOf))issues.push('AS_OF_REQUIRED');
+    if(documents.some(d=>!d.effectiveDate&&!d.effectiveFrom))issues.push('EFFECTIVE_DATE_UNVERIFIED');
+    // An index snapshot cannot prove that no unindexed later amendment exists.
+    // Therefore even a locally complete chain is not authority to claim "currently open".
+    issues.push('LATEST_INDEX_COVERAGE_UNVERIFIED');
+    return {rootId,documentIds:documents.map(d=>d.id),missingDocumentIds:[...missing],issues:[...new Set(issues)],verified:false,decision:'EVIDENCE_LOCK'};
+  }
   function versionAt(registry,ruleId,date){
     if(!date)return null;
     const variants=(registry.ruleVersions||[]).filter(v=>v.ruleId===ruleId&&v.status!=='PENDING_VERIFICATION'&&v.effectiveFrom&&v.effectiveFrom<=date&&(!v.effectiveTo||date<=v.effectiveTo));
@@ -179,5 +210,5 @@
     if(snapshot.lastSyncAt&&(!next.lastSyncAt||snapshot.lastSyncAt>next.lastSyncAt))next.lastSyncAt=snapshot.lastSyncAt;
     return next;
   }
-  return {clone,all,isShareBackedLoan,debtLoanProduct,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,versionAt,pendingFor,gate,lock,mergeMonitor};
+  return {clone,all,isShareBackedLoan,debtLoanProduct,officialPage,canonical,officialPublication,primary,domains,queryDomains,asOf,documentChain,versionAt,pendingFor,gate,lock,mergeMonitor};
 });
