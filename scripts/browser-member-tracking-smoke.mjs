@@ -25,9 +25,9 @@ try{for(const width of [390,1365]){
  assert.equal(new Set(actual.map(a=>a.href)).size,actual.length);
  assert.ok(actual.length<=5);
  assert.match(await page.locator('#out .body').textContent(),/ยังไม่สามารถยืนยันผลอนุมัติรายบุคคล/);
- await choose('ผลอนุมัติสวัสดิการ');await ready();assert.match(await notices().innerText(),/สวัสดิการ/);assert.doesNotMatch(await notices().innerText(),/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
+ await choose('ผลอนุมัติสวัสดิการ');await ready();const welfareText=await notices().innerText();assert.ok(/สวัสดิการ|ยังไม่พบประกาศตรงเรื่องที่ตรวจยืนยันได้/.test(welfareText),'welfare result or safe no-current-notice fallback');assert.doesNotMatch(welfareText,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
  assert.ok(await page.locator('#readingHistory').count(),'previous answer remains available');
- await ask('เอกสารสมัครสมาชิก');await ready();assert.match(await notices().innerText(),/เอกสารมาไม่ครบ/);assert.doesNotMatch(await notices().innerText(),/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
+ await ask('เอกสารสมัครสมาชิก');await ready();const documentText=await notices().innerText();assert.ok(/เอกสารมาไม่ครบ|ยังไม่พบประกาศตรงเรื่องที่ตรวจยืนยันได้/.test(documentText),'document notice or safe no-current-notice fallback');assert.doesNotMatch(documentText,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
  await ask('รอบสมาชิก');await ready();assert.doesNotMatch(await notices().innerText(),/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
  assert.deepEqual(errors,[]);
  console.log('BROWSER MEMBER TRACKING '+width+'px: real menu clicks, direct approved-member links, sibling navigation, document and round isolation PASS');

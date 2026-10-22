@@ -7,6 +7,19 @@ const now=new Date();
 if(data.schemaVersion!==1) errors.push('schemaVersion must be 1');
 if(data.mode!=='official-auto') errors.push('mode must be official-auto');
 if(!Array.isArray(data.events)) errors.push('events must be an array');
+if(!Array.isArray(data.latestNews)) errors.push('latestNews must be an array');
+if((data.latestNews||[]).length>5) errors.push('latestNews must be <= 5');
+for(const item of data.latestNews||[]){
+  const stamp=Date.parse(item.publishedAt||'');
+  if(!Number.isFinite(stamp)) errors.push('latest news requires real publishedAt: '+item.id);
+  else if(stamp>now.getTime()+86400000 || now.getTime()-stamp>30*86400000) errors.push('latest news out of 30-day window: '+item.id);
+  if(item.sourceState!=='DIRECT_VERIFIED'||!isDirectSource(item.directSourceUrl)) errors.push('latest news requires direct official source: '+item.id);
+  if(item.source==='official-facebook') errors.push('latestNews must use official cooperative site: '+item.id);
+  if(item.expiresAt && Date.parse(item.expiresAt)<=now.getTime()) errors.push('expired latest news: '+item.id);
+}
+for(let i=1;i<(data.latestNews||[]).length;i++){
+  if(Date.parse(data.latestNews[i-1].publishedAt)<Date.parse(data.latestNews[i].publishedAt)) errors.push('latestNews must be sorted newest first');
+}
 if((data.events||[]).length>3) errors.push('homepage current events must be <= 3');
 if(!data.lastCheckedAt||Number.isNaN(Date.parse(data.lastCheckedAt))) errors.push('lastCheckedAt missing/invalid');
 

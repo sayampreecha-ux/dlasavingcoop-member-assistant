@@ -105,6 +105,11 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
       <div id="currentEventsList" class="now-list"></div>
       <div class="now-foot">อัปเดตอัตโนมัติจากเว็บไซต์ทางการ สอ.อปท. · แสดงเฉพาะเรื่องที่เกี่ยวกับสิทธิ/การดำเนินการของสมาชิก</div>
     </section>
+    <section id="latestOfficialNews" class="now hidden" aria-label="ข่าวล่าสุดจากสหกรณ์">
+      <div class="now-head"><strong>📰 ข่าวล่าสุดจากสหกรณ์</strong></div>
+      <div id="latestOfficialNewsList" class="now-list"></div>
+      <div class="now-foot">เรียงตามวันที่เผยแพร่จริงจากเว็บไซต์ทางการ · ไม่รวมข่าวที่ตรวจสอบวันเผยแพร่ไม่ได้</div>
+    </section>
     <div class="title">เลือกเรื่องที่ต้องการ</div>
     <div class="grid">
       <button class="quick" data-q="หุ้นและทุนเรือนหุ้น">📈 หุ้น<small>ส่งหุ้น · เปลี่ยนอัตรา · ซื้อเพิ่ม · คืนหุ้น</small></button>
@@ -3744,11 +3749,38 @@ function renderCurrentEvents(data){
   }else currentEventsUpdated.textContent='';
   currentEvents.classList.remove('hidden');
 }
+function renderLatestOfficialNews(data){
+  const section=document.getElementById('latestOfficialNews');
+  const list=document.getElementById('latestOfficialNewsList');
+  if(!section||!list)return;
+  list.replaceChildren();
+  const now=Date.now();
+  const news=(Array.isArray(data?.latestNews)?data.latestNews:[])
+    .filter(e=>e.sourceState==='DIRECT_VERIFIED' && e.source!=='official-facebook' &&
+      /^https:\/\/(www\.)?dlasavingcoop\.com\/show\.php\?No=\d+/.test(e.directSourceUrl||'') &&
+      Number.isFinite(Date.parse(e.publishedAt||'')) &&
+      Date.parse(e.publishedAt)<=now && now-Date.parse(e.publishedAt)<=30*86400000 &&
+      (!e.expiresAt||Date.parse(e.expiresAt)>now))
+    .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)).slice(0,5);
+  for(const e of news){
+    const a=document.createElement('a');
+    a.href=e.directSourceUrl;a.target='_blank';a.rel='noopener noreferrer';
+    a.style.cssText='display:block;padding:10px 12px;border-bottom:1px solid #ddd;text-decoration:none;overflow-wrap:anywhere';
+    const heading=document.createElement('strong');heading.textContent=e.title;
+    const date=document.createElement('small');
+    date.style.cssText='display:block;opacity:.78;margin-top:3px';
+    date.textContent=new Date(e.publishedAt).toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric',timeZone:'Asia/Bangkok'});
+    a.append(heading,date);list.append(a);
+  }
+  section.classList.toggle('hidden',news.length===0);
+}
 async function loadCurrentEvents(){
   try{
     const r=await fetch('./data/current-events.json?ts='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error(String(r.status));
-    renderCurrentEvents(await r.json());
+    const data=await r.json();
+    renderCurrentEvents(data);
+    renderLatestOfficialNews(data);
   }catch{currentEvents.classList.add('hidden')}
 }
 loadCurrentEvents();

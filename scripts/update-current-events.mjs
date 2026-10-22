@@ -206,6 +206,21 @@ async function fetchFacebookGraphPosts(){
 
 function anchors(html,base,source){
   const out=[];
+  // On the official notice index, publication metadata belongs to its own table row.
+  // Match whole rows first rather than assuming the date sits within 800 chars of </a>.
+  if(source==='official-notice'){
+    const rows=html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)||[];
+    for(const row of rows){
+      const link=row.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
+      if(!link)continue;
+      const url=resolveUrl(link[1],base),title=decode(link[2]);
+      if(!url||!directOfficialDetail(url)||title.length<6)continue;
+      const dateMatch=decode(row).match(/\b(20\d{2}-\d{2}-\d{2})\s+(\d{2}:\d{2}:\d{2})\b/);
+      const publishedAt=dateMatch?new Date(dateMatch[1]+'T'+dateMatch[2]+'+07:00').toISOString():null;
+      out.push({id:idFrom(url,title),title,url,score:scoreTitle(title),source,publishedAt});
+    }
+    if(out.length)return out;
+  }
   const re=/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/gi;
   let m;
   while((m=re.exec(html))){
@@ -213,7 +228,7 @@ function anchors(html,base,source){
     const url=resolveUrl(m[1],base);
     if(!url||title.length<6) continue;
     const score=scoreTitle(title);
-    if(score<60) continue;
+    if(score<60 && !/\/show\.php\?No=\d+/i.test(url)) continue;
     out.push({
       id:idFrom(url,title),title,url,score,source,
       publishedAt:parsePublishedNear(html,re.lastIndex)
@@ -230,7 +245,10 @@ async function enrich(item){
   let expiresAt=null,eventDate=null;
   if(date){
     eventDate=date.date;
-    expiresAt=plusOneDayIso(date.date);
+    // A result announcement reports a past decision; it is not an action deadline.
+    // Explicit deadlines still expire, including deadlines in result announcements.
+    const resultAnnouncement=/ผลการอนุมัติ|ผลอนุมัติ|ผลการพิจารณา|ผลการคัดเลือก/.test(item.title);
+    if(date.kind==='deadline'||!resultAnnouncement) expiresAt=plusOneDayIso(date.date);
   }
   let summary='';
   if(/ยืนยันยอด/i.test(item.title)) summary='ตรวจสอบ → ติ๊กเลือก → ส่งคืน';
@@ -254,7 +272,11 @@ function unique(items){
   const map=new Map();
   for(const x of items){
     const key=x.url.replace(/^https:\/\/(www\.)?/,'https://');
-    if(!map.has(key)||x.score>map.get(key).score) map.set(key,x);
+    const previous=map.get(key);
+    // The homepage often omits publication timestamps; retain the dated official-list record.
+    const dated=x.publishedAt && Number.isFinite(Date.parse(x.publishedAt));
+    const previousDated=previous?.publishedAt && Number.isFinite(Date.parse(previous.publishedAt));
+    if(!previous || (dated && !previousDated) || (Boolean(dated)===Boolean(previousDated) && x.score>previous.score)) map.set(key,x);
   }
   return [...map.values()];
 }
@@ -283,20 +305,60 @@ if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
   process.exit(0);
 }
 
-let candidates=unique(found)
+const allCandidates=unique(found);
+if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
+  const focusIds=new Set((process.env.NEWS_DIAGNOSTIC_IDS||'').split(',').map(x=>x.trim()).filter(Boolean));
+  const focus=found.filter(x=>focusIds.has(x.id));
+  console.log('NEWS_PIPELINE_DIAGNOSTICS '+JSON.stringify({
+    sources:sourceHealth,homepageAnchors:found.filter(x=>x.source==='homepage').length,
+    noticeAnchors:found.filter(x=>x.source==='official-notice').length,
+    focusBeforeDedup:focus.map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url})),
+    focusAfterDedup:allCandidates.filter(x=>focus.some(y=>y.id===x.id)).map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url}))
+  }));
+}
+
+let candidates=allCandidates
+  .filter(x=>x.score>=60)
   .sort((a,b)=>b.score-a.score)
   .slice(0,60);
+// Latest news is chronological, not ranked by importance. Never guess a publication date.
+const recentCandidates=allCandidates
+  .filter(x=>x.publishedAt && Number.isFinite(Date.parse(x.publishedAt)) &&
+    new Date(x.publishedAt)<=now &&
+    now-new Date(x.publishedAt)<=30*86400000 &&
+    /\/show\.php\?No=\d+/i.test(x.url))
+  .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt))
+  .slice(0,15);
 
 const enriched=[];
 for(const item of candidates) enriched.push(await enrich(item));
+const enrichedById=new Map(enriched.map(x=>[x.id,x]));
+const recentEnriched=[];
+for(const item of recentCandidates){
+  const record=enrichedById.get(item.id)||await enrich(item);
+  if(record.contentKind==='NEWS' && record.publishedAt &&
+     (!record.expiresAt||new Date(record.expiresAt)>now) &&
+     directOfficialDetail(record.url)) recentEnriched.push(withSourceMetadata(record));
+}
+const latestNews=recentEnriched
+  .filter(x=>x.sourceState==='DIRECT_VERIFIED')
+  .sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt))
+  .slice(0,5);
+
+if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
+  const ids=new Set((process.env.NEWS_DIAGNOSTIC_IDS||'').split(',').map(x=>x.trim()).filter(Boolean));
+  const select=items=>items.filter(x=>ids.has(x.id)).map(({id,publishedAt,eventDate,expiresAt,contentKind})=>({id,publishedAt,eventDate,expiresAt,contentKind}));
+  console.log('NEWS_PIPELINE_STAGES '+JSON.stringify({recentCandidates:select(recentCandidates),enrich:select([...enriched,...recentEnriched]),latestNews:select(latestNews)}));
+}
 
 const active=enriched.filter(x=>{
   if(x.priority<75) return false;
   if(x.expiresAt && new Date(x.expiresAt)<=now) return false;
   if(!x.eventDate && x.publishedAt){
     const ageMs=now-new Date(x.publishedAt);
-    if(ageMs>30*24*60*60*1000) return false;
+    if(ageMs>30*24*60*60*1000 || ageMs<0) return false;
   }
+  if(!x.publishedAt && !x.eventDate) return false;
   return true;
 });
 
@@ -353,7 +415,8 @@ const output={
     expiry:'explicit deadlines/event dates expire automatically'
   },
   events:top,
-  trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
+  latestNews,
+  trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now) && x.publishedAt && Number.isFinite(Date.parse(x.publishedAt)) && now-new Date(x.publishedAt)<=30*86400000 && now>=new Date(x.publishedAt)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
 };
 
 await fs.mkdir(new URL('../data/',import.meta.url),{recursive:true});
