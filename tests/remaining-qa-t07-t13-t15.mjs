@@ -8,6 +8,10 @@ assert.match(htmlPolicy,/เมื่อเอกสารอ้างอิง�
 assert.match(htmlPolicy,/ฉบับต้นเรื่อง ฉบับแก้ไขเพิ่มเติม ฉบับขยายเวลา ฉบับยกเลิก และฉบับทดแทน/);
 assert.match(htmlPolicy,/ห้ามใช้ฉบับล่าสุดเพียงฉบับเดียว/);
 
+assert.match(htmlPolicy,/function documentChain\(registry,rootId,asOf\)/);
+assert.match(htmlPolicy,/MISSING_REFERENCED_DOCUMENT/);
+assert.match(htmlPolicy,/LATEST_INDEX_COVERAGE_UNVERIFIED/);
+
 const full=t=>[t.result.answer,...(t.result.details||[])].join('\\n');
 const first=app.conversationTurn('กู้สามัญได้เท่าไหร่ ค้ำกี่คน');
 assert.equal(first.result.intent,'ordinary_loan_amount_guarantors');
