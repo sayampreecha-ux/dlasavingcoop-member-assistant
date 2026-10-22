@@ -303,6 +303,16 @@ if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
 }
 
 const allCandidates=unique(found);
+if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
+  const focus=found.filter(x=>/\/show\.php\?No=(?:4944|4941)(?:&|$)/.test(x.url));
+  console.log('NEWS_PIPELINE_DIAGNOSTICS '+JSON.stringify({
+    sources:sourceHealth,homepageAnchors:found.filter(x=>x.source==='homepage').length,
+    noticeAnchors:found.filter(x=>x.source==='official-notice').length,
+    focusBeforeDedup:focus.map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url})),
+    focusAfterDedup:allCandidates.filter(x=>focus.some(y=>y.id===x.id)).map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url}))
+  }));
+}
+
 let candidates=allCandidates
   .filter(x=>x.score>=60)
   .sort((a,b)=>b.score-a.score)
