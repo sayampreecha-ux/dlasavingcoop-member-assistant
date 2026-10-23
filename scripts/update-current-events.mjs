@@ -339,7 +339,7 @@ function approvalCategory(title=''){
   return null;
 }
 function matchThaiDate(text,pattern){
-  const m=decode(text).match(pattern);
+  const m=decode(text).replace(/พ\.?ศ\.?\s*/g,'').match(pattern);
   return m?thaiDateToISO(m[1],m[2],m[3]):null;
 }
 async function approvalRecord(item){
