@@ -1,0 +1,31 @@
+name: PR158 Temporary Source Export
+on:
+  push:
+    branches:
+      - qa-source-export-pr158-20261023
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Snapshot source and manifest
+        shell: bash
+        run: |
+          git rev-parse HEAD > export-head.txt
+          git rev-parse HEAD^{tree} > export-tree.txt
+          git ls-files > export-files.txt
+          tar -czf pr158-source.tar.gz --exclude=.git --exclude=pr158-source.tar.gz .
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pr158-temporary-source-export
+          path: |
+            pr158-source.tar.gz
+            export-head.txt
+            export-tree.txt
+            export-files.txt
+          retention-days: 1
