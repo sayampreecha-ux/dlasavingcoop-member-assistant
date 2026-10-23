@@ -3693,7 +3693,7 @@ function selectTrackingNotices(data,input){
  .filter(e=>!isApproval||approvalTitle(e))
  .filter(e=>!type||(type==='welfare'?/สวัสดิการ|สงเคราะห์/.test(e.title||''):category(e)===type))
  .filter(e=>type||!/เงินกู้|กู้/.test(q)||['ordinary-loan','emergency-loan','quality-of-life-loan'].includes(category(e))||/เงินกู้|กู้/.test(e.title||''))
- .filter(e=>!member||!isApproval||/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||''))
+ .filter(e=>!member||!isApproval||(/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมัครสมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||'')&&!/พ้นจากสมาชิกภาพ|ลาออก|เงินกู้|ให้กู้/.test(e.title||'')))
  .filter(e=>isApproval||(/เอกสารสมัครสมาชิก/.test(q)?/เอกสาร.*ไม่ครบ|เอกสารมาไม่ครบ/.test(e.title||''):/รอบสมาชิก/.test(q)?/เอกสาร|รอบ|สมัครสมาชิก/.test(e.title||'')&&!approvalTitle(e):true))
  .filter(e=>!e.expiresAt||new Date(e.expiresAt)>new Date())
  .filter((e,i,a)=>a.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);
