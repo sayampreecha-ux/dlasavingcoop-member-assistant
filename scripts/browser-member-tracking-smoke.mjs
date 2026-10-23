@@ -18,7 +18,12 @@ try{for(const width of [390,1365]){
  const notices=()=>page.locator('#out .tracking-notices').first();
  const ready=()=>notices().getByText('📣 ประกาศที่ตรงกับเรื่อง',{exact:true}).waitFor();
  await ask('ติดตามผลและสถานะเอกสาร');await choose('ติดตามผลอนุมัติ');await choose('ผลอนุมัติสมัครสมาชิก');await ready();
- const actual=await notices().locator('a.tracking-notice-link').evaluateAll(as=>as.map(a=>({title:a.textContent,href:a.href})));
+ const allLinks=await notices().locator('a.tracking-notice-link').evaluateAll(as=>as.map(a=>({title:a.textContent,href:a.href})));
+ const actual=allLinks.filter(a=>/^https:\/\/www\.dlasavingcoop\.com\/show\.php\?No=\d+$/.test(a.href));
+ const attachments=allLinks.filter(a=>/^https:\/\/drive\.google\.com\/file\/d\//.test(a.href));
+ assert.equal(allLinks.length,actual.length+attachments.length,'unexpected non-official announcement or attachment link');
+ assert.equal(attachments.length,actual.length,'each verified approval announcement retains its supporting document link');
+ assert.ok(attachments.every(a=>a.title.includes('เปิดเอกสารที่แนบกับประกาศ')),'documents labelled correctly');
  assert.ok(actual.some(a=>a.href==='https://www.dlasavingcoop.com/show.php?No=4937'&&a.title.includes('เคยเป็นสมาชิก')));
  assert.ok(actual.some(a=>a.href==='https://www.dlasavingcoop.com/show.php?No=4936'&&a.title.includes('ไม่เคยเป็นสมาชิก')));
  console.log('MEMBER_BROWSER_ACTUAL',JSON.stringify({width,actual}));
