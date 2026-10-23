@@ -561,12 +561,19 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const loan=/เงินกู้|กู้/.test(q);
     let rows=approvalRecords.filter(x=>(!category||x.category===category)&&
       (category||!loan||/loan/.test(x.category)));
-    const day=q.match(/(?:ตัด(?:รอบ)?เอกสาร\s*)?(\d{1,2})\s*(?:ต\.?\s*ค\.?|ตุลาคม)/);
-    if(day&&/2569|\b69\b/.test(q)){
-      const cutoff='2026-10-'+String(Number(day[1])).padStart(2,'0');
-      rows=rows.filter(x=>x.cutOffDate===cutoff);
-    }else if(/ตุลาคม\s*(?:25)?69|ต\.?\s*ค\.?\s*(?:25)?69/.test(q)){
-      rows=rows.filter(x=>(x.cutOffDate||x.publishedAt||'').startsWith('2026-10'));
+    const monthAliases=[
+      ['มกราคม','ม.ค.'],['กุมภาพันธ์','ก.พ.'],['มีนาคม','มี.ค.'],['เมษายน','เม.ย.'],
+      ['พฤษภาคม','พ.ค.'],['มิถุนายน','มิ.ย.'],['กรกฎาคม','ก.ค.'],['สิงหาคม','ส.ค.'],
+      ['กันยายน','ก.ย.'],['ตุลาคม','ต.ค.'],['พฤศจิกายน','พ.ย.'],['ธันวาคม','ธ.ค.']
+    ];
+    const m=monthAliases.findIndex(aliases=>aliases.some(alias=>q.includes(alias)));
+    const beYear=q.match(/25\d{2}/)?.[0]||q.match(/(?:^|\D)(6\d)(?:\D|$)/)?.[1]||null;
+    const yyyy=beYear?(Number(beYear.length===2?'25'+beYear:beYear)-543):null;
+    if(m>=0&&yyyy){
+      const aliases=monthAliases[m].map(x=>x.replace(/\./g,'\\.')).join('|');
+      const day=q.match(new RegExp('(\\d{1,2})\\s*(?:'+aliases+')'));
+      const prefix=yyyy+'-'+String(m+1).padStart(2,'0');
+      rows=rows.filter(x=>day?x.cutOffDate===prefix+'-'+String(Number(day[1])).padStart(2,'0'):(x.cutOffDate||x.publishedAt||'').startsWith(prefix));
     }
     rows.sort((a,b)=>Date.parse(b.publishedAt||b.cutOffDate||0)-Date.parse(a.publishedAt||a.cutOffDate||0));
     const match=requestedId?approvalRecords.find(x=>x.id===requestedId):rows[0];
