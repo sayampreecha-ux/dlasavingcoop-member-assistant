@@ -211,7 +211,7 @@ function anchors(html,base,source){
   const out=[];
   // On the official notice index, publication metadata belongs to its own table row.
   // Match whole rows first rather than assuming the date sits within 800 chars of </a>.
-  if(source==='official-notice'){
+  if(source==='official-notice'||source==='official-loan'){
     const rows=html.match(/<tr\b[^>]*>[\s\S]*?<\/tr>/gi)||[];
     for(const row of rows){
       const link=row.match(/<a\b[^>]*href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/i);
@@ -349,7 +349,7 @@ async function approvalRecord(item){
   try{body=await fetchText(item.url)}catch{return null}
   const plain=decode(body);
   const cutOffDate=matchThaiDate(item.title+' '+plain,/ตัดรอบเอกสารวันที่\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม|ม.ค.|ก.พ.|มี.ค.|เม.ย.|พ.ค.|มิ.ย.|ก.ค.|ส.ค.|ก.ย.|ต.ค.|พ.ย.|ธ.ค.)\s*(\d{2,4})/);
-  const transferDate=matchThaiDate(plain,/รอบโอนเงิน(?:ใน)?วัน(?:จันทร์|อังคาร|พุธ|พฤหัสบดี|ศุกร์|เสาร์|อาทิตย์)?ที่?\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
+  const transferDate=matchThaiDate(plain,/รอบโอนเงิน(?:ใน)?\s*วัน(?:จันทร์|อังคาร|พุธ|พฤหัสบดี|ศุกร์|เสาร์|อาทิตย์)?ที่?\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
   const firstInstallment=plain.match(/เริ่มชำระงวดแรกเดือน\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
   const firstInstallmentMonth=firstInstallment?thaiDateToISO(1,firstInstallment[1],firstInstallment[2]):null;
   const documentLinks=[...body.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)]
