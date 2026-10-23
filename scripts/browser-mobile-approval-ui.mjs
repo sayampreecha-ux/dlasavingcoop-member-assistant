@@ -34,9 +34,10 @@ try{
    assert.match(text,/เริ่มงวดแรก พ.ย. 2569/);
    assert.doesNotMatch(text,/ตัดเอกสาร 2026-10-15|กำหนดรอบโอน 2026-10-30/);
    const more=block.locator('details.notice-more');
-   assert.equal(await more.count(),1);
-   assert.equal(await more.evaluate(e=>e.open),false);
-   await more.locator('summary').click();assert.equal(await more.evaluate(e=>e.open),true);
+   const count=await page.evaluate(async()=>{const feed=await (await fetch('./data/current-events.json')).json();return selectTrackingNotices(feed,'ผลอนุมัติเงินกู้สามัญล่าสุด').length});
+   assert.equal(await more.count(),count>1?1:0,'expanded group exists exactly when multiple matching official notices exist');
+   if(count>1){assert.equal(await more.evaluate(e=>e.open),false);await more.locator('summary').click();assert.equal(await more.evaluate(e=>e.open),true);
+     assert.equal(await more.locator('a[href*="show.php?No="]').count(),Math.min(count-1,4),'all remaining notices accessible');}
    const links=await block.locator('a').evaluateAll(as=>as.map(a=>a.href));
    assert.ok(links.includes('https://www.dlasavingcoop.com/show.php?No=4946'));
    assert.ok(links.some(h=>h.startsWith('https://drive.google.com/file/d/')));
