@@ -83,6 +83,10 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
 .reading-current .follow.loan-product-menu,.reading-current .follow.share-backed-follow{position:static;max-height:none;overflow:visible}
 #readingHistory .reading-current{background:#fff;border:1px solid #eadfc4;border-radius:16px;padding:14px;margin:12px 0}#readingHistory .body{white-space:pre-line}#readingHistory .follow{position:static;max-height:none} 
 .tracking-notices{margin:14px 0;padding:12px;background:#f5faf6;border:1px solid #d4e9dc;border-radius:12px}.tracking-notice-link{display:block;margin-top:10px;padding:12px;background:white;border:1px solid #d4e9dc;border-radius:10px;color:#176645;font-weight:750;text-decoration:none}
+.reading-current .follow,.reading-current .follow.loan-product-menu,.reading-current .follow.share-backed-follow{position:static!important;top:auto!important;bottom:auto!important;z-index:auto!important;max-height:none!important;overflow:visible!important;box-shadow:none}
+.tracking-notices details.notice-more{margin-top:12px}
+.tracking-notices details.notice-more summary{cursor:pointer;font-weight:750;padding:12px;border:1px solid #d4e9dc;border-radius:10px;background:white}
+.tracking-notices .notice-summary{font-size:14px;line-height:1.6;color:#385c4b}
 </style>
 </head>
 <body>
@@ -540,6 +544,64 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 })(typeof globalThis!=='undefined'?globalThis:this,function(KB){
   const S=KB.official;
   const C=KB.contacts;
+
+  // Public official announcements only. Never cache member identities or approval lists.
+  let approvalRecords=[],approvalCheckedAt=null;
+  function setApprovalIndex(rows=[],checkedAt=null){
+    approvalRecords=Array.isArray(rows)?rows.filter(x=>x&&x.sourceState==='DIRECT_VERIFIED'&&/^https:\/\/(?:www\.)?dlasavingcoop\.com\/show\.php\?No=\d+$/i.test(x.directSourceUrl||''))
+      .map(x=>({id:String(x.id||''),category:String(x.category||''),title:String(x.title||''),directSourceUrl:x.directSourceUrl,
+        documentUrl:/^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+\//.test(x.documentUrl||'')?x.documentUrl:null,
+        publishedAt:x.publishedAt||null,cutOffDate:x.cutOffDate||null,transferDate:x.transferDate||null,
+        firstInstallmentMonth:x.firstInstallmentMonth||null,lastCheckedAt:x.lastCheckedAt||null})): [];
+    approvalCheckedAt=checkedAt||null;
+    return approvalRecords.length;
+  }
+  const approvalQuestion=q=>/(?:ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|คนกู้ผ่าน|รายชื่อ.*กู้ผ่าน|กู้.*ตัดเอกสาร|กู้สามัญ.*โอนวัน|เงินกู้.*ประกาศ|กู้สามัญ.*ประกาศ)/.test(q)&&
+    /เงินกู้|กู้/.test(q);
+  function approvalAnswer(input,requestedId=null){
+    const q=norm(input);
+    if(!requestedId&&!approvalQuestion(q))return null;
+    const category=/ฉุกเฉิน/.test(q)?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(q)?'quality-of-life-loan':
+      /(?:เงินกู้สามัญ|กู้สามัญ)/.test(q)?'ordinary-loan':/สวัสดิการ/.test(q)?'welfare':
+      /ฌาปนกิจ/.test(q)?'funeral':/สมัครสมาชิก|อนุมัติสมาชิก/.test(q)?'membership':null;
+    const loan=/เงินกู้|กู้/.test(q);
+    let rows=approvalRecords.filter(x=>(!category||x.category===category)&&
+      (category||!loan||/loan/.test(x.category)));
+    const monthAliases=[
+      ['มกราคม','ม.ค.'],['กุมภาพันธ์','ก.พ.'],['มีนาคม','มี.ค.'],['เมษายน','เม.ย.'],
+      ['พฤษภาคม','พ.ค.'],['มิถุนายน','มิ.ย.'],['กรกฎาคม','ก.ค.'],['สิงหาคม','ส.ค.'],
+      ['กันยายน','ก.ย.'],['ตุลาคม','ต.ค.'],['พฤศจิกายน','พ.ย.'],['ธันวาคม','ธ.ค.']
+    ];
+    const m=monthAliases.findIndex(aliases=>aliases.some(alias=>q.includes(alias)));
+    const beYear=q.match(/25\d{2}/)?.[0]||q.match(/(?:^|\D)(6\d)(?:\D|$)/)?.[1]||null;
+    const yyyy=beYear?(Number(beYear.length===2?'25'+beYear:beYear)-543):null;
+    if(m>=0&&yyyy){
+      const aliases=monthAliases[m].map(x=>x.replace(/\./g,'\\.')).join('|');
+      const day=q.match(new RegExp('(\\d{1,2})\\s*(?:'+aliases+')'));
+      const prefix=yyyy+'-'+String(m+1).padStart(2,'0');
+      rows=rows.filter(x=>day?x.cutOffDate===prefix+'-'+String(Number(day[1])).padStart(2,'0'):(x.cutOffDate||x.publishedAt||'').startsWith(prefix));
+    }
+    rows.sort((a,b)=>Date.parse(b.publishedAt||b.cutOffDate||0)-Date.parse(a.publishedAt||a.cutOffDate||0));
+    const match=requestedId?approvalRecords.find(x=>x.id===requestedId):rows[0];
+    const official=loan?'https://www.dlasavingcoop.com/list.php?Category=loan':'https://www.dlasavingcoop.com/';
+    const checked=approvalCheckedAt?'ข้อมูลตรวจสอบล่าสุด '+new Date(approvalCheckedAt).toLocaleString('th-TH',{timeZone:'Asia/Bangkok'}):'ยังไม่ทราบเวลาตรวจข้อมูลล่าสุด';
+    if(!match&&!approvalRecords.length)return null;
+    if(!match){
+      return res('approval_announcement','ยังไม่พบประกาศตรงประเภทและรอบในข้อมูลที่ระบบตรวจสอบ ไม่ได้หมายความว่าเว็บไซต์สหกรณ์ไม่มีประกาศ\n'+checked+'\nโปรดเปิดหมวดประกาศทางการเพื่อตรวจสอบอีกครั้ง หากเป็นผลเฉพาะบุคคลต้องตรวจผ่านช่องทางของสหกรณ์',{decision:'SAFE_HANDOFF',actions:[['📣 เปิดหมวดประกาศทางการ',official]],sources:[src('ดัชนีประกาศทางการ',official)]});
+    }
+    const thDate=d=>d?new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00+07:00')):null;
+    const details=[
+      match.cutOffDate?'วันตัดเอกสาร: '+thDate(match.cutOffDate):null,
+      match.transferDate?'กำหนดรอบโอนเงิน: '+thDate(match.transferDate)+' (ไม่ใช่หลักฐานว่าโอนสำเร็จ)':null,
+      match.firstInstallmentMonth?'เริ่มชำระงวดแรก: '+new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',month:'long',year:'numeric'}).format(new Date(match.firstInstallmentMonth+'T12:00:00+07:00')):null
+    ].filter(Boolean);
+    const actions=[['📣 เปิดประกาศต้นฉบับ',match.directSourceUrl]];
+    if(match.documentUrl)actions.push(['📄 เปิดไฟล์แนบจากประกาศ (ตรวจชื่อและรอบเอกสาร)',match.documentUrl]);
+    return res('approval_announcement',match.title+'\n'+details.join('\n')+'\n'+checked+
+      '\nข้อมูลนี้เป็นประกาศสาธารณะ ไม่ยืนยันว่าผู้ถามได้รับอนุมัติหรือโอนเงินแล้ว กรุณาตรวจเอกสารต้นฉบับด้วยตนเอง',{decision:'RULE_INFORMATION',
+      noticeId:match.id,actions,sources:[src('ประกาศทางการ',match.directSourceUrl)],details:['ไม่จัดเก็บหรือแสดงรายชื่อและเลขสมาชิกในระบบ AI']});
+  }
+
   const line=(rows=[])=>rows.map(x=>`${x[0]} ${x[1]}`).join(' · ');
   const DIRECT_TOPIC_INDEX_NOS=new Set(['772','773','774','775','807','2385']);
   function sourceKind(url=''){
@@ -2942,6 +3004,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   // Shared UI turn handler: retain the question awaiting a choice and pass fact replies raw.
   function conversationTurn(input,state={},options={}){
+    const immediate=approvalAnswer(input, state?.topic==='approval-announcement'&&/^(?:แล้ว)?เริ่มหัก(?:เงิน|งวด)?เดือนไหน|แล้วเริ่มชำระ(?:งวดแรก)?เดือนไหน/.test(norm(input))?state?.noticeId:null);
+    if(immediate){const selected=approvalRecords.find(x=>immediate.sources?.some(y=>y.url===x.directSourceUrl));return {result:immediate,state:{...state,result:immediate,topic:'approval-announcement',noticeId:selected?.id||state?.noticeId||null,question:norm(input)},query:norm(input)};}
+
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
     // A complete, expressly named share-rate task starts a new topic, not a loan follow-up.
     // Ambiguous follow-ups remain routed through the existing conversational state.
@@ -3348,6 +3413,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    const announcement=approvalAnswer(q);
+    if(announcement)return announcement;
     const concern=memberConcern(q);if(concern)return concern;
     // T07: compose two explicit rule concerns from the single versioned Rule Master.
     if(/(?:กู้สามัญ|เงินกู้สามัญ)/.test(q)&&/(?:ได้เท่า(?:ไหร่|ไร)|วงเงิน|กี่บาท)/.test(q)&&/(?:ค้ำกี่คน|ค้ำ.*กี่คน|ผู้ค้ำ.*กี่คน|กี่คน.*ค้ำ)/.test(q)&&!personal(q)){
@@ -3679,7 +3746,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       primary.splice(0,primary.length,...[authority?['📜 ระเบียบหุ้นทางการ',authority[1]]:null,bylawsLink,contact].filter(Boolean));
     }
     return {...r,actions:primary,extraActions:unique.filter(item=>!primary.includes(item))};
-  },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
+  },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,setApprovalIndex,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
 
 </script>
@@ -3714,7 +3781,33 @@ function updateReadingTopics(source){
   });
 }
 
-function selectTrackingNotices(data,input){const isApproval=/^(?:ติดตามผลอนุมัติ|ผลอนุมัติ)/.test(input);const isMemberApproval=isApproval&&/สมัครสมาชิก|^(?:ติดตาม)?ผลอนุมัติสมาชิก$/.test(input);const type=isMemberApproval?/สมัครสมาชิก|สมาชิกใหม่|สมาชิกสหกรณ์|ได้รับความเห็นชอบให้เป็นสมาชิก/:/เงินกู้/.test(input)?/เงินกู้|สินเชื่อ|กู้/:/สวัสดิการ/.test(input)?/สวัสดิการ|ทุนบุตร|สงเคราะห์/:/สมัครสมาชิก|รอบสมาชิก/.test(input)?/สมัครสมาชิก|สมาชิกใหม่/:/ฌาปนกิจ/.test(input)?/ฌาปนกิจ|สงเคราะห์ศพ/:null;const terms=/อนุมัติ/.test(input)?/อนุมัติ|ผลพิจารณา|ผลการพิจารณา/:/รอบ/.test(input)?/รอบ|กำหนด|ตัดรอบ|วันรับ|วันส่ง|ประกาศ/:/เอกสาร/.test(input)?/เอกสาร|ยืนยันยอด|ส่งคืน|รับคำขอ/:/ชำระ/.test(input)?/ชำระ|ใบเสร็จ|นำส่ง|ยอด/:/อนุมัติ|เอกสาร|รอบ|ชำระ/;const items=[...(data.trackingNotices||[]),...(data.events||[])].filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl&&(!isApproval||(isMemberApproval?/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||''):/ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|รายชื่อ.*(?:อนุมัติ|ได้รับอนุมัติ)/.test(e.title||'')))&&(isMemberApproval||terms.test(e.title+' '+(e.summary||'')))&&(!type||type.test(e.title+' '+(e.summary||'')))&&(!e.expiresAt||new Date(e.expiresAt)>new Date())).filter((e,i,arr)=>arr.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);return items;}
+function displayOfficialThaiDate(value,monthOnly=false){
+ if(!value)return '';
+ const m=String(value).match(/^(\d{4})-(\d{2})(?:-(\d{2}))?$/);
+ if(!m)return '';
+ const y=Number(m[1]),mon=Number(m[2]),day=m[3]?Number(m[3]):1;
+ const dt=new Date(Date.UTC(y,mon-1,day,12));
+ if(y<1900||mon<1||mon>12||day<1||day>31||dt.getUTCFullYear()!==y||dt.getUTCMonth()!==mon-1||dt.getUTCDate()!==day)return '';
+ return new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',...(monthOnly||!m[3]?{}:{day:'numeric'}),month:'short',year:'numeric'}).format(dt);
+}
+function selectTrackingNotices(data,input){
+ const q=String(input||'').trim();
+ const isApproval=/^(?:ติดตามผลอนุมัติ|ผลอนุมัติ)/.test(q)||/ผลการพิจารณา|เงินกู้.*(?:อนุมัติ|ตัดเอกสาร|โอน|ประกาศ)|กู้สามัญ.*(?:อนุมัติ|ตัดเอกสาร|โอน|ประกาศ)/.test(q);
+ const member=/สมัครสมาชิก|^(?:ติดตาม)?ผลอนุมัติสมาชิก$/.test(q);
+ const type=/ฉุกเฉิน/.test(q)?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(q)?'quality-of-life-loan':/เงินกู้สามัญ|กู้สามัญ/.test(q)?'ordinary-loan':/สวัสดิการ/.test(q)?'welfare':/ฌาปนกิจ/.test(q)?'funeral':member?'membership':null;
+ const category=e=>e.category||(/เงินกู้สามัญ/.test(e.title||'')?'ordinary-loan':/เงินกู้ฉุกเฉิน/.test(e.title||'')?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(e.title||'')?'quality-of-life-loan':/สวัสดิการ/.test(e.title||'')?'welfare':/ฌาปนกิจ/.test(e.title||'')?'funeral':/สมาชิก/.test(e.title||'')?'membership':null);
+ const approvalTitle=e=>/ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|แจ้งผลอนุมัติ|ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/.test(e.title||'');
+ const source=isApproval?[...(data.approvalIndex||[]),...(data.trackingNotices||[]),...(data.events||[])]:[...(data.trackingNotices||[]),...(data.events||[])];
+ const filtered=source.filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl)
+ .filter(e=>!isApproval||approvalTitle(e))
+ .filter(e=>!type||(type==='welfare'?/สวัสดิการ|สงเคราะห์/.test(e.title||''):category(e)===type))
+ .filter(e=>type||!/เงินกู้|กู้/.test(q)||['ordinary-loan','emergency-loan','quality-of-life-loan'].includes(category(e))||/เงินกู้|กู้/.test(e.title||''))
+ .filter(e=>!member||!isApproval||(/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมัครสมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||'')&&!/พ้นจากสมาชิกภาพ|ลาออก|เงินกู้|ให้กู้/.test(e.title||'')))
+ .filter(e=>isApproval||(/เอกสารสมัครสมาชิก/.test(q)?/เอกสาร.*ไม่ครบ|เอกสารมาไม่ครบ/.test(e.title||''):/รอบสมาชิก/.test(q)?/เอกสาร|รอบ|สมัครสมาชิก/.test(e.title||'')&&!approvalTitle(e):true))
+ .filter(e=>!e.expiresAt||new Date(e.expiresAt)>new Date())
+ .filter((e,i,a)=>a.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);
+ return filtered.sort((a,b)=>Date.parse(b.publishedAt||0)-Date.parse(a.publishedAt||0));
+}
 
 function renderOrdinaryLoanCalculator(current,r){
   const ordinaryAssessment=r.intent==='loan_safe_calculator'&&(!r.domain||r.domain==='ordinaryLoanCurrent');
@@ -3732,7 +3825,23 @@ function renderOrdinaryLoanCalculator(current,r){
   const note=document.createElement('p');note.className='hint';note.dataset.ordinaryLoanCalculatorNote='true';
   note.textContent='คำนวณประมาณการผ่านระบบของสหกรณ์ ผลคำนวณไม่ใช่การอนุมัติเงินกู้';current.append(note);
 }
-function render(r,input=''){out.classList.remove('hidden');let history=document.getElementById('readingHistory');if(!history){history=document.createElement('div');history.id='readingHistory';history.className='reading-history';out.parentNode.insertBefore(history,out);}while(out.firstChild){const previous=out.firstChild;previous.querySelectorAll('.follow-input').forEach(f=>f.remove());history.appendChild(previous);}const current=document.createElement('section');current.className='reading-current';out.append(current);readingInsertionAnchor=null;const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';current.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-top:12px';const b=document.createElement('div');b.className='badge';b.textContent=r.status;current.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;current.append(body);if(/^(?:ติดตาม|ผลอนุมัติ|เอกสาร(?:เงินกู้|สวัสดิการ|สมัครสมาชิก|ฌาปนกิจ|เรื่องอื่น)|รอบ(?:เงินกู้|สวัสดิการ|สมาชิก|ฌาปนกิจ|เรื่องอื่น))/.test(input)){const notices=document.createElement('div');notices.className='tracking-notices';notices.textContent='ตรวจข้อมูลประกาศจากฐานที่เผยแพร่แล้ว…';current.append(notices);fetch('./data/current-events.json',{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error('feed');return x.json()}).then(data=>{const items=selectTrackingNotices(data,input);notices.replaceChildren();const title=document.createElement('strong');title.textContent='📣 ประกาศที่ตรงกับเรื่อง';notices.append(title);if(!items.length){const p=document.createElement('p');p.textContent='ยังไม่พบประกาศตรงเรื่องที่ตรวจยืนยันได้ในฐานข่าวล่าสุดของระบบ ไม่ใช่การยืนยันว่าไม่มีประกาศบนเว็บไซต์สหกรณ์';notices.append(p);const a=document.createElement('a');a.href='https://www.dlasavingcoop.com/list.php?Category=notice';a.target='_blank';a.rel='noopener';a.className='tracking-notice-link';a.textContent='📣 เปิดหน้าประกาศทางการของสหกรณ์';notices.append(a);return;}items.slice(0,5).forEach(e=>{const a=document.createElement('a');a.href=e.directSourceUrl;a.target='_blank';a.rel='noopener';a.className='tracking-notice-link';a.textContent=e.title+(e.publishedAt?' · '+new Date(e.publishedAt).toLocaleDateString('th-TH'):'');notices.append(a);});}).catch(()=>{notices.textContent='ยังตรวจฐานประกาศไม่ได้ในขณะนี้ กรุณาติดต่อเจ้าหน้าที่เพื่อตรวจสอบผลโดยตรง';});}const depositMenu=COOP_APP.depositNavigation(input,r)||COOP_APP.paymentNavigation(input,r);if(depositMenu){const nav=document.createElement('nav');nav.className='deposit-navigation';nav.setAttribute('aria-label',depositMenu.title);const title=document.createElement('p');title.style.fontWeight='800';title.textContent=depositMenu.title;nav.append(title);const choices=document.createElement('div');choices.className='follow';depositMenu.items.forEach(([label,query])=>{const bt=document.createElement('button');bt.type='button';bt.className='chip';bt.textContent=label;bt.onclick=()=>{if(query==='#deposit-contact'){box.classList.remove('hidden');box.scrollTop=0;return;}conversationState=null;previousTopic='';readingInsertionAnchor=current;ask(query)};choices.append(bt)});nav.append(choices);current.append(nav);updateReadingTopics(choices)}if(r.followups?.length&&!depositMenu){const d=document.createElement('div');d.className='follow';if(r.followups.includes('กู้เพื่อการพักผ่อน'))d.classList.add('loan-product-menu');if(['shareBackedLoanCurrent','debtRestructuringLoanCurrent','guarantorDebtLoanCurrent'].includes(r.domain))d.classList.add('share-backed-follow');const shareFollowups=/^share_/.test(r.intent||'');const visibleFollowups=shareFollowups?r.followups.slice(0,3):r.followups;const hiddenFollowups=shareFollowups?r.followups.slice(3):[];const addFollowup=(target,x)=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>{readingInsertionAnchor=current;ask(x,{continuation:true});};target.append(bt)};visibleFollowups.forEach(x=>addFollowup(d,x));current.append(d);updateReadingTopics(d);if(hiddenFollowups.length){const more=document.createElement('details');more.className='more';more.dataset.shareFollowups='true';const summary=document.createElement('summary');summary.textContent='📚 หัวข้อหุ้นเพิ่มเติม';more.append(summary);const extra=document.createElement('div');extra.className='follow';hiddenFollowups.forEach(x=>addFollowup(extra,x));more.append(extra);current.append(more)}}const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};current.append(f);if(r.actions?.length){const d=document.createElement('div');d.className='actions';const shareTopic=/^share_/.test(r.intent||'')||/หุ้น|ค่าหุ้น/.test(String(r.answer||''))&&r.actions.some(([t])=>/หุ้น/.test(t));const compactActions=shareTopic||Boolean(r.scenario);const uniqueActions=[];const seenUrls=new Set();r.actions.forEach(item=>{const url=item[1];if(shareTopic&&/^https?:/.test(url)){if(seenUrls.has(url))return;seenUrls.add(url)}uniqueActions.push(item)});const bylawsAction=uniqueActions.find(([label])=>label==='📗 ข้อบังคับสหกรณ์');const primaryActions=shareTopic&&bylawsAction&&r.intent!=='share_bylaws'&&r.intent!=='share_purchase'?[...uniqueActions.filter(item=>item!==bylawsAction).slice(0,2),bylawsAction]:compactActions?uniqueActions.slice(0,3):uniqueActions;const extraActions=compactActions?[...uniqueActions.filter(item=>!primaryActions.includes(item)),...(r.extraActions||[])].filter((item,index,arr)=>shareTopic?arr.findIndex(other=>other[1]===item[1])===index&&!primaryActions.some(other=>other[1]===item[1]):!primaryActions.includes(item)):[];if(shareTopic){d.dataset.sharePrimary='true';d.dataset.shareCount=String(primaryActions.length);current.dataset.shareUiVersion=UI_RELEASE;}const appendAction=(container,[t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}container.append(a)};primaryActions.forEach(item=>appendAction(d,item));if(primaryActions.length)current.append(d);if(extraActions.length){const more=document.createElement('details');more.className=shareTopic?'more':'loan-links';const heading=document.createElement('summary');heading.textContent='📚 เอกสารและลิงก์เพิ่มเติม';more.append(heading);const extra=document.createElement('div');extra.className='actions';extraActions.forEach(item=>appendAction(extra,item));more.append(extra);more.dataset.shareSecondary='true';current.append(more)}}renderOrdinaryLoanCalculator(current,r);if(r.details?.length){const det=document.createElement('details');det.className='more';det.open=r.decision==='PROCEDURE_INFORMATION';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);current.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐานประกอบ';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';if(x.sourceState)a.dataset.sourceState=x.sourceState;det.append(a)});current.append(det)}current.append(ver);current.scrollIntoView({behavior:'smooth',block:'nearest'})}
+function render(r,input=''){out.classList.remove('hidden');let history=document.getElementById('readingHistory');if(!history){history=document.createElement('div');history.id='readingHistory';history.className='reading-history';out.parentNode.insertBefore(history,out);}while(out.firstChild){const previous=out.firstChild;previous.querySelectorAll('.follow-input').forEach(f=>f.remove());history.appendChild(previous);}const current=document.createElement('section');current.className='reading-current';out.append(current);readingInsertionAnchor=null;const h=document.createElement('div');h.style.fontWeight='900';h.style.fontSize='18px';h.style.marginBottom='7px';h.textContent='คำตอบ';current.append(h);const ver=document.createElement('small');ver.textContent='รุ่น '+UI_RELEASE;ver.style.cssText='display:block;opacity:.55;margin-top:12px';const b=document.createElement('div');b.className='badge';b.textContent=r.status;current.append(b);const body=document.createElement('div');body.className='body';body.textContent=r.answer;current.append(body);if(/(?:ติดตาม|ผล(?:การ)?อนุมัติ|ผลการพิจารณา|(?:เงินกู้|กู้).*(?:รอบ|โอน|ประกาศ|ตัดเอกสาร)|เอกสาร(?:เงินกู้|สวัสดิการ|สมัครสมาชิก|ฌาปนกิจ|เรื่องอื่น)|รอบ(?:เงินกู้|สวัสดิการ|สมาชิก|ฌาปนกิจ|เรื่องอื่น))/.test(input)){const notices=document.createElement('div');notices.className='tracking-notices';notices.textContent='ตรวจข้อมูลประกาศจากฐานที่เผยแพร่แล้ว…';current.append(notices);fetch('./data/current-events.json',{cache:'no-cache'}).then(x=>{if(!x.ok)throw Error('feed');return x.json()}).then(data=>{const items=selectTrackingNotices(data,input);notices.replaceChildren();const title=document.createElement('strong');title.textContent='📣 ประกาศที่ตรงกับเรื่อง';notices.append(title);if(items.length&&/สวัสดิการ/.test(input)){const category=document.createElement('p');category.className='notice-summary';category.textContent='ประกาศหมวดสวัสดิการและสงเคราะห์ที่ตรงกับเรื่อง';notices.append(category);}if(items.length&&/เงินกู้สามัญ|กู้สามัญ/.test(input)){const lead=document.createElement('p');lead.className='notice-summary';lead.textContent='พบประกาศผลอนุมัติเงินกู้สามัญตามรอบที่สอบถาม กรุณาเปิดประกาศและเอกสารต้นฉบับตรวจสอบด้วยตนเอง ระบบไม่ยืนยันผลเฉพาะรายหรือการโอนเงินสำเร็จ';notices.append(lead);}if(!items.length){const p=document.createElement('p');p.textContent='ยังไม่พบประกาศตรงเรื่องที่ตรวจยืนยันได้ในฐานข่าวล่าสุดของระบบ ไม่ใช่การยืนยันว่าไม่มีประกาศบนเว็บไซต์สหกรณ์';notices.append(p);const a=document.createElement('a');a.href=/เงินกู้|กู้/.test(input)?'https://www.dlasavingcoop.com/list.php?Category=loan':'https://www.dlasavingcoop.com/';a.target='_blank';a.rel='noopener';a.className='tracking-notice-link';a.textContent='📣 เปิดหมวดประกาศทางการที่ตรงเรื่อง';notices.append(a);return;}const more=items.length>1?document.createElement('details'):null;if(more){more.className='notice-more';const caption=document.createElement('summary');caption.textContent='ดูประกาศเพิ่มเติม ('+Math.min(items.length-1,4)+' รายการ)';more.append(caption);}items.slice(0,5).forEach((e,index)=>{const target=index===0?notices:more;const a=document.createElement('a');a.href=e.directSourceUrl;a.target='_blank';a.rel='noopener';a.className='tracking-notice-link';a.textContent=e.title+(e.publishedAt?' · เผยแพร่ '+new Date(e.publishedAt).toLocaleDateString('th-TH'):' · วันเผยแพร่ไม่ทราบ');target.append(a);if(e.cutOffDate||e.transferDate||e.firstInstallmentMonth){const info=document.createElement('small');info.style.display='block';info.textContent=[e.cutOffDate?'ตัดเอกสาร '+(displayOfficialThaiDate(e.cutOffDate)||'ยังยืนยันวันที่ไม่ได้'):'',e.transferDate?'กำหนดรอบโอน '+(displayOfficialThaiDate(e.transferDate)||'ยังยืนยันวันที่ไม่ได้'):'',e.firstInstallmentMonth?'เริ่มงวดแรก '+(displayOfficialThaiDate(e.firstInstallmentMonth.slice(0,7),true)||'ยังยืนยันเดือนไม่ได้'):''].filter(Boolean).join(' · ')+' (ไม่ใช่การยืนยันว่าโอนสำเร็จแล้ว)';target.append(info);}if(e.documentUrl){const doc=document.createElement('a');doc.href=e.documentUrl;doc.target='_blank';doc.rel='noopener noreferrer';doc.className='tracking-notice-link';doc.textContent='📄 เปิดเอกสารที่แนบกับประกาศ (ตรวจข้อมูลด้วยตนเอง)';target.append(doc);}});if(more)notices.append(more);}).catch(()=>{notices.textContent='ยังตรวจฐานประกาศไม่ได้ในขณะนี้ กรุณาติดต่อเจ้าหน้าที่เพื่อตรวจสอบผลโดยตรง';});}const depositMenu=COOP_APP.depositNavigation(input,r)||COOP_APP.paymentNavigation(input,r);if(depositMenu){const nav=document.createElement('nav');nav.className='deposit-navigation';nav.setAttribute('aria-label',depositMenu.title);const title=document.createElement('p');title.style.fontWeight='800';title.textContent=depositMenu.title;nav.append(title);const choices=document.createElement('div');choices.className='follow';depositMenu.items.forEach(([label,query])=>{const bt=document.createElement('button');bt.type='button';bt.className='chip';bt.textContent=label;bt.onclick=()=>{if(query==='#deposit-contact'){box.classList.remove('hidden');box.scrollTop=0;return;}conversationState=null;previousTopic='';readingInsertionAnchor=current;ask(query)};choices.append(bt)});nav.append(choices);current.append(nav);updateReadingTopics(choices)}if(r.followups?.length&&!depositMenu){const d=document.createElement('div');d.className='follow';if(r.followups.includes('กู้เพื่อการพักผ่อน'))d.classList.add('loan-product-menu');if(['shareBackedLoanCurrent','debtRestructuringLoanCurrent','guarantorDebtLoanCurrent'].includes(r.domain))d.classList.add('share-backed-follow');const shareFollowups=/^share_/.test(r.intent||'');const visibleFollowups=shareFollowups?r.followups.slice(0,3):r.followups;const hiddenFollowups=shareFollowups?r.followups.slice(3):[];const addFollowup=(target,x)=>{const bt=document.createElement('button');bt.className='chip';bt.textContent=x;bt.onclick=()=>{readingInsertionAnchor=current;ask(x,{continuation:true});};target.append(bt)};visibleFollowups.forEach(x=>addFollowup(d,x));current.append(d);updateReadingTopics(d);if(hiddenFollowups.length){const more=document.createElement('details');more.className='more';more.dataset.shareFollowups='true';const summary=document.createElement('summary');summary.textContent='📚 หัวข้อหุ้นเพิ่มเติม';more.append(summary);const extra=document.createElement('div');extra.className='follow';hiddenFollowups.forEach(x=>addFollowup(extra,x));more.append(extra);current.append(more)}}const f=document.createElement('form');f.className='follow-input';f.style.cssText='display:flex;gap:8px;margin-top:12px;flex-wrap:wrap';const inp=document.createElement('input');inp.type='text';inp.placeholder='ตอบข้อมูลเพิ่มตรงนี้…';inp.setAttribute('aria-label','ตอบข้อมูลเพิ่มเติม');inp.style.cssText='flex:1;min-width:210px;padding:12px;border:1px solid #d8d8d8;border-radius:12px;font-size:16px';const send=document.createElement('button');send.type='submit';send.textContent='ส่งคำตอบ';send.style.cssText='padding:12px 16px;border:0;border-radius:12px;font-weight:800;cursor:pointer';f.append(inp,send);f.onsubmit=e=>{e.preventDefault();const v=inp.value.trim();if(v)ask(v,{continuation:true})};current.append(f);if(r.actions?.length){const d=document.createElement('div');d.className='actions';const shareTopic=/^share_/.test(r.intent||'')||/หุ้น|ค่าหุ้น/.test(String(r.answer||''))&&r.actions.some(([t])=>/หุ้น/.test(t));const compactActions=shareTopic||Boolean(r.scenario);const uniqueActions=[];const seenUrls=new Set();r.actions.forEach(item=>{const url=item[1];if(shareTopic&&/^https?:/.test(url)){if(seenUrls.has(url))return;seenUrls.add(url)}uniqueActions.push(item)});const bylawsAction=uniqueActions.find(([label])=>label==='📗 ข้อบังคับสหกรณ์');const primaryActions=shareTopic&&bylawsAction&&r.intent!=='share_bylaws'&&r.intent!=='share_purchase'?[...uniqueActions.filter(item=>item!==bylawsAction).slice(0,2),bylawsAction]:compactActions?uniqueActions.slice(0,3):uniqueActions;const extraActions=compactActions?[...uniqueActions.filter(item=>!primaryActions.includes(item)),...(r.extraActions||[])].filter((item,index,arr)=>shareTopic?arr.findIndex(other=>other[1]===item[1])===index&&!primaryActions.some(other=>other[1]===item[1]):!primaryActions.includes(item)):[];if(shareTopic){d.dataset.sharePrimary='true';d.dataset.shareCount=String(primaryActions.length);current.dataset.shareUiVersion=UI_RELEASE;}const appendAction=(container,[t,u])=>{const a=document.createElement('a');a.textContent=t;if(u==='#staff-directory'){a.href='#';a.onclick=e=>{e.preventDefault();box.classList.remove('hidden');box.scrollTop=0}}else if(/^#ask:/.test(u)){a.href='#';a.onclick=e=>{e.preventDefault();ask(decodeURIComponent(u.slice(5)))}}else{a.href=u;if(/^https:/.test(u)){a.target='_blank';a.rel='noopener'}}container.append(a)};primaryActions.forEach(item=>appendAction(d,item));if(primaryActions.length)current.append(d);if(extraActions.length){const more=document.createElement('details');more.className=shareTopic?'more':'loan-links';const heading=document.createElement('summary');heading.textContent='📚 เอกสารและลิงก์เพิ่มเติม';more.append(heading);const extra=document.createElement('div');extra.className='actions';extraActions.forEach(item=>appendAction(extra,item));more.append(extra);more.dataset.shareSecondary='true';current.append(more)}}renderOrdinaryLoanCalculator(current,r);if(r.details?.length){const det=document.createElement('details');det.className='more';det.open=r.decision==='PROCEDURE_INFORMATION';const s=document.createElement('summary');s.textContent='📋 ดูขั้นตอนและรายละเอียด';det.append(s);const ul=document.createElement('ul');ul.className='detail';r.details.forEach(x=>{const li=document.createElement('li');li.textContent=x;ul.append(li)});det.append(ul);current.append(det)}if(r.sources?.length){const det=document.createElement('details');det.className='sources';const s=document.createElement('summary');s.textContent='📚 ดูหลักฐานประกอบ';det.append(s);r.sources.forEach(x=>{const a=document.createElement('a');a.textContent=x.title+(x.note?` — ${x.note}`:'');a.href=x.url;a.target='_blank';a.rel='noopener';if(x.sourceState)a.dataset.sourceState=x.sourceState;det.append(a)});current.append(det)}current.append(ver);current.scrollIntoView({behavior:'smooth',block:'nearest'})}
+let approvalDataLoaded=false,approvalDataPromise=null;
+function isApprovalRequest(q){
+  return /(?:ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|รายชื่อ.*กู้ผ่าน|กู้.*ตัดเอกสาร|กู้สามัญ.*โอนวัน|เงินกู้.*ประกาศ|กู้สามัญ.*ประกาศ)/.test(q)&&
+   /เงินกู้|กู้/.test(q);
+}
+function ensureApprovalData(){
+  if(approvalDataLoaded)return Promise.resolve();
+  if(approvalDataPromise)return approvalDataPromise;
+  approvalDataPromise=fetch('./data/current-events.json?approval='+Date.now(),{cache:'no-store'})
+   .then(r=>{if(!r.ok)throw Error('approval feed '+r.status);return r.json()})
+   .then(data=>{COOP_APP.setApprovalIndex(data.approvalIndex||[],data.lastCheckedAt);approvalDataLoaded=true;})
+   .catch(()=>{approvalDataLoaded=true;})
+   .finally(()=>{approvalDataPromise=null;});
+  return approvalDataPromise;
+}
+
 let conversationState=null;
 let previousTopic='';
 // Refresh detection state once per session/15 minutes. No member query or personal data is sent.
@@ -3758,6 +3867,7 @@ async function ask(text,{continuation=false}={}){
   q.value=value;
   // Immediate visible feedback for mobile Safari, including repeated taps.
   if(!value)return;
+  if(isApprovalRequest(value)&&!approvalDataLoaded){out.classList.remove('hidden');ensureApprovalData().then(()=>ask(value,{continuation}));return;}
   out.classList.remove('hidden');
   // Preserve previously opened answers and their topic buttons during navigation.
   try{
@@ -3876,6 +3986,8 @@ async function loadCurrentEvents(){
     const r=await fetch('./data/current-events.json?ts='+Date.now(),{cache:'no-store'});
     if(!r.ok) throw new Error(String(r.status));
     const data=await r.json();
+    COOP_APP.setApprovalIndex(data.approvalIndex||[],data.lastCheckedAt);
+    approvalDataLoaded=true;
     renderCurrentEvents(data);
     renderLatestOfficialNews(data);
   }catch{currentEvents.classList.add('hidden')}

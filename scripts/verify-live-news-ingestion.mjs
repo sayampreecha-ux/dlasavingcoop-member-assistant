@@ -30,13 +30,31 @@ try{
  assert.ok(fresh.sourceHealth?.notices==='ok','official notices source unavailable');
  const expected=new Map([['official-4944','2026-10-21T09:18:07.000Z'],['official-4941','2026-10-14T02:14:23.000Z']]);
  const rows=fresh.latestNews||[];
+ const discovered=new Map((report.pipeline?.focusAfterDedup||[]).map(x=>[x.id,x]));
  for(const [id,date] of expected){
   const item=rows.find(x=>x.id===id);
-  assert.ok(item,'not ingested automatically: '+id);
-  assert.equal(item.publishedAt,date,'source publication date mismatch: '+id);
-  assert.equal(item.sourceState,'DIRECT_VERIFIED');
-  report.items.push({id,date,source:item.directSourceUrl});
+  const candidate=discovered.get(id);
+  assert.ok(candidate,'official source not discovered: '+id);
+  assert.equal(candidate.publishedAt,date,'official publication timestamp mismatch: '+id);
+  if(item){
+   assert.equal(item.publishedAt,date);
+   assert.equal(item.sourceState,'DIRECT_VERIFIED');
+   report.items.push({id,date,source:item.directSourceUrl,visibility:'latestNews'});
+  }else{
+   assert.equal(rows.length,5,'source disappeared before latestNews reached display capacity: '+id);
+   assert.ok(rows.every(x=>Date.parse(x.publishedAt)>Date.parse(date)),'newer-than-excluded invariant violated: '+id);
+   report.items.push({id,date,source:candidate.url,visibility:'discovered-but-outside-five-newest'});
+  }
  }
+ const approval=fresh.approvalIndex?.find(x=>x.id==='official-4946');
+ assert.ok(approval,'official loan approval 4946 not ingested into approvalIndex');
+ assert.equal(approval.category,'ordinary-loan');
+ assert.equal(approval.sourceState,'DIRECT_VERIFIED');
+ assert.equal(approval.cutOffDate,'2026-10-15','approval cut-off');
+ assert.equal(approval.transferDate,'2026-10-30','scheduled transfer date');
+ assert.equal(approval.firstInstallmentMonth,'2026-11-01','first installment month');
+ assert.ok(approval.documentUrl?.startsWith('https://drive.google.com/'),'original member document link');
+ report.items.push({id:approval.id,category:approval.category,source:approval.directSourceUrl,visibility:'approvalIndex'});
  assert.ok(rows.every((x,i)=>i===0||Date.parse(rows[i-1].publishedAt)>=Date.parse(x.publishedAt)),'not chronologically ordered');
  assert.ok(rows.every(x=>Number.isFinite(Date.parse(x.publishedAt))&&Date.now()-Date.parse(x.publishedAt)<=30*86400000&&(!x.expiresAt||Date.parse(x.expiresAt)>Date.now())),'stale/undated/expired item');
  fs.writeFileSync(path.join(output,'live-current-events.json'),JSON.stringify(fresh,null,2)+'\n');

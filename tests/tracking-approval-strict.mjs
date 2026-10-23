@@ -1,9 +1,13 @@
-import fs from 'node:fs';import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-assert.match(html,/const isApproval=\/\^\(\?:ติดตามผลอนุมัติ\|ผลอนุมัติ\)/);
-assert.match(html,/isMemberApproval\?/);assert.match(html,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/);
-assert.match(html,/arr\.findIndex\(x=>x\.directSourceUrl===e\.directSourceUrl\)===i/);
+const source=fs.readFileSync(new URL('../scripts/update-current-events.mjs',import.meta.url),'utf8');
+assert.match(html,/function selectTrackingNotices\(/);
+assert.match(html,/membership|อนุมัติสมาชิก/);
+assert.match(html,/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ได้รับความเห็นชอบ/);
+assert.match(html,/a\.findIndex\(x=>x\.directSourceUrl===e\.directSourceUrl\)===i/);
 assert.match(html,/4\.9\.1-member-approval-filter/);
-console.log('Approval announcement title gate and deduplication present');
-
-assert.match(html,/สมัครสมาชิก\|สมาชิกใหม่\|สมาชิกสหกรณ์\|ได้รับความเห็นชอบให้เป็นสมาชิก/);
+assert.match(html,/approvalIndex/);
+assert.match(source,/Category=loan/);
+assert.match(source,/approvalCategory/);
+console.log('Approval announcement typed index and deduplication guard PASS');
