@@ -54,8 +54,9 @@ if(process.argv[1]===new URL(import.meta.url).pathname){
   count++;
  }
  const reg=journeyMonitor(loadMemberEngine()),now=new Date(reg.lastSyncAt);
- assert.equal(F.gate(reg,'เงินฝากใช้สิทธิอะไรได้บ้าง',{now}).allowed,false,'funeral deposit lock preserved for deposits');
+ assert.equal(F.gate(reg,'เงินฝากใช้สิทธิอะไรได้บ้าง',{now}).allowed,true,'association-only rule must not lock an unspecified member account');
+ assert.equal(F.gate(reg,'เงินฝากจากสมาคมฌาปนกิจใช้สิทธิอะไรได้บ้าง',{now}).allowed,false,'association deposit itself remains locked');
  assert.equal(F.gate(reg,'กู้สามัญเพื่อการพักผ่อนผ่อนได้กี่งวด',{now}).allowed,false,'specific vacation lock preserved');
  assert.equal(app.answer('กู้ฉุกเฉินผ่อนได้กี่งวด').decision,'EVIDENCE_LOCK','rule requests stay locked');
- console.log('LIVE MONITOR JOURNEY:',count,'PASS / 0 FAIL; 3 scope safety checks PASS');
+ console.log('LIVE MONITOR JOURNEY:',count,'PASS / 0 FAIL; 4 scope safety checks PASS');
 }
