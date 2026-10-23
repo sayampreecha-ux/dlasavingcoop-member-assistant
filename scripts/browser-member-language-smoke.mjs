@@ -75,6 +75,13 @@ try{for(const width of [390,1365]){
   assert.equal(await page.evaluate(()=>conversationState.result.decision),'EVIDENCE_LOCK');
   assert.doesNotMatch(await body(),/หมายถึงจะกู้ไถ่ถอน/);pr158Pass+=2;
  }
+ for(const q of ['กู้พัฒนาคุณภาพชีวิต สองแสน ผู้ค้ำหนึ่งคนค้ำได้กี่คน','กู้พัฒนาคุณภาพชีวิตสองแสนผ่อนกี่งวด','เป็นสมาชิกไม่ถึง 3 ปี จะกู้พัฒนาคุณภาพชีวิตได้ไหม']){
+  await page.locator('#homeBtn').click();await send(q);
+  await verify(/ชื่อโครงการ|เฟส/,'quality project evidence scope');
+  const links=await page.locator('#out .sources a').evaluateAll(es=>es.map(e=>e.href));
+  assert.ok(links.includes('https://www.dlasavingcoop.com/show.php?No=774'));
+  assert.ok(!links.some(u=>u.includes('1Ek7aw6J')));pr158Pass++;
+ }
  console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, deposit and mortgage choices, and follow-up amount retention; private set not included');
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}

@@ -124,5 +124,17 @@ check('welfare postal destination is distinct from electronic document acceptanc
  assert.match(r.answer,/ยืนยันชื่อผู้รับ/);assert.doesNotMatch(r.answer,/ยังไม่ได้ยืนยันว่ารับไฟล์ PDF/);
  assert.equal(app.answer('ส่งเอกสารสวัสดิการคลอดบุตรเป็น PDF ได้ไหม').decision,'EVIDENCE_LOCK');
 });
+// A small quality-of-life project is distinct from the real-estate debt consolidation loan.
+for(const q of ['กู้พัฒนาคุณภาพชีวิต สองแสน ผู้ค้ำหนึ่งคนค้ำได้กี่คน','กู้พัฒนาคุณภาพชีวิต 200,000 บาท ค้ำได้กี่สัญญา'])check('small quality project keeps evidence scope: '+q,()=>{
+ const r=app.answer(q);assert.equal(r.intent,'quality_scheme_guarantee_intake');assert.equal(r.decision,'EVIDENCE_LOCK');
+ assert.ok(r.sources.some(s=>s.url==='https://www.dlasavingcoop.com/show.php?No=774'));
+ assert.ok(!r.sources.some(s=>s.url.includes('1Ek7aw6J')));
+ assert.match(r.answer,/ชื่อโครงการ|เฟส/);assert.match(r.answer,/จำนวนคนที่ผู้ค้ำคนเดียวค้ำได้/);
+});
+check('small quality term and bounded membership never cite debt-consolidation entitlement',()=>{
+ for(const q of ['กู้พัฒนาคุณภาพชีวิตสองแสนผ่อนกี่งวด','เป็นสมาชิกไม่ถึง 3 ปี จะกู้พัฒนาคุณภาพชีวิตได้ไหม']){
+  const r=app.answer(q);assert.ok(!r.sources.some(s=>s.url.includes('1Ek7aw6J')));assert.ok(r.sources.some(s=>s.url==='https://www.dlasavingcoop.com/show.php?No=774'));
+ }
+});
 console.log(JSON.stringify({suite:'production-member-concerns-20261023',checks,passed:checks-failures.length,failed:failures.length,failures},null,2));
 if(failures.length)process.exitCode=1;
