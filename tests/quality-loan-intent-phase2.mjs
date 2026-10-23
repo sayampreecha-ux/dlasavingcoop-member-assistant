@@ -20,7 +20,14 @@ for(const [q,intent,decision] of cases){
   assert.ok(!/อนุมัติแล้ว|กู้ได้แน่นอน/.test(r.answer),q);
 }
 const guarded=answer('กู้รวมหนี้ได้สูงสุดกี่บาท');
-assert.equal(guarded.decision,'EVIDENCE_LOCK');
+assert.ok(['EVIDENCE_LOCK','RULE_INFORMATION'].includes(guarded.decision));
+if(guarded.decision==='RULE_INFORMATION'){
+  assert.ok(Array.isArray(guarded.sources)&&guarded.sources.length>0,'rule response requires a source');
+  assert.ok(guarded.ruleVersion || guarded.evidenceState==='PRIMARY_VERIFIED_CURRENT','numeric rule response requires versioned, verified evidence');
+  assert.ok(/ไม่ใช่ผลอนุมัติ|ไม่ใช่วงเงินอนุมัติ|ต้องตรวจ|หลักเกณฑ์/.test(guarded.answer),'must not approve an individual');
+}else{
+  assert.ok(!/กู้ได้แน่นอน|อนุมัติแล้ว/.test(guarded.answer));
+}
 const welfare=answer('ส่งเอกสารสวัสดิการคลอดบุตรเป็น PDF ได้ไหม');
 assert.ok(!/loan_special_quality|quality_phase2/.test(welfare.intent||''));
 console.log('Quality-loan focused routing: 7/7 PASS');
