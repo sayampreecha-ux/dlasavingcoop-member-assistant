@@ -2,6 +2,20 @@
 
 Baseline: `0eefdb0e4125217743a7b4b70fa523aa7979d53f`.
 
+## Final acceptance follow-up (same PR, no release)
+
+The first PR-head review still had 33 PARTIAL and 49 SAFE HANDOFF results. All 82 were reviewed individually against the same captured questions and expected behavior. 29 of the partial responses still answered an adjacent facet (for example, a resignation application instead of a post-resignation refund, an opening procedure instead of mandatory associate-member deposit, or a real-estate loan term instead of a small phase scheme). Scoped `memberConcern` routes now preserve the actual operation and explicitly ask for missing information or retain the evidence lock. Special-deposit bill-payment wording reaches the existing deposit-increase procedure. A numeric emergency amount plus interest question composes the existing two answers without changing thresholds, formulas or rate data.
+
+- Focused regression: **58/58** pass. Against reference HEAD `23035f1c40fc3b20bda2911458bea06e952329f5`, the same suite has **26 failures / 32 passes**. The 26 newly added synthetic checks contain no private corpus.
+- Release regression after the final runtime edit: **66/66 suites**, none skipped.
+- Same private 100 questions and 5 conversations replayed through Source runtime: **18 CORRECT, 4 PARTIAL, 0 WRONG, 0 FALLBACK, 76 SAFE HANDOFF, 2 NOT VERIFIED**. Each main status uses denominator 100; handoffs are not counted as fully answered questions. Main responses changed in 29 cases relative to the reference PR head. Follow-up results remain 4 behavioral CORRECT and 1 SAFE HANDOFF.
+- The remaining PARTIAL cases concern phase-specific associate eligibility, the ambiguous project in the less-than-three-years question, a current ordinary-loan cutoff, and an ambiguous mortgage/reapplication interval. They are not converted to complete answers without evidence or clarification.
+- The previous CI successes certify only the reference SHA. New CI must be read on the final updated HEAD, without manually rerunning an unchanged SHA. The private report holds the final CI result and full row-level evidence.
+- **Exact private-set Branch Browser replay: 0/100 main questions and 0/5 conversations completed on either viewport.** The local Playwright installation has no Chromium executable; the earlier official download was an invalid archive. Cloud Browser can load Production but cannot reach the workspace Branch server (`net::ERR_CONNECTION_REFUSED`). No tunnel, preview deployment or private-dataset upload is introduced to work around that boundary. Existing CI browser suites cannot stand in for these 100 questions.
+- Two original NOT VERIFIED items stay locked. The official contact page and its staff images were inspected further, but a complete dated responsibility mapping for share refunds is still not established. The ordinary-loan criteria do not expressly resolve the retired-guarantor case without the applicable complete membership/bylaw evidence. Public professional staff information is not a rule establishing guarantor eligibility.
+
+These final values supersede the initial source-review totals below. Production remains baseline and is not certified PASS. The full 82-row review, final answers, missing facts/evidence and rollback instructions are retained in the private QA report, not committed as a private corpus.
+
 ## Problem and behavior
 
 An age-of-membership bound was converted to an exact duration in `compoundLoanAnswer` and `factValue`. Negative mentions of an ordinary loan also counted as an existing ordinary-loan product. `norm` now recognizes the audited spelling variants, bound-aware intake retains the comparator and target product, and bounded input never grants a membership PASS.

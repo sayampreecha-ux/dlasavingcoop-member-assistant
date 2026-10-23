@@ -62,5 +62,34 @@ check('opening account follow-up keeps operation',()=>{
  assert.equal(next.result.intent,'deposit_open');assert.match(text(next.result),/เปิดบัญชี/);assert.notEqual(next.result.decision,'ELIGIBLE_CONDITION');
 });
 for(const q of ['ส่ง OTP ให้ช่วยดูยอดเงินฝาก','รหัสผ่านใช้ดูสถานะลาออกติดค้ำได้ไหม'])check('secrets keep privacy route',()=>{const r=app.answer(q);assert.equal(r.privacy,true);assert.doesNotMatch(r.answer,/กรุณาส่ง|ขอรหัสผ่าน/);});
+const closeoutRoutes=[
+ ['โอนเงินซื้อหุ้นเพิ่มแล้วต้องทำอะไรต่อ','additional_share_post_payment',/ขั้นตอนหลังชำระ/],
+ ['ซื้อหุ้นเพิ่มแจ้งกลุ่มไหน','additional_share_submission_channel',/ไม่ถือว่าห้องแชตนี้รับคำขอ/],
+ ['กู้คุณภาพชีวิตเฟสสองส่งกี่งวดถึงกู้สามัญ','quality_phase_to_ordinary_interval',/เฟสที่ระบุ/],
+ ['เรียนเพิ่งจบกู้การศึกษาได้ไหม','education_after_graduation',/ไม่เพียงพอยืนยันสิทธิย้อนหลัง/],
+ ['ผ่อนบ้านชื่อสามี ยื่นกู้พิเศษได้ไหม','housing_spouse_title_review',/ชื่อคู่สมรส/],
+ ['ปันผลปีนี้เดือนไหน','dividend_period_or_schedule',/ยังไม่ยืนยันวันจ่าย/],
+ ['ปันผลรวมช่วง 9 เดือนกับ 15 เดือนไหม','dividend_period_or_schedule',/9\/15 เดือน/],
+ ['โหลดคำขอซื้อหุ้นเพิ่มได้ที่ไหน','additional_share_purchase_form',/ไม่ใช้แบบเปลี่ยนค่าหุ้นรายเดือน/],
+ ['เพิ่มหุ้นรายเดือนหักจากรายได้ใช่ไหม','monthly_share_payroll_deduction',/รายการหัก/],
+ ['ลาออกแล้วหุ้นยังไม่ได้รับคืน','post_resignation_refund_review',/ไม่ต้องยื่นลาออกใหม่/],
+ ['ลาออกแล้วยังมีรายชื่อให้หักเงินเดือนนี้','post_resignation_refund_review',/ยอดรอคืน/],
+ ['ยื่นลาออกใช้เวลากี่วัน','resignation_processing_time',/ระยะโอนคืนหุ้น/],
+ ['ไม่เคยเป็นสมาชิก เกษียณแล้วสมัครได้ไหม','retired_membership_application',/แบบสมัครอย่างเดียวไม่ยืนยัน/],
+ ['ย้ายหน่วยงาน แจ้งหักเงินในนี้ได้ไหม','employer_transfer_service',/ไม่ถือว่าห้องแชตนี้รับแจ้ง/],
+ ['ย้ายจากเทศบาลไปอบต สมัครสมาชิกอีกได้ไหม','employer_transfer_service',/ไม่ยืนยันสิทธิสมัครซ้ำ/],
+ ['ยังไม่เป็นสมาชิกฌาปนกิจ สมัครพร้อมยื่นกู้ได้ไหม','funeral_and_loan_application',/สมาชิกสมาคมฌาปนกิจเมื่อใด/],
+ ['สมาชิกประเภทสมทบรายใหม่บังคับเปิดบัญชีไหม','associate_mandatory_deposit',/ไม่ใช่หลักฐานว่าบังคับ/],
+ ['กู้พัฒนาคุณภาพชีวิตสองแสนส่งกี่งวด','quality_scheme_term_intake',/ขอชื่อโครงการ/],
+ ['จำนำสิทธิใช้ค้ำประกันใช่ไหม','pledged_rights_vs_guarantee',/คนละรูปแบบ/],
+ ['กู้หุ้นค้ำต้องสมัครฌาปนกิจไหม','share_backed_funeral_requirement',/ไม่รับรองว่าสมัครแล้วกู้ผ่าน/],
+ ['สงเคราะห์เสียชีวิตอนุมัติจ่ายทุกเดือนไหม','death_welfare_payment_schedule',/ยังยืนยันความถี่/],
+ ['ฌาปนกิจเช็คครบกำหนดวันไหน','funeral_payment_due_lookup',/งวดที่เกี่ยวข้อง/],
+ ['รายชื่ออนุมัติล่าสุดกี่ราย','public_approval_count_intake',/ไม่เดาจำนวน/],
+ ['เอกสารลงรับก่อนสิ้นเดือนใช้เกณฑ์เดิมไหม','submission_transitional_rule',/บทเฉพาะกาล/]
+];
+for(const [q,intent,pattern]of closeoutRoutes)check('closeout '+intent,()=>{const r=app.answer(q);assert.equal(r.intent,intent);assert.match(text(r),pattern);assert.notEqual(r.decision,'ELIGIBLE_CONDITION');assert.ok(r.sources.length);});
+check('bill payment is deposit increase, not opening',()=>{const r=app.answer('โอนเงินฝากเข้าออมทรัพย์พิเศษตรงจ่ายบิลใช่ไหม');assert.equal(r.intent,'deposit_special_add');assert.match(text(r),/7196/);assert.match(text(r),/0000011.*ไม่ใช้แทนบัญชีเดิม/);});
+check('numeric cap plus interest keeps both concerns',()=>{const r=app.answer('กู้ฉุกเฉินกู้ได้ 60,000 บาทใช่ไหมดอกเท่าไหร่');assert.equal(r.intent,'emergency_limit_and_interest');assert.match(text(r),/30,000/);assert.match(text(r),/60,000/);assert.match(text(r),/7\.50/);assert.match(text(r),/ไม่ใช่วงเงินอนุมัติ/);});
 console.log(JSON.stringify({suite:'production-member-concerns-20261023',checks,passed:checks-failures.length,failed:failures.length,failures},null,2));
 if(failures.length)process.exitCode=1;
