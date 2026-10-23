@@ -25,6 +25,35 @@ try{for(const width of [390,1365]){
  await page.locator('#homeBtn').click();await send('ติดตามเอกสารเงินกู้');await send('เอกสารเงินกู้สามัญ');await send('ต้องติดต่อฝ่ายไหน');
  await verify(/ติดตามเอกสารเงินกู้สามัญที่เคยยื่นแล้ว/, 'loan tracking staff contact');
  assert.match(await body(),/ฝ่ายสินเชื่อ/);
+ // Public synthetic cases for PR158: exercise visible UI; never include the private corpus.
+ let pr158Pass=0;
+ for(const duration of ['ไม่ถึง 3 ปี','ยังไม่ครบ 3 ปี','น้อยกว่า 36 เดือน','เกิน 3 ปี','มากกว่า 3 ปี','ไม่เกิน 3 ปี']){
+  await page.locator('#homeBtn').click();
+  await send('จะขอกู้พัฒนาคุณภาพชีวิต เป็นสมาชิก'+duration+' มีฉุกเฉินอยู่ แต่ไม่มีกู้สามัญ');
+  await verify(/โปรดระบุอายุสมาชิกจริงเป็นปีและเดือน/,'bounded membership '+duration);
+  assert.ok((await body()).includes(duration),'preserve the original duration bound');
+  assert.doesNotMatch(await body(),/✓.*อายุสมาชิก|อายุสมาชิก[^\n]*\[PASS\]|ผ่านเงื่อนไขที่ตรวจได้/);
+  pr158Pass++;
+ }
+ for(const [q,operation,completion]of [['เปิดบัญชีออมทรัพย์ต้องทำอย่างไร',/เปิดบัญชี/,/ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ/],['ถอนเงินฝากต้องใช้เอกสารใด',/ถอนและส่งเอกสาร/,/การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/]]){
+  await page.locator('#homeBtn').click();await send(q);
+  await verify(/เป็นเงินฝากประเภทใด/,'member deposit operation intake');
+  assert.match(await body(),operation);
+  assert.doesNotMatch(await body(),/พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไข/);
+  await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('ออมทรัพย์พิเศษ');
+  await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
+  await verify(completion,'deposit type reply retains operation');
+  assert.doesNotMatch(await body(),/พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไข/);
+  pr158Pass+=2;
+ }
+ await page.locator('#homeBtn').click();await send('ขอกู้เงิน 100,000 บาท ต้องผ่อนเดือนเท่าไหร่');
+ await verify(/เป็นเงินกู้ประเภทไหน/,'installment loan product intake');
+ await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('กู้สามัญ');
+ await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
+ await verify(/ต้องการผ่อนกี่งวดหรือกี่ปี/,'installment term follow-up');
+ assert.match(await body(),/100,000/);assert.doesNotMatch(await body(),/อนุมัติแล้ว|ผ่านแน่นอน/);
+ pr158Pass+=2;
+ console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, member deposit evidence scope, and follow-up amount retention; private set not included');
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}
 finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
