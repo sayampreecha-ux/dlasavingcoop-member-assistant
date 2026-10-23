@@ -56,6 +56,9 @@ for(const [q,id] of cases){
  assert.doesNotMatch(answer.answer,/คุณได้รับอนุมัติแล้ว|โอนเงินให้คุณเรียบร้อยแล้ว/,'no individual promise: '+q);
  pass++;
 }
+const emergencyTransfer=app.answer('ยื่นกู้ฉุกเฉินแล้วโอนวันไหน');
+assert.equal(emergencyTransfer.domain,'emergencyLoanCurrent','emergency transfer must use emergency loan rules, not approval index');
+assert.notEqual(emergencyTransfer.intent,'approval_announcement');
 const ordinary=app.answer('ผลอนุมัติเงินกู้สามัญล่าสุด');
 assert.match(ordinary.answer,/15 ตุลาคม 2569/);
 assert.match(ordinary.answer,/30 ตุลาคม 2569/);
