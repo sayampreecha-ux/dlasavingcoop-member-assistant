@@ -91,5 +91,38 @@ const closeoutRoutes=[
 for(const [q,intent,pattern]of closeoutRoutes)check('closeout '+intent,()=>{const r=app.answer(q);assert.equal(r.intent,intent);assert.match(text(r),pattern);assert.notEqual(r.decision,'ELIGIBLE_CONDITION');assert.ok(r.sources.length);});
 check('bill payment is deposit increase, not opening',()=>{const r=app.answer('โอนเงินฝากเข้าออมทรัพย์พิเศษตรงจ่ายบิลใช่ไหม');assert.equal(r.intent,'deposit_special_add');assert.match(text(r),/7196/);assert.match(text(r),/0000011.*ไม่ใช้แทนบัญชีเดิม/);});
 check('numeric cap plus interest keeps both concerns',()=>{const r=app.answer('กู้ฉุกเฉินกู้ได้ 60,000 บาทใช่ไหมดอกเท่าไหร่');assert.equal(r.intent,'emergency_limit_and_interest');assert.match(text(r),/30,000/);assert.match(text(r),/60,000/);assert.match(text(r),/7\.50/);assert.match(text(r),/ไม่ใช่วงเงินอนุมัติ/);});
+check('retired guarantor needs complete rules and member record',()=>{
+ const r=app.answer('ผู้ค้ำเกษียณแล้ว ยังเป็นผู้ค้ำเงินกู้สามัญได้หรือไม่');
+ assert.equal(r.intent,'retired_guarantor_current');assert.equal(r.decision,'EVIDENCE_LOCK');
+ assert.match(text(r),/ข้อ 6|คุณสมบัติ/);assert.match(text(r),/ฝ่ายสินเชื่อ/);
+ assert.doesNotMatch(r.answer,/^ได้ครับ|ไม่ได้ตัดสิทธิ|ผ่านเงื่อนไข/);
+});
+check('associate phased project keeps membership class',()=>{
+ const r=app.answer('สมาชิกสมทบจะกู้โครงการเฟส 2 ได้หรือไม่');
+ assert.equal(r.intent,'associate_project_eligibility');assert.equal(r.decision,'EVIDENCE_LOCK');
+ assert.match(r.answer,/สมาชิกสมทบ/);assert.match(r.answer,/ไม่ใช้สิทธิสมาชิกสามัญแทน/);assert.equal(r.requiredFact,'loanProject');
+});
+check('misspelled ordinary loan cutoff is a round-specific lookup',()=>{
+ const r=app.answer('กูสามัญเดือนนี้กำหนดส่งเอกสารวันสุดท้ายวันไหน');
+ assert.equal(r.intent,'ordinary_application_cutoff');assert.equal(r.decision,'EVIDENCE_LOCK');
+ assert.match(r.answer,/รอบที่ผ่านมาไม่ใช่กำหนดรับรอบถัดไป/);assert.ok(r.actions.some(a=>a[1].includes('Category=loan')));
+});
+check('refund contact does not guess the currently assigned person',()=>{
+ const r=app.answer('เกษียณหมดภาระค้ำ อยากถอนหุ้น ต้องติดต่อฝ่ายไหน');
+ assert.equal(r.intent,'share_refund_contact');assert.equal(r.decision,'SAFE_HANDOFF');
+ assert.match(r.answer,/ทะเบียนสมาชิกและการเงิน/);assert.match(r.answer,/ไม่ยืนยันชื่อหรือเบอร์/);assert.doesNotMatch(r.answer,/\d{3}-\d{3}-\d{4}/);
+});
+check('ambiguous mortgage interval offers a usable product clarification',()=>{
+ const r=app.answer('จำนองอยู่ต้องกู้สามัญห่างกี่เดือน');
+ assert.equal(r.intent,'mortgage_reapplication_interval');assert.equal(r.decision,'NEED_INFO');
+ assert.ok(r.followups.includes('กู้ไถ่ถอนจำนอง'));assert.ok(r.followups.includes('กู้สามัญ'));
+ for(const reply of r.followups){const first=app.conversationTurn('จำนองอยู่ต้องกู้สามัญห่างกี่เดือน');const next=app.conversationTurn(reply,first.state,{continuation:true});assert.equal(next.result.intent,'mortgage_interval_review');assert.equal(next.result.decision,'EVIDENCE_LOCK');assert.match(next.result.answer,/ระยะห่างจากสัญญาเดิม/);assert.doesNotMatch(next.result.answer,/หมายถึงจะกู้ไถ่ถอน/);}
+});
+check('welfare postal destination is distinct from electronic document acceptance',()=>{
+ const r=app.answer('จะส่งจดหมายสวัสดิการทางไปรษณีย์ ขอที่อยู่จัดส่ง');
+ assert.equal(r.intent,'welfare_postal_destination');assert.match(r.answer,/111\/1/);assert.match(r.answer,/12120/);
+ assert.match(r.answer,/ยืนยันชื่อผู้รับ/);assert.doesNotMatch(r.answer,/ยังไม่ได้ยืนยันว่ารับไฟล์ PDF/);
+ assert.equal(app.answer('ส่งเอกสารสวัสดิการคลอดบุตรเป็น PDF ได้ไหม').decision,'EVIDENCE_LOCK');
+});
 console.log(JSON.stringify({suite:'production-member-concerns-20261023',checks,passed:checks-failures.length,failed:failures.length,failures},null,2));
 if(failures.length)process.exitCode=1;

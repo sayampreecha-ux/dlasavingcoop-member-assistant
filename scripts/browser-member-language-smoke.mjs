@@ -53,7 +53,29 @@ try{for(const width of [390,1365]){
  await verify(/ต้องการผ่อนกี่งวดหรือกี่ปี/,'installment term follow-up');
  assert.match(await body(),/100,000/);assert.doesNotMatch(await body(),/อนุมัติแล้ว|ผ่านแน่นอน/);
  pr158Pass+=2;
- console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, member deposit evidence scope, and follow-up amount retention; private set not included');
+ // Product chips must retain an unfinished deposit operation, just like typed replies.
+ for(const [question,completion]of [['จะเปิดบัญชีเงินฝากต้องทำอย่างไร',/ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ/],['ถอนเงินฝากต้องเตรียมเอกสารอะไร',/การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/]]){
+  await page.locator('#homeBtn').click();await send(question);
+  await verify(/เป็นเงินฝากประเภทใด/,'deposit operation before product chip');
+  await page.locator('#out .deposit-navigation button').filter({hasText:/^ออมทรัพย์พิเศษ$/}).click();
+  await verify(completion,'deposit product chip retains operation');
+  assert.equal(await page.evaluate(()=>conversationState.result.intent),/เปิด/.test(question)?'deposit_open':'deposit_special_withdraw');
+  assert.doesNotMatch(await body(),/ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี/);
+  // Explicit navigation is still allowed to start another operation or product menu.
+  await page.locator('#out .deposit-navigation button').filter({hasText:/^กลับเมนูเงินฝาก$/}).click();
+  await verify(/ต้องการทำรายการเงินฝากประเภทใด/,'explicit menu clears pending operation');
+  pr158Pass+=3;
+ }
+ for(const reply of ['กู้สามัญ','กู้ไถ่ถอนจำนอง']){
+  await page.locator('#homeBtn').click();await send('ที่ดินจำนองอยู่ ถ้ากู้สามัญใหม่ต้องห่างกี่เดือน');
+  await verify(/หมายถึงจะกู้ไถ่ถอนจำนอง/,'mortgage interval clarification');
+  await page.locator('#out .follow button').filter({hasText:new RegExp('^'+reply+'$')}).click();
+  await verify(/รับทราบว่าเป็น/,'mortgage interval choice retained');
+  assert.equal(await page.evaluate(()=>conversationState.result.intent),'mortgage_interval_review');
+  assert.equal(await page.evaluate(()=>conversationState.result.decision),'EVIDENCE_LOCK');
+  assert.doesNotMatch(await body(),/หมายถึงจะกู้ไถ่ถอน/);pr158Pass+=2;
+ }
+ console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, deposit and mortgage choices, and follow-up amount retention; private set not included');
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}
 finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
