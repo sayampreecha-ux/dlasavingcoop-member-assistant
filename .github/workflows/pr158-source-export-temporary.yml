@@ -19,7 +19,8 @@ jobs:
           git rev-parse HEAD > export-head.txt
           git rev-parse HEAD^{tree} > export-tree.txt
           git ls-files > export-files.txt
-          tar -czf pr158-source.tar.gz --exclude=.git --exclude=pr158-source.tar.gz .
+          tar -czf /tmp/pr158-source.tar.gz --exclude=.git .
+          cp /tmp/pr158-source.tar.gz pr158-source.tar.gz
       - uses: actions/upload-artifact@v4
         with:
           name: pr158-temporary-source-export
