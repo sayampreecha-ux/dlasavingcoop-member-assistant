@@ -3629,6 +3629,7 @@ function selectTrackingNotices(data,input){
  const filtered=source.filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl)
  .filter(e=>!isApproval||approvalTitle(e))
  .filter(e=>!type||(type==='welfare'?/สวัสดิการ|สงเคราะห์/.test(e.title||''):category(e)===type))
+ .filter(e=>type||!/เงินกู้|กู้/.test(q)||['ordinary-loan','emergency-loan','quality-of-life-loan'].includes(category(e))||/เงินกู้|กู้/.test(e.title||''))
  .filter(e=>!member||/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||''))
  .filter(e=>isApproval||(/เอกสารสมัครสมาชิก/.test(q)?/เอกสาร.*ไม่ครบ|เอกสารมาไม่ครบ/.test(e.title||''):/รอบสมาชิก/.test(q)?/เอกสาร|รอบ|สมัครสมาชิก/.test(e.title||'')&&!approvalTitle(e):true))
  .filter(e=>!e.expiresAt||new Date(e.expiresAt)>new Date())
