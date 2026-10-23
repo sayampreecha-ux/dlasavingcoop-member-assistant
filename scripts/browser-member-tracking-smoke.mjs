@@ -21,6 +21,7 @@ try{for(const width of [390,1365]){
  const actual=await notices().locator('a.tracking-notice-link').evaluateAll(as=>as.map(a=>({title:a.textContent,href:a.href})));
  assert.ok(actual.some(a=>a.href==='https://www.dlasavingcoop.com/show.php?No=4937'&&a.title.includes('เคยเป็นสมาชิก')));
  assert.ok(actual.some(a=>a.href==='https://www.dlasavingcoop.com/show.php?No=4936'&&a.title.includes('ไม่เคยเป็นสมาชิก')));
+ console.log('MEMBER_BROWSER_ACTUAL',JSON.stringify({width,actual}));
  assert.ok(actual.every(a=>/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(a.title)));
  assert.equal(new Set(actual.map(a=>a.href)).size,actual.length);
  assert.ok(actual.length<=5);
