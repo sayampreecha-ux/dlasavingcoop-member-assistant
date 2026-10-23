@@ -136,5 +136,12 @@ check('small quality term and bounded membership never cite debt-consolidation e
   const r=app.answer(q);assert.ok(!r.sources.some(s=>s.url.includes('1Ek7aw6J')));assert.ok(r.sources.some(s=>s.url==='https://www.dlasavingcoop.com/show.php?No=774'));
  }
 });
+// An evidence-locked handoff must not turn a navigation index into an unrelated share-rate PDF.
+for(const [q,intent] of [['กู้ทุนเรือนหุ้นต้องสมัครฌาปนกิจก่อนหรือไม่','share_backed_funeral_requirement'],['อยากดาวน์โหลดคำขอซื้อหุ้นเพิ่มแบบครั้งคราว','additional_share_purchase_form'],['แบบฟอร์มเปลี่ยนหุ้นรายเดือนส่งไลน์ได้ไหม','share_change_submission_channel']])check('locked handoff navigation scope: '+intent,()=>{
+ const r=app.answer(q);assert.equal(r.intent,intent);assert.equal(r.decision,'EVIDENCE_LOCK');
+ assert.ok(!r.sources.some(s=>s.url.includes('1035C9')));
+ assert.ok(r.sources.some(s=>/show\.php\?(?:No=772|Category=procedure)/.test(s.url)&&s.sourceState==='NAVIGATION'));
+ assert.ok([...r.actions,...(r.extraActions||[])].some(a=>a[1].includes('Category=contact')));
+});
 console.log(JSON.stringify({suite:'production-member-concerns-20261023',checks,passed:checks-failures.length,failed:failures.length,failures},null,2));
 if(failures.length)process.exitCode=1;

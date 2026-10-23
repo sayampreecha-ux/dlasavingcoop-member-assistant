@@ -664,6 +664,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function normalizeSourceLink(intent,label,url){
     const kind=sourceKind(url);
+    // Locked service handoffs retain navigation; a share-rate PDF cannot prove an intake channel or a loan condition.
+    if(['TOPIC_INDEX','AGGREGATE'].includes(kind)&&['share_backed_funeral_requirement','additional_share_purchase_form','share_change_submission_channel'].includes(intent))return {url,sourceState:'NAVIGATION'};
     // A round lookup needs the announcements index, not a numeric loan-rule PDF.
     if(intent==='ordinary_application_cutoff'&&url==='https://www.dlasavingcoop.com/list.php?Category=loan')return {url,sourceState:'NAVIGATION'};
     if(kind==='TOPIC_INDEX'&&/^(?:📂 เปิด)?หน้าหลักเกณฑ์และแบบเงินกู้/.test(String(label||'')))return {url,sourceState:'NAVIGATION'};

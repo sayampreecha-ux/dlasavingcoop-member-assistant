@@ -82,6 +82,12 @@ try{for(const width of [390,1365]){
   assert.ok(links.includes('https://www.dlasavingcoop.com/show.php?No=774'));
   assert.ok(!links.some(u=>u.includes('1Ek7aw6J')));pr158Pass++;
  }
+ for(const question of ['กู้ทุนเรือนหุ้นต้องสมัครฌาปนกิจก่อนหรือไม่','อยากดาวน์โหลดคำขอซื้อหุ้นเพิ่มแบบครั้งคราว','แบบฟอร์มเปลี่ยนหุ้นรายเดือนส่งไลน์ได้ไหม']){
+  await page.locator('#homeBtn').click();await send(question);await verify(/ยังไม่|ต้องตรวจ/,'locked handoff navigation scope');
+  const sources=await page.locator('#out .sources a').evaluateAll(es=>es.map(e=>({url:e.href,state:e.dataset.sourceState})));
+  assert.ok(!sources.some(s=>s.url.includes('1035C9')));
+  assert.ok(sources.some(s=>/show\.php\?(?:No=772|Category=procedure)/.test(s.url)&&s.state==='NAVIGATION'));pr158Pass++;
+ }
  console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, deposit and mortgage choices, and follow-up amount retention; private set not included');
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}
