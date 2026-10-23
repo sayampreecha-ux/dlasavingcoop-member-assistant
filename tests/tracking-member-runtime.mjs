@@ -18,6 +18,9 @@ const cremation=record('104','ผลการอนุมัติสมาช�
 const former=record('105','ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์ (เคยเป็นสมาชิก)');
 const data={trackingNotices:[approved,former,incomplete,round,welfare,loan,cremation],events:[approved]};
 for(const query of ['ผลอนุมัติสมัครสมาชิก','ติดตามผลอนุมัติสมัครสมาชิก','ผลอนุมัติสมาชิก','ติดตามผลอนุมัติสมาชิก'])assert.deepEqual(select(query,data),['approved','105'],query);
+const loanForMembers=record('4946','ผลการอนุมัติเงินให้กู้แก่สมาชิก (ตัดรอบเอกสารวันที่ 15 ต.ค. 69)',{category:'membership'});
+const resigned=record('4944','[ผลการอนุมัติ] สมาชิกพ้นจากสมาชิกภาพ (กรณีสมาชิกลาออก)',{category:'membership'});
+for(const query of ['ผลอนุมัติสมัครสมาชิก','ผลอนุมัติสมาชิก'])assert.deepEqual(select(query,{approvalIndex:[loanForMembers,resigned,approved,former],trackingNotices:[]}),['approved','105'],'ignore loans and resignations while preserving member approvals');
 assert.deepEqual(select('เอกสารสมัครสมาชิก',data),['100']);
 assert.deepEqual(select('รอบสมาชิก',data),['100','101'],'preserve existing round results without introducing approvals');
 // Preserve the existing welfare category's inclusion of สงเคราะห์ notices.
