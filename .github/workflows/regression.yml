@@ -20,6 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+      - name: Approval announcement retrieval regression
+        run: node tests/approval-announcements.mjs
       - name: Remaining QA T07 T13 T15 behavioral gate
         run: node tests/remaining-qa-t07-t13-t15.mjs
       - name: Complete release gate including 69 executable records
