@@ -33,7 +33,7 @@ function sourceMetadata(item){
   }
   const direct=directOfficialDetail(item.url);
   return {
-    discoveryUrl:item.source==='homepage'?HOME:NOTICES,
+    discoveryUrl:item.source==='homepage'?HOME:item.source==='official-loan'?LOAN_APPROVALS:NOTICES,
     directSourceUrl:direct?item.url:null,
     sourceState:direct?'DIRECT_VERIFIED':'DIRECT_SOURCE_PENDING',
     sourceLabel:direct?'ต้นฉบับทางการ':'กำลังตรวจต้นฉบับ'
@@ -61,7 +61,9 @@ const SOCIAL_DISCOVERY=[
 
 const TH_MONTHS={
   'มกราคม':1,'กุมภาพันธ์':2,'มีนาคม':3,'เมษายน':4,'พฤษภาคม':5,'มิถุนายน':6,
-  'กรกฎาคม':7,'กรกฏาคม':7,'สิงหาคม':8,'กันยายน':9,'ตุลาคม':10,'พฤศจิกายน':11,'ธันวาคม':12
+  'ม.ค.':1,'ก.พ.':2,'มี.ค.':3,'เม.ย.':4,'พ.ค.':5,'มิ.ย.':6,
+  'กรกฎาคม':7,'กรกฏาคม':7,'สิงหาคม':8,'กันยายน':9,'ตุลาคม':10,'พฤศจิกายน':11,'ธันวาคม':12,
+  'ก.ค.':7,'ส.ค.':8,'ก.ย.':9,'ต.ค.':10,'พ.ย.':11,'ธ.ค.':12
 };
 
 function decode(s=''){
@@ -346,7 +348,7 @@ async function approvalRecord(item){
   let body;
   try{body=await fetchText(item.url)}catch{return null}
   const plain=decode(body);
-  const cutOffDate=matchThaiDate(item.title+' '+plain,/ตัดรอบเอกสารวันที่\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม|ม.ค.|ก.พ.|มี.ค.|เม.ย.|พ.ค.|มิ.ย.|ก.ค.|ส.ค.|ก.ย.|ต.ค.|พ.ย.|ธ.ค.)\s*(\d{2,4})/);
+  const cutOffDate=matchThaiDate(item.title+' '+plain,/ตัดรอบเอกสารวันที่\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม|ม.ค.|ก.พ.|มี.ค.|เม.ย.|พ.ค.|มิ.ย.|ก.ค.|ส.ค.|ก.ย.|ต.ค.|พ.ย.|ธ.ค.)\s*(\d{2,4})/);
   const transferDate=matchThaiDate(plain,/รอบโอนเงิน(?:ใน)?วัน(?:จันทร์|อังคาร|พุธ|พฤหัสบดี|ศุกร์|เสาร์|อาทิตย์)?ที่?\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
   const firstInstallment=plain.match(/เริ่มชำระงวดแรกเดือน\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
   const firstInstallmentMonth=firstInstallment?thaiDateToISO(1,firstInstallment[1],firstInstallment[2]):null;
