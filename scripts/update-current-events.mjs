@@ -3,6 +3,7 @@ import {directFacebookPost,facebookTopicKey,normalizeGraphPosts,chooseLatestFace
 
 const HOME='https://www.dlasavingcoop.com/';
 const NOTICES='https://www.dlasavingcoop.com/list.php?Category=notice';
+const LOAN_APPROVALS='https://www.dlasavingcoop.com/list.php?Category=loan';
 const OUT=new URL('../data/current-events.json',import.meta.url);
 const OFFICIAL_FACEBOOK='https://www.facebook.com/dlasaving';
 const SHARE_RATE_POST='https://www.facebook.com/share/p/1EvnJMdZzn/?mibextid=wwXIfr';
@@ -285,7 +286,7 @@ const now=new Date();
 let existing={schemaVersion:1,events:[]};
 try{existing=JSON.parse(await fs.readFile(OUT,'utf8'))}catch{}
 
-const sourceHealth={homepage:'error',notices:'error',facebook:'disabled'};
+const sourceHealth={homepage:'error',notices:'error',loanApprovals:'error',facebook:'disabled'};
 let found=[];
 let homepageHtml='';
 try{
@@ -300,7 +301,13 @@ try{
   found.push(...anchors(h,NOTICES,'official-notice'));
 }catch(e){console.error('notices:',e.message)}
 
-if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'){
+try{
+  const h=await fetchText(LOAN_APPROVALS);
+  sourceHealth.loanApprovals='ok';
+  found.push(...anchors(h,LOAN_APPROVALS,'official-loan'));
+}catch(e){console.error('loan approvals:',e.message)}
+
+if(sourceHealth.homepage==='error'&&sourceHealth.notices==='error'&&sourceHealth.loanApprovals==='error'){
   console.error('Both official sources failed; retaining current-events.json');
   process.exit(0);
 }
@@ -315,6 +322,56 @@ if(process.env.NEWS_PIPELINE_DIAGNOSTICS==='1'){
     focusBeforeDedup:focus.map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url})),
     focusAfterDedup:allCandidates.filter(x=>focus.some(y=>y.id===x.id)).map(x=>({id:x.id,source:x.source,publishedAt:x.publishedAt,score:x.score,url:x.url}))
   }));
+}
+
+
+// Separate searchable approval index from latestNews and the three home-page cards.
+// Keep the historical rounds even if the website omits publication timestamps.
+function approvalCategory(title=''){
+  if(/เงินกู้สามัญ/.test(title))return 'ordinary-loan';
+  if(/เงินกู้ฉุกเฉิน/.test(title))return 'emergency-loan';
+  if(/พัฒนาคุณภาพชีวิต/.test(title))return 'quality-of-life-loan';
+  if(/สวัสดิการ/.test(title))return 'welfare';
+  if(/ฌาปนกิจ/.test(title))return 'funeral';
+  if(/สมาชิก/.test(title)&&/เห็นชอบ|สมัครสมาชิก|สมาชิกภาพ/.test(title))return 'membership';
+  return null;
+}
+function matchThaiDate(text,pattern){
+  const m=decode(text).match(pattern);
+  return m?thaiDateToISO(m[1],m[2],m[3]):null;
+}
+async function approvalRecord(item){
+  const category=approvalCategory(item.title);
+  if(!category||!directOfficialDetail(item.url))return null;
+  let body;
+  try{body=await fetchText(item.url)}catch{return null}
+  const plain=decode(body);
+  const cutOffDate=matchThaiDate(item.title+' '+plain,/ตัดรอบเอกสารวันที่\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม|ม.ค.|ก.พ.|มี.ค.|เม.ย.|พ.ค.|มิ.ย.|ก.ค.|ส.ค.|ก.ย.|ต.ค.|พ.ย.|ธ.ค.)\s*(\d{2,4})/);
+  const transferDate=matchThaiDate(plain,/รอบโอนเงิน(?:ใน)?วัน(?:จันทร์|อังคาร|พุธ|พฤหัสบดี|ศุกร์|เสาร์|อาทิตย์)?ที่?\s*(\d{1,2})\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
+  const firstInstallment=plain.match(/เริ่มชำระงวดแรกเดือน\s*(มกราคม|กุมภาพันธ์|มีนาคม|เมษายน|พฤษภาคม|มิถุนายน|กรกฎาคม|สิงหาคม|กันยายน|ตุลาคม|พฤศจิกายน|ธันวาคม)\s*(\d{2,4})/);
+  const firstInstallmentMonth=firstInstallment?thaiDateToISO(1,firstInstallment[1],firstInstallment[2]):null;
+  const documentLinks=[...body.matchAll(/<a\b[^>]*href=["']([^"']+)["'][^>]*>/gi)]
+    .map(m=>{try{return new URL(m[1],item.url).toString()}catch{return null}})
+    .filter(u=>u&&/^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+\//.test(u));
+  return withSourceMetadata({
+    contentKind:'APPROVAL_ANNOUNCEMENT',rulePromotion:false,
+    id:item.id,title:item.title,category,url:item.url,source:item.source,
+    publishedAt:item.publishedAt||null,
+    cutOffDate,transferDate,firstInstallmentMonth,
+    documentUrl:documentLinks[0]||null,
+    lastCheckedAt:new Date().toISOString(),
+    summary:'ตรวจประกาศผลอนุมัติจากเว็บไซต์สหกรณ์ ไม่ยืนยันผลรายบุคคล'
+  });
+}
+const approvalCandidates=allCandidates.filter(x=>approvalCategory(x.title)&&directOfficialDetail(x.url));
+const approvalIndex=[];
+for(const item of approvalCandidates.slice(0,120)){
+  const record=await approvalRecord(item);
+  if(record)approvalIndex.push(record);
+}
+// A temporary source outage must not erase previously verified public metadata.
+if(!approvalIndex.length && Array.isArray(existing.approvalIndex)){
+  approvalIndex.push(...existing.approvalIndex);
 }
 
 let candidates=allCandidates
@@ -416,6 +473,7 @@ const output={
   },
   events:top,
   latestNews,
+  approvalIndex,
   trackingNotices:enriched.filter(x=>x.priority>=60 && (!x.expiresAt || new Date(x.expiresAt)>now) && x.publishedAt && Number.isFinite(Date.parse(x.publishedAt)) && now-new Date(x.publishedAt)<=30*86400000 && now>=new Date(x.publishedAt)).map(withSourceMetadata).filter(x=>x.sourceState==='DIRECT_VERIFIED'&&x.directSourceUrl).slice(0,60)
 };
 
