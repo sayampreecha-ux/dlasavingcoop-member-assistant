@@ -41,6 +41,9 @@ try{
    const links=await block.locator('a').evaluateAll(as=>as.map(a=>a.href));
    assert.ok(links.includes('https://www.dlasavingcoop.com/show.php?No=4946'));
    assert.ok(links.some(h=>h.startsWith('https://drive.google.com/file/d/')));
+   await page.locator('#homeBtn').click();
+   await page.locator('#q').fill('ติดตามผลและสถานะเอกสาร');await page.locator('#q').press('Enter');
+   await page.locator('.reading-current .follow').first().waitFor({timeout:10000});
    const layout=await page.locator('.reading-current .follow').first().evaluate(e=>({position:getComputedStyle(e).position,width:e.getBoundingClientRect().width,screen:innerWidth}));
    assert.equal(layout.position,'static','follow-up buttons must not overlay content');
    assert.ok(layout.width<=layout.screen,'navigation must fit viewport');
