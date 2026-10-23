@@ -1,7 +1,10 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
-assert.match(html,/if\(\/\^\(\?:ติดตาม\|ผลอนุมัติ/);
+assert.match(html,/tracking-notices/);
+assert.match(html,/ผล\(\?:การ\)\?อนุมัติ|ผลอนุมัติ/);
 assert.match(html,/fetch\('\.\/data\/current-events\.json',\{cache:'no-cache'\}\)/);
+assert.match(html,/selectTrackingNotices\(data,input\)/);
+assert.match(html,/approvalIndex/);
 assert.doesNotMatch(html,/กำลังตรวจประกาศทางการสำหรับ/);
-console.log('Tracking notice UX static checks passed');
+console.log('Tracking notice UX trigger, official artifact lookup and index guard PASS');
