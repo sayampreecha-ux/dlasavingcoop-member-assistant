@@ -331,7 +331,9 @@ body{margin:0;background:linear-gradient(180deg,#fffdf7 0,#f6f8f3 48%,#eef5ef 10
     // every member rule changed. Preserve PENDING; explicit rule/conflict links win.
     if(/ผลการ(?:คัดเลือก|จัดซื้อ|จัดจ้าง|ประกวดราคา).*บริษัท/.test(doc.title||'')&&!(doc.affectedRuleIds||[]).length&&!(doc.conflictsWithDocumentIds||[]).length&&!/แก้ไข.*(?:ระเบียบ|หลักเกณฑ์)|เปลี่ยน.*(?:สิทธิ|เงื่อนไข)/.test(doc.title||''))return [];
 
-    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
+    // The depositor, not the word "deposit", determines this regulation's scope.
+    // Unspecified member-account navigation must not inherit an association rule.
+    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/(?:เงินฝาก|รับฝาก|ฝากเงิน)(?:ของ|จาก|สำหรับ)?\s*ฌาปนกิจ|(?:เงินฝาก|รับฝาก|ฝากเงิน)[^\n]{0,24}สมาคม|สมาคม[^\n]{0,24}(?:เงินฝาก|รับฝาก|ฝากเงิน)/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shareBackedLoan'];
     const requested=domains(text).filter(x=>loanDomains.includes(x));
@@ -877,6 +879,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     let q=String(s).replace(/\u0e4d([\u0e48-\u0e4b]?)\u0e32/g,'$1\u0e33').toLowerCase().trim().replace(/(?:^|\s)@[^\s]+/g,' ').replace(/\[(?:mention|member_id|phone|national_id|member_[a-z]+)\]|<(?:mention|id|phone|url)>/gi,' ').replace(/[?？!！.,，]+$/g,'').replace(/\s+/g,' ').trim();
     const fixes=[
       [/สามัน|สามัณ/g,'สามัญ'],[/ฉุกเฉีน|ฉุกเฉิญ/g,'ฉุกเฉิน'],
+      [/พัฒนาภาพชีวิต/g,'พัฒนาคุณภาพชีวิต'],[/เจ้าโครงการ/g,'เข้าโครงการ'],[/เครดิตบลูโร|เครดิตบูโร|เครดิตยูโร/g,'เครดิตบูโร'],
       [/กู้เรียน/g,'กู้เพื่อการศึกษา'],[/ทำไง|ทำยังงัย|ทำยังงาย/g,'ทำอย่างไร'],
       [/เริ่ม(?:ยังไง|อย่างไร)/g,'ขั้นตอน'],[/เอกสารไร/g,'เอกสารอะไร'],
       [/ผ่อนนานแค่ไหน/g,'ผ่อนได้กี่งวด'],
@@ -1030,6 +1033,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   function factValue(input,fact){
     const s=norm(input);
+    // A bound is not an exact duration. Never turn "less than 3 years" into 36 months.
+    if(['membershipMonths','membershipYears'].includes(fact)&&/(?:ไม่ถึง|ยังไม่ครบ|น้อยกว่า|มากกว่า|เกิน|ไม่ต่ำกว่า|อย่างน้อย)\s*\d/.test(s))return NaN;
     if(fact==='membershipMonths'){
       const y=s.match(/(\d+(?:\.\d+)?)\s*ปี/),m=s.match(/(\d+)\s*เดือน/);
       if(y) return Math.round(Number(y[1])*12)+(m?Number(m[1]):0);
@@ -1570,6 +1575,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const mentions=[];
     for(const [id,name,re] of aliases)for(const m of q.matchAll(re)){
       if(mentions.some(x=>m.index>=x.pos&&m.index<x.end))continue;
+      if(/(?:ไม่มี|ไม่เคย)(?:สัญญา)?(?:เงินกู้|กู้)?\s*$/.test(q.slice(0,m.index)))continue;
       if(id==='ordinaryLoanCurrent'&&/^(?:เพื่อ)?(?:การศึกษา|พัฒนาคุณภาพชีวิต|ปรับโครงสร้างหนี้|ประนอมหนี้|ในฐานะผู้ค้ำ|ไม่เกินทุนเรือนหุ้น|ภัยพิบัติ)/.test(q.slice(m.index+m[0].length)))continue;
       mentions.push({id,name,pos:m.index,end:m.index+m[0].length});
     }
@@ -1673,7 +1679,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
 
   function compoundLoanAnswer(q){
-    const hasOrd=/สามัญ/.test(q), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
+    const hasOrd=/สามัญ/.test(q)&&(!/(?:ไม่มี|ไม่เคย)(?:เงิน)?(?:กู้)?สามัญ/.test(q)||/(?:จะ|ขอ|ยื่น)กู้สามัญ/.test(q)), hasEmergency=/ฉุกเฉิน/.test(q), hasQuality=/คุณภาพชีวิต|พัฒนาคุณภาพชีวิต/.test(q);
     // These compound rules do not establish the age/term limits of other products.
     // Let the verified product gate or product clarification handle those inquiries.
     if(!hasOrd&&!hasEmergency&&!hasQuality) return null;
@@ -1697,8 +1703,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       if(/ค้ำ(?:กู้)?(?:สามัญ)?(?:อยู่|ให้)|ค้ำ.*(?:คนแล้ว|อีกคน|เพิ่ม)/.test(q)) facts.existingGuaranteedBorrowers=+m[1];
       else facts.guarantorCount=+m[1];
     }
-    if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
-    if(hasMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*ปี/))) { facts.membershipYears=+m[1]; if(!Number.isFinite(facts.membershipMonths)) facts.membershipMonths=+m[1]*12; }
+    const exactMembership=!/สมาชิก[^\d]{0,16}(?:ไม่ถึง|ยังไม่ครบ|น้อยกว่า|มากกว่า|เกิน|ไม่ต่ำกว่า|อย่างน้อย)\s*\d/.test(q);
+    if(hasMembership && exactMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*เดือน/))) facts.membershipMonths=+m[1];
+    if(hasMembership && exactMembership && (m=q.match(/สมาชิก[^\d]{0,16}(\d+)\s*ปี/))) { facts.membershipYears=+m[1]; if(!Number.isFinite(facts.membershipMonths)) facts.membershipMonths=+m[1]*12; }
     if(hasShare && (m=q.match(/(?:ส่งหุ้น|ค่าหุ้น)[^\d]{0,18}(\d+)\s*(?:งวด|เดือน)/))) facts.sharePaid=+m[1];
     if(hasShare && (m=q.match(/(?:หุ้นมี|ทุนเรือนหุ้น|หุ้นสะสม)[^\d]{0,12}([\d,.]+)\s*(ล้าน|แสน|หมื่น|พัน|บาท)?/))) facts.shareCapital=money(m[1],m[2]||'');
     if(hasIncome && (m=q.match(/(?:เงินเดือนเหลือ|เงินเหลือ|รายได้คงเหลือ)[^\d]{0,12}([\d,]+)/))) facts.remainingIncome=+m[1].replace(/,/g,'');
@@ -2014,7 +2021,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     const debt=globalThis.OFFICIAL_FRESHNESS.debtLoanProduct(q);if(debt)return debt;
     if(globalThis.OFFICIAL_FRESHNESS.isShareBackedLoan(q))return 'shareBackedLoanCurrent';
     if(/รวมหนี้|คุณภาพชีวิต/.test(q))return 'qualityOfLifeCurrent';
-    if(/ไถ่ถอน.*(?:บ้าน|จำนอง)|จำนอง.*ไถ่ถอน/.test(q))return 'redeemMortgageCurrent';
+    if(/ไถ่ถอน.*(?:บ้าน|จำนอง)|จำนอง.*ไถ่ถอน|กู้(?:เพื่อ)?ไถ่ถอน/.test(q))return 'redeemMortgageCurrent';
     if(/ฉุกเฉิน/.test(q))return 'emergencyLoanCurrent';
     if((/การศึกษา|กู้เรียน/.test(q)&&!/สวัสดิการ|ทุนการศึกษา|สำเร็จการศึกษา|จบการศึกษา/.test(q))||/กู้/.test(q)&&/ค่าเทอม|ค่าเล่าเรียน/.test(q))return 'education';
     // An incident may precede the loan request. Preserve explicitly named products
@@ -2944,6 +2951,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
+    if(prior?.depositOperation&&choice&&/^(?:เงินฝาก)?ออมทรัพย์พิเศษ$/.test(raw)){
+      const query='ออมทรัพย์พิเศษ '+({open:'เปิดบัญชี',withdraw:'ถอนเงิน ใช้เอกสารอะไร',interest:'ดอกเบี้ยปัจจุบันเท่าไร'})[prior.depositOperation],result=answer(query);
+      return {result,state:{result,topic:'depositSpecial',question:query,lastFact:null},query};
+    }
+    // Service/document questions must not become eligibility flows after a short reply.
+    if(options.continuation&&!newQuestion&&['welfare_document_channel','share_change_submission_channel','credit_document_format'].includes(prior?.intent)&&(!loanProduct(raw)||/^สมาชิก(?:สามัญ|สมทบ)$/.test(raw))){
+      const result=answer(state.question);
+      return {result,state:{...state,result},query:state.question};
+    }
     // Preserve document-tracking intent rather than converting a department question to loan application forms.
     const trackingIntent=Boolean(state?.trackingIntent)||/ติดตามเอกสาร(?:เงินกู้)?|ตามเรื่องเอกสารเงินกู้/.test(raw);
     if(state?.trackingIntent&&/(?:ฝ่ายไหน|ฝ่ายใด|ติดต่อใคร|ติดต่อที่ไหน)/.test(raw)){
@@ -3005,6 +3021,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       query=raw+' '+state.question;result=answer(query);
     }else if(prior?.requiredFact==='grossMonthlyIncome'&&/^\d[\d,]*(?:\s*บาท)?$/.test(raw)){
       query='ส่งหุ้น เงินเดือน '+raw+' เท่าไร';result=answer(query);
+    }else if(prior?.intent==='membership_duration_bound'&&choice&&Number.isFinite(factValue(raw,'membershipMonths'))){
+      query=state.question.replace(/สมาชิก(?:สหกรณ์|มา|แล้ว|ได้|อยู่|\s)*(?:ไม่ถึง|ยังไม่ครบ|น้อยกว่า|มากกว่า|ไม่เกิน|เกิน|ไม่ต่ำกว่า|อย่างน้อย)\s*\d+(?:\.\d+)?\s*(?:ปี|เดือน)/,'สมาชิกมา '+raw);result=answer(query);
+    }else if(prior?.requiredFact==='installmentTerm'&&choice&&/\d+\s*(?:ปี|งวด|เดือน)/.test(raw)){
+      query=state.question+' ผ่อน '+raw;result=answer(query);
     }else if(prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice){
       query=prior.intent==='loan_all'||/เลือก|ไม่รู้|^(?:เป็นเรื่อง)?เงินกู้$/.test(state.question||'')?raw:raw+' '+state.question;result=answer(query);
     }else if(prior?.requiredFact==='transferKind'&&choice){
@@ -3251,8 +3271,58 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       'ผู้อนุมัติ: ผู้จัดการไม่เกิน 60,000 บาท ประธานกรรมการไม่เกิน 100,000 บาท และคณะอนุกรรมการเงินกู้เมื่อเกิน 100,000 บาท; AI ไม่อนุมัติเงินกู้'
     ],actions:[['📢 หลักเกณฑ์กู้พักผ่อน มีผล 1 ต.ค. 2569',S.loanVacationAnnouncement],['📄 แบบที่เผยแพร่ — ต้องยืนยันฉบับก่อนใช้',S.vacationLoan],['☎️ ยืนยันดอกเบี้ย/แบบกับงานเงินกู้',S.contact]],sources:[src(R.primaryEvidenceTitle,S.loanVacationAnnouncement,'ข้อ 2–9'),src('รายการเอกสารจากแบบที่เผยแพร่',S.vacationLoan,'ยังมีข้อขัดกันเรื่องจำนวนงวด')],followups:['กู้พักผ่อนคุณสมบัติอะไร','กู้พักผ่อนใช้เอกสารอะไร','กู้พักผ่อนใช้หลักประกันอะไร','กู้พักผ่อนดอกเบี้ยเท่าไร','กู้พักผ่อนสิ้นสุดเมื่อไร']});
   }
+  // Resolve the requested service/facet before overlapping eligibility keywords.
+  // These routes provide intake or an explicit evidence lock, never new numeric rules.
+  function memberConcern(q){
+    if(/\b\d{13}\b|รหัสผ่าน|password|otp|pin/i.test(q))return null;
+    const handoff=(intent,text,url=S.contact,title='ติดต่อฝ่ายที่รับผิดชอบ',opt={})=>res(intent,text,{decision:'EVIDENCE_LOCK',suppressClarification:true,actions:[[title,url],['ช่องทางติดต่อทางการ',S.contact]],sources:[src(title,url)],...opt});
+    const bound=q.match(/สมาชิก(?:สหกรณ์|มา|แล้ว|ได้|อยู่|\s)*(ไม่ถึง|ยังไม่ครบ|น้อยกว่า|มากกว่า|ไม่เกิน|เกิน|ไม่ต่ำกว่า|อย่างน้อย)\s*(\d+(?:\.\d+)?)\s*(ปี|เดือน)/);
+    if(bound&&/กู้|สิทธิ|สมัคร/.test(q)&&(!/เงื่อนไข|หลักเกณฑ์|คุณสมบัติ/.test(q)||/ไม่ถึง|ยังไม่ครบ|น้อยกว่า|ไม่เกิน/.test(bound[1]))){
+      const product=loanProduct(q),months=+bound[2]*(bound[3]==='ปี'?12:1),rule=KB.ruleAuthority.rules[product];
+      return handoff('membership_duration_bound','อายุสมาชิกที่ระบุคือ “'+bound[1]+' '+bound[2]+' '+bound[3]+'” ครับ ไม่ใช่อายุสมาชิกเท่ากับ '+months+' เดือน จึงยังใช้ตัวเลขนี้ยืนยันว่าครบเกณฑ์ไม่ได้ โปรดระบุอายุสมาชิกจริงเป็นปีและเดือน เพื่อเทียบหลักเกณฑ์ของเงินกู้ที่ต้องการ โดยไม่ส่งเลขสมาชิก',rule?.source||S.procedure,'หลักเกณฑ์เงินกู้ทางการ',{domain:product,decision:'NEED_INFO',requiredFact:'membershipMonths',facts:{membershipDurationBound:{operator:bound[1],months},targetProduct:product},followups:[]});
+    }
+    if(/ลาออก|ออกจากสหกรณ์/.test(q)&&/ค้ำ/.test(q)&&!/สหกรณ์อื่น|สหกรณ์.*อื่น/.test(q))return handoff('resignation_guarantee_review','คำถามนี้เป็นเรื่องลาออกขณะยังมีภาระค้ำประกันครับ ไม่ใช่การค้ำเพิ่ม ต้องให้งานทะเบียนตรวจภาระค้ำและการสิ้นสุดสมาชิกภาพก่อน จึงยังไม่ยืนยันว่าลาออกได้เลยหรือได้รับหุ้นคืนแล้ว ไม่ต้องส่งข้อมูลผู้กู้หรือเลขสมาชิกในแชต',S.resignation,'แบบและงานทะเบียนสมาชิก');
+    if(/เงินฝาก/.test(q)&&/ถอน/.test(q)&&/หุ้น|ค้ำ|หลักประกัน/.test(q))return handoff('deposit_collateral_release','เงินฝากส่วนเกินหรือเงินฝากที่เคยใช้เป็นหลักประกัน ต้องตรวจบัญชี สัญญา และการปลดหลักประกันก่อนถอนครับ การนำเงินไปซื้อหุ้นเพิ่มไม่ใช่หลักฐานการปลดภาระของเงินฝากส่วนที่เหลือ ยังไม่ยืนยันสิทธิถอน ให้ฝ่ายเงินฝากและเงินกู้ตรวจรายการจริง',S.depositForms,'แบบและงานเงินฝาก');
+    if(/ปันผล/.test(q)&&/หุ้น|เฉลี่ยคืน/.test(q)&&/เท่ากับปีที่แล้ว|เท่าเดิม|เปรียบเทียบ/.test(q))return handoff('dividend_year_comparison','การเปรียบเทียบเงินปันผลหุ้นและเงินเฉลี่ยคืนกับปีก่อน ต้องมีประกาศอัตราที่อนุมัติและฐานคำนวณของแต่ละปีครับ ยังไม่ยืนยันว่าได้เท่ากันหรืออัตราเท่าเดิม และไม่สามารถใช้เมนูหุ้นยืนยันยอดเฉพาะสมาชิกได้',S.notices,'ตรวจประกาศปันผลและเฉลี่ยคืน');
+    if(/กู้.*ปันผล/.test(q))return handoff('dividend_loan_scheme','ต้องตรวจว่ามีประกาศโครงการกู้เงินปันผลที่เปิดรับปัจจุบันหรือไม่ครับ ยังไม่พบหลักฐานพอยืนยันว่ามีโครงการหรือสิทธิขอกู้ และไม่ใช้ประกาศการจ่ายปันผลแทนหลักเกณฑ์เงินกู้',S.notices,'ตรวจประกาศโครงการเงินกู้');
+    if(/กู้/.test(q)&&/ปิดหนี้ฉุกเฉิน/.test(q)&&/ก่อน.*(?:ยื่น|กู้)|ถึงจะยื่น/.test(q))return handoff('loan_target_after_emergency_closure','ต้องตรวจเงินกู้ที่ต้องการยื่นและการหักกลบฉุกเฉินตามเกณฑ์ของคู่นั้นครับ ไม่ใช้รายได้คงเหลือของกู้ฉุกเฉินอย่างเดียวตัดสินว่าต้องปิดก่อน ขอทราบชื่อประเภทหรือโครงการเงินกู้ที่จะยื่น โดยไม่ส่งข้อมูลบัญชี',S.procedure,'ตรวจประเภทเงินกู้เป้าหมาย',{decision:'NEED_INFO',requiredFact:'loanProduct'});
+    if(/จำนอง/.test(q)&&/ห่างกี่เดือน|ห่างกี่งวด/.test(q))return handoff('mortgage_reapplication_interval','หมายถึงจะกู้ไถ่ถอนจำนอง หรือขอกู้สามัญครั้งใหม่ครับ? ระยะห่างจากสัญญาเดิมกับชนิดหลักประกันเป็นคนละเงื่อนไข ยังไม่ยืนยันจำนวนเดือนจนกว่าจะทราบประเภทคำขอและกฎที่ใช้',S.procedure,'ตรวจหลักเกณฑ์ประเภทเงินกู้',{decision:'NEED_INFO',requiredFact:'loanProduct'});
+    if(/กู้พัฒนาคุณภาพชีวิต|คุณภาพชีวิต/.test(q)&&/กู้(?:หุ้น|ทุนเรือนหุ้น)/.test(q))return handoff('quality_to_share_backed_review','คำถามเป็นเรื่องถือสัญญาพัฒนาคุณภาพชีวิตร่วมกับกู้ทุนเรือนหุ้นครับ ต้องตรวจข้อกำหนดการถือสัญญาร่วมของทั้งสองประเภทก่อน ไม่ใช้เพดานกู้ทุนเรือนหุ้นเพียงอย่างเดียวยืนยันว่ากู้เพิ่มได้',S.specialLoanForms,'ตรวจข้อกำหนดสัญญาร่วม');
+    if(/สมาชิกสมทบ/.test(q)&&[/ปันผล/.test(q),/กู้/.test(q),/สวัสดิการ/.test(q)].filter(Boolean).length>1)return handoff('associate_member_service_rights','ต้องแยกสิทธิของสมาชิกสมทบในแต่ละบริการครับ: 1) ปันผล ตรวจประกาศอัตราและประเภทสมาชิกที่ครอบคลุม 2) เงินกู้ ตรวจว่าประเภทหรือโครงการนั้นให้สมาชิกสมทบยื่นได้หรือไม่ 3) สวัสดิการ ตรวจประเภทสมาชิกของสิทธิแต่ละรายการ ยังไม่ใช้สิทธิสมาชิกสามัญแทนและยังไม่ยืนยันสิทธิเฉพาะราย ให้ทะเบียนตรวจข้อบังคับและประกาศที่ใช้ร่วมกัน',S.memberForms,'ตรวจสิทธิสมาชิกสมทบกับทะเบียน');
+    if(/(?:เปิดบัญชี|ถอนเงินฝาก|ดอกเบี้ยเงินฝาก)/.test(q)&&!/พิเศษ|สมาคม|ฌาปนกิจ|หลักประกัน|ค้ำ|ของผม|ของฉัน|สมัครสมาชิก|ใบสมัคร/.test(q)){
+      const operation=/เปิดบัญชี/.test(q)?'open':/ถอน/.test(q)?'withdraw':'interest';
+      return {...handoff(({open:'deposit_open',withdraw:'deposit_withdraw',interest:'deposit_interest'})[operation],'เป็นเงินฝากประเภทใดครับ เช่น ออมทรัพย์พิเศษ หรือประเภทอื่น? ระบบจะเก็บเรื่อง'+({open:'เปิดบัญชี',withdraw:'ถอนและส่งเอกสาร',interest:'ดอกเบี้ย'})[operation]+'ไว้ แล้วใช้แบบและเงื่อนไขที่ตรงกับประเภทนั้น ไม่ใช้ระเบียบรับฝากเงินของสมาคมแทน',S.depositForms,'แบบและหลักเกณฑ์เงินฝาก',{decision:'NEED_INFO',requiredFact:'depositType',followups:['ออมทรัพย์พิเศษ','ประเภทอื่น / ไม่แน่ใจ']}),depositOperation:operation};
+    }
+    if(/ฉุกเฉิน/.test(q)&&/(?:จ่าย|ชำระ).*(?:เพิ่ม|มากกว่า)|(?:เพิ่ม|นอกเหนือ).*(?:ยอดหัก|ที่.*หัก)/.test(q)&&!/กู้เพิ่ม|ขอกู้ใหม่|กู้ซ้ำ/.test(q))return res('payment_extra','หากต้องการชำระเงินกู้ฉุกเฉินเพิ่มนอกยอดที่หน่วยงานหัก ให้ใช้ช่องทางชำระเงินสำหรับสมาชิกตามหน้าทางการ ตรวจรหัสรายการและยอดที่ประสงค์ชำระก่อนโอน เก็บหลักฐานแล้วตรวจการบันทึกรับชำระครับ เรื่องนี้ไม่ใช่การขอกู้ฉุกเฉินซ้ำ',{decision:'PROCEDURE_INFORMATION',suppressClarification:true,actions:[['วิธีชำระเงินสำหรับสมาชิก',S.payment],['ตรวจรายการชำระ',S.memberPortal]],sources:[src('ช่องทางชำระเงิน',S.payment)]});
+    if(/หนังสือรับรอง(?:ยอด)?หนี้/.test(q)&&/ธนาคาร|กรุงไทย|ธนวัฏ|สถาบันการเงินอื่น/.test(q))return handoff('external_debt_certificate','หากจะกู้เพื่อปิดสินเชื่อธนาคาร หนังสือรับรองยอดหนี้ที่ถามเป็นเอกสารของธนาคารเจ้าหนี้เดิมครับ ไม่ใช่หนังสือรับรองยอดหนี้ของสหกรณ์ ต้องตรวจรายการแนบและวันที่รับรองที่แบบคำขอกู้ประเภทนั้นกำหนดก่อน ยังไม่ยืนยันว่าเอกสารใดใช้แทนได้',S.procedure,'หลักเกณฑ์และแบบคำขอกู้');
+    if(/ฌาปนกิจ/.test(q)&&/คู่สมรส/.test(q)&&/สมัคร/.test(q))return handoff('funeral_spouse_membership','การสมัครสมาคมฌาปนกิจให้คู่สมรสต้องตรวจคุณสมบัติของสมาคมและแบบสมัครปัจจุบันครับ ไม่ใช่สวัสดิการสมรสของสหกรณ์ ยังไม่ยืนยันว่าคู่สมรสสมัครได้หรือมีผลคุ้มครองทันที ให้สมาคมยืนยันก่อนชำระค่าสมัคร',S.contact,'ติดต่อเจ้าหน้าที่ฌาปนกิจ');
+    if(/คู่สมรส/.test(q)&&/ค่ารายปี|ค่าบำรุง|หัก.*ปันผล/.test(q))return handoff('funeral_annual_fee_deduction','ต้องการสอบถามค่ารายปีของสมาคมฌาปนกิจสำหรับคู่สมรสใช่ไหมครับ? การหักจากเงินปันผลต้องตรวจประกาศเรียกเก็บและหนังสือยินยอมที่ใช้ในปีนั้น ไม่ใช่เงินสวัสดิการสมรส และยังไม่ยืนยันว่ามีการหักให้แล้ว',S.contact,'ตรวจการเรียกเก็บกับสมาคม',{decision:'NEED_INFO',requiredFact:'feeOrganization'});
+    const documentChannel=/เอกสาร|คำร้อง|คำขอ|แบบฟอร์ม|จดหมาย/.test(q)&&/pdf|ไฟล์|อีเมล|เมล|ไลน์|ออนไลน์|ส่ง.*ที่ไหน|จัดส่ง.*ไหน/.test(q);
+    if(documentChannel&&/สวัสดิการ|คลอดบุตร/.test(q))return handoff(/pdf|ไฟล์|อีเมล|เมล|ไลน์|ออนไลน์/.test(q)?'welfare_document_channel':'welfare_contact','คำถามนี้เป็นเรื่องช่องทางส่งเอกสารสวัสดิการ'+(/คลอดบุตร/.test(q)?'คลอดบุตร':'')+'ครับ ยังไม่ได้ยืนยันว่ารับไฟล์ PDF หรือรับผ่าน LINE/อีเมลสำหรับรายการนี้ ให้เปิดแบบและให้งานสวัสดิการยืนยันช่องทางก่อนส่ง ไม่ใช้ช่องทางเงินฝากแทน และไม่ต้องประเมินสิทธิเพื่อถามเรื่องรูปแบบเอกสาร',S.welfareForms,'แบบและช่องทางงานสวัสดิการ');
+    if(documentChannel&&/หุ้นรายเดือน|ส่งค่าหุ้นรายเดือน/.test(q))return handoff('share_change_submission_channel','การเปลี่ยนค่าหุ้นรายเดือนใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนครับ เป็นคนละแบบกับการเปลี่ยนข้อมูลสมาชิก ยังไม่ยืนยันว่าห้อง LINE นี้เป็นช่องทางรับคำขอ ให้งานทะเบียนยืนยันก่อนส่งเอกสาร และรอความเห็นชอบก่อนถือว่าเปลี่ยนอัตราแล้ว','https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view','แบบคำขอเปลี่ยนค่าหุ้นรายเดือน');
+    if(/กู้(?:เพื่อ)?ไถ่ถอน/.test(q)&&/เพิ่ม/.test(q))return handoff('redeem_additional_loan_review','ต้องตรวจเงื่อนไขการขอกู้เพิ่มของเงินกู้เพื่อไถ่ถอนจำนอง รวมยอดหนี้เดิมและหลักประกันตามฉบับที่ใช้ครับ ยังไม่ยืนยันวงเงินหรือสิทธิขอกู้เพิ่ม เรื่องนี้ไม่ใช่การถอนเงินฝากหรือคืนหุ้น',S.loanSpecialRedeemAnnouncement,'หลักเกณฑ์เงินกู้เพื่อไถ่ถอนจำนอง',{domain:'redeemMortgageCurrent'});
+    if(/(?:โอน|ย้าย|ถอน).*เงินฝาก.*(?:ซื้อ|เป็น)หุ้น|เงินฝาก.*(?:โอน|ย้าย).*หุ้น/.test(q)&&/แบบ|เอกสาร|ทำอย่างไร|ทำยังไง/.test(q))return handoff('deposit_to_share_conversion','การโอนเงินฝากไปซื้อหุ้นต้องตรวจคำขอโอนเงินและเงื่อนไขรับซื้อหุ้นที่ใช้กับรายการนี้ครับ ยังไม่ยืนยันแบบเฉพาะรายการหรือว่าเงินฝากที่ผูกหลักประกันโอนได้ ให้ฝ่ายเงินฝากกับงานทะเบียนยืนยันแบบและสถานะรอบก่อน ไม่ใช้แบบเปลี่ยนหุ้นรายเดือนแทน',S.depositForms,'แบบและงานเงินฝาก');
+    if(/เกษียณ/.test(q)&&/ต้อง.*ลาออก|ยื่นใบลาออก.*เมื่อไร/.test(q))return handoff('retirement_membership_review','การเกษียณกับการลาออกเป็นคนละรายการครับ ต้องให้งานทะเบียนตรวจเงื่อนไขการคงสมาชิกภาพ การนำส่งเงิน และหนี้หรือภาระค้ำหลังเกษียณก่อน ยังไม่สรุปว่าต้องยื่นลาออกหรือกำหนดวันลาออกจากข้อความนี้',S.memberForms,'ติดต่อทะเบียนเรื่องสมาชิกหลังเกษียณ');
+    if(/(?:เอกสาร|คำขอ|แบบฟอร์ม)/.test(q)&&/ยกเลิก|ลืมออกเลข|แบบฟอร์มผิด|รันคิวใหม่/.test(q))return handoff('document_correction_or_cancellation','หากต้องการ'+(/ยกเลิก/.test(q)?'ยกเลิกคำขอที่ยื่นแล้ว':'แก้ไขหรือส่งเอกสารเพิ่มเติม')+' ให้ติดต่อหน่วยรับเอกสารของรายการเดิมก่อนครับ ให้เจ้าหน้าที่ยืนยันว่าต้องส่งแบบใหม่หรือชุดแนบใด และมีผลต่อลำดับคิวหรือไม่ AI ไม่เห็นทะเบียนรับเอกสาร จึงไม่ยืนยันการยกเลิกหรือคิวใหม่ ไม่ต้องส่งเอกสารส่วนตัวในแชต',S.contact,'ติดต่อหน่วยรับเอกสารเดิม');
+    if(/(?:ต้น|เงินต้น).*(?:ดอกเบี้ย|ลดลง)|ใบเสร็จ.*ดอกเบี้ย/.test(q)&&/ทำไม|เหตุใด/.test(q))return handoff('repayment_breakdown_review','เงินต้น ดอกเบี้ย และยอดผ่อนรวมเป็นคนละส่วนครับ หากแต่ละเดือนต่างกันหรือเงินต้นลดแต่ยอดผ่อนเท่าเดิม ต้องตรวจวิธีผ่อนในสัญญา ช่วงวันที่คิดดอกเบี้ย และใบเสร็จแต่ละงวดก่อน จึงยังไม่ยืนยันวิธีคิดของสัญญานี้ ให้ฝ่ายรับชำระอธิบายรายการโดยไม่ส่งใบเสร็จส่วนตัวในแชต',S.payment,'ตรวจรายการกับฝ่ายรับชำระ');
+    if(/ปิด.*(?:หนี้|ฉุก|เงินกู้).*(?:เรียบร้อย|แล้ว)/.test(q)&&/รอ.*(?:ฎีกา|ฏีกา|เงินเดือน)|ถึงจะ.*(?:ทำเรื่อง|ยื่น)/.test(q))return handoff('post_closure_reapplication','เมื่อปิดหนี้แล้ว คำถามคือเงื่อนไขยื่นคำขอครั้งถัดไปครับ ต้องตรวจว่ารายการปิดถูกบันทึกแล้ว และประเภทเงินกู้ที่จะยื่นต้องใช้หลักฐานเงินเดือนรอบใด ยังไม่ยืนยันว่าต้องรอหน้าฎีการอบใหม่ทุกกรณี ไม่ใช่การขอยอดเพื่อปิดหนี้เดิม',S.contact,'ตรวจรายการปิดและคำขอใหม่');
+    if(/เครดิตบูโร|บูโร/.test(q)&&/แอป|อีเมล|เมล|ปริ้น|พิมพ์|ฉบับจริง/.test(q))return handoff('credit_document_format','รายงานเครดิตบูโรที่พิมพ์จากแอปหรืออีเมลต้องให้ฝ่ายเงินกู้ตรวจว่าตรงรูปแบบเอกสารของคำขอประเภทนั้นหรือไม่ครับ ยังไม่ยืนยันว่าใช้แทนต้นฉบับได้หรือไม่ได้ เก็บเอกสารไว้ส่งเฉพาะช่องทางทางการ ไม่แนบข้อมูลเครดิตส่วนตัวในแชต',S.procedure,'ตรวจข้อกำหนดเอกสารเงินกู้');
+    if(/ผู้(?:ที่จะ)?ค้ำ|คนค้ำ/.test(q)&&/เกษียณ|เกษียน/.test(q)&&!/เกษียณปีนี้|เกษียณแล้ว|ปลดเกษียณ|ข้าราชการบำนาญ/.test(q))return handoff('guarantor_retirement_horizon','การที่ผู้ค้ำจะเกษียณในอีกช่วงหนึ่งและมีเงินกู้เดิม ต้องตรวจคุณสมบัติผู้ค้ำตามประเภทสัญญาและภาระค้ำจริงครับ ไม่ใช่การประเมินวงเงินผู้กู้จากจำนวนเงินอย่างเดียว ยังไม่รับรองสิทธิค้ำเฉพาะราย',S.procedure,'ตรวจคุณสมบัติผู้ค้ำ');
+    if(/รวมหนี้/.test(q)&&/หลัก(?:ทรัพย์|ประกัน).*ไม่พอ/.test(q)&&/ค้ำ/.test(q))return handoff('quality_collateral_shortfall','กรณีกู้รวมหนี้แล้วหลักทรัพย์ไม่พอ ต้องตรวจว่าสัญญาประเภทนั้นอนุญาตให้ใช้บุคคลค้ำเสริมหรือหลักประกันชนิดใดครับ ยังไม่ยืนยันว่าเพิ่มคนค้ำแล้วผ่าน และไม่ใช้จำนวนผู้ค้ำของกู้สามัญแทน',S.specialLoanForms,'หลักเกณฑ์เงินกู้พิเศษ');
+    if(/ปรับโครงสร้างหนี้/.test(q)&&/ก่อน.*ปรับ|ค้างชำระก่อน/.test(q)&&/กี่งวด|กี่เดือน/.test(q))return handoff('restructuring_prior_payments','ต้องตรวจจำนวนงวดที่ต้องนำส่งก่อนเข้าปรับโครงสร้างหนี้ตามฉบับที่ใช้ครับ เป็นคนละเรื่องกับจำนวนงวดผ่อนสูงสุดหลังปรับ ยังไม่ยืนยันจำนวนงวดจากหลักฐานที่มี ให้ฝ่ายเงินกู้ตรวจเงื่อนไขก่อนยื่น',S.procedure,'หลักเกณฑ์ปรับโครงสร้างหนี้');
+    if(/กู้/.test(q)&&/สามัญ/.test(q)&&/3\s*ล้าน|สามล้าน/.test(q)&&/เดิม|สัญญาเดิม/.test(q)&&/รีกลบ|หักกลบ/.test(q))return handoff('ordinary_legacy_offset','สัญญาสามัญเดิมต้องตรวจเงื่อนไขขอกู้ใหม่และหักกลบ รวมฉบับกฎที่ใช้กับสัญญาเดิมและคำขอใหม่ครับ ไม่ใช้เพดานกู้ปัจจุบันตอบแทนว่ารีกลบได้หรือไม่ได้ ต้องให้ฝ่ายเงินกู้ตรวจสัญญาจริงก่อน',S.ordinaryLoanForms,'หลักเกณฑ์เงินกู้สามัญ');
+    if(/คุณภาพชีวิต|รวมหนี้/.test(q)&&/ตัด.*วันที่|อาทิตย์นี้.*ตัด|ดู.*(?:เครดิต|บูโร)/.test(q))return handoff(/บูโร/.test(q)?'quality_credit_requirement':'quality_application_cutoff',/บูโร/.test(q)?'คำถามเป็นเรื่องข้อกำหนดเครดิตบูโรของกู้พัฒนาคุณภาพชีวิตครับ ยังไม่ยืนยันข้อกำหนดการใช้รายงานและผลพิจารณา ให้ตรวจหลักเกณฑ์ประเภทนี้และรายการแนบของคำขอปัจจุบัน ไม่ใช้กฎสามัญแทน':'วันตัดรอบกู้พัฒนาคุณภาพชีวิตต้องตรวจประกาศหรือให้ฝ่ายเงินกู้ยืนยันรอบสัปดาห์ปัจจุบันครับ ไม่ใช้วันตัดรอบเก่ารับรองว่ายื่นทัน และไม่ต้องเลือกประเภทเงินกู้ซ้ำ',S.specialLoanForms,'หลักเกณฑ์และงานเงินกู้พิเศษ');
+    if(/ผ่อน.*(?:เดือนละ|เดือนเท่า)|(?:กู้|เงินกู้).*ผ่อนเดือน/.test(q)&&!/ค้าง|ผิดนัด|ทำไม/.test(q)){
+      const product=loanProduct(q),amount=q.match(/(?:กู้|วงเงิน)(?:เงิน)?\s*([\d,]+)\s*บาท/),term=q.match(/ผ่อน\s*(\d+)\s*(ปี|งวด|เดือน)/);
+      if(!product)return null;
+      if(!term)return handoff('installment_term_intake','ต้องการคำนวณค่างวด'+(amount?'สำหรับวงเงิน '+amount[1]+' บาท':'')+'ครับ ต้องการผ่อนกี่งวดหรือกี่ปี? ระบบยังไม่คำนวณค่างวดหรือใช้ระยะผ่อนสูงสุดแทนความต้องการ และผลคำนวณไม่ใช่การอนุมัติ',S.procedure,'หลักเกณฑ์เงินกู้',{domain:product,decision:'NEED_INFO',requiredFact:'installmentTerm',facts:{requestAmount:amount?+amount[1].replace(/,/g,''):null,targetProduct:product}});
+      return safeLoanCalculator('คำนวณ '+q)||null;
+    }
+    return null;
+  }
   function answer(input){
     const q=norm(input);
+    const concern=memberConcern(q);if(concern)return concern;
     // T07: compose two explicit rule concerns from the single versioned Rule Master.
     if(/(?:กู้สามัญ|เงินกู้สามัญ)/.test(q)&&/(?:ได้เท่า(?:ไหร่|ไร)|วงเงิน|กี่บาท)/.test(q)&&/(?:ค้ำกี่คน|ค้ำ.*กี่คน|ผู้ค้ำ.*กี่คน|กี่คน.*ค้ำ)/.test(q)&&!personal(q)){
       const check=freshnessStatus(q);

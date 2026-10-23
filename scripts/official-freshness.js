@@ -129,7 +129,9 @@
     // every member rule changed. Preserve PENDING; explicit rule/conflict links win.
     if(/ผลการ(?:คัดเลือก|จัดซื้อ|จัดจ้าง|ประกวดราคา).*บริษัท/.test(doc.title||'')&&!(doc.affectedRuleIds||[]).length&&!(doc.conflictsWithDocumentIds||[]).length&&!/แก้ไข.*(?:ระเบียบ|หลักเกณฑ์)|เปลี่ยน.*(?:สิทธิ|เงื่อนไข)/.test(doc.title||''))return [];
 
-    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/สมาคม|ฌาปนกิจ/.test(text)&&/เงินฝาก.*(?:ค้ำ|หลักประกัน)|(?:ค้ำ|หลักประกัน).*เงินฝาก|เงินฝากของสมาชิก|ออมทรัพย์พิเศษ|ฝากพิเศษ|เงินฝาก.*พิเศษ/.test(text))return [];
+    // The depositor, not the word "deposit", determines this regulation's scope.
+    // Unspecified member-account navigation must not inherit an association rule.
+    if(/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')&&!/(?:เงินฝาก|รับฝาก|ฝากเงิน)(?:ของ|จาก|สำหรับ)?\s*ฌาปนกิจ|(?:เงินฝาก|รับฝาก|ฝากเงิน)[^\n]{0,24}สมาคม|สมาคม[^\n]{0,24}(?:เงินฝาก|รับฝาก|ฝากเงิน)/.test(text))return [];
     let scope=/รับฝากเงิน.*ฌาปนกิจ/.test(doc.title||'')?declared.filter(x=>x!=='welfare'):declared;
     const loanDomains=['ordinaryLoan','emergencyLoan',...special,'educationLoan','disasterLoan','shareBackedLoan'];
     const requested=domains(text).filter(x=>loanDomains.includes(x));
