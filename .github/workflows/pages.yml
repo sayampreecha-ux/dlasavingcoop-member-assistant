@@ -94,6 +94,7 @@ jobs:
           node scripts/browser-deposit-entry-smoke.mjs
           node scripts/browser-private-deposit-balance-smoke.mjs
           node scripts/browser-member-tracking-smoke.mjs
+          node scripts/browser-mobile-approval-ui.mjs
           node scripts/browser-approval-announcements.mjs
 
       - name: Upload share-backed loan release and production evidence
