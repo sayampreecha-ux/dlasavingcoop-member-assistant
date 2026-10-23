@@ -3619,25 +3619,21 @@ function updateReadingTopics(source){
 }
 
 function selectTrackingNotices(data,input){
-  const q=String(input||'').trim();
-  const type=/ฉุกเฉิน/.test(q)?'emergency-loan':
-    /พัฒนาคุณภาพชีวิต/.test(q)?'quality-of-life-loan':
-    /เงินกู้สามัญ|กู้สามัญ/.test(q)?'ordinary-loan':
-    /สวัสดิการ/.test(q)?'welfare':
-    /ฌาปนกิจ/.test(q)?'funeral':
-    /สมัครสมาชิก|สมาชิกภาพ|อนุมัติสมาชิก/.test(q)?'membership':null;
-  const approval=/อนุมัติ|พิจารณา|ผลกู้|รายชื่อ.*กู้|โอน.*(?:เงินกู้|กู้)|กู้.*(?:ตัดเอกสาร|ประกาศ|โอน)/.test(q);
-  const loan=/เงินกู้|กู้/.test(q);
-  const source=approval?[...(data.approvalIndex||[]),...(data.trackingNotices||[])]:[...(data.trackingNotices||[]),...(data.events||[])];
-  const categories=e=>e.category||(/เงินกู้สามัญ/.test(e.title||'')?'ordinary-loan':/เงินกู้ฉุกเฉิน/.test(e.title||'')?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(e.title||'')?'quality-of-life-loan':/สวัสดิการ/.test(e.title||'')?'welfare':/ฌาปนกิจ/.test(e.title||'')?'funeral':/สมาชิก/.test(e.title||'')?'membership':null);
-  const filtered=source.filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl)
-    .filter(e=>!approval||/อนุมัติ|พิจารณา|ได้รับความเห็นชอบ/.test(e.title||''))
-    .filter(e=>!type||categories(e)===type)
-    .filter(e=>type||!loan||['ordinary-loan','emergency-loan','quality-of-life-loan'].includes(categories(e)))
-    .filter(e=>!e.expiresAt||new Date(e.expiresAt)>new Date())
-    .filter((e,i,a)=>a.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);
-  const sorted=filtered.sort((a,b)=>Date.parse(b.publishedAt||0)-Date.parse(a.publishedAt||0));
-  return sorted;
+ const q=String(input||'').trim();
+ const isApproval=/^(?:ติดตามผลอนุมัติ|ผลอนุมัติ)/.test(q)||/ผลการพิจารณา|เงินกู้.*(?:อนุมัติ|ตัดเอกสาร|โอน|ประกาศ)|กู้สามัญ.*(?:อนุมัติ|ตัดเอกสาร|โอน|ประกาศ)/.test(q);
+ const member=/สมัครสมาชิก|^(?:ติดตาม)?ผลอนุมัติสมาชิก$/.test(q);
+ const type=/ฉุกเฉิน/.test(q)?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(q)?'quality-of-life-loan':/เงินกู้สามัญ|กู้สามัญ/.test(q)?'ordinary-loan':/สวัสดิการ/.test(q)?'welfare':/ฌาปนกิจ/.test(q)?'funeral':member?'membership':null;
+ const category=e=>e.category||(/เงินกู้สามัญ/.test(e.title||'')?'ordinary-loan':/เงินกู้ฉุกเฉิน/.test(e.title||'')?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(e.title||'')?'quality-of-life-loan':/สวัสดิการ/.test(e.title||'')?'welfare':/ฌาปนกิจ/.test(e.title||'')?'funeral':/สมาชิก/.test(e.title||'')?'membership':null);
+ const approvalTitle=e=>/ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|แจ้งผลอนุมัติ|ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์/.test(e.title||'');
+ const source=isApproval?[...(data.approvalIndex||[]),...(data.trackingNotices||[]),...(data.events||[])]:[...(data.trackingNotices||[]),...(data.events||[])];
+ const filtered=source.filter(e=>e.sourceState==='DIRECT_VERIFIED'&&e.directSourceUrl)
+ .filter(e=>!isApproval||approvalTitle(e))
+ .filter(e=>!type||(type==='welfare'?/สวัสดิการ|สงเคราะห์/.test(e.title||''):category(e)===type))
+ .filter(e=>!member||/ผู้ที่ได้รับความเห็นชอบให้เป็นสมาชิกสหกรณ์|ผล(?:การ)?อนุมัติ.*สมาชิก|ผล(?:การ)?พิจารณา.*สมัครสมาชิก/.test(e.title||''))
+ .filter(e=>isApproval||(/เอกสารสมัครสมาชิก/.test(q)?/เอกสาร.*ไม่ครบ|เอกสารมาไม่ครบ/.test(e.title||''):/รอบสมาชิก/.test(q)?/เอกสาร|รอบ|สมัครสมาชิก/.test(e.title||'')&&!approvalTitle(e):true))
+ .filter(e=>!e.expiresAt||new Date(e.expiresAt)>new Date())
+ .filter((e,i,a)=>a.findIndex(x=>x.directSourceUrl===e.directSourceUrl)===i);
+ return filtered.sort((a,b)=>Date.parse(b.publishedAt||0)-Date.parse(a.publishedAt||0));
 }
 
 function renderOrdinaryLoanCalculator(current,r){
