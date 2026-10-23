@@ -551,7 +551,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     return approvalRecords.length;
   }
   const approvalQuestion=q=>/(?:ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|คนกู้ผ่าน|รายชื่อ.*กู้ผ่าน|กู้.*ตัดเอกสาร|กู้.*โอนวัน|เงินกู้.*ประกาศ|กู้สามัญ.*ประกาศ)/.test(q)&&
-    /เงินกู้|กู้|สวัสดิการ|สมัครสมาชิก|ฌาปนกิจ|สมาชิก/.test(q);
+    /เงินกู้|กู้/.test(q);
   function approvalAnswer(input,requestedId=null){
     const q=norm(input);
     if(!requestedId&&!approvalQuestion(q))return null;
@@ -3719,7 +3719,7 @@ function render(r,input=''){out.classList.remove('hidden');let history=document.
 let approvalDataLoaded=false,approvalDataPromise=null;
 function isApprovalRequest(q){
   return /(?:ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|รายชื่อ.*กู้ผ่าน|กู้.*ตัดเอกสาร|กู้.*โอนวัน|เงินกู้.*ประกาศ|กู้สามัญ.*ประกาศ)/.test(q)&&
-   /เงินกู้|กู้|สวัสดิการ|สมัครสมาชิก|ฌาปนกิจ|สมาชิก/.test(q);
+   /เงินกู้|กู้/.test(q);
 }
 function ensureApprovalData(){
   if(approvalDataLoaded)return Promise.resolve();
