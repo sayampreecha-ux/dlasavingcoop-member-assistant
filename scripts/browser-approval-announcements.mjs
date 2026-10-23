@@ -6,25 +6,26 @@ import {createRequire} from 'node:module';
 const {chromium}=createRequire(import.meta.url)('playwright');
 const root=path.resolve(new URL('../',import.meta.url).pathname);
 const livePath=path.join(root,'news-browser-evidence/live-current-events.json');
-const live=JSON.parse(fs.readFileSync(livePath,'utf8'));
+const prodUrl=process.env.MEMBER_APP_URL||null;
+const live=prodUrl?await (async()=>{const u=new URL('data/current-events.json?approval='+Date.now(),prodUrl);const r=await fetch(u,{cache:'no-store'});assert.ok(r.ok,'Production approval JSON unavailable: '+r.status);return r.json()})():JSON.parse(fs.readFileSync(livePath,'utf8'));
 const ordinary=live.approvalIndex?.find(x=>x.id==='official-4946');
 assert.ok(ordinary&&ordinary.category==='ordinary-loan','verified ordinary approval missing');
-const server=http.createServer((req,res)=>{
+const server=prodUrl?null:http.createServer((req,res)=>{
  const pathname=new URL(req.url,'http://localhost').pathname;
  const file=pathname==='/data/current-events.json'?livePath:path.resolve(root,'.'+(pathname==='/'?'/index.html':pathname));
  if(!file.startsWith(root+path.sep)){res.writeHead(403);return res.end();}
  try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html; charset=utf-8':file.endsWith('.json')?'application/json':'application/octet-stream');res.end(fs.readFileSync(file));}
  catch{res.writeHead(404);res.end();}
 });
-await new Promise(done=>server.listen(0,'127.0.0.1',done));
+if(server)await new Promise(done=>server.listen(0,'127.0.0.1',done));
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
-const report={sourceHead:process.env.GITHUB_SHA||null,scope:'local branch + live official feed, not Production',results:[]};
+const report={sourceHead:process.env.GITHUB_SHA||null,scope:prodUrl?'Production real page and deployed JSON':'local branch + live official feed, not Production',results:[]};
 try{
  for(const width of [390,1365]){
   const page=await browser.newPage({viewport:{width,height:900}}),errors=[];
   page.on('pageerror',error=>errors.push(String(error)));
   try{
-   await page.goto('http://127.0.0.1:'+server.address().port+'/',{waitUntil:'domcontentloaded'});
+   await page.goto(prodUrl||'http://127.0.0.1:'+server.address().port+'/',{waitUntil:'domcontentloaded'});
    await page.waitForFunction(()=>globalThis.COOP_APP&&typeof COOP_APP.setApprovalIndex==='function');
    await page.waitForFunction(()=>COOP_APP.answer('ผลอนุมัติเงินกู้สามัญล่าสุด').intent==='approval_announcement',{timeout:15000});
    const q=page.locator('#q');
@@ -54,5 +55,5 @@ try{
 }finally{
  fs.mkdirSync(path.join(root,'news-browser-evidence'),{recursive:true});
  fs.writeFileSync(path.join(root,'news-browser-evidence/approval-browser-report.json'),JSON.stringify(report,null,2));
- await browser.close();await new Promise(done=>server.close(done));
+ await browser.close();if(server)await new Promise(done=>server.close(done));
 }
