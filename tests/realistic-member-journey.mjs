@@ -13,7 +13,7 @@ export const realisticFixCases=[
  ['กู้เคหะต้องทำประกันไฟไหม้ไหม','specialHousingCurrent',/ประกันอัคคีภัย/,/3 ปี/],
  ['บ้านน้ำท่วม แต่ถามวงเงินกู้ฉุกเฉินสูงสุดเท่าไร','emergencyLoanCurrent',/60,000 บาท/]
 ];
-export const completeLoanChoices=[['กู้ฉุกเฉิน',/60,000 บาท/],['กู้สามัญ',/2,000,000 บาท/],['กู้พัฒนาคุณภาพชีวิต',/5,000,000 บาท/],['กู้เคหะ',/3,000,000 บาท/],['กู้เพื่อการศึกษา',/200,000 บาท/],['กู้ภัยพิบัติ',/300,000 บาท/],['กู้ไถ่ถอนจำนอง',/3,000,000 บาท/]];
+export const completeLoanChoices=[['กู้ฉุกเฉิน',/60,000 บาท/],['กู้สามัญ',/2,000,000 บาท/],['เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)',/5,000,000 บาท/],['กู้เคหะ',/3,000,000 บาท/],['กู้เพื่อการศึกษา',/200,000 บาท/],['กู้ภัยพิบัติ',/300,000 บาท/],['กู้ไถ่ถอนจำนอง',/3,000,000 บาท/]];
 if(process.argv[1]===new URL(import.meta.url).pathname){
  const app=loadMemberEngine();let pass=0;
  for(const [q,domain,...checks]of realisticFixCases){const r=app.answer(q);assert.equal(r.domain,domain,q);for(const p of checks)assert.match(r.answer,p,q);assert.ok(r.sources.length);assert.doesNotMatch(r.answer,/undefined|NaN|กู้ได้แน่นอน/);pass++;}
