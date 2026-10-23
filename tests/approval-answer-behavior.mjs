@@ -45,12 +45,15 @@ const cases=[
 let pass=0;
 for(const [q,id] of cases){
  const answer=app.answer(q);
- assert.equal(answer.intent,'approval_announcement','intent: '+q);
- if(id){
-  assert.ok(answer.actions.some(([_,url])=>url.endsWith('No='+id)),'correct notice action: '+q);
-  assert.ok(answer.answer.includes('ข้อมูลตรวจสอบล่าสุด'),'freshness: '+q);
-  assert.doesNotMatch(answer.answer,/คุณได้รับอนุมัติแล้ว|โอนเงินให้คุณเรียบร้อยแล้ว/,'no individual promise: '+q);
- }else assert.match(answer.answer,/ยังไม่พบประกาศตรงประเภทและรอบ/,'safe no-verified-notice: '+q);
+ const isLoan=/เงินกู้|กู้/.test(q);
+ if(isLoan){
+  assert.equal(answer.intent,'approval_announcement','loan intent: '+q);
+  if(id){
+   assert.ok(answer.actions.some(([_,url])=>url.endsWith('No='+id)),'correct notice action: '+q);
+   assert.ok(answer.answer.includes('ข้อมูลตรวจสอบล่าสุด'),'freshness: '+q);
+  }else assert.match(answer.answer,/ยังไม่พบประกาศตรงประเภทและรอบ/,'safe no-verified-notice: '+q);
+ }else assert.notEqual(answer.intent,'approval_announcement','preserve existing nonloan routing: '+q);
+ assert.doesNotMatch(answer.answer,/คุณได้รับอนุมัติแล้ว|โอนเงินให้คุณเรียบร้อยแล้ว/,'no individual promise: '+q);
  pass++;
 }
 const ordinary=app.answer('ผลอนุมัติเงินกู้สามัญล่าสุด');
