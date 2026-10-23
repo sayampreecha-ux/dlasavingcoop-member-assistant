@@ -55,6 +55,9 @@ jobs:
       - name: Approval announcements browser mobile and desktop
         if: success() || failure()
         run: node scripts/browser-approval-announcements.mjs
+      - name: Mobile approval UI and Thai dates
+        if: success() || failure()
+        run: node scripts/browser-mobile-approval-ui.mjs
       - name: Upload latest news acceptance evidence
         if: always()
         uses: actions/upload-artifact@v4
