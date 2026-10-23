@@ -538,6 +538,56 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 })(typeof globalThis!=='undefined'?globalThis:this,function(KB){
   const S=KB.official;
   const C=KB.contacts;
+
+  // Public official announcements only. Never cache member identities or approval lists.
+  let approvalRecords=[],approvalCheckedAt=null;
+  function setApprovalIndex(rows=[],checkedAt=null){
+    approvalRecords=Array.isArray(rows)?rows.filter(x=>x&&x.sourceState==='DIRECT_VERIFIED'&&/^https:\/\/(?:www\.)?dlasavingcoop\.com\/show\.php\?No=\d+$/i.test(x.directSourceUrl||''))
+      .map(x=>({id:String(x.id||''),category:String(x.category||''),title:String(x.title||''),directSourceUrl:x.directSourceUrl,
+        documentUrl:/^https:\/\/drive\.google\.com\/file\/d\/[A-Za-z0-9_-]+\//.test(x.documentUrl||'')?x.documentUrl:null,
+        publishedAt:x.publishedAt||null,cutOffDate:x.cutOffDate||null,transferDate:x.transferDate||null,
+        firstInstallmentMonth:x.firstInstallmentMonth||null,lastCheckedAt:x.lastCheckedAt||null})): [];
+    approvalCheckedAt=checkedAt||null;
+    return approvalRecords.length;
+  }
+  const approvalQuestion=q=>/(?:ผล(?:การ)?อนุมัติ|ผล(?:การ)?พิจารณา|คนกู้ผ่าน|รายชื่อ.*กู้ผ่าน|กู้.*ตัดเอกสาร|กู้.*โอนวัน|เงินกู้.*ประกาศ|กู้สามัญ.*ประกาศ)/.test(q)&&
+    /เงินกู้|กู้|สวัสดิการ|สมัครสมาชิก|ฌาปนกิจ|สมาชิก/.test(q);
+  function approvalAnswer(input,requestedId=null){
+    const q=norm(input);
+    if(!requestedId&&!approvalQuestion(q))return null;
+    const category=/ฉุกเฉิน/.test(q)?'emergency-loan':/พัฒนาคุณภาพชีวิต/.test(q)?'quality-of-life-loan':
+      /(?:เงินกู้สามัญ|กู้สามัญ)/.test(q)?'ordinary-loan':/สวัสดิการ/.test(q)?'welfare':
+      /ฌาปนกิจ/.test(q)?'funeral':/สมัครสมาชิก|อนุมัติสมาชิก/.test(q)?'membership':null;
+    const loan=/เงินกู้|กู้/.test(q);
+    let rows=approvalRecords.filter(x=>(!category||x.category===category)&&
+      (category||!loan||/loan/.test(x.category)));
+    const day=q.match(/(?:ตัด(?:รอบ)?เอกสาร\s*)?(\d{1,2})\s*(?:ต\.?\s*ค\.?|ตุลาคม)/);
+    if(day&&/2569|\b69\b/.test(q)){
+      const cutoff='2026-10-'+String(Number(day[1])).padStart(2,'0');
+      rows=rows.filter(x=>x.cutOffDate===cutoff);
+    }else if(/ตุลาคม\s*(?:25)?69|ต\.?\s*ค\.?\s*(?:25)?69/.test(q)){
+      rows=rows.filter(x=>(x.cutOffDate||x.publishedAt||'').startsWith('2026-10'));
+    }
+    rows.sort((a,b)=>Date.parse(b.publishedAt||b.cutOffDate||0)-Date.parse(a.publishedAt||a.cutOffDate||0));
+    const match=requestedId?approvalRecords.find(x=>x.id===requestedId):rows[0];
+    const official=loan?'https://www.dlasavingcoop.com/list.php?Category=loan':'https://www.dlasavingcoop.com/';
+    const checked=approvalCheckedAt?'ข้อมูลตรวจสอบล่าสุด '+new Date(approvalCheckedAt).toLocaleString('th-TH',{timeZone:'Asia/Bangkok'}):'ยังไม่ทราบเวลาตรวจข้อมูลล่าสุด';
+    if(!match){
+      return res('approval_announcement','ยังไม่พบประกาศตรงประเภทและรอบในข้อมูลที่ระบบตรวจสอบ ไม่ได้หมายความว่าเว็บไซต์สหกรณ์ไม่มีประกาศ\n'+checked+'\nโปรดเปิดหมวดประกาศทางการเพื่อตรวจสอบอีกครั้ง หากเป็นผลเฉพาะบุคคลต้องตรวจผ่านช่องทางของสหกรณ์',{decision:'SAFE_HANDOFF',actions:[['📣 เปิดหมวดประกาศทางการ',official]],sources:[src('ดัชนีประกาศทางการ',official)]});
+    }
+    const thDate=d=>d?new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00+07:00')):null;
+    const details=[
+      match.cutOffDate?'วันตัดเอกสาร: '+thDate(match.cutOffDate):null,
+      match.transferDate?'กำหนดรอบโอนเงิน: '+thDate(match.transferDate)+' (ไม่ใช่หลักฐานว่าโอนสำเร็จ)':null,
+      match.firstInstallmentMonth?'เริ่มชำระงวดแรก: '+new Intl.DateTimeFormat('th-TH',{timeZone:'Asia/Bangkok',month:'long',year:'numeric'}).format(new Date(match.firstInstallmentMonth+'T12:00:00+07:00')):null
+    ].filter(Boolean);
+    const actions=[['📣 เปิดประกาศต้นฉบับ',match.directSourceUrl]];
+    if(match.documentUrl)actions.push(['📄 เปิดไฟล์แนบจากประกาศ (ตรวจชื่อและรอบเอกสาร)',match.documentUrl]);
+    return res('approval_announcement',match.title+'\n'+details.join('\n')+'\n'+checked+
+      '\nข้อมูลนี้เป็นประกาศสาธารณะ ไม่ยืนยันว่าผู้ถามได้รับอนุมัติหรือโอนเงินแล้ว กรุณาตรวจเอกสารต้นฉบับด้วยตนเอง',{decision:'RULE_INFORMATION',
+      noticeId:match.id,actions,sources:[src('ประกาศทางการ',match.directSourceUrl)],details:['ไม่จัดเก็บหรือแสดงรายชื่อและเลขสมาชิกในระบบ AI']});
+  }
+
   const line=(rows=[])=>rows.map(x=>`${x[0]} ${x[1]}`).join(' · ');
   const DIRECT_TOPIC_INDEX_NOS=new Set(['772','773','774','775','807','2385']);
   function sourceKind(url=''){
@@ -2935,6 +2985,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
 
   // Shared UI turn handler: retain the question awaiting a choice and pass fact replies raw.
   function conversationTurn(input,state={},options={}){
+    const immediate=approvalAnswer(input, state?.topic==='approval-announcement'&&/^(?:แล้ว)?เริ่มหัก(?:เงิน|งวด)?เดือนไหน|แล้วเริ่มชำระ(?:งวดแรก)?เดือนไหน/.test(norm(input))?state?.noticeId:null);
+    if(immediate)return {result:immediate,state:{...state,result:immediate,topic:'approval-announcement',noticeId:immediate.noticeId||state?.noticeId||null,question:norm(input)},query:norm(input)};
+
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
     // A complete, expressly named share-rate task starts a new topic, not a loan follow-up.
     // Ambiguous follow-ups remain routed through the existing conversational state.
@@ -3253,6 +3306,8 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function answer(input){
     const q=norm(input);
+    const announcement=approvalAnswer(q);
+    if(announcement)return announcement;
     // T07: compose two explicit rule concerns from the single versioned Rule Master.
     if(/(?:กู้สามัญ|เงินกู้สามัญ)/.test(q)&&/(?:ได้เท่า(?:ไหร่|ไร)|วงเงิน|กี่บาท)/.test(q)&&/(?:ค้ำกี่คน|ค้ำ.*กี่คน|ผู้ค้ำ.*กี่คน|กี่คน.*ค้ำ)/.test(q)&&!personal(q)){
       const check=freshnessStatus(q);
@@ -3583,7 +3638,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       primary.splice(0,primary.length,...[authority?['📜 ระเบียบหุ้นทางการ',authority[1]]:null,bylawsLink,contact].filter(Boolean));
     }
     return {...r,actions:primary,extraActions:unique.filter(item=>!primary.includes(item))};
-  },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
+  },paymentEntry,paymentNavigation,depositEntry,depositNavigation,smartDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?smartDecision(q,r):F.lock(c,sourceRegistry);},continueDecision:(q,r)=>{const c=freshnessStatus(decisionGuardQuery(q,r));return c.allowed?continueDecision(q,r):F.lock(c,sourceRegistry);},personal,norm,contextualize,topicOf,conversationTurn,setApprovalIndex,freshnessStatus,applySourceMonitor,getSourceRegistry:()=>F.clone(sourceRegistry)};
 });
 
 </script>
