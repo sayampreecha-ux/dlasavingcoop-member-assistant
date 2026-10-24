@@ -5,11 +5,11 @@
   "sourceCI": "Regression #737 job 120889185481",
   "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737. Refreshed all 110 full runtime answers from Regression #737; added two signed-source verified public facets (special debt overview, monthly share cap). Emergency guarantor remains PARTIAL. Ordinary April-to-October supersession documented in signed-primary-pdf-review-20261024.md.",
   "summary": {
-    "CORRECT": 34,
+    "CORRECT": 35,
     "PARTIAL": 12,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
-    "NOT_VERIFIED": 33
+    "NOT_VERIFIED": 32
   },
   "releaseGate": "BLOCKED",
   "blockers": [
@@ -1318,8 +1318,8 @@
       "intent": "welfare_childbirth",
       "topic": "welfare:childbirth",
       "decision": "PROCEDURE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Complete answer's childbirth documents and 120-day filing window independently matched to cooperative-published signed welfare application/checklist PDF 1V7w5-fm4l_V6HqySnbixhLI6NL5Y9k34, without certifying individual entitlement.",
       "answerFull": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบียนสมรสหน้าและหลัง\n4. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก\nยื่นภายใน 120 วันนับแต่วันที่แจ้งเกิด\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท",
       "sourceRefs": [
         {
@@ -1335,7 +1335,8 @@
           "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
         }
       ],
-      "answerPreview": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบี"
+      "answerPreview": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบี",
+      "verifiedSource": "https://drive.google.com/file/d/1V7w5-fm4l_V6HqySnbixhLI6NL5Y9k34/view?usp=sharing"
     },
     {
       "domain": "welfare",
