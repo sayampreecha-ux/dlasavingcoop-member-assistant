@@ -3,13 +3,13 @@
   "asOf": "2026-10-24",
   "candidateSHA": "999e2b3ebcdf23727ebb98c2be18090dd14bde74",
   "sourceCI": "Regression #727 job 120886442203",
-  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions.",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected.",
   "summary": {
-    "CORRECT": 19,
+    "CORRECT": 22,
     "PARTIAL": 16,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
-    "NOT_VERIFIED": 44
+    "NOT_VERIFIED": 41
   },
   "releaseGate": "BLOCKED",
   "blockers": [
@@ -715,8 +715,8 @@
       "intent": "share_change_rate",
       "topic": "shares",
       "decision": null,
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Exact public rate-change conditions checked against all four pages of signed shares amendment No. 3/2569 and monthly share-rate notice; member-specific approval not asserted.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -761,8 +761,8 @@
       "intent": "share_change_rate",
       "topic": "shares",
       "decision": "EVIDENCE_LOCK",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Exact public rate-change conditions checked against all four pages of signed shares amendment No. 3/2569 and monthly share-rate notice; member-specific approval not asserted.",
       "answerFull": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราที่ประกาศกำหนดได้ โดยอัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือน และต้องได้รับความเห็นชอบจากคณะกรรมการครับ เพดานนี้ไม่ใช่การเพิ่มอีก 5,000 หุ้นจากอัตราเดิม ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 คณะกรรมการอาจมอบอำนาจให้ผู้จัดการพิจารณาแทนได้ แต่ยังไม่ยืนยันว่ามอบอำนาจแล้ว",
       "sourceRefs": [
         {
@@ -782,8 +782,8 @@
       "intent": "share_change_rate",
       "topic": "shares",
       "decision": null,
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Exact public rate-change conditions checked against all four pages of signed shares amendment No. 3/2569 and monthly share-rate notice; member-specific approval not asserted.",
       "answerFull": "ขอลดค่าหุ้นรายเดือนได้เมื่อชำระค่าหุ้นรายเดือนมาแล้วไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา และอัตราใหม่ต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด โดยความเห็นชอบของคณะกรรมการครับ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
