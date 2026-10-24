@@ -40,6 +40,8 @@ jobs:
         run: node tests/full-conversation-semantic-acceptance.mjs
       - name: Scoped 26-case conversational routing semantic regression
         run: node tests/scoped-conversation-routing-20261024.mjs
+      - name: Scoped loan procedure and public notice semantic regression
+        run: node tests/scoped-procedure-and-notice-20261024.mjs
       - name: PR167 funeral 60-case official-evidence semantic regression
         run: node tests/funeral-facets-semantic-20261024.mjs
       - name: Validate cooperative coverage gate
