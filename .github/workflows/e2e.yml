@@ -24,6 +24,8 @@ jobs:
           npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Thai member guide UX mobile and desktop
         run: node scripts/browser-member-guide-smoke.mjs
+      - name: Funeral facets real UI semantic QA (60 per viewport)
+        run: node scripts/browser-funeral-facets-20261024.mjs
       - name: Run every release regression suite
         run: node scripts/verify-release.mjs
       - name: Three loan products mobile and desktop
