@@ -3060,6 +3060,27 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=res('resignation_existing_debt_handoff','กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต',{decision:'SAFE_HANDOFF',actions:[['ติดต่อสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
       return {result,state:{...state,result,topic:'resignation',question:raw,lastFact:null},query:raw};
     }
+    // Scoped, non-personal follow-ups: preserve the member's service context
+    // instead of falling into unrelated loan/document menus. Never invent
+    // eligibility, timing, fees, individual approval or guarantor liability.
+    const followTopic=state?.topic;
+    const exactShort=/^(?:ใครมีสิทธิ|ยื่นเมื่อไร|ยื่นที่ไหน|ต้องเป็นสมาชิกนานไหม|มีเงื่อนไขอะไร|ใช้เวลาพิจารณาเท่าไร|ส่งที่ไหน|มีเงื่อนไขผลการเรียนไหม|สมัครได้ที่ไหน|มีค่าธรรมเนียมหรือไม่|เป็นรอบไหน|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ถ้ายังไม่พบต้องทำอย่างไร|ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
+    if(exactShort){
+      const isChild=followTopic==='welfare:childbirth'&&/^(?:ใครมีสิทธิ|ยื่นเมื่อไร|ยื่นที่ไหน|ต้องเป็นสมาชิกนานไหม|มีเงื่อนไขอะไร|ใช้เวลาพิจารณาเท่าไร)$/.test(raw);
+      const isScholar=followTopic==='scholarship'&&/^(?:ใครมีสิทธิ|ส่งที่ไหน|มีเงื่อนไขผลการเรียนไหม)$/.test(raw);
+      const isMember=followTopic==='membership-apply'&&/^(?:สมัครได้ที่ไหน|มีค่าธรรมเนียมหรือไม่)$/.test(raw);
+      const isNotice=(followTopic==='approval-public'||(followTopic==='loan'&&prior?.intent==='notices'))&&/^(?:เป็นรอบไหน|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ถ้ายังไม่พบต้องทำอย่างไร)$/.test(raw);
+      const isGuarantor=(followTopic==='guarantor-guidance'||(followTopic==='loan'&&prior?.intent==='guarantor_center'))&&/^(?:ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
+      if(isChild||isScholar||isMember||isNotice||isGuarantor){
+        const scope=isChild?'สวัสดิการคลอดบุตร':isScholar?'ทุนการศึกษาบุตรสมาชิก':isMember?'การสมัครสมาชิกสหกรณ์':isNotice?'ประกาศอนุมัติเงินกู้สาธารณะ':'การค้ำประกันเงินกู้';
+        const url=isChild?S.welfareForms:isScholar?S.notices:isMember?S.memberForms:isNotice?S.notices:S.ordinaryLoanForms;
+        const intent=isChild?'childbirth_scoped_followup':isScholar?'scholarship_scoped_followup':isMember?'membership_scoped_followup':isNotice?'approval_public_scoped_followup':'guarantor_scoped_followup';
+        const nextTopic=isNotice?'approval-public':isGuarantor?'guarantor-guidance':followTopic;
+        const msg='คำถาม “'+raw+'” เป็นเรื่อง'+scope+'ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต';
+        const result=res(intent,msg,{decision:'SAFE_HANDOFF',actions:[['ข้อมูลทางการเรื่อง'+scope,url],['ติดต่อสหกรณ์',S.contact]],sources:[src('ข้อมูลทางการเรื่อง'+scope,url),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+        return {result,state:{...state,result,topic:nextTopic,question:raw,lastFact:null},query:raw};
+      }
+    }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
     if(prior?.depositOperation&&choice&&/^(?:เงินฝาก)?ออมทรัพย์พิเศษ$/.test(raw)){
