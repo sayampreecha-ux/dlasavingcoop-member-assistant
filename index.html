@@ -3035,6 +3035,11 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=answer(raw);
       return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
     }
+    // Keep explicit guarantor questions within a previously established guarantor dialogue.
+    if(state?.topic==='guarantor-guidance'&&/^(?:เกษียณแล้วค้ำได้ไหม|เปลี่ยนผู้ค้ำได้ไหม|ผู้ค้ำต้องรับผิดอะไร)$/.test(raw)){
+      const result=answer(raw);
+      return {result,state:{...state,result,topic:'guarantor-guidance',question:raw,lastFact:null},query:raw};
+    }
     // Independent rule questions are not answers to pending eligibility fact requests.
     // Restrict recovery to verified, unambiguous service topics; retain all other guided flows.
     const ruleFacet= /^(?:แล้ว)?(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|ผ่อนได้กี่งวด|ผ่อนได้กี่ปี|ดอกเบี้ยเท่าไร|ต้องมีผู้ค้ำกี่คน|ใช้เอกสารอะไร|ยื่นที่ไหน|มีข้อจำกัดอายุหรือไม่)$/.test(raw);
