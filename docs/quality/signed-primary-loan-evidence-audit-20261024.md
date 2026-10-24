@@ -34,8 +34,14 @@ Source: https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?u
 - §§5–7: selection uses seniority, previous awards, legal children, cooperative participation and election voting; **no minimum GPA threshold** stated. Applications 1–31 August 2569, in person or post/courier to 111/1 Moo 1 Soi Khlong Luang 8, Khlong Nueng, Khlong Luang, Pathum Thani 12120. §8 announces results within 90 days of closing date.
 - Explicit follow-ups 'ใครมีสิทธิ', 'ส่งที่ไหน', 'มีเงื่อนไขผลการเรียนไหม' now use signed official facts, not generic SAFE_HANDOFF.
 
+## Shares — signed amendment No. 3 (2569) and monthly share-rate notice
+Source: https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing
+- Visually reviewed all 4 pages of the published PDF: amendment No. 3 effective **1 Oct 2569**, §3 replaces §7 of share regulations. Increases above standard schedule may be requested, but **new rate not more than 5,000 shares per month**, with committee approval. Reductions require at least six months of payments since the most recent rate change, cannot fall below the announced rate and require committee approval.
+- The attached 2569 monthly share schedule (page 3) lists standard monthly contribution amounts by salary band: 500 THB for <15,000; 700 for 15,001–20,000; up to 2,100 THB for >=50,001. The 5,000 shares cap is for approved higher voluntary monthly rates, not the standard schedule.
+- The member-specific share balance, share refund, loan liens and delivery/receipt status still require authenticated member records; never invent them.
+
 ## Findings / outstanding work
 - Previously generic 'ยื่นที่ไหน', 'ต้องยื่นที่ไหน', special debt 'ใครยื่นได้', 'ต้องสมัครอย่างไร', 'มีหนี้เดิมยื่นได้ไหม' can now be answered from actual §§4–8, so keeping them as SAFE_HANDOFF would be needlessly incomplete.
 - Also downloaded and visually inspected the signed 11 Nov 2567 loan interest announcement: https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing. It states emergency and ordinary 7.50%, special real-estate-secured quality-of-life debt consolidation 6.50%, effective 11 Nov 2567. This confirms the **historical source text** but does not rule out later interest-rate revisions; continue to qualify rate claims by effective date and check for later notices.
-- Remaining domains (shares, deposits, welfare, membership, funeral, guarantor beyond ordinary and notices) still need primary-version checking and per-question 110 QA adjudication. Do not mark 110/110 CORRECT.
+- Remaining domains (share balances/refunds, deposits, welfare, membership, funeral, guarantor beyond ordinary and notices) still need primary-version checking and per-question 110 QA adjudication. Do not mark 110/110 CORRECT.
 - This evidence file is internal audit text only; no member personal data and no scanned PDF copies are committed.
