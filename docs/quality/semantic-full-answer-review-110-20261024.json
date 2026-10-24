@@ -1,0 +1,2473 @@
+{
+  "reportType": "independent-full-answer-semantic-review",
+  "asOf": "2026-10-24",
+  "candidateSHA": "7fefe0deb6d0f7ae384f5664e6679a88d325c155",
+  "sourceCI": "Regression #714 job 120880662945",
+  "scope": "11 domains x 10 sequential turns; full answers and exact URLs",
+  "method": "Conservative full-answer triage, not an official-document verified semantic acceptance. SAFE_HANDOFF is a disposition, not proof of sufficiency; PARTIAL identifies observed answer gaps; all other answers NOT_VERIFIED until source-by-source effective-date adjudication.",
+  "summary": {
+    "CORRECT": 0,
+    "PARTIAL": 25,
+    "WRONG": 0,
+    "SAFE_HANDOFF": 31,
+    "NOT_VERIFIED": 54
+  },
+  "releaseGate": "BLOCKED",
+  "blockers": [
+    "No independent original-document/effective-version verification of all 110 responses.",
+    "Multiple observed incomplete direct answers, especially loan submission, special debt eligibility and current approval notices.",
+    "Final SHA E2E #574 must be successful."
+  ],
+  "rows": [
+    {
+      "domain": "ordinary-loan",
+      "turn": 1,
+      "question": "เงินกู้สามัญกู้ได้ไหม",
+      "intent": "guided_ordinary_eligibility",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "NEED_INFO",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 2,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เงินกู้สามัญ — หลักเกณฑ์ที่ยืนยันแล้ว มีผล 2026-10-01\n1. เป็นสมาชิกอย่างน้อย 6 เดือน และส่งหุ้นต่อเนื่องอย่างน้อย 6 งวด\n2. วงเงินสูงสุด 2,000,000 บาท\n3. ผ่อนได้ไม่เกิน 240 งวด อายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n4. หลังหักหุ้นและหนี้ ต้องมีรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาท\n5. กรณีบุคคลค้ำ: ไม่เกิน 500,000 บาท ใช้ผู้ค้ำอย่างน้อย 1 คน; 500,001–1,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 2 คน; 1,000,001–2,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 3 คน\n6. วงเงิน 200,001–500,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n7. วงเงิน 500,001–2,000,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n8. ต้องไม่ค้างชำระหุ้นและหนี้ย้อนหลัง 12 งวด\n9. ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์\nวงเงินและผลอนุมัติของคุณยังต้องตรวจข้อมูลสมาชิกจริง ไม่ถือว่าเพดานข้างต้นเป็นวงเงินที่คุณได้รับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 3,
+      "question": "วงเงินสูงสุดเท่าไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "วงเงินสูงสุด 2,000,000 บาท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 5,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 6,
+      "question": "ต้องมีผู้ค้ำกี่คน",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 7,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เอกสารกู้สามัญตามแบบตรวจสอบบุคคลค้ำประกันทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้สามัญ\n2. สัญญาค้ำประกันหรือสำเนาหลักทรัพย์ค้ำประกันตามคำขอ\n3. หนังสือยินยอมหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ ยินยอมติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูล\n4. สัญญาจำนำสิทธิตามตราสารการฝากเงิน กรณีใช้เงินฝากร่วม\n5. รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับรายจ่ายพร้อมผู้มีอำนาจรับรองตามแบบ\n6. รายงานข้อมูลเครดิตบูโรของผู้กู้\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้/ผู้ค้ำ\n8. ทะเบียนสมรสและบัตรประชาชน/ทะเบียนบ้านคู่สมรสผู้กู้และผู้ค้ำตามสถานภาพ\n9. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้ และบัญชีเงินฝากออมทรัพย์พิเศษตามรายการในแบบ\n10. เอกสารหย่า เปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nรับรองสำเนาทุกฉบับ บัตรไม่หมดอายุ และให้เจ้าหน้าที่ตรวจรายการที่ใช้กับสถานภาพและหลักประกันจริง ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบตรวจสอบเอกสารเงินกู้สามัญบุคคลค้ำประกัน หน้า 1",
+          "url": "https://drive.google.com/file/d/1KTCmp_1Vcv_fwP5FwjaZioypsqNguHl9/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 8,
+      "question": "ยื่นที่ไหน",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Submission location not answered; link to loan form alone does not identify the submission channel.",
+      "answerFull": "เงินกู้สามัญให้เปิดประกาศหลักเกณฑ์ฉบับปัจจุบันและเลือกแบบตามวัตถุประสงค์ครับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์กู้สามัญ 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ประกาศอัตราดอกเบี้ยเงินกู้",
+          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 9,
+      "question": "ใช้เวลาพิจารณาเท่าไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Processing duration question not answered; no unsupported time should be invented.",
+      "answerFull": "เงินกู้สามัญให้เปิดประกาศหลักเกณฑ์ฉบับปัจจุบันและเลือกแบบตามวัตถุประสงค์ครับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์กู้สามัญ 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ประกาศอัตราดอกเบี้ยเงินกู้",
+          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 10,
+      "question": "มีข้อจำกัดอายุหรือไม่",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 1,
+      "question": "เงินกู้ฉุกเฉินกู้ได้ไหม",
+      "intent": "loan_emergency_eligibility",
+      "topic": "emergencyLoanCurrent",
+      "decision": "NEED_MEMBER_DATA",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "หลักเกณฑ์ปัจจุบันยืนยันแล้วครับ ดูเงื่อนไขที่ใช้กับคำขอด้านล่าง และตรวจยอด/ประวัติจริงในระบบสมาชิกก่อนประเมินสิทธิส่วนบุคคล",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 2,
+      "question": "วงเงินสูงสุดเท่าไร",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 3,
+      "question": "ต้องเป็นสมาชิกกี่เดือน",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ผ่อนได้ไม่เกิน 15 งวด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 5,
+      "question": "ใช้คนค้ำไหม",
+      "intent": "guarantor_center",
+      "topic": "emergencyLoanCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Emergency guarantor question redirects to generic guarantor menu without emergency-specific evidence.",
+      "answerFull": "เรื่องผู้ค้ำต้องอ้างหลักเกณฑ์เงินกู้ปัจจุบันและภาระค้ำของสมาชิกแต่ละคนครับ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบเปลี่ยนผู้ค้ำประกัน",
+          "url": "https://drive.google.com/file/d/1Uc6JD284vxazmidC2qi9H5h-LlnfiiZb/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 6,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 7,
+      "question": "มีเอกสารอะไรบ้าง",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n1. คำขอและหนังสือเงินกู้เพื่อเหตุฉุกเฉิน\n2. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูลส่วนบุคคล\n3. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้ 1 ชุด\n4. รายละเอียดรายรับ–รายจ่ายเดือนปัจจุบัน ให้เจ้าหน้าที่เบิกจ่ายลงนามรับรอง\n5. หนังสือรับรองเงินเดือน 1 ชุด\n6. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้\n7. เอกสารเปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nสำเนาต้องชัดเจน บัตรไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบตรวจสอบเอกสารเงินกู้ฉุกเฉิน หน้า 1",
+          "url": "https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 8,
+      "question": "ต้องยื่นที่ไหน",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Submission location question redirects to loan overview.",
+      "answerFull": "มีเงินกู้เพื่อเหตุฉุกเฉินครับ\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์กู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบคำขอกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 9,
+      "question": "กู้ซ้ำได้ไหม",
+      "intent": "decision_emergency_repeat",
+      "topic": "emergencyLoanCurrent",
+      "decision": "NEED_INFO",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 10,
+      "question": "ถ้ายังมีหนี้อยู่ทำอย่างไร",
+      "intent": "decision_emergency_repeat",
+      "topic": "emergencyLoanCurrent",
+      "decision": "NEED_INFO",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 1,
+      "question": "เงินกู้พิเศษรวมหนี้คืออะไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 2,
+      "question": "ใครยื่นได้",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Eligibility question not answered.",
+      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 3,
+      "question": "วงเงินเท่าไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 5,
+      "question": "ต้องมีหลักประกันอะไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 6,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 7,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เอกสารกู้พัฒนาคุณภาพชีวิตตามแบบคำร้องทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้พัฒนาคุณภาพชีวิต\n2. หนังสือยินยอมหักเงินชำระหนี้ ติดตามทวงถามหนี้ ทำนิติกรรม และเก็บใช้เปิดเผยข้อมูล\n3. สำเนาเอกสารสิทธิอสังหาริมทรัพย์ รูปถ่ายสีพร้อมรับรอง และแผนที่ตั้งหลักประกัน\n4. รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมเจ้าหน้าที่เบิกจ่ายรับรอง และรายงานเครดิตบูโร\n5. หนังสือรับรองหนี้จากสถาบันอื่น สัญญากู้เดิม และสัญญาจำนอง\n6. รายงานประเมินราคาบ้านและที่ดิน โดยต้องตรวจบริษัทที่สหกรณ์ยอมรับตามกฎปัจจุบัน\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ\n8. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. และเอกสารหย่า/เปลี่ยนชื่อถ้ามี\nตรวจระยะยื่นและเงื่อนไขของคำขอในกฎปัจจุบัน\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบคำร้องและรายการเอกสาร หน้า 1",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 8,
+      "question": "เปิดรับเมื่อไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 9,
+      "question": "ต้องสมัครอย่างไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "special-debt",
+      "turn": 10,
+      "question": "มีหนี้เดิมยื่นได้ไหม",
+      "intent": "loan_eligibility",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "NEED_INFO",
+      "status": "PARTIAL",
+      "reason": "Existing debt question asks loan type despite established special debt-consolidation context.",
+      "answerFull": "ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์และแบบเงินกู้ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=774"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 1,
+      "question": "การส่งหุ้นรายเดือน",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 2,
+      "question": "ส่งหุ้นสูงสุดเท่าไร",
+      "intent": "share_all",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "ประกาศทางการ",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 3,
+      "question": "เพิ่มหุ้นได้ไหม",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราที่ประกาศกำหนดได้ โดยอัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือน และต้องได้รับความเห็นชอบจากคณะกรรมการครับ เพดานนี้ไม่ใช่การเพิ่มอีก 5,000 หุ้นจากอัตราเดิม ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 คณะกรรมการอาจมอบอำนาจให้ผู้จัดการพิจารณาแทนได้ แต่ยังไม่ยืนยันว่ามอบอำนาจแล้ว",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 4,
+      "question": "ลดหุ้นได้ไหม",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ขอลดค่าหุ้นรายเดือนได้เมื่อชำระค่าหุ้นรายเดือนมาแล้วไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา และอัตราใหม่ต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด โดยความเห็นชอบของคณะกรรมการครับ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 5,
+      "question": "ต้องทำอย่างไร",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 6,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 7,
+      "question": "ยื่นได้ที่ไหน",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 8,
+      "question": "คืนหุ้นเมื่อไร",
+      "intent": "share_refund",
+      "topic": "shares",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การถอนหรือคืนทุนเรือนหุ้นไม่ใช่การเบิกเงินฝาก สมาชิกที่ยังมีสมาชิกภาพไม่ควรถือว่าถอนหุ้นได้ทันที ส่วนการลาออก พ้นสมาชิกภาพ หรือเสียชีวิต ต้องตรวจเงื่อนไขและภาระผูกพันก่อนจ่ายคืนตามข้อบังคับครับ",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับฉบับรวม 1–7 ข้อ 5, 42, 46 และ 47",
+          "url": "https://drive.google.com/file/d/1UVoCHBoB4ybnJjHzgCc7aTy6aiAzRfki/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 9,
+      "question": "ถ้ามีหนี้ทำอย่างไร",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ]
+    },
+    {
+      "domain": "shares",
+      "turn": 10,
+      "question": "ดูยอดหุ้นได้อย่างไร",
+      "intent": "share_all",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "ประกาศทางการ",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 1,
+      "question": "เงินฝากออมทรัพย์พิเศษ",
+      "intent": "deposit_special",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 2,
+      "question": "เปิดบัญชีอย่างไร",
+      "intent": "deposit_open",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 3,
+      "question": "ฝากเพิ่มได้ไหม",
+      "intent": "deposit_special_add",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษฝากเพิ่มแต่ละครั้งขั้นต่ำ 500 บาท ตามระเบียบข้อ 13 ครับ ฝากครั้งละ 500 บาทขึ้นไปผ่านช่องทางทางการ ทำผ่าน Krungthai NEXT หรือเคาน์เตอร์กรุงไทยตามแบบชำระเงินฝากพิเศษรหัส 7196 ครับ ใช้เลขบัญชีของตนให้ถูกต้อง รหัสบัญชี 0000011 เป็นขั้นตอนเปิดบัญชีครั้งแรก ไม่ใช้แทนบัญชีเดิมทุกครั้ง",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนฝากเงินออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=4554"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 4,
+      "question": "ขั้นต่ำเท่าไร",
+      "intent": "deposit_open",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 5,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "deposit_special_interest",
+      "topic": "depositSpecial",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ตามประกาศเดิม อัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี รับฝากรวมสูงสุดต่อสมาชิก 50,000,000 บาทครับ ประกาศลงวันที่ 29 พฤศจิกายน 2565 มีผลตั้งแต่ 1 ธันวาคม 2565 ใช้ประกาศฉบับนี้เป็นฐานอ้างอิงคำตอบ ยังไม่ได้ยืนยันประกาศเปลี่ยนแปลงภายหลัง จึงระบุอัตราพร้อมวันที่และต้นฉบับให้ตรวจสอบ ตามระเบียบแก้ไขฉบับที่ 2 พ.ศ. 2566 ข้อ 14 คำนวณจากยอดคงเหลือรายวันและทบเป็นเงินต้นทุกสิ้นเดือน หากยอดต่ำกว่า 500 บาทไม่คิดดอกเบี้ย",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "ระเบียบรับฝากเงิน ฉบับแก้ไขที่ 2 พ.ศ. 2566 ข้อ 14",
+          "url": "https://drive.google.com/file/d/1-_JHv4AqbwzE2PyPjZJbN8zzdnYpH5MR/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 6,
+      "question": "ถอนอย่างไร",
+      "intent": "deposit_special_withdraw",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 7,
+      "question": "ปิดบัญชีได้ไหม",
+      "intent": "deposit_special_close",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การปิดบัญชีเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชี ส่งเอกสารทางไปรษณีย์พร้อมสมุดบัญชีเล่มสีเขียว ตามแบบที่สหกรณ์เผยแพร่ครับ ดอกเบี้ยคิดถึงวันก่อนวันทำรายการโอน ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 8,
+      "question": "มีค่าธรรมเนียมไหม",
+      "intent": "deposit_special_withdraw",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 9,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "deposit_special",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "deposits",
+      "turn": 10,
+      "question": "ต้องติดต่อที่ไหน",
+      "intent": "deposit_special",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 1,
+      "question": "สวัสดิการคลอดบุตร",
+      "intent": "welfare_childbirth",
+      "topic": "welfare:childbirth",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "สวัสดิการเพื่อการคลอดบุตร — หลักเกณฑ์ที่ยืนยันแล้ว\n1. คุณสมบัติพื้นฐาน: ประเภทสมาชิกต้องตรงกับสิทธิ ชำระค่าหุ้นต่อเนื่องอย่างน้อย 6 เดือน และไม่ค้างชำระตามหลักเกณฑ์ในปีบัญชีที่ขอ\n2. 1,000 บาทต่อบุตร; บุตรโดยชอบด้วยกฎหมาย ไม่รวมบุตรบุญธรรม; ไม่เกิน 3 คน\n3. ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ รับได้เพียงคนเดียว\n4. ยื่นภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 2,
+      "question": "ได้รับเท่าไร",
+      "intent": "welfare_childbirth_amount",
+      "topic": "welfare:childbirth",
+      "decision": "VERIFIED_RULE",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "สวัสดิการคลอดบุตรตามหลักเกณฑ์ที่ยืนยันแล้ว 1,000 บาทต่อบุตรหนึ่งคน สำหรับสมาชิกสามัญและสมาชิกสมทบที่เข้าเงื่อนไข โดยให้สิทธิไม่เกิน 3 คน และต้องตรวจคุณสมบัติและระยะเวลายื่นคำขอก่อนอนุมัติจริง",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบสวัสดิการคลอดบุตร",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        },
+        {
+          "title": "ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 3,
+      "question": "ใครมีสิทธิ",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ใครมีสิทธิ” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 4,
+      "question": "ต้องใช้เอกสารอะไร",
+      "intent": "welfare_childbirth",
+      "topic": "welfare:childbirth",
+      "decision": "PROCEDURE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบียนสมรสหน้าและหลัง\n4. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก\nยื่นภายใน 120 วันนับแต่วันที่แจ้งเกิด\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์ปัจจุบัน",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        },
+        {
+          "title": "แบบคำร้องและรายการเอกสาร หน้า 2",
+          "url": "https://drive.google.com/file/d/1V7w5-fm4l_V6HqySnbixhLI6NL5Y9k34/view?usp=sharing"
+        },
+        {
+          "title": "ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 5,
+      "question": "ยื่นเมื่อไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ยื่นเมื่อไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 6,
+      "question": "ยื่นที่ไหน",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ยื่นที่ไหน” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 7,
+      "question": "ต้องเป็นสมาชิกนานไหม",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ต้องเป็นสมาชิกนานไหม” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 8,
+      "question": "มีเงื่อนไขอะไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีเงื่อนไขอะไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 9,
+      "question": "ใช้เวลาพิจารณาเท่าไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ใช้เวลาพิจารณาเท่าไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "welfare",
+      "turn": 10,
+      "question": "ติดตามผลอย่างไร",
+      "intent": "status_center",
+      "topic": "welfare:childbirth",
+      "decision": "VERIFY_LIVE_STATUS",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เรื่องติดตามผลต้องแยกว่าเป็น “ข้อมูลประกาศสาธารณะ” หรือ “สถานะเฉพาะสมาชิก” ครับ ระบบจะไม่เดาผลเฉพาะบุคคล\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
+      "sourceRefs": [
+        {
+          "title": "หน้าแรกและผลอนุมัติ สอ.อปท.",
+          "url": "https://www.dlasavingcoop.com/"
+        },
+        {
+          "title": "ประกาศทางการ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 1,
+      "question": "ทุนการศึกษาบุตรสมาชิก",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 2,
+      "question": "ใครมีสิทธิ",
+      "intent": "scholarship_scoped_followup",
+      "topic": "scholarship",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ใครมีสิทธิ” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 3,
+      "question": "สมัครเมื่อไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 4,
+      "question": "ได้ทุนเท่าไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 5,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 6,
+      "question": "สมัครอย่างไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 7,
+      "question": "ส่งที่ไหน",
+      "intent": "scholarship_scoped_followup",
+      "topic": "scholarship",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ส่งที่ไหน” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 8,
+      "question": "มีเงื่อนไขผลการเรียนไหม",
+      "intent": "scholarship_scoped_followup",
+      "topic": "scholarship",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีเงื่อนไขผลการเรียนไหม” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 9,
+      "question": "ประกาศผลเมื่อไร",
+      "intent": "live_schedule",
+      "topic": "scholarship",
+      "decision": "LIVE_OFFICIAL_REQUIRED",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ประกาศกำหนดแจ้งผลภายใน 90 วันนับถัดจากวันสิ้นสุดรับคำขอ ผ่านเว็บไซต์และสื่อออนไลน์ของสหกรณ์ ระบบไม่ยืนยันผลเฉพาะรายหรือว่าประกาศผลแล้วจนกว่าจะมีหลักฐานผลปัจจุบัน\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nหมายถึงรอบดำเนินการของบริการใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ]
+    },
+    {
+      "domain": "scholarships",
+      "turn": 10,
+      "question": "ติดตามผลได้อย่างไร",
+      "intent": "status_center",
+      "topic": "scholarship",
+      "decision": "VERIFY_LIVE_STATUS",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เรื่องติดตามผลต้องแยกว่าเป็น “ข้อมูลประกาศสาธารณะ” หรือ “สถานะเฉพาะสมาชิก” ครับ ระบบจะไม่เดาผลเฉพาะบุคคล\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
+      "sourceRefs": [
+        {
+          "title": "หน้าแรกและผลอนุมัติ สอ.อปท.",
+          "url": "https://www.dlasavingcoop.com/"
+        },
+        {
+          "title": "ประกาศทางการ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 1,
+      "question": "ผู้ค้ำประกันเงินกู้ต้องมีคุณสมบัติอะไร",
+      "intent": "guarantor_center",
+      "topic": "loan",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เรื่องผู้ค้ำต้องอ้างหลักเกณฑ์เงินกู้ปัจจุบันและภาระค้ำของสมาชิกแต่ละคนครับ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบเปลี่ยนผู้ค้ำประกัน",
+          "url": "https://drive.google.com/file/d/1Uc6JD284vxazmidC2qi9H5h-LlnfiiZb/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 2,
+      "question": "ต้องค้ำกี่คน",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ต้องค้ำกี่คน” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 3,
+      "question": "เกษียณแล้วค้ำได้ไหม",
+      "intent": "retired_guarantor_current",
+      "topic": "guarantor-guidance",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ผู้ค้ำที่เกษียณต้องตรวจว่ายังคงสมาชิกภาพและผ่านคุณสมบัติผู้ค้ำตามหลักเกณฑ์ที่ใช้กับสัญญาหรือคำขอจริงครับ ประกาศกู้สามัญ พ.ศ. 2569 ข้อ 6 ระบุคุณสมบัติและภาระค้ำ แต่ยังไม่เพียงพอให้ระบบยืนยันว่าผู้เกษียณรายนี้ค้ำได้หรือจำเป็นต้องเปลี่ยนผู้ค้ำ ให้ฝ่ายสินเชื่อตรวจข้อบังคับ ระเบียบที่เกี่ยวข้อง และทะเบียนภาระค้ำก่อน ไม่ใช้การเกษียณอย่างเดียวสรุปสิทธิ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 4,
+      "question": "มีภาระค้ำเดิมได้ไหม",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีภาระค้ำเดิมได้ไหม” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 5,
+      "question": "ต้องใช้เอกสารอะไร",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ต้องใช้เอกสารอะไร” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 6,
+      "question": "เปลี่ยนผู้ค้ำได้ไหม",
+      "intent": "loan_change_guarantor",
+      "topic": "guarantor-guidance",
+      "decision": "NEED_INFO",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำขอและเอกสารที่ต้องใช้\n\nต้องการเปลี่ยนผู้ค้ำของเงินกู้ประเภทใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์ทางการ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 7,
+      "question": "ยื่นเรื่องที่ไหน",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ยื่นเรื่องที่ไหน” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 8,
+      "question": "ผู้ค้ำต้องรับผิดอะไร",
+      "intent": "guarantor_center",
+      "topic": "guarantor-guidance",
+      "decision": "GUIDED_GUARANTOR",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "เรื่องผู้ค้ำต้องแยกก่อนว่าเป็น “หลักเกณฑ์ผู้ค้ำ” หรือ “สถานะผู้ค้ำของสมาชิก” ครับ ระบบจะไม่เดาจำนวน/สิทธิเมื่อคำถามยังไม่ครบ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์ทางการ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 9,
+      "question": "ถ้าผู้กู้ผิดนัดทำอย่างไร",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ถ้าผู้กู้ผิดนัดทำอย่างไร” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 10,
+      "question": "ขอปลดภาระค้ำได้ไหม",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ขอปลดภาระค้ำได้ไหม” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 1,
+      "question": "ประกาศอนุมัติเงินกู้ล่าสุด",
+      "intent": "notices",
+      "topic": "loan",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Latest public loan approval announcement exists in official loan index (No. 4946 as of 24 Oct 2026) but answer gives generic notices index; live index must be used.",
+      "answerFull": "ประกาศและข่าวล่าสุดให้ตรวจจากหน้าประกาศทางการของสหกรณ์โดยตรงครับ\n\nต้องการประกาศเรื่องใดและรอบใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทางการ สอ.อปท.",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 2,
+      "question": "เป็นรอบไหน",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “เป็นรอบไหน” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 3,
+      "question": "วันโอนเมื่อไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Official No. 4946 has round-specific transfer date, but answer is generic; requires verified indexed round.",
+      "answerFull": "คำถาม “วันโอนเมื่อไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 4,
+      "question": "งวดแรกเมื่อไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Official No. 4946 has first installment month, but answer is generic; requires verified indexed round.",
+      "answerFull": "คำถาม “งวดแรกเมื่อไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 5,
+      "question": "ดูเอกสารได้ที่ไหน",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ดูเอกสารได้ที่ไหน” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 6,
+      "question": "มีรายชื่อหรือไม่",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีรายชื่อหรือไม่” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 7,
+      "question": "ตรวจสถานะตัวเองได้ไหม",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ตรวจสถานะตัวเองได้ไหม” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 8,
+      "question": "ถ้ายังไม่พบต้องทำอย่างไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ถ้ายังไม่พบต้องทำอย่างไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 9,
+      "question": "ต้องติดต่อใคร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “ต้องติดต่อใคร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "notices",
+      "turn": 10,
+      "question": "มีประกาศใหม่หรือยัง",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีประกาศใหม่หรือยัง” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 1,
+      "question": "สมัครสมาชิกสหกรณ์",
+      "intent": "member_apply",
+      "topic": "membership-apply",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบสมาชิก/ทะเบียน",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ใบสมัครสมาชิก",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 2,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "member_apply",
+      "topic": "membership-apply",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบสมาชิก/ทะเบียน",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ใบสมัครสมาชิก",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 3,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "member_apply",
+      "topic": "membership-apply",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบสมาชิก/ทะเบียน",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ใบสมัครสมาชิก",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 4,
+      "question": "สมัครได้ที่ไหน",
+      "intent": "membership_scoped_followup",
+      "topic": "membership-apply",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “สมัครได้ที่ไหน” เป็นเรื่องการสมัครสมาชิกสหกรณ์ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการสมัครสมาชิกสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 5,
+      "question": "มีค่าธรรมเนียมหรือไม่",
+      "intent": "membership_scoped_followup",
+      "topic": "membership-apply",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "คำถาม “มีค่าธรรมเนียมหรือไม่” เป็นเรื่องการสมัครสมาชิกสหกรณ์ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการสมัครสมาชิกสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 6,
+      "question": "ส่งหุ้นเมื่อไร",
+      "intent": "share_all",
+      "topic": "shares",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "ประกาศทางการ",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 7,
+      "question": "เปลี่ยนข้อมูลสมาชิกอย่างไร",
+      "intent": "member_change_info",
+      "topic": "shares",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "การเปลี่ยนข้อมูลสมาชิกให้ใช้แบบแจ้งความประสงค์/แบบทะเบียนที่เกี่ยวข้อง และให้งานทะเบียนยืนยันว่าปรับข้อมูลแล้วครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/change%20member%20information27012023.pdf"
+        },
+        {
+          "title": "ข้อบังคับ/ระเบียบสหกรณ์",
+          "url": "https://dlasavingcoop.com/coop/ckeditor/system/plugins/ckfinder/upload/files/change%20member%20information27012023.pdf"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 8,
+      "question": "ลาออกได้ไหม",
+      "intent": "resignation",
+      "topic": "resignation",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ลาออกได้เมื่อเข้าเงื่อนไขการสิ้นสุดสมาชิกภาพครับ — ต้องยื่นความจำนงเป็นหนังสือ และก่อนยื่นต้องตรวจหนี้ ภาระค้ำประกัน และภาระผูกพันกับสหกรณ์",
+      "sourceRefs": [
+        {
+          "title": "การสิ้นสุดสมาชิกภาพ",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=member_end"
+        },
+        {
+          "title": "ใบลาออกและแบบสมาชิก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 9,
+      "question": "ถ้ามีหนี้อยู่ทำอย่างไร",
+      "intent": "resignation_existing_debt_handoff",
+      "topic": "resignation",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "membership",
+      "turn": 10,
+      "question": "ติดตามคำขออย่างไร",
+      "intent": "status_center",
+      "topic": "resignation",
+      "decision": "NEED_INFO",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 1,
+      "question": "สมาคมฌาปนกิจสงเคราะห์",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "เลือกเรื่องฌาปนกิจที่ต้องการได้เลยครับ — ไม่ต้องเข้าเว็บทางการแล้วหาเมนูเอง\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=3977"
+        },
+        {
+          "title": "ผลการอนุมัติสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4241"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 2,
+      "question": "สมัครอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": null,
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "สมัครฌาปนกิจได้โดยทำตามขั้นตอนใน AI นี้ได้เลยครับ ไม่จำเป็นต้องเปิดภาพคำแนะนำเก่าที่มีข้อมูลติดต่อไม่เป็นปัจจุบัน\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หน้าสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=3977"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "หน้าติดต่อทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 3,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 4,
+      "question": "จ่ายเงินอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "ก่อนชำระเงินฌาปนกิจ ให้แยกค่าสมัคร ค่าบำรุง เงินสงเคราะห์ล่วงหน้า และยอดค้างสมาคมครับ ขอใบแจ้งยอดปี/รอบที่ถูกต้องจากสมาคม ยืนยันชื่อบัญชี เลขบัญชี และช่องทางปัจจุบันผ่านเจ้าหน้าที่ทางการ แล้วเก็บหลักฐานและให้สมาคมตรวจรับรายการ ไม่ถือว่ารายการหักเงินหรือการชำระสำเร็จแล้วจากข้อความในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)",
+          "url": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view"
+        },
+        {
+          "title": "เอกสารประชุม: ร่างแก้ไขฉบับที่ 2 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1LVWkPbeMBqSMC7fbLgqn1ZBsoy8CvHHo/view"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 5,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 6,
+      "question": "แจ้งเสียชีวิตอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": "EVIDENCE_LOCK",
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "กรณีสมาชิกฌาปนกิจเสียชีวิต ให้แจ้งสมาคมและยื่นคำขอค่าจัดการศพ/เงินสงเคราะห์ครอบครัวครับ ข้อ 24 ของข้อบังคับ พ.ศ. 2567 ใช้จำนวนสมาชิกที่มีอยู่จริง ณ วันเสียชีวิตประกอบการคำนวณ จึงไม่ใช่วงเงินตายตัวหรือการคืนเงินล่วงหน้าทั้งหมด ยังไม่ยืนยันยอดรับสุทธิ วันจ่าย หรือสิทธิรายบุคคล ให้สมาคมตรวจสมาชิกภาพ ผู้รับเงิน เอกสาร และข้อบังคับฉบับที่มีผลก่อน",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)",
+          "url": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view"
+        },
+        {
+          "title": "ขั้นตอนขอรับเงินค่าจัดการศพและเงินสงเคราะห์ครอบครัว",
+          "url": "https://drive.google.com/file/d/1V-9r3eoBLN6FSScmlh1xFOwsE3-M1ggT/view"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 7,
+      "question": "ผู้รับผลประโยชน์ต้องทำอย่างไร",
+      "intent": "beneficiary",
+      "topic": "funeral-association",
+      "decision": null,
+      "status": "NOT_VERIFIED",
+      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "answerFull": "สมาชิกควรจัดทำ/ปรับปรุงผู้รับโอนประโยชน์ให้เป็นปัจจุบัน เพราะเกี่ยวข้องกับเงินหรือสิทธิที่เหลือเมื่อสมาชิกถึงแก่กรรมตามข้อบังคับและภาระที่มีกับสหกรณ์ครับ",
+      "sourceRefs": [
+        {
+          "title": "คำแนะนำผู้รับโอนประโยชน์",
+          "url": "https://dlasavingcoop.com/show.php?No=4062"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ข้อบังคับ/ระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 8,
+      "question": "มีเอกสารเพิ่มเติมไหม",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 9,
+      "question": "ติดต่อที่ไหน",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    },
+    {
+      "domain": "funeral",
+      "turn": 10,
+      "question": "ติดตามคำขอได้อย่างไร",
+      "intent": "status_center",
+      "topic": "funeral-association",
+      "decision": "NEED_INFO",
+      "status": "PARTIAL",
+      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "answerFull": "ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ]
+    }
+  ]
+}
