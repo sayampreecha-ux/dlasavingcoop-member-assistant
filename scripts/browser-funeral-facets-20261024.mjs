@@ -21,6 +21,11 @@ try{
    const special=q==='ฌาปนกิจเลขสมาชิกดูที่ไหน';
    assert.match(answer,special?/เลขสมาชิกสมาคมฌาปนกิจ.*ติดต่อสมาคม/:pattern,q);
    if(!['apply','approval'].includes(facet))assert.doesNotMatch(answer,/ต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิ/);
+   if(['debt','beneficiary'].includes(facet)){
+    assert.match(answer,/แบบ.*ข้อบังคับ พ.ศ. 2565/);
+    assert.match(answer,/ลำดับที่ 1.*ก่อน.*(?:เหลือ|ลำดับที่ 2)/);
+    assert.ok(await page.locator('#out a[href*="1sxikYqV3"]').count(),'missing published beneficiary form');
+   }
    assert.ok(await page.locator('#out a').count(),q+' missing actions');
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),'horizontal overflow');
    rows.push({width,question:q,facet,answer,status:'PASS'});

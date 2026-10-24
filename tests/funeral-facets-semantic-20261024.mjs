@@ -46,6 +46,17 @@ if(process.argv[1]?.endsWith('funeral-facets-semantic-20261024.mjs')){
   assert.match(r.details.join(' '),/ร่างแก้ไข.*500 เป็น 1,000 บาท.*ช่องมติ วันที่ และลายมือชื่อในร่างยังว่าง.*ไม่ใช้ร่างนี้รับรอง/);
   assert.ok(r.sources.some(x=>x.url.includes('1LVWkPbe')));
  }
+ // Published beneficiary form establishes a conditional debt order, not universal signed consent.
+ for(const q of ['ฌาปนกิจหักหนี้สหกรณ์ไหม','ฌาปนกิจผู้รับผลประโยชน์ต้องทำอย่างไร','ฌาปนกิจเสียชีวิตแล้วหักหนี้ทั้งหมดไหม']){
+  const r=app.answer(q);assert.equal(r.decision,'EVIDENCE_LOCK');
+  assert.match(r.answer,/แบบ.*ข้อบังคับ พ.ศ. 2565/);
+  assert.match(r.answer,/ลำดับที่ 1.*ก่อน.*(?:เหลือ|ลำดับที่ 2)/);
+  assert.match(r.answer,/หนังสือที่.*ลงนามฉบับล่าสุด/);
+  assert.ok(r.sources.some(x=>x.url.includes('1sxikYqV3')));
+  assert.ok(r.actions.some(x=>x[1].includes('1sxikYqV3')));
+ }
+ assert.match(app.answer('ฌาปนกิจหักหนี้สหกรณ์ไหม').answer,/ไม่ถือว่าสมาชิกทุกคนลงนามแบบนี้แล้ว/);
+ for(const q of ['เงินสงเคราะห์ล่วงหน้าคืออะไร','ฌาปนกิจผู้รับประโยชน์คือใคร'])assert.match(app.answer(q).details.join(' '),/วันถัดจากวันที่นายทะเบียนรับจดทะเบียน/);
  if(process.env.FUNERAL_QA_OUTPUT)fs.writeFileSync(process.env.FUNERAL_QA_OUTPUT,JSON.stringify({semantic:60,rows},null,2));
  console.log('FUNERAL SEMANTIC: 60/60; five explicit follow-up buttons; scope/privacy guards PASS');
 }
