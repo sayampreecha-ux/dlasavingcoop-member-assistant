@@ -50,4 +50,16 @@ for(const [q,expected] of [['ใช้เอกสารอะไร','สมุ
  assert.ok(t.result.answer.includes(expected),q);
  assert.ok(t.result.sources.some(x=>x.url?.includes('dlasavingcoop.com/show.php?No=807')),q);
 }
-console.log('Scoped loan, scholarship, deposits and official approval index 17/17 PASS');
+const debtOverview=app.conversationTurn('เงินกู้พิเศษรวมหนี้คืออะไร');
+assert.equal(debtOverview.result.intent,'special_debt_explained_verified');
+assert.ok(debtOverview.result.answer.includes('80')&&debtOverview.result.answer.includes('5 ล้านบาท'));
+const shareIntro=app.conversationTurn('การส่งหุ้นรายเดือน');
+const shareMax=app.conversationTurn('ส่งหุ้นสูงสุดเท่าไร',shareIntro.state,{continuation:true});
+assert.equal(shareMax.result.intent,'share_monthly_max_verified');
+assert.ok(shareMax.result.answer.includes('5,000 หุ้นต่อเดือน'));
+const emergencyIntro=app.conversationTurn('เงินกู้ฉุกเฉินกู้ได้ไหม');
+const emergencyGuarantee=app.conversationTurn('ใช้คนค้ำไหม',emergencyIntro.state,{continuation:true});
+assert.equal(emergencyGuarantee.result.intent,'emergency_guarantor_document_scope');
+assert.equal(emergencyGuarantee.result.decision,'EVIDENCE_LOCK');
+assert.ok(emergencyGuarantee.result.sources.length>=2);
+console.log('Scoped loan, scholarship, deposits and official approval index 20/20 PASS');
