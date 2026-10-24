@@ -3035,6 +3035,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=answer(raw);
       return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
     }
+    // Official deposit forms specify submission contacts; avoid an unrelated generic menu.
+    if(state?.topic==='depositSpecial'&&/^(?:ต้องติดต่อที่ไหน|ใช้เอกสารอะไร)$/.test(raw)){
+      const url=S.depositForms;
+      const msg=raw==='ต้องติดต่อที่ไหน'?
+        'เงินฝากออมทรัพย์พิเศษ ติดต่อฝ่ายเงินฝากของสหกรณ์ได้ตามหน้าเอกสารทางการ โทร 092-391-5896 หรือ 091-727-5236 ส่งเอกสารได้ที่สำนักงานเลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรืออีเมล dla.deposit01@gmail.com ตามขั้นตอนของสหกรณ์ โปรดตรวจช่องทางล่าสุดก่อนส่งเอกสารส่วนบุคคล':
+        'เอกสารเงินฝากออมทรัพย์พิเศษขึ้นกับการทำรายการครับ หากเปิดบัญชีให้ใช้คำขอเปิดบัญชีและแบบผู้รับโอนประโยชน์ หากถอนหรือปิดบัญชีให้ใช้คำขอถอน/ปิดบัญชี สำเนาบัตรประจำตัว สำเนาบัญชีกรุงไทยและสมุดบัญชีเงินฝาก (กรณีปิดบัญชีส่งสมุดเล่มสีเขียวทางไปรษณีย์) ตามแบบทางการ กรุณาระบุว่าจะเปิดบัญชี ฝากเพิ่ม ถอน หรือปิดบัญชี เพื่อเลือกชุดเอกสารให้ตรง ไม่ต้องส่งเอกสารส่วนบุคคลในแชต';
+      const result=res('deposit_scoped_official_procedure',msg,{decision:'PROCEDURE_INFORMATION',actions:[['แบบฟอร์มและช่องทางเงินฝากทางการ',url]],sources:[src('หลักเกณฑ์และแบบฟอร์มเงินฝากออมทรัพย์พิเศษ',url)]});
+      return {result,state:{...state,result,topic:'depositSpecial',question:raw,lastFact:null},query:raw};
+    }
     // Keep explicit guarantor questions within a previously established guarantor dialogue.
     if(state?.topic==='guarantor-guidance'&&/^(?:เกษียณแล้วค้ำได้ไหม|เปลี่ยนผู้ค้ำได้ไหม|ผู้ค้ำต้องรับผิดอะไร)$/.test(raw)){
       const result=answer(raw);
