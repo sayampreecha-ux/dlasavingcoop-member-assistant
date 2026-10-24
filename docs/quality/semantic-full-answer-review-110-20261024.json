@@ -1,22 +1,21 @@
 {
-  "reportType": "independent-full-answer-semantic-review",
+  "reportType": "signed-primary-document-reviewed-full-answer-triage",
   "asOf": "2026-10-24",
-  "candidateSHA": "7fefe0deb6d0f7ae384f5664e6679a88d325c155",
-  "sourceCI": "Regression #714 job 120880662945",
-  "scope": "11 domains x 10 sequential turns; full answers and exact URLs",
-  "method": "Conservative full-answer triage, not an official-document verified semantic acceptance. SAFE_HANDOFF is a disposition, not proof of sufficiency; PARTIAL identifies observed answer gaps; all other answers NOT_VERIFIED until source-by-source effective-date adjudication.",
+  "candidateSHA": "999e2b3ebcdf23727ebb98c2be18090dd14bde74",
+  "sourceCI": "Regression #727 job 120886442203",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions.",
   "summary": {
-    "CORRECT": 0,
-    "PARTIAL": 25,
+    "CORRECT": 19,
+    "PARTIAL": 16,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
-    "NOT_VERIFIED": 54
+    "NOT_VERIFIED": 44
   },
   "releaseGate": "BLOCKED",
   "blockers": [
-    "No independent original-document/effective-version verification of all 110 responses.",
-    "Multiple observed incomplete direct answers, especially loan submission, special debt eligibility and current approval notices.",
-    "Final SHA E2E #574 must be successful."
+    "Not all 110 responses have independent effective-document validation.",
+    "Many SAFE_HANDOFF and NOT_VERIFIED answers remain; cannot claim 110/110 CORRECT.",
+    "Final E2E and browser QA on exact latest SHA must pass."
   ],
   "rows": [
     {
@@ -27,7 +26,7 @@
       "topic": "ordinaryLoanCurrent",
       "decision": "NEED_INFO",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?",
       "sourceRefs": [
         {
@@ -48,7 +47,7 @@
       "topic": "ordinaryLoanCurrent",
       "decision": "RULE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เงินกู้สามัญ — หลักเกณฑ์ที่ยืนยันแล้ว มีผล 2026-10-01\n1. เป็นสมาชิกอย่างน้อย 6 เดือน และส่งหุ้นต่อเนื่องอย่างน้อย 6 งวด\n2. วงเงินสูงสุด 2,000,000 บาท\n3. ผ่อนได้ไม่เกิน 240 งวด อายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n4. หลังหักหุ้นและหนี้ ต้องมีรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาท\n5. กรณีบุคคลค้ำ: ไม่เกิน 500,000 บาท ใช้ผู้ค้ำอย่างน้อย 1 คน; 500,001–1,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 2 คน; 1,000,001–2,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 3 คน\n6. วงเงิน 200,001–500,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n7. วงเงิน 500,001–2,000,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n8. ต้องไม่ค้างชำระหุ้นและหนี้ย้อนหลัง 12 งวด\n9. ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์\nวงเงินและผลอนุมัติของคุณยังต้องตรวจข้อมูลสมาชิกจริง ไม่ถือว่าเพดานข้างต้นเป็นวงเงินที่คุณได้รับ",
       "sourceRefs": [
         {
@@ -68,8 +67,8 @@
       "intent": "loan_ordinary",
       "topic": "ordinaryLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "วงเงินสูงสุด 2,000,000 บาท",
       "sourceRefs": [
         {
@@ -89,8 +88,8 @@
       "intent": "loan_ordinary",
       "topic": "ordinaryLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
       "sourceRefs": [
         {
@@ -111,7 +110,7 @@
       "topic": "ordinaryLoanCurrent",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
       "sourceRefs": [
         {
@@ -135,8 +134,8 @@
       "intent": "loan_ordinary",
       "topic": "ordinaryLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
       "sourceRefs": [
         {
@@ -157,7 +156,7 @@
       "topic": "ordinaryLoanCurrent",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เอกสารกู้สามัญตามแบบตรวจสอบบุคคลค้ำประกันทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้สามัญ\n2. สัญญาค้ำประกันหรือสำเนาหลักทรัพย์ค้ำประกันตามคำขอ\n3. หนังสือยินยอมหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ ยินยอมติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูล\n4. สัญญาจำนำสิทธิตามตราสารการฝากเงิน กรณีใช้เงินฝากร่วม\n5. รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับรายจ่ายพร้อมผู้มีอำนาจรับรองตามแบบ\n6. รายงานข้อมูลเครดิตบูโรของผู้กู้\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้/ผู้ค้ำ\n8. ทะเบียนสมรสและบัตรประชาชน/ทะเบียนบ้านคู่สมรสผู้กู้และผู้ค้ำตามสถานภาพ\n9. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้ และบัญชีเงินฝากออมทรัพย์พิเศษตามรายการในแบบ\n10. เอกสารหย่า เปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nรับรองสำเนาทุกฉบับ บัตรไม่หมดอายุ และให้เจ้าหน้าที่ตรวจรายการที่ใช้กับสถานภาพและหลักประกันจริง ไม่ส่งเอกสารส่วนบุคคลในแชท",
       "sourceRefs": [
         {
@@ -182,24 +181,24 @@
       "domain": "ordinary-loan",
       "turn": 8,
       "question": "ยื่นที่ไหน",
-      "intent": "loan_ordinary",
+      "intent": "loan_scoped_verified_procedure",
       "topic": "ordinaryLoanCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Submission location not answered; link to loan form alone does not identify the submission channel.",
-      "answerFull": "เงินกู้สามัญให้เปิดประกาศหลักเกณฑ์ฉบับปัจจุบันและเลือกแบบตามวัตถุประสงค์ครับ",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "เงินกู้สามัญยื่นคำขอพร้อมหลักฐานได้ด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ หรือ Mobile Application หรือ Web Application ของสหกรณ์ หรือสถานที่อื่นที่สหกรณ์กำหนด ตามประกาศหลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) โปรดใช้แบบคำขอทางการและอย่าส่งข้อมูลส่วนบุคคลในแชตนี้",
       "sourceRefs": [
         {
-          "title": "ประกาศหลักเกณฑ์กู้สามัญ 2569",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
         },
         {
-          "title": "ประกาศอัตราดอกเบี้ยเงินกู้",
-          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+          "title": "แบบและหลักเกณฑ์เงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
         },
         {
-          "title": "แบบฟอร์มเงินกู้สามัญ",
-          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -207,24 +206,24 @@
       "domain": "ordinary-loan",
       "turn": 9,
       "question": "ใช้เวลาพิจารณาเท่าไร",
-      "intent": "loan_ordinary",
+      "intent": "loan_scoped_procedure_handoff",
       "topic": "ordinaryLoanCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Processing duration question not answered; no unsupported time should be invented.",
-      "answerFull": "เงินกู้สามัญให้เปิดประกาศหลักเกณฑ์ฉบับปัจจุบันและเลือกแบบตามวัตถุประสงค์ครับ",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
+      "answerFull": "คำถาม “ใช้เวลาพิจารณาเท่าไร” เป็นเรื่องเงินกู้สามัญครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล่าสุดหรือติดต่อฝ่ายสินเชื่อ ไม่ควรสมมุติกำหนดเวลา และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
-          "title": "ประกาศหลักเกณฑ์กู้สามัญ 2569",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
         },
         {
-          "title": "ประกาศอัตราดอกเบี้ยเงินกู้",
-          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
         },
         {
-          "title": "แบบฟอร์มเงินกู้สามัญ",
-          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -235,8 +234,8 @@
       "intent": "loan_ordinary",
       "topic": "ordinaryLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
       "sourceRefs": [
         {
@@ -257,7 +256,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": "NEED_MEMBER_DATA",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "หลักเกณฑ์ปัจจุบันยืนยันแล้วครับ ดูเงื่อนไขที่ใช้กับคำขอด้านล่าง และตรวจยอด/ประวัติจริงในระบบสมาชิกก่อนประเมินสิทธิส่วนบุคคล",
       "sourceRefs": [
         {
@@ -277,8 +276,8 @@
       "intent": "loan_emergency",
       "topic": "emergencyLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย",
       "sourceRefs": [
         {
@@ -298,8 +297,8 @@
       "intent": "loan_emergency",
       "topic": "emergencyLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด",
       "sourceRefs": [
         {
@@ -319,8 +318,8 @@
       "intent": "loan_emergency",
       "topic": "emergencyLoanCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ผ่อนได้ไม่เกิน 15 งวด",
       "sourceRefs": [
         {
@@ -341,7 +340,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Emergency guarantor question redirects to generic guarantor menu without emergency-specific evidence.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เรื่องผู้ค้ำต้องอ้างหลักเกณฑ์เงินกู้ปัจจุบันและภาระค้ำของสมาชิกแต่ละคนครับ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
       "sourceRefs": [
         {
@@ -362,7 +361,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
       "sourceRefs": [
         {
@@ -387,7 +386,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n1. คำขอและหนังสือเงินกู้เพื่อเหตุฉุกเฉิน\n2. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูลส่วนบุคคล\n3. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้ 1 ชุด\n4. รายละเอียดรายรับ–รายจ่ายเดือนปัจจุบัน ให้เจ้าหน้าที่เบิกจ่ายลงนามรับรอง\n5. หนังสือรับรองเงินเดือน 1 ชุด\n6. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้\n7. เอกสารเปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nสำเนาต้องชัดเจน บัตรไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชท",
       "sourceRefs": [
         {
@@ -412,24 +411,24 @@
       "domain": "emergency-loan",
       "turn": 8,
       "question": "ต้องยื่นที่ไหน",
-      "intent": "loan_emergency",
+      "intent": "loan_scoped_verified_procedure",
       "topic": "emergencyLoanCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Submission location question redirects to loan overview.",
-      "answerFull": "มีเงินกู้เพื่อเหตุฉุกเฉินครับ\n\nต้องการถามคุณสมบัติ เอกสาร หรือสถานะคำขอเรื่องใดครับ?",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "เงินกู้ฉุกเฉินยื่นได้ที่สำนักงานสหกรณ์ หรือส่งทางไปรษณีย์ถึงงานเงินกู้ฉุกเฉิน เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือส่ง PDF ทางอีเมล dlasavingloan01@gmail.com หัวข้อ “ขอกู้เงินเพื่อเหตุฉุกเฉิน” หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ตามประกาศ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) กรุณาใช้เอกสารตามแบบทางการและไม่ส่งข้อมูลส่วนบุคคลในแชตนี้",
       "sourceRefs": [
         {
-          "title": "ประกาศหลักเกณฑ์กู้ฉุกเฉิน",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
         },
         {
-          "title": "แบบคำขอกู้ฉุกเฉิน",
-          "url": "https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing"
+          "title": "แบบและหลักเกณฑ์เงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
         },
         {
-          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
-          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -441,7 +440,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": "NEED_INFO",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
       "sourceRefs": [
         {
@@ -462,7 +461,7 @@
       "topic": "emergencyLoanCurrent",
       "decision": "NEED_INFO",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
       "sourceRefs": [
         {
@@ -483,7 +482,7 @@
       "topic": "qualityOfLifeCurrent",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -504,24 +503,24 @@
       "domain": "special-debt",
       "turn": 2,
       "question": "ใครยื่นได้",
-      "intent": "loan_special_quality",
+      "intent": "loan_scoped_verified_procedure",
       "topic": "qualityOfLifeCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Eligibility question not answered.",
-      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569: วงเงินไม่เกิน 3 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 3 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 36 งวด; วงเงินไม่เกิน 5 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 5 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 60 งวด ทั้งยังต้องผ่านเงื่อนไขรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาทต่อเดือน เงื่อนไขหนี้/หุ้น และหลักประกันตามประกาศข้อ 4–5 ทั้งหมด ไม่ถือว่าเป็นการอนุมัติสิทธิรายบุคคล และเกณฑ์นี้ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2",
       "sourceRefs": [
         {
-          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
-          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
-          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
-          "title": "หลักเกณฑ์เงินกู้พิเศษ",
-          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -532,8 +531,8 @@
       "intent": "loan_special_quality",
       "topic": "qualityOfLifeCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -553,8 +552,8 @@
       "intent": "loan_special_quality",
       "topic": "qualityOfLifeCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -574,8 +573,8 @@
       "intent": "loan_special_quality",
       "topic": "qualityOfLifeCurrent",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -596,7 +595,7 @@
       "topic": "qualityOfLifeCurrent",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -617,7 +616,7 @@
       "topic": "qualityOfLifeCurrent",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เอกสารกู้พัฒนาคุณภาพชีวิตตามแบบคำร้องทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้พัฒนาคุณภาพชีวิต\n2. หนังสือยินยอมหักเงินชำระหนี้ ติดตามทวงถามหนี้ ทำนิติกรรม และเก็บใช้เปิดเผยข้อมูล\n3. สำเนาเอกสารสิทธิอสังหาริมทรัพย์ รูปถ่ายสีพร้อมรับรอง และแผนที่ตั้งหลักประกัน\n4. รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมเจ้าหน้าที่เบิกจ่ายรับรอง และรายงานเครดิตบูโร\n5. หนังสือรับรองหนี้จากสถาบันอื่น สัญญากู้เดิม และสัญญาจำนอง\n6. รายงานประเมินราคาบ้านและที่ดิน โดยต้องตรวจบริษัทที่สหกรณ์ยอมรับตามกฎปัจจุบัน\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ\n8. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. และเอกสารหย่า/เปลี่ยนชื่อถ้ามี\nตรวจระยะยื่นและเงื่อนไขของคำขอในกฎปัจจุบัน\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
       "sourceRefs": [
         {
@@ -638,24 +637,24 @@
       "domain": "special-debt",
       "turn": 8,
       "question": "เปิดรับเมื่อไร",
-      "intent": "loan_special_quality",
+      "intent": "loan_scoped_procedure_handoff",
       "topic": "qualityOfLifeCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
-      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
+      "answerFull": "คำถาม “เปิดรับเมื่อไร” เป็นเรื่องเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)ครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล่าสุดหรือติดต่อฝ่ายสินเชื่อ ไม่ควรสมมุติกำหนดเวลา และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
-          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
-          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
-          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
         },
         {
-          "title": "หลักเกณฑ์เงินกู้พิเศษ",
-          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -663,24 +662,24 @@
       "domain": "special-debt",
       "turn": 9,
       "question": "ต้องสมัครอย่างไร",
-      "intent": "loan_special_quality",
+      "intent": "loan_scoped_verified_procedure",
       "topic": "qualityOfLifeCurrent",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
-      "answerFull": "กรณีต้องการรวมหนี้ ให้ดู “เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)” ครับ\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ใช้แบบคำขอกู้และหลักฐานประกอบตามประกาศ พ.ศ. 2569 ข้อ 8 ยื่นด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ถึงงานเงินกู้พิเศษ เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ต้องมีหลักประกันอสังหาริมทรัพย์ตามเกณฑ์ และให้เจ้าหน้าที่ตรวจหลักฐานจริง ไม่ส่งเอกสารส่วนบุคคลในแชต",
       "sourceRefs": [
         {
-          "title": "หลักเกณฑ์พัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
-          "title": "แบบกู้พิเศษพัฒนาคุณภาพชีวิต",
-          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
-          "title": "หลักเกณฑ์เงินกู้พิเศษ",
-          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
         }
       ]
     },
@@ -688,16 +687,20 @@
       "domain": "special-debt",
       "turn": 10,
       "question": "มีหนี้เดิมยื่นได้ไหม",
-      "intent": "loan_eligibility",
+      "intent": "loan_scoped_verified_procedure",
       "topic": "qualityOfLifeCurrent",
-      "decision": "NEED_INFO",
-      "status": "PARTIAL",
-      "reason": "Existing debt question asks loan type despite established special debt-consolidation context.",
-      "answerFull": "ตอบได้ครับ แต่ต้องทราบประเภทเงินกู้ก่อน เพื่อใช้กฎให้ถูกชุด",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "ผู้มีหนี้เงินกู้เดิมอาจยื่นขอเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ได้ แต่ต้องผ่านคุณสมบัติและเงื่อนไขของประกาศ พ.ศ. 2569 ข้อ 4–5 และยินยอมให้สหกรณ์หักกลบลบหนี้เดิมตามข้อ 5(4) หากมีสัญญาเงินกู้ประเภทอื่นต้องเป็นไปตามเงื่อนไขในข้อ 5(5) จึงยังยืนยันสิทธิรายบุคคลไม่ได้จนกว่าสหกรณ์ตรวจภาระหนี้และหลักประกันจริง",
       "sourceRefs": [
         {
-          "title": "หลักเกณฑ์และแบบเงินกู้ทางการ",
-          "url": "https://www.dlasavingcoop.com/show.php?No=774"
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
         },
         {
           "title": "ข้อบังคับและระเบียบสหกรณ์",
@@ -713,7 +716,7 @@
       "topic": "shares",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -734,7 +737,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
       "sourceRefs": [
         {
@@ -759,7 +762,7 @@
       "topic": "shares",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราที่ประกาศกำหนดได้ โดยอัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือน และต้องได้รับความเห็นชอบจากคณะกรรมการครับ เพดานนี้ไม่ใช่การเพิ่มอีก 5,000 หุ้นจากอัตราเดิม ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 คณะกรรมการอาจมอบอำนาจให้ผู้จัดการพิจารณาแทนได้ แต่ยังไม่ยืนยันว่ามอบอำนาจแล้ว",
       "sourceRefs": [
         {
@@ -780,7 +783,7 @@
       "topic": "shares",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ขอลดค่าหุ้นรายเดือนได้เมื่อชำระค่าหุ้นรายเดือนมาแล้วไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา และอัตราใหม่ต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด โดยความเห็นชอบของคณะกรรมการครับ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -801,7 +804,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -822,7 +825,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -843,7 +846,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -864,7 +867,7 @@
       "topic": "shares",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การถอนหรือคืนทุนเรือนหุ้นไม่ใช่การเบิกเงินฝาก สมาชิกที่ยังมีสมาชิกภาพไม่ควรถือว่าถอนหุ้นได้ทันที ส่วนการลาออก พ้นสมาชิกภาพ หรือเสียชีวิต ต้องตรวจเงื่อนไขและภาระผูกพันก่อนจ่ายคืนตามข้อบังคับครับ",
       "sourceRefs": [
         {
@@ -881,7 +884,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
       "sourceRefs": [
         {
@@ -902,7 +905,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
       "sourceRefs": [
         {
@@ -927,7 +930,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
       "sourceRefs": [
         {
@@ -956,7 +959,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
       "sourceRefs": [
         {
@@ -985,7 +988,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษฝากเพิ่มแต่ละครั้งขั้นต่ำ 500 บาท ตามระเบียบข้อ 13 ครับ ฝากครั้งละ 500 บาทขึ้นไปผ่านช่องทางทางการ ทำผ่าน Krungthai NEXT หรือเคาน์เตอร์กรุงไทยตามแบบชำระเงินฝากพิเศษรหัส 7196 ครับ ใช้เลขบัญชีของตนให้ถูกต้อง รหัสบัญชี 0000011 เป็นขั้นตอนเปิดบัญชีครั้งแรก ไม่ใช้แทนบัญชีเดิมทุกครั้ง",
       "sourceRefs": [
         {
@@ -1014,7 +1017,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
       "sourceRefs": [
         {
@@ -1043,7 +1046,7 @@
       "topic": "depositSpecial",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ตามประกาศเดิม อัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี รับฝากรวมสูงสุดต่อสมาชิก 50,000,000 บาทครับ ประกาศลงวันที่ 29 พฤศจิกายน 2565 มีผลตั้งแต่ 1 ธันวาคม 2565 ใช้ประกาศฉบับนี้เป็นฐานอ้างอิงคำตอบ ยังไม่ได้ยืนยันประกาศเปลี่ยนแปลงภายหลัง จึงระบุอัตราพร้อมวันที่และต้นฉบับให้ตรวจสอบ ตามระเบียบแก้ไขฉบับที่ 2 พ.ศ. 2566 ข้อ 14 คำนวณจากยอดคงเหลือรายวันและทบเป็นเงินต้นทุกสิ้นเดือน หากยอดต่ำกว่า 500 บาทไม่คิดดอกเบี้ย",
       "sourceRefs": [
         {
@@ -1076,7 +1079,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
       "sourceRefs": [
         {
@@ -1105,7 +1108,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การปิดบัญชีเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชี ส่งเอกสารทางไปรษณีย์พร้อมสมุดบัญชีเล่มสีเขียว ตามแบบที่สหกรณ์เผยแพร่ครับ ดอกเบี้ยคิดถึงวันก่อนวันทำรายการโอน ต้องตรวจเงินที่ผูกหลักประกันก่อน",
       "sourceRefs": [
         {
@@ -1134,7 +1137,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
       "sourceRefs": [
         {
@@ -1163,7 +1166,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
       "sourceRefs": [
         {
@@ -1192,7 +1195,7 @@
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
       "sourceRefs": [
         {
@@ -1221,7 +1224,7 @@
       "topic": "welfare:childbirth",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "สวัสดิการเพื่อการคลอดบุตร — หลักเกณฑ์ที่ยืนยันแล้ว\n1. คุณสมบัติพื้นฐาน: ประเภทสมาชิกต้องตรงกับสิทธิ ชำระค่าหุ้นต่อเนื่องอย่างน้อย 6 เดือน และไม่ค้างชำระตามหลักเกณฑ์ในปีบัญชีที่ขอ\n2. 1,000 บาทต่อบุตร; บุตรโดยชอบด้วยกฎหมาย ไม่รวมบุตรบุญธรรม; ไม่เกิน 3 คน\n3. ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ รับได้เพียงคนเดียว\n4. ยื่นภายใน 120 วันนับแต่วันแจ้งเกิด",
       "sourceRefs": [
         {
@@ -1238,7 +1241,7 @@
       "topic": "welfare:childbirth",
       "decision": "VERIFIED_RULE",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "สวัสดิการคลอดบุตรตามหลักเกณฑ์ที่ยืนยันแล้ว 1,000 บาทต่อบุตรหนึ่งคน สำหรับสมาชิกสามัญและสมาชิกสมทบที่เข้าเงื่อนไข โดยให้สิทธิไม่เกิน 3 คน และต้องตรวจคุณสมบัติและระยะเวลายื่นคำขอก่อนอนุมัติจริง",
       "sourceRefs": [
         {
@@ -1259,7 +1262,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ใครมีสิทธิ” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1280,7 +1283,7 @@
       "topic": "welfare:childbirth",
       "decision": "PROCEDURE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบียนสมรสหน้าและหลัง\n4. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก\nยื่นภายใน 120 วันนับแต่วันที่แจ้งเกิด\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท",
       "sourceRefs": [
         {
@@ -1305,7 +1308,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ยื่นเมื่อไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1326,7 +1329,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ยื่นที่ไหน” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1347,7 +1350,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ต้องเป็นสมาชิกนานไหม” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1368,7 +1371,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “มีเงื่อนไขอะไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1389,7 +1392,7 @@
       "topic": "welfare:childbirth",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ใช้เวลาพิจารณาเท่าไร” เป็นเรื่องสวัสดิการคลอดบุตรครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1410,7 +1413,7 @@
       "topic": "welfare:childbirth",
       "decision": "VERIFY_LIVE_STATUS",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เรื่องติดตามผลต้องแยกว่าเป็น “ข้อมูลประกาศสาธารณะ” หรือ “สถานะเฉพาะสมาชิก” ครับ ระบบจะไม่เดาผลเฉพาะบุคคล\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
       "sourceRefs": [
         {
@@ -1431,7 +1434,7 @@
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
       "sourceRefs": [
         {
@@ -1448,20 +1451,20 @@
       "domain": "scholarships",
       "turn": 2,
       "question": "ใครมีสิทธิ",
-      "intent": "scholarship_scoped_followup",
+      "intent": "scholarship",
       "topic": "scholarship",
-      "decision": "SAFE_HANDOFF",
-      "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
-      "answerFull": "คำถาม “ใครมีสิทธิ” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "คุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\nยังต้องให้สหกรณ์ตรวจข้อมูลสมาชิกและผลการพิจารณาจริง ไม่ใช่การรับรองสิทธิรายบุคคล",
       "sourceRefs": [
         {
-          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
         },
         {
-          "title": "ช่องทางติดต่อสหกรณ์",
-          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
       ]
     },
@@ -1473,7 +1476,7 @@
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
       "sourceRefs": [
         {
@@ -1493,8 +1496,8 @@
       "intent": "scholarship",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
       "sourceRefs": [
         {
@@ -1515,7 +1518,7 @@
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา",
       "sourceRefs": [
         {
@@ -1536,7 +1539,7 @@
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
       "sourceRefs": [
         {
@@ -1553,20 +1556,20 @@
       "domain": "scholarships",
       "turn": 7,
       "question": "ส่งที่ไหน",
-      "intent": "scholarship_scoped_followup",
+      "intent": "scholarship",
       "topic": "scholarship",
-      "decision": "SAFE_HANDOFF",
-      "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
-      "answerFull": "คำถาม “ส่งที่ไหน” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
       "sourceRefs": [
         {
-          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
         },
         {
-          "title": "ช่องทางติดต่อสหกรณ์",
-          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
       ]
     },
@@ -1574,20 +1577,16 @@
       "domain": "scholarships",
       "turn": 8,
       "question": "มีเงื่อนไขผลการเรียนไหม",
-      "intent": "scholarship_scoped_followup",
+      "intent": "scholarship_verified_grades",
       "topic": "scholarship",
-      "decision": "SAFE_HANDOFF",
-      "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
-      "answerFull": "คำถาม “มีเงื่อนไขผลการเรียนไหม” เป็นเรื่องทุนการศึกษาบุตรสมาชิกครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "decision": "RULE_INFORMATION",
+      "status": "NOT_VERIFIED",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "answerFull": "ประกาศทุนส่งเสริมการศึกษาของบุตรสมาชิกปี 2569 ข้อ 3–5 ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำเป็นคุณสมบัติ แต่กำหนดให้บุตรที่ชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) กำลังศึกษาในภาคเรียนที่ 1 ปีการศึกษา 2569 และใช้เกณฑ์คะแนนพิจารณาตามข้อ 5 การไม่มีเกณฑ์เกรดขั้นต่ำไม่ได้แปลว่าได้รับทุนอัตโนมัติ ต้องผ่านคุณสมบัติอื่นและการจัดสรรตามคะแนน",
       "sourceRefs": [
         {
-          "title": "ข้อมูลทางการเรื่องทุนการศึกษาบุตรสมาชิก",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
-        },
-        {
-          "title": "ช่องทางติดต่อสหกรณ์",
-          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตรสมาชิก 2569",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
         }
       ]
     },
@@ -1598,8 +1597,8 @@
       "intent": "live_schedule",
       "topic": "scholarship",
       "decision": "LIVE_OFFICIAL_REQUIRED",
-      "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "status": "CORRECT",
+      "reason": "Direct public rule/answer independently cross-checked against the signed 2569 primary PDF or 2569 scholarship notice, cited in signed-primary-loan-evidence-audit-20261024.md; no member-specific eligibility asserted.",
       "answerFull": "ประกาศกำหนดแจ้งผลภายใน 90 วันนับถัดจากวันสิ้นสุดรับคำขอ ผ่านเว็บไซต์และสื่อออนไลน์ของสหกรณ์ ระบบไม่ยืนยันผลเฉพาะรายหรือว่าประกาศผลแล้วจนกว่าจะมีหลักฐานผลปัจจุบัน\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nหมายถึงรอบดำเนินการของบริการใดครับ?",
       "sourceRefs": [
         {
@@ -1620,7 +1619,7 @@
       "topic": "scholarship",
       "decision": "VERIFY_LIVE_STATUS",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เรื่องติดตามผลต้องแยกว่าเป็น “ข้อมูลประกาศสาธารณะ” หรือ “สถานะเฉพาะสมาชิก” ครับ ระบบจะไม่เดาผลเฉพาะบุคคล\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
       "sourceRefs": [
         {
@@ -1641,7 +1640,7 @@
       "topic": "loan",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เรื่องผู้ค้ำต้องอ้างหลักเกณฑ์เงินกู้ปัจจุบันและภาระค้ำของสมาชิกแต่ละคนครับ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
       "sourceRefs": [
         {
@@ -1662,7 +1661,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ต้องค้ำกี่คน” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1683,7 +1682,7 @@
       "topic": "guarantor-guidance",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ผู้ค้ำที่เกษียณต้องตรวจว่ายังคงสมาชิกภาพและผ่านคุณสมบัติผู้ค้ำตามหลักเกณฑ์ที่ใช้กับสัญญาหรือคำขอจริงครับ ประกาศกู้สามัญ พ.ศ. 2569 ข้อ 6 ระบุคุณสมบัติและภาระค้ำ แต่ยังไม่เพียงพอให้ระบบยืนยันว่าผู้เกษียณรายนี้ค้ำได้หรือจำเป็นต้องเปลี่ยนผู้ค้ำ ให้ฝ่ายสินเชื่อตรวจข้อบังคับ ระเบียบที่เกี่ยวข้อง และทะเบียนภาระค้ำก่อน ไม่ใช้การเกษียณอย่างเดียวสรุปสิทธิ",
       "sourceRefs": [
         {
@@ -1700,7 +1699,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “มีภาระค้ำเดิมได้ไหม” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1721,7 +1720,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ต้องใช้เอกสารอะไร” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1742,7 +1741,7 @@
       "topic": "guarantor-guidance",
       "decision": "NEED_INFO",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำขอและเอกสารที่ต้องใช้\n\nต้องการเปลี่ยนผู้ค้ำของเงินกู้ประเภทใดครับ?",
       "sourceRefs": [
         {
@@ -1759,7 +1758,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ยื่นเรื่องที่ไหน” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1780,7 +1779,7 @@
       "topic": "guarantor-guidance",
       "decision": "GUIDED_GUARANTOR",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "เรื่องผู้ค้ำต้องแยกก่อนว่าเป็น “หลักเกณฑ์ผู้ค้ำ” หรือ “สถานะผู้ค้ำของสมาชิก” ครับ ระบบจะไม่เดาจำนวน/สิทธิเมื่อคำถามยังไม่ครบ\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
       "sourceRefs": [
         {
@@ -1797,7 +1796,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ถ้าผู้กู้ผิดนัดทำอย่างไร” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1818,7 +1817,7 @@
       "topic": "guarantor-guidance",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ขอปลดภาระค้ำได้ไหม” เป็นเรื่องการค้ำประกันเงินกู้ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1835,16 +1834,16 @@
       "domain": "notices",
       "turn": 1,
       "question": "ประกาศอนุมัติเงินกู้ล่าสุด",
-      "intent": "notices",
-      "topic": "loan",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Latest public loan approval announcement exists in official loan index (No. 4946 as of 24 Oct 2026) but answer gives generic notices index; live index must be used.",
-      "answerFull": "ประกาศและข่าวล่าสุดให้ตรวจจากหน้าประกาศทางการของสหกรณ์โดยตรงครับ\n\nต้องการประกาศเรื่องใดและรอบใดครับ?",
+      "intent": "approval_public_index",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
+      "answerFull": "ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถานะรายบุคคลจากประกาศสาธารณะ",
       "sourceRefs": [
         {
-          "title": "ประกาศทางการ สอ.อปท.",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "title": "ผลอนุมัติเงินกู้ทางการ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         }
       ]
     },
@@ -1856,7 +1855,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “เป็นรอบไหน” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1877,7 +1876,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Official No. 4946 has round-specific transfer date, but answer is generic; requires verified indexed round.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “วันโอนเมื่อไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1898,7 +1897,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Official No. 4946 has first installment month, but answer is generic; requires verified indexed round.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “งวดแรกเมื่อไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1919,7 +1918,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ดูเอกสารได้ที่ไหน” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1940,7 +1939,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “มีรายชื่อหรือไม่” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1961,7 +1960,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ตรวจสถานะตัวเองได้ไหม” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -1982,7 +1981,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ถ้ายังไม่พบต้องทำอย่างไร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2003,7 +2002,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “ต้องติดต่อใคร” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2024,7 +2023,7 @@
       "topic": "approval-public",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “มีประกาศใหม่หรือยัง” เป็นเรื่องประกาศอนุมัติเงินกู้สาธารณะครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2045,7 +2044,7 @@
       "topic": "membership-apply",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
       "sourceRefs": [
         {
@@ -2066,7 +2065,7 @@
       "topic": "membership-apply",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
       "sourceRefs": [
         {
@@ -2087,7 +2086,7 @@
       "topic": "membership-apply",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
       "sourceRefs": [
         {
@@ -2108,7 +2107,7 @@
       "topic": "membership-apply",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “สมัครได้ที่ไหน” เป็นเรื่องการสมัครสมาชิกสหกรณ์ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2129,7 +2128,7 @@
       "topic": "membership-apply",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "คำถาม “มีค่าธรรมเนียมหรือไม่” เป็นเรื่องการสมัครสมาชิกสหกรณ์ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2150,7 +2149,7 @@
       "topic": "shares",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
       "sourceRefs": [
         {
@@ -2175,7 +2174,7 @@
       "topic": "shares",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "การเปลี่ยนข้อมูลสมาชิกให้ใช้แบบแจ้งความประสงค์/แบบทะเบียนที่เกี่ยวข้อง และให้งานทะเบียนยืนยันว่าปรับข้อมูลแล้วครับ",
       "sourceRefs": [
         {
@@ -2196,7 +2195,7 @@
       "topic": "resignation",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ลาออกได้เมื่อเข้าเงื่อนไขการสิ้นสุดสมาชิกภาพครับ — ต้องยื่นความจำนงเป็นหนังสือ และก่อนยื่นต้องตรวจหนี้ ภาระค้ำประกัน และภาระผูกพันกับสหกรณ์",
       "sourceRefs": [
         {
@@ -2217,7 +2216,7 @@
       "topic": "resignation",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต",
       "sourceRefs": [
         {
@@ -2234,7 +2233,7 @@
       "topic": "resignation",
       "decision": "NEED_INFO",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
       "sourceRefs": [
         {
@@ -2251,7 +2250,7 @@
       "topic": "funeral-association",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "เลือกเรื่องฌาปนกิจที่ต้องการได้เลยครับ — ไม่ต้องเข้าเว็บทางการแล้วหาเมนูเอง\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
       "sourceRefs": [
         {
@@ -2276,7 +2275,7 @@
       "topic": "funeral-association",
       "decision": null,
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "สมัครฌาปนกิจได้โดยทำตามขั้นตอนใน AI นี้ได้เลยครับ ไม่จำเป็นต้องเปิดภาพคำแนะนำเก่าที่มีข้อมูลติดต่อไม่เป็นปัจจุบัน\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
       "sourceRefs": [
         {
@@ -2301,7 +2300,7 @@
       "topic": "funeral-association",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2322,7 +2321,7 @@
       "topic": "funeral-association",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "ก่อนชำระเงินฌาปนกิจ ให้แยกค่าสมัคร ค่าบำรุง เงินสงเคราะห์ล่วงหน้า และยอดค้างสมาคมครับ ขอใบแจ้งยอดปี/รอบที่ถูกต้องจากสมาคม ยืนยันชื่อบัญชี เลขบัญชี และช่องทางปัจจุบันผ่านเจ้าหน้าที่ทางการ แล้วเก็บหลักฐานและให้สมาคมตรวจรับรายการ ไม่ถือว่ารายการหักเงินหรือการชำระสำเร็จแล้วจากข้อความในแชต",
       "sourceRefs": [
         {
@@ -2347,7 +2346,7 @@
       "topic": "funeral-association",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2368,7 +2367,7 @@
       "topic": "funeral-association",
       "decision": "EVIDENCE_LOCK",
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "กรณีสมาชิกฌาปนกิจเสียชีวิต ให้แจ้งสมาคมและยื่นคำขอค่าจัดการศพ/เงินสงเคราะห์ครอบครัวครับ ข้อ 24 ของข้อบังคับ พ.ศ. 2567 ใช้จำนวนสมาชิกที่มีอยู่จริง ณ วันเสียชีวิตประกอบการคำนวณ จึงไม่ใช่วงเงินตายตัวหรือการคืนเงินล่วงหน้าทั้งหมด ยังไม่ยืนยันยอดรับสุทธิ วันจ่าย หรือสิทธิรายบุคคล ให้สมาคมตรวจสมาชิกภาพ ผู้รับเงิน เอกสาร และข้อบังคับฉบับที่มีผลก่อน",
       "sourceRefs": [
         {
@@ -2393,7 +2392,7 @@
       "topic": "funeral-association",
       "decision": null,
       "status": "NOT_VERIFIED",
-      "reason": "Full answer captured, but source document effective version and all substantive claims have not been independently cross-checked.",
+      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
       "answerFull": "สมาชิกควรจัดทำ/ปรับปรุงผู้รับโอนประโยชน์ให้เป็นปัจจุบัน เพราะเกี่ยวข้องกับเงินหรือสิทธิที่เหลือเมื่อสมาชิกถึงแก่กรรมตามข้อบังคับและภาระที่มีกับสหกรณ์ครับ",
       "sourceRefs": [
         {
@@ -2418,7 +2417,7 @@
       "topic": "funeral-association",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2439,7 +2438,7 @@
       "topic": "funeral-association",
       "decision": "SAFE_HANDOFF",
       "status": "SAFE_HANDOFF",
-      "reason": "Scoped evidence-limited handoff: verify that original document does not already contain a usable public answer.",
+      "reason": "Privacy-safe/evidence-limited scoped handoff; sufficiency not yet certified against the full effective primary document.",
       "answerFull": "เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต",
       "sourceRefs": [
         {
@@ -2460,7 +2459,7 @@
       "topic": "funeral-association",
       "decision": "NEED_INFO",
       "status": "PARTIAL",
-      "reason": "Full answer read; response does not directly resolve the specific follow-up or lacks sufficiently actionable detail.",
+      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
       "answerFull": "ติดตามเอกสารที่ส่งแล้วได้ครับ ขอทราบเพียงว่าเป็นเอกสารเรื่องใด เช่น เงินกู้ สมาชิก หรือสวัสดิการ ไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต จากนั้นตรวจสถานะกับช่องทางทางการของสหกรณ์\n\nต้องการติดตามเอกสาร ผลอนุมัติ หรือรายการรับชำระครับ? ระบุเฉพาะประเภทงาน ไม่ต้องส่งข้อมูลเข้าสู่ระบบ",
       "sourceRefs": [
         {
