@@ -27,7 +27,7 @@ try{
   }
   // Click the actual explicit follow-up and verify the user-visible answer.
   await page.locator('#q').fill('ฌาปนกิจค่าบำรุงรายปีเท่าไร');await page.locator('#form').evaluate(el=>el.requestSubmit());
-  await page.getByRole('button',{name:'ฌาปนกิจหักหนี้สหกรณ์หรือไม่',exact:true}).click();
+  await page.locator('#out').getByRole('button',{name:'ฌาปนกิจหักหนี้สหกรณ์หรือไม่',exact:true}).click();
   assert.match(await page.locator('#out .body').innerText(),/แยกหนี้สมาคม.*หนี้เงินกู้สหกรณ์/);
   assert.deepEqual(errors,[]);
   if(process.env.FUNERAL_SCREENSHOT_DIR){fs.mkdirSync(process.env.FUNERAL_SCREENSHOT_DIR,{recursive:true});await page.screenshot({path:path.join(process.env.FUNERAL_SCREENSHOT_DIR,'funeral-'+width+'.png'),fullPage:true});}
