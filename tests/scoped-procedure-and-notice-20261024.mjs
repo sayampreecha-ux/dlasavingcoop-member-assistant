@@ -41,4 +41,13 @@ for(const [q,expected] of [['ใครมีสิทธิ','6 เดือน'
  assert.ok(t.result.answer.includes(expected),q);
  assert.ok(t.result.sources.some(x=>x.url?.includes('drive.google.com/file/d/')),q+' primary source');
 }
-console.log('Scoped loan, scholarship and official approval index 15/15 PASS');
+for(const [q,expected] of [['ใช้เอกสารอะไร','สมุดบัญชี'],['ต้องติดต่อที่ไหน','dla.deposit01@gmail.com']]){
+ const start=app.conversationTurn('เงินฝากออมทรัพย์พิเศษ');
+ const t=app.conversationTurn(q,start.state,{continuation:true});
+ assert.equal(t.state.topic,'depositSpecial',q);
+ assert.equal(t.result.intent,'deposit_scoped_official_procedure',q);
+ assert.equal(t.result.decision,'PROCEDURE_INFORMATION',q);
+ assert.ok(t.result.answer.includes(expected),q);
+ assert.ok(t.result.sources.some(x=>x.url?.includes('dlasavingcoop.com/show.php?No=807')),q);
+}
+console.log('Scoped loan, scholarship, deposits and official approval index 17/17 PASS');
