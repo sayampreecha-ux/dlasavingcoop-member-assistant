@@ -13,4 +13,15 @@ for(const spec of cases){
  assert.match(t.result.answer,spec.final,spec.domain+': missing relevant answer');
  console.log(JSON.stringify({domain:spec.domain,status:'PASS',intent:t.result.intent,topic:t.state.topic}));
 }
+// Previously observed category drop-outs: validate routing, not numerical entitlements.
+for(const spec of [
+ {domain:'shares',start:'การส่งหุ้นรายเดือน',question:'ใช้เอกสารอะไร',expected:/หุ้น/,reject:/ต้องการส่งหรือขอเอกสารเรื่องใด/},
+ {domain:'membership',start:'สมัครสมาชิกสหกรณ์',question:'คุณสมบัติอะไรบ้าง',expected:/สมาชิก/,reject:/ข้อความนี้ยังไม่พอระบุคำถาม/},
+ {domain:'funeral',start:'สมาคมฌาปนกิจสงเคราะห์',question:'สมัครอย่างไร',expected:/ฌาปนกิจ/,reject:/ข้อความนี้ยังไม่พอระบุคำถาม/}
+]){
+ let t=app.conversationTurn(spec.start);t=app.conversationTurn(spec.question,t.state,{continuation:true});
+ assert.match(t.result.answer,spec.expected,spec.domain+': wrong category');
+ assert.doesNotMatch(t.result.answer,spec.reject,spec.domain+': generic context loss');
+ console.log(JSON.stringify({domain:spec.domain,intent:t.result.intent,topic:t.state.topic,answer:t.result.answer.slice(0,150)}));
+}
 console.log('Semantic multi-turn acceptance PASS');
