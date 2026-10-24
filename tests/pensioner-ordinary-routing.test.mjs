@@ -6,7 +6,7 @@ const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const pensioner=html.match(/if\(pensionLoan\)\{[\s\S]*?\n    \}\n    \/\/ Recognize debt consolidation/);
 assert.ok(pensioner,'pensioner routing must exist');
 assert.match(pensioner[0],/KB\.ruleAuthority\.rules\.ordinaryLoanCurrent/,'use shared verified ordinary rule');
-assert.match(pensioner[0],/ordinary\.primaryEvidenceVerified===true/,'require verified evidence');
+assert.match(pensioner[0],/ordinary\?\.primaryEvidenceVerified===true/,'require verified evidence');
 assert.match(pensioner[0],/ORDINARY_RULE_VERIFIED_INDIVIDUAL_ELIGIBILITY_NOT_ASSESSED/,'general information must not certify individual eligibility');
 assert.match(pensioner[0],/ORDINARY_RULE_NOT_VERIFIED/,'retain fallback when ordinary rule is unverified');
 assert.doesNotMatch(pensioner[0],/7\.50%/,'do not hard-code potentially stale pensioner rate');
