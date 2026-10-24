@@ -34,6 +34,18 @@ if(process.argv[1]?.endsWith('funeral-facets-semantic-20261024.mjs')){
  // Existing routes must keep their own authority, including association deposits and loan requirements.
  for(const q of ['กู้หุ้นค้ำต้องสมัครฌาปนกิจไหม','สมัครฌาปนกิจให้คู่สมรสได้หรือไม่','ค่ารายปีคู่สมรสหักจากปันผลหรือไม่','ฌาปนกิจเช็คครบกำหนดวันไหน','เงินฝากสมาคมฌาปนกิจใช้หลักเกณฑ์อะไร'])assert.notEqual(app.answer(q).evidenceState,'PRIMARY_2567_READ_CURRENT_AMENDMENT_UNVERIFIED',q);
  for(const q of ['ฌาปนกิจยอดคงเหลือของผมเท่าไร เลขสมาชิก 123456','ฌาปนกิจโอนเงิน OTP 123456']){const r=app.answer(q);assert.ok(r.privacy);assert.doesNotMatch(r.answer,/123456/);}
+ // Current collection report is found; a draft amendment is not an enacted rule.
+ for(const q of ['ฌาปนกิจปี 2569 จ่ายเท่าไร','ฌาปนกิจปีละ440ใช่ไหม','ฌาปนกิจปีละ200ใช่ไหม']){
+  const r=app.answer(q);assert.equal(r.concern,'funeral_annual');assert.equal(r.decision,'EVIDENCE_LOCK');
+  assert.match(r.answer,/2569 รอบสิงหาคม.*440 บาทและ 200 บาท.*ห้ามเหมารวม/);
+  assert.match(r.answer,/ขีด.*ไม่ใช่หลักฐานว่ายกเลิกค่าบำรุง/);
+  assert.ok(r.sources.some(x=>x.url.includes('1BG3EIKS')));assert.ok(r.sources.some(x=>x.url.includes('No=4904')));
+ }
+ for(const q of ['ฌาปนกิจแรกเข้าเท่าไร','เงินสงเคราะห์ล่วงหน้าคืออะไร','ชำระเงินฌาปนกิจ','ฌาปนกิจลาออกคืนเงินไหม']){
+  const r=app.answer(q);assert.equal(r.decision,'EVIDENCE_LOCK');
+  assert.match(r.details.join(' '),/ร่างแก้ไข.*500 เป็น 1,000 บาท.*ช่องมติ วันที่ และลายมือชื่อในร่างยังว่าง.*ไม่ใช้ร่างนี้รับรอง/);
+  assert.ok(r.sources.some(x=>x.url.includes('1LVWkPbe')));
+ }
  if(process.env.FUNERAL_QA_OUTPUT)fs.writeFileSync(process.env.FUNERAL_QA_OUTPUT,JSON.stringify({semantic:60,rows},null,2));
  console.log('FUNERAL SEMANTIC: 60/60; five explicit follow-up buttons; scope/privacy guards PASS');
 }

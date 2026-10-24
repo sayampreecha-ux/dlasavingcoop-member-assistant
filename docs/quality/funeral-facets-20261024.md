@@ -33,3 +33,14 @@ Production Cloud Browser: question “ฌาปนกิจเสียชีว
 ## Release gate
 
 BLOCKED until registrar effective date/current amendment chain and current-year collection evidence are verified. Keep historical/current separation and existing coverage lock. Do not fabricate current rate or net death benefit. Candidate browser/CI must also pass on exact HEAD before any merge. No approval requested again; user already authorized qualified release. Rollback: revert only this patch if eventually released.
+
+
+## Follow-up: new official evidence (supersedes previous collection blocker)
+
+On re-check, exact HEAD bf2367e523d32e304e607eaf6de9abce4f52d84f has E2E #561, Regression #700 and Share KB #344 all SUCCESS. E2E job 120845493273 logs explicitly report 120/120 real UI funeral cases and 72 release suites; evidence reused only for this unchanged SHA. New source additions below require checks on a new HEAD.
+
+- Official https://www.dlasavingcoop.com/show.php?No=4904 is a distinct updated funeral hub linking the 2569 collection report, unlike No=4161's 2568 report.
+- https://drive.google.com/file/d/1BG3EIKSxdK3681ph7OPw8nb3jWbXoOvV/view opened in Cloud Browser, title referring to August 2569; 458 pages. First two pages label annual maintenance 2569 separately from advance and show different advance amounts (440 and 200 baht). These are public report examples, not a universal tariff or an individual balance lookup. A dash in maintenance is not evidence of cancellation. No raw report rows or member identifiers committed.
+- Official https://www.dlasavingcoop.com/show.php?No=4921 links the extraordinary meeting of 25 September 2569 and https://drive.google.com/file/d/1LVWkPbeMBqSMC7fbLgqn1ZBsoy8CvHHo/view . The 23-page meeting PDF SHA256 is 72c886ee252a925ab68ce447c6131c6519bc7ff6015ae9f3c8b1c1a698cd41f2. Text extraction and rendered visual inspection show agenda item 3.1 and draft amendment no.2 in pages 18-22: propose advance 500 to 1,000 baht, sections 16/18/20, payment method additions. Draft effective-date clause refers to the day after registrar registration, not the meeting date. Motion/date/signature placeholders are blank. Proposal is not proof of adoption or registration.
+
+Remaining specific release evidence: signed adopted amendment no.2, confirmed meeting resolution, registrar acceptance date/reference (or official confirmation of non-adoption), and applicable rule chain for the current case. Current-year report discovery resolves report availability; it does not establish enactment or each member's net payable amount. Keep EVIDENCE_LOCK; do not merge/deploy while rule-version gate remains incomplete. The runtime now adds exact 2569 report links and a draft-vs-enacted warning. All previous semantic assertions retained with seven extra current-report/draft checks. PR #166 source remains unchanged.
