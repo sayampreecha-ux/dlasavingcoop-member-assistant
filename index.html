@@ -3436,7 +3436,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   // Read-only 2567 bylaws, not a certification of current rates or individual rights.
   // Deliberately separate from PR #166 contextualize/conversationTurn follow-up fixes.
   const FUNERAL_EVIDENCE={
-    hub:'https://www.dlasavingcoop.com/show.php?No=4161',
+    hub:'https://www.dlasavingcoop.com/show.php?No=4904',
     bylaws:'https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view',
     annual2568:'https://drive.google.com/file/d/1MkJsa5Bqvx0etn7glg-7F_ZIQC4Ul9om/view',
     hub2569:'https://www.dlasavingcoop.com/show.php?No=4904',
@@ -3471,15 +3471,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       facet='payment';text='ก่อนชำระเงินฌาปนกิจ ให้แยกค่าสมัคร ค่าบำรุง เงินสงเคราะห์ล่วงหน้า และยอดค้างสมาคมครับ ขอใบแจ้งยอดปี/รอบที่ถูกต้องจากสมาคม ยืนยันชื่อบัญชี เลขบัญชี และช่องทางปัจจุบันผ่านเจ้าหน้าที่ทางการ แล้วเก็บหลักฐานและให้สมาคมตรวจรับรายการ ไม่ถือว่ารายการหักเงินหรือการชำระสำเร็จแล้วจากข้อความในแชต';
     }
     if(!facet)return null;
-    const amendmentNotice='พบร่างแก้ไข (ฉบับที่ 2) พ.ศ. 2569 ในเอกสารประชุม 25 กันยายน 2569 เสนอเพิ่มเงินสงเคราะห์ล่วงหน้าจาก 500 เป็น 1,000 บาท และเพิ่มช่องทางชำระ แต่ช่องมติ วันที่ และลายมือชื่อในร่างยังว่าง จึงไม่ใช้ร่างนี้รับรองว่าอัตราใหม่มีผลแล้ว ต้องตรวจฉบับลงนามและหลักฐานนายทะเบียนรับจดทะเบียนก่อน';
-    if(['advance','annual','entry','payment','refund'].includes(facet))refs.push(src('ร่างแก้ไขฉบับที่ 2 พ.ศ. 2569 — ยังไม่ยืนยันการจดทะเบียน',FUNERAL_EVIDENCE.amendmentDraft2569));
+    const amendmentNotice='พบร่างแก้ไข (ฉบับที่ 2) พ.ศ. 2569 ในเอกสารประชุม 25 กันยายน 2569 เสนอเพิ่มเงินสงเคราะห์ล่วงหน้าจาก 500 เป็น 1,000 บาท และเพิ่มช่องทางชำระ แต่ช่องมติ วันที่ และลายมือชื่อในร่างยังว่าง จึงไม่ใช้ร่างนี้รับรองอัตราที่ต้องชำระ ต้องตรวจข้อความฉบับลงนามที่ใช้จริงและประกาศเรียกเก็บของรอบนั้น การตรวจพบไฟล์ร่างไม่ใช่ข้อสรุปว่ายังไม่ได้จดทะเบียน';
+    if(['advance','annual','entry','payment','refund'].includes(facet))refs.push(src('เอกสารประชุม: ร่างแก้ไขฉบับที่ 2 พ.ศ. 2569',FUNERAL_EVIDENCE.amendmentDraft2569));
     if(facet==='annual'){
       text+=' พบรายงานเรียกเก็บปี 2569 รอบสิงหาคมจากหน้าทางการ No.4904 แล้ว ตัวอย่างรายการมีทั้ง 440 บาทและ 200 บาท จึงห้ามเหมารวมเป็นอัตรารายปีเดียวทุกคน และเครื่องหมายขีดในช่องค่าบำรุงไม่ใช่หลักฐานว่ายกเลิกค่าบำรุง ให้สมาคมยืนยันยอดของตนและรอบเรียกเก็บล่าสุดก่อนชำระ';
       refs.push(src('รายงานเรียกเก็บปี 2569 รอบสิงหาคม — ยอดรายบุคคล',FUNERAL_EVIDENCE.annual2569),src('หน้ารวมสมาคมที่เชื่อมรายงานปี 2569',FUNERAL_EVIDENCE.hub2569));
     }
     if(personal(q)||/ของผม|ของฉัน|ของดิฉัน|เลขสมาชิก\s*\d|เลขบัตร/.test(q))return res('funeral','ข้อมูลฌาปนกิจเฉพาะบุคคลต้องให้สมาคมตรวจผ่านช่องทางทางการครับ ไม่ต้องส่งเลขสมาชิก เลขบัตรประชาชน รหัสผ่าน หรือเอกสารส่วนบุคคลในแชต',{suppressClarification:true,privacy:true,decision:'SAFE_HANDOFF',concern:'funeral_private',actions:[['ติดต่อสมาคม',S.contact]],sources:[src('หน้ารวมสมาคมฌาปนกิจ',FUNERAL_EVIDENCE.hub)]});
     return res('funeral',text,{suppressClarification:true,concern:'funeral_'+facet,decision:'EVIDENCE_LOCK',evidenceState:'PRIMARY_2567_READ_CURRENT_AMENDMENT_UNVERIFIED',status:'ตรวจฉบับและยอดปัจจุบันกับสมาคมก่อนดำเนินการ',confidence:historical,
-      details:[historical,...(['advance','annual','entry','payment','refund'].includes(facet)?[amendmentNotice]:[]),'ข้อ 2 กำหนดให้มีผลตั้งแต่วันถัดจากวันที่นายทะเบียนรับจดทะเบียน ยังไม่พบหลักฐานวันจดทะเบียนที่ยืนยันได้จากหน้าที่ตรวจ จึงไม่กำหนดวันมีผลขึ้นเอง','ขั้นตอน: แจ้งประเภทเรื่องและปี/รอบที่ต้องการแก่สมาคม ให้ตรวจฉบับที่มีผลและรายการจริงก่อนดำเนินการ โดยไม่ส่งข้อมูลส่วนบุคคลในแชต'],
+      details:[historical,...(['advance','annual','entry','payment','refund'].includes(facet)?[amendmentNotice]:[]),'ข้อ 2 กำหนดให้มีผลตั้งแต่วันถัดจากวันที่นายทะเบียนรับจดทะเบียน การใช้เงื่อนไขวันจดทะเบียนกับกรณีจริงต้องตรวจฉบับที่ใช้บังคับ ไม่กำหนดวันมีผลขึ้นเอง','ขั้นตอน: แจ้งประเภทเรื่องและปี/รอบที่ต้องการแก่สมาคม ให้ตรวจฉบับที่มีผลและรายการจริงก่อนดำเนินการ โดยไม่ส่งข้อมูลส่วนบุคคลในแชต'],
       actions:[['หน้ารวมสมาคมฌาปนกิจ',FUNERAL_EVIDENCE.hub],['ข้อบังคับ พ.ศ. 2567 ที่ตรวจอ่าน',FUNERAL_EVIDENCE.bylaws],...(['debt','beneficiary'].includes(facet)?[['หนังสือตั้งผู้รับผลประโยชน์ที่เว็บเผยแพร่',FUNERAL_EVIDENCE.beneficiaryForm]]:[]),['ติดต่อสมาคม',S.contact]],
       sources:[src('ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)',FUNERAL_EVIDENCE.bylaws),...refs],
       followups:['ฌาปนกิจเงินสงเคราะห์ล่วงหน้าคืออะไร','ฌาปนกิจค่าบำรุงรายปีเท่าไร','ฌาปนกิจเสียชีวิตขอรับเงินอย่างไร','ฌาปนกิจเปลี่ยนผู้รับประโยชน์อย่างไร','ฌาปนกิจหักหนี้สหกรณ์หรือไม่']});

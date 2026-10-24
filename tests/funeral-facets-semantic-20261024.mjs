@@ -56,6 +56,9 @@ if(process.argv[1]?.endsWith('funeral-facets-semantic-20261024.mjs')){
   assert.ok(r.actions.some(x=>x[1].includes('1sxikYqV3')));
  }
  assert.match(app.answer('ฌาปนกิจหักหนี้สหกรณ์ไหม').answer,/ไม่ถือว่าสมาชิกทุกคนลงนามแบบนี้แล้ว/);
+ // Registration is confirmed by the user; document-text uncertainty must not become a non-registration claim.
+ for(const [, ,qs] of groups.slice(0,8))for(const q of qs){const r=app.answer(q);assert.doesNotMatch(JSON.stringify(r),/ยังไม่ยืนยันการจดทะเบียน|ยังไม่พบหลักฐานวันจดทะเบียน|ต้องตรวจฉบับลงนามและหลักฐานนายทะเบียนรับจดทะเบียนก่อน/);assert.ok(r.actions.some(a=>a[1].includes('No=4904')));}
+ assert.match(app.answer('เงินสงเคราะห์ล่วงหน้าคืออะไร').details.join(' '),/ไม่ใช่ข้อสรุปว่ายังไม่ได้จดทะเบียน/);
  for(const q of ['เงินสงเคราะห์ล่วงหน้าคืออะไร','ฌาปนกิจผู้รับประโยชน์คือใคร'])assert.match(app.answer(q).details.join(' '),/วันถัดจากวันที่นายทะเบียนรับจดทะเบียน/);
  if(process.env.FUNERAL_QA_OUTPUT)fs.writeFileSync(process.env.FUNERAL_QA_OUTPUT,JSON.stringify({semantic:60,rows},null,2));
  console.log('FUNERAL SEMANTIC: 60/60; five explicit follow-up buttons; scope/privacy guards PASS');
