@@ -3040,6 +3040,23 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=answer(raw);
       return {result,state:{...state,result,topic:'guarantor-guidance',question:raw,lastFact:null},query:raw};
     }
+    // Release-review gaps: service-specific procedural questions should never
+    // return an unrelated product overview or fabricate an official timetable.
+    const processScope=(state?.topic==='ordinaryLoanCurrent'&&/^(?:ยื่นที่ไหน|ใช้เวลาพิจารณาเท่าไร)$/.test(raw))?
+      {label:'เงินกู้สามัญ',url:S.ordinaryLoanForms}:
+      (state?.topic==='emergencyLoanCurrent'&&/^ต้องยื่นที่ไหน$/.test(raw))?
+      {label:'เงินกู้ฉุกเฉิน',url:S.emergencyLoan}:
+      (state?.topic==='qualityOfLifeCurrent'&&/^(?:ใครยื่นได้|เปิดรับเมื่อไร|ต้องสมัครอย่างไร|มีหนี้เดิมยื่นได้ไหม)$/.test(raw))?
+      {label:'เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)',url:S.specialLoanForms}:null;
+    if(processScope){
+      const result=res('loan_scoped_procedure_handoff','คำถาม “'+raw+'” เป็นเรื่อง'+processScope.label+'ครับ ต้องตรวจเงื่อนไขหรือกำหนดรับคำขอจากหลักเกณฑ์ที่มีผลและเอกสารของสหกรณ์โดยตรง ระบบยังไม่ยืนยันช่องทางยื่น ระยะเวลาดำเนินการ หรือสิทธิเฉพาะรายจากข้อมูลที่ตรวจได้ โปรดใช้แบบคำขอทางการและสอบถามฝ่ายสินเชื่อก่อนดำเนินการ ไม่ต้องส่งข้อมูลส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['แบบและหลักเกณฑ์'+processScope.label,processScope.url],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src('แบบและหลักเกณฑ์'+processScope.label,processScope.url),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    if(!state?.topic&&/^(?:ประกาศอนุมัติเงินกู้ล่าสุด|ประกาศผลอนุมัติเงินกู้ล่าสุด)$/.test(raw)){
+      const url='https://www.dlasavingcoop.com/list.php?Category=loan';
+      const result=res('approval_public_index','ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถานะรายบุคคลจากประกาศสาธารณะ',{decision:'SAFE_HANDOFF',actions:[['ผลอนุมัติเงินกู้ทางการ',url]],sources:[src('ผลอนุมัติเงินกู้ทางการ',url)]});
+      return {result,state:{...state,result,topic:'approval-public',question:raw,lastFact:null},query:raw};
+    }
     // Independent rule questions are not answers to pending eligibility fact requests.
     // Restrict recovery to verified, unambiguous service topics; retain all other guided flows.
     const ruleFacet= /^(?:แล้ว)?(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|ผ่อนได้กี่งวด|ผ่อนได้กี่ปี|ดอกเบี้ยเท่าไร|ต้องมีผู้ค้ำกี่คน|ใช้เอกสารอะไร|ยื่นที่ไหน|มีข้อจำกัดอายุหรือไม่)$/.test(raw);
@@ -3085,23 +3102,6 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
         const result=res(intent,msg,{decision:'SAFE_HANDOFF',actions:[['ข้อมูลทางการเรื่อง'+scope,url],['ติดต่อสหกรณ์',S.contact]],sources:[src('ข้อมูลทางการเรื่อง'+scope,url),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
         return {result,state:{...state,result,topic:nextTopic,question:raw,lastFact:null},query:raw};
       }
-    }
-    // Release-review gaps: service-specific procedural questions should never
-    // return an unrelated product overview or fabricate an official timetable.
-    const processScope=(state?.topic==='ordinaryLoanCurrent'&&/^(?:ยื่นที่ไหน|ใช้เวลาพิจารณาเท่าไร)$/.test(raw))?
-      {label:'เงินกู้สามัญ',url:S.ordinaryLoanForms}:
-      (state?.topic==='emergencyLoanCurrent'&&/^ต้องยื่นที่ไหน$/.test(raw))?
-      {label:'เงินกู้ฉุกเฉิน',url:S.emergencyLoan}:
-      (state?.topic==='qualityOfLifeCurrent'&&/^(?:ใครยื่นได้|เปิดรับเมื่อไร|ต้องสมัครอย่างไร|มีหนี้เดิมยื่นได้ไหม)$/.test(raw))?
-      {label:'เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)',url:S.specialLoanForms}:null;
-    if(processScope){
-      const result=res('loan_scoped_procedure_handoff','คำถาม “'+raw+'” เป็นเรื่อง'+processScope.label+'ครับ ต้องตรวจเงื่อนไขหรือกำหนดรับคำขอจากหลักเกณฑ์ที่มีผลและเอกสารของสหกรณ์โดยตรง ระบบยังไม่ยืนยันช่องทางยื่น ระยะเวลาดำเนินการ หรือสิทธิเฉพาะรายจากข้อมูลที่ตรวจได้ โปรดใช้แบบคำขอทางการและสอบถามฝ่ายสินเชื่อก่อนดำเนินการ ไม่ต้องส่งข้อมูลส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['แบบและหลักเกณฑ์'+processScope.label,processScope.url],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src('แบบและหลักเกณฑ์'+processScope.label,processScope.url),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
-      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
-    }
-    if(!state?.topic&&/^(?:ประกาศอนุมัติเงินกู้ล่าสุด|ประกาศผลอนุมัติเงินกู้ล่าสุด)$/.test(raw)){
-      const url='https://www.dlasavingcoop.com/list.php?Category=loan';
-      const result=res('approval_public_index','ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถานะรายบุคคลจากประกาศสาธารณะ',{decision:'SAFE_HANDOFF',actions:[['ผลอนุมัติเงินกู้ทางการ',url]],sources:[src('ผลอนุมัติเงินกู้ทางการ',url)]});
-      return {result,state:{...state,result,topic:'approval-public',question:raw,lastFact:null},query:raw};
     }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
