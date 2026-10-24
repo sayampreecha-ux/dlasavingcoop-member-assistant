@@ -3050,6 +3050,16 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const query='ทุนการศึกษาบุตรสมาชิก ได้ทุนเท่าไร',result=answer(query);
       return {result,state:{...state,result,topic:'scholarship',question:query,lastFact:null},query};
     }
+    // Direct, evidence-constrained handoff when a known topic has no verified
+    // document/channel/fee fact. Avoid looping back to a generic topic menu.
+    if(state?.topic==='funeral-association'&&/^(?:แล้ว)?(?:ใช้เอกสารอะไร(?:บ้าง)?|มีเอกสารเพิ่มเติมไหม|คุณสมบัติอะไรบ้าง|ติดต่อที่ไหน)$/.test(raw)){
+      const result=res('funeral_scoped_document_handoff','เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['ข้อบังคับสมาคมฌาปนกิจ',S.funeralRules],['ติดต่อเจ้าหน้าที่สหกรณ์',S.contact]],sources:[src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='resignation'&&/^(?:แล้ว)?ถ้ามีหนี้(?:อยู่)?ทำอย่างไร$/.test(raw)){
+      const result=res('resignation_existing_debt_handoff','กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต',{decision:'SAFE_HANDOFF',actions:[['ติดต่อสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,topic:'resignation',question:raw,lastFact:null},query:raw};
+    }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
     if(prior?.depositOperation&&choice&&/^(?:เงินฝาก)?ออมทรัพย์พิเศษ$/.test(raw)){
