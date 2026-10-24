@@ -34,6 +34,8 @@ jobs:
         run: node tests/e2e-member-answer-engine.mjs
       - name: Real member simulation
         run: node tests/real-member-simulation.mjs
+      - name: Full 11-domain sequential conversation diagnostic (110 turns)
+        run: node tests/full-conversation-continuity-diagnostic.mjs
       - name: Validate cooperative coverage gate
         run: |
           node - <<'NODE'
