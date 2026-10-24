@@ -3,10 +3,10 @@
   "asOf": "2026-10-24",
   "candidateSHA": "999e2b3ebcdf23727ebb98c2be18090dd14bde74",
   "sourceCI": "Regression #727 job 120886442203",
-  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8.",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737.",
   "summary": {
-    "CORRECT": 30,
-    "PARTIAL": 16,
+    "CORRECT": 32,
+    "PARTIAL": 14,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
     "NOT_VERIFIED": 33
@@ -1168,8 +1168,8 @@
       "intent": "deposit_special",
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
+      "status": "CORRECT",
+      "reason": "Full current answer verified against cooperative official special savings page No.807 and withdrawal/closure form PDF 12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj; accurately distinguishes operation-specific documents and lists official submission contact channels, with privacy reminder. Confirmed in Regression #737 full-answer output and 20/20 scoped tests.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
       "sourceRefs": [
         {
@@ -1188,7 +1188,9 @@
           "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
           "url": "https://www.dlasavingcoop.com/show.php?No=807"
         }
-      ]
+      ],
+      "verifiedSource": "https://www.dlasavingcoop.com/show.php?No=807",
+      "verifiedOnSHA": "126e48c19741118dfbd53851be510acb9c672a00"
     },
     {
       "domain": "deposits",
@@ -1197,8 +1199,8 @@
       "intent": "deposit_special",
       "topic": "depositSpecial",
       "decision": "PROCEDURE_INFORMATION",
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
+      "status": "CORRECT",
+      "reason": "Full current answer verified against cooperative official special savings page No.807 and withdrawal/closure form PDF 12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj; accurately distinguishes operation-specific documents and lists official submission contact channels, with privacy reminder. Confirmed in Regression #737 full-answer output and 20/20 scoped tests.",
       "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
       "sourceRefs": [
         {
@@ -1217,7 +1219,9 @@
           "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
           "url": "https://www.dlasavingcoop.com/show.php?No=807"
         }
-      ]
+      ],
+      "verifiedSource": "https://www.dlasavingcoop.com/show.php?No=807",
+      "verifiedOnSHA": "126e48c19741118dfbd53851be510acb9c672a00"
     },
     {
       "domain": "welfare",
