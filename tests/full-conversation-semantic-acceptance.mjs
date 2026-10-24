@@ -24,4 +24,16 @@ for(const spec of [
  assert.doesNotMatch(t.result.answer,spec.reject,spec.domain+': generic context loss');
  console.log(JSON.stringify({domain:spec.domain,intent:t.result.intent,topic:t.state.topic,answer:t.result.answer.slice(0,150)}));
 }
+// No invented funeral documents or guaranteed resignation refund: explicit, scoped handoffs.
+for(const spec of [
+ {topic:'funeral',start:'สมาคมฌาปนกิจสงเคราะห์',question:'ใช้เอกสารอะไร',intent:'funeral_scoped_document_handoff',expected:/ฌาปนกิจ.*(?:เอกสาร|ข้อบังคับ)/},
+ {topic:'resignation',start:'ลาออกได้ไหม',question:'ถ้ามีหนี้อยู่ทำอย่างไร',intent:'resignation_existing_debt_handoff',expected:/หนี้|ภาระค้ำประกัน/}
+]){
+ let turn=app.conversationTurn(spec.start);
+ turn=app.conversationTurn(spec.question,turn.state,{continuation:true});
+ assert.equal(turn.result.intent,spec.intent,spec.topic+': contextual intent');
+ assert.equal(turn.result.decision,'SAFE_HANDOFF',spec.topic+': no unsupported personal determination');
+ assert.match(turn.result.answer,spec.expected,spec.topic+': actionable handoff');
+ assert.ok(turn.result.sources.some(x=>x.url),spec.topic+': official source URL');
+}
 console.log('Semantic multi-turn acceptance PASS');
