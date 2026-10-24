@@ -2982,6 +2982,13 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // A clearly independent repayment request must not inherit the prior guarantor/loan topic.
     if(/(?:ปิดหนี้|ปิดยอดหนี้|ปิดสัญญา|ชำระหนี้ทั้งหมด|ชำระหนี้.*หมด|ปิดหนี้ทั้งหมด)/.test(q)&&/(?:ก่อนครบกำหนด|ก่อนกำหนด|ทั้งหมด|ทำอย่างไร|ต้องทำ)/.test(q))return q;
     if(!previousTopic) return q;
+    // Continue short follow-ups only in unambiguous public service contexts.
+    // Explicitly named other services must use their own route.
+    const serviceFollow=/^(?:แล้ว)?(?:สมัครอย่างไร|คุณสมบัติอะไรบ้าง|จ่ายเงินอย่างไร|ชำระเงินอย่างไร|ใช้เอกสารอะไร(?:บ้าง)?|ต้องทำอย่างไร|ยื่น(?:ได้)?ที่ไหน|ติดต่อที่ไหน|ต้องติดต่อที่ไหน|มีค่าธรรมเนียมไหม|ต้องเป็นสมาชิกนานไหม|ถ้ามีหนี้ทำอย่างไร|แจ้งเสียชีวิตอย่างไร|มีเอกสารเพิ่มเติมไหม)$/.test(q);
+    const switchService=/เงินกู้|กู้|ฝาก|สวัสดิการ|ทุนการศึกษา|หุ้น|ฌาปนกิจ|สมัครสมาชิก|ลาออก|ประกาศ|ข่าว|ปันผล/.test(q);
+    if(previousTopic==='shares'&&serviceFollow&&!switchService)return 'การเปลี่ยนอัตราหุ้นรายเดือน '+q;
+    if(previousTopic==='membership-apply'&&serviceFollow&&!switchService)return 'สมัครสมาชิกสหกรณ์ '+q;
+    if(previousTopic==='funeral-association'&&serviceFollow&&!switchService)return 'สมาคมฌาปนกิจสงเคราะห์ '+q;
     // Keep the pensioner ordinary-loan topic only for short loan-rule facets;
     // expressly named other products and independent services use normal routing.
     if(previousTopic==='ordinary-pensioner'&&!loanProduct(q)&&/^(?:(?:แล้ว|ถ้า|ขอถาม|ครับ|ค่ะ|คะ)\s*)?(?:กู้ได้(?:สูงสุด)?เท่า(?:ไร|ไหร่)|ได้สูงสุดเท่า(?:ไร|ไหร่)|คุณสมบัติ(?:อะไรบ้าง|อย่างไร|ล่ะ)?|เงื่อนไข(?:อะไรบ้าง)?|(?:เป็น)?สมาชิกกี่เดือน|ผ่อน(?:ได้)?กี่(?:ปี|งวด)|กี่งวด|อายุ(?:ไม่เกิน|สิ้นสุดสัญญา|เท่าไร)|ต้องมี(?:ผู้ค้ำ|คนค้ำ)กี่คน|(?:ต้อง)?ใช้เอกสารอะไร(?:บ้าง)?|ดอกเบี้ยเท่า(?:ไร|ไหร่)|วงเงิน(?:สูงสุด)?เท่า(?:ไร|ไหร่))/.test(q)&&!/สวัสดิการ|เงินฝาก|หุ้นรายเดือน|ข่าว|ประกาศ|ผู้ค้ำ(?:จะ|เป็นผู้)|คนค้ำ(?:จะ|เกษียณ)|ค้ำ(?:ให้|ผู้อื่น)/.test(q))return 'เงินกู้สำหรับผู้รับบำนาญ '+q;
@@ -2998,6 +3005,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function topicOf(q,r){
     if(r?.intent==='ordinary_quality_phase2_archived')return 'ordinary-quality-2569-phase2';
+    if(/^share_/.test(r?.intent||'')&&/หุ้น/.test(q))return 'shares';
+    if(r?.intent==='member_apply'||r?.intent==='member_change_info'&&/สมัครสมาชิก/.test(q))return 'membership-apply';
+    if(r?.intent==='funeral'&&/ฌาปนกิจ/.test(q))return 'funeral-association';
     if(['ordinary_pensioner_evidence_review','ordinary_pensioner_general_guidance'].includes(r?.intent))return 'ordinary-pensioner';
     if(r?.scenario?.target)return r.scenario.target;
     if(r?.intent==='scholarship'||r?.intent==='live_schedule'&&/ทุน.*(?:ลูก|บุตร)|สวัสดิการ.*การศึกษาบุตร/.test(q))return 'scholarship';
