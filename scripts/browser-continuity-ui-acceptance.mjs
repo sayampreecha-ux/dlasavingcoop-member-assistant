@@ -28,6 +28,9 @@ try{
    ['คุณสมบัติอะไรบ้าง',/สมาชิก/],
    ['สมาคมฌาปนกิจสงเคราะห์',null],
    ['สมัครอย่างไร',/ฌาปนกิจ/],
+   ['ใช้เอกสารอะไร',/ฌาปนกิจ/],
+   ['ลาออกได้ไหม',null],
+   ['ถ้ามีหนี้อยู่ทำอย่างไร',/หนี้|ภาระค้ำประกัน/],
   ];
   for(const [question,expected] of scripted){
    await page.locator('#q').fill(question);
@@ -42,4 +45,4 @@ try{
  }
 }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({kind:'real-ui-multi-turn',rows}));
-assert.equal(rows.length,28);
+assert.equal(rows.length,34);
