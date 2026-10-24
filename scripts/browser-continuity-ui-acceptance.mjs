@@ -22,6 +22,12 @@ try{
    ['ได้รับเท่าไร',/1,?000[ ]*บาท/],
    ['ทุนการศึกษาบุตรสมาชิก',null],
    ['ได้ทุนเท่าไร',/ทุน|การศึกษา|เกณฑ์|ประกาศ/],
+   ['การส่งหุ้นรายเดือน',null],
+   ['ใช้เอกสารอะไร',/หุ้น/],
+   ['สมัครสมาชิกสหกรณ์',null],
+   ['คุณสมบัติอะไรบ้าง',/สมาชิก/],
+   ['สมาคมฌาปนกิจสงเคราะห์',null],
+   ['สมัครอย่างไร',/ฌาปนกิจ/],
   ];
   for(const [question,expected] of scripted){
    await page.locator('#q').fill(question);
@@ -36,4 +42,4 @@ try{
  }
 }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({kind:'real-ui-multi-turn',rows}));
-assert.equal(rows.length,16);
+assert.equal(rows.length,28);
