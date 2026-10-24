@@ -36,6 +36,8 @@ jobs:
         run: node tests/real-member-simulation.mjs
       - name: Full 11-domain sequential conversation diagnostic (110 turns)
         run: node tests/full-conversation-continuity-diagnostic.mjs
+      - name: Semantic chained-loan welfare scholarship acceptance
+        run: node tests/full-conversation-semantic-acceptance.mjs
       - name: Validate cooperative coverage gate
         run: |
           node - <<'NODE'
