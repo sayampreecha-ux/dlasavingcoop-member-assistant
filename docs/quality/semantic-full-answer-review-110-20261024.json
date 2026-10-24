@@ -3,13 +3,13 @@
   "asOf": "2026-10-24",
   "candidateSHA": "999e2b3ebcdf23727ebb98c2be18090dd14bde74",
   "sourceCI": "Regression #727 job 120886442203",
-  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected.",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8.",
   "summary": {
-    "CORRECT": 22,
+    "CORRECT": 27,
     "PARTIAL": 16,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
-    "NOT_VERIFIED": 41
+    "NOT_VERIFIED": 36
   },
   "releaseGate": "BLOCKED",
   "blockers": [
@@ -1433,8 +1433,8 @@
       "intent": "scholarship",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Full answer cross-checked against signed 31 Jul 2569 scholarship announcement §§3–8, accessed as complete readable PDF via cooperative-linked Google Drive file 1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt on 24 Oct 2569; year-specific public rule only, not individual award.",
       "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
       "sourceRefs": [
         {
@@ -1445,7 +1445,8 @@
           "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
           "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
-      ]
+      ],
+      "verifiedSource": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
     },
     {
       "domain": "scholarships",
@@ -1475,8 +1476,8 @@
       "intent": "scholarship",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Full answer cross-checked against signed 31 Jul 2569 scholarship announcement §§3–8, accessed as complete readable PDF via cooperative-linked Google Drive file 1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt on 24 Oct 2569; year-specific public rule only, not individual award.",
       "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
       "sourceRefs": [
         {
@@ -1487,7 +1488,8 @@
           "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
           "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
-      ]
+      ],
+      "verifiedSource": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
     },
     {
       "domain": "scholarships",
@@ -1517,8 +1519,8 @@
       "intent": "scholarship",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Full answer cross-checked against signed 31 Jul 2569 scholarship announcement §§3–8, accessed as complete readable PDF via cooperative-linked Google Drive file 1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt on 24 Oct 2569; year-specific public rule only, not individual award.",
       "answerFull": "เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา",
       "sourceRefs": [
         {
@@ -1529,7 +1531,8 @@
           "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
           "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
-      ]
+      ],
+      "verifiedSource": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
     },
     {
       "domain": "scholarships",
@@ -1538,8 +1541,8 @@
       "intent": "scholarship",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Full answer cross-checked against signed 31 Jul 2569 scholarship announcement §§3–8, accessed as complete readable PDF via cooperative-linked Google Drive file 1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt on 24 Oct 2569; year-specific public rule only, not individual award.",
       "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
       "sourceRefs": [
         {
@@ -1550,7 +1553,8 @@
           "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
           "url": "https://www.dlasavingcoop.com/show.php?No=4887"
         }
-      ]
+      ],
+      "verifiedSource": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
     },
     {
       "domain": "scholarships",
@@ -1580,15 +1584,16 @@
       "intent": "scholarship_verified_grades",
       "topic": "scholarship",
       "decision": "RULE_INFORMATION",
-      "status": "NOT_VERIFIED",
-      "reason": "Original-document effective-version adjudication of the complete response remains pending.",
+      "status": "CORRECT",
+      "reason": "Full answer cross-checked against signed 31 Jul 2569 scholarship announcement §§3–8, accessed as complete readable PDF via cooperative-linked Google Drive file 1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt on 24 Oct 2569; year-specific public rule only, not individual award.",
       "answerFull": "ประกาศทุนส่งเสริมการศึกษาของบุตรสมาชิกปี 2569 ข้อ 3–5 ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำเป็นคุณสมบัติ แต่กำหนดให้บุตรที่ชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) กำลังศึกษาในภาคเรียนที่ 1 ปีการศึกษา 2569 และใช้เกณฑ์คะแนนพิจารณาตามข้อ 5 การไม่มีเกณฑ์เกรดขั้นต่ำไม่ได้แปลว่าได้รับทุนอัตโนมัติ ต้องผ่านคุณสมบัติอื่นและการจัดสรรตามคะแนน",
       "sourceRefs": [
         {
           "title": "ประกาศทุนส่งเสริมการศึกษาบุตรสมาชิก 2569",
           "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
         }
-      ]
+      ],
+      "verifiedSource": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
     },
     {
       "domain": "scholarships",
