@@ -3025,6 +3025,21 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=answer(raw);
       return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
     }
+    // Independent rule questions are not answers to pending eligibility fact requests.
+    // Restrict recovery to verified, unambiguous service topics; retain all other guided flows.
+    const ruleFacet= /^(?:แล้ว)?(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|ผ่อนได้กี่งวด|ผ่อนได้กี่ปี|ดอกเบี้ยเท่าไร|ต้องมีผู้ค้ำกี่คน|ใช้เอกสารอะไร|ยื่นที่ไหน|มีข้อจำกัดอายุหรือไม่)$/.test(raw);
+    if(state?.topic==='ordinaryLoanCurrent'&&prior?.requiredFact&&ruleFacet){
+      const query='เงินกู้สามัญ '+raw, result=answer(query);
+      return {result,state:{...state,result,topic:'ordinaryLoanCurrent',question:query,lastFact:null},query};
+    }
+    if(state?.topic==='welfare:childbirth'&&/^(?:แล้ว)?ได้รับเท่าไร$/.test(raw)){
+      const query='สวัสดิการคลอดบุตร ได้รับเงินเท่าไร',result=answer(query);
+      return {result,state:{...state,result,topic:'welfare:childbirth',question:query,lastFact:null},query};
+    }
+    if(state?.topic==='scholarship'&&/^(?:แล้ว)?ได้ทุนเท่าไร$/.test(raw)){
+      const query='ทุนการศึกษาบุตรสมาชิก ได้ทุนเท่าไร',result=answer(query);
+      return {result,state:{...state,result,topic:'scholarship',question:query,lastFact:null},query};
+    }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
     if(prior?.depositOperation&&choice&&/^(?:เงินฝาก)?ออมทรัพย์พิเศษ$/.test(raw)){
