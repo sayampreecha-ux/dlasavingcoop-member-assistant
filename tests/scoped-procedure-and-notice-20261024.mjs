@@ -34,4 +34,11 @@ const emergency=app.conversationTurn('ต้องยื่นที่ไหน
 assert.ok(emergency.result.answer.includes('dlasavingloan01@gmail.com'),'emergency signed PDF section 8');
 const special=app.conversationTurn('ใครยื่นได้',app.conversationTurn('เงินกู้พิเศษรวมหนี้คืออะไร').state,{continuation:true});
 assert.ok(special.result.answer.includes('36 งวด')&&special.result.answer.includes('60 งวด'),'special signed PDF section 4');
-console.log('Scoped loan procedure and official approval index 12/12 PASS');
+for(const [q,expected] of [['ใครมีสิทธิ','6 เดือน'],['ส่งที่ไหน','111/1'],['มีเงื่อนไขผลการเรียนไหม','ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำ']]){
+ const start=app.conversationTurn('ทุนการศึกษาบุตรสมาชิก');
+ const t=app.conversationTurn(q,start.state,{continuation:true});
+ assert.equal(t.state.topic,'scholarship',q);
+ assert.ok(t.result.answer.includes(expected),q);
+ assert.ok(t.result.sources.some(x=>x.url?.includes('drive.google.com/file/d/')),q+' primary source');
+}
+console.log('Scoped loan, scholarship and official approval index 15/15 PASS');
