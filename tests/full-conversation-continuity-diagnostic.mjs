@@ -13,7 +13,7 @@ for(const [domain,questions] of scenarios){
    assert.ok(t&&t.result&&typeof t.result.answer==='string'&&t.result.answer.trim(),'no answer');
    assert.ok(t.state&&typeof t.state.topic==='string','missing conversation topic');
    const answer=t.result.answer;
-   rows.push({domain,turn:i+1,question:q,intent:t.result.intent||null,topic:t.state.topic,decision:t.result.decision||null,sourceCount:Array.isArray(t.result.sources)?t.result.sources.length:0,answerPreview:answer.slice(0,160),runtime:'PASS',semantic:'NOT_VERIFIED'});
+   rows.push({domain,turn:i+1,question:q,intent:t.result.intent||null,topic:t.state.topic,decision:t.result.decision||null,sourceCount:Array.isArray(t.result.sources)?t.result.sources.length:0,answerPreview:answer.slice(0,160),answerFull:answer,sourceRefs:(t.result.sources||[]).map(x=>({title:x.title,url:x.url})),runtime:'PASS',semantic:'NOT_VERIFIED'});
    state=t.state;
   }catch(e){rows.push({domain,turn:i+1,question:q,runtime:'FAIL',semantic:'NOT_VERIFIED',error:String(e.message||e)});state=undefined;}
  }
