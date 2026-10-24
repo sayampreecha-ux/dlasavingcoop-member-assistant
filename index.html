@@ -3036,7 +3036,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
     }
     // Official deposit forms specify submission contacts; avoid an unrelated generic menu.
-    if(state?.topic==='depositSpecial'&&/^(?:ต้องติดต่อที่ไหน|ใช้เอกสารอะไร)$/.test(raw)){
+    if(state?.topic==='depositSpecial'&&!prior?.depositOperation&&/^(?:ต้องติดต่อที่ไหน|ใช้เอกสารอะไร)$/.test(raw)){
       const url=S.depositForms;
       const msg=raw==='ต้องติดต่อที่ไหน'?
         'เงินฝากออมทรัพย์พิเศษ ติดต่อฝ่ายเงินฝากของสหกรณ์ได้ตามหน้าเอกสารทางการ โทร 092-391-5896 หรือ 091-727-5236 ส่งเอกสารได้ที่สำนักงานเลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรืออีเมล dla.deposit01@gmail.com ตามขั้นตอนของสหกรณ์ โปรดตรวจช่องทางล่าสุดก่อนส่งเอกสารส่วนบุคคล':
