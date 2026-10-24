@@ -27,8 +27,15 @@ Source: https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?u
 Source: https://www.dlasavingcoop.com/show.php?No=4946
 - Published page identifies **ordinary loan approval** round cut-off 15 Oct 2569, transfer 30 Oct 2569, first installment Nov 2569. This is public **round-specific** data, not private member status or a promise for other rounds.
 
+## Scholarship 2569 primary notice, signed 31 July 2569
+Source: https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing
+- PDF text read directly: §3 ordinary members at least 6 months, no unpaid shares/loan installments in the relevant accounting year, did not receive 2567/2568 scholarship, legal child (not adopted) enrolled semester 1/2569; committee members and advisers excluded.
+- §4 grants: higher education 4,000 THB, secondary 3,000, primary 2,500, pre-primary 1,500, subject to award numbers/committee selection.
+- §§5–7: selection uses seniority, previous awards, legal children, cooperative participation and election voting; **no minimum GPA threshold** stated. Applications 1–31 August 2569, in person or post/courier to 111/1 Moo 1 Soi Khlong Luang 8, Khlong Nueng, Khlong Luang, Pathum Thani 12120. §8 announces results within 90 days of closing date.
+- Explicit follow-ups 'ใครมีสิทธิ', 'ส่งที่ไหน', 'มีเงื่อนไขผลการเรียนไหม' now use signed official facts, not generic SAFE_HANDOFF.
+
 ## Findings / outstanding work
 - Previously generic 'ยื่นที่ไหน', 'ต้องยื่นที่ไหน', special debt 'ใครยื่นได้', 'ต้องสมัครอย่างไร', 'มีหนี้เดิมยื่นได้ไหม' can now be answered from actual §§4–8, so keeping them as SAFE_HANDOFF would be needlessly incomplete.
-- No signed PDF reviewed for the **loan interest rate**; do not treat any 7.50% or 6.50% claim as newly certified by this review. Need to read the latest interest-rate announcement.
-- Remaining domains (shares, deposits, welfare, scholarships, membership, funeral, guarantor beyond ordinary and notices) still need primary-version checking and per-question 110 QA adjudication. Do not mark 110/110 CORRECT.
+- Also downloaded and visually inspected the signed 11 Nov 2567 loan interest announcement: https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing. It states emergency and ordinary 7.50%, special real-estate-secured quality-of-life debt consolidation 6.50%, effective 11 Nov 2567. This confirms the **historical source text** but does not rule out later interest-rate revisions; continue to qualify rate claims by effective date and check for later notices.
+- Remaining domains (shares, deposits, welfare, membership, funeral, guarantor beyond ordinary and notices) still need primary-version checking and per-question 110 QA adjudication. Do not mark 110/110 CORRECT.
 - This evidence file is internal audit text only; no member personal data and no scanned PDF copies are committed.
