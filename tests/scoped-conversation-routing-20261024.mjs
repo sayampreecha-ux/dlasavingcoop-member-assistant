@@ -57,3 +57,23 @@ for(const [q,required] of [['ใครมีสิทธิ',/สมาชิก
  assert.ok(t.result.sources.some(s=>s.url.includes('1sxikYqV')));
  assert.equal(t.result.decision,'EVIDENCE_LOCK');
 }
+
+// Existing-debt questions need the public rule rather than another fact prompt.
+{
+ const t=app.conversationTurn('ถ้ายังมีหนี้อยู่ทำอย่างไร',app.conversationTurn('เงินกู้ฉุกเฉินกู้ได้ไหม').state,{continuation:true});
+ assert.equal(t.result.intent,'emergency_existing_debt_public_rule');
+ assert.equal(t.result.decision,'RULE_INFORMATION');
+ assert.match(t.result.answer,/3 งวด.*หักกลบ/);
+ assert.ok(t.result.sources.some(x=>x.url.includes('1XZYfuX')));
+}
+for(const start of ['สวัสดิการคลอดบุตร','ทุนการศึกษาบุตรสมาชิก','สมัครสมาชิกสหกรณ์']){
+ const t=app.conversationTurn('ติดตามผลอย่างไร',app.conversationTurn(start).state,{continuation:true});
+ assert.equal(t.result.intent,'scoped_application_tracking_handoff');
+ assert.equal(t.result.decision,'SAFE_HANDOFF');
+ assert.doesNotMatch(t.result.answer,/เป็นเอกสารเรื่องใด|บริการใด|ต้องการติดตามเอกสาร/);
+}
+{
+ const t=app.conversationTurn('คุณสมบัติอะไรบ้าง',app.conversationTurn('เงินกู้สามัญกู้ได้ไหม').state,{continuation:true});
+ assert.match(t.result.answer,/ประกันชีวิต/);
+ assert.match(t.result.answer,/สหกรณ์อื่น/);
+}

@@ -32,6 +32,13 @@ jobs:
         run: node scripts/browser-loan-product-scope.mjs
       - name: Real UI multi-turn acceptance mobile and desktop
         run: node scripts/browser-continuity-ui-acceptance.mjs
+      - name: Upload full 110-turn browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-110-evidence
+          path: continuity-110-evidence/
+          if-no-files-found: error
       - name: Upload loan product scope evidence
         if: always()
         uses: actions/upload-artifact@v4
