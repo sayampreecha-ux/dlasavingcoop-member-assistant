@@ -75,4 +75,26 @@ console.log('Scoped share form/debt/balance follow-ups 6/6 PASS');
 }
 console.log('Verified funeral application follow-up 1/1 PASS');
 
+// Preserve membership context when asking when first share deduction begins.
+{
+ let t=app.conversationTurn('สมัครสมาชิกสหกรณ์');
+ t=app.conversationTurn('ส่งหุ้นเมื่อไร',t.state,{continuation:true});
+ assert.equal(t.result.intent,'membership_first_share_deduction_handoff');
+ assert.equal(t.result.decision,'SAFE_HANDOFF');
+ assert.equal(t.state.topic,'membership-apply');
+ assert.match(t.result.answer,/งวดเริ่มหักค่าหุ้น/);
+ assert.doesNotMatch(t.result.answer,/เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อย/);
+}
+// Funeral application tracking must remain association-specific and privacy-safe.
+{
+ let t=app.conversationTurn('สมาคมฌาปนกิจสงเคราะห์');
+ t=app.conversationTurn('ติดตามคำขอได้อย่างไร',t.state,{continuation:true});
+ assert.equal(t.result.intent,'funeral_application_tracking_handoff');
+ assert.equal(t.result.decision,'SAFE_HANDOFF');
+ assert.equal(t.state.topic,'funeral-association');
+ assert.match(t.result.answer,/ผลการอนุมัติรับสมัครสมาชิกสมาคม/);
+ assert.ok(t.result.sources.some(x=>x.url==='https://www.dlasavingcoop.com/show.php?No=4161'));
+}
+console.log('Membership share-start + funeral tracking 2/2 PASS');
+
 console.log('Semantic multi-turn acceptance PASS');
