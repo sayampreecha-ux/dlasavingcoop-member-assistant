@@ -14,12 +14,20 @@ for(const spec of cases){
  for(const q of spec.prefix||[])t=app.conversationTurn(q,t.state,{continuation:true});
  for(const q of spec.questions){
   t=app.conversationTurn(q,t.state,{continuation:true});
+  const officialNoticeDocs=spec.name==='public-notice'&&q==='ดูเอกสารได้ที่ไหน';
+  if(officialNoticeDocs){
+    assert.equal(t.result.intent,'approval_public_documents_verified',spec.name+': '+q+' direct intent');
+    assert.equal(t.result.decision,'PROCEDURE_INFORMATION',spec.name+': '+q+' must answer public-document location');
+    assert.match(t.result.answer,/ประกาศผลอนุมัติเงินกู้/,spec.name+': '+q+' relevant answer');
+    assert.ok(t.result.sources.some(x=>x.url==='https://www.dlasavingcoop.com/list.php?Category=loan'),spec.name+': '+q+' official source');
+    assert.doesNotMatch(t.result.answer,/เลขประจำตัวประชาชน\s*\d{13}/,spec.name+': '+q+' privacy');
+  }
   const scholarshipDirect=spec.name==='scholarship';
-  assert.equal(t.result.intent,scholarshipDirect?(q==='มีเงื่อนไขผลการเรียนไหม'?'scholarship_verified_grades':'scholarship'):spec.intent,spec.name+': '+q+' intent');
-  if(scholarshipDirect)assert.notEqual(t.result.decision,'SAFE_HANDOFF',spec.name+': '+q+' should use verified public rules');
+  if(!officialNoticeDocs)assert.equal(t.result.intent,scholarshipDirect?(q==='มีเงื่อนไขผลการเรียนไหม'?'scholarship_verified_grades':'scholarship'):spec.intent,spec.name+': '+q+' intent');
+  if(officialNoticeDocs){}else if(scholarshipDirect)assert.notEqual(t.result.decision,'SAFE_HANDOFF',spec.name+': '+q+' should use verified public rules');
   else assert.equal(t.result.decision,'SAFE_HANDOFF',spec.name+': '+q+' decision');
   assert.equal(t.state.topic,spec.topic,spec.name+': '+q+' topic');
-  assert.match(t.result.answer,spec.scope,spec.name+': '+q+' service');
+  if(!officialNoticeDocs)assert.match(t.result.answer,spec.scope,spec.name+': '+q+' service');
   assert.ok(t.result.sources.some(s=>s.url?.startsWith('https://')),spec.name+': '+q+' source');
   assert.doesNotMatch(t.result.answer,/เป็นเงินกู้ประเภทไหนครับ|ข้อความนี้ยังไม่พอระบุคำถาม|ต้องการส่งหรือขอเอกสารเรื่องใดครับ/,spec.name+': '+q);
   n++;
