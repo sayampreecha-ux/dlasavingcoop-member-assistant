@@ -3207,6 +3207,12 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const isMember=followTopic==='membership-apply'&&/^(?:สมัครได้ที่ไหน|มีค่าธรรมเนียมหรือไม่)$/.test(raw);
       const isNotice=(followTopic==='approval-public'||(followTopic==='loan'&&prior?.intent==='notices'))&&/^(?:เป็นรอบไหน|วันโอนเมื่อไร|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ตรวจสถานะตัวเองได้ไหม|ถ้ายังไม่พบต้องทำอย่างไร|ต้องติดต่อใคร|มีประกาศใหม่หรือยัง)$/.test(raw);
       const isGuarantor=(followTopic==='guarantor-guidance'||(followTopic==='loan'&&prior?.intent==='guarantor_center'))&&/^(?:ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
+      // Public notice document links are directly answerable; keep personal status locked.
+      if(isNotice&&raw==='ดูเอกสารได้ที่ไหน'){
+        const official='https://www.dlasavingcoop.com/list.php?Category=loan';
+        const result=res('approval_public_documents_verified','เปิดเอกสารประกาศผลอนุมัติเงินกู้ได้ที่หมวดผลอนุมัติเงินกู้บนเว็บไซต์สหกรณ์ครับ กรุณาเลือกประเภทเงินกู้และรอบประกาศให้ตรงกับคำขอ ข้อมูลในประกาศสาธารณะไม่ใช่การยืนยันสิทธิหรือสถานะของสมาชิกเฉพาะราย และไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต',{decision:'PROCEDURE_INFORMATION',actions:[['เปิดหมวดประกาศผลอนุมัติเงินกู้',official]],sources:[src('หมวดประกาศผลอนุมัติเงินกู้ทางการ',official)]});
+        return {result,state:{...state,result,topic:'approval-public',question:raw,lastFact:null},query:raw};
+      }
       if(isChild||isScholar||isMember||isNotice||isGuarantor){
         const scope=isChild?'สวัสดิการคลอดบุตร':isScholar?'ทุนการศึกษาบุตรสมาชิก':isMember?'การสมัครสมาชิกสหกรณ์':isNotice?'ประกาศอนุมัติเงินกู้สาธารณะ':'การค้ำประกันเงินกู้';
         const url=isChild?S.welfareForms:isScholar?S.notices:isMember?S.memberForms:isNotice?'https://www.dlasavingcoop.com/list.php?Category=loan':S.ordinaryLoanForms;
