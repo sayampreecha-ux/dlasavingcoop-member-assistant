@@ -3150,6 +3150,20 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const query='ทุนการศึกษาบุตรสมาชิก ได้ทุนเท่าไร',result=answer(query);
       return {result,state:{...state,result,topic:'scholarship',question:query,lastFact:null},query};
     }
+    // A new member's first share-deduction date is an individual payroll/
+    // approval fact, not the generic share-change menu.
+    if(state?.topic==='membership-apply'&&raw==='ส่งหุ้นเมื่อไร'){
+      const form='https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing';
+      const result=res('membership_first_share_deduction_handoff','การส่งหุ้นรายเดือนของผู้สมัครใหม่ต้องตรวจวันที่รับเป็นสมาชิกและงวดเริ่มหักค่าหุ้นกับฝ่ายทะเบียนสหกรณ์และหน่วยงานต้นสังกัดครับ ใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่มีหนังสือยินยอมให้หักเงิน แต่ไม่ได้ยืนยันวันหักงวดแรกของสมาชิกแต่ละคน จึงยังไม่ระบุวันเริ่มส่งหุ้นให้โดยไม่มีหลักฐาน และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',sources:[src('แบบสมัครสมาชิกสามัญและเอกสารยินยอมหักเงิน',form),src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['แบบฟอร์มสมัครสมาชิก',S.memberForms],['ติดต่อฝ่ายทะเบียน',S.contact]]});
+      return {result,state:{...state,result,topic:'membership-apply',question:raw,lastFact:null},query:raw};
+    }
+    // Track funeral-association applications through the correct association,
+    // never by inferring an approval from an unauthenticated public chat.
+    if(state?.topic==='funeral-association'&&raw==='ติดตามคำขอได้อย่างไร'){
+      const hub='https://www.dlasavingcoop.com/show.php?No=4161';
+      const result=res('funeral_application_tracking_handoff','การติดตามคำขอสมัครสมาคมฌาปนกิจสงเคราะห์ ให้ติดต่อเจ้าหน้าที่สมาคมโดยตรงและแจ้งว่าเป็นเรื่องสมัครสมาชิกสมาคม หรือเปิดหัวข้อผลการอนุมัติรับสมัครสมาชิกสมาคมจากศูนย์รวมข้อมูลฌาปนกิจทางการครับ ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอหรือผลอนุมัติรายบุคคล จึงไม่รับรองว่าอนุมัติแล้วและไม่ต้องส่งเลขสมาชิกหรือเอกสารส่วนตัวในแชต',{decision:'SAFE_HANDOFF',sources:[src('ศูนย์รวมข้อมูลและผลอนุมัติสมาคมฌาปนกิจ',hub),src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ผลอนุมัติสมาชิกสมาคม',hub],['ติดต่อสหกรณ์',S.contact]]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
     // Membership application form (8 May 2569), published by the cooperative:
     // answer only the publicly documented category and checklist; board approval
     // and later amendments remain authoritative for an individual application.
