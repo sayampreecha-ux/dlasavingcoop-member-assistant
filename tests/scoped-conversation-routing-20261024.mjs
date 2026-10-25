@@ -77,3 +77,15 @@ for(const start of ['สวัสดิการคลอดบุตร','ท�
  assert.match(t.result.answer,/ประกันชีวิต/);
  assert.match(t.result.answer,/สหกรณ์อื่น/);
 }
+
+// Real approval-index path must keep the selected notice, not just offline topic.
+{
+ const fs=await import('node:fs');const d=JSON.parse(fs.readFileSync(new URL('../data/current-events.json',import.meta.url),'utf8'));
+ const a=loadMemberEngine();a.setApprovalIndex(d.approvalIndex,d.lastCheckedAt);
+ let t=a.conversationTurn('ประกาศผลอนุมัติเงินกู้สามัญล่าสุด');assert.equal(t.state.noticeId,'official-4946');
+ for(const [q,must] of [['เป็นรอบไหน',/15 ตุลาคม 2569/],['วันโอนเมื่อไร',/30 ตุลาคม 2569/],['งวดแรกเมื่อไร',/พฤศจิกายน 2569/],['ดูเอกสารได้ที่ไหน',/ประกาศสาธารณะ/],['มีรายชื่อหรือไม่',/ไม่ยืนยันว่าผู้ถามได้รับอนุมัติ/],['ตรวจสถานะตัวเองได้ไหม',/ยังยืนยันสถานะของคุณไม่ได้/],['ถ้ายังไม่พบต้องทำอย่างไร',/ยังไม่ใช่ผลปฏิเสธ/],['ต้องติดต่อใคร',/ฝ่ายสินเชื่อ/],['มีประกาศใหม่หรือยัง',/ข้อมูลตรวจสอบล่าสุด/]]){
+  t=a.conversationTurn(q,t.state,{continuation:true});assert.equal(t.state.topic,'approval-announcement');assert.match(t.result.answer,must,q);assert.equal(t.state.noticeId,'official-4946','notice product/round must remain ordinary');
+  assert.doesNotMatch(t.result.answer,/ข้อความนี้ยังไม่พอระบุคำถาม|ต้องการส่งหรือขอเอกสารเรื่องใด|เป็นเงินกู้ประเภทไหนครับ/);
+  assert.ok(t.result.sources.length>0);
+ }
+}

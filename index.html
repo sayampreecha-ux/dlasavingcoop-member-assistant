@@ -3030,6 +3030,18 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(immediate){const selected=approvalRecords.find(x=>immediate.sources?.some(y=>y.url===x.directSourceUrl));return {result:immediate,state:{...state,result:immediate,topic:'approval-announcement',noticeId:selected?.id||state?.noticeId||null,question:norm(input)},query:norm(input)};}
 
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
+    // Retain the actually selected public notice, including its product and round.
+    // Public metadata may be repeated; never turn it into personal approval.
+    if(state?.topic==='approval-announcement'&&state.noticeId&&/^(?:เป็นรอบไหน|วันโอนเมื่อไร|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ตรวจสถานะตัวเองได้ไหม|ถ้ายังไม่พบต้องทำอย่างไร|ต้องติดต่อใคร|มีประกาศใหม่หรือยัง)$/.test(raw)){
+      const selected=approvalRecords.find(x=>x.id===state.noticeId);
+      let result;
+      if(raw==='ตรวจสถานะตัวเองได้ไหม'||raw==='ถ้ายังไม่พบต้องทำอย่างไร'){
+        result=res('approval_selected_member_handoff',raw==='ตรวจสถานะตัวเองได้ไหม'?'ประกาศรอบที่เลือกเป็นข้อมูลสาธารณะครับ ยังยืนยันสถานะของคุณไม่ได้ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายสินเชื่อ ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือรหัสผ่านในแชต':'หากยังไม่พบข้อมูลของตนในประกาศรอบที่เลือก ให้ตรวจประเภทเงินกู้และวันตัดเอกสารให้ตรง แล้วติดต่อฝ่ายสินเชื่อเพื่อยืนยันสถานะคำขอครับ การไม่พบข้อมูลยังไม่ใช่ผลปฏิเสธ และไม่ต้องส่งข้อมูลส่วนตัวในแชต',{decision:'SAFE_HANDOFF',sources:[src('ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices),src('ระบบสมาชิกทางการ',S.memberPortal)],actions:[['ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices],['ระบบสมาชิกทางการ',S.memberPortal],['ติดต่อฝ่ายสินเชื่อ',S.contact]]});
+      }else if(raw==='ต้องติดต่อใคร'){
+        result=res('approval_selected_contact','เรื่องคำขอหรือประกาศอนุมัติเงินกู้รอบที่เลือก ให้ติดต่อฝ่ายสินเชื่อของสหกรณ์ผ่านหน้าติดต่อทางการครับ แจ้งประเภทเงินกู้และวันตัดเอกสารกับเจ้าหน้าที่ ข้อมูลส่วนบุคคลให้แจ้งเฉพาะช่องทางที่ยืนยันแล้ว ไม่ส่งในแชตนี้',{decision:'PROCEDURE_INFORMATION',sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ติดต่อฝ่ายสินเชื่อ',S.contact],['ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices]]});
+      }else{const latestQuery=({'ordinary-loan':'ผลอนุมัติเงินกู้สามัญล่าสุด','emergency-loan':'ผลอนุมัติเงินกู้ฉุกเฉินล่าสุด','quality-of-life-loan':'ผลอนุมัติเงินกู้พัฒนาคุณภาพชีวิตล่าสุด'})[selected?.category]||'ผลอนุมัติเงินกู้ล่าสุด';result=raw==='มีประกาศใหม่หรือยัง'?approvalAnswer(latestQuery):approvalAnswer('',state.noticeId);}
+      if(result){const next=approvalRecords.find(x=>result.sources?.some(y=>y.url===x.directSourceUrl));return {result,state:{...state,result,topic:'approval-announcement',noticeId:next?.id||state.noticeId,question:raw,lastFact:null},query:raw};}
+    }
     // A complete, expressly named share-rate task starts a new topic, not a loan follow-up.
     // Ambiguous follow-ups remain routed through the existing conversational state.
     if(/(?:เพิ่ม|เปลี่ยน|ปรับ)(?:ค่า)?หุ้นรายเดือน|(?:เพิ่ม|เปลี่ยน|ปรับ).*ค่าหุ้น.*(?:รายเดือน|แต่ละเดือน)/.test(raw)&&!/กู้|เงินกู้|ค้ำ/.test(raw)){

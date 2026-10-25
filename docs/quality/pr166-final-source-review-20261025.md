@@ -61,3 +61,7 @@ Browser619 failed full parity at guarantors/3 because its real SourceMonitor cor
 - https://drive.google.com/file/d/1CO8uENf2kvBbzILoKhMg6UFQyqXw99wb/view — SHA256 `e91923e3bf4006173911383df9891cdc7cd88285ff22fd02691ee1d85dfb9c64` — Signed amendment5/2569 bothpages effective1Oct2569 replacesclauses8/10:6months,2m and enumerated ordinary products; corroborates ordinary summary.
 
 Official774/773/2385/procedure directories re-opened25Oct2026 and still link these primary documents. Current operative notices override attached historical criteria where expressly replaced.
+
+## Selected public-notice continuation
+
+A separate actual-index simulation proved that selecting official4946 then asking cutoff/transfer/first-installment/document lost the selected notice. The selected noticeId is now kept for public metadata and document followups; personal-status questions remain SAFE_HANDOFF. Added9explicit-index engine checks and9realUIchecks perviewport. Public dates are from verified official4946,not a universal loan timetable. The generic110notice sequence is now also required to match full reviewed answers exactly,not only a topic regex.
