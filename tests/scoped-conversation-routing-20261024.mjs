@@ -25,7 +25,7 @@ for(const spec of cases){
   const scholarshipDirect=spec.name==='scholarship';
   if(!officialNoticeDocs)assert.equal(t.result.intent,scholarshipDirect?(q==='มีเงื่อนไขผลการเรียนไหม'?'scholarship_verified_grades':'scholarship'):spec.intent,spec.name+': '+q+' intent');
   if(officialNoticeDocs){}else if(scholarshipDirect)assert.notEqual(t.result.decision,'SAFE_HANDOFF',spec.name+': '+q+' should use verified public rules');
-  else assert.equal(t.result.decision,'SAFE_HANDOFF',spec.name+': '+q+' decision');
+  else assert.equal(t.result.decision,spec.name==='childbirth'&&['ใครมีสิทธิ','ยื่นเมื่อไร','ต้องเป็นสมาชิกนานไหม','มีเงื่อนไขอะไร'].includes(q)?'RULE_INFORMATION':'SAFE_HANDOFF',spec.name+': '+q+' decision');
   assert.equal(t.state.topic,spec.topic,spec.name+': '+q+' topic');
   if(!officialNoticeDocs)assert.match(t.result.answer,spec.scope,spec.name+': '+q+' service');
   assert.ok(t.result.sources.some(s=>s.url?.startsWith('https://')),spec.name+': '+q+' source');
@@ -39,3 +39,21 @@ sw=app.conversationTurn('เงินฝากออมทรัพย์พิ�
 assert.notEqual(sw.state.topic,'welfare:childbirth');
 assert.equal(n,26);
 console.log('Scoped multi-turn semantic routing: '+n+'/'+n+' targeted checks PASS; verified scholarship facts and privacy-safe handoffs');
+
+// Published childbirth rules must answer public facts directly, without handing off.
+for(const [q,required] of [['ใครมีสิทธิ',/สมาชิกสมทบ/],['ยื่นเมื่อไร',/120 วัน.*วันแจ้งเกิด/],['ต้องเป็นสมาชิกนานไหม',/6 เดือน/],['มีเงื่อนไขอะไร',/เพียงคนเดียว/]]){
+ const start=app.conversationTurn('สวัสดิการคลอดบุตร');
+ const t=app.conversationTurn(q,start.state,{continuation:true});
+ assert.equal(t.result.decision,'RULE_INFORMATION');
+ assert.match(t.result.answer,required);
+ assert.ok(t.result.sources.some(s=>s.url.includes('1gYxKLW')));
+}
+// Association follow-up must use its beneficiary declaration, not member registry.
+{
+ let t=app.conversationTurn('สมาคมฌาปนกิจสงเคราะห์');
+ t=app.conversationTurn('ผู้รับผลประโยชน์ต้องทำอย่างไร',t.state,{continuation:true});
+ assert.equal(t.state.topic,'funeral-association');
+ assert.match(t.result.answer,/ผู้รับเงินสงเคราะห์สมาคมฌาปนกิจ/);
+ assert.ok(t.result.sources.some(s=>s.url.includes('1sxikYqV')));
+ assert.equal(t.result.decision,'EVIDENCE_LOCK');
+}
