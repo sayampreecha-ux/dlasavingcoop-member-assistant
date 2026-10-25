@@ -17,4 +17,32 @@ const pensionFollowups=[['กู้ได้เท่าไร',/2,000,000/],['�
 for(const [question,expected] of pensionFollowups){const start=a.conversationTurn('เกษียณกู้ได้ไหม');assert.equal(start.state.topic,'ordinary-pensioner');for(const continuation of [false,true]){const turn=a.conversationTurn(question,start.state,{continuation});assert.equal(turn.result.intent,'ordinary_pensioner_general_guidance',question);assert.match(turn.result.answer,expected,question);assert.ok(turn.result.sources.some(x=>x.url.includes('1QQo5gux')),question);assert.equal(turn.state.topic,'ordinary-pensioner',question);}}
 for(const newQuestion of ['กู้ฉุกเฉินได้เท่าไร','กู้รวมหนี้ได้สูงสุดเท่าไร','ข่าวประกาศสหกรณ์','เงินฝากออมทรัพย์พิเศษ','ปันผลปี 2569']){const first=a.conversationTurn('เกษียณกู้ได้ไหม');const next=a.conversationTurn(newQuestion,first.state);assert.notEqual(next.result.intent,'ordinary_pensioner_general_guidance',newQuestion);}
 const guarantor=a.conversationTurn('เกษียณกู้ได้ไหม');assert.notEqual(a.conversationTurn('ผู้ค้ำจะเกษียณก่อนหมดสัญญาทำอย่างไร',guarantor.state).result.intent,'ordinary_pensioner_general_guidance');
+
+ // True multi-turn dialogue: each question must receive the state from the immediately preceding turn.
+const sequentialQuestions=[
+ ['กู้ได้เท่าไร',/2,000,000/],
+ ['คุณสมบัติอะไรบ้าง',/6 เดือน/],
+ ['ผ่อนได้กี่ปี',/240 งวด/],
+ ['อายุไม่เกินเท่าไร',/75 ปี/],
+ ['ต้องมีคนค้ำกี่คน',/ผู้ค้ำ/],
+ ['ดอกเบี้ยเท่าไร',/ประกาศอัตราปัจจุบัน/],
+ ['ใช้เอกสารอะไร',/แบบคำขอเงินกู้สามัญ/],
+ ['ผ่อนได้กี่งวด',/240 งวด/],
+ ['ได้สูงสุดเท่าไร',/2,000,000/],
+];
+for(const continuation of [false,true]){
+  let dialog=a.conversationTurn('เกษียณกู้ได้ไหม');
+  assert.equal(dialog.state.topic,'ordinary-pensioner','initial topic');
+  for(const [q,pattern] of sequentialQuestions){
+    dialog=a.conversationTurn(q,dialog.state,{continuation});
+    assert.equal(dialog.result.intent,'ordinary_pensioner_general_guidance','sequential: '+q);
+    assert.match(dialog.result.answer,pattern,'sequential: '+q);
+    assert.equal(dialog.state.topic,'ordinary-pensioner','sequential state: '+q);
+    assert.ok(dialog.result.sources.some(s=>s.url.includes('1QQo5gux')),'sequential source: '+q);
+  }
+  dialog=a.conversationTurn('เงินฝากออมทรัพย์พิเศษ',dialog.state,{continuation});
+  assert.notEqual(dialog.result.intent,'ordinary_pensioner_general_guidance','explicit topic switch');
+}
+console.log('Real sequential pensioner dialogue (9 followups x 2 modes), evidence, topic switch PASS');
+
 console.log('Loan product/year/phase/privacy/menu, pensioner language and follow-up dialogues PASS');

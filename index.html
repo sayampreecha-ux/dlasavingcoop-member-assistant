@@ -1571,7 +1571,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     else if(/ส่ง.*ไหน|ยื่น.*ไหน|ส่งทาง|สมัคร|ขั้นตอน|ทำอย่างไร|ทำยังไง|ยื่นอย่างไร/.test(q))answer=timing+'\n\n'+submission+'\n\n'+documents;
     else if(/หมดเขต|กำหนด|ทันไหม|ยัง.*(?:ขอ|สมัคร|ยื่น)|รับสมัคร|วันไหน/.test(q))answer=timing+'\n\n'+results;
     const isResult=/ผล|ประกาศ.*เมื่อ|กี่วัน/.test(q);
-    return res(isResult?'live_schedule':'scholarship',answer,{answerClass:ANSWER_CLASS.RULE,decision:isResult?'LIVE_OFFICIAL_REQUIRED':'RULE_INFORMATION',status:isResult?'กำหนดตามประกาศปี 2569 — ผลปัจจุบันยังไม่ยืนยัน':'หลักเกณฑ์ทุนบุตรปี 2569',details:[qualifications,amounts,limits,documents,submission,selection,results,'ขั้นตอน: 1) ตรวจปีและกำหนดรับคำขอ 2) ตรวจคุณสมบัติ 3) กรอกแบบและรับรองตามแบบ 4) แนบหลักฐาน 5) ส่งในกำหนด 6) ติดตามผล; หากพ้นกำหนดแล้ว ต้องมีประกาศขยายเวลาหรือประกาศปีใหม่ที่ตรวจยืนยันก่อนยื่น'],followups:['ทุนบุตรใครขอได้','ทุนบุตรได้กี่บาท','ทุนบุตรใช้เอกสารอะไร','ทุนบุตรสมัครอย่างไร','ทุนบุตรหมดเขตเมื่อไร','ทุนบุตรประกาศผลเมื่อไร'],actions,sources:evidence});
+    return res(isResult?'live_schedule':'scholarship',answer,{suppressClarification:true,answerClass:ANSWER_CLASS.RULE,decision:isResult?'LIVE_OFFICIAL_REQUIRED':'RULE_INFORMATION',status:isResult?'กำหนดตามประกาศปี 2569 — ผลปัจจุบันยังไม่ยืนยัน':'หลักเกณฑ์ทุนบุตรปี 2569',details:[qualifications,amounts,limits,documents,submission,selection,results,'ขั้นตอน: 1) ตรวจปีและกำหนดรับคำขอ 2) ตรวจคุณสมบัติ 3) กรอกแบบและรับรองตามแบบ 4) แนบหลักฐาน 5) ส่งในกำหนด 6) ติดตามผล; หากพ้นกำหนดแล้ว ต้องมีประกาศขยายเวลาหรือประกาศปีใหม่ที่ตรวจยืนยันก่อนยื่น'],followups:['ทุนบุตรใครขอได้','ทุนบุตรได้กี่บาท','ทุนบุตรใช้เอกสารอะไร','ทุนบุตรสมัครอย่างไร','ทุนบุตรหมดเขตเมื่อไร','ทุนบุตรประกาศผลเมื่อไร'],actions,sources:evidence});
   }
 
   function welfareStatic(kind){
@@ -2239,7 +2239,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const key=emergency?'emergency_cash_transfer':quality?'quality_of_life_real_estate':housing?'special_housing_tiered':ordinary?'ordinary_person_guarantee':education?'ordinary_education':disaster?'ordinary_disaster':'special_redeem_mortgage';
       const rate=rates.ratesPercentPerYear[key];
       text=Array.isArray(rate)?'อัตราดอกเบี้ยตามประกาศ: '+rate.map(x=>'งวด '+x.installments+' = '+x.rate.toFixed(2)+'% ต่อปี').join('; '):'อัตราดอกเบี้ยตามประกาศ '+rate.toFixed(2)+'% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น';
-      return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,suppressClarification:emergency,domain:product,concern,actions:[['ประกาศอัตราดอกเบี้ย',rates.source],['หลักเกณฑ์/แบบคำขอ',index]],sources:[src('ประกาศอัตราดอกเบี้ยทางการ',rates.source)],details:['การประเมินเบื้องต้น ไม่ใช่ผลอนุมัติหรือค่างวดรายเดือน']});
+      return res(({emergencyLoanCurrent:'loan_emergency',ordinaryLoanCurrent:'loan_ordinary',qualityOfLifeCurrent:'loan_special_quality',specialHousingCurrent:'loan_special_housing',redeemMortgageCurrent:'loan_special_redeem',education:'loan_education',disaster:'loan_disaster'})[product],text,{answerClass:ANSWER_CLASS.RULE,suppressClarification:emergency,domain:product,concern,actions:[['ประกาศอัตราดอกเบี้ย',rates.source],['หลักเกณฑ์/แบบคำขอ',index]],sources:[src('ประกาศอัตราดอกเบี้ยทางการ',rates.source),src('ประกาศดอกเบี้ยลงนาม มีผล 11 พฤศจิกายน 2567',S.loanInterestAnnouncement)],details:['การประเมินเบื้องต้น ไม่ใช่ผลอนุมัติหรือค่างวดรายเดือน']});
     }
     if(!R){pending=true;}
     else if(concern==='summary'&&R.status==='VERIFIED_PRIMARY'){
@@ -2259,6 +2259,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       if(ordinary&&R.amountBands)for(const band of R.amountBands.filter(b=>b.minSharePercent))facts.push('วงเงิน '+n(band.min)+'–'+n(band.max)+' บาท ต้องส่งหุ้นอย่างน้อย '+band.sharePaymentMinMonths+' เดือน และมีหุ้นสะสมอย่างน้อย '+band.minSharePercent+'% ของวงเงินขอกู้');
       if(R.noArrearsInstallments)facts.push('ต้องไม่ค้างชำระหุ้นและหนี้ย้อนหลัง '+R.noArrearsInstallments+' งวด');
       if(R.memberWelfareFuneralAssociationRequired)facts.push('ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์');
+      if(ordinary){facts.push('ต้องทำประกันชีวิตตามวงเงินกู้ตลอดอายุสัญญา โดยให้สหกรณ์เป็นผู้รับผลประโยชน์และนำส่งเบี้ยตามข้อ 5(7)');facts.push('ไม่มีภาระหนี้ในฐานะผู้กู้กับสหกรณ์อื่น และไม่อยู่ระหว่างวินัยร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลายตามข้อ 4(6)–(7)');facts.push('หากมีสัญญาเดิม ต้องตรวจเงื่อนไขจำนวนงวดและการหักกลบหนี้ตามข้อ 5(4)–(6) เพิ่มเติมก่อนยื่น');}
       if(R.repeatEmergencyMinInstallments)facts.push('ขอกู้ฉุกเฉินใหม่: สัญญาเดิมต้องชำระอย่างน้อย '+R.repeatEmergencyMinInstallments+' งวด'+(R.offsetExistingEmergency?' และหักกลบหนี้ฉุกเฉินเดิม':''));
       if(R.offsetAllExistingLoanContractsOnApproval)facts.push('เมื่ออนุมัติ ต้องหักกลบหนี้เดิมทุกประเภทให้เหลือสัญญาเดียว; หลังจากนั้นกู้ประเภทอื่นได้เฉพาะฉุกเฉินตามหลักเกณฑ์แยก');
       if(R.originalMortgagePaidMinYears)facts.push('จำนองเดิมต้องชำระมาแล้วอย่างน้อย '+R.originalMortgagePaidMinYears+' ปี และไม่ผิดนัด');
@@ -2982,6 +2983,13 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     // A clearly independent repayment request must not inherit the prior guarantor/loan topic.
     if(/(?:ปิดหนี้|ปิดยอดหนี้|ปิดสัญญา|ชำระหนี้ทั้งหมด|ชำระหนี้.*หมด|ปิดหนี้ทั้งหมด)/.test(q)&&/(?:ก่อนครบกำหนด|ก่อนกำหนด|ทั้งหมด|ทำอย่างไร|ต้องทำ)/.test(q))return q;
     if(!previousTopic) return q;
+    // Continue short follow-ups only in unambiguous public service contexts.
+    // Explicitly named other services must use their own route.
+    const serviceFollow=/^(?:แล้ว)?(?:สมัครอย่างไร|คุณสมบัติอะไรบ้าง|จ่ายเงินอย่างไร|ชำระเงินอย่างไร|ใช้เอกสารอะไร(?:บ้าง)?|ต้องทำอย่างไร|ยื่น(?:ได้)?ที่ไหน|ติดต่อที่ไหน|ต้องติดต่อที่ไหน|มีค่าธรรมเนียมไหม|ต้องเป็นสมาชิกนานไหม|ถ้ามีหนี้ทำอย่างไร|แจ้งเสียชีวิตอย่างไร|มีเอกสารเพิ่มเติมไหม)$/.test(q);
+    const switchService=/เงินกู้|กู้|ฝาก|สวัสดิการ|ทุนการศึกษา|หุ้น|ฌาปนกิจ|สมัครสมาชิก|ลาออก|ประกาศ|ข่าว|ปันผล/.test(q);
+    if(previousTopic==='shares'&&serviceFollow&&!switchService)return 'การเปลี่ยนอัตราหุ้นรายเดือน '+q;
+    if(previousTopic==='membership-apply'&&serviceFollow&&!switchService)return 'สมัครสมาชิกสหกรณ์ '+q;
+    if(previousTopic==='funeral-association'&&serviceFollow&&!switchService)return 'สมาคมฌาปนกิจสงเคราะห์ '+q;
     // Keep the pensioner ordinary-loan topic only for short loan-rule facets;
     // expressly named other products and independent services use normal routing.
     if(previousTopic==='ordinary-pensioner'&&!loanProduct(q)&&/^(?:(?:แล้ว|ถ้า|ขอถาม|ครับ|ค่ะ|คะ)\s*)?(?:กู้ได้(?:สูงสุด)?เท่า(?:ไร|ไหร่)|ได้สูงสุดเท่า(?:ไร|ไหร่)|คุณสมบัติ(?:อะไรบ้าง|อย่างไร|ล่ะ)?|เงื่อนไข(?:อะไรบ้าง)?|(?:เป็น)?สมาชิกกี่เดือน|ผ่อน(?:ได้)?กี่(?:ปี|งวด)|กี่งวด|อายุ(?:ไม่เกิน|สิ้นสุดสัญญา|เท่าไร)|ต้องมี(?:ผู้ค้ำ|คนค้ำ)กี่คน|(?:ต้อง)?ใช้เอกสารอะไร(?:บ้าง)?|ดอกเบี้ยเท่า(?:ไร|ไหร่)|วงเงิน(?:สูงสุด)?เท่า(?:ไร|ไหร่))/.test(q)&&!/สวัสดิการ|เงินฝาก|หุ้นรายเดือน|ข่าว|ประกาศ|ผู้ค้ำ(?:จะ|เป็นผู้)|คนค้ำ(?:จะ|เกษียณ)|ค้ำ(?:ให้|ผู้อื่น)/.test(q))return 'เงินกู้สำหรับผู้รับบำนาญ '+q;
@@ -2998,6 +3006,9 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
   }
   function topicOf(q,r){
     if(r?.intent==='ordinary_quality_phase2_archived')return 'ordinary-quality-2569-phase2';
+    if(/^share_/.test(r?.intent||'')&&/หุ้น/.test(q))return 'shares';
+    if(r?.intent==='member_apply'||r?.intent==='member_change_info'&&/สมัครสมาชิก/.test(q))return 'membership-apply';
+    if(r?.intent==='funeral'&&/ฌาปนกิจ/.test(q))return 'funeral-association';
     if(['ordinary_pensioner_evidence_review','ordinary_pensioner_general_guidance'].includes(r?.intent))return 'ordinary-pensioner';
     if(r?.scenario?.target)return r.scenario.target;
     if(r?.intent==='scholarship'||r?.intent==='live_schedule'&&/ทุน.*(?:ลูก|บุตร)|สวัสดิการ.*การศึกษาบุตร/.test(q))return 'scholarship';
@@ -3019,11 +3030,263 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     if(immediate){const selected=approvalRecords.find(x=>immediate.sources?.some(y=>y.url===x.directSourceUrl));return {result:immediate,state:{...state,result:immediate,topic:'approval-announcement',noticeId:selected?.id||state?.noticeId||null,question:norm(input)},query:norm(input)};}
 
     const raw=norm(input),prior=state?.result,correction=/^(?:แก้|ขอแก้|เปลี่ยน|ขอเปลี่ยน)/.test(raw);
+    // Retain the actually selected public notice, including its product and round.
+    // Public metadata may be repeated; never turn it into personal approval.
+    if(state?.topic==='approval-announcement'&&state.noticeId&&/^(?:เป็นรอบไหน|วันโอนเมื่อไร|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ตรวจสถานะตัวเองได้ไหม|ถ้ายังไม่พบต้องทำอย่างไร|ต้องติดต่อใคร|มีประกาศใหม่หรือยัง)$/.test(raw)){
+      const selected=approvalRecords.find(x=>x.id===state.noticeId);
+      let result;
+      if(raw==='ตรวจสถานะตัวเองได้ไหม'||raw==='ถ้ายังไม่พบต้องทำอย่างไร'){
+        result=res('approval_selected_member_handoff',raw==='ตรวจสถานะตัวเองได้ไหม'?'ประกาศรอบที่เลือกเป็นข้อมูลสาธารณะครับ ยังยืนยันสถานะของคุณไม่ได้ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายสินเชื่อ ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือรหัสผ่านในแชต':'หากยังไม่พบข้อมูลของตนในประกาศรอบที่เลือก ให้ตรวจประเภทเงินกู้และวันตัดเอกสารให้ตรง แล้วติดต่อฝ่ายสินเชื่อเพื่อยืนยันสถานะคำขอครับ การไม่พบข้อมูลยังไม่ใช่ผลปฏิเสธ และไม่ต้องส่งข้อมูลส่วนตัวในแชต',{decision:'SAFE_HANDOFF',sources:[src('ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices),src('ระบบสมาชิกทางการ',S.memberPortal)],actions:[['ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices],['ระบบสมาชิกทางการ',S.memberPortal],['ติดต่อฝ่ายสินเชื่อ',S.contact]]});
+      }else if(raw==='ต้องติดต่อใคร'){
+        result=res('approval_selected_contact','เรื่องคำขอหรือประกาศอนุมัติเงินกู้รอบที่เลือก ให้ติดต่อฝ่ายสินเชื่อของสหกรณ์ผ่านหน้าติดต่อทางการครับ แจ้งประเภทเงินกู้และวันตัดเอกสารกับเจ้าหน้าที่ ข้อมูลส่วนบุคคลให้แจ้งเฉพาะช่องทางที่ยืนยันแล้ว ไม่ส่งในแชตนี้',{decision:'PROCEDURE_INFORMATION',sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ติดต่อฝ่ายสินเชื่อ',S.contact],['ประกาศรอบที่เลือก',selected?.directSourceUrl||S.notices]]});
+      }else{const latestQuery=({'ordinary-loan':'ผลอนุมัติเงินกู้สามัญล่าสุด','emergency-loan':'ผลอนุมัติเงินกู้ฉุกเฉินล่าสุด','quality-of-life-loan':'ผลอนุมัติเงินกู้พัฒนาคุณภาพชีวิตล่าสุด'})[selected?.category]||'ผลอนุมัติเงินกู้ล่าสุด';result=raw==='มีประกาศใหม่หรือยัง'?approvalAnswer(latestQuery):approvalAnswer('',state.noticeId);}
+      if(result){const next=approvalRecords.find(x=>result.sources?.some(y=>y.url===x.directSourceUrl));return {result,state:{...state,result,topic:'approval-announcement',noticeId:next?.id||state.noticeId,question:raw,lastFact:null},query:raw};}
+    }
     // A complete, expressly named share-rate task starts a new topic, not a loan follow-up.
     // Ambiguous follow-ups remain routed through the existing conversational state.
     if(/(?:เพิ่ม|เปลี่ยน|ปรับ)(?:ค่า)?หุ้นรายเดือน|(?:เพิ่ม|เปลี่ยน|ปรับ).*ค่าหุ้น.*(?:รายเดือน|แต่ละเดือน)/.test(raw)&&!/กู้|เงินกู้|ค้ำ/.test(raw)){
       const result=answer(raw);
       return {result,state:{result,topic:'shares',question:raw,trackingIntent:false,lastFact:null},query:raw};
+    }
+    // Official deposit forms specify submission contacts; avoid an unrelated generic menu.
+    if(state?.topic==='depositSpecial'&&!prior?.depositOperation&&/^(?:ต้องติดต่อที่ไหน|ใช้เอกสารอะไร)$/.test(raw)&&!(raw==='ใช้เอกสารอะไร'&&/ถอน/.test(state?.question||''))){
+      const url=S.depositForms;
+      const msg=raw==='ต้องติดต่อที่ไหน'?
+        'เงินฝากออมทรัพย์พิเศษ ติดต่อฝ่ายเงินฝากของสหกรณ์ได้ตามหน้าเอกสารทางการ โทร 092-391-5896 หรือ 091-727-5236 ส่งเอกสารได้ที่สำนักงานเลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรืออีเมล dla.deposit01@gmail.com ตามขั้นตอนของสหกรณ์ โปรดตรวจช่องทางล่าสุดก่อนส่งเอกสารส่วนบุคคล':
+        'เอกสารเงินฝากออมทรัพย์พิเศษขึ้นกับการทำรายการครับ หากเปิดบัญชีให้ใช้คำขอเปิดบัญชีและแบบผู้รับโอนประโยชน์ หากถอนหรือปิดบัญชีให้ใช้คำขอถอน/ปิดบัญชี สำเนาบัตรประจำตัว สำเนาบัญชีกรุงไทยและสมุดบัญชีเงินฝาก (กรณีปิดบัญชีส่งสมุดเล่มสีเขียวทางไปรษณีย์) ตามแบบทางการ กรุณาระบุว่าจะเปิดบัญชี ฝากเพิ่ม ถอน หรือปิดบัญชี เพื่อเลือกชุดเอกสารให้ตรง ไม่ต้องส่งเอกสารส่วนบุคคลในแชต';
+      const result=res('deposit_scoped_official_procedure',msg,{decision:'PROCEDURE_INFORMATION',actions:[['แบบฟอร์มและช่องทางเงินฝากทางการ',url]],sources:[src('หลักเกณฑ์และแบบฟอร์มเงินฝากออมทรัพย์พิเศษ',url)]});
+      return {result,state:{...state,result,topic:'depositSpecial',question:raw,lastFact:null},query:raw};
+    }
+    // Keep explicit guarantor questions within a previously established guarantor dialogue.
+    if(state?.topic==='guarantor-guidance'&&/^(?:เกษียณแล้วค้ำได้ไหม|เปลี่ยนผู้ค้ำได้ไหม|ผู้ค้ำต้องรับผิดอะไร)$/.test(raw)){
+      const result=raw==='ผู้ค้ำต้องรับผิดอะไร'?res('guarantor_scoped_followup','ความรับผิดของผู้ค้ำประกันเงินกู้ต้องตรวจหนังสือค้ำประกันที่ลงนาม ประเภทเงินกู้ ยอดหนี้ และการดำเนินการตามสัญญาครับ ไม่ยืนยันว่าต้องรับผิดทั้งหมดหรือปลดภาระแล้วจากคำถามนี้ ให้ฝ่ายสินเชื่อชี้แจงภาระตามสัญญาจริงผ่านช่องทางทางการ ไม่ส่งสัญญาหรือข้อมูลผู้ค้ำในแชต',{decision:'SAFE_HANDOFF',sources:[src('หลักเกณฑ์เงินกู้สามัญและแบบสัญญา',S.ordinaryLoanForms),src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ติดต่อฝ่ายสินเชื่อ',S.contact]]}):answer(raw);
+      return {result,state:{...state,result,topic:'guarantor-guidance',question:raw,lastFact:null},query:raw};
+    }
+    if(!state?.topic&&raw==='ผู้ค้ำประกันเงินกู้ต้องมีคุณสมบัติอะไร'){
+      const result=res('guarantor_center','ถ้าเป็นการค้ำประกันเงินกู้สามัญ ตามประกาศ พ.ศ.2569 ข้อ 6 ผู้ค้ำต้องเป็นสมาชิกสหกรณ์ที่ไม่ใช่คู่สมรสผู้กู้ ส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือน ข้าราชการต้องผ่านการทดลองราชการ ส่วนเจ้าหน้าที่สหกรณ์ต้องได้รับการบรรจุแต่งตั้งอย่างน้อย 3 ปี และสมาชิกคนหนึ่งค้ำผู้กู้ทุกประเภทพร้อมกันเกิน 3 คนไม่ได้ครับ หากเป็นเงินกู้ประเภทอื่นต้องตรวจเกณฑ์เฉพาะก่อน คุณต้องการค้ำเงินกู้ประเภทใด ไม่ต้องแจ้งข้อมูลผู้กู้หรือเลขสมาชิก',{decision:'RULE_INFORMATION',sources:[src('ประกาศกู้สามัญ พ.ศ.2569 ข้อ 6',S.loanGeneralAnnouncement2569)],actions:[['หลักเกณฑ์ผู้ค้ำกู้สามัญ',S.loanGeneralAnnouncement2569],['ติดต่อฝ่ายสินเชื่อ',S.contact]]});
+      return {result,state:{...state,result,topic:'guarantor-guidance',question:raw,lastFact:null},query:raw};
+    }
+    // Tracking is member-specific; do not ask for a topic already established.
+    if(state?.topic&&/^(?:ติดตามผล(?:ได้)?อย่างไร|ติดตามคำขออย่างไร)$/.test(raw)&&['welfare:childbirth','scholarship','membership-apply','resignation'].includes(state.topic)){
+      const label=state.topic==='welfare:childbirth'?'คำขอสวัสดิการคลอดบุตร':state.topic==='scholarship'?'คำขอทุนการศึกษาบุตร':state.topic==='resignation'?'คำขอลาออกจากสมาชิกสหกรณ์':'คำขอสมัครสมาชิกสหกรณ์';
+      const result=res('scoped_application_tracking_handoff','การติดตาม'+label+' ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอและผลพิจารณารายบุคคล จึงไม่ยืนยันว่าได้รับเอกสารหรืออนุมัติแล้ว ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือเอกสารส่วนตัวในแชต',{decision:'SAFE_HANDOFF',sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ติดต่อสหกรณ์เพื่อติดตาม'+label,S.contact]]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    // Primary-document verified direct facets for short sequential member questions.
+    if(!state?.topic&&raw==='เงินกู้พิเศษรวมหนี้คืออะไร'){
+      const result=res('special_debt_explained_verified','เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) คือเงินกู้ที่ใช้อสังหาริมทรัพย์เป็นหลักประกัน เพื่อรวมหนี้ตามเงื่อนไขประกาศ พ.ศ. 2569 หากได้รับอนุมัติและมีสัญญาเงินกู้ประเภทอื่นกับสหกรณ์ ต้องยินยอมให้สหกรณ์หักกลบลบหนี้ตามข้อ 5(4) วงเงินไม่เกินร้อยละ 80 ของราคาประเมินและสูงสุด 5 ล้านบาท โดยยังต้องตรวจคุณสมบัติ 3 ปี/36 งวด หรือ 5 ปี/60 งวด ตามช่วงวงเงิน และหลักประกันจริง ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2',{decision:'RULE_INFORMATION',sources:[src('ประกาศเงินกู้พิเศษรวมหนี้ พ.ศ. 2569 ข้อ 4–5',S.loanSpecialQualityAnnouncement)],actions:[['หลักเกณฑ์ลงนาม พ.ศ. 2569',S.loanSpecialQualityAnnouncement]]});
+      return {result,state:{topic:'qualityOfLifeCurrent',result,question:raw,lastFact:null},query:raw};
+    }
+    // Scoped share follow-ups: the cooperative's actual 2569 change-request form
+    // names the required fields and rate choices. Do not answer a document or
+    // debt question with a repeated monthly-share eligibility overview.
+    if(state?.topic==='shares'&&/^(?:ต้องทำอย่างไร|ใช้เอกสารอะไร|ยื่นได้ที่ไหน|ถ้ามีหนี้ทำอย่างไร|ดูยอดหุ้นได้อย่างไร)$/.test(raw)){
+      const form='https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view';
+      const rule='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
+      const rateChange=/^(?:ต้องทำอย่างไร|ใช้เอกสารอะไร|ยื่นได้ที่ไหน)$/.test(raw);
+      let intent,decision='RULE_INFORMATION',msg,links;
+      if(rateChange){
+        intent=raw==='ต้องทำอย่างไร'?'share_verified_change_form_steps':raw==='ใช้เอกสารอะไร'?'share_verified_change_form_documents':'share_verified_change_submission';
+        msg=raw==='ต้องทำอย่างไร'?
+          'การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้องการเริ่มใช้ แล้วลงลายมือชื่อเพื่อยื่นให้สหกรณ์พิจารณาครับ การเพิ่ม/ลดต้องเป็นไปตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 และความเห็นชอบของคณะกรรมการ ไม่ใช่เปลี่ยนสำเร็จทันที':
+          raw==='ใช้เอกสารอะไร'?
+          'ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และลงชื่อผู้ขอ หากเจ้าหน้าที่กำหนดเอกสารประกอบเพิ่มเติมให้ยืนยันจากสหกรณ์ก่อนส่ง ไม่ต้องส่งข้อมูลส่วนบุคคลในแชตนี้':
+          'การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาตให้ยื่นทางอีเมลหรือผ่านแอป จึงไม่ยืนยันช่องทางเหล่านั้นโดยไม่มีหลักฐาน';
+        if(raw==='ยื่นได้ที่ไหน')decision='EVIDENCE_LOCK';
+        links=[src('แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569',form),src('ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569',rule)];
+      }else if(raw==='ถ้ามีหนี้ทำอย่างไร'){
+        intent='share_refund_existing_debt_handoff';decision='SAFE_HANDOFF';
+        msg='ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่าถอนหุ้นหรือหักหนี้แล้วรับส่วนต่างได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต';
+        links=[src('ข้อบังคับและระเบียบสหกรณ์',S.procedure),src('ช่องทางติดต่อสหกรณ์',S.contact)];
+      }else{
+        intent='share_balance_private_handoff';decision='SAFE_HANDOFF';
+        msg='ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะนี้ไม่เชื่อมบัญชีสมาชิกและไม่ควรส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต';
+        links=[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อสหกรณ์',S.contact)];
+      }
+      const result=res(intent,msg,{decision,sources:links,actions:rateChange?[['แบบคำขอเปลี่ยนค่าหุ้นรายเดือน',form],['ระเบียบหุ้น พ.ศ. 2569',rule],['ติดต่อสหกรณ์',S.contact]]:[['ติดต่อสหกรณ์',S.contact]]});
+      return {result,state:{...state,result,topic:'shares',question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='shares'&&raw==='ส่งหุ้นสูงสุดเท่าไร'){
+      const url='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
+      const result=res('share_monthly_max_verified','การขอเพิ่มอัตราส่งหุ้นรายเดือนกำหนดอัตราใหม่ได้ไม่เกิน 5,000 หุ้นต่อเดือน ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 และต้องได้รับความเห็นชอบตามระเบียบ เพดานนี้ไม่ใช่เพิ่มอีก 5,000 หุ้นจากยอดเดิม',{decision:'RULE_INFORMATION',sources:[src('ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569',url)],actions:[['ระเบียบหุ้นลงนาม',url]]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='emergencyLoanCurrent'&&raw==='ถ้ายังมีหนี้อยู่ทำอย่างไร'){
+      const result=res('emergency_existing_debt_public_rule','ถ้ามีเงินกู้ฉุกเฉินเดิม ต้องชำระมาแล้วไม่น้อยกว่า 3 งวด และเงินกู้ใหม่ต้องหักกลบเงินกู้ฉุกเฉินสัญญาเดิม ตามประกาศ พ.ศ. 2569 ข้อ 5(3) ครับ หากมีเงินกู้ประเภทอื่นกับสหกรณ์ต้องชำระแล้วไม่น้อยกว่า 3 งวดตามข้อ 5(4) และผ่านคุณสมบัติอื่นด้วย ให้ฝ่ายสินเชื่อตรวจยอดหนี้และงวดที่ชำระจริงก่อนยืนยันสิทธิ ไม่ต้องส่งสัญญาหรือเลขสมาชิกในแชต',{decision:'RULE_INFORMATION',sources:[src('หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569 ข้อ 5(3)–(4)',S.loanEmergencyAnnouncement)],actions:[['ประกาศฉุกเฉินฉบับลงนาม',S.loanEmergencyAnnouncement],['ติดต่อฝ่ายสินเชื่อ',S.contact]]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='emergencyLoanCurrent'&&raw==='ใช้คนค้ำไหม'){
+      const result=res('emergency_guarantor_document_scope','เงินกู้ฉุกเฉินใช้หุ้นที่ผู้กู้ชำระแล้วเป็นหลักประกันร่วมกับหนังสือสัญญากู้ ตามระเบียบเงินกู้ฉุกเฉิน พ.ศ. 2566 ข้อ 10 ครับ จากหลักเกณฑ์ พ.ศ. 2569 ข้อ 4–8 และแบบคำขอที่เผยแพร่ ไม่พบข้อกำหนดจำนวนผู้ค้ำประกันบุคคลสำหรับประเภทเงินสด/โอนบัญชีธนาคาร แต่ควรตรวจแบบคำขอฉบับที่ใช้ยื่นจริงกับฝ่ายสินเชื่อก่อนสรุปภาระผูกพัน ไม่ใช่นำเกณฑ์ผู้ค้ำของเงินกู้สามัญมาใช้กับเงินกู้ฉุกเฉิน',{decision:'EVIDENCE_LOCK',sources:[src('หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ. 2569',S.loanEmergencyAnnouncement),src('แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm),src('ระเบียบเงินกู้ฉุกเฉิน พ.ศ.2566 ข้อ 10','https://drive.google.com/file/d/16JwDlfoFhcNj8I0RktBcNxalmye82uMU/view'),src('ระเบียบเงินกู้ฉุกเฉิน ฉบับที่ 2 พ.ศ.2569','https://drive.google.com/file/d/1DeH0vI9PR6NHPMMlh3X62HOH-twlA0KR/view')],actions:[['หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm]]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    // Release-review gaps: service-specific procedural questions should never
+    // return an unrelated product overview or fabricate an official timetable.
+    const processScope=(state?.topic==='ordinaryLoanCurrent'&&/^(?:ยื่นที่ไหน|ใช้เวลาพิจารณาเท่าไร)$/.test(raw))?
+      {label:'เงินกู้สามัญ',url:S.ordinaryLoanForms}:
+      (state?.topic==='emergencyLoanCurrent'&&/^ต้องยื่นที่ไหน$/.test(raw))?
+      {label:'เงินกู้ฉุกเฉิน',url:S.emergencyLoan}:
+      (state?.topic==='qualityOfLifeCurrent'&&/^(?:ใครยื่นได้|เปิดรับเมื่อไร|ต้องสมัครอย่างไร|มีหนี้เดิมยื่นได้ไหม)$/.test(raw))?
+      {label:'เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)',url:S.specialLoanForms}:null;
+    if(processScope){
+      // Verified against the signed official 2569 primary-source PDF, not a website summary.
+      const officialPdf=state.topic==='ordinaryLoanCurrent'?S.loanGeneralAnnouncement2569:
+        state.topic==='emergencyLoanCurrent'?S.loanEmergencyAnnouncement:S.loanSpecialQualityAnnouncement;
+      let verified='';
+      if(state.topic==='ordinaryLoanCurrent'&&raw==='ยื่นที่ไหน'){
+        verified='เงินกู้สามัญยื่นคำขอพร้อมหลักฐานได้ด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ หรือ Mobile Application หรือ Web Application ของสหกรณ์ หรือสถานที่อื่นที่สหกรณ์กำหนด ตามประกาศหลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) โปรดใช้แบบคำขอทางการและอย่าส่งข้อมูลส่วนบุคคลในแชตนี้';
+      }else if(state.topic==='emergencyLoanCurrent'&&raw==='ต้องยื่นที่ไหน'){
+        verified='เงินกู้ฉุกเฉินยื่นได้ที่สำนักงานสหกรณ์ หรือส่งทางไปรษณีย์ถึงงานเงินกู้ฉุกเฉิน เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือส่ง PDF ทางอีเมล dlasavingloan01@gmail.com หัวข้อ “ขอกู้เงินเพื่อเหตุฉุกเฉิน” หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ตามประกาศ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) กรุณาใช้เอกสารตามแบบทางการและไม่ส่งข้อมูลส่วนบุคคลในแชตนี้';
+      }else if(state.topic==='qualityOfLifeCurrent'&&raw==='ใครยื่นได้'){
+        verified='เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569: วงเงินไม่เกิน 3 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 3 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 36 งวด; วงเงินไม่เกิน 5 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 5 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 60 งวด ทั้งยังต้องผ่านเงื่อนไขรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาทต่อเดือน เงื่อนไขหนี้/หุ้น และหลักประกันตามประกาศข้อ 4–5 ทั้งหมด ไม่ถือว่าเป็นการอนุมัติสิทธิรายบุคคล และเกณฑ์นี้ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2';
+      }else if(state.topic==='qualityOfLifeCurrent'&&raw==='ต้องสมัครอย่างไร'){
+        verified='เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ใช้แบบคำขอกู้และหลักฐานประกอบตามประกาศ พ.ศ. 2569 ข้อ 8 ยื่นด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ถึงงานเงินกู้พิเศษ เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ต้องมีหลักประกันอสังหาริมทรัพย์ตามเกณฑ์ และให้เจ้าหน้าที่ตรวจหลักฐานจริง ไม่ส่งเอกสารส่วนบุคคลในแชต';
+      }else if(state.topic==='qualityOfLifeCurrent'&&raw==='มีหนี้เดิมยื่นได้ไหม'){
+        verified='ผู้มีหนี้เงินกู้เดิมอาจยื่นขอเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ได้ แต่ต้องผ่านคุณสมบัติและเงื่อนไขของประกาศ พ.ศ. 2569 ข้อ 4–5 และยินยอมให้สหกรณ์หักกลบลบหนี้เดิมตามข้อ 5(4) หากมีสัญญาเงินกู้ประเภทอื่นต้องเป็นไปตามเงื่อนไขในข้อ 5(5) จึงยังยืนยันสิทธิรายบุคคลไม่ได้จนกว่าสหกรณ์ตรวจภาระหนี้และหลักประกันจริง';
+      }
+      const result=verified?
+        res('loan_scoped_verified_procedure',verified,{decision:'RULE_INFORMATION',actions:[['หลักเกณฑ์ฉบับลงนาม',officialPdf],['แบบและหลักเกณฑ์'+processScope.label,processScope.url]],sources:[src('ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569',officialPdf),src('แบบและหลักเกณฑ์'+processScope.label,processScope.url)]}):
+        res('loan_scoped_procedure_handoff','คำถาม “'+raw+'” เป็นเรื่อง'+processScope.label+'ครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล่าสุดหรือติดต่อฝ่ายสินเชื่อ ไม่ควรสมมุติกำหนดเวลา และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['หลักเกณฑ์ฉบับลงนาม',officialPdf],['ติดต่อฝ่ายสินเชื่อ',S.contact]],sources:[src('ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569',officialPdf),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
+    }
+    if(!state?.topic&&/^(?:ประกาศอนุมัติเงินกู้ล่าสุด|ประกาศผลอนุมัติเงินกู้ล่าสุด)$/.test(raw)){
+      const url='https://www.dlasavingcoop.com/list.php?Category=loan';
+      const result=res('approval_public_index','ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถานะรายบุคคลจากประกาศสาธารณะ',{decision:'SAFE_HANDOFF',actions:[['ผลอนุมัติเงินกู้ทางการ',url]],sources:[src('ผลอนุมัติเงินกู้ทางการ',url)]});
+      return {result,state:{...state,result,topic:'approval-public',question:raw,lastFact:null},query:raw};
+    }
+    // Independent rule questions are not answers to pending eligibility fact requests.
+    // Restrict recovery to verified, unambiguous service topics; retain all other guided flows.
+    const ruleFacet= /^(?:แล้ว)?(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|ผ่อนได้กี่งวด|ผ่อนได้กี่ปี|ดอกเบี้ยเท่าไร|ต้องมีผู้ค้ำกี่คน|ใช้เอกสารอะไร|ยื่นที่ไหน|มีข้อจำกัดอายุหรือไม่)$/.test(raw);
+    if(state?.topic==='ordinaryLoanCurrent'&&prior?.requiredFact&&ruleFacet){
+      const query='เงินกู้สามัญ '+raw, result=answer(query);
+      return {result,state:{...state,result,topic:'ordinaryLoanCurrent',question:query,lastFact:null},query};
+    }
+    if(state?.topic==='welfare:childbirth'&&/^(?:แล้ว)?ได้รับเท่าไร$/.test(raw)){
+      const query='สวัสดิการคลอดบุตร ได้รับเงินเท่าไร',result=answer(query);
+      return {result,state:{...state,result,topic:'welfare:childbirth',question:query,lastFact:null},query};
+    }
+    // The signed 2569 scholarship announcement §§3–7 answers these follow-ups
+    // directly; do not replace public eligibility/submission facts with a generic handoff.
+    if(state?.topic==='scholarship'&&/^(?:ใครมีสิทธิ|ส่งที่ไหน|มีเงื่อนไขผลการเรียนไหม)$/.test(raw)){
+      const pdf='https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing';
+      const query=raw==='ใครมีสิทธิ'?'ทุนการศึกษาบุตรสมาชิก ใครมีสิทธิ':
+        raw==='ส่งที่ไหน'?'ทุนการศึกษาบุตรสมาชิก ยื่นที่ไหน':null;
+      const result=query?answer(query):res('scholarship_verified_grades','ประกาศทุนส่งเสริมการศึกษาของบุตรสมาชิกปี 2569 ข้อ 3–5 ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำเป็นคุณสมบัติ แต่กำหนดให้บุตรที่ชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) กำลังศึกษาในภาคเรียนที่ 1 ปีการศึกษา 2569 และใช้เกณฑ์คะแนนพิจารณาตามข้อ 5 การไม่มีเกณฑ์เกรดขั้นต่ำไม่ได้แปลว่าได้รับทุนอัตโนมัติ ต้องผ่านคุณสมบัติอื่นและการจัดสรรตามคะแนน',{decision:'RULE_INFORMATION',actions:[['ประกาศทุนปี 2569 ฉบับลงนาม',pdf]],sources:[src('ประกาศทุนส่งเสริมการศึกษาบุตรสมาชิก 2569',pdf)]});
+      return {result,state:{...state,result,topic:'scholarship',question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='scholarship'&&/^(?:แล้ว)?ได้ทุนเท่าไร$/.test(raw)){
+      const query='ทุนการศึกษาบุตรสมาชิก ได้ทุนเท่าไร',result=answer(query);
+      return {result,state:{...state,result,topic:'scholarship',question:query,lastFact:null},query};
+    }
+    // A new member's first share-deduction date is an individual payroll/
+    // approval fact, not the generic share-change menu.
+    if(state?.topic==='membership-apply'&&raw==='ส่งหุ้นเมื่อไร'){
+      const form='https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing';
+      const result=res('membership_first_share_deduction_handoff','การส่งหุ้นรายเดือนของผู้สมัครใหม่ต้องตรวจวันที่รับเป็นสมาชิกและงวดเริ่มหักค่าหุ้นกับฝ่ายทะเบียนสหกรณ์และหน่วยงานต้นสังกัดครับ ใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่มีหนังสือยินยอมให้หักเงิน แต่ไม่ได้ยืนยันวันหักงวดแรกของสมาชิกแต่ละคน จึงยังไม่ระบุวันเริ่มส่งหุ้นให้โดยไม่มีหลักฐาน และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',sources:[src('แบบสมัครสมาชิกสามัญและเอกสารยินยอมหักเงิน',form),src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['แบบฟอร์มสมัครสมาชิก',S.memberForms],['ติดต่อฝ่ายทะเบียน',S.contact]]});
+      return {result,state:{...state,result,topic:'membership-apply',question:raw,lastFact:null},query:raw};
+    }
+    // Track funeral-association applications through the correct association,
+    // never by inferring an approval from an unauthenticated public chat.
+    if(state?.topic==='funeral-association'&&raw==='ติดตามคำขอได้อย่างไร'){
+      const hub='https://www.dlasavingcoop.com/show.php?No=4161';
+      const result=res('funeral_application_tracking_handoff','การติดตามคำขอสมัครสมาคมฌาปนกิจสงเคราะห์ ให้ติดต่อเจ้าหน้าที่สมาคมโดยตรงและแจ้งว่าเป็นเรื่องสมัครสมาชิกสมาคม หรือเปิดหัวข้อผลการอนุมัติรับสมัครสมาชิกสมาคมจากศูนย์รวมข้อมูลฌาปนกิจทางการครับ ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอหรือผลอนุมัติรายบุคคล จึงไม่รับรองว่าอนุมัติแล้วและไม่ต้องส่งเลขสมาชิกหรือเอกสารส่วนตัวในแชต',{decision:'SAFE_HANDOFF',sources:[src('ศูนย์รวมข้อมูลและผลอนุมัติสมาคมฌาปนกิจ',hub),src('ช่องทางติดต่อสหกรณ์',S.contact)],actions:[['ผลอนุมัติสมาชิกสมาคม',hub],['ติดต่อสหกรณ์',S.contact]]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
+    // Membership application form (8 May 2569), published by the cooperative:
+    // answer only the publicly documented category and checklist; board approval
+    // and later amendments remain authoritative for an individual application.
+    if(state?.topic==='membership-apply'&&/^(?:คุณสมบัติอะไรบ้าง|ใช้เอกสารอะไร)$/.test(raw)){
+      const pdf='https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing';
+      const forms='https://www.dlasavingcoop.com/show.php?No=772';
+      const eligibility=raw==='คุณสมบัติอะไรบ้าง';
+      const msg=eligibility?
+        'ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว่าไม่รวมพนักงานราชการหรือพนักงานจ้าง ทั้งนี้เป็นเพียงประเภทผู้สมัครตามแบบฟอร์ม ไม่ใช่การยืนยันสิทธิหรือมติรับเป็นสมาชิกรายบุคคล ต้องตรวจข้อบังคับและหลักเกณฑ์ล่าสุดก่อนยื่น':
+        'ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังสือรับรองตนเองกรณีไม่เป็นสมาชิกสหกรณ์อื่น สำเนาบัตรประชาชน สำเนาบัตรข้าราชการ/พนักงานท้องถิ่น สำเนาทะเบียนบ้าน สำเนาหน้าแรกสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. และคำขอเปิดบัญชีเงินฝากออมทรัพย์พิเศษ โปรดตรวจรายการในแบบฟอร์มฉบับล่าสุดก่อนจัดส่ง และอย่าส่งเอกสารส่วนบุคคลในแชตนี้';
+      const result=res(eligibility?'membership_verified_form_categories':'membership_verified_form_documents',msg,{decision:'RULE_INFORMATION',actions:[['แบบสมัครสมาชิกสามัญทางการ',pdf],['แบบฟอร์มสมาชิกทั้งหมด',forms]],sources:[src('ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ '+(eligibility?'2':'6'),pdf),src('หน้ารวมแบบฟอร์มสมาชิกทางการ',forms)]});
+      return {result,state:{...state,result,topic:'membership-apply',question:raw,lastFact:null},query:raw};
+    }
+    // Direct, evidence-constrained handoff when a known topic has no verified
+    // document/channel/fee fact. Avoid looping back to a generic topic menu.
+    // Official cooperative funeral-association enrollment page lists the
+    // application, beneficiary designation and payment-instruction documents.
+    // Do not reuse a stale amount or bank account without current verification.
+    if(state?.topic==='funeral-association'&&raw==='สมัครอย่างไร'){
+      const url='https://www.dlasavingcoop.com/show.php?No=3977';
+      const hub='https://www.dlasavingcoop.com/show.php?No=4161';
+      const result=res('funeral_official_application_steps','การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ 3) วิธีการชำระเงินค่าสมัครครับ กรอกแบบและตรวจคุณสมบัติกับเจ้าหน้าที่สมาคมก่อนยื่นหรือชำระเงิน โดยต้องยืนยันยอดเงินและบัญชีรับชำระปัจจุบันจากสมาคม ไม่ใช้ยอดหรือบัญชีในเอกสารเก่าเป็นหลักฐานว่าปัจจุบันยังใช้ได้ และอย่าส่งข้อมูลส่วนบุคคลในแชตนี้',{decision:'RULE_INFORMATION',sources:[src('หน้าสมัครสมาคมฌาปนกิจและแบบฟอร์มทางการ',url),src('ศูนย์รวมข้อมูลฌาปนกิจสหกรณ์',hub)],actions:[['แบบสมัครและผู้รับประโยชน์',url],['ข้อมูลฌาปนกิจทางการ',hub]]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
+    // A beneficiary follow-up belongs to the association already selected,
+    // not the cooperative's separate beneficiary registry.
+    if(state?.topic==='funeral-association'&&/ผู้รับ.*ประโยชน์/.test(raw)){
+      const query='ฌาปนกิจ '+raw,result=answer(query);
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query};
+    }
+    if(state?.topic==='funeral-association'&&/^(?:แล้ว)?(?:ใช้เอกสารอะไร(?:บ้าง)?|มีเอกสารเพิ่มเติมไหม|คุณสมบัติอะไรบ้าง|ติดต่อที่ไหน)$/.test(raw)){
+      const result=res('funeral_scoped_document_handoff',raw==='ติดต่อที่ไหน'?'ติดต่อเจ้าหน้าที่สมาคมฌาปนกิจสงเคราะห์ผ่านหน้ารวมข้อมูลสมาคมและหน้าติดต่อทางการของสหกรณ์ครับ แจ้งว่าเป็นเรื่องสมาคมฌาปนกิจเพื่อให้ประสานฝ่ายที่ถูกต้อง ก่อนส่งเอกสารส่วนบุคคลหรือชำระเงินให้ยืนยันช่องทางกับสมาคมโดยตรง':raw==='คุณสมบัติอะไรบ้าง'?'คุณสมบัติสมัครสมาคมฌาปนกิจสงเคราะห์ต้องใช้ข้อบังคับและประกาศรับสมัครฉบับที่มีผลครับ สมาคมกับสหกรณ์มีสมาชิกภาพแยกกัน จึงไม่ยืนยันว่าการเป็นสมาชิกสหกรณ์ทำให้สมัครสมาคมผ่านอัตโนมัติ ให้สมาคมตรวจประเภทผู้สมัคร อายุ สุขภาพ และเงื่อนไขตามแบบฉบับปัจจุบัน ไม่ต้องส่งข้อมูลสุขภาพหรือบัตรประชาชนในแชต':'เอกสารฌาปนกิจต้องแยกการสมัครกับการขอรับเงินกรณีเสียชีวิตครับ หน้าสมัครทางการมีใบสมัครสมาชิกสมาคมและหนังสือเจตนาผู้รับประโยชน์ ส่วนกรณีเสียชีวิตมีรายการเตรียมเอกสารขอรับเงินแยกต่างหาก ระบุประเภทเรื่องก่อนเลือกชุดเอกสาร และให้สมาคมตรวจเอกสารเพิ่มเติมตามฉบับที่มีผล ไม่ส่งเอกสารส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['ข้อบังคับสมาคมฌาปนกิจ',S.funeralRules],['ติดต่อเจ้าหน้าที่สหกรณ์',S.contact]],sources:[src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
+    if(state?.topic==='resignation'&&/^(?:แล้ว)?ถ้ามีหนี้(?:อยู่)?ทำอย่างไร$/.test(raw)){
+      const result=res('resignation_existing_debt_handoff','กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต',{decision:'SAFE_HANDOFF',actions:[['ติดต่อสหกรณ์',S.contact]],sources:[src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+      return {result,state:{...state,result,topic:'resignation',question:raw,lastFact:null},query:raw};
+    }
+    // Scoped, non-personal follow-ups: preserve the member's service context
+    // instead of falling into unrelated loan/document menus. Never invent
+    // eligibility, timing, fees, individual approval or guarantor liability.
+    const followTopic=state?.topic;
+    const exactShort=/^(?:ใครมีสิทธิ|ยื่นเมื่อไร|ยื่นที่ไหน|ต้องเป็นสมาชิกนานไหม|มีเงื่อนไขอะไร|ใช้เวลาพิจารณาเท่าไร|ส่งที่ไหน|มีเงื่อนไขผลการเรียนไหม|สมัครได้ที่ไหน|มีค่าธรรมเนียมหรือไม่|เป็นรอบไหน|วันโอนเมื่อไร|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ตรวจสถานะตัวเองได้ไหม|ถ้ายังไม่พบต้องทำอย่างไร|ต้องติดต่อใคร|มีประกาศใหม่หรือยัง|ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
+    if(exactShort){
+      const isChild=followTopic==='welfare:childbirth'&&/^(?:ใครมีสิทธิ|ยื่นเมื่อไร|ยื่นที่ไหน|ต้องเป็นสมาชิกนานไหม|มีเงื่อนไขอะไร|ใช้เวลาพิจารณาเท่าไร)$/.test(raw);
+      const isScholar=followTopic==='scholarship'&&/^(?:ใครมีสิทธิ|ส่งที่ไหน|มีเงื่อนไขผลการเรียนไหม)$/.test(raw);
+      const isMember=followTopic==='membership-apply'&&/^(?:สมัครได้ที่ไหน|มีค่าธรรมเนียมหรือไม่)$/.test(raw);
+      const isNotice=(followTopic==='approval-public'||(followTopic==='loan'&&prior?.intent==='notices'))&&/^(?:เป็นรอบไหน|วันโอนเมื่อไร|งวดแรกเมื่อไร|ดูเอกสารได้ที่ไหน|มีรายชื่อหรือไม่|ตรวจสถานะตัวเองได้ไหม|ถ้ายังไม่พบต้องทำอย่างไร|ต้องติดต่อใคร|มีประกาศใหม่หรือยัง)$/.test(raw);
+      const isGuarantor=(followTopic==='guarantor-guidance'||(followTopic==='loan'&&prior?.intent==='guarantor_center'))&&/^(?:ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
+      // Public notice document links are directly answerable; keep personal status locked.
+      if(isNotice&&raw==='ดูเอกสารได้ที่ไหน'){
+        const official='https://www.dlasavingcoop.com/list.php?Category=loan';
+        const result=res('approval_public_documents_verified','เปิดเอกสารประกาศผลอนุมัติเงินกู้ได้ที่หมวดผลอนุมัติเงินกู้บนเว็บไซต์สหกรณ์ครับ กรุณาเลือกประเภทเงินกู้และรอบประกาศให้ตรงกับคำขอ ข้อมูลในประกาศสาธารณะไม่ใช่การยืนยันสิทธิหรือสถานะของสมาชิกเฉพาะราย และไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต',{decision:'PROCEDURE_INFORMATION',actions:[['เปิดหมวดประกาศผลอนุมัติเงินกู้',official]],sources:[src('หมวดประกาศผลอนุมัติเงินกู้ทางการ',official)]});
+        return {result,state:{...state,result,topic:'approval-public',question:raw,lastFact:null},query:raw};
+      }
+      if(isChild&&/^(?:ใครมีสิทธิ|ยื่นเมื่อไร|ต้องเป็นสมาชิกนานไหม|มีเงื่อนไขอะไร)$/.test(raw)){
+        const eligibility='สวัสดิการคลอดบุตร: สมาชิกสามัญและสมาชิกสมทบต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือน ไม่ค้างค่าหุ้นหรือหนี้ในรอบปีบัญชีที่ขอสวัสดิการ โดยชำระเต็มตามใบแจ้งหนี้ และเป็นบุตรชอบด้วยกฎหมายครับ ครอบครัวละ 1,000 บาทต่อบุตร 1 คน ไม่เกิน 3 คน หากบิดาและมารดาเป็นสมาชิกทั้งคู่รับได้เพียงคนเดียว';
+        const msg=raw==='ยื่นเมื่อไร'?'ยื่นเอกสารขอสวัสดิการคลอดบุตรพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิดครับ ต้องผ่านคุณสมบัติตามหลักเกณฑ์ก่อนรับเงิน ไม่ใช่รับเงินอัตโนมัติ':raw==='ต้องเป็นสมาชิกนานไหม'?'สวัสดิการคลอดบุตรต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือนครับ และต้องผ่านเงื่อนไขไม่ค้างหุ้นหรือหนี้ รวมทั้งยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด':eligibility+' ยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด';
+        const result=res('childbirth_scoped_followup',msg,{decision:'RULE_INFORMATION',sources:[src('ประกาศสวัสดิการสมาชิก ข้อ 4 และ 5.1','https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view'),src('หลักเกณฑ์สวัสดิการคลอดบุตรที่สหกรณ์เผยแพร่','https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view'),src('แบบฟอร์มและหลักเกณฑ์สวัสดิการ',S.welfareForms)],actions:[['หลักเกณฑ์คลอดบุตร','https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view'],['แบบคำร้องสวัสดิการ',S.welfareForms]]});
+        return {result,state:{...state,result,topic:followTopic,question:raw,lastFact:null},query:raw};
+      }
+      if(isChild||isScholar||isMember||isNotice||isGuarantor){
+        const scope=isChild?'สวัสดิการคลอดบุตร':isScholar?'ทุนการศึกษาบุตรสมาชิก':isMember?'การสมัครสมาชิกสหกรณ์':isNotice?'ประกาศอนุมัติเงินกู้สาธารณะ':'การค้ำประกันเงินกู้';
+        const url=isChild?S.welfareForms:isScholar?S.notices:isMember?S.memberForms:isNotice?'https://www.dlasavingcoop.com/list.php?Category=loan':S.ordinaryLoanForms;
+        const intent=isChild?'childbirth_scoped_followup':isScholar?'scholarship_scoped_followup':isMember?'membership_scoped_followup':isNotice?'approval_public_scoped_followup':'guarantor_scoped_followup';
+        const nextTopic=isNotice?'approval-public':isGuarantor?'guarantor-guidance':followTopic;
+        let msg='คำถาม “'+raw+'” เป็นเรื่อง'+scope+'ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต';
+        if(isNotice){
+          const messages={
+            'เป็นรอบไหน':'ต้องเลือกประเภทเงินกู้และประกาศก่อนครับ หมวดประกาศอนุมัติมีหลายรอบ เปิดประกาศแล้วดูวันที่ตัดรอบเอกสาร ไม่ใช้วันที่โพสต์แทนรอบอนุมัติ',
+            'วันโอนเมื่อไร':'วันโอนของแต่ละประกาศต่างกันครับ กรุณาเลือกประเภทเงินกู้และรอบเอกสารจากหมวดผลอนุมัติ แล้วอ่านวันโอนในประกาศนั้น ยังยืนยันวันโอนของคุณจากคำถามนี้ไม่ได้',
+            'งวดแรกเมื่อไร':'ให้ดูเดือนเริ่มชำระงวดแรกในประกาศอนุมัติของประเภทเงินกู้และรอบที่ยื่นครับ ไม่ใช้เดือนของรอบอื่นแทน และตรวจใบแจ้งหนี้จริงก่อนชำระ',
+            'มีรายชื่อหรือไม่':'เปิดประกาศประเภทเงินกู้และรอบเอกสารที่เกี่ยวข้อง แล้วเปิดเอกสารแนบรายชื่อครับ ระบบนี้ไม่ยืนยันว่ามีชื่อคุณและไม่ขอข้อมูลส่วนบุคคลในแชต',
+            'ตรวจสถานะตัวเองได้ไหม':'สถานะคำขอกู้ของคุณต้องตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายสินเชื่อครับ แชตนี้ไม่เชื่อมสถานะคำขอรายบุคคล ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือรหัสผ่าน',
+            'ถ้ายังไม่พบต้องทำอย่างไร':'ตรวจประเภทเงินกู้และรอบตัดเอกสารให้ตรงก่อนครับ หากยังไม่พบประกาศให้สอบถามฝ่ายสินเชื่อผ่านช่องทางติดต่อทางการ การไม่พบชื่อหรือประกาศยังไม่ใช่หลักฐานว่าถูกปฏิเสธ',
+            'ต้องติดต่อใคร':'เรื่องประกาศอนุมัติและคำขอเงินกู้ ให้ติดต่อฝ่ายสินเชื่อผ่านหน้าติดต่อทางการของสหกรณ์ครับ ระบุเพียงประเภทเงินกู้และรอบเอกสารในขั้นแรก ข้อมูลส่วนตัวให้แจ้งเฉพาะช่องทางเจ้าหน้าที่ที่ยืนยันแล้ว',
+            'มีประกาศใหม่หรือยัง':'ตรวจรายการประกาศใหม่จากหมวดผลอนุมัติเงินกู้ทางการครับ เลือกประเภทเงินกู้และตรวจวันเผยแพร่กับรอบเอกสาร ระบบยังไม่ยืนยันว่ามีรอบใหม่กว่าโดยไม่ได้อ่านรายการสด'
+          };
+          msg='ประกาศอนุมัติเงินกู้สาธารณะ — '+messages[raw];
+        }
+        if(isMember)msg=raw==='สมัครได้ที่ไหน'?'การสมัครสมาชิกสหกรณ์ให้ดาวน์โหลดใบสมัครจากหน้ารวมแบบฟอร์มสมาชิกทางการ แล้วติดต่อฝ่ายทะเบียนผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับชุดเอกสารก่อนส่งครับ แชตนี้ไม่ใช่ช่องทางยื่นคำขอและไม่ขอเอกสารส่วนบุคคล':'การสมัครสมาชิกสหกรณ์มีรายการค่าธรรมเนียมและค่าหุ้นแรกเข้าที่หน้าแบบฟอร์มทางการแยกวิธีชำระไว้ครับ ต้องเลือกสมาชิกสามัญหรือสมทบและยืนยันยอดปัจจุบันกับฝ่ายทะเบียนก่อนโอน ไม่ใช้ยอดหรือบัญชีจากเอกสารเก่าเป็นยอดชำระวันนี้';
+        if(isChild)msg=raw==='ยื่นที่ไหน'?'สวัสดิการคลอดบุตรให้ใช้แบบคำร้องสวัสดิการจากหน้าทางการ และติดต่อฝ่ายสวัสดิการผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับเอกสารก่อนส่งครับ แบบคำร้องที่ตรวจอ่านยังไม่พอให้รับรองว่ายื่นผ่านแชต อีเมล หรือแอปใดได้ ไม่ต้องส่งเอกสารส่วนบุคคลในแชตนี้':'ระยะเวลาพิจารณาสวัสดิการคลอดบุตรต้องให้ฝ่ายสวัสดิการยืนยันรอบพิจารณาและความครบถ้วนของคำขอครับ หลักเกณฑ์คลอดบุตรที่อ่านระบุเวลายื่น 120 วันนับแต่วันแจ้งเกิด ซึ่งเป็นกำหนดยื่น ไม่ใช่จำนวนวันที่ต้องอนุมัติหรือจ่ายเงิน';
+        if(isGuarantor){
+          const messages={
+            'ต้องค้ำกี่คน':'หากหมายถึงจำนวนผู้ค้ำเงินกู้สามัญ: วงเงินไม่เกิน 500,000 บาท อย่างน้อย 1 คน; เกิน 500,000 ถึง 1,000,000 บาท อย่างน้อย 2 คน; เกิน 1,000,000 ถึง 2,000,000 บาท อย่างน้อย 3 คน หากหมายถึงจำนวนผู้กู้ที่คนหนึ่งค้ำพร้อมกัน ข้อ 6 จำกัดไม่เกิน 3 คนครับ ต้องระบุประเภทเงินกู้ก่อนนำเกณฑ์ไปใช้',
+            'มีภาระค้ำเดิมได้ไหม':'หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569 ข้อ 6 กำหนดสมาชิกคนหนึ่งค้ำผู้กู้ทุกประเภทพร้อมกันเกิน 3 คนไม่ได้ครับ ภาระเดิมจึงต้องนับร่วมกัน ส่วนคุณยังค้ำเพิ่มได้หรือไม่ให้ฝ่ายสินเชื่อตรวจทะเบียนค้ำจริง ไม่ส่งรายชื่อหรือเลขสมาชิกในแชต',
+            'ต้องใช้เอกสารอะไร':'ต้องแยกการค้ำคำขอกู้ใหม่กับการขอเปลี่ยนผู้ค้ำครับ เปิดแบบคำขอและสัญญาค้ำของเงินกู้ประเภทนั้นจากหน้าทางการ แล้วให้ฝ่ายสินเชื่อตรวจชุดเอกสารตามสถานภาพจริง ไม่ใช้แบบกู้สามัญแทนทุกประเภท และไม่ส่งเอกสารส่วนบุคคลในแชต',
+            'ยื่นเรื่องที่ไหน':'เรื่องการค้ำหรือเปลี่ยนผู้ค้ำให้ติดต่อฝ่ายสินเชื่อของสหกรณ์จากหน้าติดต่อทางการครับ ระบุประเภทเงินกู้และว่าจะค้ำใหม่หรือเปลี่ยนผู้ค้ำ เพื่อยืนยันแบบและช่องทางรับก่อนส่งเอกสาร ไม่ถือว่ายื่นผ่านแชตนี้แล้ว',
+            'ถ้าผู้กู้ผิดนัดทำอย่างไร':'ให้ติดต่อฝ่ายสินเชื่อเพื่อตรวจรายการผิดนัดและหนังสือค้ำประกันที่ลงนามครับ ต้องตรวจยอดหนี้ หนังสือแจ้งและเงื่อนไขสัญญาจริงก่อนระบุความรับผิด ไม่สรุปยอดที่ผู้ค้ำต้องชำระจากแชตและไม่ส่งสัญญาหรือข้อมูลผู้กู้ที่นี่',
+            'ขอปลดภาระค้ำได้ไหม':'สามารถสอบถามฝ่ายสินเชื่อให้ตรวจเงื่อนไขปลดหรือเปลี่ยนผู้ค้ำตามสัญญาจริงครับ การร้องขอไม่ใช่การปลดภาระอัตโนมัติ ต้องให้สหกรณ์ยืนยันผลจากทะเบียนค้ำก่อนถือว่าหมดภาระ ไม่ส่งสัญญาหรือข้อมูลผู้กู้ในแชต'
+          };
+          msg='การค้ำประกันเงินกู้ — '+messages[raw];
+        }
+        const result=res(intent,msg,{decision:'SAFE_HANDOFF',actions:[['ข้อมูลทางการเรื่อง'+scope,url],['ติดต่อสหกรณ์',S.contact]],sources:[src('ข้อมูลทางการเรื่อง'+scope,url),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
+        return {result,state:{...state,result,topic:nextTopic,question:raw,lastFact:null},query:raw};
+      }
     }
     const newQuestion=/(?:กี่|เท่า|ไหม|มั้ย|อย่างไร|ยัง|ต้อง|เอกสาร|เงื่อนไข|ดอกเบี้ย)/.test(raw);
     const choice=prior?.followups?.some(x=>norm(x)===raw)||!newQuestion;
@@ -3052,7 +3315,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return {result,state:{...state,result,topic:'depositSpecial',question:'ฝากพิเศษ ถอนเงิน เอกสาร'},query:raw};
     }
     let query=raw,result,lastFact=null;
-    const guardQuery=prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
+    // A new public-rule facet belongs to the current product, not a previous
+    // guarantor keyword. Apply the unchanged freshness gate to the new query.
+    const scopedRuleFacet=['ordinaryLoanCurrent','emergencyLoanCurrent','qualityOfLifeCurrent'].includes(state?.topic)&&/^(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|วงเงินเท่าไร|ผ่อนได้กี่งวด|ดอกเบี้ยเท่าไร|ใช้เอกสารอะไร|มีเอกสารอะไรบ้าง|ต้องเป็นสมาชิกกี่เดือน)$/.test(raw);
+    const guardQuery=scopedRuleFacet?contextualize(raw,state.topic):prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
     const guard=freshnessStatus(guardQuery);
     if(!guard.allowed){result=answer(guardQuery);return {result,state:{...state,result,question:guardQuery},query:guardQuery};}
     if(prior?.flowId==='disaster_property_review'&&(choice||(!newQuestion&&!questionDomain(raw)))){
