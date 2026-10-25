@@ -1,21 +1,21 @@
 {
   "reportType": "signed-primary-document-reviewed-full-answer-triage",
-  "asOf": "2026-10-24",
-  "candidateSHA": "126e48c19741118dfbd53851be510acb9c672a00",
-  "sourceCI": "Regression #737 job 120889185481",
-  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737. Refreshed all 110 full runtime answers from Regression #737; added two signed-source verified public facets (special debt overview, monthly share cap). Emergency guarantor remains PARTIAL. Ordinary April-to-October supersession documented in signed-primary-pdf-review-20261024.md.",
+  "asOf": "2026-10-25",
+  "candidateSHA": "2f1809ca6bbf9068487e16ff60d39094fc55f27c",
+  "sourceCI": "Regression #745 job 121028394100",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737. Refreshed all 110 full runtime answers from Regression #737; added two signed-source verified public facets (special debt overview, monthly share cap). Emergency guarantor remains PARTIAL. Ordinary April-to-October supersession documented in signed-primary-pdf-review-20261024.md. Refreshed all 110 full answers from Regression #745. Independently read cooperative-linked ordinary member application 8 May 2569 §§2,6 via Google Drive, certified exact applicant categories and checklist only (turns membership 2-3), without certifying personal eligibility. Verified loan-approval follow-up URLs now point to official Category=loan. Source form §4 contains stale share-rate details and is explicitly not used for the effective Oct 2569 share rules.",
   "summary": {
-    "CORRECT": 35,
-    "PARTIAL": 12,
+    "CORRECT": 37,
+    "PARTIAL": 10,
     "WRONG": 0,
     "SAFE_HANDOFF": 31,
     "NOT_VERIFIED": 32
   },
   "releaseGate": "BLOCKED",
   "blockers": [
-    "Independent official-effective-document adjudication still incomplete for remaining PARTIAL, SAFE_HANDOFF and NOT_VERIFIED.",
-    "Runtime PASS or SAFE_HANDOFF does not certify answer correctness.",
-    "Final SHA E2E/browser QA must pass before Merge/Deploy."
+    "10 PARTIAL, 31 SAFE_HANDOFF and 32 NOT_VERIFIED still require official-current-version semantic review or evidence-justified acceptance; 37 CORRECT are limited public-source facets.",
+    "Runtime PASS and safe handoff are not independent semantic certification.",
+    "Final SHA browser E2E must pass before merge/deploy."
   ],
   "rows": [
     {
@@ -1930,7 +1930,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -1952,7 +1952,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -1974,7 +1974,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -1996,7 +1996,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2018,7 +2018,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2040,7 +2040,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2062,7 +2062,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2084,7 +2084,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2106,7 +2106,7 @@
       "sourceRefs": [
         {
           "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
-          "url": "https://www.dlasavingcoop.com/list.php?Category=notice"
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
         },
         {
           "title": "ช่องทางติดต่อสหกรณ์",
@@ -2141,45 +2141,45 @@
       "domain": "membership",
       "turn": 2,
       "question": "คุณสมบัติอะไรบ้าง",
-      "intent": "member_apply",
+      "intent": "membership_verified_form_categories",
       "topic": "membership-apply",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Public category or document checklist independently checked against the cooperative-linked ordinary membership application, revision 8 May 2569, section 2. Certification limited to exact form content; personal eligibility and later amendments remain gated.",
+      "answerFull": "ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว่าไม่รวมพนักงานราชการหรือพนักงานจ้าง ทั้งนี้เป็นเพียงประเภทผู้สมัครตามแบบฟอร์ม ไม่ใช่การยืนยันสิทธิหรือมติรับเป็นสมาชิกรายบุคคล ต้องตรวจข้อบังคับและหลักเกณฑ์ล่าสุดก่อนยื่น",
       "sourceRefs": [
         {
-          "title": "แบบสมาชิก/ทะเบียน",
-          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+          "title": "ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ 2",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
         },
         {
-          "title": "ใบสมัครสมาชิก",
-          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+          "title": "หน้ารวมแบบฟอร์มสมาชิกทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
         }
       ],
-      "answerPreview": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ"
+      "answerPreview": "ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว"
     },
     {
       "domain": "membership",
       "turn": 3,
       "question": "ใช้เอกสารอะไร",
-      "intent": "member_apply",
+      "intent": "membership_verified_form_documents",
       "topic": "membership-apply",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Public category or document checklist independently checked against the cooperative-linked ordinary membership application, revision 8 May 2569, section 6. Certification limited to exact form content; personal eligibility and later amendments remain gated.",
+      "answerFull": "ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังสือรับรองตนเองกรณีไม่เป็นสมาชิกสหกรณ์อื่น สำเนาบัตรประชาชน สำเนาบัตรข้าราชการ/พนักงานท้องถิ่น สำเนาทะเบียนบ้าน สำเนาหน้าแรกสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. และคำขอเปิดบัญชีเงินฝากออมทรัพย์พิเศษ โปรดตรวจรายการในแบบฟอร์มฉบับล่าสุดก่อนจัดส่ง และอย่าส่งเอกสารส่วนบุคคลในแชตนี้",
       "sourceRefs": [
         {
-          "title": "แบบสมาชิก/ทะเบียน",
-          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+          "title": "ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ 6",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
         },
         {
-          "title": "ใบสมัครสมาชิก",
-          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+          "title": "หน้ารวมแบบฟอร์มสมาชิกทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
         }
       ],
-      "answerPreview": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ"
+      "answerPreview": "ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังส"
     },
     {
       "domain": "membership",
