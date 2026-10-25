@@ -3121,6 +3121,19 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const query='ทุนการศึกษาบุตรสมาชิก ได้ทุนเท่าไร',result=answer(query);
       return {result,state:{...state,result,topic:'scholarship',question:query,lastFact:null},query};
     }
+    // Membership application form (8 May 2569), published by the cooperative:
+    // answer only the publicly documented category and checklist; board approval
+    // and later amendments remain authoritative for an individual application.
+    if(state?.topic==='membership-apply'&&/^(?:คุณสมบัติอะไรบ้าง|ใช้เอกสารอะไร)$/.test(raw)){
+      const pdf='https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing';
+      const forms='https://www.dlasavingcoop.com/show.php?No=772';
+      const eligibility=raw==='คุณสมบัติอะไรบ้าง';
+      const msg=eligibility?
+        'ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว่าไม่รวมพนักงานราชการหรือพนักงานจ้าง ทั้งนี้เป็นเพียงประเภทผู้สมัครตามแบบฟอร์ม ไม่ใช่การยืนยันสิทธิหรือมติรับเป็นสมาชิกรายบุคคล ต้องตรวจข้อบังคับและหลักเกณฑ์ล่าสุดก่อนยื่น':
+        'ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังสือรับรองตนเองกรณีไม่เป็นสมาชิกสหกรณ์อื่น สำเนาบัตรประชาชน สำเนาบัตรข้าราชการ/พนักงานท้องถิ่น สำเนาทะเบียนบ้าน สำเนาหน้าแรกสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. และคำขอเปิดบัญชีเงินฝากออมทรัพย์พิเศษ โปรดตรวจรายการในแบบฟอร์มฉบับล่าสุดก่อนจัดส่ง และอย่าส่งเอกสารส่วนบุคคลในแชตนี้';
+      const result=res(eligibility?'membership_verified_form_categories':'membership_verified_form_documents',msg,{decision:'RULE_INFORMATION',actions:[['แบบสมัครสมาชิกสามัญทางการ',pdf],['แบบฟอร์มสมาชิกทั้งหมด',forms]],sources:[src('ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ '+(eligibility?'2':'6'),pdf),src('หน้ารวมแบบฟอร์มสมาชิกทางการ',forms)]});
+      return {result,state:{...state,result,topic:'membership-apply',question:raw,lastFact:null},query:raw};
+    }
     // Direct, evidence-constrained handoff when a known topic has no verified
     // document/channel/fee fact. Avoid looping back to a generic topic menu.
     if(state?.topic==='funeral-association'&&/^(?:แล้ว)?(?:ใช้เอกสารอะไร(?:บ้าง)?|มีเอกสารเพิ่มเติมไหม|คุณสมบัติอะไรบ้าง|ติดต่อที่ไหน)$/.test(raw)){
@@ -3144,7 +3157,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const isGuarantor=(followTopic==='guarantor-guidance'||(followTopic==='loan'&&prior?.intent==='guarantor_center'))&&/^(?:ต้องค้ำกี่คน|มีภาระค้ำเดิมได้ไหม|ต้องใช้เอกสารอะไร|ยื่นเรื่องที่ไหน|ถ้าผู้กู้ผิดนัดทำอย่างไร|ขอปลดภาระค้ำได้ไหม)$/.test(raw);
       if(isChild||isScholar||isMember||isNotice||isGuarantor){
         const scope=isChild?'สวัสดิการคลอดบุตร':isScholar?'ทุนการศึกษาบุตรสมาชิก':isMember?'การสมัครสมาชิกสหกรณ์':isNotice?'ประกาศอนุมัติเงินกู้สาธารณะ':'การค้ำประกันเงินกู้';
-        const url=isChild?S.welfareForms:isScholar?S.notices:isMember?S.memberForms:isNotice?S.notices:S.ordinaryLoanForms;
+        const url=isChild?S.welfareForms:isScholar?S.notices:isMember?S.memberForms:isNotice?'https://www.dlasavingcoop.com/list.php?Category=loan':S.ordinaryLoanForms;
         const intent=isChild?'childbirth_scoped_followup':isScholar?'scholarship_scoped_followup':isMember?'membership_scoped_followup':isNotice?'approval_public_scoped_followup':'guarantor_scoped_followup';
         const nextTopic=isNotice?'approval-public':isGuarantor?'guarantor-guidance':followTopic;
         const msg='คำถาม “'+raw+'” เป็นเรื่อง'+scope+'ครับ ให้ตรวจข้อกำหนดหรือแบบคำขอฉบับที่มีผลจากแหล่งทางการ และติดต่อฝ่ายรับผิดชอบของสหกรณ์เพื่อตรวจรายละเอียดกรณีนี้ ระบบยังไม่ยืนยันสิทธิ ค่าธรรมเนียม จำนวนผู้ค้ำ กำหนดเวลา หรือสถานะเฉพาะรายจากคำถามสั้นนี้ และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต';
