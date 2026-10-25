@@ -39,3 +39,15 @@ for(const row of report.rows){
  }
 }
 assert.equal(variants,1);console.log('Published-monitor full110 parity PASS; retired-guarantor lock preserved; emergency facets stay in product');
+
+// Each reviewed citation needs a recorded successful availability check.
+const links=JSON.parse(fs.readFileSync(new URL('../docs/quality/pr166-final-source-link-validation-20261025.json',import.meta.url),'utf8'));
+const availableHTTP=new Set(links.httpURLs.filter(x=>x.http==='200').map(x=>x.url));
+const availableDrive=new Set(links.driveFiles.filter(x=>x.metadataAvailable).map(x=>x.id));
+for(const row of report.rows)for(const ref of row.sourceRefs){
+ const id=ref.url.match(/drive\.google\.com\/file\/d\/([^/]+)/)?.[1];
+ assert.ok(id?availableDrive.has(id):availableHTTP.has(ref.url),row.domain+'/'+row.turn+' missing checked source URL: '+ref.url);
+ assert.doesNotMatch(ref.url,/change%20member%20information27012023/,'dead legacy source must not return');
+}
+assert.ok(report.rows.find(x=>x.domain==='membership'&&x.turn===7).sourceRefs.some(x=>x.url.includes('1Q-L8lPZ')));
+console.log('All110 sourceRefs have availability evidence; active member-change form replaces proven404');
