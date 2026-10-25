@@ -3165,6 +3165,15 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
     }
     // Direct, evidence-constrained handoff when a known topic has no verified
     // document/channel/fee fact. Avoid looping back to a generic topic menu.
+    // Official cooperative funeral-association enrollment page lists the
+    // application, beneficiary designation and payment-instruction documents.
+    // Do not reuse a stale amount or bank account without current verification.
+    if(state?.topic==='funeral-association'&&raw==='สมัครอย่างไร'){
+      const url='https://www.dlasavingcoop.com/show.php?No=3977';
+      const hub='https://www.dlasavingcoop.com/show.php?No=4161';
+      const result=res('funeral_official_application_steps','การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ 3) วิธีการชำระเงินค่าสมัครครับ กรอกแบบและตรวจคุณสมบัติกับเจ้าหน้าที่สมาคมก่อนยื่นหรือชำระเงิน โดยต้องยืนยันยอดเงินและบัญชีรับชำระปัจจุบันจากสมาคม ไม่ใช้ยอดหรือบัญชีในเอกสารเก่าเป็นหลักฐานว่าปัจจุบันยังใช้ได้ และอย่าส่งข้อมูลส่วนบุคคลในแชตนี้',{decision:'RULE_INFORMATION',sources:[src('หน้าสมัครสมาคมฌาปนกิจและแบบฟอร์มทางการ',url),src('ศูนย์รวมข้อมูลฌาปนกิจสหกรณ์',hub)],actions:[['แบบสมัครและผู้รับประโยชน์',url],['ข้อมูลฌาปนกิจทางการ',hub]]});
+      return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
+    }
     if(state?.topic==='funeral-association'&&/^(?:แล้ว)?(?:ใช้เอกสารอะไร(?:บ้าง)?|มีเอกสารเพิ่มเติมไหม|คุณสมบัติอะไรบ้าง|ติดต่อที่ไหน)$/.test(raw)){
       const result=res('funeral_scoped_document_handoff','เป็นเรื่องสมาคมฌาปนกิจสงเคราะห์ครับ รายการเอกสารและคุณสมบัติที่ต้องใช้ให้ตรวจแบบสมัครหรือข้อบังคับฉบับที่มีผลล่าสุดกับเจ้าหน้าที่สมาคมก่อนยื่น ระบบยังไม่ยืนยันรายการเฉพาะกรณีจากคำถามนี้ และไม่ขอเอกสารส่วนบุคคลในแชต',{decision:'SAFE_HANDOFF',actions:[['ข้อบังคับสมาคมฌาปนกิจ',S.funeralRules],['ติดต่อเจ้าหน้าที่สหกรณ์',S.contact]],sources:[src('ข้อบังคับสมาคมฌาปนกิจสงเคราะห์',S.funeralRules),src('ช่องทางติดต่อสหกรณ์',S.contact)]});
       return {result,state:{...state,result,topic:'funeral-association',question:raw,lastFact:null},query:raw};
