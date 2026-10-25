@@ -60,4 +60,19 @@ for(const spec of [
 }
 console.log('Scoped share form/debt/balance follow-ups 6/6 PASS');
 
+// Published cooperative funeral enrollment page has a real application,
+// beneficiary-designation document and payment instructions.
+{
+ const start=app.conversationTurn('สมาคมฌาปนกิจสงเคราะห์');
+ const t=app.conversationTurn('สมัครอย่างไร',start.state,{continuation:true});
+ assert.equal(t.result.intent,'funeral_official_application_steps');
+ assert.equal(t.state.topic,'funeral-association');
+ assert.match(t.result.answer,/ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์/);
+ assert.match(t.result.answer,/หนังสือแสดงเจตนาตั้งผู้รับประโยชน์/);
+ assert.match(t.result.answer,/ยืนยันยอดเงินและบัญชีรับชำระปัจจุบัน/);
+ assert.ok(t.result.sources.some(x=>x.url==='https://www.dlasavingcoop.com/show.php?No=3977'));
+ assert.doesNotMatch(t.result.answer,/ต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ/);
+}
+console.log('Verified funeral application follow-up 1/1 PASS');
+
 console.log('Semantic multi-turn acceptance PASS');
