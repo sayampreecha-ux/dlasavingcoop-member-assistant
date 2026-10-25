@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - kb/share-rules-2569-evidence
+      - test/real-sequential-conversation-20261024
   pull_request:
     paths:
       - index.html

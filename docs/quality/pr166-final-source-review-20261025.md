@@ -65,3 +65,7 @@ Official774/773/2385/procedure directories re-opened25Oct2026 and still link the
 ## Selected public-notice continuation
 
 A separate actual-index simulation proved that selecting official4946 then asking cutoff/transfer/first-installment/document lost the selected notice. The selected noticeId is now kept for public metadata and document followups; personal-status questions remain SAFE_HANDOFF. Added9explicit-index engine checks and9realUIchecks perviewport. Public dates are from verified official4946,not a universal loan timetable. The generic110notice sequence is now also required to match full reviewed answers exactly,not only a topic regex.
+
+## Final manual Production cross-topic finding
+
+After deploy02de6b8, Cloud Browser proved emergency→guarantor→interest→explicit association topic retained emergencyLoanCurrent and returned an unsupported association loan facet. Replaying the same sequence against original mainda06ac4 reproduced it, proving an existing cross-topic defect rather than a newly invented rule issue. Explicitly named association entry now resets only that service topic; explicit loan questions about association membership stay in the loan. Added6engine paths(3loan types×2monitor states),a loan-condition negative control,and10actual UI cross-topic turns across both viewports. Existing110/220and18notice/34legacy assertions remain. Follow-up uses the same PR166 branch and fast-forward release after its exact-SHA CI; no second PR is created.

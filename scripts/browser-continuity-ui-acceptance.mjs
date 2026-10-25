@@ -7,7 +7,7 @@ const {chromium}=createRequire(import.meta.url)('playwright');
 const root=path.resolve(new URL('../',import.meta.url).pathname);
 const server=http.createServer((req,res)=>{const pathname=new URL(req.url,'http://localhost').pathname;let file=path.resolve(root,'.'+pathname);if(file===root)file=path.join(root,'index.html');if(!file.startsWith(root+'/')){res.writeHead(403);return res.end();}try{res.setHeader('Content-Type',file.endsWith('.html')?'text/html; charset=utf-8':file.endsWith('.json')?'application/json':'text/javascript');res.end(fs.readFileSync(file));}catch{res.writeHead(404);res.end();}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
-let browser;const rows=[],fullRows=[],selectedRows=[];
+let browser;const rows=[],fullRows=[],selectedRows=[],crossRows=[];
 try{
  browser=await chromium.launch({headless:true,args:['--no-sandbox']});
  for(const width of [390,1365]){
@@ -82,13 +82,24 @@ try{
    selectedRows.push({width,question,actualAnswer:actual,status:'PASS'});
   }
   await noticePage.close();
+  const crossPage=await browser.newPage({viewport:{width,height:900}});
+  await crossPage.goto(process.env.CONTINUITY_BASE_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'networkidle'});
+  for(const [question,expected]of [['เงินกู้ฉุกเฉินกู้ได้ไหม',/หลักเกณฑ์ปัจจุบัน/],['ใช้คนค้ำไหม',/หุ้นที่ผู้กู้ชำระแล้ว/],['ดอกเบี้ยเท่าไร',/7\.50%/],['สมาคมฌาปนกิจสงเคราะห์',/เลือกเรื่องฌาปนกิจ/],['ผู้รับผลประโยชน์ต้องทำอย่างไร',/ผู้รับเงินสงเคราะห์สมาคมฌาปนกิจ/]]){
+   await crossPage.locator('#q').fill(question);await crossPage.locator('#form').evaluate(el=>el.requestSubmit());
+   const actual=await crossPage.locator('#out .body').innerText();assert.match(actual,expected,question+' actual cross-topic UI');
+   assert.doesNotMatch(actual,/ประเด็น association|ต้องการส่งหรือขอเอกสารเรื่องใด/);
+   if(question==='ผู้รับผลประโยชน์ต้องทำอย่างไร')assert.ok(await crossPage.locator('#out a[href*="1sxikYqV"]').count(),'association beneficiary source after loan switch');
+   crossRows.push({width,question,actualAnswer:actual,status:'PASS'});
+  }
+  await crossPage.close();
  }
-}finally{fs.mkdirSync(path.join(root,'continuity-110-evidence'),{recursive:true});fs.writeFileSync(path.join(root,'continuity-110-evidence','partial.json'),JSON.stringify({completed:fullRows.length,expected:220,rows:fullRows,selectedNoticeRows:selectedRows},null,2));if(browser)await browser.close();await new Promise(r=>server.close(r));}
+}finally{fs.mkdirSync(path.join(root,'continuity-110-evidence'),{recursive:true});fs.writeFileSync(path.join(root,'continuity-110-evidence','partial.json'),JSON.stringify({completed:fullRows.length,expected:220,rows:fullRows,selectedNoticeRows:selectedRows,crossTopicRows:crossRows},null,2));if(browser)await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({kind:'real-ui-multi-turn',rows}));
 assert.equal(rows.length,34);
 
 assert.equal(fullRows.length,220);
 assert.equal(selectedRows.length,18);
+assert.equal(crossRows.length,10);
 fs.mkdirSync(path.join(root,'continuity-110-evidence'),{recursive:true});
-fs.writeFileSync(path.join(root,'continuity-110-evidence','results.json'),JSON.stringify({rows:fullRows,selectedNoticeRows:selectedRows},null,2));
+fs.writeFileSync(path.join(root,'continuity-110-evidence','results.json'),JSON.stringify({rows:fullRows,selectedNoticeRows:selectedRows,crossTopicRows:crossRows},null,2));
 console.log('FULL110 REAL UI: 220/220 (mobile390 + desktop1365); static full-answer parity, live-notice safety, links and overflow PASS');

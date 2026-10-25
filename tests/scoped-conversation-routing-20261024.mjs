@@ -89,3 +89,21 @@ for(const start of ['สวัสดิการคลอดบุตร','ท�
   assert.ok(t.result.sources.length>0);
  }
 }
+
+// Production manual QA: a named funeral service must escape every primary loan.
+{
+ const fs=await import('node:fs');const monitor=JSON.parse(fs.readFileSync(new URL('../data/official-source-monitor.json',import.meta.url),'utf8'));
+ for(const useMonitor of [false,true])for(const start of ['เงินกู้สามัญกู้ได้ไหม','เงินกู้ฉุกเฉินกู้ได้ไหม','เงินกู้พิเศษรวมหนี้คืออะไร']){
+  const a=loadMemberEngine();if(useMonitor)a.applySourceMonitor(monitor);
+  let t=a.conversationTurn(start);t=a.conversationTurn('ดอกเบี้ยเท่าไร',t.state);
+  t=a.conversationTurn('สมาคมฌาปนกิจสงเคราะห์',t.state);
+  assert.equal(t.state.topic,'funeral-association',start+' named topic switch');
+  assert.match(t.result.answer,/เลือกเรื่องฌาปนกิจ/);assert.doesNotMatch(t.result.answer,/ประเด็น association|แบบคำขอ.*เงินกู้/);
+  t=a.conversationTurn('ผู้รับผลประโยชน์ต้องทำอย่างไร',t.state);
+  assert.equal(t.state.topic,'funeral-association');assert.match(t.result.answer,/ผู้รับเงินสงเคราะห์สมาคมฌาปนกิจ/);
+  assert.ok(t.result.sources.some(x=>x.url.includes('1sxikYqV')));assert.equal(t.result.decision,'EVIDENCE_LOCK');
+ }
+ const a=loadMemberEngine();let t=a.conversationTurn('เงินกู้สามัญกู้ได้ไหม');
+ t=a.conversationTurn('เงินกู้สามัญต้องเป็นสมาชิกสมาคมฌาปนกิจไหม',t.state);
+ assert.equal(t.state.topic,'ordinaryLoanCurrent','explicit loan association condition must stay in loan');
+}
