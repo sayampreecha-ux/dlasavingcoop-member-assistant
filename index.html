@@ -3104,7 +3104,7 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
     }
     if(state?.topic==='emergencyLoanCurrent'&&raw==='ใช้คนค้ำไหม'){
-      const result=res('emergency_guarantor_document_scope','จากประกาศหลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ. 2569 ข้อ 4–8 และแบบคำขอเงินกู้ฉุกเฉินที่เผยแพร่ ไม่พบข้อกำหนดจำนวนผู้ค้ำประกันบุคคลสำหรับเงินกู้ฉุกเฉินประเภทเงินสด/โอนบัญชีธนาคาร แต่ควรตรวจแบบคำขอฉบับที่ใช้ยื่นจริงกับฝ่ายสินเชื่อก่อนสรุปภาระผูกพัน ไม่ใช่นำเกณฑ์ผู้ค้ำของเงินกู้สามัญมาใช้กับเงินกู้ฉุกเฉิน',{decision:'EVIDENCE_LOCK',sources:[src('หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ. 2569',S.loanEmergencyAnnouncement),src('แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm)],actions:[['หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm]]});
+      const result=res('emergency_guarantor_document_scope','เงินกู้ฉุกเฉินใช้หุ้นที่ผู้กู้ชำระแล้วเป็นหลักประกันร่วมกับหนังสือสัญญากู้ ตามระเบียบเงินกู้ฉุกเฉิน พ.ศ. 2566 ข้อ 10 ครับ จากหลักเกณฑ์ พ.ศ. 2569 ข้อ 4–8 และแบบคำขอที่เผยแพร่ ไม่พบข้อกำหนดจำนวนผู้ค้ำประกันบุคคลสำหรับประเภทเงินสด/โอนบัญชีธนาคาร แต่ควรตรวจแบบคำขอฉบับที่ใช้ยื่นจริงกับฝ่ายสินเชื่อก่อนสรุปภาระผูกพัน ไม่ใช่นำเกณฑ์ผู้ค้ำของเงินกู้สามัญมาใช้กับเงินกู้ฉุกเฉิน',{decision:'EVIDENCE_LOCK',sources:[src('หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ. 2569',S.loanEmergencyAnnouncement),src('แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm),src('ระเบียบเงินกู้ฉุกเฉิน พ.ศ.2566 ข้อ 10','https://drive.google.com/file/d/16JwDlfoFhcNj8I0RktBcNxalmye82uMU/view'),src('ระเบียบเงินกู้ฉุกเฉิน ฉบับที่ 2 พ.ศ.2569','https://drive.google.com/file/d/1DeH0vI9PR6NHPMMlh3X62HOH-twlA0KR/view')],actions:[['หลักเกณฑ์เงินกู้ฉุกเฉิน',S.loanEmergencyAnnouncement],['แบบคำขอเงินกู้ฉุกเฉิน',S.loanEmergencyForm]]});
       return {result,state:{...state,result,question:raw,lastFact:null},query:raw};
     }
     // Release-review gaps: service-specific procedural questions should never
@@ -3303,7 +3303,10 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       return {result,state:{...state,result,topic:'depositSpecial',question:'ฝากพิเศษ ถอนเงิน เอกสาร'},query:raw};
     }
     let query=raw,result,lastFact=null;
-    const guardQuery=prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
+    // A new public-rule facet belongs to the current product, not a previous
+    // guarantor keyword. Apply the unchanged freshness gate to the new query.
+    const scopedRuleFacet=['ordinaryLoanCurrent','emergencyLoanCurrent','qualityOfLifeCurrent'].includes(state?.topic)&&/^(?:คุณสมบัติอะไรบ้าง|วงเงินสูงสุดเท่าไร|วงเงินเท่าไร|ผ่อนได้กี่งวด|ดอกเบี้ยเท่าไร|ใช้เอกสารอะไร|มีเอกสารอะไรบ้าง|ต้องเป็นสมาชิกกี่เดือน)$/.test(raw);
+    const guardQuery=scopedRuleFacet?contextualize(raw,state.topic):prior?.requiredFact==='loanProduct'&&loanProduct(raw)&&choice?raw+' '+state.question:prior?.requiredFact&&!newQuestion||options.continuation||correction?(state.question||contextualize(raw,state?.topic)):contextualize(raw,state?.topic);
     const guard=freshnessStatus(guardQuery);
     if(!guard.allowed){result=answer(guardQuery);return {result,state:{...state,result,question:guardQuery},query:guardQuery};}
     if(prior?.flowId==='disaster_property_review'&&(choice||(!newQuestion&&!questionDomain(raw)))){

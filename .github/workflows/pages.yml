@@ -68,6 +68,10 @@ jobs:
           path: _site
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify deployed index bytes match reviewed merge commit
+        env:
+          MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
+        run: node scripts/verify-production-runtime.mjs
       - name: Verify live Production on mobile and desktop
         env:
           MEMBER_APP_URL: https://sayampreecha-ux.github.io/dlasavingcoop-member-assistant/
@@ -94,6 +98,8 @@ jobs:
           node scripts/browser-deposit-entry-smoke.mjs
           node scripts/browser-private-deposit-balance-smoke.mjs
           node scripts/browser-member-tracking-smoke.mjs
+          CONTINUITY_BASE_URL="$MEMBER_APP_URL" node scripts/browser-continuity-ui-acceptance.mjs
+          FUNERAL_BASE_URL="$MEMBER_APP_URL" node scripts/browser-funeral-facets-20261024.mjs
           node scripts/browser-mobile-approval-ui.mjs
           node scripts/browser-approval-announcements.mjs
 
@@ -119,4 +125,14 @@ jobs:
         with:
           name: loan-scenario-browser-evidence
           path: loan-scenario-browser-evidence/
+          if-no-files-found: warn
+
+      - name: Upload exact Production runtime and 110-turn acceptance evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr166-production-runtime-and-continuity
+          path: |
+            production-runtime-evidence/
+            continuity-110-evidence/
           if-no-files-found: warn

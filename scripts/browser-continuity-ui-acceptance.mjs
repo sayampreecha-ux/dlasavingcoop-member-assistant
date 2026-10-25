@@ -51,6 +51,7 @@ try{
     if(reviewPage)await reviewPage.close();
     reviewPage=await browser.newPage({viewport:{width,height:900}});domain=row.domain;
     await reviewPage.goto(process.env.CONTINUITY_BASE_URL||'http://127.0.0.1:'+server.address().port,{waitUntil:'domcontentloaded'});
+    await reviewPage.waitForFunction(()=>typeof sourceMonitorFetchedAt!=='undefined'&&sourceMonitorFetchedAt>0,{},{timeout:12000});
    }
    await reviewPage.locator('#q').fill(row.question);
    await reviewPage.locator('#form').evaluate(el=>el.requestSubmit());
@@ -59,14 +60,17 @@ try{
     // Real UI may load the live official announcement index; offline VM does not.
     assert.match(actual,/ประกาศ|อนุมัติ|เอกสาร|สินเชื่อ|สถานะ/,domain+'/'+row.turn);
     assert.doesNotMatch(actual,/คุณได้รับอนุมัติแล้ว|โอนให้คุณแล้ว/);
-   }else assert.ok(norm(actual).includes(norm(row.answerFull)),domain+'/'+row.turn+' FULL visible answer mismatch: '+actual);
+   }else{
+    const accepted=[row.answerFull,...(row.monitorVariants||[]).map(x=>x.answerFull)];
+    assert.ok(accepted.some(expected=>norm(actual).includes(norm(expected))),domain+'/'+row.turn+' FULL visible answer mismatch: '+actual);
+   }
    assert.ok(await reviewPage.locator('#out a').count(),domain+'/'+row.turn+' official links missing');
    assert.ok(await reviewPage.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1),domain+'/'+row.turn+' horizontal overflow');
    fullRows.push({width,domain,turn:row.turn,question:row.question,actualAnswer:actual,semanticDisposition:row.status,status:'PASS'});
   }
   await reviewPage.close();
  }
-}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
+}finally{fs.mkdirSync(path.join(root,'continuity-110-evidence'),{recursive:true});fs.writeFileSync(path.join(root,'continuity-110-evidence','partial.json'),JSON.stringify({completed:fullRows.length,expected:220,rows:fullRows},null,2));if(browser)await browser.close();await new Promise(r=>server.close(r));}
 console.log(JSON.stringify({kind:'real-ui-multi-turn',rows}));
 assert.equal(rows.length,34);
 

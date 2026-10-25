@@ -20,3 +20,22 @@ for(const row of report.rows){
 }
 assert.equal(counts.CORRECT,report.summary.CORRECT);assert.equal(counts.SAFE_HANDOFF,report.summary.SAFE_HANDOFF);
 console.log('110 full answers + exact sourceRefs match independently authored review; '+JSON.stringify(counts));
+
+// Apply the same published monitor as Browser and preserve its separate locked variant.
+const monitorBytes=fs.readFileSync(new URL('../data/official-source-monitor.json',import.meta.url));
+const monitorHash=createHash('sha1').update(Buffer.from(`blob ${monitorBytes.length}\0`)).update(monitorBytes).digest('hex');
+assert.equal(report.sourceMonitorBlobSHA,monitorHash,'reviewed monitor snapshot changed');
+const monitored=loadMemberEngine();monitored.applySourceMonitor(JSON.parse(monitorBytes));
+state=undefined;domain=undefined;let variants=0;
+for(const row of report.rows){
+ if(domain!==row.domain){state=undefined;domain=row.domain;}
+ const t=monitored.conversationTurn(row.question,state,{continuation:row.turn>1});state=t.state;
+ const expected=row.monitorVariants?.[0]||row;
+ if(row.monitorVariants){variants++;assert.equal(row.status,'SAFE_HANDOFF');assert.match(expected.reason,/pending-guarantor gate/);}
+ assert.equal(t.result.answer,expected.answerFull,`${domain}/${row.turn}: full monitored answer differs`);
+ assert.equal(JSON.stringify(t.result.sources.map(x=>({title:x.title,url:x.url}))),JSON.stringify(expected.sourceRefs),`${domain}/${row.turn}: monitored sources differ`);
+ if(domain==='emergency-loan'&&[6,7].includes(row.turn)){
+  assert.equal(t.state.topic,'emergencyLoanCurrent');assert.doesNotMatch(t.result.answer,/เป็นผู้ค้ำประกันของเงินกู้ประเภทใด/);
+ }
+}
+assert.equal(variants,1);console.log('Published-monitor full110 parity PASS; retired-guarantor lock preserved; emergency facets stay in product');

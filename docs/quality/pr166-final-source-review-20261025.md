@@ -51,3 +51,13 @@ The complete signed October2569 emergency criteria pp1–3 and ordinary criteria
 
 Association registration is user-confirmed. No registrar reference/date is required for member answers. This does not authorize inventing the operative charge,individual net benefit or signed beneficiary designation. Rate evidence is dated and latest-at-application verification remains visible.
 The manual report is bound to the exact index.html Git blob. A new contract test compares every full answer and sourceRef; it cannot convert source uncertainty into a public fact. Original browser34 assertions remain and110turns per viewport are added. Final CI and Production are separate release gates.
+
+## Browser619 root cause and further signed-version check
+
+Browser619 failed full parity at guarantors/3 because its real SourceMonitor correctly applied a pending-guarantor lock; the offline VM had not loaded that monitor. Exact monitor-loaded full answers/sourceRefs are now independently checked for all110; one explicitly listed SAFE_HANDOFF variant is allowed, with the same safety disposition. No unverified right is promoted. A separate real routing defect was exposed by applying the monitor: the freshness guard replayed the previous emergency guarantor question when asked interest/documents. It now checks the current scoped product facet through the unchanged guard.
+
+- https://drive.google.com/file/d/16JwDlfoFhcNj8I0RktBcNxalmye82uMU/view — SHA256 `cb869de10e5555977d318d9c9899b05eb0fd6a31ef30228fed63f054fe6d2ec5` — Signed regulation2566 pp1–2,clause10 usespaidshares with contract as collateral. Attached2566 historical criteria pp3–4 are superseded by2569 criteria and are not used.
+- https://drive.google.com/file/d/1DeH0vI9PR6NHPMMlh3X62HOH-twlA0KR/view — SHA256 `d2d9bac66fcfa7016f56e090bad92f9e38920946b43f9ec4db6a7231acf9f9b3` — Signed amendment2/2569 onepage effective1Oct2569 replacesclause8 membership with3months; doesnotamendclause10 collateral.
+- https://drive.google.com/file/d/1CO8uENf2kvBbzILoKhMg6UFQyqXw99wb/view — SHA256 `e91923e3bf4006173911383df9891cdc7cd88285ff22fd02691ee1d85dfb9c64` — Signed amendment5/2569 bothpages effective1Oct2569 replacesclauses8/10:6months,2m and enumerated ordinary products; corroborates ordinary summary.
+
+Official774/773/2385/procedure directories re-opened25Oct2026 and still link these primary documents. Current operative notices override attached historical criteria where expressly replaced.
