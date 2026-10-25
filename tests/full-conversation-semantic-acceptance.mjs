@@ -36,4 +36,28 @@ for(const spec of [
  assert.match(turn.result.answer,spec.expected,spec.topic+': actionable handoff');
  assert.ok(turn.result.sources.some(x=>x.url),spec.topic+': official source URL');
 }
+// Official 2569 share-change request form (visually read original PDF):
+// these short questions must receive a procedure/document answer, not a rule recap.
+{
+ let t=app.conversationTurn('การส่งหุ้นรายเดือน');
+ for(const q of ['ส่งหุ้นสูงสุดเท่าไร','เพิ่มหุ้นได้ไหม','ลดหุ้นได้ไหม'])t=app.conversationTurn(q,t.state,{continuation:true});
+ const checks=[
+  {q:'ต้องทำอย่างไร',intent:'share_verified_change_form_steps',must:/กรอกชื่อ-สกุล.*อัตราเดิม.*อัตราใหม่/},
+  {q:'ใช้เอกสารอะไร',intent:'share_verified_change_form_documents',must:/แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน/},
+  {q:'ยื่นได้ที่ไหน',intent:'share_verified_change_submission',must:/ฝ่ายทะเบียน.*ยืนยันช่องทาง/},
+  {q:'คืนหุ้นเมื่อไร',intent:'share_refund',must:/คืนทุนเรือนหุ้น/},
+  {q:'ถ้ามีหนี้ทำอย่างไร',intent:'share_refund_existing_debt_handoff',must:/หนี้สหกรณ์หรือภาระค้ำประกัน/},
+  {q:'ดูยอดหุ้นได้อย่างไร',intent:'share_balance_private_handoff',must:/ระบบสมาชิกทางการหลังยืนยันตัวตน/}
+ ];
+ for(const spec of checks){
+  t=app.conversationTurn(spec.q,t.state,{continuation:true});
+  assert.equal(t.result.intent,spec.intent,'shares '+spec.q+' intent');
+  assert.match(t.result.answer,spec.must,'shares '+spec.q+' grounded answer');
+  assert.equal(t.state.topic,'shares','shares '+spec.q+' topic');
+  assert.ok(t.result.sources.some(s=>s.url?.startsWith('https://')),'shares '+spec.q+' official source');
+  assert.doesNotMatch(t.result.answer,/ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ:|เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อย/,'shares '+spec.q+' must not repeat generic menu');
+ }
+}
+console.log('Scoped share form/debt/balance follow-ups 6/6 PASS');
+
 console.log('Semantic multi-turn acceptance PASS');
