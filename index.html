@@ -3054,6 +3054,35 @@ globalThis.OFFICIAL_SOURCE_REGISTRY={"schemaVersion":"1.0","policy":{"maxIndexAg
       const result=res('special_debt_explained_verified','เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) คือเงินกู้ที่ใช้อสังหาริมทรัพย์เป็นหลักประกัน เพื่อรวมหนี้ตามเงื่อนไขประกาศ พ.ศ. 2569 หากได้รับอนุมัติและมีสัญญาเงินกู้ประเภทอื่นกับสหกรณ์ ต้องยินยอมให้สหกรณ์หักกลบลบหนี้ตามข้อ 5(4) วงเงินไม่เกินร้อยละ 80 ของราคาประเมินและสูงสุด 5 ล้านบาท โดยยังต้องตรวจคุณสมบัติ 3 ปี/36 งวด หรือ 5 ปี/60 งวด ตามช่วงวงเงิน และหลักประกันจริง ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2',{decision:'RULE_INFORMATION',sources:[src('ประกาศเงินกู้พิเศษรวมหนี้ พ.ศ. 2569 ข้อ 4–5',S.loanSpecialQualityAnnouncement)],actions:[['หลักเกณฑ์ลงนาม พ.ศ. 2569',S.loanSpecialQualityAnnouncement]]});
       return {result,state:{topic:'qualityOfLifeCurrent',result,question:raw,lastFact:null},query:raw};
     }
+    // Scoped share follow-ups: the cooperative's actual 2569 change-request form
+    // names the required fields and rate choices. Do not answer a document or
+    // debt question with a repeated monthly-share eligibility overview.
+    if(state?.topic==='shares'&&/^(?:ต้องทำอย่างไร|ใช้เอกสารอะไร|ยื่นได้ที่ไหน|ถ้ามีหนี้ทำอย่างไร|ดูยอดหุ้นได้อย่างไร)$/.test(raw)){
+      const form='https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view';
+      const rule='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
+      const rateChange=/^(?:ต้องทำอย่างไร|ใช้เอกสารอะไร|ยื่นได้ที่ไหน)$/.test(raw);
+      let intent,decision='RULE_INFORMATION',msg,links;
+      if(rateChange){
+        intent=raw==='ต้องทำอย่างไร'?'share_verified_change_form_steps':raw==='ใช้เอกสารอะไร'?'share_verified_change_form_documents':'share_verified_change_submission';
+        msg=raw==='ต้องทำอย่างไร'?
+          'การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้องการเริ่มใช้ แล้วลงลายมือชื่อเพื่อยื่นให้สหกรณ์พิจารณาครับ การเพิ่ม/ลดต้องเป็นไปตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 และความเห็นชอบของคณะกรรมการ ไม่ใช่เปลี่ยนสำเร็จทันที':
+          raw==='ใช้เอกสารอะไร'?
+          'ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และลงชื่อผู้ขอ หากเจ้าหน้าที่กำหนดเอกสารประกอบเพิ่มเติมให้ยืนยันจากสหกรณ์ก่อนส่ง ไม่ต้องส่งข้อมูลส่วนบุคคลในแชตนี้':
+          'การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาตให้ยื่นทางอีเมลหรือผ่านแอป จึงไม่ยืนยันช่องทางเหล่านั้นโดยไม่มีหลักฐาน';
+        if(raw==='ยื่นได้ที่ไหน')decision='EVIDENCE_LOCK';
+        links=[src('แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569',form),src('ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569',rule)];
+      }else if(raw==='ถ้ามีหนี้ทำอย่างไร'){
+        intent='share_refund_existing_debt_handoff';decision='SAFE_HANDOFF';
+        msg='ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่าถอนหุ้นหรือหักหนี้แล้วรับส่วนต่างได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต';
+        links=[src('ข้อบังคับและระเบียบสหกรณ์',S.procedure),src('ช่องทางติดต่อสหกรณ์',S.contact)];
+      }else{
+        intent='share_balance_private_handoff';decision='SAFE_HANDOFF';
+        msg='ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะนี้ไม่เชื่อมบัญชีสมาชิกและไม่ควรส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต';
+        links=[src('ระบบสมาชิกทางการ',S.memberPortal),src('ช่องทางติดต่อสหกรณ์',S.contact)];
+      }
+      const result=res(intent,msg,{decision,sources:links,actions:rateChange?[['แบบคำขอเปลี่ยนค่าหุ้นรายเดือน',form],['ระเบียบหุ้น พ.ศ. 2569',rule],['ติดต่อสหกรณ์',S.contact]]:[['ติดต่อสหกรณ์',S.contact]]});
+      return {result,state:{...state,result,topic:'shares',question:raw,lastFact:null},query:raw};
+    }
     if(state?.topic==='shares'&&raw==='ส่งหุ้นสูงสุดเท่าไร'){
       const url='https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view';
       const result=res('share_monthly_max_verified','การขอเพิ่มอัตราส่งหุ้นรายเดือนกำหนดอัตราใหม่ได้ไม่เกิน 5,000 หุ้นต่อเดือน ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 และต้องได้รับความเห็นชอบตามระเบียบ เพดานนี้ไม่ใช่เพิ่มอีก 5,000 หุ้นจากยอดเดิม',{decision:'RULE_INFORMATION',sources:[src('ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569',url)],actions:[['ระเบียบหุ้นลงนาม',url]]});
