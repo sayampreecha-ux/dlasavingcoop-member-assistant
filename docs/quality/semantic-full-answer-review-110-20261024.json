@@ -1,21 +1,21 @@
 {
   "reportType": "signed-primary-document-reviewed-full-answer-triage",
   "asOf": "2026-10-25",
-  "candidateSHA": "2f1809ca6bbf9068487e16ff60d39094fc55f27c",
-  "sourceCI": "Regression #745 job 121028394100",
-  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737. Refreshed all 110 full runtime answers from Regression #737; added two signed-source verified public facets (special debt overview, monthly share cap). Emergency guarantor remains PARTIAL. Ordinary April-to-October supersession documented in signed-primary-pdf-review-20261024.md. Refreshed all 110 full answers from Regression #745. Independently read cooperative-linked ordinary member application 8 May 2569 §§2,6 via Google Drive, certified exact applicant categories and checklist only (turns membership 2-3), without certifying personal eligibility. Verified loan-approval follow-up URLs now point to official Category=loan. Source form §4 contains stale share-rate details and is explicitly not used for the effective Oct 2569 share rules.",
+  "candidateSHA": "aaa2260f32c6256e38dfc8a0d6542d2fa7e3627d",
+  "sourceCI": "Regression #751 job 121043729169",
+  "method": "Full 110 sequential answers independently read; 19 narrow public-rule responses cross-checked to three signed 2569 loan PDFs and 2569 scholarship PDF; all remaining responses conservative status pending primary evidence. CORRECT only certifies the exact public answer, never personal eligibility or later revisions. Shares amendment No.3/2569 and monthly schedule independently inspected. Additional independent cross-check: complete signed 2569 scholarship announcement §§3–8 for turns 1,3,5,6,8. Independently read published special-savings withdrawal/closure form and cross-checked deposit turns 6–8. Current code deposit turns 9-10 verified from official source and CI Regression #737. Refreshed all 110 full runtime answers from Regression #737; added two signed-source verified public facets (special debt overview, monthly share cap). Emergency guarantor remains PARTIAL. Ordinary April-to-October supersession documented in signed-primary-pdf-review-20261024.md. Refreshed all 110 full answers from Regression #745. Independently read cooperative-linked ordinary member application 8 May 2569 §§2,6 via Google Drive, certified exact applicant categories and checklist only (turns membership 2-3), without certifying personal eligibility. Verified loan-approval follow-up URLs now point to official Category=loan. Source form §4 contains stale share-rate details and is explicitly not used for the effective Oct 2569 share rules. Refreshed every full answer and source link from Regression #751 on code SHA aaa2260; visually inspected official 2569 share-change request form, confirmed fields; checked cooperative funeral application page No.3977; independently reviewed six previously partial scoped answers, conservatively classifying evidence-locked channels and personal data as SAFE_HANDOFF.",
   "summary": {
-    "CORRECT": 37,
-    "PARTIAL": 10,
+    "CORRECT": 40,
+    "PARTIAL": 4,
     "WRONG": 0,
-    "SAFE_HANDOFF": 31,
+    "SAFE_HANDOFF": 34,
     "NOT_VERIFIED": 32
   },
   "releaseGate": "BLOCKED",
   "blockers": [
-    "10 PARTIAL, 31 SAFE_HANDOFF and 32 NOT_VERIFIED still require official-current-version semantic review or evidence-justified acceptance; 37 CORRECT are limited public-source facets.",
-    "Runtime PASS and safe handoff are not independent semantic certification.",
-    "Final SHA browser E2E must pass before merge/deploy."
+    "Remaining 4 PARTIAL, 34 SAFE_HANDOFF and 32 NOT_VERIFIED need explicit source-by-source acceptance under final Release Gate.",
+    "CORRECT certifies narrow public facts only; safe handoff and runtime pass are not a blanket 110-answer semantic PASS.",
+    "Final HEAD E2E and regression must be rechecked before merge."
   ],
   "rows": [
     {
@@ -826,67 +826,91 @@
       "domain": "shares",
       "turn": 5,
       "question": "ต้องทำอย่างไร",
-      "intent": "share_change_rate",
+      "intent": "share_verified_change_form_steps",
       "topic": "shares",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Visually verified official 2569 monthly-share change-request form: request steps and fields; signed share amendment No.3/2569 governs approval. Does not certify member-specific processing.",
+      "answerFull": "การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้องการเริ่มใช้ แล้วลงลายมือชื่อเพื่อยื่นให้สหกรณ์พิจารณาครับ การเพิ่ม/ลดต้องเป็นไปตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 และความเห็นชอบของคณะกรรมการ ไม่ใช่เปลี่ยนสำเร็จทันที",
       "sourceRefs": [
         {
-          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
         },
         {
-          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
-          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
         }
       ],
-      "answerPreview": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว"
+      "answerPreview": "การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้"
     },
     {
       "domain": "shares",
       "turn": 6,
       "question": "ใช้เอกสารอะไร",
-      "intent": "share_change_rate",
+      "intent": "share_verified_change_form_documents",
       "topic": "shares",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Visually verified official 2569 share-change form: exact form, name/member ID/old/new rate/effective month/signature. No invented additional documents.",
+      "answerFull": "ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และลงชื่อผู้ขอ หากเจ้าหน้าที่กำหนดเอกสารประกอบเพิ่มเติมให้ยืนยันจากสหกรณ์ก่อนส่ง ไม่ต้องส่งข้อมูลส่วนบุคคลในแชตนี้",
       "sourceRefs": [
         {
-          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
         },
         {
-          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
-          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
         }
       ],
-      "answerPreview": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว"
+      "answerPreview": "ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และล"
     },
     {
       "domain": "shares",
       "turn": 7,
       "question": "ยื่นได้ที่ไหน",
-      "intent": "share_change_rate",
+      "intent": "share_verified_change_submission",
       "topic": "shares",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "decision": "EVIDENCE_LOCK",
+      "status": "SAFE_HANDOFF",
+      "reason": "Official 2569 change-request form lacks confirmed current submission channel; accurately directs to registrar without inventing email or app filing.",
+      "answerFull": "การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาตให้ยื่นทางอีเมลหรือผ่านแอป จึงไม่ยืนยันช่องทางเหล่านั้นโดยไม่มีหลักฐาน",
       "sourceRefs": [
         {
-          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
           "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
         },
         {
-          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
-          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
         }
       ],
-      "answerPreview": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว"
+      "answerPreview": "การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาต"
     },
     {
       "domain": "shares",
@@ -910,49 +934,57 @@
       "domain": "shares",
       "turn": 9,
       "question": "ถ้ามีหนี้ทำอย่างไร",
-      "intent": "share_change_rate",
+      "intent": "share_refund_existing_debt_handoff",
       "topic": "shares",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
-      "sourceRefs": [
-        {
-          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
-          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
-        },
-        {
-          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
-          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
-        }
-      ],
-      "answerPreview": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว"
-    },
-    {
-      "domain": "shares",
-      "turn": 10,
-      "question": "ดูยอดหุ้นได้อย่างไร",
-      "intent": "share_all",
-      "topic": "shares",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Existing debt and share-refund balance are member-specific; correctly routes to register/loan verification without guessing payout.",
+      "answerFull": "ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่าถอนหุ้นหรือหักหนี้แล้วรับส่วนต่างได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต",
       "sourceRefs": [
         {
           "title": "ข้อบังคับและระเบียบสหกรณ์",
           "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
         },
         {
-          "title": "แบบฟอร์มสมาชิก",
-          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
         },
         {
-          "title": "ประกาศทางการ",
+          "title": "แบบฟอร์มสมาชิก",
           "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
         }
       ],
-      "answerPreview": "เรื่องทุนเรือนหุ้นที่สมาชิกใช้บ่อยมีทั้งการส่งหุ้นรายเดือน เปลี่ยนอัตราหุ้น ซื้อหุ้นเพิ่ม หุ้นที่ใช้ประกอบสิทธิเงินกู้ ปันผล และการคืนหุ้นเมื่อพ้นสมาชิกภาพครับ"
+      "answerPreview": "ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่"
+    },
+    {
+      "domain": "shares",
+      "turn": 10,
+      "question": "ดูยอดหุ้นได้อย่างไร",
+      "intent": "share_balance_private_handoff",
+      "topic": "shares",
+      "decision": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Personal share balance requires authenticated member portal or registrar; no member-specific balance exposed.",
+      "answerFull": "ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะนี้ไม่เชื่อมบัญชีสมาชิกและไม่ควรส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ระบบสมาชิกทางการ",
+          "url": "https://member.dlasavingcoop.com/coop/"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "answerPreview": "ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะ"
     },
     {
       "domain": "deposits",
@@ -2361,27 +2393,23 @@
       "domain": "funeral",
       "turn": 2,
       "question": "สมัครอย่างไร",
-      "intent": "funeral",
+      "intent": "funeral_official_application_steps",
       "topic": "funeral-association",
-      "decision": null,
-      "status": "PARTIAL",
-      "reason": "Answer does not fully resolve the requested action or public detail; needs further grounded improvement.",
-      "answerFull": "สมัครฌาปนกิจได้โดยทำตามขั้นตอนใน AI นี้ได้เลยครับ ไม่จำเป็นต้องเปิดภาพคำแนะนำเก่าที่มีข้อมูลติดต่อไม่เป็นปัจจุบัน\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
+      "decision": "RULE_INFORMATION",
+      "status": "CORRECT",
+      "reason": "Official cooperative enrollment page No.3977 visibly lists application, beneficiary designation and payment instructions; answer refuses unverified fee/account details.",
+      "answerFull": "การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ 3) วิธีการชำระเงินค่าสมัครครับ กรอกแบบและตรวจคุณสมบัติกับเจ้าหน้าที่สมาคมก่อนยื่นหรือชำระเงิน โดยต้องยืนยันยอดเงินและบัญชีรับชำระปัจจุบันจากสมาคม ไม่ใช้ยอดหรือบัญชีในเอกสารเก่าเป็นหลักฐานว่าปัจจุบันยังใช้ได้ และอย่าส่งข้อมูลส่วนบุคคลในแชตนี้",
       "sourceRefs": [
         {
-          "title": "หน้าสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "title": "หน้าสมัครสมาคมฌาปนกิจและแบบฟอร์มทางการ",
           "url": "https://www.dlasavingcoop.com/show.php?No=3977"
         },
         {
-          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
-          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
-        },
-        {
-          "title": "หน้าติดต่อทางการ",
-          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+          "title": "ศูนย์รวมข้อมูลฌาปนกิจสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4161"
         }
       ],
-      "answerPreview": "สมัครฌาปนกิจได้โดยทำตามขั้นตอนใน AI นี้ได้เลยครับ ไม่จำเป็นต้องเปิดภาพคำแนะนำเก่าที่มีข้อมูลติดต่อไม่เป็นปัจจุบัน\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเ"
+      "answerPreview": "การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ"
     },
     {
       "domain": "funeral",
