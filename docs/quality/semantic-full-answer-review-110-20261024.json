@@ -1,0 +1,3396 @@
+{
+  "reportType": "full-answer-source-and-safety-adjudication",
+  "asOf": "2026-10-25",
+  "candidateSHA": null,
+  "runtimeIndexBlobSHA": "6d89c8a4c3c9772e006c777408a503d867087848",
+  "method": "110 complete main-answer strings and sourceRefs regenerated from final candidate runtime. Each turn explicitly adjudicated above; published primary PDFs downloaded raw and scanned pages inspected for new claims. Earlier independently accepted primary reviews retained only for unchanged claims. CORRECT certifies bounded public guidance or necessary clarification; SAFE_HANDOFF separately accepts a named member-specific,missing-product/round or current-document/channel limitation. No CI result is used as semantic evidence. Browser parity is a separate required gate. Final follow-up: both no-monitor and applied published-monitor110-turn variants are reviewed; exactly one explicit SAFE_HANDOFF variant exists for retired guarantor. Browser619 exposed a stale-question freshness guard; current-product facet selection fixes emergency interest/documents without disabling the guard.",
+  "summary": {
+    "CORRECT": 77,
+    "SAFE_HANDOFF": 33,
+    "PARTIAL": 0,
+    "WRONG": 0,
+    "NOT_VERIFIED": 0
+  },
+  "semanticAcceptance": "ACCEPTED_WITH_SCOPED_SAFETY_HANDOFFS",
+  "releaseGate": "PENDING_FINAL_SHA_CI_BROWSER_AND_PRODUCTION",
+  "blockers": [
+    "Final SHA Regression/ShareKB/E2E and220-turn real-browser parity must pass before Ready/Merge. Production acceptance is required after Pages deployment."
+  ],
+  "limitations": [
+    "No personal eligibility,debt,guarantee,approval or association benefit is certified.",
+    "Association registration is user-confirmed; current charge/latest signed personal declaration still require association verification. No registration date/reference demanded or shown to members.",
+    "Historical rate evidence is dated; absence of later rate change is not certified.",
+    "Safety acceptance does not mean the missing private/live fact was retrieved."
+  ],
+  "rows": [
+    {
+      "domain": "ordinary-loan",
+      "turn": 1,
+      "question": "เงินกู้สามัญกู้ได้ไหม",
+      "intent": "guided_ordinary_eligibility",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "NEED_INFO",
+      "sourceCount": 2,
+      "answerPreview": "เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?",
+      "answerFull": "เป็นสมาชิกสหกรณ์มาแล้วกี่เดือนครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Asks only membership duration needed for public eligibility; does not grant a loan.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 2,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เงินกู้สามัญ — หลักเกณฑ์ที่ยืนยันแล้ว มีผล 2026-10-01\n1. เป็นสมาชิกอย่างน้อย 6 เดือน และส่งหุ้นต่อเนื่องอย่างน้อย 6 งวด\n2. วงเงินสูงสุด 2,000,000 บาท\n3. ผ่อนได้",
+      "answerFull": "เงินกู้สามัญ — หลักเกณฑ์ที่ยืนยันแล้ว มีผล 2026-10-01\n1. เป็นสมาชิกอย่างน้อย 6 เดือน และส่งหุ้นต่อเนื่องอย่างน้อย 6 งวด\n2. วงเงินสูงสุด 2,000,000 บาท\n3. ผ่อนได้ไม่เกิน 240 งวด อายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n4. หลังหักหุ้นและหนี้ ต้องมีรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาท\n5. กรณีบุคคลค้ำ: ไม่เกิน 500,000 บาท ใช้ผู้ค้ำอย่างน้อย 1 คน; 500,001–1,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 2 คน; 1,000,001–2,000,000 บาท ใช้ผู้ค้ำอย่างน้อย 3 คน\n6. วงเงิน 200,001–500,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n7. วงเงิน 500,001–2,000,000 บาท ต้องส่งหุ้นอย่างน้อย 12 เดือน และมีหุ้นสะสมอย่างน้อย 10% ของวงเงินขอกู้\n8. ต้องไม่ค้างชำระหุ้นและหนี้ย้อนหลัง 12 งวด\n9. ต้องเป็นสมาชิกสมาคมฌาปนกิจสงเคราะห์ตามหลักเกณฑ์\n10. ต้องทำประกันชีวิตตามวงเงินกู้ตลอดอายุสัญญา โดยให้สหกรณ์เป็นผู้รับผลประโยชน์และนำส่งเบี้ยตามข้อ 5(7)\n11. ไม่มีภาระหนี้ในฐานะผู้กู้กับสหกรณ์อื่น และไม่อยู่ระหว่างวินัยร้ายแรงหรือถูกพิทักษ์ทรัพย์ในคดีล้มละลายตามข้อ 4(6)–(7)\n12. หากมีสัญญาเดิม ต้องตรวจเงื่อนไขจำนวนงวดและการหักกลบหนี้ตามข้อ 5(4)–(6) เพิ่มเติมก่อนยื่น\nวงเงินและผลอนุมัติของคุณยังต้องตรวจข้อมูลสมาชิกจริง ไม่ถือว่าเพดานข้างต้นเป็นวงเงินที่คุณได้รับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October criteria pp1–3 clauses4–6; summary now includes life insurance, outside-cooperative debt and prior-contract conditions.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 3,
+      "question": "วงเงินสูงสุดเท่าไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "วงเงินสูงสุด 2,000,000 บาท",
+      "answerFull": "วงเงินสูงสุด 2,000,000 บาท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5 ceiling2m; ceiling is not a personal approved amount.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(8):240 installments and age75 at maturity.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 5,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": null,
+      "sourceCount": 4,
+      "answerPreview": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "ประกาศดอกเบี้ยลงนาม มีผล 11 พฤศจิกายน 2567",
+          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญ 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed interest announcement effective11Nov2567 pp1–2 and official rate page;7.50% stated with latest-at-application check.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 6,
+      "question": "ต้องมีผู้ค้ำกี่คน",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 ค",
+      "answerFull": "เงินกู้สามัญใช้ผู้ค้ำขั้นต่ำ: ไม่เกิน 500,000 บาท 1 คน; 500,001–1,000,000 บาท 2 คน; 1,000,001–2,000,000 บาท 3 คน ผู้ค้ำแต่ละคนมีภาระค้ำผู้กู้พร้อมกันไม่เกิน 3 คน",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed ordinary clause6:1/2/3 guarantors by loan band, maximum3 concurrent borrowers.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 7,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "เอกสารกู้สามัญตามแบบตรวจสอบบุคคลค้ำประกันทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้สามัญ\n2. สัญญาค้ำประกันหรือสำเนาหลักทรัพย์ค้ำประกันตามคำขอ\n3",
+      "answerFull": "เอกสารกู้สามัญตามแบบตรวจสอบบุคคลค้ำประกันทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้สามัญ\n2. สัญญาค้ำประกันหรือสำเนาหลักทรัพย์ค้ำประกันตามคำขอ\n3. หนังสือยินยอมหักเงินชำระหนี้ของผู้กู้และผู้ค้ำ ยินยอมติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูล\n4. สัญญาจำนำสิทธิตามตราสารการฝากเงิน กรณีใช้เงินฝากร่วม\n5. รายละเอียดเงินเดือนผู้กู้และผู้ค้ำย้อนหลัง 3 เดือน แยกรายรับรายจ่ายพร้อมผู้มีอำนาจรับรองตามแบบ\n6. รายงานข้อมูลเครดิตบูโรของผู้กู้\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้/ผู้ค้ำ\n8. ทะเบียนสมรสและบัตรประชาชน/ทะเบียนบ้านคู่สมรสผู้กู้และผู้ค้ำตามสถานภาพ\n9. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้ และบัญชีเงินฝากออมทรัพย์พิเศษตามรายการในแบบ\n10. เอกสารหย่า เปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nรับรองสำเนาทุกฉบับ บัตรไม่หมดอายุ และให้เจ้าหน้าที่ตรวจรายการที่ใช้กับสถานภาพและหลักประกันจริง ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบตรวจสอบเอกสารเงินกู้สามัญบุคคลค้ำประกัน หน้า 1",
+          "url": "https://drive.google.com/file/d/1KTCmp_1Vcv_fwP5FwjaZioypsqNguHl9/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Downloaded ordinary application checklist p1 items1–17; complete checklist summarized without collecting documents.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 8,
+      "question": "ยื่นที่ไหน",
+      "intent": "loan_scoped_verified_procedure",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เงินกู้สามัญยื่นคำขอพร้อมหลักฐานได้ด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ หรือ Mobile Application หรือ Web Application ของสหกรณ์ หรือสถานที่อื่นที่สหกรณ์กำห",
+      "answerFull": "เงินกู้สามัญยื่นคำขอพร้อมหลักฐานได้ด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ หรือ Mobile Application หรือ Web Application ของสหกรณ์ หรือสถานที่อื่นที่สหกรณ์กำหนด ตามประกาศหลักเกณฑ์เงินกู้สามัญ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) โปรดใช้แบบคำขอทางการและอย่าส่งข้อมูลส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October ordinary clause8 permits office/post/mobile/web submission.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 9,
+      "question": "ใช้เวลาพิจารณาเท่าไร",
+      "intent": "loan_scoped_procedure_handoff",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 3,
+      "answerPreview": "คำถาม “ใช้เวลาพิจารณาเท่าไร” เป็นเรื่องเงินกู้สามัญครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล",
+      "answerFull": "คำถาม “ใช้เวลาพิจารณาเท่าไร” เป็นเรื่องเงินกู้สามัญครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล่าสุดหรือติดต่อฝ่ายสินเชื่อ ไม่ควรสมมุติกำหนดเวลา และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Review timetable is not stated in inspected ordinary criteria; asks credit department/current-round confirmation without inventing days.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "ordinary-loan",
+      "turn": 10,
+      "question": "มีข้อจำกัดอายุหรือไม่",
+      "intent": "loan_ordinary",
+      "topic": "ordinaryLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "answerFull": "ผ่อนได้ไม่เกิน 240 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้สามัญ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(8) age limit applies at contract end, not current age.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 1,
+      "question": "เงินกู้ฉุกเฉินกู้ได้ไหม",
+      "intent": "loan_emergency_eligibility",
+      "topic": "emergencyLoanCurrent",
+      "decision": "NEED_MEMBER_DATA",
+      "sourceCount": 2,
+      "answerPreview": "หลักเกณฑ์ปัจจุบันยืนยันแล้วครับ ดูเงื่อนไขที่ใช้กับคำขอด้านล่าง และตรวจยอด/ประวัติจริงในระบบสมาชิกก่อนประเมินสิทธิส่วนบุคคล",
+      "answerFull": "หลักเกณฑ์ปัจจุบันยืนยันแล้วครับ ดูเงื่อนไขที่ใช้กับคำขอด้านล่าง และตรวจยอด/ประวัติจริงในระบบสมาชิกก่อนประเมินสิทธิส่วนบุคคล",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "General criteria display; signed October clauses4–5 support membership/share/income/debt conditions; individual result explicitly excluded.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 2,
+      "question": "วงเงินสูงสุดเท่าไร",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย",
+      "answerFull": "กู้ได้ไม่เกิน 4 เท่าของเงินได้รายเดือน: สมาชิกอย่างน้อย 3 เดือน สูงสุด 30,000 บาท; อย่างน้อย 6 เดือน สูงสุด 60,000 บาท ทั้งนี้ต้องผ่านเงื่อนไขอื่นด้วย",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(1)–(2):4times income;30k after3months/60k after6months; other conditions retained.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 3,
+      "question": "ต้องเป็นสมาชิกกี่เดือน",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด",
+      "answerFull": "เป็นสมาชิกไม่น้อยกว่า 3 เดือน และส่งค่าหุ้นรายเดือนต่อเนื่องไม่น้อยกว่า 3 งวด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause4(1)–(2):3months and3consecutive share installments.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ผ่อนได้ไม่เกิน 15 งวด",
+      "answerFull": "ผ่อนได้ไม่เกิน 15 งวด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(5):maximum15installments. Primary reference: https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 5,
+      "question": "ใช้คนค้ำไหม",
+      "intent": "emergency_guarantor_document_scope",
+      "topic": "emergencyLoanCurrent",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 2,
+      "answerPreview": "เงินกู้ฉุกเฉินใช้หุ้นที่ผู้กู้ชำระแล้วเป็นหลักประกันร่วมกับหนังสือสัญญากู้ ตามระเบียบเงินกู้ฉุกเฉิน พ.ศ. 2566 ข้อ 10 ครับ จากหลักเกณฑ์ พ.ศ. 2569 ข้อ 4–8 และแบบค",
+      "answerFull": "เงินกู้ฉุกเฉินใช้หุ้นที่ผู้กู้ชำระแล้วเป็นหลักประกันร่วมกับหนังสือสัญญากู้ ตามระเบียบเงินกู้ฉุกเฉิน พ.ศ. 2566 ข้อ 10 ครับ จากหลักเกณฑ์ พ.ศ. 2569 ข้อ 4–8 และแบบคำขอที่เผยแพร่ ไม่พบข้อกำหนดจำนวนผู้ค้ำประกันบุคคลสำหรับประเภทเงินสด/โอนบัญชีธนาคาร แต่ควรตรวจแบบคำขอฉบับที่ใช้ยื่นจริงกับฝ่ายสินเชื่อก่อนสรุปภาระผูกพัน ไม่ใช่นำเกณฑ์ผู้ค้ำของเงินกู้สามัญมาใช้กับเงินกู้ฉุกเฉิน",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบคำขอเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing"
+        },
+        {
+          "title": "ระเบียบเงินกู้ฉุกเฉิน พ.ศ.2566 ข้อ 10",
+          "url": "https://drive.google.com/file/d/16JwDlfoFhcNj8I0RktBcNxalmye82uMU/view"
+        },
+        {
+          "title": "ระเบียบเงินกู้ฉุกเฉิน ฉบับที่ 2 พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1DeH0vI9PR6NHPMMlh3X62HOH-twlA0KR/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Read signed emergency regulation2566 clause10 p2:paid shares secure the loan together with loan contract; amendment2/2569 effective1Oct2569 changesclause8 membership to3months,notclause10. Complete2569 criteria and checklist do not specify a personal-guarantor count; no universal exemption or personal liability finding.",
+      "reviewAccepted": true,
+      "previousStatus": "PARTIAL",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 6,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": null,
+      "sourceCount": 4,
+      "answerPreview": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 7.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "ประกาศดอกเบี้ยลงนาม มีผล 11 พฤศจิกายน 2567",
+          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed interest announcement p1 and official rate page show7.50%, with latest-at-application qualification.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 7,
+      "question": "มีเอกสารอะไรบ้าง",
+      "intent": "loan_emergency",
+      "topic": "emergencyLoanCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n1. คำขอและหนังสือเงินกู้เพื่อเหตุฉุกเฉิน\n2. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อม",
+      "answerFull": "เอกสารกู้ฉุกเฉินตามแบบตรวจสอบทางการ:\n1. คำขอและหนังสือเงินกู้เพื่อเหตุฉุกเฉิน\n2. หนังสือยินยอมให้ต้นสังกัดหักเงินชำระหนี้ ติดตามทวงถามหนี้ และเก็บใช้เปิดเผยข้อมูลส่วนบุคคล\n3. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง และทะเบียนบ้านผู้กู้ 1 ชุด\n4. รายละเอียดรายรับ–รายจ่ายเดือนปัจจุบัน ให้เจ้าหน้าที่เบิกจ่ายลงนามรับรอง\n5. หนังสือรับรองเงินเดือน 1 ชุด\n6. สำเนาหน้าสมุดบัญชีกรุงไทยหรือ ธกส. ของผู้กู้\n7. เอกสารเปลี่ยนชื่อ/นามสกุลและเอกสารอื่นถ้ามี\nสำเนาต้องชัดเจน บัตรไม่หมดอายุ และรับรองสำเนาทุกฉบับ ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้เพื่อเหตุฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบตรวจสอบเอกสารเงินกู้ฉุกเฉิน หน้า 1",
+          "url": "https://drive.google.com/file/d/1w1_mMEJ2SLFlPDypcZDRMb8w3Wa2Bf7Y/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Downloaded emergency checklist p1 items1–9 supports documents; no personal guarantor document invented.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 8,
+      "question": "ต้องยื่นที่ไหน",
+      "intent": "loan_scoped_verified_procedure",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เงินกู้ฉุกเฉินยื่นได้ที่สำนักงานสหกรณ์ หรือส่งทางไปรษณีย์ถึงงานเงินกู้ฉุกเฉิน เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 1212",
+      "answerFull": "เงินกู้ฉุกเฉินยื่นได้ที่สำนักงานสหกรณ์ หรือส่งทางไปรษณีย์ถึงงานเงินกู้ฉุกเฉิน เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือส่ง PDF ทางอีเมล dlasavingloan01@gmail.com หัวข้อ “ขอกู้เงินเพื่อเหตุฉุกเฉิน” หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ตามประกาศ พ.ศ. 2569 ข้อ 8 (มีผล 1 ตุลาคม 2569) กรุณาใช้เอกสารตามแบบทางการและไม่ส่งข้อมูลส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause8 matches office/post/PDF email/mobile/web and published address.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 9,
+      "question": "กู้ซ้ำได้ไหม",
+      "intent": "decision_emergency_repeat",
+      "topic": "emergencyLoanCurrent",
+      "decision": "NEED_INFO",
+      "sourceCount": 2,
+      "answerPreview": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+      "answerFull": "สัญญาเงินกู้ฉุกเฉินเดิมชำระแล้วกี่งวดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มเงินกู้ฉุกเฉิน",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Asks number of installments on prior emergency contract, relevant to signed clause5(3); no eligibility inferred.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "emergency-loan",
+      "turn": 10,
+      "question": "ถ้ายังมีหนี้อยู่ทำอย่างไร",
+      "intent": "emergency_existing_debt_public_rule",
+      "topic": "emergencyLoanCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 1,
+      "answerPreview": "ถ้ามีเงินกู้ฉุกเฉินเดิม ต้องชำระมาแล้วไม่น้อยกว่า 3 งวด และเงินกู้ใหม่ต้องหักกลบเงินกู้ฉุกเฉินสัญญาเดิม ตามประกาศ พ.ศ. 2569 ข้อ 5(3) ครับ หากมีเงินกู้ประเภทอื่น",
+      "answerFull": "ถ้ามีเงินกู้ฉุกเฉินเดิม ต้องชำระมาแล้วไม่น้อยกว่า 3 งวด และเงินกู้ใหม่ต้องหักกลบเงินกู้ฉุกเฉินสัญญาเดิม ตามประกาศ พ.ศ. 2569 ข้อ 5(3) ครับ หากมีเงินกู้ประเภทอื่นกับสหกรณ์ต้องชำระแล้วไม่น้อยกว่า 3 งวดตามข้อ 5(4) และผ่านคุณสมบัติอื่นด้วย ให้ฝ่ายสินเชื่อตรวจยอดหนี้และงวดที่ชำระจริงก่อนยืนยันสิทธิ ไม่ต้องส่งสัญญาหรือเลขสมาชิกในแชต",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้ฉุกเฉิน พ.ศ.2569 ข้อ 5(3)–(4)",
+          "url": "https://drive.google.com/file/d/1XZYfuXWgzqWp6K_Ld0aosuO58pxKXU5p/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Now answers signed clause5(3)–(4):3installments and offset prior emergency loan; personal balances remain locked.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 1,
+      "question": "เงินกู้พิเศษรวมหนี้คืออะไร",
+      "intent": "special_debt_explained_verified",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 1,
+      "answerPreview": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) คือเงินกู้ที่ใช้อสังหาริมทรัพย์เป็นหลักประกัน เพื่อรวมหนี้ตามเงื่อนไขประกาศ พ.ศ. 2569 หากได้รับอนุมัติและมีสัญญาเงิน",
+      "answerFull": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) คือเงินกู้ที่ใช้อสังหาริมทรัพย์เป็นหลักประกัน เพื่อรวมหนี้ตามเงื่อนไขประกาศ พ.ศ. 2569 หากได้รับอนุมัติและมีสัญญาเงินกู้ประเภทอื่นกับสหกรณ์ ต้องยินยอมให้สหกรณ์หักกลบลบหนี้ตามข้อ 5(4) วงเงินไม่เกินร้อยละ 80 ของราคาประเมินและสูงสุด 5 ล้านบาท โดยยังต้องตรวจคุณสมบัติ 3 ปี/36 งวด หรือ 5 ปี/60 งวด ตามช่วงวงเงิน และหลักประกันจริง ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2",
+      "sourceRefs": [
+        {
+          "title": "ประกาศเงินกู้พิเศษรวมหนี้ พ.ศ. 2569 ข้อ 4–5",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October clauses4–5:real-estate debt consolidation;80%/5m, differentiated from ordinary quality-of-life phase2.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 2,
+      "question": "ใครยื่นได้",
+      "intent": "loan_scoped_verified_procedure",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569: วงเงินไม่เกิน 3 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 3 ปีและส่งหุ้นอ",
+      "answerFull": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569: วงเงินไม่เกิน 3 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 3 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 36 งวด; วงเงินไม่เกิน 5 ล้านบาท ต้องเป็นสมาชิกต่อเนื่องไม่น้อยกว่า 5 ปีและส่งหุ้นอย่างต่อเนื่องไม่น้อยกว่า 60 งวด ทั้งยังต้องผ่านเงื่อนไขรายได้คงเหลืออย่างน้อย 15% และ 6,000 บาทต่อเดือน เงื่อนไขหนี้/หุ้น และหลักประกันตามประกาศข้อ 4–5 ทั้งหมด ไม่ถือว่าเป็นการอนุมัติสิทธิรายบุคคล และเกณฑ์นี้ไม่ใช่เงินกู้สามัญพัฒนาคุณภาพชีวิตระยะที่ 2",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause4:3years/36share installments or5years/60installments by band; income and individual review retained.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 3,
+      "question": "วงเงินเท่าไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญ",
+      "answerFull": "วงเงินไม่เกิน 80% ของราคาประเมิน และสูงสุด 5,000,000 บาท โดยใช้ช่วงอายุสมาชิก/งวดหุ้นตามหลักเกณฑ์\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(1):80% appraisal and5m ceiling; no90% superseded rule.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 4,
+      "question": "ผ่อนได้กี่งวด",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "answerFull": "ผ่อนได้ไม่เกิน 360 งวด และอายุเมื่อสิ้นสุดสัญญาไม่เกิน 75 ปี\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October clause5:360installments and age75 at maturity; prior primary review retained for unchanged answer.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 5,
+      "question": "ต้องมีหลักประกันอะไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "answerFull": "ใช้อสังหาริมทรัพย์ค้ำประกัน (โฉนด/น.ส.3 ก.) วงเงินไม่เกิน 80% ของราคาประเมิน\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October collateral clause:real estate,80%LTV; no personal appraisal assumed.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 6,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": null,
+      "sourceCount": 3,
+      "answerPreview": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "answerFull": "อัตราดอกเบี้ยตามประกาศ 6.50% ต่อปี ต้องตรวจประกาศล่าสุด ณ วันยื่น\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศอัตราดอกเบี้ยทางการ",
+          "url": "https://dlasavingcoop.com/show.php?No=4063"
+        },
+        {
+          "title": "ประกาศดอกเบี้ยลงนาม มีผล 11 พฤศจิกายน 2567",
+          "url": "https://drive.google.com/file/d/1ow2w4RsRBE-Kd2n6uX3_kWSLUFoJVQMw/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed interest announcement p2 category3.3:6.50% real-estate quality-of-life; no confusion with unsecured5.50% category.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 7,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "loan_special_quality",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เอกสารกู้พัฒนาคุณภาพชีวิตตามแบบคำร้องทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้พัฒนาคุณภาพชีวิต\n2. หนังสือยินยอมหักเงินชำระหนี้ ติดตามทวงถามหนี",
+      "answerFull": "เอกสารกู้พัฒนาคุณภาพชีวิตตามแบบคำร้องทางการ:\n1. หนังสือรับรองจากหน่วยงาน คำขอกู้ และสัญญาเงินกู้พัฒนาคุณภาพชีวิต\n2. หนังสือยินยอมหักเงินชำระหนี้ ติดตามทวงถามหนี้ ทำนิติกรรม และเก็บใช้เปิดเผยข้อมูล\n3. สำเนาเอกสารสิทธิอสังหาริมทรัพย์ รูปถ่ายสีพร้อมรับรอง และแผนที่ตั้งหลักประกัน\n4. รายละเอียดเงินเดือนย้อนหลัง 3 เดือนพร้อมเจ้าหน้าที่เบิกจ่ายรับรอง และรายงานเครดิตบูโร\n5. หนังสือรับรองหนี้จากสถาบันอื่น สัญญากู้เดิม และสัญญาจำนอง\n6. รายงานประเมินราคาบ้านและที่ดิน โดยต้องตรวจบริษัทที่สหกรณ์ยอมรับตามกฎปัจจุบัน\n7. สำเนาบัตรประชาชน บัตรข้าราชการหน้า-หลัง ทะเบียนบ้าน และเอกสารคู่สมรสตามสถานภาพ\n8. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. และเอกสารหย่า/เปลี่ยนชื่อถ้ามี\nตรวจระยะยื่นและเงื่อนไขของคำขอในกฎปัจจุบัน\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท\n\nต้องการถามหลักเกณฑ์ทั่วไป หรือให้ตรวจประเด็นหลักประกันของสัญญาจริงครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) โดยใช้อสังหาริมทรัพย์ค้ำประกัน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบคำร้องและรายการเอกสาร หน้า 1",
+          "url": "https://drive.google.com/file/d/16bqbu0ZfrykFNZ9ShLOFLwT_W5iKSbun/view?usp=sharing"
+        },
+        {
+          "title": "หลักเกณฑ์เงินกู้พิเศษ",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Downloaded real-estate consolidation checklist p1 items1–19 supports complete document summary.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 8,
+      "question": "เปิดรับเมื่อไร",
+      "intent": "loan_scoped_procedure_handoff",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 3,
+      "answerPreview": "คำถาม “เปิดรับเมื่อไร” เป็นเรื่องเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)ครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำ",
+      "answerFull": "คำถาม “เปิดรับเมื่อไร” เป็นเรื่องเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)ครับ หลักเกณฑ์ที่ตรวจได้ยังไม่ระบุระยะเวลาพิจารณาหรือช่วงเปิดรับที่ยืนยันได้สำหรับคำถามนี้ โปรดตรวจประกาศรอบล่าสุดหรือติดต่อฝ่ายสินเชื่อ ไม่ควรสมมุติกำหนดเวลา และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Criteria effective date does not prove live acceptance window; current intake must be confirmed with credit department.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 9,
+      "question": "ต้องสมัครอย่างไร",
+      "intent": "loan_scoped_verified_procedure",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ใช้แบบคำขอกู้และหลักฐานประกอบตามประกาศ พ.ศ. 2569 ข้อ 8 ยื่นด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ถึงงานเงินกู้พิ",
+      "answerFull": "เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ใช้แบบคำขอกู้และหลักฐานประกอบตามประกาศ พ.ศ. 2569 ข้อ 8 ยื่นด้วยตนเองที่สำนักงานสหกรณ์ หรือทางไปรษณีย์ถึงงานเงินกู้พิเศษ เลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรือผ่าน Mobile Application / Web Application หรือสถานที่ที่สหกรณ์กำหนด ต้องมีหลักประกันอสังหาริมทรัพย์ตามเกณฑ์ และให้เจ้าหน้าที่ตรวจหลักฐานจริง ไม่ส่งเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed October clause8 supports application procedure and channels; collateral verification retained.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "special-debt",
+      "turn": 10,
+      "question": "มีหนี้เดิมยื่นได้ไหม",
+      "intent": "loan_scoped_verified_procedure",
+      "topic": "qualityOfLifeCurrent",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "ผู้มีหนี้เงินกู้เดิมอาจยื่นขอเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ได้ แต่ต้องผ่านคุณสมบัติและเงื่อนไขของประกาศ พ.ศ. 2569 ข้อ 4–5 และยินยอมให้สหกรณ์หักกลบ",
+      "answerFull": "ผู้มีหนี้เงินกู้เดิมอาจยื่นขอเงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้) ได้ แต่ต้องผ่านคุณสมบัติและเงื่อนไขของประกาศ พ.ศ. 2569 ข้อ 4–5 และยินยอมให้สหกรณ์หักกลบลบหนี้เดิมตามข้อ 5(4) หากมีสัญญาเงินกู้ประเภทอื่นต้องเป็นไปตามเงื่อนไขในข้อ 5(5) จึงยังยืนยันสิทธิรายบุคคลไม่ได้จนกว่าสหกรณ์ตรวจภาระหนี้และหลักประกันจริง",
+      "sourceRefs": [
+        {
+          "title": "ประกาศหลักเกณฑ์ฉบับลงนาม พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "แบบและหลักเกณฑ์เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)",
+          "url": "https://drive.google.com/file/d/1Ek7aw6J-fgIE2AKOv_QruD57pQpJXVjU/view?usp=sharing"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=procedure"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause5(4)–(5) permits conditional old-debt treatment; no personal eligibility granted.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 1,
+      "question": "การส่งหุ้นรายเดือน",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "sourceCount": 2,
+      "answerPreview": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว",
+      "answerFull": "ขอเปลี่ยนอัตราหุ้นรายเดือนได้ครับ: การเพิ่มกำหนดอัตราใหม่ไม่เกิน 5,000 หุ้นต่อเดือน ส่วนการลดต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด และชำระค่าหุ้นรายเดือนมาไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา ทั้งสองกรณีต้องได้รับความเห็นชอบจากคณะกรรมการ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Unchanged signed share amendment3/2569 clause3 amending7:rate-change summary, ceiling5000shares,6months and approval.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 2,
+      "question": "ส่งหุ้นสูงสุดเท่าไร",
+      "intent": "share_monthly_max_verified",
+      "topic": "shares",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "การขอเพิ่มอัตราส่งหุ้นรายเดือนกำหนดอัตราใหม่ได้ไม่เกิน 5,000 หุ้นต่อเดือน ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม ",
+      "answerFull": "การขอเพิ่มอัตราส่งหุ้นรายเดือนกำหนดอัตราใหม่ได้ไม่เกิน 5,000 หุ้นต่อเดือน ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 และต้องได้รับความเห็นชอบตามระเบียบ เพดานนี้ไม่ใช่เพิ่มอีก 5,000 หุ้นจากยอดเดิม",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed clause:5000is the new monthly rate ceiling, not an extra5000shares.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 3,
+      "question": "เพิ่มหุ้นได้ไหม",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 2,
+      "answerPreview": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราที่ประกาศกำหนดได้ โดยอัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือน และต้องได้รับความเห็นชอบจากคณะกรรมการครับ เพดานนี้ไม่ใช่การเพิ่มอีก ",
+      "answerFull": "ขอเพิ่มหุ้นรายเดือนสูงกว่าอัตราที่ประกาศกำหนดได้ โดยอัตราใหม่ต้องไม่เกิน 5,000 หุ้นต่อเดือน และต้องได้รับความเห็นชอบจากคณะกรรมการครับ เพดานนี้ไม่ใช่การเพิ่มอีก 5,000 หุ้นจากอัตราเดิม ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569 คณะกรรมการอาจมอบอำนาจให้ผู้จัดการพิจารณาแทนได้ แต่ยังไม่ยืนยันว่ามอบอำนาจแล้ว",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed clause requires approval; does not assume manager delegation exists.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 4,
+      "question": "ลดหุ้นได้ไหม",
+      "intent": "share_change_rate",
+      "topic": "shares",
+      "decision": null,
+      "sourceCount": 2,
+      "answerPreview": "ขอลดค่าหุ้นรายเดือนได้เมื่อชำระค่าหุ้นรายเดือนมาแล้วไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา และอัตราใหม่ต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด โดยความเห็นชอบของค",
+      "answerFull": "ขอลดค่าหุ้นรายเดือนได้เมื่อชำระค่าหุ้นรายเดือนมาแล้วไม่น้อยกว่า 6 เดือนนับแต่วันที่เปลี่ยนอัตรา และอัตราใหม่ต้องไม่ต่ำกว่าอัตราที่ประกาศกำหนด โดยความเห็นชอบของคณะกรรมการครับ ตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 ซึ่งแก้ไขข้อ 7 มีผล 1 ตุลาคม 2569",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบหุ้น แก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 ข้อ 3 แก้ไขข้อ 7",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือน",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed clause:6months since rate change and minimum published rate.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 5,
+      "question": "ต้องทำอย่างไร",
+      "intent": "share_verified_change_form_steps",
+      "topic": "shares",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้",
+      "answerFull": "การขอเปลี่ยนอัตราส่งหุ้นรายเดือน ให้เปิดแบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนของสหกรณ์ กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราใหม่ และเดือนที่ต้องการเริ่มใช้ แล้วลงลายมือชื่อเพื่อยื่นให้สหกรณ์พิจารณาครับ การเพิ่ม/ลดต้องเป็นไปตามระเบียบหุ้นแก้ไขเพิ่มเติม (ฉบับที่ 3) พ.ศ. 2569 และความเห็นชอบของคณะกรรมการ ไม่ใช่เปลี่ยนสำเร็จทันที",
+      "sourceRefs": [
+        {
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Published2569 change-request form fields and signed approval requirement; no immediate completion claim.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 6,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "share_verified_change_form_documents",
+      "topic": "shares",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และล",
+      "answerFull": "ใช้แบบคำขอเปลี่ยนแปลงการส่งค่าหุ้นรายเดือนที่สหกรณ์เผยแพร่ครับ ในแบบให้กรอกชื่อ-สกุล เลขทะเบียนสมาชิก สังกัด อัตราเดิม อัตราที่ต้องการเปลี่ยน เดือนเริ่มต้น และลงชื่อผู้ขอ หากเจ้าหน้าที่กำหนดเอกสารประกอบเพิ่มเติมให้ยืนยันจากสหกรณ์ก่อนส่ง ไม่ต้องส่งข้อมูลส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Published change-request form is named and listed fields match; extra documents conditional.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 7,
+      "question": "ยื่นได้ที่ไหน",
+      "intent": "share_verified_change_submission",
+      "topic": "shares",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 4,
+      "answerPreview": "การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาต",
+      "answerFull": "การยื่นเปลี่ยนอัตราส่งหุ้นรายเดือนให้ใช้แบบคำขอของสหกรณ์และติดต่อฝ่ายทะเบียนเพื่อยืนยันช่องทางรับคำขอปัจจุบันก่อนส่งครับ แบบฟอร์มที่ตรวจพบไม่ได้ระบุชัดว่าอนุญาตให้ยื่นทางอีเมลหรือผ่านแอป จึงไม่ยืนยันช่องทางเหล่านั้นโดยไม่มีหลักฐาน",
+      "sourceRefs": [
+        {
+          "title": "แบบคำขอเปลี่ยนค่าหุ้นรายเดือน พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/177gzqKCqFxgaQM69cUfvcI40Xf9t7ESf/view"
+        },
+        {
+          "title": "ระเบียบหุ้นแก้ไขเพิ่มเติม ฉบับที่ 3 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Inspected form does not establish remote submission authorization; registry must confirm channel before transmitting documents.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 8,
+      "question": "คืนหุ้นเมื่อไร",
+      "intent": "share_refund",
+      "topic": "shares",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 1,
+      "answerPreview": "การถอนหรือคืนทุนเรือนหุ้นไม่ใช่การเบิกเงินฝาก สมาชิกที่ยังมีสมาชิกภาพไม่ควรถือว่าถอนหุ้นได้ทันที ส่วนการลาออก พ้นสมาชิกภาพ หรือเสียชีวิต ต้องตรวจเงื่อนไขและภาระ",
+      "answerFull": "การถอนหรือคืนทุนเรือนหุ้นไม่ใช่การเบิกเงินฝาก สมาชิกที่ยังมีสมาชิกภาพไม่ควรถือว่าถอนหุ้นได้ทันที ส่วนการลาออก พ้นสมาชิกภาพ หรือเสียชีวิต ต้องตรวจเงื่อนไขและภาระผูกพันก่อนจ่ายคืนตามข้อบังคับครับ",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับฉบับรวม 1–7 ข้อ 5, 42, 46 และ 47",
+          "url": "https://drive.google.com/file/d/1UVoCHBoB4ybnJjHzgCc7aTy6aiAzRfki/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Refund depends on cessation of membership and actual obligations; no withdrawal-as-deposit or guaranteed payout.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 9,
+      "question": "ถ้ามีหนี้ทำอย่างไร",
+      "intent": "share_refund_existing_debt_handoff",
+      "topic": "shares",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 3,
+      "answerPreview": "ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่",
+      "answerFull": "ถ้าต้องการคืนทุนเรือนหุ้นและยังมีหนี้สหกรณ์หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจยอดหุ้น หนี้ และภาระผูกพันตามข้อบังคับก่อนครับ ไม่สามารถสรุปว่าถอนหุ้นหรือหักหนี้แล้วรับส่วนต่างได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับและระเบียบสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Outstanding debt/guarantees require real registry and contracts; no net refund guessed.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "shares",
+      "turn": 10,
+      "question": "ดูยอดหุ้นได้อย่างไร",
+      "intent": "share_balance_private_handoff",
+      "topic": "shares",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 4,
+      "answerPreview": "ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะ",
+      "answerFull": "ยอดทุนเรือนหุ้นของคุณเป็นข้อมูลเฉพาะสมาชิกครับ ให้ตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายทะเบียนสหกรณ์เพื่อตรวจยอดและรายการส่งหุ้น ระบบแชตสาธารณะนี้ไม่เชื่อมบัญชีสมาชิกและไม่ควรส่งเลขสมาชิกหรือข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ระบบสมาชิกทางการ",
+          "url": "https://member.dlasavingcoop.com/coop/"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        },
+        {
+          "title": "ข้อบังคับและระเบียบของสหกรณ์",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        },
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1035C9tf9AU--HHJFq581v9uCwsF6ANL_/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Share balance is member-only data; authenticated official portal or registry required, no identifiers collected.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 1,
+      "question": "เงินฝากออมทรัพย์พิเศษ",
+      "intent": "deposit_special",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตรา",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษมีขั้นตอนเปิดบัญชีครั้งแรกขั้นต่ำ 500 บาท และแบบฝาก ถอน/ปิดบัญชีทางการครับ ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี หรือสอบถามดอกเบี้ย? อัตราดอกเบี้ยปัจจุบันยังต้องยืนยันประกาศที่มีผล",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official807/3993 support500baht opening minimum and operation-specific forms; current interest not falsely certified.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 2,
+      "question": "เปิดบัญชีอย่างไร",
+      "intent": "deposit_open",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungtha",
+      "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official3993 steps1–5 match7196,6digit member number and0000011 only for first opening.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 3,
+      "question": "ฝากเพิ่มได้ไหม",
+      "intent": "deposit_special_add",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "เงินฝากออมทรัพย์พิเศษฝากเพิ่มแต่ละครั้งขั้นต่ำ 500 บาท ตามระเบียบข้อ 13 ครับ ฝากครั้งละ 500 บาทขึ้นไปผ่านช่องทางทางการ ทำผ่าน Krungthai NEXT หรือเคาน์เตอร์กรุงไ",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษฝากเพิ่มแต่ละครั้งขั้นต่ำ 500 บาท ตามระเบียบข้อ 13 ครับ ฝากครั้งละ 500 บาทขึ้นไปผ่านช่องทางทางการ ทำผ่าน Krungthai NEXT หรือเคาน์เตอร์กรุงไทยตามแบบชำระเงินฝากพิเศษรหัส 7196 ครับ ใช้เลขบัญชีของตนให้ถูกต้อง รหัสบัญชี 0000011 เป็นขั้นตอนเปิดบัญชีครั้งแรก ไม่ใช้แทนบัญชีเดิมทุกครั้ง",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนฝากเงินออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=4554"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Read signed deposit regulation clause13:500minimum each addition; official deposit instructions distinguish existing account from opening reference.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 4,
+      "question": "ขั้นต่ำเท่าไร",
+      "intent": "deposit_open",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungtha",
+      "answerFull": "ตามขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษที่สหกรณ์เผยแพร่ เปิดบัญชีครั้งแรกขั้นต่ำ 500 บาทครับ กรอกคำขอและแบบผู้รับโอนประโยชน์ ชำระผ่านธนาคารกรุงไทยหรือ Krungthai NEXT รหัสชำระ 7196 อ้างอิงเลขสมาชิก 6 หลักและเลขบัญชี 0000011 สำหรับเปิดครั้งแรกเท่านั้น แล้วส่งเอกสารตามขั้นตอนทางการ",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Opening minimum500 and first-opening reference confirmed on official3993/807.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 5,
+      "question": "ดอกเบี้ยเท่าไร",
+      "intent": "deposit_special_interest",
+      "topic": "depositSpecial",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 5,
+      "answerPreview": "ตามประกาศเดิม อัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี รับฝากรวมสูงสุดต่อสมาชิก 50,000,000 บาทครับ ประกาศลงวันที่ 29 พฤศจิกายน 2565 มีผลตั้งแต่ 1 ธันวาคม ",
+      "answerFull": "ตามประกาศเดิม อัตราดอกเบี้ยเงินฝากออมทรัพย์พิเศษ 3.25% ต่อปี รับฝากรวมสูงสุดต่อสมาชิก 50,000,000 บาทครับ ประกาศลงวันที่ 29 พฤศจิกายน 2565 มีผลตั้งแต่ 1 ธันวาคม 2565 ใช้ประกาศฉบับนี้เป็นฐานอ้างอิงคำตอบ ยังไม่ได้ยืนยันประกาศเปลี่ยนแปลงภายหลัง จึงระบุอัตราพร้อมวันที่และต้นฉบับให้ตรวจสอบ ตามระเบียบแก้ไขฉบับที่ 2 พ.ศ. 2566 ข้อ 14 คำนวณจากยอดคงเหลือรายวันและทบเป็นเงินต้นทุกสิ้นเดือน หากยอดต่ำกว่า 500 บาทไม่คิดดอกเบี้ย",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        },
+        {
+          "title": "ประกาศ 29 พฤศจิกายน 2565 มีผล 1 ธันวาคม 2565",
+          "url": "https://drive.google.com/file/d/1tLZsmF29KVBFAnZS8Ei--3TBP6w0-ZUp/view"
+        },
+        {
+          "title": "ระเบียบรับฝากเงิน ฉบับแก้ไขที่ 2 พ.ศ. 2566 ข้อ 14",
+          "url": "https://drive.google.com/file/d/1-_JHv4AqbwzE2PyPjZJbN8zzdnYpH5MR/view"
+        },
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝาก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Read29Nov2565 announcement effective1Dec2565 and amended clause14:3.25%,50m, daily balance/month-end compounding; answer explicitly does not certify absence of later rate changes.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 6,
+      "question": "ถอนอย่างไร",
+      "intent": "deposit_special_withdraw",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้",
+      "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Previously inspected withdrawal/closure form and signed clause13 support1free withdrawal/month then1% minimum100; personal collateral restriction retained.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 7,
+      "question": "ปิดบัญชีได้ไหม",
+      "intent": "deposit_special_close",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "การปิดบัญชีเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชี ส่งเอกสารทางไปรษณีย์พร้อมสมุดบัญชีเล่มสีเขียว ตามแบบที่สหกรณ์เผยแพร่ครับ ดอกเบี้ยคิดถึงวันก่อนวันทำรายการโอน",
+      "answerFull": "การปิดบัญชีเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชี ส่งเอกสารทางไปรษณีย์พร้อมสมุดบัญชีเล่มสีเขียว ตามแบบที่สหกรณ์เผยแพร่ครับ ดอกเบี้ยคิดถึงวันก่อนวันทำรายการโอน ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Published withdrawal/closure form requires passbook/post and interest cut-off; no personal closure approved.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 8,
+      "question": "มีค่าธรรมเนียมไหม",
+      "intent": "deposit_special_withdraw",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 4,
+      "answerPreview": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้",
+      "answerFull": "การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/ปิดบัญชีครับ แบบทางการระบุถอนเดือนละ 1 ครั้ง และตั้งแต่ครั้งที่ 2 ในเดือนเดียวกันคิดค่าธรรมเนียม 1% ของเงินถอน ขั้นต่ำครั้งละ 100 บาท รวมการถอนปิดบัญชีด้วย ต้องตรวจเงินที่ผูกหลักประกันก่อน",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบรับฝากเงินจากสมาชิก พ.ศ. 2566 ข้อ 13 และ 24",
+          "url": "https://drive.google.com/file/d/1tclgFXrZjamcjLeOk2Wu4TeTRksUZwFL/view"
+        },
+        {
+          "title": "แบบถอน/ปิดบัญชีและขั้นตอนที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/12bOm_f7cAIk_or8UTyFiMzgc8n8rMpwj/view"
+        },
+        {
+          "title": "หน้าเงินฝากทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same published withdrawal fee provisions; not an account-opening fee.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 9,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "deposit_scoped_official_procedure",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เอกสารเงินฝากออมทรัพย์พิเศษขึ้นกับการทำรายการครับ หากเปิดบัญชีให้ใช้คำขอเปิดบัญชีและแบบผู้รับโอนประโยชน์ หากถอนหรือปิดบัญชีให้ใช้คำขอถอน/ปิดบัญชี สำเนาบัตรประจำ",
+      "answerFull": "เอกสารเงินฝากออมทรัพย์พิเศษขึ้นกับการทำรายการครับ หากเปิดบัญชีให้ใช้คำขอเปิดบัญชีและแบบผู้รับโอนประโยชน์ หากถอนหรือปิดบัญชีให้ใช้คำขอถอน/ปิดบัญชี สำเนาบัตรประจำตัว สำเนาบัญชีกรุงไทยและสมุดบัญชีเงินฝาก (กรณีปิดบัญชีส่งสมุดเล่มสีเขียวทางไปรษณีย์) ตามแบบทางการ กรุณาระบุว่าจะเปิดบัญชี ฝากเพิ่ม ถอน หรือปิดบัญชี เพื่อเลือกชุดเอกสารให้ตรง ไม่ต้องส่งเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Differentiates opening and withdrawal/closure document sets; asks operation rather than collecting personal files.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "deposits",
+      "turn": 10,
+      "question": "ต้องติดต่อที่ไหน",
+      "intent": "deposit_scoped_official_procedure",
+      "topic": "depositSpecial",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เงินฝากออมทรัพย์พิเศษ ติดต่อฝ่ายเงินฝากของสหกรณ์ได้ตามหน้าเอกสารทางการ โทร 092-391-5896 หรือ 091-727-5236 ส่งเอกสารได้ที่สำนักงานเลขที่ 111/1 หมู่ 1 ซอยคลองหลวง",
+      "answerFull": "เงินฝากออมทรัพย์พิเศษ ติดต่อฝ่ายเงินฝากของสหกรณ์ได้ตามหน้าเอกสารทางการ โทร 092-391-5896 หรือ 091-727-5236 ส่งเอกสารได้ที่สำนักงานเลขที่ 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 หรืออีเมล dla.deposit01@gmail.com ตามขั้นตอนของสหกรณ์ โปรดตรวจช่องทางล่าสุดก่อนส่งเอกสารส่วนบุคคล",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์และแบบฟอร์มเงินฝากออมทรัพย์พิเศษ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=807"
+        },
+        {
+          "title": "คำแนะนำงานเงินฝาก",
+          "url": "https://dlasavingcoop.com/show.php?No=3993"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official807/3993 currently display the stated deposit contacts,address,email; no payment executed.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 1,
+      "question": "สวัสดิการคลอดบุตร",
+      "intent": "welfare_childbirth",
+      "topic": "welfare:childbirth",
+      "decision": null,
+      "sourceCount": 1,
+      "answerPreview": "สวัสดิการเพื่อการคลอดบุตร — หลักเกณฑ์ที่ยืนยันแล้ว\n1. คุณสมบัติพื้นฐาน: ประเภทสมาชิกต้องตรงกับสิทธิ ชำระค่าหุ้นต่อเนื่องอย่างน้อย 6 เดือน และไม่ค้างชำระตามหลักเ",
+      "answerFull": "สวัสดิการเพื่อการคลอดบุตร — หลักเกณฑ์ที่ยืนยันแล้ว\n1. คุณสมบัติพื้นฐาน: ประเภทสมาชิกต้องตรงกับสิทธิ ชำระค่าหุ้นต่อเนื่องอย่างน้อย 6 เดือน และไม่ค้างชำระตามหลักเกณฑ์ในปีบัญชีที่ขอ\n2. 1,000 บาทต่อบุตร; บุตรโดยชอบด้วยกฎหมาย ไม่รวมบุตรบุญธรรม; ไม่เกิน 3 คน\n3. ถ้าบิดาและมารดาเป็นสมาชิกทั้งคู่ รับได้เพียงคนเดียว\n4. ยื่นภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์สวัสดิการสมาชิกปัจจุบัน",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Read signed welfare clauses4/5.1 and amendments2/3 that alter5.5 only:6months,1000per child,maximum3,one parent,120days.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 2,
+      "question": "ได้รับเท่าไร",
+      "intent": "welfare_childbirth_amount",
+      "topic": "welfare:childbirth",
+      "decision": "VERIFIED_RULE",
+      "sourceCount": 2,
+      "answerPreview": "สวัสดิการคลอดบุตรตามหลักเกณฑ์ที่ยืนยันแล้ว 1,000 บาทต่อบุตรหนึ่งคน สำหรับสมาชิกสามัญและสมาชิกสมทบที่เข้าเงื่อนไข โดยให้สิทธิไม่เกิน 3 คน และต้องตรวจคุณสมบัติและ",
+      "answerFull": "สวัสดิการคลอดบุตรตามหลักเกณฑ์ที่ยืนยันแล้ว 1,000 บาทต่อบุตรหนึ่งคน สำหรับสมาชิกสามัญและสมาชิกสมทบที่เข้าเงื่อนไข โดยให้สิทธิไม่เกิน 3 คน และต้องตรวจคุณสมบัติและระยะเวลายื่นคำขอก่อนอนุมัติจริง",
+      "sourceRefs": [
+        {
+          "title": "ระเบียบสวัสดิการคลอดบุตร",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        },
+        {
+          "title": "ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed welfare5.1 supports1000per child for ordinary/associate members subject to criteria.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 3,
+      "question": "ใครมีสิทธิ",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "สวัสดิการคลอดบุตร: สมาชิกสามัญและสมาชิกสมทบต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือน ไม่ค้างค่าหุ้นหรือหนี้ในรอบปีบัญชีที่ขอสวัสดิการ โดยชำระเต็มตามใบแจ้งหนี้ และ",
+      "answerFull": "สวัสดิการคลอดบุตร: สมาชิกสามัญและสมาชิกสมทบต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือน ไม่ค้างค่าหุ้นหรือหนี้ในรอบปีบัญชีที่ขอสวัสดิการ โดยชำระเต็มตามใบแจ้งหนี้ และเป็นบุตรชอบด้วยกฎหมายครับ ครอบครัวละ 1,000 บาทต่อบุตร 1 คน ไม่เกิน 3 คน หากบิดาและมารดาเป็นสมาชิกทั้งคู่รับได้เพียงคนเดียว ยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศสวัสดิการสมาชิก ข้อ 4 และ 5.1",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view"
+        },
+        {
+          "title": "หลักเกณฑ์สวัสดิการคลอดบุตรที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view"
+        },
+        {
+          "title": "แบบฟอร์มและหลักเกณฑ์สวัสดิการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "New direct answer matches signed clauses4/5.1; no personal entitlement certified.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 4,
+      "question": "ต้องใช้เอกสารอะไร",
+      "intent": "welfare_childbirth",
+      "topic": "welfare:childbirth",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบี",
+      "answerFull": "เอกสารสวัสดิการเพื่อการคลอดบุตรตามแบบคำร้องทางการ:\n1. สำเนาบัตรประชาชนหรือบัตรเจ้าหน้าที่รัฐและทะเบียนบ้านของสมาชิกกับคู่สมรส\n2. สำเนาสูติบัตรบุตร\n3. สำเนาทะเบียนสมรสหน้าและหลัง\n4. สำเนาหน้าบัญชีกรุงไทยหรือ ธกส. ของสมาชิก\nยื่นภายใน 120 วันนับแต่วันที่แจ้งเกิด\nรายการเฉพาะสถานภาพให้เจ้าหน้าที่ตรวจตามแบบปัจจุบัน ไม่ส่งเอกสารส่วนบุคคลในแชท",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์ปัจจุบัน",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        },
+        {
+          "title": "แบบคำร้องและรายการเอกสาร หน้า 2",
+          "url": "https://drive.google.com/file/d/1V7w5-fm4l_V6HqySnbixhLI6NL5Y9k34/view?usp=sharing"
+        },
+        {
+          "title": "ระเบียบ/หลักเกณฑ์สวัสดิการสมาชิก",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view?usp=drivesdk"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Downloaded published welfare request checklist p2 explicitly includes marriage certificate as well as identity,household,birth certificate,bank copy.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 5,
+      "question": "ยื่นเมื่อไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "ยื่นเอกสารขอสวัสดิการคลอดบุตรพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิดครับ ต้องผ่านคุณสมบัติตามหลักเกณฑ์ก่อนรับเงิน ไม่ใช่รับเงินอัตโนมัติ",
+      "answerFull": "ยื่นเอกสารขอสวัสดิการคลอดบุตรพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิดครับ ต้องผ่านคุณสมบัติตามหลักเกณฑ์ก่อนรับเงิน ไม่ใช่รับเงินอัตโนมัติ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศสวัสดิการสมาชิก ข้อ 4 และ 5.1",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view"
+        },
+        {
+          "title": "หลักเกณฑ์สวัสดิการคลอดบุตรที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view"
+        },
+        {
+          "title": "แบบฟอร์มและหลักเกณฑ์สวัสดิการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed5.1(5):120days from birth registration, not date of delivery or approval deadline.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 6,
+      "question": "ยื่นที่ไหน",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "สวัสดิการคลอดบุตรให้ใช้แบบคำร้องสวัสดิการจากหน้าทางการ และติดต่อฝ่ายสวัสดิการผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับเอกสารก่อนส่งครับ แบบคำร้องที่ตรวจอ่านยังไ",
+      "answerFull": "สวัสดิการคลอดบุตรให้ใช้แบบคำร้องสวัสดิการจากหน้าทางการ และติดต่อฝ่ายสวัสดิการผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับเอกสารก่อนส่งครับ แบบคำร้องที่ตรวจอ่านยังไม่พอให้รับรองว่ายื่นผ่านแชต อีเมล หรือแอปใดได้ ไม่ต้องส่งเอกสารส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Published request form does not independently establish electronic intake authorization; welfare department must confirm channel.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 7,
+      "question": "ต้องเป็นสมาชิกนานไหม",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "สวัสดิการคลอดบุตรต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือนครับ และต้องผ่านเงื่อนไขไม่ค้างหุ้นหรือหนี้ รวมทั้งยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "answerFull": "สวัสดิการคลอดบุตรต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือนครับ และต้องผ่านเงื่อนไขไม่ค้างหุ้นหรือหนี้ รวมทั้งยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศสวัสดิการสมาชิก ข้อ 4 และ 5.1",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view"
+        },
+        {
+          "title": "หลักเกณฑ์สวัสดิการคลอดบุตรที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view"
+        },
+        {
+          "title": "แบบฟอร์มและหลักเกณฑ์สวัสดิการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clause4.2 requires6months continuous shares; other criteria not waived.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 8,
+      "question": "มีเงื่อนไขอะไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 3,
+      "answerPreview": "สวัสดิการคลอดบุตร: สมาชิกสามัญและสมาชิกสมทบต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือน ไม่ค้างค่าหุ้นหรือหนี้ในรอบปีบัญชีที่ขอสวัสดิการ โดยชำระเต็มตามใบแจ้งหนี้ และ",
+      "answerFull": "สวัสดิการคลอดบุตร: สมาชิกสามัญและสมาชิกสมทบต้องส่งหุ้นต่อเนื่องไม่น้อยกว่า 6 เดือน ไม่ค้างค่าหุ้นหรือหนี้ในรอบปีบัญชีที่ขอสวัสดิการ โดยชำระเต็มตามใบแจ้งหนี้ และเป็นบุตรชอบด้วยกฎหมายครับ ครอบครัวละ 1,000 บาทต่อบุตร 1 คน ไม่เกิน 3 คน หากบิดาและมารดาเป็นสมาชิกทั้งคู่รับได้เพียงคนเดียว ยื่นพร้อมหลักฐานภายใน 120 วันนับแต่วันแจ้งเกิด",
+      "sourceRefs": [
+        {
+          "title": "ประกาศสวัสดิการสมาชิก ข้อ 4 และ 5.1",
+          "url": "https://drive.google.com/file/d/1Xzby7B_dQqS3Uwn6dfXp07h7OxgW_M9I/view"
+        },
+        {
+          "title": "หลักเกณฑ์สวัสดิการคลอดบุตรที่สหกรณ์เผยแพร่",
+          "url": "https://drive.google.com/file/d/1gYxKLWJjuO1Nh6P1g-KdkR3dbmP9ofZo/view"
+        },
+        {
+          "title": "แบบฟอร์มและหลักเกณฑ์สวัสดิการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed clauses4/5.1:lawful child,notadopted,one parent,max3,arrears conditions and deadline.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 9,
+      "question": "ใช้เวลาพิจารณาเท่าไร",
+      "intent": "childbirth_scoped_followup",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ระยะเวลาพิจารณาสวัสดิการคลอดบุตรต้องให้ฝ่ายสวัสดิการยืนยันรอบพิจารณาและความครบถ้วนของคำขอครับ หลักเกณฑ์คลอดบุตรที่อ่านระบุเวลายื่น 120 วันนับแต่วันแจ้งเกิด ซึ่ง",
+      "answerFull": "ระยะเวลาพิจารณาสวัสดิการคลอดบุตรต้องให้ฝ่ายสวัสดิการยืนยันรอบพิจารณาและความครบถ้วนของคำขอครับ หลักเกณฑ์คลอดบุตรที่อ่านระบุเวลายื่น 120 วันนับแต่วันแจ้งเกิด ซึ่งเป็นกำหนดยื่น ไม่ใช่จำนวนวันที่ต้องอนุมัติหรือจ่ายเงิน",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องสวัสดิการคลอดบุตร",
+          "url": "https://www.dlasavingcoop.com/show.php?No=775"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "120days is filing deadline, not service-level promise; department must confirm consideration/payment round.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "welfare",
+      "turn": 10,
+      "question": "ติดตามผลอย่างไร",
+      "intent": "scoped_application_tracking_handoff",
+      "topic": "welfare:childbirth",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 1,
+      "answerPreview": "การติดตามคำขอสวัสดิการคลอดบุตร ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชต",
+      "answerFull": "การติดตามคำขอสวัสดิการคลอดบุตร ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอและผลพิจารณารายบุคคล จึงไม่ยืนยันว่าได้รับเอกสารหรืออนุมัติแล้ว ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือเอกสารส่วนตัวในแชต",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Specific childbirth application status unavailable in public engine; scoped official contact handoff, no identity requested.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 1,
+      "question": "ทุนการศึกษาบุตรสมาชิก",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุด",
+      "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Unchanged prior signed2569 scholarship review clauses3–8:public amounts,qualification,application dates,documents and submission; expired window explicitly stated.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 2,
+      "question": "ใครมีสิทธิ",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "คุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ",
+      "answerFull": "คุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\nยังต้องให้สหกรณ์ตรวจข้อมูลสมาชิกและผลการพิจารณาจริง ไม่ใช่การรับรองสิทธิรายบุคคล",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed clauses:6months/6shares,arrears,prior-award exclusions and lawful-child conditions; no personal eligibility.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 3,
+      "question": "สมัครเมื่อไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทาง",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed filing period1–31Aug2569 and submission provisions; no extension invented.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 4,
+      "question": "ได้ทุนเท่าไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุด",
+      "answerFull": "ทุนการศึกษาบุตรปี 2569 — ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nจำนวนเงินต่อทุน: อุดมศึกษา (ปริญญาตรี/อนุปริญญา/ปวส.) 4,000 บาท — 700 ทุน; มัธยมศึกษา (ม.1–ม.6/ปวช.) 3,000 บาท — 1,610 ทุน; ประถมศึกษา (ป.1–ป.6) 2,500 บาท — 846 ทุน; ก่อนปฐมวัยและปฐมวัย 1,500 บาท — 170 ทุน จำนวนทุนอาจปรับตามประกาศ\n\nคุณสมบัติ: เป็นสมาชิกสามัญอย่างน้อย 6 เดือน ณ วันยื่น และส่งค่าหุ้นต่อเนื่องอย่างน้อย 6 งวด ไม่ค้างค่าหุ้นหรือหนี้เงินกู้ทั้งต้นเงินและดอกเบี้ยในรอบปีบัญชีที่ขอ (ตั้งแต่ 1 ตุลาคม 2568) และชำระเต็มตามใบแจ้งหนี้; ไม่ได้รับทุนนี้ในปี 2567 หรือ 2568; บุตรต้องชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) และเรียนภาคเรียนที่ 1 ปีการศึกษา 2569; ผู้ขอไม่เป็นกรรมการดำเนินการหรือที่ปรึกษาของคณะกรรมการ\n\nสมาชิก 1 รายขอได้ 1 ประเภทและ 1 ทุน คู่สมรสที่เป็นสมาชิกทั้งคู่และขอให้บุตรคนเดียวกัน ขอรวมได้เพียง 1 ประเภทและ 1 ทุน\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed award bands1500/2500/3000/4000 and counts; not an individual award.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 5,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สู",
+      "answerFull": "เอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed annex checklist; documents not collected by public chat.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 6,
+      "question": "สมัครอย่างไร",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทาง",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed submission clause:office/post/courier,address and carrier-stamp date.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 7,
+      "question": "ส่งที่ไหน",
+      "intent": "scholarship",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทาง",
+      "answerFull": "ประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา\n\nวิธียื่น: ส่งแบบและหลักฐานที่สำนักงาน หรือทางไปรษณีย์/บริษัทรับส่งพัสดุ จ่าหน้าถึงประธานกรรมการสหกรณ์ออมทรัพย์องค์กรปกครองส่วนท้องถิ่น จำกัด 111/1 หมู่ 1 ซอยคลองหลวง 8 ตำบลคลองหนึ่ง อำเภอคลองหลวง จังหวัดปทุมธานี 12120 ใช้วันที่ผู้ให้บริการประทับตราส่งเป็นสำคัญ\n\nเอกสาร: แบบคำขอท้ายประกาศพร้อมลงชื่อและคำรับรองของผู้บังคับบัญชาตามแบบ; สำเนาอย่างละ 1 ฉบับ ได้แก่ ทะเบียนบ้านที่มีชื่อบุตรทุกคน, ทะเบียนสมรสหรือทะเบียนหย่า, สูติบัตรหรือหนังสือรับรองการเกิดของบุตรที่ขอทุน, ใบเสร็จค่าธรรมเนียมการศึกษาภาคเรียนที่ 1 ปีการศึกษา 2569 (ไม่มีใบเสร็จใช้หนังสือรับรองสถานศึกษา), และเอกสารเปลี่ยนชื่อ/รับรองบุตรอื่น ๆ ถ้ามี รับรองสำเนาถูกต้องทุกฉบับและเรียงเอกสารตามลำดับ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed clause on one award/type per member/child and spouses; unchanged accepted answer.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 8,
+      "question": "มีเงื่อนไขผลการเรียนไหม",
+      "intent": "scholarship_verified_grades",
+      "topic": "scholarship",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 1,
+      "answerPreview": "ประกาศทุนส่งเสริมการศึกษาของบุตรสมาชิกปี 2569 ข้อ 3–5 ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำเป็นคุณสมบัติ แต่กำหนดให้บุตรที่ชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) กำลังศึกษาใน",
+      "answerFull": "ประกาศทุนส่งเสริมการศึกษาของบุตรสมาชิกปี 2569 ข้อ 3–5 ไม่ได้กำหนดเกรดเฉลี่ยขั้นต่ำเป็นคุณสมบัติ แต่กำหนดให้บุตรที่ชอบด้วยกฎหมาย (ไม่รวมบุตรบุญธรรม) กำลังศึกษาในภาคเรียนที่ 1 ปีการศึกษา 2569 และใช้เกณฑ์คะแนนพิจารณาตามข้อ 5 การไม่มีเกณฑ์เกรดขั้นต่ำไม่ได้แปลว่าได้รับทุนอัตโนมัติ ต้องผ่านคุณสมบัติอื่นและการจัดสรรตามคะแนน",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตรสมาชิก 2569",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same signed selection criteria do not set minimumGPA; not invented as an eligibility condition.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 9,
+      "question": "ประกาศผลเมื่อไร",
+      "intent": "live_schedule",
+      "topic": "scholarship",
+      "decision": "LIVE_OFFICIAL_REQUIRED",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศกำหนดแจ้งผลภายใน 90 วันนับถัดจากวันสิ้นสุดรับคำขอ ผ่านเว็บไซต์และสื่อออนไลน์ของสหกรณ์ ระบบไม่ยืนยันผลเฉพาะรายหรือว่าประกาศผลแล้วจนกว่าจะมีหลักฐานผลปัจจุบั",
+      "answerFull": "ประกาศกำหนดแจ้งผลภายใน 90 วันนับถัดจากวันสิ้นสุดรับคำขอ ผ่านเว็บไซต์และสื่อออนไลน์ของสหกรณ์ ระบบไม่ยืนยันผลเฉพาะรายหรือว่าประกาศผลแล้วจนกว่าจะมีหลักฐานผลปัจจุบัน\n\nประกาศปี 2569 รับคำขอ 1–31 สิงหาคม 2569 — สิ้นสุดกำหนดรับคำขอแล้วตามประกาศนี้ ระบบยังไม่ยืนยันว่ามีประกาศขยายเวลา",
+      "sourceRefs": [
+        {
+          "title": "ประกาศทุนส่งเสริมการศึกษาบุตร 2569 ลงวันที่ 31 กรกฎาคม 2569 ข้อ 3–8 และแบบแนบท้าย",
+          "url": "https://drive.google.com/file/d/1_7VIQigZV7SFCH7QOdZGkvTfs-8SHsjt/view?usp=sharing"
+        },
+        {
+          "title": "หน้าประกาศทุนบุตรปี 2569 ทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4887"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed announcement result deadline90days after close; current result explicitly unverified; removed irrelevant service-question suffix.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "scholarships",
+      "turn": 10,
+      "question": "ติดตามผลได้อย่างไร",
+      "intent": "scoped_application_tracking_handoff",
+      "topic": "scholarship",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 1,
+      "answerPreview": "การติดตามคำขอทุนการศึกษาบุตร ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชตนี",
+      "answerFull": "การติดตามคำขอทุนการศึกษาบุตร ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอและผลพิจารณารายบุคคล จึงไม่ยืนยันว่าได้รับเอกสารหรืออนุมัติแล้ว ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือเอกสารส่วนตัวในแชต",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Individual scholarship result requires official processing record; topic retained and no personal data collected.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 1,
+      "question": "ผู้ค้ำประกันเงินกู้ต้องมีคุณสมบัติอะไร",
+      "intent": "guarantor_center",
+      "topic": "guarantor-guidance",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 1,
+      "answerPreview": "ถ้าเป็นการค้ำประกันเงินกู้สามัญ ตามประกาศ พ.ศ.2569 ข้อ 6 ผู้ค้ำต้องเป็นสมาชิกสหกรณ์ที่ไม่ใช่คู่สมรสผู้กู้ ส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือน ข้าราชการต้องผ่านการ",
+      "answerFull": "ถ้าเป็นการค้ำประกันเงินกู้สามัญ ตามประกาศ พ.ศ.2569 ข้อ 6 ผู้ค้ำต้องเป็นสมาชิกสหกรณ์ที่ไม่ใช่คู่สมรสผู้กู้ ส่งหุ้นต่อเนื่องอย่างน้อย 6 เดือน ข้าราชการต้องผ่านการทดลองราชการ ส่วนเจ้าหน้าที่สหกรณ์ต้องได้รับการบรรจุแต่งตั้งอย่างน้อย 3 ปี และสมาชิกคนหนึ่งค้ำผู้กู้ทุกประเภทพร้อมกันเกิน 3 คนไม่ได้ครับ หากเป็นเงินกู้ประเภทอื่นต้องตรวจเกณฑ์เฉพาะก่อน คุณต้องการค้ำเงินกู้ประเภทใด ไม่ต้องแจ้งข้อมูลผู้กู้หรือเลขสมาชิก\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "ประกาศกู้สามัญ พ.ศ.2569 ข้อ 6",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "New conditional ordinary-loan answer matches signed clause6:member/not spouse,6months,probation,staff3years,max3borrowers; asks product before generalizing.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 2,
+      "question": "ต้องค้ำกี่คน",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — หากหมายถึงจำนวนผู้ค้ำเงินกู้สามัญ: วงเงินไม่เกิน 500,000 บาท อย่างน้อย 1 คน; เกิน 500,000 ถึง 1,000,000 บาท อย่างน้อย 2 คน; เกิน 1,000,000",
+      "answerFull": "การค้ำประกันเงินกู้ — หากหมายถึงจำนวนผู้ค้ำเงินกู้สามัญ: วงเงินไม่เกิน 500,000 บาท อย่างน้อย 1 คน; เกิน 500,000 ถึง 1,000,000 บาท อย่างน้อย 2 คน; เกิน 1,000,000 ถึง 2,000,000 บาท อย่างน้อย 3 คน หากหมายถึงจำนวนผู้กู้ที่คนหนึ่งค้ำพร้อมกัน ข้อ 6 จำกัดไม่เกิน 3 คนครับ ต้องระบุประเภทเงินกู้ก่อนนำเกณฑ์ไปใช้",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Explains both meanings of count; signed ordinary clause6 bands and3borrower ceiling, explicitly limits applicability to ordinary loan.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 3,
+      "question": "เกษียณแล้วค้ำได้ไหม",
+      "intent": "retired_guarantor_current",
+      "topic": "guarantor-guidance",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 1,
+      "answerPreview": "ผู้ค้ำที่เกษียณต้องตรวจว่ายังคงสมาชิกภาพและผ่านคุณสมบัติผู้ค้ำตามหลักเกณฑ์ที่ใช้กับสัญญาหรือคำขอจริงครับ ประกาศกู้สามัญ พ.ศ. 2569 ข้อ 6 ระบุคุณสมบัติและภาระค้ำ ",
+      "answerFull": "ผู้ค้ำที่เกษียณต้องตรวจว่ายังคงสมาชิกภาพและผ่านคุณสมบัติผู้ค้ำตามหลักเกณฑ์ที่ใช้กับสัญญาหรือคำขอจริงครับ ประกาศกู้สามัญ พ.ศ. 2569 ข้อ 6 ระบุคุณสมบัติและภาระค้ำ แต่ยังไม่เพียงพอให้ระบบยืนยันว่าผู้เกษียณรายนี้ค้ำได้หรือจำเป็นต้องเปลี่ยนผู้ค้ำ ให้ฝ่ายสินเชื่อตรวจข้อบังคับ ระเบียบที่เกี่ยวข้อง และทะเบียนภาระค้ำก่อน ไม่ใช้การเกษียณอย่างเดียวสรุปสิทธิ",
+      "sourceRefs": [
+        {
+          "title": "ประกาศ หลักเกณฑ์การให้เงินกู้สามัญ พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Retirement alone cannot determine continuing membership/guarantee qualification; requires actual contract and registry.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI.",
+      "monitorVariants": [
+        {
+          "answerFull": "เป็นผู้ค้ำประกันของเงินกู้ประเภทใดครับ? ต้องแยกประเภทก่อนตรวจคุณสมบัติผู้ค้ำประกันและผลของการเกษียณ ขณะนี้หลักฐานยังไม่ผ่านการยืนยัน จึงล็อกคำตอบเชิงสิทธิไว้ก่อน ไม่ใช้หลักเกณฑ์เงินกู้คนละประเภทแทนกัน\n\nต้องการถามคุณสมบัติ เปลี่ยนผู้ค้ำ หรือตรวจภาระค้ำเรื่องใดครับ?",
+          "sourceRefs": [
+            {
+              "title": "ช่องทางติดต่อทางการ",
+              "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+            }
+          ],
+          "intent": "guarantor_center",
+          "decision": "EVIDENCE_LOCK",
+          "reason": "Observed SourceMonitor pending-guarantor gate requires loan product before retired-guarantor eligibility; no locked right is promoted. Accepted only as the same SAFE_HANDOFF disposition."
+        }
+      ]
+    },
+    {
+      "domain": "guarantors",
+      "turn": 4,
+      "question": "มีภาระค้ำเดิมได้ไหม",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569 ข้อ 6 กำหนดสมาชิกคนหนึ่งค้ำผู้กู้ทุกประเภทพร้อมกันเกิน 3 คนไม่ได้ครับ ภาระเดิมจึงต้องนับร่วมกัน ส่วนคุณยังค",
+      "answerFull": "การค้ำประกันเงินกู้ — หลักเกณฑ์เงินกู้สามัญ พ.ศ.2569 ข้อ 6 กำหนดสมาชิกคนหนึ่งค้ำผู้กู้ทุกประเภทพร้อมกันเกิน 3 คนไม่ได้ครับ ภาระเดิมจึงต้องนับร่วมกัน ส่วนคุณยังค้ำเพิ่มได้หรือไม่ให้ฝ่ายสินเชื่อตรวจทะเบียนค้ำจริง ไม่ส่งรายชื่อหรือเลขสมาชิกในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Signed ordinary clause6 concurrent borrowers ceiling3; personal remaining capacity separately locked.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 5,
+      "question": "ต้องใช้เอกสารอะไร",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — ต้องแยกการค้ำคำขอกู้ใหม่กับการขอเปลี่ยนผู้ค้ำครับ เปิดแบบคำขอและสัญญาค้ำของเงินกู้ประเภทนั้นจากหน้าทางการ แล้วให้ฝ่ายสินเชื่อตรวจชุดเอกสาร",
+      "answerFull": "การค้ำประกันเงินกู้ — ต้องแยกการค้ำคำขอกู้ใหม่กับการขอเปลี่ยนผู้ค้ำครับ เปิดแบบคำขอและสัญญาค้ำของเงินกู้ประเภทนั้นจากหน้าทางการ แล้วให้ฝ่ายสินเชื่อตรวจชุดเอกสารตามสถานภาพจริง ไม่ใช้แบบกู้สามัญแทนทุกประเภท และไม่ส่งเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "New guarantee vs replacement and product are unspecified; correct form must be selected before individual checklist.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 6,
+      "question": "เปลี่ยนผู้ค้ำได้ไหม",
+      "intent": "loan_change_guarantor",
+      "topic": "guarantor-guidance",
+      "decision": "NEED_INFO",
+      "sourceCount": 1,
+      "answerPreview": "การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำข",
+      "answerFull": "การเปลี่ยนผู้ค้ำประกันต้องตรวจประเภทเงินกู้และเงื่อนไขสัญญาปัจจุบันก่อนครับ โปรดระบุประเภทเงินกู้โดยไม่ส่งข้อมูลผู้ค้ำหรือเลขสมาชิก แล้วให้ฝ่ายเงินกู้ตรวจแบบคำขอและเอกสารที่ต้องใช้\n\nต้องการเปลี่ยนผู้ค้ำของเงินกู้ประเภทใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์ทางการ",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Requests missing loan product before replacement; no substitution approval or release promised.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 7,
+      "question": "ยื่นเรื่องที่ไหน",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — เรื่องการค้ำหรือเปลี่ยนผู้ค้ำให้ติดต่อฝ่ายสินเชื่อของสหกรณ์จากหน้าติดต่อทางการครับ ระบุประเภทเงินกู้และว่าจะค้ำใหม่หรือเปลี่ยนผู้ค้ำ เพื่อ",
+      "answerFull": "การค้ำประกันเงินกู้ — เรื่องการค้ำหรือเปลี่ยนผู้ค้ำให้ติดต่อฝ่ายสินเชื่อของสหกรณ์จากหน้าติดต่อทางการครับ ระบุประเภทเงินกู้และว่าจะค้ำใหม่หรือเปลี่ยนผู้ค้ำ เพื่อยืนยันแบบและช่องทางรับก่อนส่งเอกสาร ไม่ถือว่ายื่นผ่านแชตนี้แล้ว",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Credit department must confirm product/request-specific intake channel; public chat is not a filing channel.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 8,
+      "question": "ผู้ค้ำต้องรับผิดอะไร",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ความรับผิดของผู้ค้ำประกันเงินกู้ต้องตรวจหนังสือค้ำประกันที่ลงนาม ประเภทเงินกู้ ยอดหนี้ และการดำเนินการตามสัญญาครับ ไม่ยืนยันว่าต้องรับผิดทั้งหมดหรือปลดภาระแล้วจ",
+      "answerFull": "ความรับผิดของผู้ค้ำประกันเงินกู้ต้องตรวจหนังสือค้ำประกันที่ลงนาม ประเภทเงินกู้ ยอดหนี้ และการดำเนินการตามสัญญาครับ ไม่ยืนยันว่าต้องรับผิดทั้งหมดหรือปลดภาระแล้วจากคำถามนี้ ให้ฝ่ายสินเชื่อชี้แจงภาระตามสัญญาจริงผ่านช่องทางทางการ ไม่ส่งสัญญาหรือข้อมูลผู้ค้ำในแชต",
+      "sourceRefs": [
+        {
+          "title": "หลักเกณฑ์เงินกู้สามัญและแบบสัญญา",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Liability depends on signed guarantee and actual debt/notices; scoped contract-review handoff, no liability amount inferred.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 9,
+      "question": "ถ้าผู้กู้ผิดนัดทำอย่างไร",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — ให้ติดต่อฝ่ายสินเชื่อเพื่อตรวจรายการผิดนัดและหนังสือค้ำประกันที่ลงนามครับ ต้องตรวจยอดหนี้ หนังสือแจ้งและเงื่อนไขสัญญาจริงก่อนระบุความรับผิ",
+      "answerFull": "การค้ำประกันเงินกู้ — ให้ติดต่อฝ่ายสินเชื่อเพื่อตรวจรายการผิดนัดและหนังสือค้ำประกันที่ลงนามครับ ต้องตรวจยอดหนี้ หนังสือแจ้งและเงื่อนไขสัญญาจริงก่อนระบุความรับผิด ไม่สรุปยอดที่ผู้ค้ำต้องชำระจากแชตและไม่ส่งสัญญาหรือข้อมูลผู้กู้ที่นี่",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Default actions depend on real arrears/notices/contract; no payment obligation invented or third-party data requested.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "guarantors",
+      "turn": 10,
+      "question": "ขอปลดภาระค้ำได้ไหม",
+      "intent": "guarantor_scoped_followup",
+      "topic": "guarantor-guidance",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การค้ำประกันเงินกู้ — สามารถสอบถามฝ่ายสินเชื่อให้ตรวจเงื่อนไขปลดหรือเปลี่ยนผู้ค้ำตามสัญญาจริงครับ การร้องขอไม่ใช่การปลดภาระอัตโนมัติ ต้องให้สหกรณ์ยืนยันผลจากทะเ",
+      "answerFull": "การค้ำประกันเงินกู้ — สามารถสอบถามฝ่ายสินเชื่อให้ตรวจเงื่อนไขปลดหรือเปลี่ยนผู้ค้ำตามสัญญาจริงครับ การร้องขอไม่ใช่การปลดภาระอัตโนมัติ ต้องให้สหกรณ์ยืนยันผลจากทะเบียนค้ำก่อนถือว่าหมดภาระ ไม่ส่งสัญญาหรือข้อมูลผู้กู้ในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการค้ำประกันเงินกู้",
+          "url": "https://drive.google.com/file/d/1QQo5gux4sB3xdcbFvxYBeV-D30gOkXnV/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Request does not itself release guarantee; actual register confirmation required.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 1,
+      "question": "ประกาศอนุมัติเงินกู้ล่าสุด",
+      "intent": "approval_public_index",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 1,
+      "answerPreview": "ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถา",
+      "answerFull": "ประกาศอนุมัติเงินกู้ล่าสุดต้องตรวจจากหมวดผลอนุมัติเงินกู้ของสหกรณ์ครับ เลือกประเภทเงินกู้และรอบเอกสารจากประกาศจริงก่อนยืนยันวันโอนหรือเริ่มชำระ ระบบไม่ยืนยันสถานะรายบุคคลจากประกาศสาธารณะ",
+      "sourceRefs": [
+        {
+          "title": "ผลอนุมัติเงินกู้ทางการ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Loan product/round absent; official loan category links and no personal approval claim; does not claim live latest index has been read.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 2,
+      "question": "เป็นรอบไหน",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — ต้องเลือกประเภทเงินกู้และประกาศก่อนครับ หมวดประกาศอนุมัติมีหลายรอบ เปิดประกาศแล้วดูวันที่ตัดรอบเอกสาร ไม่ใช้วันที่โพสต์แทนรอบอนุมั",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — ต้องเลือกประเภทเงินกู้และประกาศก่อนครับ หมวดประกาศอนุมัติมีหลายรอบ เปิดประกาศแล้วดูวันที่ตัดรอบเอกสาร ไม่ใช้วันที่โพสต์แทนรอบอนุมัติ",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Round cannot be selected from generic loan request; asks product/actualcutoff and distinguishes publication date.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 3,
+      "question": "วันโอนเมื่อไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — วันโอนของแต่ละประกาศต่างกันครับ กรุณาเลือกประเภทเงินกู้และรอบเอกสารจากหมวดผลอนุมัติ แล้วอ่านวันโอนในประกาศนั้น ยังยืนยันวันโอนของค",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — วันโอนของแต่ละประกาศต่างกันครับ กรุณาเลือกประเภทเงินกู้และรอบเอกสารจากหมวดผลอนุมัติ แล้วอ่านวันโอนในประกาศนั้น ยังยืนยันวันโอนของคุณจากคำถามนี้ไม่ได้",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Transfer date requires selected product/round; no reuse of4946 for other rounds or personal transfer confirmation.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 4,
+      "question": "งวดแรกเมื่อไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — ให้ดูเดือนเริ่มชำระงวดแรกในประกาศอนุมัติของประเภทเงินกู้และรอบที่ยื่นครับ ไม่ใช้เดือนของรอบอื่นแทน และตรวจใบแจ้งหนี้จริงก่อนชำระ",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — ให้ดูเดือนเริ่มชำระงวดแรกในประกาศอนุมัติของประเภทเงินกู้และรอบที่ยื่นครับ ไม่ใช้เดือนของรอบอื่นแทน และตรวจใบแจ้งหนี้จริงก่อนชำระ",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "First installment requires selected notice and actual invoice; no guessed month.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 5,
+      "question": "ดูเอกสารได้ที่ไหน",
+      "intent": "approval_public_documents_verified",
+      "topic": "approval-public",
+      "decision": "PROCEDURE_INFORMATION",
+      "sourceCount": 1,
+      "answerPreview": "เปิดเอกสารประกาศผลอนุมัติเงินกู้ได้ที่หมวดผลอนุมัติเงินกู้บนเว็บไซต์สหกรณ์ครับ กรุณาเลือกประเภทเงินกู้และรอบประกาศให้ตรงกับคำขอ ข้อมูลในประกาศสาธารณะไม่ใช่การยื",
+      "answerFull": "เปิดเอกสารประกาศผลอนุมัติเงินกู้ได้ที่หมวดผลอนุมัติเงินกู้บนเว็บไซต์สหกรณ์ครับ กรุณาเลือกประเภทเงินกู้และรอบประกาศให้ตรงกับคำขอ ข้อมูลในประกาศสาธารณะไม่ใช่การยืนยันสิทธิหรือสถานะของสมาชิกเฉพาะราย และไม่ต้องส่งเลขสมาชิกหรือข้อมูลส่วนตัวในแชต",
+      "sourceRefs": [
+        {
+          "title": "หมวดประกาศผลอนุมัติเงินกู้ทางการ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Direct official Category=loan document location; distinguishes public notices from personal status.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 6,
+      "question": "มีรายชื่อหรือไม่",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — เปิดประกาศประเภทเงินกู้และรอบเอกสารที่เกี่ยวข้อง แล้วเปิดเอกสารแนบรายชื่อครับ ระบบนี้ไม่ยืนยันว่ามีชื่อคุณและไม่ขอข้อมูลส่วนบุคคลใ",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — เปิดประกาศประเภทเงินกู้และรอบเอกสารที่เกี่ยวข้อง แล้วเปิดเอกสารแนบรายชื่อครับ ระบบนี้ไม่ยืนยันว่ามีชื่อคุณและไม่ขอข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Unspecified round/name cannot be confirmed; directs to actual attachment without requesting identity in chat.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 7,
+      "question": "ตรวจสถานะตัวเองได้ไหม",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — สถานะคำขอกู้ของคุณต้องตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายสินเชื่อครับ แชตนี้ไม่เชื่อมสถานะคำขอรายบุคคล ไม่ต้องส",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — สถานะคำขอกู้ของคุณต้องตรวจผ่านระบบสมาชิกทางการหลังยืนยันตัวตน หรือติดต่อฝ่ายสินเชื่อครับ แชตนี้ไม่เชื่อมสถานะคำขอรายบุคคล ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือรหัสผ่าน",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Authenticated member status or credit department required; public engine has no personal processing record.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 8,
+      "question": "ถ้ายังไม่พบต้องทำอย่างไร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — ตรวจประเภทเงินกู้และรอบตัดเอกสารให้ตรงก่อนครับ หากยังไม่พบประกาศให้สอบถามฝ่ายสินเชื่อผ่านช่องทางติดต่อทางการ การไม่พบชื่อหรือประกา",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — ตรวจประเภทเงินกู้และรอบตัดเอกสารให้ตรงก่อนครับ หากยังไม่พบประกาศให้สอบถามฝ่ายสินเชื่อผ่านช่องทางติดต่อทางการ การไม่พบชื่อหรือประกาศยังไม่ใช่หลักฐานว่าถูกปฏิเสธ",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Correct recovery:check product/round then credit department; absence is not rejection; no false negative.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 9,
+      "question": "ต้องติดต่อใคร",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — เรื่องประกาศอนุมัติและคำขอเงินกู้ ให้ติดต่อฝ่ายสินเชื่อผ่านหน้าติดต่อทางการของสหกรณ์ครับ ระบุเพียงประเภทเงินกู้และรอบเอกสารในขั้นแ",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — เรื่องประกาศอนุมัติและคำขอเงินกู้ ให้ติดต่อฝ่ายสินเชื่อผ่านหน้าติดต่อทางการของสหกรณ์ครับ ระบุเพียงประเภทเงินกู้และรอบเอกสารในขั้นแรก ข้อมูลส่วนตัวให้แจ้งเฉพาะช่องทางเจ้าหน้าที่ที่ยืนยันแล้ว",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Credit department through official contact page is scoped to loan application; no unsupported account or name.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "notices",
+      "turn": 10,
+      "question": "มีประกาศใหม่หรือยัง",
+      "intent": "approval_public_scoped_followup",
+      "topic": "approval-public",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ประกาศอนุมัติเงินกู้สาธารณะ — ตรวจรายการประกาศใหม่จากหมวดผลอนุมัติเงินกู้ทางการครับ เลือกประเภทเงินกู้และตรวจวันเผยแพร่กับรอบเอกสาร ระบบยังไม่ยืนยันว่ามีรอบใหม่",
+      "answerFull": "ประกาศอนุมัติเงินกู้สาธารณะ — ตรวจรายการประกาศใหม่จากหมวดผลอนุมัติเงินกู้ทางการครับ เลือกประเภทเงินกู้และตรวจวันเผยแพร่กับรอบเอกสาร ระบบยังไม่ยืนยันว่ามีรอบใหม่กว่าโดยไม่ได้อ่านรายการสด",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องประกาศอนุมัติเงินกู้สาธารณะ",
+          "url": "https://www.dlasavingcoop.com/list.php?Category=loan"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Current new-notice existence requires live official index; transparently avoids freshness assertion from stale snapshot.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 1,
+      "question": "สมัครสมาชิกสหกรณ์",
+      "intent": "member_apply",
+      "topic": "membership-apply",
+      "decision": null,
+      "sourceCount": 2,
+      "answerPreview": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "answerFull": "ใช้ใบสมัครสมาชิกและรายการเอกสารจากหน้าทะเบียนทางการ กรอกข้อมูลตามแบบและเตรียมเอกสารให้ครบครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบสมาชิก/ทะเบียน",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ใบสมัครสมาชิก",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official772 lists application forms; basic preparation guidance only, no eligibility assertion.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 2,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "membership_verified_form_categories",
+      "topic": "membership-apply",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว",
+      "answerFull": "ตามแบบใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 2 ระบุผู้สมัครกลุ่มข้าราชการ/พนักงานส่วนท้องถิ่น และลูกจ้างประจำของ อปท. โดยแบบฟอร์มระบุว่าไม่รวมพนักงานราชการหรือพนักงานจ้าง ทั้งนี้เป็นเพียงประเภทผู้สมัครตามแบบฟอร์ม ไม่ใช่การยืนยันสิทธิหรือมติรับเป็นสมาชิกรายบุคคล ต้องตรวจข้อบังคับและหลักเกณฑ์ล่าสุดก่อนยื่น",
+      "sourceRefs": [
+        {
+          "title": "ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ 2",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        },
+        {
+          "title": "หน้ารวมแบบฟอร์มสมาชิกทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Unchanged prior independent8May2569 application clause2 review; only applicant categories, not personal approval or old share rates.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 3,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "membership_verified_form_documents",
+      "topic": "membership-apply",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังส",
+      "answerFull": "ตามใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่ (ปรับปรุง 8 พฤษภาคม 2569) ข้อ 6 ระบุเอกสารประกอบ ได้แก่ หนังสือตั้งผู้รับโอนประโยชน์ หนังสือยินยอมให้หน่วยงานหักเงิน หนังสือรับรองตนเองกรณีไม่เป็นสมาชิกสหกรณ์อื่น สำเนาบัตรประชาชน สำเนาบัตรข้าราชการ/พนักงานท้องถิ่น สำเนาทะเบียนบ้าน สำเนาหน้าแรกสมุดบัญชีธนาคารกรุงไทยหรือ ธ.ก.ส. และคำขอเปิดบัญชีเงินฝากออมทรัพย์พิเศษ โปรดตรวจรายการในแบบฟอร์มฉบับล่าสุดก่อนจัดส่ง และอย่าส่งเอกสารส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "ใบสมัครสมาชิกสามัญ 8 พ.ค.2569 ข้อ 6",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        },
+        {
+          "title": "หน้ารวมแบบฟอร์มสมาชิกทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Same application clause6 checklist review; actual ID documents not collected.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 4,
+      "question": "สมัครได้ที่ไหน",
+      "intent": "membership_scoped_followup",
+      "topic": "membership-apply",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การสมัครสมาชิกสหกรณ์ให้ดาวน์โหลดใบสมัครจากหน้ารวมแบบฟอร์มสมาชิกทางการ แล้วติดต่อฝ่ายทะเบียนผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับชุดเอกสารก่อนส่งครับ แชตนี้ไ",
+      "answerFull": "การสมัครสมาชิกสหกรณ์ให้ดาวน์โหลดใบสมัครจากหน้ารวมแบบฟอร์มสมาชิกทางการ แล้วติดต่อฝ่ายทะเบียนผ่านหน้าติดต่อสหกรณ์เพื่อยืนยันช่องทางรับชุดเอกสารก่อนส่งครับ แชตนี้ไม่ใช่ช่องทางยื่นคำขอและไม่ขอเอกสารส่วนบุคคล",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการสมัครสมาชิกสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Registry must confirm active intake channel; official forms/contact links supplied and no filing through chat implied.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 5,
+      "question": "มีค่าธรรมเนียมหรือไม่",
+      "intent": "membership_scoped_followup",
+      "topic": "membership-apply",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การสมัครสมาชิกสหกรณ์มีรายการค่าธรรมเนียมและค่าหุ้นแรกเข้าที่หน้าแบบฟอร์มทางการแยกวิธีชำระไว้ครับ ต้องเลือกสมาชิกสามัญหรือสมทบและยืนยันยอดปัจจุบันกับฝ่ายทะเบียนก",
+      "answerFull": "การสมัครสมาชิกสหกรณ์มีรายการค่าธรรมเนียมและค่าหุ้นแรกเข้าที่หน้าแบบฟอร์มทางการแยกวิธีชำระไว้ครับ ต้องเลือกสมาชิกสามัญหรือสมทบและยืนยันยอดปัจจุบันกับฝ่ายทะเบียนก่อนโอน ไม่ใช้ยอดหรือบัญชีจากเอกสารเก่าเป็นยอดชำระวันนี้",
+      "sourceRefs": [
+        {
+          "title": "ข้อมูลทางการเรื่องการสมัครสมาชิกสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Official772 has fee/first-share payment instructions, but category/current amount unverified; no old amount/account promoted.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 6,
+      "question": "ส่งหุ้นเมื่อไร",
+      "intent": "membership_first_share_deduction_handoff",
+      "topic": "membership-apply",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การส่งหุ้นรายเดือนของผู้สมัครใหม่ต้องตรวจวันที่รับเป็นสมาชิกและงวดเริ่มหักค่าหุ้นกับฝ่ายทะเบียนสหกรณ์และหน่วยงานต้นสังกัดครับ ใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่",
+      "answerFull": "การส่งหุ้นรายเดือนของผู้สมัครใหม่ต้องตรวจวันที่รับเป็นสมาชิกและงวดเริ่มหักค่าหุ้นกับฝ่ายทะเบียนสหกรณ์และหน่วยงานต้นสังกัดครับ ใบสมัครสมาชิกสามัญที่สหกรณ์เผยแพร่มีหนังสือยินยอมให้หักเงิน แต่ไม่ได้ยืนยันวันหักงวดแรกของสมาชิกแต่ละคน จึงยังไม่ระบุวันเริ่มส่งหุ้นให้โดยไม่มีหลักฐาน และไม่ต้องส่งข้อมูลส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "แบบสมัครสมาชิกสามัญและเอกสารยินยอมหักเงิน",
+          "url": "https://drive.google.com/file/d/1TvtIW_yrOcBYuvRNZmbU58sDpgyd1P6e/view?usp=sharing"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Actual admission date/payroll first-share period is member-specific; signed consent form does not establish a personal date.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 7,
+      "question": "เปลี่ยนข้อมูลสมาชิกอย่างไร",
+      "intent": "member_change_info",
+      "topic": "membership-apply",
+      "decision": null,
+      "sourceCount": 2,
+      "answerPreview": "การเปลี่ยนข้อมูลสมาชิกให้ใช้แบบแจ้งความประสงค์/แบบทะเบียนที่เกี่ยวข้อง และให้งานทะเบียนยืนยันว่าปรับข้อมูลแล้วครับ",
+      "answerFull": "การเปลี่ยนข้อมูลสมาชิกให้ใช้แบบแจ้งความประสงค์/แบบทะเบียนที่เกี่ยวข้อง และให้งานทะเบียนยืนยันว่าปรับข้อมูลแล้วครับ",
+      "sourceRefs": [
+        {
+          "title": "แบบฟอร์มสมาชิก",
+          "url": "https://drive.google.com/file/d/1Q-L8lPZ-8BlPkxVP2WW1B5GvrCkluuV9/view"
+        },
+        {
+          "title": "ข้อบังคับ/ระเบียบสหกรณ์",
+          "url": "https://drive.google.com/file/d/1Q-L8lPZ-8BlPkxVP2WW1B5GvrCkluuV9/view"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official772 current link and raw20250210 two-page member-change form read; basic request/registry-confirmation guidance matches. The legacy2023 direct URL actually returned404 and was replaced in runtime and canonical rule master.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 8,
+      "question": "ลาออกได้ไหม",
+      "intent": "resignation",
+      "topic": "resignation",
+      "decision": null,
+      "sourceCount": 2,
+      "answerPreview": "ลาออกได้เมื่อเข้าเงื่อนไขการสิ้นสุดสมาชิกภาพครับ — ต้องยื่นความจำนงเป็นหนังสือ และก่อนยื่นต้องตรวจหนี้ ภาระค้ำประกัน และภาระผูกพันกับสหกรณ์",
+      "answerFull": "ลาออกได้เมื่อเข้าเงื่อนไขการสิ้นสุดสมาชิกภาพครับ — ต้องยื่นความจำนงเป็นหนังสือ และก่อนยื่นต้องตรวจหนี้ ภาระค้ำประกัน และภาระผูกพันกับสหกรณ์",
+      "sourceRefs": [
+        {
+          "title": "การสิ้นสุดสมาชิกภาพ",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=member_end"
+        },
+        {
+          "title": "ใบลาออกและแบบสมาชิก",
+          "url": "https://www.dlasavingcoop.com/show.php?No=772"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official member_end page requires written resignation and obligations check; no immediate eligibility/refund promise.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 9,
+      "question": "ถ้ามีหนี้อยู่ทำอย่างไร",
+      "intent": "resignation_existing_debt_handoff",
+      "topic": "resignation",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 1,
+      "answerPreview": "กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้น",
+      "answerFull": "กรณีลาออกจากสมาชิกภาพแต่ยังมีหนี้หรือภาระค้ำประกัน ต้องให้ฝ่ายทะเบียนและฝ่ายสินเชื่อตรวจภาระผูกพันจากสัญญาจริงก่อนดำเนินการครับ ยังไม่ยืนยันว่าจะคืนหุ้นหรือสิ้นสุดสมาชิกภาพได้ทันที และไม่ต้องส่งเลขสมาชิกหรือสัญญาในแชต",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Debt/guarantee obligations require actual contracts/registry before resignation/refund.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "membership",
+      "turn": 10,
+      "question": "ติดตามคำขออย่างไร",
+      "intent": "scoped_application_tracking_handoff",
+      "topic": "resignation",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 1,
+      "answerPreview": "การติดตามคำขอลาออกจากสมาชิกสหกรณ์ ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบ",
+      "answerFull": "การติดตามคำขอลาออกจากสมาชิกสหกรณ์ ให้ติดต่อฝ่ายรับผิดชอบผ่านหน้าติดต่อทางการของสหกรณ์ครับ แจ้งประเภทคำขอและรอบที่ยื่นกับเจ้าหน้าที่ผ่านช่องทางที่ยืนยันแล้ว ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอและผลพิจารณารายบุคคล จึงไม่ยืนยันว่าได้รับเอกสารหรืออนุมัติแล้ว ไม่ต้องส่งเลขสมาชิก บัตรประชาชน หรือเอกสารส่วนตัวในแชต",
+      "sourceRefs": [
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "After resignation followups, tracking now explicitly concerns resignation application; actual processing record needed.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 1,
+      "question": "สมาคมฌาปนกิจสงเคราะห์",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": null,
+      "sourceCount": 3,
+      "answerPreview": "เลือกเรื่องฌาปนกิจที่ต้องการได้เลยครับ — ไม่ต้องเข้าเว็บทางการแล้วหาเมนูเอง\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
+      "answerFull": "เลือกเรื่องฌาปนกิจที่ต้องการได้เลยครับ — ไม่ต้องเข้าเว็บทางการแล้วหาเมนูเอง\n\nต้องการสมัคร ชำระเงิน หรือสอบถามสิทธิฌาปนกิจเรื่องใดครับ?",
+      "sourceRefs": [
+        {
+          "title": "สมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=3977"
+        },
+        {
+          "title": "ผลการอนุมัติสมาชิกสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4241"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Open-ended association topic correctly offers service choice; no invented amount,qualification or entitlement.",
+      "reviewAccepted": true,
+      "previousStatus": "PARTIAL",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 2,
+      "question": "สมัครอย่างไร",
+      "intent": "funeral_official_application_steps",
+      "topic": "funeral-association",
+      "decision": "RULE_INFORMATION",
+      "sourceCount": 2,
+      "answerPreview": "การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ",
+      "answerFull": "การสมัครสมาคมฌาปนกิจสงเคราะห์ ให้เปิดหน้าสมัครสมาชิกสมาคมที่สหกรณ์เผยแพร่ ซึ่งมี 1) ใบสมัครสมาชิกสมาคมฌาปนกิจสงเคราะห์ 2) หนังสือแสดงเจตนาตั้งผู้รับประโยชน์ และ 3) วิธีการชำระเงินค่าสมัครครับ กรอกแบบและตรวจคุณสมบัติกับเจ้าหน้าที่สมาคมก่อนยื่นหรือชำระเงิน โดยต้องยืนยันยอดเงินและบัญชีรับชำระปัจจุบันจากสมาคม ไม่ใช้ยอดหรือบัญชีในเอกสารเก่าเป็นหลักฐานว่าปัจจุบันยังใช้ได้ และอย่าส่งข้อมูลส่วนบุคคลในแชตนี้",
+      "sourceRefs": [
+        {
+          "title": "หน้าสมัครสมาคมฌาปนกิจและแบบฟอร์มทางการ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=3977"
+        },
+        {
+          "title": "ศูนย์รวมข้อมูลฌาปนกิจสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4161"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Official3977 lists application,beneficiary declaration,payment instructions; current amounts/accounts explicitly not certified.",
+      "reviewAccepted": true,
+      "previousStatus": "CORRECT",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 3,
+      "question": "คุณสมบัติอะไรบ้าง",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "คุณสมบัติสมัครสมาคมฌาปนกิจสงเคราะห์ต้องใช้ข้อบังคับและประกาศรับสมัครฉบับที่มีผลครับ สมาคมกับสหกรณ์มีสมาชิกภาพแยกกัน จึงไม่ยืนยันว่าการเป็นสมาชิกสหกรณ์ทำให้สมัคร",
+      "answerFull": "คุณสมบัติสมัครสมาคมฌาปนกิจสงเคราะห์ต้องใช้ข้อบังคับและประกาศรับสมัครฉบับที่มีผลครับ สมาคมกับสหกรณ์มีสมาชิกภาพแยกกัน จึงไม่ยืนยันว่าการเป็นสมาชิกสหกรณ์ทำให้สมัครสมาคมผ่านอัตโนมัติ ให้สมาคมตรวจประเภทผู้สมัคร อายุ สุขภาพ และเงื่อนไขตามแบบฉบับปัจจุบัน ไม่ต้องส่งข้อมูลสุขภาพหรือบัตรประชาชนในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Cooperative and association memberships differ; current association qualification/application approval requires actual current rules and case; no automatic entitlement.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 4,
+      "question": "จ่ายเงินอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 3,
+      "answerPreview": "ก่อนชำระเงินฌาปนกิจ ให้แยกค่าสมัคร ค่าบำรุง เงินสงเคราะห์ล่วงหน้า และยอดค้างสมาคมครับ ขอใบแจ้งยอดปี/รอบที่ถูกต้องจากสมาคม ยืนยันชื่อบัญชี เลขบัญชี และช่องทางปัจ",
+      "answerFull": "ก่อนชำระเงินฌาปนกิจ ให้แยกค่าสมัคร ค่าบำรุง เงินสงเคราะห์ล่วงหน้า และยอดค้างสมาคมครับ ขอใบแจ้งยอดปี/รอบที่ถูกต้องจากสมาคม ยืนยันชื่อบัญชี เลขบัญชี และช่องทางปัจจุบันผ่านเจ้าหน้าที่ทางการ แล้วเก็บหลักฐานและให้สมาคมตรวจรับรายการ ไม่ถือว่ารายการหักเงินหรือการชำระสำเร็จแล้วจากข้อความในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)",
+          "url": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view"
+        },
+        {
+          "title": "เอกสารประชุม: ร่างแก้ไขฉบับที่ 2 พ.ศ. 2569",
+          "url": "https://drive.google.com/file/d/1LVWkPbeMBqSMC7fbLgqn1ZBsoy8CvHHo/view"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Payment amount/account/year/receipt require current association notice; distinct fee,maintenance,advance and arrears; no inferred payment success.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 5,
+      "question": "ใช้เอกสารอะไร",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "เอกสารฌาปนกิจต้องแยกการสมัครกับการขอรับเงินกรณีเสียชีวิตครับ หน้าสมัครทางการมีใบสมัครสมาชิกสมาคมและหนังสือเจตนาผู้รับประโยชน์ ส่วนกรณีเสียชีวิตมีรายการเตรียมเอก",
+      "answerFull": "เอกสารฌาปนกิจต้องแยกการสมัครกับการขอรับเงินกรณีเสียชีวิตครับ หน้าสมัครทางการมีใบสมัครสมาชิกสมาคมและหนังสือเจตนาผู้รับประโยชน์ ส่วนกรณีเสียชีวิตมีรายการเตรียมเอกสารขอรับเงินแยกต่างหาก ระบุประเภทเรื่องก่อนเลือกชุดเอกสาร และให้สมาคมตรวจเอกสารเพิ่มเติมตามฉบับที่มีผล ไม่ส่งเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Published application/beneficiary forms vs separate death-claim checklist distinguished; asks operation before extra documents.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 6,
+      "question": "แจ้งเสียชีวิตอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 3,
+      "answerPreview": "กรณีสมาชิกฌาปนกิจเสียชีวิต ให้แจ้งสมาคมและยื่นคำขอค่าจัดการศพ/เงินสงเคราะห์ครอบครัวครับ ข้อ 24 ของข้อบังคับ พ.ศ. 2567 ใช้จำนวนสมาชิกที่มีอยู่จริง ณ วันเสียชีวิต",
+      "answerFull": "กรณีสมาชิกฌาปนกิจเสียชีวิต ให้แจ้งสมาคมและยื่นคำขอค่าจัดการศพ/เงินสงเคราะห์ครอบครัวครับ ข้อ 24 ของข้อบังคับ พ.ศ. 2567 ใช้จำนวนสมาชิกที่มีอยู่จริง ณ วันเสียชีวิตประกอบการคำนวณ จึงไม่ใช่วงเงินตายตัวหรือการคืนเงินล่วงหน้าทั้งหมด ยังไม่ยืนยันยอดรับสุทธิ วันจ่าย หรือสิทธิรายบุคคล ให้สมาคมตรวจสมาชิกภาพ ผู้รับเงิน เอกสาร และข้อบังคับฉบับที่มีผลก่อน",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)",
+          "url": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view"
+        },
+        {
+          "title": "ขั้นตอนขอรับเงินค่าจัดการศพและเงินสงเคราะห์ครอบครัว",
+          "url": "https://drive.google.com/file/d/1V-9r3eoBLN6FSScmlh1xFOwsE3-M1ggT/view"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Read signed2567 clause24 p8 and published claim checklist:process guidance supported but current net benefit/day/payment entitlement remains case-locked.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 7,
+      "question": "ผู้รับผลประโยชน์ต้องทำอย่างไร",
+      "intent": "funeral",
+      "topic": "funeral-association",
+      "decision": "EVIDENCE_LOCK",
+      "sourceCount": 3,
+      "answerPreview": "ผู้รับเงินสงเคราะห์สมาคมฌาปนกิจต้องตรวจใบสมัครและหนังสือแจ้งเปลี่ยนผู้รับเงินฉบับล่าสุดครับ ตามข้อ 13 และ 23 ของข้อบังคับ พ.ศ. 2567 มีการระบุผู้จัดการศพและผู้รั",
+      "answerFull": "ผู้รับเงินสงเคราะห์สมาคมฌาปนกิจต้องตรวจใบสมัครและหนังสือแจ้งเปลี่ยนผู้รับเงินฉบับล่าสุดครับ ตามข้อ 13 และ 23 ของข้อบังคับ พ.ศ. 2567 มีการระบุผู้จัดการศพและผู้รับเงิน รวมถึงลำดับบุคคลกรณีไม่ได้ระบุไว้ ไม่ถือว่าผู้รับโอนประโยชน์ของสหกรณ์เป็นผู้รับเงินของสมาคมโดยอัตโนมัติ ให้ยื่นแบบของสมาคมและรอสมาคมยืนยันการบันทึก เว็บไซต์เผยแพร่หนังสือแสดงเจตนาตั้งผู้รับผลประโยชน์แยกจากใบสมัคร โดยแบบอ้างข้อบังคับ พ.ศ. 2565 ข้อ 23 และมีเงื่อนไขให้สหกรณ์รับชำระหนี้เงินกู้เป็นลำดับที่ 1 ก่อนจ่ายส่วนที่เหลือแก่ลำดับที่ 2–3 ให้สมาคมตรวจแบบและหนังสือที่ลงนามฉบับล่าสุดก่อนเปลี่ยนหรือจ่ายเงินจริง",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคม พ.ศ. 2567 (ยังไม่รับรองฉบับปัจจุบัน)",
+          "url": "https://drive.google.com/file/d/11EjAArjnuSKq2pyGHmsg6NUZ-ZeQqiNY/view"
+        },
+        {
+          "title": "หนังสือแสดงเจตนาตั้งผู้รับผลประโยชน์ (แบบเผยแพร่อ้างข้อบังคับ 2565)",
+          "url": "https://drive.google.com/file/d/1sxikYqV3-Aqld_7UAtqN9SoTVqg8Va2m/view"
+        },
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Read2567 clauses13/23 and published2565-referencing beneficiary declaration:now association-specific,conditional debt-first text,latest signed individual declaration required.",
+      "reviewAccepted": true,
+      "previousStatus": "NOT_VERIFIED",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 8,
+      "question": "มีเอกสารเพิ่มเติมไหม",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "เอกสารฌาปนกิจต้องแยกการสมัครกับการขอรับเงินกรณีเสียชีวิตครับ หน้าสมัครทางการมีใบสมัครสมาชิกสมาคมและหนังสือเจตนาผู้รับประโยชน์ ส่วนกรณีเสียชีวิตมีรายการเตรียมเอก",
+      "answerFull": "เอกสารฌาปนกิจต้องแยกการสมัครกับการขอรับเงินกรณีเสียชีวิตครับ หน้าสมัครทางการมีใบสมัครสมาชิกสมาคมและหนังสือเจตนาผู้รับประโยชน์ ส่วนกรณีเสียชีวิตมีรายการเตรียมเอกสารขอรับเงินแยกต่างหาก ระบุประเภทเรื่องก่อนเลือกชุดเอกสาร และให้สมาคมตรวจเอกสารเพิ่มเติมตามฉบับที่มีผล ไม่ส่งเอกสารส่วนบุคคลในแชต",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Clarifies application vs claim document sets and conditional extras rather than inventing personal checklist.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 9,
+      "question": "ติดต่อที่ไหน",
+      "intent": "funeral_scoped_document_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "ติดต่อเจ้าหน้าที่สมาคมฌาปนกิจสงเคราะห์ผ่านหน้ารวมข้อมูลสมาคมและหน้าติดต่อทางการของสหกรณ์ครับ แจ้งว่าเป็นเรื่องสมาคมฌาปนกิจเพื่อให้ประสานฝ่ายที่ถูกต้อง ก่อนส่งเอ",
+      "answerFull": "ติดต่อเจ้าหน้าที่สมาคมฌาปนกิจสงเคราะห์ผ่านหน้ารวมข้อมูลสมาคมและหน้าติดต่อทางการของสหกรณ์ครับ แจ้งว่าเป็นเรื่องสมาคมฌาปนกิจเพื่อให้ประสานฝ่ายที่ถูกต้อง ก่อนส่งเอกสารส่วนบุคคลหรือชำระเงินให้ยืนยันช่องทางกับสมาคมโดยตรง",
+      "sourceRefs": [
+        {
+          "title": "ข้อบังคับสมาคมฌาปนกิจสงเคราะห์",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4401"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "CORRECT",
+      "status": "CORRECT",
+      "reason": "Association hub/contact routing is actionable and correctly distinguished from general cooperative service.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": true,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    },
+    {
+      "domain": "funeral",
+      "turn": 10,
+      "question": "ติดตามคำขอได้อย่างไร",
+      "intent": "funeral_application_tracking_handoff",
+      "topic": "funeral-association",
+      "decision": "SAFE_HANDOFF",
+      "sourceCount": 2,
+      "answerPreview": "การติดตามคำขอสมัครสมาคมฌาปนกิจสงเคราะห์ ให้ติดต่อเจ้าหน้าที่สมาคมโดยตรงและแจ้งว่าเป็นเรื่องสมัครสมาชิกสมาคม หรือเปิดหัวข้อผลการอนุมัติรับสมัครสมาชิกสมาคมจากศูนย",
+      "answerFull": "การติดตามคำขอสมัครสมาคมฌาปนกิจสงเคราะห์ ให้ติดต่อเจ้าหน้าที่สมาคมโดยตรงและแจ้งว่าเป็นเรื่องสมัครสมาชิกสมาคม หรือเปิดหัวข้อผลการอนุมัติรับสมัครสมาชิกสมาคมจากศูนย์รวมข้อมูลฌาปนกิจทางการครับ ระบบแชตนี้ไม่เชื่อมทะเบียนรับคำขอหรือผลอนุมัติรายบุคคล จึงไม่รับรองว่าอนุมัติแล้วและไม่ต้องส่งเลขสมาชิกหรือเอกสารส่วนตัวในแชต",
+      "sourceRefs": [
+        {
+          "title": "ศูนย์รวมข้อมูลและผลอนุมัติสมาคมฌาปนกิจ",
+          "url": "https://www.dlasavingcoop.com/show.php?No=4161"
+        },
+        {
+          "title": "ช่องทางติดต่อสหกรณ์",
+          "url": "https://www.dlasavingcoop.com/show.php?Category=contact"
+        }
+      ],
+      "runtime": "PASS",
+      "semantic": "SAFE_HANDOFF",
+      "status": "SAFE_HANDOFF",
+      "reason": "Association application approval record is member-specific; official hub supplied, no inferred approval or identifiers collected.",
+      "reviewAccepted": true,
+      "previousStatus": "SAFE_HANDOFF",
+      "answerChanged": false,
+      "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
+    }
+  ],
+  "sourceMonitorBlobSHA": "3e3245ef52a8ed490e52891556bdf4b5fd7ce10b"
+}

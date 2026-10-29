@@ -33,6 +33,7 @@ try{
    assert.match(text,/กำหนดรอบโอน 30 ต.ค. 2569/);
    assert.match(text,/เริ่มงวดแรก พ.ย. 2569/);
    assert.doesNotMatch(text,/ตัดเอกสาร 2026-10-15|กำหนดรอบโอน 2026-10-30/);
+   assert.match(await block.locator('.notice-found-lead').innerText(),/ไม่สามารถยืนยันผลอนุมัติรายบุคคลหรือการโอนเงินสำเร็จ/);
    const more=block.locator('details.notice-more');
    const count=await page.evaluate(async()=>{const feed=await (await fetch('./data/current-events.json')).json();return selectTrackingNotices(feed,'ผลอนุมัติเงินกู้สามัญล่าสุด').length});
    assert.equal(await more.count(),count>1?1:0,'expanded group exists exactly when multiple matching official notices exist');
@@ -47,6 +48,16 @@ try{
    const layout=await page.locator('.reading-current .follow').first().evaluate(e=>({position:getComputedStyle(e).position,width:e.getBoundingClientRect().width,screen:innerWidth}));
    assert.equal(layout.position,'static','follow-up buttons must not overlay content');
    assert.ok(layout.width<=layout.screen,'navigation must fit viewport');
+
+   fs.mkdirSync(path.join(root,'news-browser-evidence'),{recursive:true});
+   await page.screenshot({path:path.join(root,'news-browser-evidence','pr162-layout-'+width+'.png'),fullPage:true});
+   await page.route('**/data/current-events.json',route=>route.fulfill({json:{trackingNotices:[{title:'กำหนดรอบรับเอกสารเงินกู้',category:'ordinary-loan',sourceState:'DIRECT_VERIFIED',directSourceUrl:'https://www.dlasavingcoop.com/',publishedAt:'2026-10-29'}]}}));
+   await page.evaluate(()=>render({status:'ข้อมูลทดสอบ',answer:'ข้อมูลจำลองสำหรับตรวจ UI'},'ติดตามเงินกู้รอบล่าสุด'));
+   const synthetic=page.locator('#out .tracking-notices').last();
+   await synthetic.locator('.tracking-notice-link').first().waitFor();
+   assert.match(await synthetic.innerText(),/กำหนดรอบรับเอกสารเงินกู้/);
+   assert.equal(await synthetic.locator('.notice-found-lead').count(),0,'non-approval notices must not claim an approval result');
+   console.log('PR162_NOTICE_TYPE '+width+'px PASS: verified approval lead and non-approval guard');
    console.log('MOBILE_APPROVAL_UI '+width+'px PASS: Thai dates, exact source, expand, no overlay');
   }finally{await page.close();}
  }

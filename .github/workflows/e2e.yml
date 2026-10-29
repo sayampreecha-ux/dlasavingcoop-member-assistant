@@ -4,7 +4,7 @@ on:
     branches: [main]
     paths: ["index.html", "data/**", "tests/**", "scripts/**", ".github/workflows/e2e.yml"]
   push:
-    branches: [fix/pilot-69-executable-hardening, fix/news-freshness-separation-20261021]
+    branches: [fix/pilot-69-executable-hardening, fix/news-freshness-separation-20261021, test/real-sequential-conversation-20261024]
   workflow_dispatch:
 permissions:
   contents: read
@@ -24,8 +24,28 @@ jobs:
           npm install --no-save --no-package-lock playwright@1.62.1 && npx playwright install --with-deps chromium
       - name: Thai member guide UX mobile and desktop
         run: node scripts/browser-member-guide-smoke.mjs
+      - name: Funeral facets real UI semantic QA (60 per viewport)
+        run: node scripts/browser-funeral-facets-20261024.mjs
       - name: Run every release regression suite
         run: node scripts/verify-release.mjs
+      - name: Three loan products mobile and desktop
+        run: node scripts/browser-loan-product-scope.mjs
+      - name: Real UI multi-turn acceptance mobile and desktop
+        run: node scripts/browser-continuity-ui-acceptance.mjs
+      - name: Upload full 110-turn browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: continuity-110-evidence
+          path: continuity-110-evidence/
+          if-no-files-found: error
+      - name: Upload loan product scope evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: loan-product-scope-evidence
+          path: loan-product-scope-evidence/
+          if-no-files-found: error
       - name: Loan scenario acceptance on mobile and desktop
         run: node scripts/browser-loan-scenarios-smoke.mjs
       - name: Independent leisure browser diagnostic - mobile 390px

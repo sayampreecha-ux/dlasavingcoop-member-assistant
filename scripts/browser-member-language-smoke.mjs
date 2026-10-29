@@ -25,6 +25,70 @@ try{for(const width of [390,1365]){
  await page.locator('#homeBtn').click();await send('ติดตามเอกสารเงินกู้');await send('เอกสารเงินกู้สามัญ');await send('ต้องติดต่อฝ่ายไหน');
  await verify(/ติดตามเอกสารเงินกู้สามัญที่เคยยื่นแล้ว/, 'loan tracking staff contact');
  assert.match(await body(),/ฝ่ายสินเชื่อ/);
+ // Public synthetic cases for PR158: exercise visible UI; never include the private corpus.
+ let pr158Pass=0;
+ for(const duration of ['ไม่ถึง 3 ปี','ยังไม่ครบ 3 ปี','น้อยกว่า 36 เดือน','เกิน 3 ปี','มากกว่า 3 ปี','ไม่เกิน 3 ปี']){
+  await page.locator('#homeBtn').click();
+  await send('จะขอกู้พัฒนาคุณภาพชีวิต เป็นสมาชิก'+duration+' มีฉุกเฉินอยู่ แต่ไม่มีกู้สามัญ');
+  await verify(/โปรดระบุอายุสมาชิกจริงเป็นปีและเดือน/,'bounded membership '+duration);
+  assert.ok((await body()).includes(duration),'preserve the original duration bound');
+  assert.doesNotMatch(await body(),/✓.*อายุสมาชิก|อายุสมาชิก[^\n]*\[PASS\]|ผ่านเงื่อนไขที่ตรวจได้/);
+  pr158Pass++;
+ }
+ for(const [q,operation,completion]of [['เปิดบัญชีออมทรัพย์ต้องทำอย่างไร',/เปิดบัญชี/,/ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ/],['ถอนเงินฝากต้องใช้เอกสารใด',/ถอนและส่งเอกสาร/,/การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/]]){
+  await page.locator('#homeBtn').click();await send(q);
+  await verify(/เป็นเงินฝากประเภทใด/,'member deposit operation intake');
+  assert.match(await body(),operation);
+  assert.doesNotMatch(await body(),/พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไข/);
+  await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('ออมทรัพย์พิเศษ');
+  await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
+  await verify(completion,'deposit type reply retains operation');
+  assert.doesNotMatch(await body(),/พบเอกสารทางการที่อาจเปลี่ยนเงื่อนไข/);
+  pr158Pass+=2;
+ }
+ await page.locator('#homeBtn').click();await send('ขอกู้เงิน 100,000 บาท ต้องผ่อนเดือนเท่าไหร่');
+ await verify(/เป็นเงินกู้ประเภทไหน/,'installment loan product intake');
+ await page.getByLabel('ตอบข้อมูลเพิ่มเติม',{exact:true}).fill('กู้สามัญ');
+ await page.getByRole('button',{name:'ส่งคำตอบ',exact:true}).click();
+ await verify(/ต้องการผ่อนกี่งวดหรือกี่ปี/,'installment term follow-up');
+ assert.match(await body(),/100,000/);assert.doesNotMatch(await body(),/อนุมัติแล้ว|ผ่านแน่นอน/);
+ pr158Pass+=2;
+ // Product chips must retain an unfinished deposit operation, just like typed replies.
+ for(const [question,completion]of [['จะเปิดบัญชีเงินฝากต้องทำอย่างไร',/ขั้นตอนเปิดบัญชีเงินฝากออมทรัพย์พิเศษ/],['ถอนเงินฝากต้องเตรียมเอกสารอะไร',/การถอนเงินฝากออมทรัพย์พิเศษใช้คำขอถอน/]]){
+  await page.locator('#homeBtn').click();await send(question);
+  await verify(/เป็นเงินฝากประเภทใด/,'deposit operation before product chip');
+  await page.locator('#out .deposit-navigation button').filter({hasText:/^ออมทรัพย์พิเศษ$/}).click();
+  await verify(completion,'deposit product chip retains operation');
+  assert.equal(await page.evaluate(()=>conversationState.result.intent),/เปิด/.test(question)?'deposit_open':'deposit_special_withdraw');
+  assert.doesNotMatch(await body(),/ต้องการเปิดบัญชี ฝากเพิ่ม ถอน ปิดบัญชี/);
+  // Explicit navigation is still allowed to start another operation or product menu.
+  await page.locator('#out .deposit-navigation button').filter({hasText:/^กลับเมนูเงินฝาก$/}).click();
+  await verify(/ต้องการทำรายการเงินฝากประเภทใด/,'explicit menu clears pending operation');
+  pr158Pass+=3;
+ }
+ for(const reply of ['กู้สามัญ','กู้ไถ่ถอนจำนอง']){
+  await page.locator('#homeBtn').click();await send('ที่ดินจำนองอยู่ ถ้ากู้สามัญใหม่ต้องห่างกี่เดือน');
+  await verify(/หมายถึงจะกู้ไถ่ถอนจำนอง/,'mortgage interval clarification');
+  await page.locator('#out .follow button').filter({hasText:new RegExp('^'+reply+'$')}).click();
+  await verify(/รับทราบว่าเป็น/,'mortgage interval choice retained');
+  assert.equal(await page.evaluate(()=>conversationState.result.intent),'mortgage_interval_review');
+  assert.equal(await page.evaluate(()=>conversationState.result.decision),'EVIDENCE_LOCK');
+  assert.doesNotMatch(await body(),/หมายถึงจะกู้ไถ่ถอน/);pr158Pass+=2;
+ }
+ for(const q of ['กู้พัฒนาคุณภาพชีวิต สองแสน ผู้ค้ำหนึ่งคนค้ำได้กี่คน','กู้พัฒนาคุณภาพชีวิตสองแสนผ่อนกี่งวด','เป็นสมาชิกไม่ถึง 3 ปี จะกู้พัฒนาคุณภาพชีวิตได้ไหม']){
+  await page.locator('#homeBtn').click();await send(q);
+  await verify(/ชื่อโครงการ|เฟส/,'quality project evidence scope');
+  const links=await page.locator('#out .sources a').evaluateAll(es=>es.map(e=>e.href));
+  assert.ok(links.includes('https://www.dlasavingcoop.com/show.php?No=774'));
+  assert.ok(!links.some(u=>u.includes('1Ek7aw6J')));pr158Pass++;
+ }
+ for(const question of ['กู้ทุนเรือนหุ้นต้องสมัครฌาปนกิจก่อนหรือไม่','อยากดาวน์โหลดคำขอซื้อหุ้นเพิ่มแบบครั้งคราว','แบบฟอร์มเปลี่ยนหุ้นรายเดือนส่งไลน์ได้ไหม']){
+  await page.locator('#homeBtn').click();await send(question);await verify(/ยังไม่|ต้องตรวจ/,'locked handoff navigation scope');
+  const sources=await page.locator('#out .sources a').evaluateAll(es=>es.map(e=>({url:e.href,state:e.dataset.sourceState})));
+  assert.ok(!sources.some(s=>s.url.includes('1035C9')));
+  assert.ok(sources.some(s=>/show\.php\?(?:No=772|Category=procedure)/.test(s.url)&&s.state==='NAVIGATION'));pr158Pass++;
+ }
+ console.log('PR158_PUBLIC_UI '+width+'px: '+pr158Pass+' checks PASS; bounded duration, deposit and mortgage choices, and follow-up amount retention; private set not included');
  assert.deepEqual(errors,[]);await page.close();
 }console.log('BROWSER MEMBER LANGUAGE:',pass,'PASS / 0 FAIL on mobile and desktop');}
 finally{await browser.close();if(server)await new Promise(r=>server.close(r));}

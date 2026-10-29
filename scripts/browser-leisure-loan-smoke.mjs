@@ -41,7 +41,8 @@ try{
     for(const [label,no]of loanIndexes){assert.equal(await page.locator('#out .actions a').filter({hasText:label}).getAttribute('href'),'https://www.dlasavingcoop.com/show.php?No='+no);pass++;}
     assert.equal(await page.locator('#out .actions a[href*="Category=procedure"]').count(),0,'Loan menu must not link to the bylaw index');pass++;
     const menu=page.locator('#out .follow.loan-product-menu');
-    assert.deepEqual((await menu.locator('button').allTextContents()).slice(0,9),['กู้ฉุกเฉิน','กู้สามัญ','กู้พัฒนาคุณภาพชีวิต','กู้เคหะ','กู้เพื่อการศึกษา','กู้เพื่อการพักผ่อน','กู้ภัยพิบัติ','กู้ไถ่ถอนจำนอง','กู้ไม่เกินทุนเรือนหุ้น']);pass++;
+    const expectedLoanChoices=['กู้ฉุกเฉิน','กู้สามัญ','เงินกู้สามัญเพื่อพัฒนาคุณภาพชีวิตสมาชิก','เงินกู้สำหรับผู้รับบำนาญ','เงินกู้พิเศษเพื่อพัฒนาคุณภาพชีวิต (รวมหนี้)','กู้เคหะ','กู้เพื่อการศึกษา','กู้เพื่อการพักผ่อน','กู้ภัยพิบัติ','กู้ไถ่ถอนจำนอง','กู้ไม่เกินทุนเรือนหุ้น','กู้ปรับโครงสร้างหนี้','กู้ในฐานะผู้ค้ำประกัน'];
+    assert.deepEqual(await menu.locator('button').allTextContents(),expectedLoanChoices,'All original loan choices and the three distinct loan-product choices must remain available');pass++;
     assert.equal(await menu.evaluate(e=>{const b=e.getBoundingClientRect();return [...e.querySelectorAll('button')].every(x=>x.getBoundingClientRect().bottom<=b.bottom+1)&&getComputedStyle(e).position==='static'&&getComputedStyle(e).maxHeight==='none';}),true,'All loan choices displayed without inner scrolling or clipping');pass++;
     // Separate viewport geometry evidence: do not change the original loan assertions.
     const navigationGeometry=await page.evaluate(()=>{
@@ -51,8 +52,8 @@ try{
       return {menu:rect(menu),buttons:buttons.map(b=>({name:b.textContent.trim(),...rect(b)})),sticky:[...document.querySelectorAll('.reading-current .follow')].filter(x=>getComputedStyle(x).position==='sticky').map(x=>({className:x.className,...rect(x)}))};
     });
     console.log('LOAN_NAV_GEOMETRY',JSON.stringify({width,...navigationGeometry}));
-    assert.deepEqual(navigationGeometry.buttons.slice(9).map(b=>b.name),['กู้ปรับโครงสร้างหนี้','กู้ในฐานะผู้ค้ำประกัน'],'Two debt-specific choices added after all original choices');pass++;
-    assert.equal(navigationGeometry.buttons.length,11,'All eleven loan choices must be present for geometry test');pass++;
+    assert.deepEqual(navigationGeometry.buttons.map(b=>b.name),expectedLoanChoices,'Loan geometry must preserve every old and new choice in order');pass++;
+    assert.equal(navigationGeometry.buttons.length,expectedLoanChoices.length,'All loan choices must be present for geometry test');pass++;
     assert.ok(navigationGeometry.buttons.every(b=>b.bottom<=navigationGeometry.menu.bottom+1&&b.top>=navigationGeometry.menu.top-1),'Loan choices must remain inside menu geometry');pass++;
     const hitTargets=await menu.locator('button').evaluateAll(buttons=>buttons.map(button=>{
       const r=button.getBoundingClientRect();const x=(r.left+r.right)/2,y=(r.top+r.bottom)/2;
@@ -60,7 +61,7 @@ try{
       return {name:button.textContent.trim(),viewportVisible:y>=0&&y<=innerHeight,hitTarget:before===button||button.contains(before)};
     }));
     console.log('LOAN_NAV_HIT_TARGET',JSON.stringify({width,hitTargets}));
-    assert.equal(hitTargets.length,11,'Hit-target inspection must include all loan choices');pass++;
+    assert.equal(hitTargets.length,expectedLoanChoices.length,'Hit-target inspection must include all loan choices');pass++;
     // Offscreen choices are validated by Playwright click scrolling; do not falsely call them obstructed.
     assert.ok(hitTargets.filter(t=>t.viewportVisible).every(t=>t.hitTarget),'Onscreen loan choice centers must not be intercepted');pass++;
     // Verify actual pointer hit targets, not only bounding boxes. Scroll each button into view.

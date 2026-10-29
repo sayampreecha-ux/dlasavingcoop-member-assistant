@@ -29,7 +29,7 @@ const r=loadMemberEngine().getSourceRegistry(),date=F.asOf('ตอนนี้')
 r.documents.push({id:'synthetic-association-deposit',title:'ระเบียบว่าด้วยการรับฝากเงินจากสมาคมฌาปนกิจสงเคราะห์',affects:['deposits','welfare'],type:'REGULATION',status:'PENDING',mayAffectRules:true,originalUrl:'https://www.dlasavingcoop.com/show.php?Category=procedure',linkVerified:true});
 assert.equal(F.pendingFor(r,['deposits'],date,'ใช้เงินฝากของสมาชิกค้ำกู้สามัญ').length,0);pass++;
 assert.equal(F.pendingFor(r,['deposits'],date,'เงินฝากสมาคมฌาปนกิจ').length,1);pass++;
-assert.equal(F.pendingFor(r,['deposits'],date,'เงินฝากใช้สิทธิอะไรได้บ้าง').length,1);pass++;
+assert.equal(F.pendingFor(r,['deposits'],date,'เงินฝากใช้สิทธิอะไรได้บ้าง').length,0);pass++;
 r.documents.push({id:'synthetic-reviewed-archive',title:'หลักเกณฑ์กู้พัฒนาคุณภาพชีวิตเก่า',affects:['qualityOfLife','guarantor'],type:'CRITERIA',status:'PENDING',mayAffectRules:true,pendingReason:'PRIMARY_LINK_REMOVED',removedNonGoverningBaseline:true,originalUrl:'https://www.dlasavingcoop.com/show.php?No=2385',linkVerified:true});
 assert.equal(F.pendingFor(r,['qualityOfLife','guarantor'],date,'กู้รวมหนี้หลักประกันอะไร').length,0);pass++;
 assert.equal(F.pendingFor(r,['guarantor'],date,'ผู้ค้ำเกษียณ').length,1);pass++;
