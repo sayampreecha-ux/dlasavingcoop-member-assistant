@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import assert from 'node:assert/strict';
+const html=fs.readFileSync(new URL('../index.html',import.meta.url),'utf8');
+assert.match(html,/\.reading-current \.follow\{position:static;bottom:auto;z-index:auto;/,'answer topic buttons must not overlay content');
+assert.match(html,/\.reading-topics\{position:relative!important/,'reading navigation remains in document flow');
+assert.match(html,/function displayOfficialThaiDate\(/,'validated Thai date renderer retained');
+assert.match(html,/notice-more/,'additional notices remain accessible');
+assert.match(html,/notice-found-lead/,'verified notice lead displayed');
+assert.match(html,/ไม่สามารถยืนยันผลอนุมัติรายบุคคลหรือการโอนเงินสำเร็จ/,'individual safety caveat retained');
+console.log('MOBILE_APPROVAL_UI_REGRESSION PASS');

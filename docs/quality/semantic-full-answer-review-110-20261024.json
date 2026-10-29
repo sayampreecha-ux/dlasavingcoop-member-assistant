@@ -2,7 +2,7 @@
   "reportType": "full-answer-source-and-safety-adjudication",
   "asOf": "2026-10-25",
   "candidateSHA": null,
-  "runtimeIndexBlobSHA": "6d89c8a4c3c9772e006c777408a503d867087848",
+  "runtimeIndexBlobSHA": "0ca50d2aafb243fbaaa12591f5f9f94a4e7e74b7",
   "method": "110 complete main-answer strings and sourceRefs regenerated from final candidate runtime. Each turn explicitly adjudicated above; published primary PDFs downloaded raw and scanned pages inspected for new claims. Earlier independently accepted primary reviews retained only for unchanged claims. CORRECT certifies bounded public guidance or necessary clarification; SAFE_HANDOFF separately accepts a named member-specific,missing-product/round or current-document/channel limitation. No CI result is used as semantic evidence. Browser parity is a separate required gate. Final follow-up: both no-monitor and applied published-monitor110-turn variants are reviewed; exactly one explicit SAFE_HANDOFF variant exists for retired guarantor. Browser619 exposed a stale-question freshness guard; current-product facet selection fixes emergency interest/documents without disabling the guard.",
   "summary": {
     "CORRECT": 77,
@@ -3392,5 +3392,13 @@
       "sourceReview": "Primary clauses/public official procedures above; previous accepted primary review retained only for unchanged public claims. Safety disposition is separately reasoned, never inferred from CI."
     }
   ],
-  "sourceMonitorBlobSHA": "3e3245ef52a8ed490e52891556bdf4b5fd7ce10b"
+  "sourceMonitorBlobSHA": "3e3245ef52a8ed490e52891556bdf4b5fd7ce10b",
+  "uiOnlyRevalidation": {
+    "asOf": "2026-10-29",
+    "pullRequest": 162,
+    "candidateSHA": "d3e79752363985a10fa744a1c123eeecc1c3dd01",
+    "previousRuntimeIndexBlobSHA": "6d89c8a4c3c9772e006c777408a503d867087848",
+    "method": "Unmodified semantic-110-review-contract.mjs executed against candidate index.html and unchanged published monitor/source availability evidence. Only the runtime blob binding was refreshed; all 110 independently reviewed full answers, sourceRefs, adjudications and monitor variants remain unchanged.",
+    "result": "PASS: 110 full-answer/source parity; published-monitor parity; recorded source availability contract. Current live URL availability and human PR approval are not re-certified."
+  }
 }
