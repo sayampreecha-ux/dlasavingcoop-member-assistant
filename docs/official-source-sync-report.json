@@ -1,9 +1,15 @@
 {
-  "checkedAt": "2026-11-04T06:40:08.503Z",
-  "processed": 0,
-  "unchanged": 8,
-  "changes": [],
-  "impactedDomains": [],
+  "checkedAt": "2026-11-04T19:53:14.936Z",
+  "processed": 2,
+  "unchanged": 6,
+  "changes": [
+    "doc-acf9a3839ef540bdef7b",
+    "doc-962b92d846a254c0bf7c"
+  ],
+  "impactedDomains": [
+    "dividendPatronage",
+    "shares"
+  ],
   "errors": [
     {
       "document": "doc-ae58b7e1deb33c8a092f",
