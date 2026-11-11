@@ -1,9 +1,14 @@
 {
-  "checkedAt": "2026-11-11T06:43:25.828Z",
-  "processed": 0,
-  "unchanged": 8,
-  "changes": [],
-  "impactedDomains": [],
+  "checkedAt": "2026-11-11T19:42:34.499Z",
+  "processed": 1,
+  "unchanged": 7,
+  "changes": [
+    "doc-b39ac5c184c74d116fdb"
+  ],
+  "impactedDomains": [
+    "ordinaryLoan",
+    "interest"
+  ],
   "errors": [
     {
       "document": "doc-ae58b7e1deb33c8a092f",
